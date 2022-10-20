@@ -1,0 +1,39 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+   # push 와 PR event로 아래의 jobs를 trigger한다.
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # 실행환경 설정
+    runs-on: ubuntu-latest
+    # 리눅스환경에서 필수로 체크아웃을 해야됨, jdk설정
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'zulu'
+      # 빌드파일을 실행(x)할수있는 권한을 부여해준다.(+)
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      # 빌드실행
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: build
