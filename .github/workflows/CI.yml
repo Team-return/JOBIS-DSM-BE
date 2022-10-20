@@ -8,6 +8,9 @@
 name: Java CI with Gradle
 
 on:
+# 10분마다 돌아가게
+  schedule:
+   - cron: '*/10 * * * *'
    # push 와 PR event로 아래의 jobs를 trigger한다.
   push:
     branches: [ "main" ]
@@ -25,7 +28,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
-    - uses: actions/setup-java@v3
+      uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'zulu'
