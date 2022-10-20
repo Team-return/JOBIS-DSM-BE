@@ -8,9 +8,9 @@
 name: Java CI with Gradle
 
 on:
-# 10분마다 돌아가게
+# 매주 일요일 12시
   schedule:
-   - cron: '*/10 * * * *'
+   - cron: '0 12 * * 0'
    # push 와 PR event로 아래의 jobs를 trigger한다.
   push:
     branches: [ "main" ]
