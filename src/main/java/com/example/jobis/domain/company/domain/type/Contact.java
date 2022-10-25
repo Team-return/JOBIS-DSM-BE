@@ -1,4 +1,4 @@
-package com.example.jobis.domain.company.domain.embedded;
+package com.example.jobis.domain.company.domain.type;
 
 import lombok.AccessLevel;
 import lombok.Getter;

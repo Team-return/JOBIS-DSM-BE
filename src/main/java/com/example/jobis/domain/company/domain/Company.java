@@ -1,8 +1,8 @@
 package com.example.jobis.domain.company.domain;
 
-import com.example.jobis.domain.company.domain.embedded.Address;
-import com.example.jobis.domain.company.domain.embedded.Contact;
-import com.example.jobis.domain.company.domain.embedded.Manager;
+import com.example.jobis.domain.company.domain.type.Address;
+import com.example.jobis.domain.company.domain.type.Contact;
+import com.example.jobis.domain.company.domain.type.Manager;
 import com.example.jobis.global.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
