@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,9 +9,21 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      format_sql: true
       generate-ddl: false
-    defer-datasource-initialization: true
+      hibernate:
+        format_sql: true
     show-sql: true
+    open-in-view: false
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+redis:
+  port: ${REDIS_PORT}
+  host: ${REDIS_HOST}
+
+jwt:
+  header: ${HEADER}
+  prefix : ${PREFIX}
+  secret-key: ${JWT_SECRET}
+  access-exp: ${ACCESS_EXP}
+  refresh-exp: ${REFRESH_EXP}
