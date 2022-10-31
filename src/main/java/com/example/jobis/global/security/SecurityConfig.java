@@ -15,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final ObjectMapper objectMapper;
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.
