@@ -1,6 +1,7 @@
 package com.example.jobis.domain.company.domain.type;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,12 @@ public class CompanyInfo {
 
     @Column(nullable = false)
     private Long take;
+
+    @Builder
+    public CompanyInfo(String representativeName, String foundedAt, Long workerNumber, Long take) {
+        this.representativeName = representativeName;
+        this.foundedAt = foundedAt;
+        this.workerNumber = workerNumber;
+        this.take = take;
+    }
 }
