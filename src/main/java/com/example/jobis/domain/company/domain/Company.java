@@ -1,8 +1,5 @@
 package com.example.jobis.domain.company.domain;
 
-import com.example.jobis.domain.company.domain.type.Address;
-import com.example.jobis.domain.company.domain.type.Contact;
-import com.example.jobis.domain.company.domain.type.Manager;
 import com.example.jobis.global.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,26 +26,10 @@ public class Company extends BaseTimeEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(length = 4000, nullable = false)
-    private String companyIntroduce;
-
-    @Embedded
-    private Address address;
-
-    @Embedded
-    private Manager manager;
-
-    @Embedded
-    private Contact contact;
-
     @Builder
-    public Company(String companyName, String businessNumber, String password, String companyIntroduce, Address address, Manager manager, Contact contact) {
+    public Company(String companyName, String businessNumber, String password) {
         this.companyName = companyName;
         this.businessNumber = businessNumber;
         this.password = password;
-        this.companyIntroduce = companyIntroduce;
-        this.address = address;
-        this.manager = manager;
-        this.contact = contact;
     }
 }
