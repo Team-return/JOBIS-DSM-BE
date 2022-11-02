@@ -27,3 +27,6 @@ jwt:
   secret-key: ${JWT_SECRET}
   access-exp: ${ACCESS_EXP}
   refresh-exp: ${REFRESH_EXP}
+
+rest-template:
+  access-key: ${API_ACCESS_KEY}
