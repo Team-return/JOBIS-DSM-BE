@@ -19,16 +19,6 @@ public class RestTemplateFacade {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public String getCompanyName(String businessNumber) {
-        BusinessNumberResponse response = getApi(businessNumber);
-        return response.getBody().getItems().getItem().getCompany();
-    }
-
-    public boolean checkCompany(String businessNumber) {
-        BusinessNumberResponse response = getApi(businessNumber);
-
-        return response.getBody().getItems().getItem().getBno().equals(businessNumber);
-    }
 
     public BusinessNumberResponse getApi(String businessNumber) {
         final HttpHeaders httpHeaders = new org.springframework.http.HttpHeaders();
