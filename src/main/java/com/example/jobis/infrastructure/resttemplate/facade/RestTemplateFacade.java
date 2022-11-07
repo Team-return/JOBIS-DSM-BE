@@ -14,8 +14,8 @@ import java.net.URI;
 @Component
 public class RestTemplateFacade {
 
-    @Value("rest-template.access-key")
-    private final String accessKey;
+    @Value("${rest-template.access-key}")
+    private String accessKey;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
