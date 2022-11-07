@@ -1,6 +1,7 @@
 package com.example.jobis.domain.company.domain;
 
-import com.example.jobis.global.entity.BaseTimeEntity;
+import com.example.jobis.global.entity.User;
+import com.example.jobis.global.enums.Authority;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,11 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Company extends BaseTimeEntity {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private Long id;
+public class Company extends User {
 
     @Column(length = 40, nullable = false)
     private String companyName;
@@ -23,13 +20,11 @@ public class Company extends BaseTimeEntity {
     @Column(length = 10, nullable = false, unique = true)
     private String businessNumber;
 
-    @Column(nullable = false)
-    private String password;
-
     @Builder
-    public Company(String companyName, String businessNumber, String password) {
+    public Company(String companyName
+            , String businessNumber, String password, String accountId) {
+        super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;
-        this.password = password;
     }
 }
