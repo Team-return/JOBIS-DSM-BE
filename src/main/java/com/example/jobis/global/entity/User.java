@@ -25,6 +25,7 @@ public class User extends BaseTimeEntity{
     private String accountId;
 
     @NotNull
+    @Size(min=60)
     private String password;
 
     @Enumerated(EnumType.STRING)
