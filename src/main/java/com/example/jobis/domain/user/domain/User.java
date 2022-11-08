@@ -1,8 +1,8 @@
-package com.example.jobis.global.entity;
+package com.example.jobis.domain.user.domain;
 
+import com.example.jobis.global.entity.BaseTimeEntity;
 import com.example.jobis.global.enums.Authority;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @DiscriminatorColumn
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class User extends BaseTimeEntity{
+public class User extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
