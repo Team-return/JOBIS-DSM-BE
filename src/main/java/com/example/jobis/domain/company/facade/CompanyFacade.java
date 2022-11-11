@@ -3,6 +3,7 @@ package com.example.jobis.domain.company.facade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
+import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.infrastructure.resttemplate.dto.response.BusinessNumberResponse;
 import com.example.jobis.infrastructure.resttemplate.facade.RestTemplateFacade;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,7 @@ public class CompanyFacade {
 
     public boolean checkCompany(String businessNumber) {
         BusinessNumberResponse response = restTemplateFacade.getApi(businessNumber);
-
-        return response.getBody().getItems().getItem().getBno().equals(businessNumber);
+        return response.getBody().getItems().getItem().getBno().replace("-", "").equals(businessNumber);
     }
 
     public boolean companyExists(String businessNumber) {
@@ -33,7 +33,8 @@ public class CompanyFacade {
 
     public Company getCompany() {
         String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return getCompanyByBusinessNumber(accountId);
+        return companyRepository.findByAccountId(accountId)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
     public Company getCompanyByBusinessNumber(String businessNumber) {
