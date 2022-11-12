@@ -1,5 +1,6 @@
 package com.example.jobis.global.security;
 
+import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final JwtTokenProvider jwtTokenProvider;
+    private final ObjectMapper objectMapper;
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.
@@ -27,7 +30,9 @@ public class SecurityConfig {
                 .and()
 
                 .authorizeRequests()
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+                .and()
+                .apply(new FilterConfig(jwtTokenProvider, objectMapper));
         return http.build();
     }
     @Bean
