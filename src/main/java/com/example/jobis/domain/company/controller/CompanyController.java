@@ -1,6 +1,9 @@
 package com.example.jobis.domain.company.controller;
 
+import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.company.controller.dto.request.CompanyDetailsRequest;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
+import com.example.jobis.domain.company.service.CreateCompanyDetailsService;
 import com.example.jobis.domain.company.service.RegisterCompanyService;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -16,21 +19,18 @@ import javax.validation.Valid;
 public class CompanyController {
 
     private final RegisterCompanyService registerCompanyService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final CreateCompanyDetailsService createCompanyDetailsService;
 
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping
-//    public void register(@RequestBody @Valid RegisterCompanyRequest request) {
-//        registerCompanyService.execute(request);
-//    }
-
-    @GetMapping
-    public String a() {
-        return jwtTokenProvider.generateAccessToken("id");
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public TokenResponse register(@RequestBody @Valid RegisterCompanyRequest request) {
+        return registerCompanyService.execute(request);
     }
 
-    @GetMapping("/a")
-    public String b() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/details")
+    public void companyDetails(@RequestBody @Valid CompanyDetailsRequest request) {
+        createCompanyDetailsService.execute(request);
+
     }
 }

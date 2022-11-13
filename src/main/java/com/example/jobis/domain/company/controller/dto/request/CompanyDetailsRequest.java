@@ -25,10 +25,10 @@ public class CompanyDetailsRequest {
     @Size(min = 1, max = 100, message = "주소1은 1자에서 100자 사이여야합니다.")
     private String address1;
 
-    @Size(min = 5, max = 5, message = "우편번호2는 5자여야 합니다.")
+    @Size(max = 5, message = "우편번호2는 5자여야 합니다.")
     private String zipCode2;
 
-    @Size(min = 1, max = 100, message = "주소2는 1자에서 100자 사이여야합니다.")
+    @Size(max = 100, message = "주소2는 1자에서 100자 사이여야합니다.")
     private String address2;
 
     @NotBlank(message = "담당자1은 널 또는 공백을 포함할 수 없습니다.")
@@ -39,13 +39,13 @@ public class CompanyDetailsRequest {
     @Size(min = 10, max = 11, message = "담당자1 전화번호는 10자에서 11자여야 합니다.")
     private String phoneNumber1;
 
-    @Size(min = 1, max = 40, message = "담당자2은 1자에서 40자여야 합니다.")
+    @Size(max = 40, message = "담당자2은 1자에서 40자여야 합니다.")
     private String manager2;
 
-    @Size(min = 10, max = 11, message = "담당자2 전화번호는 10자에서 11자여야 합니다.")
+    @Size(max = 11, message = "담당자2 전화번호는 10자에서 11자여야 합니다.")
     private String phoneNumber2;
 
-    @Size(min = 11, max = 11, message = "팩스번호는 10자에서 11자여야 합니다.")
+    @Size(max = 11, message = "팩스번호는 10자에서 11자여야 합니다.")
     private String fax;
 
     @Email
