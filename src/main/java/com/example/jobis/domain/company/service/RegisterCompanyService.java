@@ -1,9 +1,10 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.auth.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
+import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
@@ -29,23 +30,8 @@ public class RegisterCompanyService {
         }
 
         if (!companyFacade.companyExists(request.getBusinessNumber())) {
-            TokenResponse token = signup(request);
-
-            return TokenResponse.builder()
-                    .accessToken(token.getAccessToken())
-                    .refreshToken(token.getRefreshToken())
-                    .build();
-        } else {
-            TokenResponse token = login(request);
-
-            return TokenResponse.builder()
-                    .accessToken(token.getAccessToken())
-                    .refreshToken(token.getRefreshToken())
-                    .build();
+            throw CompanyAlreadyExistsException.EXCEPTION;
         }
-    }
-
-    private TokenResponse signup(RegisterCompanyRequest request) {
 
         Company company = companyRepository.save(Company.builder()
                 .companyName(companyFacade.getCompanyName(request.getBusinessNumber()))
@@ -53,18 +39,6 @@ public class RegisterCompanyService {
                 .businessNumber(request.getBusinessNumber())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build());
-
-        String accessToken = jwtTokenProvider.generateAccessToken(company.getAccountId());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(company.getAccountId());
-
-        return TokenResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
-
-    private TokenResponse login(RegisterCompanyRequest request) {
-        Company company = companyFacade.getCompanyByBusinessNumber(request.getBusinessNumber());
 
         String accessToken = jwtTokenProvider.generateAccessToken(company.getAccountId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(company.getAccountId());
