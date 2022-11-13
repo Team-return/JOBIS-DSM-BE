@@ -47,6 +47,7 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader(jwtProperties.getHeader());
+        // System.out.println(token + "\n" + jwtProperties.getPrefix() + "\n" + token.startsWith(jwtProperties.getPrefix()) + "\n");
         if(token != null && token.startsWith(jwtProperties.getPrefix())) {
             return token.replace(jwtProperties.getPrefix(), "");
         }
