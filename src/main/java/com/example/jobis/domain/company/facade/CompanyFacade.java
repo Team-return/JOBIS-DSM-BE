@@ -3,7 +3,6 @@ package com.example.jobis.domain.company.facade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
-import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.infrastructure.resttemplate.dto.response.BusinessNumberResponse;
 import com.example.jobis.infrastructure.resttemplate.facade.RestTemplateFacade;
 import lombok.RequiredArgsConstructor;

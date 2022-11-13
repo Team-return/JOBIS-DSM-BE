@@ -1,6 +1,6 @@
 package com.example.jobis.domain.company.controller;
 
-import com.example.jobis.domain.auth.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.CompanyDetailsRequest;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.service.CreateCompanyDetailsService;
