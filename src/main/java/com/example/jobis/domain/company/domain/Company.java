@@ -21,8 +21,7 @@ public class Company extends User {
     private String businessNumber;
 
     @Builder
-    public Company(String companyName
-            , String businessNumber, String password, String accountId) {
+    public Company(String companyName, String businessNumber, String password, String accountId) {
         super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;
