@@ -1,5 +1,8 @@
 package com.example.jobis.domain.company.controller;
 
+import com.example.jobis.domain.company.controller.dto.request.ExistsCompanyRequest;
+import com.example.jobis.domain.company.controller.dto.response.ExistsCompanyResponse;
+import com.example.jobis.domain.company.service.ExistsCompanyService;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.CompanyDetailsRequest;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
@@ -20,6 +23,7 @@ public class CompanyController {
 
     private final RegisterCompanyService registerCompanyService;
     private final CreateCompanyDetailsService createCompanyDetailsService;
+    private final ExistsCompanyService existsCompanyService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -31,6 +35,10 @@ public class CompanyController {
     @PostMapping("/details")
     public void companyDetails(@RequestBody @Valid CompanyDetailsRequest request) {
         createCompanyDetailsService.execute(request);
+    }
 
+    @GetMapping("/exists")
+    public ExistsCompanyResponse companyExists(@RequestBody @Valid ExistsCompanyRequest request) {
+        return existsCompanyService.execute(request);
     }
 }
