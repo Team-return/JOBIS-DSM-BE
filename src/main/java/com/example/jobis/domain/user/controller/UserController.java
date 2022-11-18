@@ -21,9 +21,4 @@ public class UserController {
     public TokenResponse login(@RequestBody @Valid LoginRequest request) {
         return loginService.execute(request);
     }
-
-    @GetMapping
-    public String a() {
-        return jwtTokenProvider.generateAccessToken("asdf");
-    }
 }
