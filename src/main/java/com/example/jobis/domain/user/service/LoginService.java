@@ -34,6 +34,7 @@ public class LoginService {
 
         return TokenResponse.builder()
                 .accessToken(accessToken)
+                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
                 .refreshToken(refreshToken)
                 .build();
     }
