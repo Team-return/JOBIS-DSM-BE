@@ -10,13 +10,13 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class TechList {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private TechListId id;
 
+    @MapsId("areaId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId @JoinColumn(name = "area_id")
+    @JoinColumn(name = "recruit_area_id")
     private RecruitArea recruitArea;
 
-    @Column(length = 3, nullable = false)
-    private String techCode;
+
 }
