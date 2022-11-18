@@ -1,10 +1,12 @@
 package com.example.jobis.global.security;
 
+import com.example.jobis.global.enums.Authority;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,7 +32,15 @@ public class SecurityConfig {
                 .and()
 
                 .authorizeRequests()
-                .anyRequest().permitAll()
+                //company
+                .antMatchers(HttpMethod.POST, "/companies").permitAll()
+                .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
+
+                //user
+                .antMatchers(HttpMethod.POST, "/users/login").permitAll()
+
+
+                .anyRequest().authenticated()
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));
         return http.build();
