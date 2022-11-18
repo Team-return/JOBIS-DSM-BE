@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
 
@@ -14,6 +15,9 @@ import java.time.LocalDate;
 @Embeddable
 public class RecruitDate {
 
+    @Column(columnDefinition = "DATE", nullable = false)
     private LocalDate startDate;
+
+    @Column(columnDefinition = "DATE", nullable = false)
     private LocalDate endDate;
 }
