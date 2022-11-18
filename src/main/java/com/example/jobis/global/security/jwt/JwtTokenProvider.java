@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -25,8 +26,11 @@ public class JwtTokenProvider {
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthDetailsService authDetailsService;
 
+    private static final String TOKEN_TYPE = "typ";
+    private static final String ACCESS_KEY = "access";
+
     public String generateAccessToken(String id) {
-        return generateToken(id, "access");
+        return generateToken(id, ACCESS_KEY);
     }
 
     public String generateRefreshToken(String id) {
@@ -47,11 +51,14 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader(jwtProperties.getHeader());
-        // System.out.println(token + "\n" + jwtProperties.getPrefix() + "\n" + token.startsWith(jwtProperties.getPrefix()) + "\n");
         if(token != null && token.startsWith(jwtProperties.getPrefix())) {
             return token.replace(jwtProperties.getPrefix(), "");
         }
         return null;
+    }
+
+    public LocalDateTime getExpiredAt() {
+        return LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp());
     }
 
     private String generateToken(String id, String typ) {
@@ -60,7 +67,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+jwtProperties.getAccessExp()))
-                .claim("typ", typ)
+                .claim(TOKEN_TYPE, typ)
                 .compact();
     }
 
