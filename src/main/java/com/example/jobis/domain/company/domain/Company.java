@@ -1,6 +1,8 @@
 package com.example.jobis.domain.company.domain;
 
+import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.user.domain.User;
+import com.example.jobis.global.entity.BaseTimeEntity;
 import com.example.jobis.global.enums.Authority;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -8,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,9 +24,18 @@ public class Company extends User {
     @Column(length = 10, nullable = false, unique = true)
     private String businessNumber;
 
+    @OneToMany(mappedBy = "company")
+    private List<Recruit> recruitList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company")
+    private List<Attachment> attachments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company")
+    private List<CompanyDetails> companyDetails = new ArrayList<>();
+
     @Builder
-    public Company(String companyName
-            , String businessNumber, String password, String accountId) {
+    public Company(String companyName, String businessNumber,
+                   String password, String accountId) {
         super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;

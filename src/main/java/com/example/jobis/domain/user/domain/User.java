@@ -11,21 +11,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
-@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
+@Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class User extends BaseTimeEntity {
+public abstract class User extends BaseTimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-
     @NotNull
     @Size(min = 5, max = 20)
     private String accountId;
 
-    @NotNull
-    @Size(min=60)
+    @Column(nullable = false, length = 60)
     private String password;
 
     @Enumerated(EnumType.STRING)

@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Entity
 public class Attachment {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "attachment_id")
     private Long id;
 
     @Column(length = 400, nullable = false)

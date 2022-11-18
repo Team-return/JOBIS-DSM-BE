@@ -16,8 +16,8 @@ import javax.persistence.*;
 @Entity
 public class CompanyDetails {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "company_details_id")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -40,7 +40,10 @@ public class CompanyDetails {
     private CompanyInfo companyInfo;
 
     @Builder
-    public CompanyDetails(Company company, String companyIntroduce, String zipCode1, String address1, String zipCode2, String address2, String manager1, String phoneNumber1, String manager2, String phoneNumber2, String fax, String email, String representativeName, String foundedAt, Long workerNumber, Long take) {
+    public CompanyDetails(Company company, String companyIntroduce, String zipCode1, String address1,
+                          String zipCode2, String address2, String manager1, String phoneNumber1, String manager2,
+                          String phoneNumber2, String fax, String email, String representativeName, String foundedAt,
+                          Long workerNumber, Long take) {
         this.company = company;
         this.companyIntroduce = companyIntroduce;
         this.address = new Address(zipCode1, address1, zipCode2, address2);
