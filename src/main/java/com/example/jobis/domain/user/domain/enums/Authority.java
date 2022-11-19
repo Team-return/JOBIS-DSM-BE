@@ -1,4 +1,4 @@
-package com.example.jobis.global.enums;
+package com.example.jobis.domain.user.domain.enums;
 
 public enum Authority {
     ADMIN,

@@ -1,6 +1,6 @@
 package com.example.jobis.global.security;
 
-import com.example.jobis.global.enums.Authority;
+import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

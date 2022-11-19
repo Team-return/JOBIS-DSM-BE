@@ -15,7 +15,6 @@ import javax.validation.Valid;
 public class UserController {
 
     private final LoginService loginService;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid LoginRequest request) {
