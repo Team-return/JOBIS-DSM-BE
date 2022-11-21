@@ -34,10 +34,11 @@ public class SecurityConfig {
                 .authorizeRequests()
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
+                .antMatchers(HttpMethod.GET, "/companies/exists").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
 
                 //user
-                .antMatchers(HttpMethod.POST, "/users/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/login").permitAll()
 
 
                 .anyRequest().authenticated()
