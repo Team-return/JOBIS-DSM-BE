@@ -32,7 +32,7 @@ public class RegisterCompanyService {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        if (!companyFacade.companyExists(request.getBusinessNumber())) {
+        if (companyFacade.companyExists(request.getBusinessNumber())) {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
@@ -68,6 +68,7 @@ public class RegisterCompanyService {
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
                 .build();
     }
 }
