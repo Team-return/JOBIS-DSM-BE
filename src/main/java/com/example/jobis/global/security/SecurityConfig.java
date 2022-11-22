@@ -40,7 +40,9 @@ public class SecurityConfig {
                 //user
                 .antMatchers(HttpMethod.POST, "/user/login").permitAll()
 
-
+                //code
+                .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
+                .antMatchers(HttpMethod.GET, "/code/licenses").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));

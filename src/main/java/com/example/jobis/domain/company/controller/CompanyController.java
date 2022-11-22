@@ -18,19 +18,12 @@ import javax.validation.Valid;
 public class CompanyController {
 
     private final RegisterCompanyService registerCompanyService;
-    private final CreateCompanyDetailsService createCompanyDetailsService;
     private final ExistsCompanyService existsCompanyService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public TokenResponse register(@RequestBody @Valid RegisterCompanyRequest request) {
         return registerCompanyService.execute(request);
-    }
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/details")
-    public void companyDetails(@RequestBody @Valid CompanyDetailsRequest request) {
-        createCompanyDetailsService.execute(request);
     }
 
     @GetMapping("/exists")
