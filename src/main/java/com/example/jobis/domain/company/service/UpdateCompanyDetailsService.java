@@ -14,7 +14,6 @@ import javax.transaction.Transactional;
 @Service
 public class UpdateCompanyDetailsService {
 
-    private final CompanyDetailsRepository companyDetailsRepository;
     private final CompanyFacade companyFacade;
 
     @Transactional
@@ -24,6 +23,5 @@ public class UpdateCompanyDetailsService {
         CompanyDetails companyDetails = company.getCompanyDetails();
 
         companyDetails.update(request);
-        companyDetailsRepository.save(companyDetails);
     }
 }
