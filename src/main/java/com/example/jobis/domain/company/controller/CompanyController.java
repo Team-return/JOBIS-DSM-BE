@@ -35,7 +35,7 @@ public class CompanyController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping
+    @PatchMapping
     public void updateDetails(@RequestBody @Valid UpdateCompanyDetailsRequest request) {
         updateCompanyDetailsService.execute(request);
     }
