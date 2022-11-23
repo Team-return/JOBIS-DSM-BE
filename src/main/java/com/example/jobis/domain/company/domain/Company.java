@@ -30,8 +30,8 @@ public class Company extends User {
     @OneToMany(mappedBy = "company")
     private List<Attachment> attachments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "company")
-    private List<CompanyDetails> companyDetails = new ArrayList<>();
+    @OneToOne(mappedBy = "company")
+    private CompanyDetails companyDetails;
 
     @Builder
     public Company(String companyName, String businessNumber,
