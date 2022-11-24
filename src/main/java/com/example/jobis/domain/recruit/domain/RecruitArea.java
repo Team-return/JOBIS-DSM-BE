@@ -1,5 +1,6 @@
 package com.example.jobis.domain.recruit.domain;
 
+import com.example.jobis.domain.code.RecruitAreaCode;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,21 +22,17 @@ public class RecruitArea {
 
     private String details;
 
-    @Column(length = 3)
-    private String jobCode;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruit_id", nullable = false)
     private Recruit recruit;
 
     @OneToMany(mappedBy = "recruitArea")
-    private List<TechList> techList = new ArrayList<>();
+    private List<RecruitAreaCode> codeList = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String details, String jobCode, Recruit recruit) {
+    public RecruitArea(Integer hiredCount, String details, Recruit recruit) {
         this.hiredCount = hiredCount;
         this.details = details;
-        this.jobCode = jobCode;
         this.recruit = recruit;
     }
 

@@ -31,14 +31,20 @@ public class Recruit extends BaseTimeEntity{
     @Enumerated(EnumType.STRING)
     private RecruitStatus status;
 
-    @Column(length = 100)
+    @Column(length = 1000)
     private String benefit;
+
+    @Column(length = 1000)
+    private String preferentialTreatment;
 
     @Column(columnDefinition = "BIT(1)", nullable = false)
     private boolean military;
 
-    @Column(length = 100)
+    @Column(length = 1000)
     private String etc;
+
+    @Column(nullable = false)
+    private String hiringProgress;
 
     @Embedded
     private RecruitDate recruitDate;
@@ -58,11 +64,14 @@ public class Recruit extends BaseTimeEntity{
 
     @Builder
     public Recruit(Year year, RecruitStatus status, Integer trainPay, Integer pay,
-                   LocalDate startDate, LocalDate endDate, Company company, String benefit, boolean military, String etc
+                   LocalDate startDate, LocalDate endDate, Company company, String benefit,
+                   boolean military, String etc, String preferentialTreatment, String hiringProgress
     ) {
+        this.hiringProgress = hiringProgress;
         this.recruitYear = year;
         this.status = status;
         this.benefit = benefit;
+        this.preferentialTreatment = preferentialTreatment;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.pay = new Pay(trainPay, pay);
         this.company = company;
