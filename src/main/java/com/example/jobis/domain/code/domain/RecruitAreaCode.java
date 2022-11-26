@@ -1,7 +1,5 @@
-package com.example.jobis.domain.code;
+package com.example.jobis.domain.code.domain;
 
-import com.example.jobis.domain.code.domain.Code;
-import com.example.jobis.domain.code.domain.RecruitAreaCodeId;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,12 +12,13 @@ import javax.persistence.*;
 @Entity
 @IdClass(RecruitAreaCodeId.class)
 public class RecruitAreaCode {
-
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recruit_area_id")
     private RecruitArea recruitAreaId;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "code_id")
     private Code codeId;
 }
