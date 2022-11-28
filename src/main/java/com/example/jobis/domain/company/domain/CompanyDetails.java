@@ -21,8 +21,7 @@ public class CompanyDetails {
     @Column(name = "company_details_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", nullable = false)
+    @OneToOne(mappedBy = "companyDetails")
     private Company company;
 
     @Column(length = 4000, nullable = false)

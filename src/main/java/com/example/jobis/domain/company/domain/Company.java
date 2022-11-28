@@ -30,7 +30,8 @@ public class Company extends User {
     @OneToMany(mappedBy = "company")
     private List<Attachment> attachments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "company")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_details_id", nullable = false)
     private CompanyDetails companyDetails;
 
     @Builder
