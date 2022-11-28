@@ -25,8 +25,8 @@ public class Recruit extends BaseTimeEntity{
     @Column(name = "recruit_id")
     private Long id;
 
-    @Column(nullable = false)
-    private Year recruitYear;
+    @Column(columnDefinition = "year")
+    private int recruitYear;
 
     @Enumerated(EnumType.STRING)
     private RecruitStatus status;
@@ -63,12 +63,12 @@ public class Recruit extends BaseTimeEntity{
     private List<RequiredLicences> requiredLicencesList = new ArrayList<>();
 
     @Builder
-    public Recruit(Year year, RecruitStatus status, Integer trainPay, Integer pay,
+    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay,
                    LocalDate startDate, LocalDate endDate, Company company, String benefit,
                    boolean military, String etc, String preferentialTreatment, String hiringProgress
     ) {
         this.hiringProgress = hiringProgress;
-        this.recruitYear = year;
+        this.recruitYear = recruitYear;
         this.status = status;
         this.benefit = benefit;
         this.preferentialTreatment = preferentialTreatment;

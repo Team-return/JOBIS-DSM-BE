@@ -1,6 +1,6 @@
 package com.example.jobis.domain.recruit.domain;
 
-import com.example.jobis.domain.code.RecruitAreaCode;
+import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,19 +20,19 @@ public class RecruitArea {
 
     private Integer hiredCount;
 
-    private String details;
+    private String majorTask;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruit_id", nullable = false)
     private Recruit recruit;
 
-    @OneToMany(mappedBy = "recruitArea")
+    @OneToMany(mappedBy = "recruitAreaId")
     private List<RecruitAreaCode> codeList = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String details, Recruit recruit) {
+    public RecruitArea(Integer hiredCount, String majorTask, Recruit recruit) {
         this.hiredCount = hiredCount;
-        this.details = details;
+        this.majorTask = majorTask;
         this.recruit = recruit;
     }
 
