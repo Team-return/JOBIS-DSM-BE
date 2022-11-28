@@ -16,8 +16,8 @@ import javax.persistence.*;
 @Entity
 public class Student extends User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
     private Long id;
 
     @Column(length = 10, nullable = false)

@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Entity
 public class Portfolio {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "portfolio_id")
     private Long id;
 
     @Column(nullable = false)
