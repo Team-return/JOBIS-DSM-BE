@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recruit")
@@ -14,7 +16,7 @@ public class RecruitController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void applyRecruitment(@RequestBody ApplyRecruitmentRequest request) {
+    public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentRequest request) {
         applyRecruitmentService.execute(request);
     }
 }

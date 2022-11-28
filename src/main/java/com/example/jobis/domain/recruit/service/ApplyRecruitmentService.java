@@ -57,6 +57,7 @@ public class ApplyRecruitmentService {
                         .military(request.isMilitary())
                         .build()
         );
+
         codeFacade.findCodesWithValidation(request.getRequiredLicenses(), CodeType.LICENSE).forEach(
                 code -> requiredLicencesRepository.save(
                         new RequiredLicences(code.getCode(), recruit)
@@ -84,11 +85,6 @@ public class ApplyRecruitmentService {
                             new RecruitAreaCode(recruitArea, code)
                     )
             );
-
-
-
         }
-
-
     }
 }
