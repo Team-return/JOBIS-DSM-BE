@@ -4,10 +4,7 @@ import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.code.presentaion.dto.response.CodeResponse;
 import com.example.jobis.domain.code.service.FindCodeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,4 +23,5 @@ public class CodeController {
     public List<CodeResponse> findLicenseCode(@RequestParam("keyword") String keyword) {
         return findCodeService.execute(keyword, CodeType.LICENSE);
     }
+
 }

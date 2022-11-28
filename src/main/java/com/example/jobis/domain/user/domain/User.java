@@ -1,7 +1,7 @@
 package com.example.jobis.domain.user.domain;
 
 import com.example.jobis.global.entity.BaseTimeEntity;
-import com.example.jobis.global.enums.Authority;
+import com.example.jobis.domain.user.domain.enums.Authority;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.jobis.global.security;
 
-import com.example.jobis.global.enums.Authority;
+import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -36,9 +36,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies/exists").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.POST, "/recruit").hasAuthority(Authority.COMPANY.toString())
 
                 //user
-                .antMatchers(HttpMethod.POST, "/user/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/login").permitAll()
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()

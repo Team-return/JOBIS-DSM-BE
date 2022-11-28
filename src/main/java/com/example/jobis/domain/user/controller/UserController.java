@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RestController
 public class UserController {
 
     private final LoginService loginService;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid LoginRequest request) {
