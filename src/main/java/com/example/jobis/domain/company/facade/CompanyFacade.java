@@ -40,4 +40,10 @@ public class CompanyFacade {
         return companyRepository.findByBusinessNumber(businessNumber)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
+
+    public Company getCurrentCompany() {
+        String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return companyRepository.findByAccountId(accountId)
+                .orElseThrow(()->CompanyNotFoundException.EXCEPTION);
+    }
 }
