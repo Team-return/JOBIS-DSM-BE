@@ -21,9 +21,6 @@ public class CompanyDetails {
     @Column(name = "company_details_id")
     private Long id;
 
-    @OneToOne(mappedBy = "companyDetails")
-    private Company company;
-
     @Column(length = 4000, nullable = false)
     private String companyIntroduce;
 
@@ -40,11 +37,10 @@ public class CompanyDetails {
     private CompanyInfo companyInfo;
 
     @Builder
-    public CompanyDetails(Company company, String companyIntroduce, String zipCode1, String address1,
+    public CompanyDetails(String companyIntroduce, String zipCode1, String address1,
                           String zipCode2, String address2, String manager1, String phoneNumber1, String manager2,
                           String phoneNumber2, String fax, String email, String representativeName, String foundedAt,
                           Long workerNumber, Long take) {
-        this.company = company;
         this.companyIntroduce = companyIntroduce;
         this.address = new Address(zipCode1, address1, zipCode2, address2);
         this.manager = new Manager(manager1, phoneNumber1, manager2, phoneNumber2);
