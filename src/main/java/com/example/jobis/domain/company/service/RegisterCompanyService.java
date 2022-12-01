@@ -36,15 +36,7 @@ public class RegisterCompanyService {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        Company company = companyRepository.save(Company.builder()
-                .companyName(companyFacade.getCompanyName(request.getBusinessNumber()))
-                .accountId(request.getBusinessNumber())
-                .businessNumber(request.getBusinessNumber())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .build());
-
-        companyDetailsRepository.save(CompanyDetails.builder()
-                .company(company)
+        CompanyDetails companyDetails = companyDetailsRepository.save(CompanyDetails.builder()
                 .companyIntroduce(request.getCompanyIntroduce())
                 .zipCode1(request.getZipCode1())
                 .address1(request.getAddress1())
@@ -61,6 +53,15 @@ public class RegisterCompanyService {
                 .workerNumber(request.getWorkerNumber())
                 .take(request.getTake())
                 .build());
+
+        Company company = companyRepository.save(Company.builder()
+                .companyName(companyFacade.getCompanyName(request.getBusinessNumber()))
+                .accountId(request.getBusinessNumber())
+                .businessNumber(request.getBusinessNumber())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .companyDetails(companyDetails)
+                .build());
+
 
         String accessToken = jwtTokenProvider.generateAccessToken(company.getAccountId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(company.getAccountId());
