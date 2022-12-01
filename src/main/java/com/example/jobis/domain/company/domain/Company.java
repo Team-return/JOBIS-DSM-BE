@@ -2,7 +2,7 @@ package com.example.jobis.domain.company.domain;
 
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.user.domain.User;
-import com.example.jobis.domain.user.domain.enums.Authority;
+import com.example.jobis.global.enums.Authority;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,9 +35,10 @@ public class Company extends User {
 
     @Builder
     public Company(String companyName, String businessNumber,
-                   String password, String accountId) {
+                   String password, String accountId, CompanyDetails companyDetails) {
         super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;
+        this.companyDetails = companyDetails;
     }
 }
