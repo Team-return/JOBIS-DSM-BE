@@ -28,13 +28,7 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '17'
-    - name: Setup MySQL
-        uses: samin/mysql-action@v1
-        with:
-          character set server: 'utf8'
-          mysql database: 'jobis'
-          mysql user: 'admin'
-          mysql password: ${{ secrets.DB_PASSWORD }}
+        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
