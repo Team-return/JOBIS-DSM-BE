@@ -29,14 +29,16 @@ public class Company extends User {
     @OneToMany(mappedBy = "company")
     private List<Attachment> attachments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "company")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_details_id", nullable = false)
     private CompanyDetails companyDetails;
 
     @Builder
     public Company(String companyName, String businessNumber,
-                   String password, String accountId) {
+                   String password, String accountId, CompanyDetails companyDetails) {
         super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;
+        this.companyDetails = companyDetails;
     }
 }
