@@ -23,7 +23,7 @@ redis:
 jwt:
   header: ${HEADER}
   prefix : ${PREFIX}
-  secret-key: ${JWT_SECRET}
+  secret: ${JWT_SECRET}
   access-exp: ${ACCESS_EXP}
   refresh-exp: ${REFRESH_EXP}
 
