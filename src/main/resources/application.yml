@@ -16,6 +16,21 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL-USERNAME}
+    password: ${EMAIL-PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            protocols: TLSv1.3
+          starttls:
+            enable: true
+            required: true
+
 redis:
   port: ${REDIS_PORT}
   host: ${REDIS_HOST}
