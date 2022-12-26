@@ -26,17 +26,15 @@ public class JwtTokenProvider {
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthDetailsService authDetailsService;
 
-    private static final String TOKEN_TYPE = "typ";
-    private static final String ACCESS_KEY = "access";
-
     public String generateAccessToken(String id) {
-        return generateToken(id, ACCESS_KEY);
+        return generateToken(id, "access", jwtProperties.getAccessExp());
     }
 
     public String generateRefreshToken(String id) {
-        String token = generateToken(id, "refresh");
+        String token = generateToken(id, "refresh", jwtProperties.getRefreshExp());
         refreshTokenRepository.save(
                 RefreshToken.builder()
+                        .id(id)
                         .token(token)
                         .ttl(jwtProperties.getRefreshExp())
                         .build()
@@ -61,13 +59,17 @@ public class JwtTokenProvider {
         return LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp());
     }
 
-    private String generateToken(String id, String typ) {
+    public boolean isTokenExpired(String token) {
+        return getClaims(token).getExpiration().before(new Date());
+    }
+
+    private String generateToken(String id, String typ, Long exp) {
         return Jwts.builder()
                 .setSubject(id)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis()+jwtProperties.getAccessExp()))
-                .claim(TOKEN_TYPE, typ)
+                .setExpiration(new Date(System.currentTimeMillis()+ exp))
+                .claim("type", typ)
                 .compact();
     }
 
