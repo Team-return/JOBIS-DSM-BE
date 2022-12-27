@@ -6,4 +6,6 @@ import lombok.experimental.UtilityClass;
 public class RegexProperty {
 
     public static final String EMAIL = "^.+@dsm.hs.kr$";
+
+    public static final String PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$";
 }
