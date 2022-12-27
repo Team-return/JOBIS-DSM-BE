@@ -1,5 +1,6 @@
 package com.example.jobis.domain.file.presentation;
 
+import com.example.jobis.domain.file.presentation.dto.response.FileUploadResponse;
 import com.example.jobis.domain.file.service.FileUploadService;
 import com.example.jobis.domain.file.presentation.type.FileType;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ public class FileController {
     private final FileUploadService fileUploadService;
 
     @PostMapping
-    public String uploadFile(@RequestParam("file") MultipartFile multipartFile,
-                             @RequestParam("type")FileType fileType) {
-        return fileUploadService.execute(multipartFile, fileType);
+    public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile multipartFile,
+                                         @RequestParam("type")FileType fileType) {
+        return new FileUploadResponse(fileUploadService.execute(multipartFile, fileType));
     }
 }
