@@ -48,6 +48,10 @@ public class S3Util {
         return s3Properties.getUrl() + fileName;
     }
 
+    public void deleteFile() {
+
+    }
+
     private String getExtensionWithValidation(String fileName, FileType fileType) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
         switch (fileType) {
@@ -57,8 +61,8 @@ public class S3Util {
 
                 }
             case EXTENSION_FILE:
-                if(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals(".pptx")
-                        || extension.equals(".hwp") || extension.equals(".zip")) {
+                if(!(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals(".pptx")
+                        || extension.equals(".hwp") || extension.equals(".zip"))) {
                     throw InvalidExtensionException.EXCEPTION;
                 }
         }
