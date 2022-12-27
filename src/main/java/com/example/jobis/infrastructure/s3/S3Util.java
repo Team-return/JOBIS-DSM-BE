@@ -1,0 +1,67 @@
+package com.example.jobis.infrastructure.s3;
+
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.example.jobis.domain.file.exception.FileNotFoundException;
+import com.example.jobis.domain.file.exception.InvalidExtensionException;
+import com.example.jobis.domain.file.presentation.type.FileType;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
+
+@Component
+@RequiredArgsConstructor
+public class S3Util {
+    private final AmazonS3 amazonS3;
+    private final S3Properties s3Properties;
+
+    public String uploadImg(MultipartFile multipartFile, FileType fileType) {
+        if(multipartFile == null || multipartFile.getOriginalFilename() == null) {
+            throw FileNotFoundException.EXCEPTION;
+        }
+        String fileExtension = getExtensionWithValidation(multipartFile.getOriginalFilename(), fileType);
+        String fileName = s3Properties.getBucket() + "-" + fileType + "-" + UUID.randomUUID() + fileExtension;
+
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(multipartFile.getContentType());
+        objectMetadata.setContentLength(multipartFile.getSize());
+
+
+        try(InputStream inputStream = multipartFile.getInputStream()) {
+            amazonS3.putObject(
+                    new PutObjectRequest(
+                            s3Properties.getBucket(),
+                            fileName,
+                            inputStream,
+                            objectMetadata
+                    ).withCannedAcl(CannedAccessControlList.AuthenticatedRead)
+            );
+        } catch (IOException e) {
+            throw FileNotFoundException.EXCEPTION;
+        }
+        return s3Properties.getUrl() + fileName;
+    }
+
+    private String getExtensionWithValidation(String fileName, FileType fileType) {
+        String extension = fileName.substring(fileName.lastIndexOf("."));
+        switch (fileType) {
+            case LOGO_IMAGE:
+                if(!(extension.equals(".png") || extension.equals(".jpg") || extension.equals(".svg"))) {
+                    throw InvalidExtensionException.EXCEPTION;
+
+                }
+            case EXTENSION_FILE:
+                if(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals(".pptx")
+                        || extension.equals(".hwp") || extension.equals(".zip")) {
+                    throw InvalidExtensionException.EXCEPTION;
+                }
+        }
+        return extension;
+    }
+}
