@@ -40,6 +40,7 @@ public class SecurityConfig {
 
                 //user
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
+                .antMatchers(HttpMethod.PUT, "/users/reissue").permitAll()
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()

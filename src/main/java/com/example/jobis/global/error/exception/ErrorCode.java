@@ -19,9 +19,9 @@ public enum ErrorCode {
 
     USER_NOT_FOUND(404, "User Not Found"),
     COMPANY_NOT_FOUND(404, "Company Not Found"),
-    MAIL_SEND_FAIL(404, "Mail Send Fail"),
-
+    REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
+    MAIL_SEND_FAIL(404, "Mail Send Fail"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists")
 
     ;

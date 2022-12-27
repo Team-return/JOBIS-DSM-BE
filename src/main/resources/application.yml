@@ -36,11 +36,11 @@ redis:
   host: ${REDIS_HOST}
 
 jwt:
-  header: ${HEADER}
-  prefix : ${PREFIX}
+  header: ${JWT_HEADER}
+  prefix : ${JWT_PREFIX}
   secret: ${JWT_SECRET}
-  access-exp: ${ACCESS_EXP}
-  refresh-exp: ${REFRESH_EXP}
+  access-exp: ${TOKEN_ACCESS_EXP}
+  refresh-exp: ${TOKEN_REFRESH_EXP}
 
 rest-template:
   access-key: ${API_ACCESS_KEY}
