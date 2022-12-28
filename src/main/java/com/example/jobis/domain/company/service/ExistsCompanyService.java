@@ -13,10 +13,10 @@ public class ExistsCompanyService {
 
     private final CompanyFacade companyFacade;
 
-    public ExistsCompanyResponse execute(String businessNumber) {
+    public ExistsCompanyResponse execute(ExistsCompanyRequest request) {
 
-        String companyName = companyFacade.getCompanyName(businessNumber);
-        boolean exists = companyFacade.companyExists(businessNumber);
+        String companyName = companyFacade.getCompanyName(request.getBusinessNumber());
+        boolean exists = companyFacade.companyExists(request.getBusinessNumber());
 
         return ExistsCompanyResponse.builder()
                 .companyName(companyName)
