@@ -6,6 +6,6 @@ import com.example.jobis.global.error.exception.JobisException;
 public class FileNotFoundException extends JobisException {
     public static final JobisException EXCEPTION = new FileNotFoundException();
     private FileNotFoundException() {
-        super(ErrorCode.IMAGE_NOT_FOUND);
+        super(ErrorCode.FILE_NOT_FOUND);
     }
 }
