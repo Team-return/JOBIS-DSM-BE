@@ -42,6 +42,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/reissue").permitAll()
 
+                //file
+                .antMatchers(HttpMethod.POST, "/files").permitAll()
+
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
                 .antMatchers(HttpMethod.GET, "/code/licenses").permitAll()
