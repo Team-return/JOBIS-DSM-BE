@@ -3,6 +3,8 @@ package com.example.jobis.domain.student.controller;
 import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
 import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
 import com.example.jobis.domain.student.controller.dto.request.VerifyAuthCodeRequest;
+import com.example.jobis.domain.student.controller.dto.response.CompanyListResponse;
+import com.example.jobis.domain.student.service.QueryCompanyListService;
 import com.example.jobis.domain.student.service.SendSignUpAuthCodeService;
 import com.example.jobis.domain.student.service.StudentSignUpService;
 import com.example.jobis.domain.student.service.VerifyAuthCodeService;
@@ -14,13 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping("/student")
+@RequestMapping("/students")
 @RestController
 public class StudentController {
 
     private final SendSignUpAuthCodeService sendSignUpAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final StudentSignUpService studentSignUpService;
+    private final QueryCompanyListService queryCompanyListService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")
@@ -38,5 +41,10 @@ public class StudentController {
     @PostMapping
     public TokenResponse signup(@RequestBody @Valid StudentSignUpRequest request) {
         return studentSignUpService.execute(request);
+    }
+
+    @GetMapping("/companies")
+    public CompanyListResponse companyList() {
+        return queryCompanyListService.execute();
     }
 }
