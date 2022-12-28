@@ -44,3 +44,23 @@ jwt:
 
 rest-template:
   access-key: ${API_ACCESS_KEY}
+
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_BUCKET}
+      url: ${S3_URL}
+    credentials:
+      access-key: ${S3_ACCESS}
+      secret-key: ${S3_SECRET}
+    region:
+      static: ${S3_REGION}
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
