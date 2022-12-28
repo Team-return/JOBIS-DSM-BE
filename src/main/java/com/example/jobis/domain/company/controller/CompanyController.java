@@ -29,9 +29,9 @@ public class CompanyController {
         return registerCompanyService.execute(request);
     }
 
-    @GetMapping("/exists")
-    public ExistsCompanyResponse companyExists(@RequestBody @Valid ExistsCompanyRequest request) {
-        return existsCompanyService.execute(request);
+    @GetMapping("/exists/{business-number}")
+    public ExistsCompanyResponse companyExists(@PathVariable("business-number") String businessNumber) {
+        return existsCompanyService.execute(businessNumber);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
