@@ -20,6 +20,9 @@ public class Company extends User {
     @Column(length = 40, nullable = false)
     private String companyName;
 
+    @Column(nullable = false)
+    private String companyProfileUrl;
+
     @Column(length = 10, nullable = false, unique = true)
     private String businessNumber;
 
@@ -35,10 +38,11 @@ public class Company extends User {
 
     @Builder
     public Company(String companyName, String businessNumber,
-                   String password, String accountId, CompanyDetails companyDetails) {
+                   String password, String accountId, String companyProfileUrl, CompanyDetails companyDetails) {
         super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;
+        this.companyProfileUrl = companyProfileUrl;
         this.companyDetails = companyDetails;
     }
 }

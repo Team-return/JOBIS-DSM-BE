@@ -1,7 +1,7 @@
-package com.example.jobis.domain.code.presentaion;
+package com.example.jobis.domain.code.controller;
 
 import com.example.jobis.domain.code.domain.enums.CodeType;
-import com.example.jobis.domain.code.presentaion.dto.response.CodeResponse;
+import com.example.jobis.domain.code.controller.dto.response.CodeResponse;
 import com.example.jobis.domain.code.service.FindCodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
