@@ -1,8 +1,8 @@
-package com.example.jobis.domain.student.service;
+package com.example.jobis.domain.company.service;
 
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
-import com.example.jobis.domain.student.controller.dto.response.CompanyListResponse;
-import com.example.jobis.domain.student.controller.dto.response.CompanyResponse;
+import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
+import com.example.jobis.domain.company.controller.dto.response.CompanyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

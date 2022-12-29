@@ -1,11 +1,8 @@
-package com.example.jobis.domain.student.controller.dto.response;
+package com.example.jobis.domain.company.controller.dto.response;
 
-import com.example.jobis.domain.code.controller.dto.response.CodeResponse;
 import com.example.jobis.domain.company.domain.Company;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @Builder
