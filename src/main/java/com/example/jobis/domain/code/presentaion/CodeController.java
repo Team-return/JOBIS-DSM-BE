@@ -25,8 +25,8 @@ public class CodeController {
     }
 
     @GetMapping("/job")
-    public List<CodeResponse> findJobCode(@RequestParam("keyword") String keyword) {
-        return findCodeService.execute(keyword, CodeType.JOB);
+    public List<CodeResponse> findJobCode() {
+        return findCodeService.execute("", CodeType.JOB);
     }
 
 }
