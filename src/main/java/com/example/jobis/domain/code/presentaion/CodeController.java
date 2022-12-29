@@ -24,4 +24,9 @@ public class CodeController {
         return findCodeService.execute(keyword, CodeType.LICENSE);
     }
 
+    @GetMapping("/job")
+    public List<CodeResponse> findJobCode(@RequestParam("keyword") String keyword) {
+        return findCodeService.execute(keyword, CodeType.JOB);
+    }
+
 }
