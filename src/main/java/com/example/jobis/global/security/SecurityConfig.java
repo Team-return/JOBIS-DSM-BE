@@ -34,13 +34,16 @@ public class SecurityConfig {
                 .authorizeRequests()
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
-                .antMatchers(HttpMethod.GET, "/companies/exists").permitAll()
+                .antMatchers(HttpMethod.GET, "/companies/exists/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
                 .antMatchers(HttpMethod.POST, "/recruit").hasAuthority(Authority.COMPANY.toString())
 
                 //user
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/reissue").permitAll()
+
+                //file
+                .antMatchers(HttpMethod.POST, "/files").permitAll()
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
@@ -53,6 +56,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
+                .antMatchers(HttpMethod.GET, "/code/job").permitAll()
+
+
+
+                
                 .anyRequest().authenticated()
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));
