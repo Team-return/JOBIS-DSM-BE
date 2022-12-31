@@ -6,6 +6,7 @@ import com.example.jobis.domain.student.facade.AuthCodeFacade;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -14,6 +15,7 @@ public class SendSignUpAuthCodeService {
     private final AuthCodeFacade authCodeFacade;
     private final StudentFacade studentFacade;
 
+    @Transactional
     public void execute(SendAuthCodeRequest request) {
 
         if (studentFacade.existsEmail(request.getEmail())) {
