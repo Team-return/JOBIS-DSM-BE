@@ -40,7 +40,7 @@ public class S3Util {
                             fileName,
                             inputStream,
                             objectMetadata
-                    ).withCannedAcl(CannedAccessControlList.AuthenticatedRead)
+                    ).withCannedAcl(CannedAccessControlList.PublicRead)
             );
         } catch (IOException e) {
             throw FileNotFoundException.EXCEPTION;
@@ -50,17 +50,14 @@ public class S3Util {
 
     private String getExtensionWithValidation(String fileName, FileType fileType) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
-        switch (fileType) {
-            case LOGO_IMAGE:
-                if(!(extension.equals(".png") || extension.equals(".jpg") || extension.equals(".svg"))) {
-                    throw InvalidExtensionException.EXCEPTION;
-
-                }
-            case EXTENSION_FILE:
-                if(!(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals(".pptx")
-                        || extension.equals(".hwp") || extension.equals(".zip"))) {
-                    throw InvalidExtensionException.EXCEPTION;
-                }
+        if(!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".svg"))) {
+            if(fileType.equals(FileType.LOGO_IMAGE)) {
+                throw InvalidExtensionException.EXCEPTION;
+            }
+            if(!(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals("pptx")
+                    || extension.equals("hwp") || extension.equals(".zip"))) {
+                throw InvalidExtensionException.EXCEPTION;
+            }
         }
         return extension;
     }
