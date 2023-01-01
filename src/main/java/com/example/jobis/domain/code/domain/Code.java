@@ -28,6 +28,9 @@ public class Code {
     @Enumerated(EnumType.STRING)
     private JobType jobType;
     public CodeResponse to() {
-        return new CodeResponse(code, keyword);
+        return CodeResponse.builder()
+                .code(code)
+                .keyword(keyword)
+                .build();
     }
 }
