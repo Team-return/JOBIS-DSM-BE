@@ -56,8 +56,8 @@ public class CompanyDetailsRequest {
     @Size(min = 1, max = 40, message = "대표자는 1자에서 40자여야 합니다.")
     private String representativeName;
 
-    @NotBlank(message = "대표자는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 8, max = 8, message = "대표자는 8자여야 합니다.")
+    @NotBlank(message = "설립일는 널 또는 공백을 포함할 수 없습니다.")
+    @Size(min = 8, max = 8, message = "설립일는 8자여야 합니다.")
     private String foundedAt;
 
     @NotNull(message = "근로자수는 널을 포함할 수 없습니다.")
