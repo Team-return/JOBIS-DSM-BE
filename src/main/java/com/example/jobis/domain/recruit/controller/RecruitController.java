@@ -23,8 +23,8 @@ public class RecruitController {
         applyRecruitmentService.execute(request);
     }
 
-    @GetMapping
-    public RecruitDetailsResponse getDetails(@RequestParam("id") Long recruitId, @RequestParam("year") int year) {
-        return queryRecruitDetailsService.execute(recruitId, year);
+    @GetMapping("/{recruit-id}")
+    public RecruitDetailsResponse getDetails(@PathVariable("recruit-id") Long recruitId) {
+        return queryRecruitDetailsService.execute(recruitId);
     }
 }

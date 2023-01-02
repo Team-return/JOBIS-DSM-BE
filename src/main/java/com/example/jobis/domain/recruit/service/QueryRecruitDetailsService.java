@@ -1,7 +1,7 @@
 package com.example.jobis.domain.recruit.service;
 
-import com.example.jobis.domain.recruit.controller.dto.response.RecruitAreaResponse;
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitDetailsResponse;
+import com.example.jobis.domain.recruit.controller.dto.response.RecruitDetailsResponse.RecruitAreaResponse;
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
 import com.example.jobis.domain.recruit.facade.RecruitFacade;
@@ -19,8 +19,9 @@ public class QueryRecruitDetailsService {
     private final RecruitFacade recruitFacade;
     private final RecruitAreaRepository recruitAreaRepository;
 
-    public RecruitDetailsResponse execute(Long recruitId, int year) {
-        Recruit recruit = recruitFacade.getRecruitById(recruitId, year);
+    @Transactional(readOnly = true)
+    public RecruitDetailsResponse execute(Long recruitId) {
+        Recruit recruit = recruitFacade.getRecruitById(recruitId);
 
         List<RecruitAreaResponse> recruitAreaList = recruitAreaRepository.findAllByRecruit(recruit).stream()
                 .map(RecruitAreaResponse::of)

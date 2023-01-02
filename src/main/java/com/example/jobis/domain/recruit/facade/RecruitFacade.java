@@ -15,8 +15,8 @@ public class RecruitFacade {
 
     private final RecruitRepository recruitRepository;
 
-    public Recruit getRecruitById(Long id, int year) {
-        return recruitRepository.findByIdAndRecruitYear(id, year)
+    public Recruit getRecruitById(Long id) {
+        return recruitRepository.findById(id)
                 .orElseThrow(() -> RecruitNotFoundException.EXCEPTION);
     }
 }
