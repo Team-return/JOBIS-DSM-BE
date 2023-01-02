@@ -9,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,6 +29,15 @@ public class Recruit extends BaseTimeEntity{
 
     @Enumerated(EnumType.STRING)
     private RecruitStatus status;
+
+    @Column(nullable = false)
+    private int requiredGrade;
+
+    @Column(nullable = false)
+    private int workHours;
+
+    @Column(length = 500, nullable = false)
+    private String submitDocument;
 
     @Column(length = 1000)
     private String benefit;
@@ -63,10 +71,13 @@ public class Recruit extends BaseTimeEntity{
     private List<RequiredLicences> requiredLicencesList = new ArrayList<>();
 
     @Builder
-    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay,
-                   LocalDate startDate, LocalDate endDate, Company company, String benefit,
-                   boolean military, String etc, String preferentialTreatment, String hiringProgress
+    public Recruit(int recruitYear, RecruitStatus status, int requiredGrade, int workHours, String submitDocument,
+                   Integer trainPay, Integer pay, LocalDate startDate, LocalDate endDate, Company company,
+                   String benefit, boolean military, String etc, String preferentialTreatment, String hiringProgress
     ) {
+        this.requiredGrade = requiredGrade;
+        this.workHours = workHours;
+        this.submitDocument = submitDocument;
         this.hiringProgress = hiringProgress;
         this.recruitYear = recruitYear;
         this.status = status;
