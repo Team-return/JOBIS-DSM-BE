@@ -1,14 +1,12 @@
 package com.example.jobis.domain.company.controller;
 
 import com.example.jobis.domain.company.controller.dto.request.UpdateCompanyDetailsRequest;
+import com.example.jobis.domain.company.controller.dto.response.CompanyDetailsResponse;
 import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
 import com.example.jobis.domain.company.controller.dto.response.ExistsCompanyResponse;
-import com.example.jobis.domain.company.service.ExistsCompanyService;
-import com.example.jobis.domain.company.service.QueryCompanyListService;
-import com.example.jobis.domain.company.service.UpdateCompanyDetailsService;
+import com.example.jobis.domain.company.service.*;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
-import com.example.jobis.domain.company.service.RegisterCompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +22,7 @@ public class CompanyController {
     private final ExistsCompanyService existsCompanyService;
     private final UpdateCompanyDetailsService updateCompanyDetailsService;
     private final QueryCompanyListService queryCompanyListService;
+    private final QueryCompanyDetailsService queryCompanyDetailsService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -45,5 +44,10 @@ public class CompanyController {
     @GetMapping
     public CompanyListResponse list() {
         return queryCompanyListService.execute();
+    }
+
+    @GetMapping("/{company-id}")
+    public CompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
+        return queryCompanyDetailsService.execute(companyId);
     }
 }
