@@ -36,6 +36,11 @@ public class CompanyFacade {
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
+    public Company getCompanyById(Long id) {
+        return companyRepository.findById(id)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+    }
+
     public Company getCompanyByBusinessNumber(String businessNumber) {
         return companyRepository.findByBusinessNumber(businessNumber)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
