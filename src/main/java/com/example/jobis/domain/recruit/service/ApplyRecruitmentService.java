@@ -10,17 +10,15 @@ import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentR
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest.Area;
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
-import com.example.jobis.domain.recruit.domain.RequiredLicences;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitRepository;
-import com.example.jobis.domain.recruit.domain.repository.RequiredLicencesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.Year;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +27,6 @@ public class ApplyRecruitmentService {
     private final RecruitRepository recruitRepository;
     private final RecruitAreaRepository recruitAreaRepository;
     private final RecruitAreaCodeRepository recruitAreaCodeRepository;
-    private final RequiredLicencesRepository requiredLicencesRepository;
     private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
 
@@ -40,6 +37,7 @@ public class ApplyRecruitmentService {
         String hiringProgress = request.getHiringProgress()
                         .stream().map(Enum::toString)
                         .collect(Collectors.joining(","));
+        String requiredLicenses = String.join(", ", request.getRequiredLicenses());
 
         Recruit recruit = recruitRepository.save(
                 Recruit.builder()
@@ -50,6 +48,7 @@ public class ApplyRecruitmentService {
                         .benefit(request.getBenefits())
                         .preferentialTreatment(request.getPreferentialTreatment())
                         .recruitYear(LocalDate.now().getYear())
+                        .requiredLicenses(requiredLicenses)
                         .status(RecruitStatus.REQUESTED)
                         .etc(request.getEtc())
                         .startDate(request.getStartDate())
@@ -58,19 +57,12 @@ public class ApplyRecruitmentService {
                         .build()
         );
 
-        codeFacade.findCodesWithValidation(request.getRequiredLicenses(), CodeType.LICENSE).forEach(
-                code -> requiredLicencesRepository.save(
-                        new RequiredLicences(code.getCode(), recruit)
-                )
-        );
-
         for(Area area : request.getAreas()) {
             RecruitArea recruitArea = recruitAreaRepository.save(
                     RecruitArea.builder()
                             .majorTask(area.getMajorTask())
                             .hiredCount(area.getHiring())
                             .recruit(recruit)
-
                             .build()
             );
 
