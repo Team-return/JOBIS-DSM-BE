@@ -70,4 +70,7 @@ public class RegisterCompanyRequest {
     @NotNull(message = "매출액은 널을 포함할 수 없습니다.")
     private Long take;
 
+    @NotBlank(message = "회사 프로필 사진은 널 공백 포함 불가입니다.")
+    private String companyProfileUrl;
+
 }

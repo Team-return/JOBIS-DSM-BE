@@ -60,6 +60,7 @@ public class RegisterCompanyService {
                 .businessNumber(request.getBusinessNumber())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .companyDetails(companyDetails)
+                .companyProfileUrl(request.getCompanyProfileUrl())
                 .build());
 
 

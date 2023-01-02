@@ -25,7 +25,7 @@ public class RestTemplateFacade {
         URI uri = UriComponentsBuilder
                 .fromUriString("https://bizno.net/api/fapi")
                 .queryParam("key", accessKey)
-                .queryParam("gb", "1")
+                .queryParam("gb", 1)
                 .queryParam("q", businessNumber)
                 .build()
                 .toUri();
