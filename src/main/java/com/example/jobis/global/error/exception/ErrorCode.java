@@ -22,6 +22,7 @@ public enum ErrorCode {
     COMPANY_NOT_FOUND(404, "Company Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail"),
     FILE_NOT_FOUND(404, "File not Found"),
+    RECRUIT_NOT_FOUND(404, "Recruit Not Found"),
 
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
