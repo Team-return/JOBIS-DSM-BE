@@ -27,7 +27,7 @@ public class CodeFacade {
         return resCodes;
     }
 
-    public static List<String> getKeywordByRecruitArea(RecruitArea recruitArea, CodeType codeType) {
+    public List<String> getKeywordByRecruitArea(RecruitArea recruitArea, CodeType codeType) {
         return recruitArea.getCodeList().stream()
                 .map(RecruitAreaCode::getCodeId)
                 .toList().stream()

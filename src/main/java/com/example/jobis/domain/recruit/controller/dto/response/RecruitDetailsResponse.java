@@ -40,18 +40,5 @@ public class RecruitDetailsResponse {
         private List<String> tech;
         private int hiring;
         private String majorTask;
-
-        public static RecruitAreaResponse of(RecruitArea recruitArea) {
-
-            List<String> jobCodes = CodeFacade.getKeywordByRecruitArea(recruitArea, CodeType.JOB);
-            List<String> techCodes = CodeFacade.getKeywordByRecruitArea(recruitArea, CodeType.TECH);
-
-            return RecruitAreaResponse.builder()
-                    .job(jobCodes)
-                    .tech(techCodes)
-                    .hiring(recruitArea.getHiredCount())
-                    .majorTask(recruitArea.getMajorTask())
-                    .build();
-        }
     }
 }
