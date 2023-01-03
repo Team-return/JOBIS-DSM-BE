@@ -3,6 +3,7 @@ package com.example.jobis.domain.recruit.controller.dto.response;
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.domain.enums.CodeType;
+import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.ProgressType;
 import lombok.Builder;
@@ -42,19 +43,8 @@ public class RecruitDetailsResponse {
 
         public static RecruitAreaResponse of(RecruitArea recruitArea) {
 
-            List<String> jobCodes = recruitArea.getCodeList().stream()
-                    .map(RecruitAreaCode::getCodeId)
-                    .toList().stream()
-                    .filter(code -> code.getCodeType().equals(CodeType.JOB))
-                    .map(Code::getKeyword)
-                    .collect(Collectors.toList());
-
-            List<String> techCodes = recruitArea.getCodeList().stream()
-                    .map(RecruitAreaCode::getCodeId)
-                    .toList().stream()
-                    .filter(code -> code.getCodeType().equals(CodeType.TECH))
-                    .map(Code::getKeyword)
-                    .collect(Collectors.toList());
+            List<String> jobCodes = CodeFacade.getKeywordByRecruitArea(recruitArea, CodeType.JOB);
+            List<String> techCodes = CodeFacade.getKeywordByRecruitArea(recruitArea, CodeType.TECH);
 
             return RecruitAreaResponse.builder()
                     .job(jobCodes)
