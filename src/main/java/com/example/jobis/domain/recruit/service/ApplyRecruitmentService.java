@@ -73,7 +73,6 @@ public class ApplyRecruitmentService {
                             .majorTask(area.getMajorTask())
                             .hiredCount(area.getHiring())
                             .recruit(recruit)
-
                             .build()
             );
 
