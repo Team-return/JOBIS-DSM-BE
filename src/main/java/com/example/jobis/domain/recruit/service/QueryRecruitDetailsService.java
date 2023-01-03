@@ -17,13 +17,12 @@ import java.util.stream.Collectors;
 public class QueryRecruitDetailsService {
 
     private final RecruitFacade recruitFacade;
-    private final RecruitAreaRepository recruitAreaRepository;
 
     @Transactional(readOnly = true)
     public RecruitDetailsResponse execute(Long recruitId) {
         Recruit recruit = recruitFacade.getRecruitById(recruitId);
 
-        List<RecruitAreaResponse> recruitAreaList = recruitAreaRepository.findAllByRecruit(recruit).stream()
+        List<RecruitAreaResponse> recruitAreaList = recruit.getRecruitAreaList().stream()
                 .map(RecruitAreaResponse::of)
                 .toList();
 
