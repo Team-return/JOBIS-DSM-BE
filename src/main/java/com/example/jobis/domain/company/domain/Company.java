@@ -42,11 +42,11 @@ public class Company extends User {
     @Builder
     public Company(String companyName, String businessNumber, String password,
                    String accountId, String companyProfileUrl,
-                   CompanyDetails companyDetails, CompanyType companyType) {
+                   CompanyDetails companyDetails) {
         super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;
-        this.companyType = companyType;
+        this.companyType = CompanyType.DEFAULT;
         this.companyProfileUrl = companyProfileUrl;
         this.companyDetails = companyDetails;
     }
