@@ -47,7 +47,6 @@ public class SecurityConfig {
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
-                .antMatchers(HttpMethod.GET, "/code/licenses").permitAll()
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
 
                 //student
