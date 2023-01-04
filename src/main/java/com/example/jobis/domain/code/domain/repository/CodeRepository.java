@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface CodeRepository extends JpaRepository<Code, Long> {
     List<Code> findByKeywordStartsWithAndCodeType(String keyword, CodeType codeType);
-    Optional<Code> findByCodeTypeAndCode(CodeType codeType, Long code);
 
     @Query("select c from Code c where c.codeType = 'JOB'")
     List<Code> findAllJobCode();
