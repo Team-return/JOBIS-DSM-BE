@@ -1,5 +1,6 @@
 package com.example.jobis.domain.company.domain;
 
+import com.example.jobis.domain.company.domain.enums.CompanyType;
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
@@ -26,6 +27,9 @@ public class Company extends User {
     @Column(length = 10, nullable = false, unique = true)
     private String businessNumber;
 
+    @Enumerated(EnumType.STRING)
+    private CompanyType companyType;
+
     @OneToMany(mappedBy = "company")
     private List<Recruit> recruitList = new ArrayList<>();
 
@@ -37,11 +41,13 @@ public class Company extends User {
     private CompanyDetails companyDetails;
 
     @Builder
-    public Company(String companyName, String businessNumber,
-                   String password, String accountId, String companyProfileUrl, CompanyDetails companyDetails) {
+    public Company(String companyName, String businessNumber, String password,
+                   String accountId, String companyProfileUrl,
+                   CompanyDetails companyDetails) {
         super(accountId, password, Authority.COMPANY);
         this.companyName = companyName;
         this.businessNumber = businessNumber;
+        this.companyType = CompanyType.DEFAULT;
         this.companyProfileUrl = companyProfileUrl;
         this.companyDetails = companyDetails;
     }
