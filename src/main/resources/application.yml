@@ -43,7 +43,7 @@ jwt:
   access-exp: ${TOKEN_ACCESS_EXP}
   refresh-exp: ${TOKEN_REFRESH_EXP}
 
-rest-template:
+openfeign:
   access-key: ${API_ACCESS_KEY}
 
 cloud:
