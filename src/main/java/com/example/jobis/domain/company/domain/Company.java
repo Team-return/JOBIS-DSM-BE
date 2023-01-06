@@ -27,6 +27,7 @@ public class Company extends User {
     @Column(length = 10, nullable = false, unique = true)
     private String businessNumber;
 
+    @Enumerated(EnumType.STRING)
     private CompanyType companyType;
 
     @OneToMany(mappedBy = "company")
