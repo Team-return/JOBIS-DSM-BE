@@ -1,7 +1,6 @@
 package com.example.jobis.domain.code.facade;
 
 import com.example.jobis.domain.code.domain.Code;
-import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.code.domain.repository.CodeRepository;
 import com.example.jobis.domain.code.exception.CodeNotFoundException;
 import com.example.jobis.domain.code.exception.InvalidCodeException;
@@ -16,13 +15,13 @@ import java.util.List;
 public class CodeFacade {
     private final CodeRepository codeRepository;
 
-    public List<Code> findCodesWithValidation(List<Long> codes, CodeType codeType) {
-        List<Code> resCodes = new ArrayList<>();
-        codes.forEach(
-                c -> resCodes.add(codeRepository.findByCodeTypeAndCode(codeType, c)
-                        .orElseThrow(()->InvalidCodeException.EXCEPTION))
+    public List<Code> findAllCodeById(List<Long> codeIdList) {
+        List<Code> codeList = new ArrayList<>();
+        codeIdList.forEach(
+                c -> codeList.add(codeRepository.findById(c)
+                        .orElseThrow(() -> InvalidCodeException.EXCEPTION))
         );
-        return resCodes;
+        return codeList;
     }
 
     public Code findCodeById(Long id) {
