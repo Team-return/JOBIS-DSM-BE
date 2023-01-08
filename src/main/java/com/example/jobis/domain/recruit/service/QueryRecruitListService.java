@@ -3,13 +3,11 @@ package com.example.jobis.domain.recruit.service;
 import com.example.jobis.domain.code.controller.dto.response.CodeResponse;
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse;
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitResponse;
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
-import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,6 @@ import java.util.stream.Collectors;
 public class QueryRecruitListService {
 
     private final RecruitRepository recruitRepository;
-    private final RecruitAreaRepository recruitAreaRepository;
-    private final RecruitAreaCodeRepository recruitAreaCodeRepository;
     private final CodeFacade codeFacade;
 
     @Transactional(readOnly = true)
@@ -41,8 +37,8 @@ public class QueryRecruitListService {
 
     private RecruitResponse RecruitBuilder(Recruit recruit) {
         List<CodeResponse> codeList = new ArrayList<>();
-        for (RecruitArea recruitArea : recruitAreaRepository.findAllByRecruit(recruit)) {
-            for (RecruitAreaCode recruitAreaCode : recruitAreaCodeRepository.findAllByRecruitAreaId(recruitArea)) {
+        for (RecruitArea recruitArea : recruit.getRecruitAreaList()) {
+            for (RecruitAreaCode recruitAreaCode : recruitArea.getCodeList()) {
                 Code code = codeFacade.findCodeById(recruitAreaCode.getCodeId().getCode());
                 codeList.add(CodeResponse.builder()
                         .keyword(code.getKeyword())
