@@ -22,8 +22,6 @@ public class TokenReissueService {
 
         RefreshToken token = refreshTokenRepository.findByToken(refresh)
                 .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION);
-
-        System.out.println(refresh);
         String newAccess = jwtTokenProvider.generateAccessToken(token.getId());
         String newRefresh = jwtTokenProvider.generateRefreshToken(token.getId());
         token.update(newRefresh, jwtProperties.getRefreshExp());

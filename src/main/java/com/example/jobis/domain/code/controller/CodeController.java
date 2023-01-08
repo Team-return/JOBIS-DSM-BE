@@ -22,11 +22,6 @@ public class CodeController {
         return findCodeService.execute(keyword, CodeType.TECH);
     }
 
-    @GetMapping("/licenses")
-    public List<CodeResponse> findLicenseCode(@RequestParam("keyword") String keyword) {
-        return findCodeService.execute(keyword, CodeType.LICENSE);
-    }
-
     @GetMapping("/job")
     public List<JobCodeResponse> findAllJobCodes() {
         return findJobCodeService.execute();

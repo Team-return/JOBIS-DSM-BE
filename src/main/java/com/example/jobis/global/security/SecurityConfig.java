@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/companies/exists/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
                 .antMatchers(HttpMethod.POST, "/recruit").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(Authority.ADMIN.toString(), Authority.STUDENT.toString())
                 .antMatchers(HttpMethod.GET, "recruit/{recruit-id}").hasAnyAuthority(Authority.ADMIN.toString(), Authority.STUDENT.toString())
 
                 //user
@@ -48,7 +49,6 @@ public class SecurityConfig {
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
-                .antMatchers(HttpMethod.GET, "/code/licenses").permitAll()
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
 
                 //student

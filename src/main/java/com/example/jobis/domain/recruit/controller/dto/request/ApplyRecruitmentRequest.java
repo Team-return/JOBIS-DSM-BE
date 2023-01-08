@@ -16,7 +16,7 @@ public class ApplyRecruitmentRequest {
     private String preferentialTreatment;
     private int requiredGrade;
     private int workHours;
-    private List<Long> requiredLicenses;
+    private List<String> requiredLicenses;
 
     @NotNull(message = "채용절차 null일 수 없습니다.")
     private List<ProgressType> hiringProgress;

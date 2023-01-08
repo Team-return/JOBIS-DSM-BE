@@ -60,6 +60,9 @@ public class Recruit extends BaseTimeEntity{
     @Embedded
     private Pay pay;
 
+    @Column(nullable = false)
+    private String requiredLicenses;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
@@ -67,13 +70,10 @@ public class Recruit extends BaseTimeEntity{
     @OneToMany(mappedBy = "recruit")
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recruit")
-    private List<RequiredLicences> requiredLicencesList = new ArrayList<>();
-
     @Builder
-    public Recruit(int recruitYear, RecruitStatus status, int requiredGrade, int workHours, String submitDocument,
-                   Integer trainPay, Integer pay, LocalDate startDate, LocalDate endDate, Company company,
-                   String benefit, boolean military, String etc, String preferentialTreatment, String hiringProgress
+    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay,
+                   LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
+                   boolean military, String etc, String preferentialTreatment, String hiringProgress
     ) {
         this.requiredGrade = requiredGrade;
         this.workHours = workHours;
@@ -86,6 +86,7 @@ public class Recruit extends BaseTimeEntity{
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.pay = new Pay(trainPay, pay);
         this.company = company;
+        this.requiredLicenses = requiredLicenses;
         this.military = military;
         this.etc = etc;
     }
