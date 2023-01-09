@@ -6,14 +6,12 @@ import com.example.jobis.domain.recruit.controller.dto.response.RecruitDetailsRe
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitDetailsResponse.RecruitAreaResponse;
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
-import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
 import com.example.jobis.domain.recruit.facade.RecruitFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service

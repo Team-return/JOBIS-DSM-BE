@@ -2,7 +2,6 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
