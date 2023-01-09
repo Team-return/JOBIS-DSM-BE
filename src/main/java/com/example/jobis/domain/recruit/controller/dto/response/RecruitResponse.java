@@ -16,6 +16,5 @@ public class RecruitResponse {
     private final String companyProfileUrl;
     private final Integer trainPay;
     private final boolean military;
-    private final List<CodeResponse> codeList;
-
+    private final List<Long> codeList;
 }

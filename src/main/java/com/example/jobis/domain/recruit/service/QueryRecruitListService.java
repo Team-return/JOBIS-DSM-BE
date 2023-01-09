@@ -36,17 +36,14 @@ public class QueryRecruitListService {
     }
 
     private RecruitResponse RecruitBuilder(Recruit recruit) {
-        List<CodeResponse> codeList = new ArrayList<>();
-        for (RecruitArea recruitArea : recruit.getRecruitAreaList()) {
-            for (RecruitAreaCode recruitAreaCode : recruitArea.getCodeList()) {
-                Code code = codeFacade.findCodeById(recruitAreaCode.getCodeId().getCode());
-                codeList.add(CodeResponse.builder()
-                        .keyword(code.getKeyword())
-                        .code(code.getCode())
-                        .build()
-                );
-            }
+        List<Long> codeList = new ArrayList<>();
+        for (RecruitArea recruitArea: recruit.getRecruitAreaList()) {
+            codeList.addAll(recruitArea.getCodeList().stream()
+                    .map(RecruitAreaCode::getCodeId)
+                    .map(Code::getCode)
+                    .toList());
         }
+
         return RecruitResponse.builder()
                 .recruitId(recruit.getId())
                 .companyName(recruit.getCompany().getCompanyName())
