@@ -71,7 +71,7 @@ public class Recruit extends BaseTimeEntity{
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
     @Builder
-    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay,
+    public Recruit(int recruitYear, RecruitStatus status, int requiredGrade, int workHours, String submitDocument, Integer trainPay, Integer pay,
                    LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
                    boolean military, String etc, String preferentialTreatment, String hiringProgress
     ) {
