@@ -14,7 +14,7 @@ public class RecruitListResponse {
 
     @Getter
     @Builder
-    public class RecruitResponse {
+    public static class RecruitResponse {
 
         private final Long recruitId;
         private final String companyName;
