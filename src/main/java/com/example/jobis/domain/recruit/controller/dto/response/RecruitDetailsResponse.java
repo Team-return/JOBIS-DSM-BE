@@ -21,7 +21,7 @@ public class RecruitDetailsResponse {
     private String preferentialTreatment;
     private int requiredGrade;
     private int workHours;
-    private List<String> requiredLicenses;
+    private String requiredLicenses;
 
     private String hiringProgress;
     private int trainPay;
