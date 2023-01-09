@@ -1,11 +1,10 @@
 package com.example.jobis.domain.recruit.service;
 
-import com.example.jobis.domain.code.controller.dto.response.CodeResponse;
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse;
-import com.example.jobis.domain.recruit.controller.dto.response.RecruitResponse;
+import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse.RecruitResponse;
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.repository.RecruitRepository;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 public class QueryRecruitListService {
 
     private final RecruitRepository recruitRepository;
-    private final CodeFacade codeFacade;
 
     @Transactional(readOnly = true)
     public RecruitListResponse execute() {
