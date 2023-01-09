@@ -22,9 +22,5 @@ public class RecruitController {
     public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentRequest request) {
         applyRecruitmentService.execute(request);
     }
-
-    @GetMapping
-    public RecruitListResponse recruitList() {
-        return queryRecruitListService.execute();
-    }
+    
 }
