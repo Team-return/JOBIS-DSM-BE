@@ -1,6 +1,8 @@
 package com.example.jobis.domain.code.facade;
 
 import com.example.jobis.domain.code.domain.Code;
+import com.example.jobis.domain.code.domain.RecruitAreaCode;
+import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.code.domain.repository.CodeRepository;
 import com.example.jobis.domain.code.exception.InvalidCodeException;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class CodeFacade {
         return recruitArea.getCodeList().stream()
                 .map(RecruitAreaCode::getCodeId)
                 .toList().stream()
-                .filter(code -> code.getCodeType().equals(CodeType.JOB))
+                .filter(code -> code.getCodeType().equals(codeType))
                 .map(Code::getKeyword)
                 .toList();
     }
