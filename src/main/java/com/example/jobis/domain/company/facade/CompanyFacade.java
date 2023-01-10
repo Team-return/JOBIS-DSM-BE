@@ -6,6 +6,7 @@ import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.infrastructure.feignClients.BizNoFeignClient;
 import com.example.jobis.infrastructure.feignClients.FeignProperty;
 import com.example.jobis.infrastructure.feignClients.dto.BusinessNumberResponse;
+import com.example.jobis.infrastructure.feignClients.dto.Items;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -19,13 +20,13 @@ public class CompanyFacade {
     private final CompanyRepository companyRepository;
 
     public String getCompanyName(String businessNumber) {
-        BusinessNumberResponse response = getApi(businessNumber);
-        return response.getItems().get(0).getCompany();
+        Items items = getApi(businessNumber);
+        return items.getCompany();
     }
 
     public boolean checkCompany(String businessNumber) {
-        BusinessNumberResponse response = getApi(businessNumber);
-        return response.getItems().get(0).getBno().replace("-", "").equals(businessNumber);
+        Items items = getApi(businessNumber);
+        return items.getBno().replace("-", "").equals(businessNumber);
     }
 
     public boolean companyExists(String businessNumber) {
@@ -54,12 +55,12 @@ public class CompanyFacade {
                 .orElseThrow(()->CompanyNotFoundException.EXCEPTION);
     }
 
-    private BusinessNumberResponse getApi(String businessNumber) {
-        BusinessNumberResponse response = bizNoFeignClient.getApi(feignProperty.getAccessKey(),
-                1, "N", businessNumber, "json");
-        if (response.getItems() == null) {
+    private Items getApi(String businessNumber) {
+        try {
+            return bizNoFeignClient.getApi(feignProperty.getAccessKey(),
+                    1, "N", businessNumber, "json").getItems().get(0);
+        } catch (Exception e) {
             throw CompanyNotFoundException.EXCEPTION;
         }
-        return response;
     }
 }
