@@ -13,25 +13,27 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class ApplyRecruitmentRequest {
-    @NotNull(message = "모집분야는 null일 수 없습니다.")
+    @NotNull(message = "areas는 null일 수 없습니다.")
     private List<Area> areas;
     private String preferentialTreatment;
     private int requiredGrade;
+
+    @NotNull(message = "work_hors는 null일 수 없습니다.")
     private int workHours;
     private List<String> requiredLicenses;
 
-    @NotNull(message = "채용절차 null일 수 없습니다.")
+    @NotNull(message = "hiring_progress는 null일 수 없습니다.")
     private List<ProgressType> hiringProgress;
-    @NotNull(message = "실습수당은 null 일 수 없습니다.")
+    @NotNull(message = "train_pay는 null 일 수 없습니다.")
     private int trainPay;
     private int pay;
     private String benefits;
     private boolean military;
-    @NotNull(message = "제출 서류는 null일 수 없습니다.")
+    @NotNull(message = "submit_document는 null일 수 없습니다.")
     private String submitDocument;
-    @NotNull(message = "모집기간은 null일 수 없습니다.")
+    @NotNull(message = "start_date null일 수 없습니다.")
     private LocalDate startDate;
-    @NotNull(message = "모집기간은 null일 수 없습니다.")
+    @NotNull(message = "end_date null일 수 없습니다.")
     private LocalDate endDate;
     private String etc;
 
