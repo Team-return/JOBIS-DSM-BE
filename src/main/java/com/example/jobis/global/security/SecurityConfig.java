@@ -54,6 +54,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
+                .antMatchers(HttpMethod.GET, "/students/recruit").hasAuthority(Authority.STUDENT.toString())
                 .anyRequest().authenticated()
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));
