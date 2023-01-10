@@ -9,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ public class Recruit extends BaseTimeEntity{
     @Column(name = "recruit_id")
     private Long id;
 
-    @Column(columnDefinition = "year")
+    @Column(columnDefinition = "year", nullable = false)
     private int recruitYear;
 
     @Enumerated(EnumType.STRING)
@@ -34,14 +33,13 @@ public class Recruit extends BaseTimeEntity{
     @Column(length = 1000)
     private String benefit;
 
+    private int workHours;
+
     @Column(length = 1000)
     private String preferentialTreatment;
 
     @Column(columnDefinition = "BIT(1)", nullable = false)
     private boolean military;
-
-    @Column(length = 1000)
-    private String etc;
 
     @Column(nullable = false)
     private String hiringProgress;
@@ -52,8 +50,14 @@ public class Recruit extends BaseTimeEntity{
     @Embedded
     private Pay pay;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String requiredLicenses;
+
+    @Column(columnDefinition = "TINYINT(100)")
+    private Integer requiredGrade;
+
+    @Column(length = 1000)
+    private String etc;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -63,11 +67,13 @@ public class Recruit extends BaseTimeEntity{
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
     @Builder
-    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay,
+    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workHours,
                    LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
-                   boolean military, String etc, String preferentialTreatment, String hiringProgress
+                   boolean military, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
     ) {
+        this.workHours = workHours;
         this.hiringProgress = hiringProgress;
+        this.requiredGrade = requiredGrade;
         this.recruitYear = recruitYear;
         this.status = status;
         this.benefit = benefit;
