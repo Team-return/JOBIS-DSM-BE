@@ -17,7 +17,7 @@ public class ApplyRecruitmentRequest {
 
     @NotNull(message = "work_hors는 null일 수 없습니다.")
     private Integer workHours;
-    private String requiredLicenses;
+    private List<String> requiredLicenses;
 
     @NotNull(message = "hiring_progress는 null일 수 없습니다.")
     private List<ProgressType> hiringProgress;

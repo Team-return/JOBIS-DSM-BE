@@ -42,8 +42,6 @@ public class ApplyRecruitmentService {
 
         String requiredLicenses = request.getRequiredLicenses() == null?
                 null : String.join(",", request.getRequiredLicenses());
-        System.out.println(request.getRequiredLicenses());
-        System.out.println(request.getRequiredGrade());
 
         Recruit recruit = recruitRepository.save(
                 Recruit.builder()
