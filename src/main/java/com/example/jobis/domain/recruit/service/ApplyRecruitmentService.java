@@ -56,6 +56,7 @@ public class ApplyRecruitmentService {
                         .requiredLicenses(requiredLicenses)
                         .status(RecruitStatus.REQUESTED)
                         .requiredGrade(request.getRequiredGrade())
+                        .submitDocument(request.getSubmitDocument())
                         .etc(request.getEtc())
                         .startDate(request.getStartDate())
                         .endDate(request.getEndDate())

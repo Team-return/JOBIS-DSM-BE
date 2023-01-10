@@ -59,6 +59,9 @@ public class Recruit extends BaseTimeEntity{
     @Column(length = 1000)
     private String etc;
 
+    @Column(nullable = false)
+    private String submitDocument;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
@@ -67,12 +70,13 @@ public class Recruit extends BaseTimeEntity{
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
     @Builder
-    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workHours,
+    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workHours, String submitDocument,
                    LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
                    boolean military, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
     ) {
         this.workHours = workHours;
         this.hiringProgress = hiringProgress;
+        this.submitDocument = submitDocument;
         this.requiredGrade = requiredGrade;
         this.recruitYear = recruitYear;
         this.status = status;

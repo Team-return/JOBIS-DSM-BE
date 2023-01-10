@@ -15,7 +15,7 @@ public class ApplyRecruitmentRequest {
     private String preferentialTreatment;
     private Integer requiredGrade;
 
-    @NotNull(message = "work_hors는 null일 수 없습니다.")
+    @NotNull(message = "work_hours는 null일 수 없습니다.")
     private Integer workHours;
     private List<String> requiredLicenses;
 
