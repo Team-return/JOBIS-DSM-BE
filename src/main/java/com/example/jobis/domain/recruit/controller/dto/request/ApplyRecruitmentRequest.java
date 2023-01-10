@@ -3,9 +3,6 @@ package com.example.jobis.domain.recruit.controller.dto.request;
 import com.example.jobis.domain.recruit.domain.enums.ProgressType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.aspectj.apache.bcel.classfile.Code;
-
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,24 +13,26 @@ public class ApplyRecruitmentRequest {
     @NotNull(message = "areas는 null일 수 없습니다.")
     private List<Area> areas;
     private String preferentialTreatment;
-    private int requiredGrade;
+    private Integer requiredGrade;
 
     @NotNull(message = "work_hors는 null일 수 없습니다.")
-    private int workHours;
-    private List<String> requiredLicenses;
+    private Integer workHours;
+    private String requiredLicenses;
 
     @NotNull(message = "hiring_progress는 null일 수 없습니다.")
     private List<ProgressType> hiringProgress;
     @NotNull(message = "train_pay는 null 일 수 없습니다.")
-    private int trainPay;
-    private int pay;
+    private Integer trainPay;
+    private Integer pay;
     private String benefits;
+
+    @NotNull(message = "military는 null일 수 없습니다.")
     private boolean military;
     @NotNull(message = "submit_document는 null일 수 없습니다.")
     private String submitDocument;
-    @NotNull(message = "start_date null일 수 없습니다.")
+    @NotNull(message = "start_date는 null일 수 없습니다.")
     private LocalDate startDate;
-    @NotNull(message = "end_date null일 수 없습니다.")
+    @NotNull(message = "end_date는 null일 수 없습니다.")
     private LocalDate endDate;
     private String etc;
 

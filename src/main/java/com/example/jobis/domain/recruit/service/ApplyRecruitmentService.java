@@ -39,12 +39,17 @@ public class ApplyRecruitmentService {
         String hiringProgress = request.getHiringProgress()
                         .stream().map(Enum::toString)
                         .collect(Collectors.joining(","));
-        String requiredLicenses = String.join(",", request.getRequiredLicenses());
+
+        String requiredLicenses = request.getRequiredLicenses() == null?
+                null : String.join(",", request.getRequiredLicenses());
+        System.out.println(request.getRequiredLicenses());
+        System.out.println(request.getRequiredGrade());
 
         Recruit recruit = recruitRepository.save(
                 Recruit.builder()
                         .company(company)
                         .hiringProgress(hiringProgress)
+                        .workHours(request.getWorkHours())
                         .pay(request.getPay())
                         .trainPay(request.getTrainPay())
                         .benefit(request.getBenefits())
@@ -52,6 +57,7 @@ public class ApplyRecruitmentService {
                         .recruitYear(LocalDate.now().getYear())
                         .requiredLicenses(requiredLicenses)
                         .status(RecruitStatus.REQUESTED)
+                        .requiredGrade(request.getRequiredGrade())
                         .etc(request.getEtc())
                         .startDate(request.getStartDate())
                         .endDate(request.getEndDate())
