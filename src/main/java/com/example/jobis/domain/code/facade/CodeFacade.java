@@ -2,6 +2,7 @@ package com.example.jobis.domain.code.facade;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.repository.CodeRepository;
+import com.example.jobis.domain.code.exception.CodeNotFoundException;
 import com.example.jobis.domain.code.exception.InvalidCodeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,5 +22,10 @@ public class CodeFacade {
                         .orElseThrow(() -> InvalidCodeException.EXCEPTION))
         );
         return codeList;
+    }
+
+    public Code findCodeById(Long id) {
+        return codeRepository.findById(id)
+                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
     }
 }
