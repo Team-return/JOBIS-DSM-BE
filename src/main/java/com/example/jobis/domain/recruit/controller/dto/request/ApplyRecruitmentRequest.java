@@ -28,12 +28,14 @@ public class ApplyRecruitmentRequest {
     private int trainPay;
     private int pay;
     private String benefits;
+
+    @NotNull(message = "military는 null일 수 없습니다.")
     private boolean military;
     @NotNull(message = "submit_document는 null일 수 없습니다.")
     private String submitDocument;
-    @NotNull(message = "start_date null일 수 없습니다.")
+    @NotNull(message = "start_date는 null일 수 없습니다.")
     private LocalDate startDate;
-    @NotNull(message = "end_date null일 수 없습니다.")
+    @NotNull(message = "end_date는 null일 수 없습니다.")
     private LocalDate endDate;
     private String etc;
 
