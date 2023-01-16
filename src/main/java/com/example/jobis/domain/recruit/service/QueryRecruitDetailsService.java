@@ -52,6 +52,7 @@ public class QueryRecruitDetailsService {
         List<String> techCodes = codeFacade.getKeywordByRecruitArea(recruitArea, CodeType.TECH);
 
         return RecruitAreaResponse.builder()
+                .recruitAreaId(recruitArea.getId())
                 .job(jobCodes)
                 .tech(techCodes)
                 .hiring(recruitArea.getHiredCount())

@@ -36,6 +36,7 @@ public class RecruitDetailsResponse {
     @Getter
     @Builder
     public static class RecruitAreaResponse {
+        private Long recruitAreaId;
         private List<String> job;
         private List<String> tech;
         private int hiring;
