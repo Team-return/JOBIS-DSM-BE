@@ -36,4 +36,8 @@ public class RecruitArea {
         this.recruit = recruit;
     }
 
+    public void update(Integer hiredCount, String majorTask) {
+        this.hiredCount = hiredCount;
+        this.majorTask = majorTask;
+    }
 }
