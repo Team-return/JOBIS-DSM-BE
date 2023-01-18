@@ -33,7 +33,7 @@ public class SecurityConfig {
 
                 .authorizeRequests()
                 //company
-                .antMatchers(HttpMethod.POST, "/companies").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(Authority.COMPANY.toString())
                 .antMatchers(HttpMethod.GET, "/companies/exists").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
