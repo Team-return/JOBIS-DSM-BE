@@ -35,7 +35,7 @@ public class SecurityConfig {
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(Authority.COMPANY.toString())
-                .antMatchers(HttpMethod.GET, "/companies/exists").permitAll()
+                .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}")
                 .hasAnyAuthority(Authority.STUDENT.toString(), Authority.ADMIN.toString())
