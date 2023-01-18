@@ -34,10 +34,9 @@ public class Recruitment extends BaseTimeEntity{
     @Column(columnDefinition = "VARCHAR(10)")
     private RecruitStatus status;
 
-    @NotNull
+
     private String preferentialTreatment;
 
-    @NotNull
     private String requiredLicenses;
 
     @Column(columnDefinition = "TINYINT(100)")
@@ -47,7 +46,6 @@ public class Recruitment extends BaseTimeEntity{
     @Column(columnDefinition = "TINYINT(50)", nullable = false)
     private int workingHours;
 
-    @NotNull
     private String benefit;
 
     @NotNull
