@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -15,9 +16,11 @@ import java.time.LocalDate;
 @Embeddable
 public class RecruitDate {
 
-    @Column(columnDefinition = "DATE", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
-    @Column(columnDefinition = "DATE", nullable = false)
-    private LocalDate endDate;
+    @NotNull
+    @Column(columnDefinition = "DATE")
+    private LocalDate finishDate;
 }
