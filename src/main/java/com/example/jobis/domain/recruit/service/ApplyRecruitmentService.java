@@ -2,14 +2,13 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest.Area;
-import com.example.jobis.domain.recruit.domain.Recruit;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
@@ -43,11 +42,11 @@ public class ApplyRecruitmentService {
         String requiredLicenses = request.getRequiredLicenses() == null?
                 null : String.join(",", request.getRequiredLicenses());
 
-        Recruit recruit = recruitRepository.save(
-                Recruit.builder()
+        Recruitment recruitment = recruitRepository.save(
+                Recruitment.builder()
                         .company(company)
                         .hiringProgress(hiringProgress)
-                        .workHours(request.getWorkHours())
+                        .workingHours(request.getWorkHours())
                         .pay(request.getPay())
                         .trainPay(request.getTrainPay())
                         .benefit(request.getBenefits())
@@ -60,23 +59,23 @@ public class ApplyRecruitmentService {
                         .etc(request.getEtc())
                         .startDate(request.getStartDate())
                         .endDate(request.getEndDate())
-                        .military(request.isMilitary())
+                        .militarySupport(request.isMilitary())
                         .build()
         );
 
-        List<Long> codes = new ArrayList<>();
+        List<Long> requestCode = new ArrayList<>();
         for(Area area : request.getAreas()) {
             RecruitArea recruitArea = recruitAreaRepository.save(
                     RecruitArea.builder()
                             .majorTask(area.getMajorTask())
                             .hiredCount(area.getHiring())
-                            .recruit(recruit)
+                            .recruitment(recruitment)
                             .build()
             );
-            codes.addAll(area.getTech());
-            codes.addAll(area.getJob());
+            requestCode.addAll(area.getJob());
+            requestCode.addAll(area.getTech());
 
-            List<Code> codeList = codeFacade.findAllCodeById(codes);
+            List<Code> codeList = codeFacade.findAllCodeById(requestCode);
             List<RecruitAreaCode> recruitAreaCodes = codeList.stream()
                     .map(c -> new RecruitAreaCode(recruitArea, c))
                     .collect(Collectors.toList());
