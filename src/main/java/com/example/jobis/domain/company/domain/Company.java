@@ -68,7 +68,7 @@ public class Company {
     @Embedded
     private Manager manager;
 
-    @Column(columnDefinition = "VARCHAR(11)")
+    @Column(columnDefinition = "VARCHAR(12)")
     private String fax;
 
     @NotNull

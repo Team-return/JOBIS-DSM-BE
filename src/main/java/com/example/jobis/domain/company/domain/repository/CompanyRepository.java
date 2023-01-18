@@ -9,6 +9,4 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     Optional<Company> findByBizNo(String bizNo);
 
     boolean existsByBizNo(String bizNo);
-
-    Optional<Company> findByAccountId(String accountId);
 }
