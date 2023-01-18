@@ -11,8 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class UpdateRecruitmentRequest {
-    @NotNull(message = "areas는 null일 수 없습니다.")
-    private List<Area> areas;
+
     private String preferentialTreatment;
     private Integer requiredGrade;
 
@@ -36,12 +35,4 @@ public class UpdateRecruitmentRequest {
     @NotNull(message = "end_date는 null일 수 없습니다.")
     private LocalDate endDate;
     private String etc;
-
-    @Getter
-    public static class Area{
-        private List<Long> job;
-        private List<Long> tech;
-        private int hiring;
-        private String majorTask;
-    }
 }
