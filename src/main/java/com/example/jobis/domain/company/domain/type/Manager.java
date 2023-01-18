@@ -12,20 +12,16 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class Manager {
 
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(10)")
+    @Column(columnDefinition = "VARCHAR(10)", nullable = false)
     private String managerName;
 
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(11)")
+    @Column(columnDefinition = "VARCHAR(12)", nullable = false)
     private String managerPhoneNo;
 
-    @NotNull
     @Column(columnDefinition = "VARCHAR(10)")
     private String subManagerName;
 
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(11)")
+    @Column(columnDefinition = "VARCHAR(12)")
     private String subManagerPhoneNo;
 
     public void update(String managerName, String managerPhoneNo, String subManagerName, String subManagerPhoneNo) {

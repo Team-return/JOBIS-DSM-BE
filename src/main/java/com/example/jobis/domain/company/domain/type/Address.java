@@ -12,17 +12,14 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class Address {
 
-    @NotNull
+    @Column(nullable = false)
     private String mainAddress;
 
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(5)")
+    @Column(columnDefinition = "VARCHAR(5)", nullable = false)
     private String mainZipCode;
 
-    @NotNull
     private String subAddress;
 
-    @NotNull
     @Column(columnDefinition = "VARCHAR(5)")
     private String subZipCode;
 
