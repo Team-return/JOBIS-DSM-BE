@@ -3,6 +3,8 @@ package com.example.jobis.domain.company.controller.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 @Builder
 public class CompanyDetailsResponse {
@@ -21,7 +23,7 @@ public class CompanyDetailsResponse {
     private String fax;
     private String email;
     private String representativeName;
-    private String foundedAt;
-    private Long workerNumber;
-    private Long take;
+    private LocalDate foundedAt;
+    private int workerNumber;
+    private int take;
 }
