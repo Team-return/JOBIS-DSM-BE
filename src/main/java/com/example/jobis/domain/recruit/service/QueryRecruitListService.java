@@ -2,12 +2,11 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse;
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse.RecruitResponse;
-import com.example.jobis.domain.recruit.domain.Recruit;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
-import com.example.jobis.domain.recruit.domain.repository.RecruitRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +19,12 @@ import java.util.stream.Collectors;
 @Service
 public class QueryRecruitListService {
 
-    private final RecruitRepository recruitRepository;
+    private final RecruitmentRepository recruitmentRepository;
 
     @Transactional(readOnly = true)
     public RecruitListResponse execute() {
 
-        List<RecruitResponse> recruitList = recruitRepository.findAll()
+        List<RecruitResponse> recruitList = recruitmentRepository.findAll()
                 .stream()
                 .map(this::RecruitBuilder)
                 .collect(Collectors.toList());
@@ -33,9 +32,9 @@ public class QueryRecruitListService {
         return new RecruitListResponse(recruitList);
     }
 
-    private RecruitResponse RecruitBuilder(Recruit recruit) {
+    private RecruitResponse RecruitBuilder(Recruitment recruitment) {
         List<Long> codeList = new ArrayList<>();
-        for (RecruitArea recruitArea: recruit.getRecruitAreaList()) {
+        for (RecruitArea recruitArea: recruitment.getRecruitAreaList()) {
             codeList.addAll(recruitArea.getCodeList().stream()
                     .map(RecruitAreaCode::getCodeId)
                     .map(Code::getCode)
@@ -43,11 +42,11 @@ public class QueryRecruitListService {
         }
 
         return RecruitResponse.builder()
-                .recruitId(recruit.getId())
-                .companyName(recruit.getCompany().getCompanyName())
-                .companyProfileUrl(recruit.getCompany().getCompanyProfileUrl())
-                .military(recruit.isMilitary())
-                .trainPay(recruit.getPay().getTrainPay())
+                .recruitId(recruitment.getId())
+                .companyName(recruitment.getCompany().getName())
+                .companyProfileUrl(recruitment.getCompany().getCompanyLogoUrl())
+                .military(recruitment.isMilitarySupport())
+                .trainPay(recruitment.getPay().getTrainingPay())
                 .codeList(codeList)
                 .build();
     }

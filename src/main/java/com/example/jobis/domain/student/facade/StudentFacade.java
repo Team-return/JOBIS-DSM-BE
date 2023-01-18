@@ -11,6 +11,6 @@ public class StudentFacade {
     private final StudentRepository studentRepository;
 
     public boolean existsEmail(String email) {
-        return studentRepository.existsByAccountId(email);
+        return studentRepository.existsByEmail(email);
     }
 }

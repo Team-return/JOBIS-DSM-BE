@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    Optional<Company> findByBusinessNumber(String num);
+    Optional<Company> findByBizNo(String bizNo);
 
-    boolean existsByBusinessNumber(String accountId);
-
-    Optional<Company> findByAccountId(String accountId);
+    boolean existsByBizNo(String bizNo);
 }

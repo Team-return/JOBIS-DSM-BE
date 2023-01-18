@@ -23,17 +23,17 @@ public class RecruitArea {
     private String majorTask;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruit_id", nullable = false)
-    private Recruit recruit;
+    @JoinColumn(name = "recruitment_id", nullable = false)
+    private Recruitment recruitment;
 
     @OneToMany(mappedBy = "recruitAreaId")
     private List<RecruitAreaCode> codeList = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String majorTask, Recruit recruit) {
+    public RecruitArea(Integer hiredCount, String majorTask, Recruitment recruitment) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
-        this.recruit = recruit;
+        this.recruitment = recruitment;
     }
 
 }

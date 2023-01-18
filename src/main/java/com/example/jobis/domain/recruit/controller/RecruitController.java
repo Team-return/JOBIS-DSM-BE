@@ -12,10 +12,9 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/recruit")
+@RequestMapping("/recruitment")
 public class RecruitController {
     private final ApplyRecruitmentService applyRecruitmentService;
-    private final QueryRecruitListService queryRecruitListService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping

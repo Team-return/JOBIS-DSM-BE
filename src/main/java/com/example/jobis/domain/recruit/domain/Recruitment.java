@@ -9,40 +9,64 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@BatchSize(size = 200)
+@DynamicUpdate
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Recruit extends BaseTimeEntity{
+public class Recruitment extends BaseTimeEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recruit_id")
     private Long id;
 
-    @Column(columnDefinition = "year", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "YEAR")
     private int recruitYear;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
     private RecruitStatus status;
 
-    @Column(length = 1000)
-    private String benefit;
 
-    private int workHours;
-
-    @Column(length = 1000)
     private String preferentialTreatment;
 
-    @Column(columnDefinition = "BIT(1)", nullable = false)
-    private boolean military;
+    private String requiredLicenses;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TINYINT(100)")
+    private Integer requiredGrade;
+
+    @NotNull
+    @Column(columnDefinition = "TINYINT(50)", nullable = false)
+    private int workingHours;
+
+    private String benefit;
+
+    @NotNull
+    @Column(columnDefinition = "BOOL")
+    private boolean militarySupport;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(100)")
     private String hiringProgress;
+
+    @Column(columnDefinition = "VARCHAR(100)")
+    private String submitDocument;
+
+    @Column(columnDefinition = "TEXT")
+    private String etc;
 
     @Embedded
     private RecruitDate recruitDate;
@@ -50,31 +74,19 @@ public class Recruit extends BaseTimeEntity{
     @Embedded
     private Pay pay;
 
-    @Column(nullable = true)
-    private String requiredLicenses;
-
-    @Column(columnDefinition = "TINYINT(100)")
-    private Integer requiredGrade;
-
-    @Column(length = 1000)
-    private String etc;
-
-    @Column(nullable = false)
-    private String submitDocument;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @OneToMany(mappedBy = "recruit")
+    @OneToMany(mappedBy = "recruitment")
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
     @Builder
-    public Recruit(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workHours, String submitDocument,
-                   LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
-                   boolean military, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
+    public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
+                       LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
+                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
     ) {
-        this.workHours = workHours;
+        this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
         this.requiredGrade = requiredGrade;
@@ -86,7 +98,7 @@ public class Recruit extends BaseTimeEntity{
         this.pay = new Pay(trainPay, pay);
         this.company = company;
         this.requiredLicenses = requiredLicenses;
-        this.military = military;
+        this.militarySupport = militarySupport;
         this.etc = etc;
     }
 }

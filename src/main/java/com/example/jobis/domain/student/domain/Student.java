@@ -10,14 +10,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Student extends User {
+public class Student {
+
+    @Id
+    @Column(name = "student_id")
+    private Long id;
+
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private User user;
 
     @Column(length = 10, nullable = false)
     private String name;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(30)")
+    private String email;
 
     @Enumerated(EnumType.STRING)
     private Grade grade;
@@ -26,10 +40,11 @@ public class Student extends User {
     private Gender gender;
 
     @Builder
-    public Student(String accountId, String password, String name, Grade grade, Gender gender) {
-        super(accountId, password, Authority.STUDENT);
+    public Student(User user, String name, Grade grade, Gender gender, String email) {
+        this.user = user;
         this.name = name;
         this.grade = grade;
         this.gender = gender;
+        this.email = email;
     }
 }
