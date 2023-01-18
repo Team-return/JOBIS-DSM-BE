@@ -23,7 +23,7 @@ public class RecruitArea {
     private String majorTask;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruit_id", nullable = false)
+    @JoinColumn(name = "recruitment_id", nullable = false)
     private Recruitment recruitment;
 
     @OneToMany(mappedBy = "recruitAreaId")

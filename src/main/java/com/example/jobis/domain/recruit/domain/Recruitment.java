@@ -74,7 +74,7 @@ public class Recruitment extends BaseTimeEntity{
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @OneToMany(mappedBy = "recruit")
+    @OneToMany(mappedBy = "recruitment")
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
     @Builder

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RecruitAreaRepository extends JpaRepository<RecruitArea, Long> {
 
-    List<RecruitArea> findAllByRecruit(Recruitment recruitment);
+    List<RecruitArea> findAllByRecruitment(Recruitment recruitment);
 }
