@@ -1,35 +1,37 @@
 package com.example.jobis.domain.company.domain.type;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Manager {
 
-    @Column(length = 40, nullable = false)
-    private String manager1;
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(10)")
+    private String managerName;
 
-    @Column(length = 11, nullable = false)
-    private String phoneNumber1;
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(11)")
+    private String managerPhoneNo;
 
-    @Column(length = 40, nullable = false)
-    private String manager2;
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(10)")
+    private String subManagerName;
 
-    @Column(length = 11, nullable = false)
-    private String phoneNumber2;
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(11)")
+    private String subManagerPhoneNo;
 
-    @Builder
-    public Manager(String manager1, String phoneNumber1, String manager2, String phoneNumber2) {
-        this.manager1 = manager1;
-        this.phoneNumber1 = phoneNumber1;
-        this.manager2 = manager2;
-        this.phoneNumber2 = phoneNumber2;
+    public void update(String managerName, String managerPhoneNo, String subManagerName, String subManagerPhoneNo) {
+        this.managerName = managerName;
+        this.managerPhoneNo = managerPhoneNo;
+        this.subManagerName = subManagerName;
+        this.subManagerPhoneNo = subManagerPhoneNo;
     }
 }
