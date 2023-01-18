@@ -1,76 +1,82 @@
 package com.example.jobis.domain.company.controller.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
 public class RegisterCompanyRequest {
 
-    @NotBlank(message = "사업자번호는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 10, max = 10, message = "사업자 번호는 10글자여야 합니다.")
+    @NotBlank(message = "name은 null또는 공백을 허용하지 않습니다.")
+    private String name;
+
+    @NotBlank(message = "business_number는 널 또는 공백을 포함할 수 없습니다.")
+    @Size(min = 10, max = 10, message = "business_number는 10글자여야 합니다.")
     private String businessNumber;
 
-    @NotBlank(message = "비밀번호는 Null, 공백, 띄어쓰기를 허용하지 않습니다.")
-    @Pattern(regexp = "^[0-9]{4}$", message = "비밀번호는 4자리, 숫자로 구성되어야 합니다.")
+    @NotNull(message = "password는 null을 혀용하지 않습니다.")
+    @Pattern(regexp = "^[0-9]{4}$", message = "password 4자리 숫자로 구성되어야 합니다.")
     private String password;
 
-    @NotBlank(message = "회사소개는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 1, max = 4000, message = "회사소개는 1자에서 4000자 사이여야합니다.")
+    @NotEmpty(message = "company_introduce는 null과 공백을 허용하지 않습니다.")
+    @Size(max = 4000, message = "company_introduce는 4000자를 넘을 수 없습니다.")
     private String companyIntroduce;
 
-    @NotBlank(message = "우편번호1은 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 5, max = 5, message = "우편번호1은 5자여야 합니다.")
+    @NotBlank(message = "zip_code1은 null 또는 공백을 포함할 수 없습니다.")
+    @Size(min = 5, max = 5, message = "zip_code1은 5자여야 합니다.")
     private String zipCode1;
 
-    @NotBlank(message = "주소1는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 1, max = 100, message = "주소1은 1자에서 100자 사이여야합니다.")
+    @NotBlank(message = "address1은 null 또는 공백을 포함할 수 없습니다.")
+    @Size(max = 100, message = "address1은 100자를 넘을 수 없습니다.")
     private String address1;
 
-    @Size(max = 5, message = "우편번호2는 5자여야 합니다.")
+    @Size(max = 5, message = "zip_code2는 5자여야 합니다.")
     private String zipCode2;
 
-    @Size(max = 100, message = "주소2는 1자에서 100자 사이여야합니다.")
+    @Size(max = 100, message = "address2는 100자를 넘을 수 없습니다.")
     private String address2;
 
-    @NotBlank(message = "담당자1은 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 1, max = 40, message = "담당자1은 1자에서 40자여야 합니다.")
+    @NotBlank(message = "manager1은 null 또는 공백을 포함할 수 없습니다.")
+    @Size(max = 10, message = "manager1은 10자를 넘을 수 없습니다.")
     private String manager1;
 
-    @NotBlank(message = "담당자1 전화번호는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 10, max = 11, message = "담당자1 전화번호는 10자에서 11자여야 합니다.")
+    @NotBlank(message = "phone_number1은 null 또는 공백을 포함할 수 없습니다.")
+    @Size(min = 10, max = 12, message = "phone_number1은 10자에서 11자여야 합니다.")
     private String phoneNumber1;
 
-    @Size(max = 40, message = "담당자2은 1자에서 40자여야 합니다.")
+    @Size(max = 10, message = "manager2는 10자를 넘을 수 없습니다.")
     private String manager2;
 
-    @Size(max = 11, message = "담당자2 전화번호는 10자에서 11자여야 합니다.")
+    @Size(max = 12, message = "phone_number2는 10자에서 12자여야 합니다.")
     private String phoneNumber2;
 
-    @Size(max = 11, message = "팩스번호는 10자에서 11자여야 합니다.")
+    @Size(min = 10, max = 12, message = "fax는 10자에서 12자여야 합니다.")
     private String fax;
 
     @Email
-    @Size(min = 1, max = 60, message = "이메일은 1자에서 60자여야 합니다.")
+    @Size(min = 1, max = 20, message = "email은 1자에서 20자여야 합니다.")
     private String email;
 
-    @NotBlank(message = "대표자는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 1, max = 40, message = "대표자는 1자에서 40자여야 합니다.")
+    @NotBlank(message = "representative_name은 null 또는 공백을 포함할 수 없습니다.")
+    @Size(max = 40, message = "representative_name은 40자를 넘을 수 없습니다.")
     private String representativeName;
 
-    @NotBlank(message = "대표자는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 8, max = 8, message = "대표자는 8자여야 합니다.")
-    private String foundedAt;
+    @NotNull(message = "founded_at은 null일 수 없습니다.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate foundedAt;
 
-    @NotNull(message = "근로자수는 널을 포함할 수 없습니다.")
-    private Long workerNumber;
+    @NotNull(message = "worker_number는 null을 포함할 수 없습니다.")
+    private int workerNumber;
 
-    @NotNull(message = "매출액은 널을 포함할 수 없습니다.")
-    private Long take;
+    @NotNull(message = "take는 null을 포함할 수 없습니다.")
+    private int take;
 
-    @NotBlank(message = "회사 프로필 사진은 널 공백 포함 불가입니다.")
+    @NotBlank(message = "company_profile_url은 null 또는 공백 포함 불가입니다.")
     private String companyProfileUrl;
 
 }
