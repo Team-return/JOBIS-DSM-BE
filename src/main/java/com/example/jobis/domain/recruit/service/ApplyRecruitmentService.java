@@ -12,7 +12,7 @@ import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
-import com.example.jobis.domain.recruit.domain.repository.RecruitRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ApplyRecruitmentService {
-    private final RecruitRepository recruitRepository;
+    private final RecruitmentRepository recruitmentRepository;
     private final RecruitAreaRepository recruitAreaRepository;
     private final RecruitAreaCodeRepository recruitAreaCodeRepository;
     private final CompanyFacade companyFacade;
@@ -42,24 +42,24 @@ public class ApplyRecruitmentService {
         String requiredLicenses = request.getRequiredLicenses() == null?
                 null : String.join(",", request.getRequiredLicenses());
 
-        Recruitment recruitment = recruitRepository.save(
+        Recruitment recruitment = recruitmentRepository.save(
                 Recruitment.builder()
                         .company(company)
-                        .hiringProgress(hiringProgress)
-                        .workingHours(request.getWorkHours())
-                        .pay(request.getPay())
-                        .trainPay(request.getTrainPay())
-                        .benefit(request.getBenefits())
-                        .preferentialTreatment(request.getPreferentialTreatment())
                         .recruitYear(LocalDate.now().getYear())
+                        .militarySupport(request.isMilitarySupport())
+                        .workingHours(request.getWorkHours())
+                        .preferentialTreatment(request.getPreferentialTreatment())
                         .requiredLicenses(requiredLicenses)
                         .status(RecruitStatus.REQUESTED)
                         .requiredGrade(request.getRequiredGrade())
-                        .submitDocument(request.getSubmitDocument())
-                        .etc(request.getEtc())
                         .startDate(request.getStartDate())
                         .endDate(request.getEndDate())
-                        .militarySupport(request.isMilitary())
+                        .trainPay(request.getTrainPay())
+                        .submitDocument(request.getSubmitDocument())
+                        .pay(request.getPay())
+                        .benefit(request.getBenefits())
+                        .etc(request.getEtc())
+                        .hiringProgress(hiringProgress)
                         .build()
         );
 

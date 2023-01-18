@@ -6,7 +6,7 @@ import com.example.jobis.domain.recruit.controller.dto.response.RecruitListRespo
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse.RecruitResponse;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
-import com.example.jobis.domain.recruit.domain.repository.RecruitRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @Service
 public class QueryRecruitListService {
 
-    private final RecruitRepository recruitRepository;
+    private final RecruitmentRepository recruitmentRepository;
 
     @Transactional(readOnly = true)
     public RecruitListResponse execute() {
 
-        List<RecruitResponse> recruitList = recruitRepository.findAll()
+        List<RecruitResponse> recruitList = recruitmentRepository.findAll()
                 .stream()
                 .map(this::RecruitBuilder)
                 .collect(Collectors.toList());
