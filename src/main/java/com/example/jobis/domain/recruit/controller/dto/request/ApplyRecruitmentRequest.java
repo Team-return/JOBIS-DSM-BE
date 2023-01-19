@@ -26,8 +26,8 @@ public class ApplyRecruitmentRequest {
     private Integer pay;
     private String benefits;
 
-    @NotNull(message = "military는 null일 수 없습니다.")
-    private boolean military;
+    @NotNull(message = "military_support는 null일 수 없습니다.")
+    private boolean militarySupport;
     @NotNull(message = "submit_document는 null일 수 없습니다.")
     private String submitDocument;
     @NotNull(message = "start_date는 null일 수 없습니다.")

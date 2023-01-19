@@ -30,12 +30,12 @@ public class CompanyFacade {
     }
 
     public boolean companyExists(String businessNumber) {
-        return companyRepository.existsByBusinessNumber(businessNumber);
+        return companyRepository.existsByBizNo(businessNumber);
     }
 
     public Company getCompany() {
         String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyRepository.findByAccountId(accountId)
+        return companyRepository.findByBizNo(accountId)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
@@ -45,13 +45,13 @@ public class CompanyFacade {
     }
 
     public Company getCompanyByBusinessNumber(String businessNumber) {
-        return companyRepository.findByBusinessNumber(businessNumber)
+        return companyRepository.findByBizNo(businessNumber)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
     public Company getCurrentCompany() {
         String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyRepository.findByAccountId(accountId)
+        return companyRepository.findByBizNo(accountId)
                 .orElseThrow(()->CompanyNotFoundException.EXCEPTION);
     }
 

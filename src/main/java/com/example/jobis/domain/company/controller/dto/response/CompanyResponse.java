@@ -10,13 +10,13 @@ public class CompanyResponse {
 
     private final String companyName;
     private final String companyProfileUrl;
-    private final String take;
+    private final int take;
 
     public static CompanyResponse of(Company company) {
         return CompanyResponse.builder()
-                .companyName(company.getCompanyName())
-                .companyProfileUrl(company.getCompanyProfileUrl())
-                .take(company.getCompanyDetails().getCompanyInfo().getTake().toString())
+                .companyName(company.getName())
+                .companyProfileUrl(company.getCompanyLogoUrl())
+                .take(company.getSales())
                 .build();
     }
 }

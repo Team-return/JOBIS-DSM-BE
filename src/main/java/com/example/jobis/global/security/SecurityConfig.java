@@ -34,10 +34,11 @@ public class SecurityConfig {
                 .authorizeRequests()
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
-                .antMatchers(HttpMethod.GET, "/companies/exists/**").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
-                .antMatchers(HttpMethod.POST, "/recruit").hasAuthority(Authority.COMPANY.toString())
-                .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(Authority.ADMIN.toString(), Authority.STUDENT.toString())
+                .antMatchers(HttpMethod.GET, "/companies/{company-id}")
+                .hasAnyAuthority(Authority.STUDENT.toString(), Authority.ADMIN.toString())
 
                 //user
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
@@ -45,6 +46,10 @@ public class SecurityConfig {
 
                 //file
                 .antMatchers(HttpMethod.POST, "/files").permitAll()
+
+                //recruitment
+                .antMatchers(HttpMethod.POST, "/recruitment").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.PATCH, "/recruitment").hasAuthority(Authority.COMPANY.toString())
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()

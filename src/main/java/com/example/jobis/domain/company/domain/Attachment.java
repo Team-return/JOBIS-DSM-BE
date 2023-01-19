@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -16,7 +17,7 @@ public class Attachment {
     @Column(name = "attachment_id")
     private Long id;
 
-    @Column(length = 400, nullable = false)
+    @NotNull
     private String attachmentUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
