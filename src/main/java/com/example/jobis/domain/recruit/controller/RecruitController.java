@@ -1,5 +1,8 @@
 package com.example.jobis.domain.recruit.controller;
 
+import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaCodeRequest;
+import com.example.jobis.domain.code.service.CreateRecruitAreaCodeService;
+import com.example.jobis.domain.code.service.DeleteRecruitAreaCodeService;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitmentRequest;
@@ -22,6 +25,8 @@ public class RecruitController {
     private final ApplyRecruitmentService applyRecruitmentService;
     private final UpdateRecruitmentService updateRecruitmentService;
     private final UpdateRecruitAreaService updateRecruitAreaService;
+    private final DeleteRecruitAreaCodeService deleteRecruitAreaCodeService;
+    private final CreateRecruitAreaCodeService createRecruitAreaCodeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -39,5 +44,17 @@ public class RecruitController {
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(@RequestBody @Valid UpdateRecruitAreaRequest request, @PathVariable("recruit-area-id") Long recruitAreaId) {
         updateRecruitAreaService.execute(request, recruitAreaId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/area/code")
+    public void deleteRecruitAreaCode(@RequestParam("recruit-area-id") Long recruitAreaId, @RequestParam("code-id") Long codeId) {
+        deleteRecruitAreaCodeService.execute(recruitAreaId, codeId);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/area/code/{recruit-area-id}")
+    public void createRecruitAreaCode(@RequestBody @Valid CreateRecruitAreaCodeRequest request, @PathVariable("recruit-area-id") Long recruitAreaId) {
+        createRecruitAreaCodeService.execute(recruitAreaId, request);
     }
 }
