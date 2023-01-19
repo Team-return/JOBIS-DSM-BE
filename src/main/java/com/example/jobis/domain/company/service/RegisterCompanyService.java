@@ -1,12 +1,12 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
@@ -15,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Service
@@ -29,7 +27,7 @@ public class RegisterCompanyService {
     private final UserRepository userRepository;
 
     @Transactional
-    public TokenResponse execute(RegisterCompanyRequest request) {
+    public UserAuthResponse execute(RegisterCompanyRequest request) {
 
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
             throw CompanyNotFoundException.EXCEPTION;
@@ -75,10 +73,11 @@ public class RegisterCompanyService {
         String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId());
 
-        return TokenResponse.builder()
+        return UserAuthResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
+                .accessExpiresAt(jwtTokenProvider.getExpiredAt())
+                .authority(Authority.COMPANY)
                 .build();
     }
 }
