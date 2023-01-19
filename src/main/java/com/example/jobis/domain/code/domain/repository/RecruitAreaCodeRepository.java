@@ -1,5 +1,6 @@
 package com.example.jobis.domain.code.domain.repository;
 
+import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.domain.RecruitAreaCodeId;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
@@ -10,4 +11,6 @@ import java.util.List;
 public interface RecruitAreaCodeRepository extends JpaRepository<RecruitAreaCode, RecruitAreaCodeId> {
 
     List<RecruitAreaCode> findAllByRecruitAreaId(RecruitArea recruitAreaId);
+
+    void deleteByRecruitAreaIdAndCodeId(RecruitArea recruitAreaId, Code codeId);
 }
