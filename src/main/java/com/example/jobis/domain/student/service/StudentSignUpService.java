@@ -30,7 +30,7 @@ public class StudentSignUpService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public UserAuthResponse execute(StudentSignUpRequest request) {
+    public TokenResponse execute(StudentSignUpRequest request) {
 
         if (studentFacade.existsEmail(request.getAccountId())) {
             throw StudentAlreadyExistsException.EXCEPTION;
@@ -58,11 +58,9 @@ public class StudentSignUpService {
         String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId());
 
-        return UserAuthResponse.builder()
+        return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .accessExpiresAt(jwtTokenProvider.getExpiredAt())
-                .authority(Authority.STUDENT)
                 .build();
     }
 }

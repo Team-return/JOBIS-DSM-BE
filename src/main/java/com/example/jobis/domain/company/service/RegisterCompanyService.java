@@ -6,6 +6,7 @@ import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
@@ -27,7 +28,7 @@ public class RegisterCompanyService {
     private final UserRepository userRepository;
 
     @Transactional
-    public UserAuthResponse execute(RegisterCompanyRequest request) {
+    public TokenResponse execute(RegisterCompanyRequest request) {
 
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
             throw CompanyNotFoundException.EXCEPTION;
@@ -73,11 +74,9 @@ public class RegisterCompanyService {
         String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId());
 
-        return UserAuthResponse.builder()
+        return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .accessExpiresAt(jwtTokenProvider.getExpiredAt())
-                .authority(Authority.COMPANY)
                 .build();
     }
 }
