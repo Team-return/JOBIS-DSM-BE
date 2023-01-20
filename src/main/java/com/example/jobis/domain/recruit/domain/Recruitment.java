@@ -102,11 +102,11 @@ public class Recruitment extends BaseTimeEntity{
         this.etc = etc;
     }
 
-    public void update(Integer trainPay, Integer pay, int workHours, String submitDocument,
+    public void update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
                        LocalDate startDate, LocalDate endDate, String benefit, String requiredLicenses,
-                       boolean military, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
+                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
     ) {
-        this.workHours = workHours;
+        this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
         this.requiredGrade = requiredGrade;
@@ -115,7 +115,7 @@ public class Recruitment extends BaseTimeEntity{
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.pay = new Pay(trainPay, pay);
         this.requiredLicenses = requiredLicenses;
-        this.military = military;
+        this.militarySupport = militarySupport;
         this.etc = etc;
     }
 }

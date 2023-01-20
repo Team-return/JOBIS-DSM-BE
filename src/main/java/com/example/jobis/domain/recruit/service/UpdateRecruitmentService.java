@@ -1,7 +1,7 @@
 package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitmentRequest;
-import com.example.jobis.domain.recruit.domain.Recruit;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.facade.RecruitFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class UpdateRecruitmentService {
     @Transactional
     public void execute(UpdateRecruitmentRequest request, Long recruitId) {
 
-        Recruit recruit = recruitFacade.getRecruitById(recruitId);
+        Recruitment recruit = recruitFacade.getRecruitById(recruitId);
 
         String hiringProgress = request.getHiringProgress()
                 .stream().map(Enum::toString)
