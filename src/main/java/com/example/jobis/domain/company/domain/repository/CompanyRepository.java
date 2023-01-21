@@ -1,12 +1,31 @@
 package com.example.jobis.domain.company.domain.repository;
 
-import com.example.jobis.domain.company.domain.Company;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.jobis.domain.company.controller.dto.response.CompanyResponse;
+import com.example.jobis.domain.company.controller.dto.response.QCompanyResponse;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import static com.example.jobis.domain.company.domain.QCompany.company;
 
-public interface CompanyRepository extends JpaRepository<Company, Long> {
-    Optional<Company> findByBizNo(String bizNo);
+import java.util.List;
 
-    boolean existsByBizNo(String bizNo);
+@Repository
+@RequiredArgsConstructor
+public class CompanyRepository {
+    private final JPAQueryFactory queryFactory;
+
+    public List<CompanyResponse> findCompanyInfoList() {
+        return queryFactory
+                .select(
+                        new QCompanyResponse(
+                             company.name,
+                             company.companyLogoUrl,
+                             company.sales
+                        )
+                )
+                .from(company)
+                .orderBy(company.name.desc())
+                .fetch();
+    }
 }
