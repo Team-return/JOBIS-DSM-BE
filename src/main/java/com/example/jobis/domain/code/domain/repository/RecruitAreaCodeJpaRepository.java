@@ -7,7 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RecruitAreaCodeRepository extends JpaRepository<RecruitAreaCode, RecruitAreaCodeId> {
-
-    List<RecruitAreaCode> findAllByRecruitAreaId(RecruitArea recruitAreaId);
+public interface RecruitAreaCodeJpaRepository extends JpaRepository<RecruitAreaCode, RecruitAreaCodeId> {
 }
