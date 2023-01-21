@@ -1,5 +1,6 @@
 package com.example.jobis.domain.code.domain;
 
+import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
