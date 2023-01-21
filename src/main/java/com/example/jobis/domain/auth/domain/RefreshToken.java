@@ -1,5 +1,6 @@
 package com.example.jobis.domain.auth.domain;
 
+import com.example.jobis.domain.user.domain.enums.Authority;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -17,6 +18,8 @@ public class RefreshToken {
 
     @Indexed
     private String token;
+
+    private Authority authority;
 
     @TimeToLive
     private Long ttl;

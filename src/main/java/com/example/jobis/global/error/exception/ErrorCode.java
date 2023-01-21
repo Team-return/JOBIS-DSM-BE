@@ -20,6 +20,7 @@ public enum ErrorCode {
 
     USER_NOT_FOUND(404, "User Not Found"),
     COMPANY_NOT_FOUND(404, "Company Not Found"),
+    STUDENT_NOT_FOUND(404, "Student Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail"),
     FILE_NOT_FOUND(404, "File not Found"),
     CODE_NOT_FOUND(404, "Code Not Found"),

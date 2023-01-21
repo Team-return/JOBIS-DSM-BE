@@ -1,6 +1,6 @@
-package com.example.jobis.global.security.auth;
+package com.example.jobis.global.security.auth.student;
 
-import com.example.jobis.domain.user.domain.User;
+import com.example.jobis.domain.user.domain.enums.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,11 +10,11 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-public class AuthDetails implements UserDetails {
-    private final User user;
+public class StudentDetails implements UserDetails {
+    private final String studentId;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(user.getAuthority().name()));
+        return Collections.singletonList(new SimpleGrantedAuthority(Authority.STUDENT.name()));
     }
 
     @Override
@@ -24,7 +24,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getAccountId();
+        return studentId;
     }
 
     @Override

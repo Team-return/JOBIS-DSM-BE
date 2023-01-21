@@ -1,9 +1,17 @@
 package com.example.jobis.domain.student.domain.repository;
 
 import com.example.jobis.domain.student.domain.Student;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.jobis.domain.student.exception.StudentNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-public interface StudentRepository extends JpaRepository<Student, Long> {
+@Repository
+@RequiredArgsConstructor
+public class StudentRepository {
+    private final StudentJpaRepository studentJpaRepository;
 
-    boolean existsByEmail(String email);
+    public Student findByEmail(String email) {
+        return studentJpaRepository.findByEmail(email)
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+    }
 }
