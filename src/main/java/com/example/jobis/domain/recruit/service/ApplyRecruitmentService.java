@@ -2,7 +2,7 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
+import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
@@ -12,7 +12,7 @@ import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
-import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ApplyRecruitmentService {
-    private final RecruitmentRepository recruitmentRepository;
+    private final RecruitmentJpaRepository recruitmentJpaRepository;
     private final RecruitAreaRepository recruitAreaRepository;
-    private final RecruitAreaCodeRepository recruitAreaCodeRepository;
+    private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
     private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
 
@@ -42,11 +42,11 @@ public class ApplyRecruitmentService {
         String requiredLicenses = request.getRequiredLicenses() == null?
                 null : String.join(",", request.getRequiredLicenses());
 
-        Recruitment recruitment = recruitmentRepository.save(
+        Recruitment recruitment = recruitmentJpaRepository.save(
                 Recruitment.builder()
                         .company(company)
                         .recruitYear(LocalDate.now().getYear())
-                        .militarySupport(request.isMilitarySupport())
+                        .militarySupport(request.getMilitarySupport())
                         .workingHours(request.getWorkHours())
                         .preferentialTreatment(request.getPreferentialTreatment())
                         .requiredLicenses(requiredLicenses)
@@ -76,10 +76,12 @@ public class ApplyRecruitmentService {
             requestCode.addAll(area.getTech());
 
             List<Code> codeList = codeFacade.findAllCodeById(requestCode);
-            List<RecruitAreaCode> recruitAreaCodes = codeList.stream()
+            recruitAreaCodeJpaRepository.saveAll(
+                    codeList.stream()
                     .map(c -> new RecruitAreaCode(recruitArea, c))
-                    .collect(Collectors.toList());
-            recruitAreaCodeRepository.saveAll(recruitAreaCodes);
+                    .collect(Collectors.toList())
+            );
+            requestCode.clear();
         }
     }
 }
