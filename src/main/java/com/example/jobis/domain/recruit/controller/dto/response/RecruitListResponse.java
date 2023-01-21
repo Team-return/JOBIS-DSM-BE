@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -22,6 +23,6 @@ public class RecruitListResponse {
         private final String companyProfileUrl;
         private final Integer trainPay;
         private final boolean military;
-        private final List<String> jobCodeList;
+        private final Set<String> jobCodeList;
     }
 }
