@@ -9,7 +9,7 @@ import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
-import com.example.jobis.domain.user.domain.repository.UserRepository;
+import com.example.jobis.domain.user.domain.repository.UserJpaRepository;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +24,7 @@ public class RegisterCompanyService {
     private final CompanyJpaRepository companyJpaRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserRepository userRepository;
+    private final UserJpaRepository userRepository;
 
     @Transactional
     public TokenResponse execute(RegisterCompanyRequest request) {
@@ -70,8 +70,8 @@ public class RegisterCompanyService {
         );
 
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)
