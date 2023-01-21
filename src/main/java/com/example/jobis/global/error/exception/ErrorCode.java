@@ -25,6 +25,7 @@ public enum ErrorCode {
     CODE_NOT_FOUND(404, "Code Not Found"),
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found"),
     RECRUIT_AREA_CODE_NOT_FOUND(404, "Recruit Area Code Not Found"),
+    RECRUIT_NOT_FOUND(404, "Recruitment not found"),
 
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
