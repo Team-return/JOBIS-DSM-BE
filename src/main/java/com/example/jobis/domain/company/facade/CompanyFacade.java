@@ -1,11 +1,10 @@
 package com.example.jobis.domain.company.facade;
 
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.domain.repository.CompanyRepository;
+import com.example.jobis.domain.company.domain.repository.CompanyJpaRepository;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.infrastructure.feignClients.BizNoFeignClient;
 import com.example.jobis.infrastructure.feignClients.FeignProperty;
-import com.example.jobis.infrastructure.feignClients.dto.BusinessNumberResponse;
 import com.example.jobis.infrastructure.feignClients.dto.Items;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +16,7 @@ public class CompanyFacade {
 
     private final BizNoFeignClient bizNoFeignClient;
     private final FeignProperty feignProperty;
-    private final CompanyRepository companyRepository;
+    private final CompanyJpaRepository companyJpaRepository;
 
     public String getCompanyName(String businessNumber) {
         Items items = getApi(businessNumber);
@@ -30,28 +29,23 @@ public class CompanyFacade {
     }
 
     public boolean companyExists(String businessNumber) {
-        return companyRepository.existsByBizNo(businessNumber);
+        return companyJpaRepository.existsByBizNo(businessNumber);
     }
 
     public Company getCompany() {
         String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyRepository.findByBizNo(accountId)
+        return companyJpaRepository.findByBizNo(accountId)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
     public Company getCompanyById(Long id) {
-        return companyRepository.findById(id)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-    }
-
-    public Company getCompanyByBusinessNumber(String businessNumber) {
-        return companyRepository.findByBizNo(businessNumber)
+        return companyJpaRepository.findById(id)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
     public Company getCurrentCompany() {
         String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyRepository.findByBizNo(accountId)
+        return companyJpaRepository.findByBizNo(accountId)
                 .orElseThrow(()->CompanyNotFoundException.EXCEPTION);
     }
 

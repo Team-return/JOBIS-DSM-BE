@@ -13,6 +13,7 @@ import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitmentJpaRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 public class ApplyRecruitmentService {
     private final RecruitmentJpaRepository recruitmentJpaRepository;
     private final RecruitAreaRepository recruitAreaRepository;
-    private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
+    private final RecruitmentRepository recruitmentRepository;
     private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
 
@@ -76,7 +77,7 @@ public class ApplyRecruitmentService {
             requestCode.addAll(area.getTech());
 
             List<Code> codeList = codeFacade.findAllCodeById(requestCode);
-            recruitAreaCodeJpaRepository.saveAll(
+            recruitmentRepository.saveAllRecruitAreaCodes(
                     codeList.stream()
                     .map(c -> new RecruitAreaCode(recruitArea, c))
                     .collect(Collectors.toList())

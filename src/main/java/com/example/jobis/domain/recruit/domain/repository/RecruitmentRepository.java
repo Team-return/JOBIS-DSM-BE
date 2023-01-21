@@ -1,6 +1,8 @@
 package com.example.jobis.domain.recruit.domain.repository;
 
+import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.domain.enums.CodeType;
+import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.repository.vo.QQueryRecruitAreaCodeVO;
@@ -18,6 +20,7 @@ import static com.example.jobis.domain.code.domain.QCode.code1;
 public class RecruitmentRepository {
     private final JPAQueryFactory queryFactory;
     private final RecruitmentJpaRepository recruitmentJpaRepository;
+    private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
 
     public List<QueryRecruitAreaCodeVO> queryKeywordListByRecruitArea(RecruitArea recruitArea) {
         return queryFactory
@@ -31,5 +34,9 @@ public class RecruitmentRepository {
 
     public List<Recruitment> findAll() {
         return recruitmentJpaRepository.findAll();
+    }
+
+    public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
+        recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
     }
 }

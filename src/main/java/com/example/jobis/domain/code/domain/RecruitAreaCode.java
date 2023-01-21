@@ -16,11 +16,11 @@ import javax.persistence.*;
 public class RecruitAreaCode {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruit_area_id")
+    @JoinColumn(name = "recruit_area_id", nullable = false)
     private RecruitArea recruitAreaId;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_id")
+    @JoinColumn(name = "code_id", nullable = false)
     private Code codeId;
 }
