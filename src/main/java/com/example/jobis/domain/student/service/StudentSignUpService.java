@@ -7,6 +7,7 @@ import com.example.jobis.domain.student.exception.StudentAlreadyExistsException;
 import com.example.jobis.domain.student.facade.AuthCodeFacade;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
@@ -60,7 +61,6 @@ public class StudentSignUpService {
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
                 .build();
     }
 }

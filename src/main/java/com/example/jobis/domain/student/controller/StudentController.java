@@ -9,6 +9,7 @@ import com.example.jobis.domain.student.service.SendSignUpAuthCodeService;
 import com.example.jobis.domain.student.service.StudentSignUpService;
 import com.example.jobis.domain.student.service.VerifyAuthCodeService;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

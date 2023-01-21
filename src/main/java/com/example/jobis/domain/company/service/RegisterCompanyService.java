@@ -1,12 +1,13 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
@@ -15,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Service
@@ -78,7 +77,6 @@ public class RegisterCompanyService {
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
                 .build();
     }
 }
