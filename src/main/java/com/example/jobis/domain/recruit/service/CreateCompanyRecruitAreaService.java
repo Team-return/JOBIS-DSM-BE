@@ -1,4 +1,4 @@
-package com.example.jobis.domain.code.service;
+package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaCodeRequest;
 import com.example.jobis.domain.code.domain.Code;
