@@ -1,14 +1,11 @@
 package com.example.jobis.domain.recruit.controller;
 
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaCodeRequest;
-import com.example.jobis.domain.code.service.CreateCompanyRecruitAreaService;
-import com.example.jobis.domain.code.service.CreateRecruitAreaCodeService;
-import com.example.jobis.domain.code.service.DeleteCompanyRecruitAreaCodeService;
-import com.example.jobis.domain.code.service.DeleteRecruitAreaCodeService;
+import com.example.jobis.domain.recruit.service.CreateCompanyRecruitAreaService;
+import com.example.jobis.domain.recruit.service.DeleteCompanyRecruitAreaCodeService;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitmentRequest;
-import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse;
 import com.example.jobis.domain.recruit.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
