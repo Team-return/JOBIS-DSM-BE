@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UpdateCompanyDetailsRequest {
 
-    @NotEmpty(message = "company_introduce는 null과 공백을 허용하지 않습니다.")
     @Size(max = 4000, message = "company_introduce는 4000자를 넘을 수 없습니다.")
     private String companyIntroduce;
 
@@ -46,7 +45,7 @@ public class UpdateCompanyDetailsRequest {
     @Size(min = 10, max = 12, message = "fax는 10자에서 12자여야 합니다.")
     private String fax;
 
-    @Email
+    @Email @NotNull
     @Size(min = 1, max = 20, message = "email은 1자에서 20자여야 합니다.")
     private String email;
 

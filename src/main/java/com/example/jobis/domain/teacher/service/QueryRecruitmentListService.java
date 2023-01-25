@@ -1,7 +1,6 @@
 package com.example.jobis.domain.teacher.service;
 
-import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
-import com.example.jobis.domain.teacher.presentaion.dto.QueryRecruitmentListResponse;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class QueryRecruitmentListService {
-    private final RecruitmentRepository recruitmentRepository;
+    private final RecruitmentJpaRepository recruitmentJpaRepository;
 
     @Transactional(readOnly = true)
-    public QueryRecruitmentListResponse execute() {
+    public void execute() {
 
     }
 }
