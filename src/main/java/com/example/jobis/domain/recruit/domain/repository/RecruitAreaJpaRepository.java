@@ -4,5 +4,5 @@ import com.example.jobis.domain.recruit.domain.RecruitArea;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface RecruitAreaRepository extends JpaRepository<RecruitArea, Long> {
+public interface RecruitAreaJpaRepository extends JpaRepository<RecruitArea, Long> {
 }

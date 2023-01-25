@@ -2,7 +2,6 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
@@ -11,7 +10,7 @@ import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentR
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitAreaJpaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitmentJpaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +25,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ApplyRecruitmentService {
-    private final RecruitmentJpaRepository recruitmentJpaRepository;
-    private final RecruitAreaRepository recruitAreaRepository;
     private final RecruitmentRepository recruitmentRepository;
     private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
@@ -43,7 +40,7 @@ public class ApplyRecruitmentService {
         String requiredLicenses = request.getRequiredLicenses() == null?
                 null : String.join(",", request.getRequiredLicenses());
 
-        Recruitment recruitment = recruitmentJpaRepository.save(
+        Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
                         .company(company)
                         .recruitYear(LocalDate.now().getYear())
@@ -66,7 +63,7 @@ public class ApplyRecruitmentService {
 
         List<Long> requestCode = new ArrayList<>();
         for(Area area : request.getAreas()) {
-            RecruitArea recruitArea = recruitAreaRepository.save(
+            RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
                     RecruitArea.builder()
                             .majorTask(area.getMajorTask())
                             .hiredCount(area.getHiring())

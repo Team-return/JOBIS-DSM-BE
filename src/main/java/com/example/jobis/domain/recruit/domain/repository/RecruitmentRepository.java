@@ -21,6 +21,7 @@ public class RecruitmentRepository {
     private final JPAQueryFactory queryFactory;
     private final RecruitmentJpaRepository recruitmentJpaRepository;
     private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
+    private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
     public List<QueryRecruitAreaCodeVO> queryKeywordListByRecruitArea(RecruitArea recruitArea) {
         return queryFactory
@@ -38,5 +39,13 @@ public class RecruitmentRepository {
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
+    }
+
+    public Recruitment saveRecruitment(Recruitment recruitment) {
+        return recruitmentJpaRepository.save(recruitment);
+    }
+
+    public RecruitArea saveRecruitArea(RecruitArea recruitArea) {
+        return recruitAreaJpaRepository.save(recruitArea);
     }
 }
