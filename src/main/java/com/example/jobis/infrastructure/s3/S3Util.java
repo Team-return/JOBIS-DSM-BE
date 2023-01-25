@@ -1,10 +1,8 @@
 package com.example.jobis.infrastructure.s3;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteBucketRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import com.example.jobis.domain.file.exception.FileNotFoundException;
 import com.example.jobis.domain.file.exception.InvalidExtensionException;
 import com.example.jobis.domain.file.presentation.type.FileType;
@@ -12,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
@@ -46,12 +45,15 @@ public class S3Util {
         } catch (IOException e) {
             throw FileNotFoundException.EXCEPTION;
         }
-        return s3Properties.getUrl() + fileName;
+        return fileName;
     }
 
-//    public void deleteFile(String path) {
-//        amazonS3.deleteBucket(new DeleteBucketRequest(s3Properties.getBucket(), path));
-//    }
+    public void deleteFile(String path) {
+        if(!amazonS3.doesObjectExist(s3Properties.getBucket(), path)) {
+            throw FileNotFoundException.EXCEPTION;
+        }
+        amazonS3.deleteObject(new DeleteObjectRequest(s3Properties.getBucket(), path));
+    }
 
     private String getExtensionWithValidation(String fileName, FileType fileType) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
