@@ -37,4 +37,8 @@ public class CompanyRepository {
         return companyJpaRepository.findByBizNo(bizNo)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
+
+    public void saveCompany(Company company) {
+        companyJpaRepository.save(company);
+    }
 }

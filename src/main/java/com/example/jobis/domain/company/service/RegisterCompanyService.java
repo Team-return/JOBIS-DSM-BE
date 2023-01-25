@@ -1,15 +1,15 @@
 package com.example.jobis.domain.company.service;
 
+import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.domain.repository.CompanyJpaRepository;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
-import com.example.jobis.domain.user.domain.repository.UserJpaRepository;
+import com.example.jobis.domain.user.domain.repository.UserRepository;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,10 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegisterCompanyService {
 
     private final CompanyFacade companyFacade;
-    private final CompanyJpaRepository companyJpaRepository;
+    private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserJpaRepository userRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public TokenResponse execute(RegisterCompanyRequest request) {
@@ -37,7 +37,7 @@ public class RegisterCompanyService {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        User user = userRepository.save(
+        User user = userRepository.saveUser(
                 User.builder()
                         .accountId(request.getBusinessNumber())
                         .password(passwordEncoder.encode(request.getPassword()))
@@ -45,7 +45,7 @@ public class RegisterCompanyService {
                         .build()
         );
 
-        companyJpaRepository.save(
+        companyRepository.saveCompany(
                 Company.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())

@@ -20,4 +20,8 @@ public class UserRepository {
         return userJpaRepository.findByAccountId(accountId)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
+
+    public User saveUser(User user) {
+        return userJpaRepository.save(user);
+    }
 }
