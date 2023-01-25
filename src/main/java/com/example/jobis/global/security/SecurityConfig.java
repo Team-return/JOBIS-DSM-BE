@@ -45,7 +45,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/users/reissue").permitAll()
 
                 //file
-                .antMatchers(HttpMethod.POST, "/files").permitAll()
+                .antMatchers(HttpMethod.POST, "/files").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/files").authenticated()
 
                 //recruitment
                 .antMatchers(HttpMethod.POST, "/recruitment").hasAuthority(Authority.COMPANY.toString())
