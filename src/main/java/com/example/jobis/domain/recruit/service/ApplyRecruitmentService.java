@@ -2,7 +2,6 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
@@ -11,7 +10,8 @@ import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentR
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitAreaJpaRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentJpaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ApplyRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
-    private final RecruitAreaRepository recruitAreaRepository;
-    private final RecruitAreaCodeRepository recruitAreaCodeRepository;
     private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
 
@@ -42,11 +40,11 @@ public class ApplyRecruitmentService {
         String requiredLicenses = request.getRequiredLicenses() == null?
                 null : String.join(",", request.getRequiredLicenses());
 
-        Recruitment recruitment = recruitmentRepository.save(
+        Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
                         .company(company)
                         .recruitYear(LocalDate.now().getYear())
-                        .militarySupport(request.isMilitarySupport())
+                        .militarySupport(request.getMilitarySupport())
                         .workingHours(request.getWorkHours())
                         .preferentialTreatment(request.getPreferentialTreatment())
                         .requiredLicenses(requiredLicenses)
@@ -65,7 +63,7 @@ public class ApplyRecruitmentService {
 
         List<Long> requestCode = new ArrayList<>();
         for(Area area : request.getAreas()) {
-            RecruitArea recruitArea = recruitAreaRepository.save(
+            RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
                     RecruitArea.builder()
                             .majorTask(area.getMajorTask())
                             .hiredCount(area.getHiring())
@@ -76,10 +74,12 @@ public class ApplyRecruitmentService {
             requestCode.addAll(area.getTech());
 
             List<Code> codeList = codeFacade.findAllCodeById(requestCode);
-            List<RecruitAreaCode> recruitAreaCodes = codeList.stream()
+            recruitmentRepository.saveAllRecruitAreaCodes(
+                    codeList.stream()
                     .map(c -> new RecruitAreaCode(recruitArea, c))
-                    .collect(Collectors.toList());
-            recruitAreaCodeRepository.saveAll(recruitAreaCodes);
+                    .collect(Collectors.toList())
+            );
+            requestCode.clear();
         }
     }
 }

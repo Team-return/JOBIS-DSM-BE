@@ -2,7 +2,7 @@ package com.example.jobis.domain.student.service;
 
 import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
 import com.example.jobis.domain.student.domain.Student;
-import com.example.jobis.domain.student.domain.repository.StudentRepository;
+import com.example.jobis.domain.student.domain.repository.StudentJpaRepository;
 import com.example.jobis.domain.student.exception.StudentAlreadyExistsException;
 import com.example.jobis.domain.student.facade.AuthCodeFacade;
 import com.example.jobis.domain.student.facade.StudentFacade;
@@ -10,7 +10,7 @@ import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
-import com.example.jobis.domain.user.domain.repository.UserRepository;
+import com.example.jobis.domain.user.domain.repository.UserJpaRepository;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,8 +22,8 @@ import javax.transaction.Transactional;
 @Service
 public class StudentSignUpService {
 
-    private final StudentRepository studentRepository;
-    private final UserRepository userRepository;
+    private final StudentJpaRepository studentJpaRepository;
+    private final UserJpaRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthCodeFacade authCodeFacade;
     private final StudentFacade studentFacade;
@@ -45,7 +45,7 @@ public class StudentSignUpService {
                         .build()
         );
 
-        studentRepository.save(
+        studentJpaRepository.save(
                 Student.builder()
                         .email(request.getAccountId())
                         .user(user)
@@ -55,8 +55,8 @@ public class StudentSignUpService {
                         .build()
         );
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)

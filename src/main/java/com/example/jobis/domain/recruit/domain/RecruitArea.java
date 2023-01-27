@@ -1,6 +1,7 @@
 package com.example.jobis.domain.recruit.domain;
 
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
+import com.example.jobis.global.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class RecruitArea {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private Recruitment recruitment;
 
-    @OneToMany(mappedBy = "recruitAreaId")
+    @OneToMany(mappedBy = "recruitAreaId", orphanRemoval = true)
     private List<RecruitAreaCode> codeList = new ArrayList<>();
 
     @Builder

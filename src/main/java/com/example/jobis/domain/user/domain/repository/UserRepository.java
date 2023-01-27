@@ -1,10 +1,27 @@
 package com.example.jobis.domain.user.domain.repository;
 
 import com.example.jobis.domain.user.domain.User;
-import org.springframework.data.repository.CrudRepository;
+import com.example.jobis.domain.user.exception.UserNotFoundException;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<User, Long> {
-    Optional<User> findByAccountId(String accountId);
+import static com.example.jobis.domain.user.domain.QUser.user;
+
+@Repository
+@RequiredArgsConstructor
+public class UserRepository {
+    private final UserJpaRepository userJpaRepository;
+    private final JPAQueryFactory queryFactory;
+
+    public User findByAccountId(String accountId) {
+        return userJpaRepository.findByAccountId(accountId)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    }
+
+    public User saveUser(User user) {
+        return userJpaRepository.save(user);
+    }
 }

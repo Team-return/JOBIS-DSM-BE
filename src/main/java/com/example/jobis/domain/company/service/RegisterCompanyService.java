@@ -1,8 +1,9 @@
 package com.example.jobis.domain.company.service;
 
+import com.example.jobis.domain.company.domain.repository.CompanyRepository;
+import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
@@ -38,7 +39,7 @@ public class RegisterCompanyService {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        User user = userRepository.save(
+        User user = userRepository.saveUser(
                 User.builder()
                         .accountId(request.getBusinessNumber())
                         .password(passwordEncoder.encode(request.getPassword()))
@@ -46,7 +47,7 @@ public class RegisterCompanyService {
                         .build()
         );
 
-        companyRepository.save(
+        companyRepository.saveCompany(
                 Company.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
@@ -71,8 +72,8 @@ public class RegisterCompanyService {
         );
 
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)

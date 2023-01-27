@@ -43,7 +43,7 @@ public class CompanyController {
     }
 
     @GetMapping
-    public CompanyListResponse list() {
+    public CompanyListResponse queryCompanyList() {
         return queryCompanyListService.execute();
     }
 

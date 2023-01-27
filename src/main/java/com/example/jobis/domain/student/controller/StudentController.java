@@ -44,8 +44,8 @@ public class StudentController {
         return studentSignUpService.execute(request);
     }
 
-    @GetMapping("/recruit")
-    public RecruitListResponse getRecruitList() {
+    @GetMapping("/recruitment")
+    public RecruitListResponse queryRecruitmentList() {
         return queryRecruitListService.execute();
     }
 }

@@ -16,16 +16,6 @@ public class CodeFacade {
     private final CodeRepository codeRepository;
 
     public List<Code> findAllCodeById(List<Long> codeIdList) {
-        List<Code> codeList = new ArrayList<>();
-        codeIdList.forEach(
-                c -> codeList.add(codeRepository.findById(c)
-                        .orElseThrow(() -> InvalidCodeException.EXCEPTION))
-        );
-        return codeList;
-    }
-
-    public Code findCodeById(Long id) {
-        return codeRepository.findById(id)
-                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+        return codeRepository.findAllById(codeIdList);
     }
 }

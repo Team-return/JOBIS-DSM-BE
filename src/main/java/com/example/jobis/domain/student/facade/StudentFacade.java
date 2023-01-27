@@ -1,6 +1,6 @@
 package com.example.jobis.domain.student.facade;
 
-import com.example.jobis.domain.student.domain.repository.StudentRepository;
+import com.example.jobis.domain.student.domain.repository.StudentJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentFacade {
 
-    private final StudentRepository studentRepository;
+    private final StudentJpaRepository studentJpaRepository;
 
     public boolean existsEmail(String email) {
-        return studentRepository.existsByEmail(email);
+        return studentJpaRepository.existsByEmail(email);
     }
 }
