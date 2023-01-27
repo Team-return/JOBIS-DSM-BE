@@ -2,6 +2,7 @@ package com.example.jobis.domain.recruit.facade;
 
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.recruit.domain.Recruitment;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentJpaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import com.example.jobis.domain.recruit.exception.RecruitNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecruitFacade {
 
-    private final RecruitmentRepository recruitmentRepository;
+    private final RecruitmentJpaRepository recruitmentJpaRepository;
 
     public Recruitment getRecruitById(Long id) {
-        return recruitmentRepository.findById(id)
+        return recruitmentJpaRepository.findById(id)
                 .orElseThrow(() -> RecruitNotFoundException.EXCEPTION);
     }
 

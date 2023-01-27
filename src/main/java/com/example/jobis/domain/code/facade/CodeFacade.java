@@ -18,4 +18,9 @@ public class CodeFacade {
     public List<Code> findAllCodeById(List<Long> codeIdList) {
         return codeRepository.findAllById(codeIdList);
     }
+
+    public Code findCodeById(Long id) {
+        return codeRepository.findById(id)
+                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+    }
 }

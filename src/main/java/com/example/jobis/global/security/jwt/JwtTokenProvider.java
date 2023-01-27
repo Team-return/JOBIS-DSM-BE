@@ -74,7 +74,7 @@ public class JwtTokenProvider {
         return switch (authority) {
             case COMPANY -> companyDetailsService.loadUserByUsername(id);
             case STUDENT -> studentDetailsService.loadUserByUsername(id);
-            case ADMIN -> teacherDetailsService.loadUserByUsername(id);
+            case TEACHER -> teacherDetailsService.loadUserByUsername(id);
         };
     }
 
