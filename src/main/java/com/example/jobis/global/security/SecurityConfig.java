@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}")
-                .hasAnyAuthority(Authority.STUDENT.toString(), Authority.ADMIN.toString())
+                .hasAnyAuthority(Authority.STUDENT.toString(), Authority.TEACHER.toString())
 
                 //user
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
@@ -67,11 +67,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/students/recruit").hasAuthority(Authority.STUDENT.toString())
 
                 //teacher
-                .antMatchers(HttpMethod.PATCH, "/teachers/{recruit-id}").hasAuthority(Authority.ADMIN.toString())
-                .antMatchers(HttpMethod.PATCH, "/teachers/area/{recruit-area-id}").hasAuthority(Authority.ADMIN.toString())
-                .antMatchers(HttpMethod.DELETE, "/teachers/area/code").hasAuthority(Authority.ADMIN.toString())
-                .antMatchers(HttpMethod.POST, "/teachers/area/code/{recruit-area-id}").hasAuthority(Authority.ADMIN.toString())
-                .antMatchers(HttpMethod.POST, "teachers/area").hasAuthority(Authority.ADMIN.toString())
+                .antMatchers(HttpMethod.PATCH, "/teachers/{recruit-id}").hasAuthority(Authority.TEACHER.toString())
+                .antMatchers(HttpMethod.PATCH, "/teachers/area/{recruit-area-id}").hasAuthority(Authority.TEACHER.toString())
+                .antMatchers(HttpMethod.DELETE, "/teachers/area/code").hasAuthority(Authority.TEACHER.toString())
+                .antMatchers(HttpMethod.POST, "/teachers/area/code/{recruit-area-id}").hasAuthority(Authority.TEACHER.toString())
+                .antMatchers(HttpMethod.POST, "teachers/area").hasAuthority(Authority.TEACHER.toString())
                 .anyRequest().authenticated()
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));

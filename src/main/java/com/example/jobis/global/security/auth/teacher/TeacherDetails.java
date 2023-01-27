@@ -14,7 +14,7 @@ public class TeacherDetails implements UserDetails {
     private final String teacherId;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(Authority.ADMIN.name()));
+        return Collections.singletonList(new SimpleGrantedAuthority(Authority.TEACHER.name()));
     }
 
     @Override
