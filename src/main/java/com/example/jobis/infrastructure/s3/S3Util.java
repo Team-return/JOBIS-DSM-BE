@@ -1,9 +1,7 @@
 package com.example.jobis.infrastructure.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import com.example.jobis.domain.file.exception.FileNotFoundException;
 import com.example.jobis.domain.file.exception.InvalidExtensionException;
 import com.example.jobis.domain.file.presentation.type.FileType;
@@ -26,7 +24,7 @@ public class S3Util {
             throw FileNotFoundException.EXCEPTION;
         }
         String fileExtension = getExtensionWithValidation(multipartFile.getOriginalFilename(), fileType);
-        String fileName = s3Properties.getBucket() + "-" + fileType + "-" + UUID.randomUUID() + fileExtension;
+        String fileName = fileType + "/" + UUID.randomUUID() + fileExtension;
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(multipartFile.getContentType());
@@ -45,7 +43,14 @@ public class S3Util {
         } catch (IOException e) {
             throw FileNotFoundException.EXCEPTION;
         }
-        return s3Properties.getUrl() + fileName;
+        return fileName;
+    }
+
+    public void deleteFile(String path) {
+        if(!amazonS3.doesObjectExist(s3Properties.getBucket(), path)) {
+            throw FileNotFoundException.EXCEPTION;
+        }
+        amazonS3.deleteObject(new DeleteObjectRequest(s3Properties.getBucket(), path));
     }
 
     private String getExtensionWithValidation(String fileName, FileType fileType) {
