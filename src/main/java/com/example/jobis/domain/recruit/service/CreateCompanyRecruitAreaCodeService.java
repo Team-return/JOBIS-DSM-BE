@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class CreateCompanyRecruitAreaService {
+public class CreateCompanyRecruitAreaCodeService {
 
     private final RecruitAreaCodeRepository recruitAreaCodeRepository;
     private final CompanyFacade companyFacade;
