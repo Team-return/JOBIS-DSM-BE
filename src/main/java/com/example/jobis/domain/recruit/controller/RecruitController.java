@@ -31,7 +31,7 @@ public class RecruitController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{recruit-id}")
+    @PatchMapping
     public void updateRecruitment(@RequestBody @Valid UpdateRecruitmentRequest request) {
         updateCompanyRecruitService.execute(request);
     }
