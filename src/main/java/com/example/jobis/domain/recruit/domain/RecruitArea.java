@@ -36,4 +36,8 @@ public class RecruitArea {
         this.recruitment = recruitment;
     }
 
+    public void update(Integer hiredCount, String majorTask) {
+        this.hiredCount = hiredCount;
+        this.majorTask = majorTask;
+    }
 }

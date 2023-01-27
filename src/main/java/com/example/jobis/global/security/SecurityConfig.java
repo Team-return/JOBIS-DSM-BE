@@ -49,7 +49,11 @@ public class SecurityConfig {
 
                 //recruitment
                 .antMatchers(HttpMethod.POST, "/recruitment").hasAuthority(Authority.COMPANY.toString())
-                .antMatchers(HttpMethod.PATCH, "/recruitment").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.PATCH, "/recruitment/{recruit-id}").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.PATCH, "/recruitment/area/{recruit-area-id}").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.DELETE, "/recruitment/area/code").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.POST, "/recruitment/area/code/{recruit-area-id}").hasAuthority(Authority.COMPANY.toString())
+                .antMatchers(HttpMethod.POST, "recruitment/area").hasAuthority(Authority.COMPANY.toString())
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
@@ -60,6 +64,13 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/recruit").hasAuthority(Authority.STUDENT.toString())
+
+                //teacher
+                .antMatchers(HttpMethod.PATCH, "/teachers/{recruit-id}").hasAuthority(Authority.ADMIN.toString())
+                .antMatchers(HttpMethod.PATCH, "/teachers/area/{recruit-area-id}").hasAuthority(Authority.ADMIN.toString())
+                .antMatchers(HttpMethod.DELETE, "/teachers/area/code").hasAuthority(Authority.ADMIN.toString())
+                .antMatchers(HttpMethod.POST, "/teachers/area/code/{recruit-area-id}").hasAuthority(Authority.ADMIN.toString())
+                .antMatchers(HttpMethod.POST, "teachers/area").hasAuthority(Authority.ADMIN.toString())
                 .anyRequest().authenticated()
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));
