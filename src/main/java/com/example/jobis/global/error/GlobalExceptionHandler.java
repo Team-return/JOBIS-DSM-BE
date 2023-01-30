@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleValidException(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.joining(",\n"));
+                .collect(Collectors.joining("\n"));
         ErrorResponse response = ErrorResponse.builder()
                 .status(400)
                 .message(msg)

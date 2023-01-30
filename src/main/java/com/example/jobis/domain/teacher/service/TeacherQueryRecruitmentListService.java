@@ -28,7 +28,7 @@ public class TeacherQueryRecruitmentListService {
                                 .id(r.getId())
                                 .recruitmentStatus(r.getStatus())
                                 .militarySupport(r.isMilitarySupport())
-                                .applicationCount(0) /// TODO: 2023/01/28 추후 학생 지원로직 개발
+                                //.applicationCount() /// TODO: 2023/01/28 추후 학생 지원로직 개발
                                 .recruitmentJob(recruitFacade.getJobCodeList(r.getRecruitAreaList()))
                                 .recruitmentCount(getTotalRecruitCount(r.getRecruitAreaList()))
                                 .companyName(r.getCompany().getName())
