@@ -43,7 +43,7 @@ public class S3Util {
         } catch (IOException e) {
             throw FileNotFoundException.EXCEPTION;
         }
-        return fileName;
+        return s3Properties.getUrl() + fileName;
     }
 
     public void deleteFile(String path) {
