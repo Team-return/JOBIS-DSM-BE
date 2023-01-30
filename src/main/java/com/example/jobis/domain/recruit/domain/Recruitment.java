@@ -118,4 +118,8 @@ public class Recruitment extends BaseTimeEntity{
         this.militarySupport = militarySupport;
         this.etc = etc;
     }
+
+    public void changeStatus(RecruitStatus status) {
+        this.status = status;
+    }
 }
