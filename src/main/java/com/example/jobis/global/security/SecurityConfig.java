@@ -4,6 +4,7 @@ import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -67,6 +68,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/students/recruit").hasAuthority(Authority.STUDENT.toString())
 
                 //teacher
+                .antMatchers(HttpMethod.PATCH, "/teachers/recruitment/{recruit-id}").permitAll()//.hasAuthority(Authority.TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/teachers/{recruit-id}").hasAuthority(Authority.TEACHER.toString())
                 .antMatchers(HttpMethod.PATCH, "/teachers/area/{recruit-area-id}").hasAuthority(Authority.TEACHER.toString())
                 .antMatchers(HttpMethod.DELETE, "/teachers/area/code").hasAuthority(Authority.TEACHER.toString())
