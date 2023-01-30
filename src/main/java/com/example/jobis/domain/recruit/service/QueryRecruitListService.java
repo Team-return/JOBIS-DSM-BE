@@ -23,7 +23,7 @@ public class QueryRecruitListService {
     @Transactional(readOnly = true)
     public RecruitListResponse execute(String name, Integer page) {
         List<RecruitResponse> recruitList = recruitmentRepository.queryRecruitmentsByConditions(
-                        Year.now().getValue(), null, null, RecruitStatus.ON_RECRUIT, name, page-1
+                        Year.now().getValue(), null, null, RecruitStatus.RECRUITING, name, page-1
                 )
                 .stream().map(this::recruitmentBuilder)
                 .collect(Collectors.toList());
