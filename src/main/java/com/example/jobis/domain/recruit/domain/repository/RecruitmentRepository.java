@@ -7,20 +7,13 @@ import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeJpaReposit
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.domain.repository.vo.QQueryRecruitAreaCodeVO;
-import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitAreaCodeVO;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.Year;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 import static com.example.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
@@ -39,6 +32,7 @@ public class RecruitmentRepository {
 
     public List<Recruitment> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
                                               RecruitStatus status, String companyName, Integer page) {
+        long pageSize = 11;
         return queryFactory
                 .selectFrom(recruitment)
                 .where(
@@ -50,22 +44,9 @@ public class RecruitmentRepository {
                 .join(recruitment.company, company)
                 .leftJoin(recruitment.recruitAreaList, recruitArea)
                 .fetchJoin()
-                .offset(page * 4)
-                .limit(4)
+                .offset(page * pageSize)
+                .limit(pageSize)
                 .orderBy(recruitment.createdAt.desc())
-                .fetch();
-    }
-
-    public List<QueryRecruitAreaCodeVO> queryKeywordListByRecruitArea(RecruitArea recruitArea) {
-        return queryFactory
-                .select(
-                        new QQueryRecruitAreaCodeVO(
-                                code1.keyword
-                        )
-                ).from(recruitAreaCode)
-                .where(recruitAreaCode.recruitAreaId.eq(recruitArea),
-                        code1.codeType.eq(CodeType.JOB))
-                .join(recruitAreaCode.codeId, code1)
                 .fetch();
     }
 
@@ -75,16 +56,6 @@ public class RecruitmentRepository {
                         code1.codeType.eq(CodeType.JOB))
                 .join(recruitAreaCode.codeId, code1)
                 .fetchJoin().fetch();
-    }
-
-    public List<Recruitment> findAll() {
-        return queryFactory.selectFrom(recruitment)
-                .where(recruitment.recruitYear.eq(Year.now().getValue()))
-                .join(recruitment.company, company)
-                .fetchJoin()
-                .join(recruitment.recruitAreaList, recruitArea)
-                .fetchJoin()
-                .fetch();
     }
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
