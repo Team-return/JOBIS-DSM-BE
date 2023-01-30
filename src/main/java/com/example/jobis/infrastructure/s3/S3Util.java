@@ -55,7 +55,7 @@ public class S3Util {
 
     private String getExtensionWithValidation(String fileName, FileType fileType) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
-        if(!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".svg"))) {
+        if(!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".svg") || extension.equals(".jpeg"))) {
             if(fileType.equals(FileType.LOGO_IMAGE)) {
                 throw InvalidExtensionException.EXCEPTION;
             }
