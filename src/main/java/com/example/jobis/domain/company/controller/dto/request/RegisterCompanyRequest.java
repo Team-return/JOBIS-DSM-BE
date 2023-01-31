@@ -59,7 +59,7 @@ public class RegisterCompanyRequest {
     private String fax;
 
     @Email
-    @Size(min = 1, max = 30, message = "email은 1자에서 20자여야 합니다.")
+    @Size(min = 1, max = 30, message = "email은 1자에서 30자사이여야 합니다.")
     private String email;
 
     @NotBlank(message = "representative_name은 null 또는 공백을 포함할 수 없습니다.")
