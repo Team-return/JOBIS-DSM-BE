@@ -7,8 +7,10 @@ import com.example.jobis.domain.code.service.CreateRecruitAreaService;
 import com.example.jobis.domain.code.service.DeleteRecruitAreaCodeService;
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitmentRequest;
+import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.service.UpdateRecruitAreaService;
 import com.example.jobis.domain.recruit.service.UpdateRecruitmentService;
+import com.example.jobis.domain.teacher.service.ChangeRecruitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ public class TeacherController {
     private final DeleteRecruitAreaCodeService deleteRecruitAreaCodeService;
     private final CreateRecruitAreaCodeService createRecruitAreaCodeService;
     private final CreateRecruitAreaService createRecruitAreaService;
+    private final ChangeRecruitService changeRecruitService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruit-id}")
@@ -54,6 +57,12 @@ public class TeacherController {
     @PostMapping("/area/{recruit-id}")
     public void createRecruitArea(@RequestBody @Valid CreateRecruitAreaRequest request, @PathVariable("recruit-id") Long recruitId) {
         createRecruitAreaService.execute(request, recruitId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/recruitment/{recruit-id}")
+    public void changeRecruitStatus(@PathVariable("recruit-id") Long recruitId, @RequestParam("status")RecruitStatus status) {
+        changeRecruitService.execute(recruitId, status);
     }
 
 }
