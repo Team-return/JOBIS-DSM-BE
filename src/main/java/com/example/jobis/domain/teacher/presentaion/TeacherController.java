@@ -10,12 +10,17 @@ import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitment
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.service.UpdateRecruitAreaService;
 import com.example.jobis.domain.recruit.service.UpdateRecruitmentService;
+import com.example.jobis.domain.teacher.presentaion.dto.response.TQueryRecruitmentListResponse;
+import com.example.jobis.domain.teacher.service.TeacherQueryRecruitmentListService;
 import com.example.jobis.domain.teacher.service.ChangeRecruitService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/teachers")
@@ -27,6 +32,7 @@ public class TeacherController {
     private final DeleteRecruitAreaCodeService deleteRecruitAreaCodeService;
     private final CreateRecruitAreaCodeService createRecruitAreaCodeService;
     private final CreateRecruitAreaService createRecruitAreaService;
+    private final TeacherQueryRecruitmentListService teacherQueryRecruitmentListService;
     private final ChangeRecruitService changeRecruitService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -57,6 +63,18 @@ public class TeacherController {
     @PostMapping("/area/{recruit-id}")
     public void createRecruitArea(@RequestBody @Valid CreateRecruitAreaRequest request, @PathVariable("recruit-id") Long recruitId) {
         createRecruitAreaService.execute(request, recruitId);
+    }
+
+    @GetMapping("/recruitment")
+    public List<TQueryRecruitmentListResponse> queryRecruitmentList(
+            @RequestParam(value = "company-name", required = false) String companyName,
+            @RequestParam(value = "start", required = false) LocalDate start,
+            @RequestParam(value = "end", required = false) LocalDate end,
+            @RequestParam(value = "status", required = false) RecruitStatus status,
+            @RequestParam(value = "year", required = false) Integer year,
+            @RequestParam(value = "page", defaultValue = "1") Integer page
+            ) {
+        return teacherQueryRecruitmentListService.execute(companyName, start, end, year, status, page);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

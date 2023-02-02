@@ -43,7 +43,7 @@ public class S3Util {
         } catch (IOException e) {
             throw FileNotFoundException.EXCEPTION;
         }
-        return fileName;
+        return s3Properties.getUrl() + fileName;
     }
 
     public void deleteFile(String path) {
@@ -55,7 +55,7 @@ public class S3Util {
 
     private String getExtensionWithValidation(String fileName, FileType fileType) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
-        if(!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".svg"))) {
+        if(!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".svg") || extension.equals(".jpeg"))) {
             if(fileType.equals(FileType.LOGO_IMAGE)) {
                 throw InvalidExtensionException.EXCEPTION;
             }

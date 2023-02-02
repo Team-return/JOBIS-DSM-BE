@@ -45,7 +45,10 @@ public class StudentController {
     }
 
     @GetMapping("/recruitment")
-    public RecruitListResponse queryRecruitmentList() {
-        return queryRecruitListService.execute();
+    public RecruitListResponse queryRecruitmentList(
+            @RequestParam(value = "name", required = false) String companyName,
+            @RequestParam(value = "page", defaultValue = "1") Integer page
+    ) {
+        return queryRecruitListService.execute(companyName, page);
     }
 }
