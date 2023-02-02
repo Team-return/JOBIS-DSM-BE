@@ -27,14 +27,14 @@ public class TeacherQueryRecruitmentListService {
                         r -> TQueryRecruitmentListResponse.builder()
                                 .id(r.getId())
                                 .recruitmentStatus(r.getStatus())
+                                .companyName(r.getCompanyName())
+                                .companyType(r.getCompanyType())
+                                .start(r.getStart())
+                                .end(r.getEnd())
                                 .militarySupport(r.isMilitarySupport())
-                                //.applicationCount() /// TODO: 2023/01/28 추후 학생 지원로직 개발
-                                .recruitmentJob(recruitFacade.getJobCodeList(r.getRecruitAreaList()))
+                                .applicationCount(0)
                                 .recruitmentCount(getTotalRecruitCount(r.getRecruitAreaList()))
-                                .companyName(r.getCompany().getName())
-                                .companyType(r.getCompany().getType())
-                                .start(r.getRecruitDate().getStartDate())
-                                .end(r.getRecruitDate().getFinishDate())
+                                .recruitmentJob(recruitFacade.getJobCodeList(r.getRecruitAreaList()))
                                 .build()
                 ).collect(Collectors.toList());
     }
