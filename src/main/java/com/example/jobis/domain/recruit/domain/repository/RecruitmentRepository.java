@@ -9,6 +9,7 @@ import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.vo.QQueryRecruitmentListVO;
 import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitmentListVO;
+import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitmentListVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -55,15 +56,10 @@ public class RecruitmentRepository {
                 .transform(
                         groupBy(recruitArea.recruitment.id)
                                 .list(new QQueryRecruitmentListVO(
-                                        recruitment.id,
-                                        recruitment.status,
-                                        company.name,
-                                        company.type,
-                                        recruitment.recruitDate.startDate,
-                                        recruitment.recruitDate.finishDate,
-                                        recruitment.militarySupport,
-                                        sum(recruitArea.hiredCount),
-                                        set(code1.keyword)
+                                        recruitment,
+                                        company,
+                                        set(code1.keyword),
+                                        sum(recruitArea.hiredCount)
                                 ))
                 );
     }

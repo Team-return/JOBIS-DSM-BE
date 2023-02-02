@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/students")
@@ -45,7 +46,7 @@ public class StudentController {
     }
 
     @GetMapping("/recruitment")
-    public RecruitListResponse queryRecruitmentList(
+    public List<RecruitListResponse> queryRecruitmentList(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
