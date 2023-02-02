@@ -9,7 +9,6 @@ import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.vo.QQueryRecruitmentListVO;
 import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitmentListVO;
-import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitmentListVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
