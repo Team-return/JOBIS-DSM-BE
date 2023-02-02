@@ -23,8 +23,7 @@ import static com.example.jobis.domain.code.domain.QCode.code1;
 import static com.example.jobis.domain.recruit.domain.QRecruitArea.recruitArea;
 import static com.example.jobis.domain.recruit.domain.QRecruitment.recruitment;
 import static com.example.jobis.domain.company.domain.QCompany.company;
-import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.group.GroupBy.list;
+import static com.querydsl.core.group.GroupBy.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -39,13 +38,17 @@ public class RecruitmentRepository {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
+                .leftJoin(recruitment.company, company)
+                .leftJoin(recruitArea.codeList, recruitAreaCode)
+                .leftJoin(recruitAreaCode.codeId, code1)
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
-                        containName(companyName)
+                        containName(companyName),
+                        recruitArea.recruitment.eq(recruitment),
+                        code1.codeType.eq(CodeType.JOB)
                 )
-                .leftJoin(recruitment.company, company)
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .orderBy(recruitment.createdAt.desc())
@@ -59,17 +62,10 @@ public class RecruitmentRepository {
                                         recruitment.recruitDate.startDate,
                                         recruitment.recruitDate.finishDate,
                                         recruitment.militarySupport,
-                                        list(recruitArea)
+                                        sum(recruitArea.hiredCount),
+                                        set(code1.keyword)
                                 ))
                 );
-    }
-
-    public List<RecruitAreaCode> findAllRecruitCodeByRecruitArea(RecruitArea recruitArea) {
-        return queryFactory.selectFrom(recruitAreaCode)
-                .where(recruitAreaCode.recruitAreaId.eq(recruitArea),
-                        code1.codeType.eq(CodeType.JOB))
-                .join(recruitAreaCode.codeId, code1)
-                .fetchJoin().fetch();
     }
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {

@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class TeacherQueryRecruitmentListService {
     private final RecruitmentRepository recruitmentRepository;
-    private final RecruitFacade recruitFacade;
 
     @Transactional(readOnly = true)
     public List<TQueryRecruitmentListResponse> execute(String companyName, LocalDate start, LocalDate end,
@@ -33,13 +33,9 @@ public class TeacherQueryRecruitmentListService {
                                 .end(r.getEnd())
                                 .militarySupport(r.isMilitarySupport())
                                 .applicationCount(0)
-                                .recruitmentCount(getTotalRecruitCount(r.getRecruitAreaList()))
-                                .recruitmentJob(recruitFacade.getJobCodeList(r.getRecruitAreaList()))
+                                .recruitmentCount(r.getTotalHiring())
+                                .recruitmentJob(r.getRecruitAreaList())
                                 .build()
                 ).collect(Collectors.toList());
-    }
-
-    private Integer getTotalRecruitCount(List<RecruitArea> areas) {
-        return areas.stream().mapToInt(RecruitArea :: getHiredCount).sum();
     }
 }

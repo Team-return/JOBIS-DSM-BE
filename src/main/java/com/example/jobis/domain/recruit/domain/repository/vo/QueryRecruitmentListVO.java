@@ -1,14 +1,12 @@
 package com.example.jobis.domain.recruit.domain.repository.vo;
 
 import com.example.jobis.domain.company.domain.enums.CompanyType;
-import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import org.springframework.boot.autoconfigure.cache.CacheType;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 public class QueryRecruitmentListVO {
@@ -19,12 +17,13 @@ public class QueryRecruitmentListVO {
     private final LocalDate start;
     private final LocalDate end;
     private final boolean militarySupport;
-    private final List<RecruitArea> recruitAreaList;
+    private final Set<String> recruitAreaList;
+    private final Integer totalHiring;
 
     @QueryProjection
     public QueryRecruitmentListVO(Long id, RecruitStatus status, String companyName, CompanyType companyType,
-                                  LocalDate start, LocalDate end, boolean militarySupport,
-                                  List<RecruitArea> recruitAreaList) {
+                                  LocalDate start, LocalDate end, boolean militarySupport, Integer totalHiring,
+                                  Set<String> recruitAreaList) {
         this.id = id;
         this.status = status;
         this.companyName = companyName;
@@ -33,5 +32,6 @@ public class QueryRecruitmentListVO {
         this.end = end;
         this.militarySupport = militarySupport;
         this.recruitAreaList = recruitAreaList;
+        this.totalHiring = totalHiring;
     }
 }
