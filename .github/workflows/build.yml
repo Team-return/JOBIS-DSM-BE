@@ -14,7 +14,6 @@ jobs:
         with:
           fetch-depth: 0
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
         run : ./mvnw -B verify sonar:sonar \
               -Dsonar.projectKey=Team-Return_JOBIS-DSM-BE \
               -Dsonar.organization=team-return \
