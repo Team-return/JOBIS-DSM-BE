@@ -37,3 +37,6 @@ out/
 .vscode/
 
 .DS_STORE
+
+
+sonar-project.properties
