@@ -48,6 +48,7 @@ public class StudentSignUpService {
         studentJpaRepository.save(
                 Student.builder()
                         .email(request.getAccountId())
+                        .phoneNumber(request.getPhoneNumber())
                         .user(user)
                         .name(request.getName())
                         .gender(request.getGender())
