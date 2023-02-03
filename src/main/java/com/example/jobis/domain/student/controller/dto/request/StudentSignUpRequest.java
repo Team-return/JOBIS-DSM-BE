@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class StudentSignUpRequest {
 
     @Pattern(regexp = RegexProperty.EMAIL, message = "email은 @dsm.hs.kr을 포함해야함")
-    private String accountId;
+    private String email;
 
     @NotBlank(message = "phone_number은 null 또는 공백을 포함할 수 없습니다.")
     @Size(min = 10, max = 12, message = "phone_number은 10자에서 11자여야 합니다.")

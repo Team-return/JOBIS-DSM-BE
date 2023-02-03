@@ -7,7 +7,6 @@ import com.example.jobis.domain.student.exception.StudentAlreadyExistsException;
 import com.example.jobis.domain.student.facade.AuthCodeFacade;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
-import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserJpaRepository;
@@ -32,14 +31,14 @@ public class StudentSignUpService {
     @Transactional
     public TokenResponse execute(StudentSignUpRequest request) {
 
-        if (studentFacade.existsEmail(request.getAccountId())) {
+        if (studentFacade.existsEmail(request.getEmail())) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
-        authCodeFacade.checkIsVerified(request.getAccountId());
+        authCodeFacade.checkIsVerified(request.getEmail());
 
         User user = userRepository.save(
                 User.builder()
-                        .accountId(request.getAccountId())
+                        .accountId(request.getEmail())
                         .password(passwordEncoder.encode(request.getPassword()))
                         .authority(Authority.STUDENT)
                         .build()
@@ -47,7 +46,7 @@ public class StudentSignUpService {
 
         studentJpaRepository.save(
                 Student.builder()
-                        .email(request.getAccountId())
+                        .email(request.getEmail())
                         .phoneNumber(request.getPhoneNumber())
                         .user(user)
                         .name(request.getName())
