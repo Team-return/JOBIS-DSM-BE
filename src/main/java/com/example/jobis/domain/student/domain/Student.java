@@ -3,7 +3,6 @@ package com.example.jobis.domain.student.domain;
 import com.example.jobis.domain.student.domain.types.Gender;
 import com.example.jobis.domain.student.domain.types.Grade;
 import com.example.jobis.domain.user.domain.User;
-import com.example.jobis.domain.user.domain.enums.Authority;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +32,10 @@ public class Student {
     @Column(columnDefinition = "VARCHAR(30)")
     private String email;
 
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(12)")
+    private String phoneNumber;
+
     @Enumerated(EnumType.STRING)
     private Grade grade;
 
@@ -40,11 +43,12 @@ public class Student {
     private Gender gender;
 
     @Builder
-    public Student(User user, String name, Grade grade, Gender gender, String email) {
+    public Student(User user, String name, Grade grade, Gender gender, String email, String phoneNumber) {
         this.user = user;
         this.name = name;
         this.grade = grade;
         this.gender = gender;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 }

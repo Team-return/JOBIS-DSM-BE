@@ -11,10 +11,10 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Attachment {
+public class CompanyAttachment {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "attachment_id")
+    @Column(name = "company_attachment_id")
     private Long id;
 
     @NotNull
@@ -25,7 +25,7 @@ public class Attachment {
     private Company company;
 
     @Builder
-    public Attachment(String attachmentUrl, Company company) {
+    public CompanyAttachment(String attachmentUrl, Company company) {
         this.attachmentUrl = attachmentUrl;
         this.company = company;
     }

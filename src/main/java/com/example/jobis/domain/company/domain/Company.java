@@ -89,7 +89,7 @@ public class Company {
     private List<Recruitment> recruitmentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
-    private List<Attachment> attachments = new ArrayList<>();
+    private List<CompanyAttachment> companyAttachments = new ArrayList<>();
 
     @Builder
     public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
