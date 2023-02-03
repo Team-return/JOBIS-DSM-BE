@@ -7,6 +7,8 @@ import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeJpaReposit
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
+import com.example.jobis.domain.recruit.domain.repository.vo.QQueryRecruitmentListVO;
+import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitmentListVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import static com.example.jobis.domain.code.domain.QCode.code1;
 import static com.example.jobis.domain.recruit.domain.QRecruitArea.recruitArea;
 import static com.example.jobis.domain.recruit.domain.QRecruitment.recruitment;
 import static com.example.jobis.domain.company.domain.QCompany.company;
+import static com.querydsl.core.group.GroupBy.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,32 +33,34 @@ public class RecruitmentRepository {
     private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
-    public List<Recruitment> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
+    public List<QueryRecruitmentListVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
                                               RecruitStatus status, String companyName, Integer page) {
         long pageSize = 11;
-        return queryFactory
-                .selectFrom(recruitment)
+        return queryFactory.selectFrom(recruitArea)
+                .leftJoin(recruitArea.recruitment, recruitment)
+                .leftJoin(recruitment.company, company)
+                .leftJoin(recruitArea.codeList, recruitAreaCode)
+                .leftJoin(recruitAreaCode.codeId, code1)
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
-                        containName(companyName)
+                        containName(companyName),
+                        recruitment.eq(recruitment),
+                        code1.codeType.eq(CodeType.JOB)
                 )
-                .join(recruitment.company, company)
-                .leftJoin(recruitment.recruitAreaList, recruitArea)
-                .fetchJoin()
+                .orderBy(recruitment.createdAt.desc())
                 .offset(page * pageSize)
                 .limit(pageSize)
-                .orderBy(recruitment.createdAt.desc())
-                .fetch();
-    }
-
-    public List<RecruitAreaCode> findAllRecruitCodeByRecruitArea(RecruitArea recruitArea) {
-        return queryFactory.selectFrom(recruitAreaCode)
-                .where(recruitAreaCode.recruitAreaId.eq(recruitArea),
-                        code1.codeType.eq(CodeType.JOB))
-                .join(recruitAreaCode.codeId, code1)
-                .fetchJoin().fetch();
+                .transform(
+                        groupBy(recruitArea.recruitment.id)
+                                .list(new QQueryRecruitmentListVO(
+                                        recruitment,
+                                        company,
+                                        set(code1.keyword),
+                                        sum(recruitArea.hiredCount)
+                                ))
+                );
     }
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {

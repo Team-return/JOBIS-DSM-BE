@@ -1,6 +1,5 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.domain.repository.CompanyJpaRepository;
 import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
 import com.example.jobis.domain.company.controller.dto.response.CompanyResponse;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;

@@ -2,6 +2,8 @@ package com.example.jobis.domain.recruit.controller;
 
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaCodeRequest;
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaRequest;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
+import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitAreaCodeVO;
 import com.example.jobis.domain.recruit.service.CreateCompanyRecruitAreaCodeService;
 import com.example.jobis.domain.recruit.service.DeleteCompanyRecruitAreaCodeService;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class RecruitController {
     private final DeleteCompanyRecruitAreaCodeService deleteCompanyRecruitAreaCodeService;
     private final CreateCompanyRecruitAreaCodeService createCompanyRecruitAreaCodeService;
     private final CreateCompanyRecruitAreaService createCompanyRecruitAreaService;
+    private final RecruitmentRepository recruitmentRepository;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
