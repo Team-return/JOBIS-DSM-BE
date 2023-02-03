@@ -46,12 +46,12 @@ public class RecruitmentRepository {
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
-                        recruitArea.recruitment.eq(recruitment),
+                        recruitment.eq(recruitment),
                         code1.codeType.eq(CodeType.JOB)
                 )
+                .orderBy(recruitment.createdAt.desc())
                 .offset(page * pageSize)
                 .limit(pageSize)
-                .orderBy(recruitment.createdAt.desc())
                 .transform(
                         groupBy(recruitArea.recruitment.id)
                                 .list(new QQueryRecruitmentListVO(

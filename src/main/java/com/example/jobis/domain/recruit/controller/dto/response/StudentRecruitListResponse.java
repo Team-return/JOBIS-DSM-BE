@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Getter
 @Builder
-public class RecruitListResponse {
+public class StudentRecruitListResponse {
 
     private final Long recruitId;
     private final String companyName;

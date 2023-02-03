@@ -1,6 +1,6 @@
 package com.example.jobis.domain.student.controller;
 
-import com.example.jobis.domain.recruit.controller.dto.response.RecruitListResponse;
+import com.example.jobis.domain.recruit.controller.dto.response.StudentRecruitListResponse;
 import com.example.jobis.domain.recruit.service.QueryRecruitListService;
 import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
 import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
@@ -9,7 +9,6 @@ import com.example.jobis.domain.student.service.SendSignUpAuthCodeService;
 import com.example.jobis.domain.student.service.StudentSignUpService;
 import com.example.jobis.domain.student.service.VerifyAuthCodeService;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
-import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +45,7 @@ public class StudentController {
     }
 
     @GetMapping("/recruitment")
-    public List<RecruitListResponse> queryRecruitmentList(
+    public List<StudentRecruitListResponse> queryRecruitmentList(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
