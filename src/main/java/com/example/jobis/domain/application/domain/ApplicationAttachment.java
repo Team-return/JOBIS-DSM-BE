@@ -13,15 +13,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class ApplicationAttachment {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "application_attachment_id")
-    private Long id;
-
+    @Id
     @NotNull
     private String attachmentUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_id")
+    @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
     @Builder
