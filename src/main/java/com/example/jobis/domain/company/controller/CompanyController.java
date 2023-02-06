@@ -57,7 +57,6 @@ public class CompanyController {
 
     @GetMapping("/my")
     public CompanyMyPageResponse queryMyPage() {
-        System.out.println("a");
         return companyMyPageService.execute();
     }
 }

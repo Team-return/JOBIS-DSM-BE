@@ -1,11 +1,8 @@
 package com.example.jobis.domain.company.controller.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 public class CompanyListResponse {
