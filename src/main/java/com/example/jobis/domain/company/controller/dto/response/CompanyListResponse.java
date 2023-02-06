@@ -8,7 +8,6 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class CompanyListResponse {
 
     private final String companyName;
