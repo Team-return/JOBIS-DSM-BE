@@ -53,6 +53,9 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
+        if(claims.get("typ") != ACCESS) {
+            throw InvalidTokenException.EXCEPTION;
+        }
         Authority authority = Authority.valueOf(claims.get("authority",String.class));
         UserDetails userDetails = getUserDetails(claims.getSubject(), authority);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
