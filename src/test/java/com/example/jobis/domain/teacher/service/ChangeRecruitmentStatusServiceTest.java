@@ -18,7 +18,6 @@ class ChangeRecruitmentStatusServiceTest {
 
     @MockBean
     private RecruitFacade recruitFacade;
-
     private ChangeRecruitmentStatusService changeRecruitmentStatusService;
 
     @BeforeEach

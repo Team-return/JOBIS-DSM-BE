@@ -19,10 +19,8 @@ import static org.mockito.BDDMockito.when;
 class UpdateCompanyDetailsServiceTest {
     @MockBean
     private UpdateCompanyDetailsRequest updateCompanyDetailsRequest;
-
     @MockBean
     private CompanyFacade companyFacade;
-
     private UpdateCompanyDetailsService updateCompanyDetailsService;
 
     @BeforeEach
@@ -43,6 +41,7 @@ class UpdateCompanyDetailsServiceTest {
         given(updateCompanyDetailsRequest.getEmail()).willReturn("after@gmail.com");
         given(updateCompanyDetailsRequest.getTake()).willReturn(1000);
         given(updateCompanyDetailsRequest.getWorkerNumber()).willReturn(20);
+
         //when
         updateCompanyDetailsService.execute(updateCompanyDetailsRequest);
 
