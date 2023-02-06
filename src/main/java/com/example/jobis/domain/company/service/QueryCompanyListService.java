@@ -18,7 +18,5 @@ public class QueryCompanyListService {
     public List<CompanyListResponse> execute() {
 
         return companyRepository.findCompanyInfoList();
-
-
     }
 }
