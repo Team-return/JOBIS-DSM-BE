@@ -68,11 +68,6 @@ sonar {
     }
 }
 
-jacoco {
-    toolVersion = '0.8.7'
-}
-
 tasks.named('test') {
     useJUnitPlatform()
-}
 }
