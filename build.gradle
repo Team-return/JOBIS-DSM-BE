@@ -3,7 +3,6 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
     id "org.sonarqube" version "3.5.0.2730"
-    id 'jacoco'
 }
 
 group = 'com.example'
@@ -61,12 +60,11 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
-sonarqube {
+sonar {
     properties {
         property "sonar.projectKey", "Team-Return_JOBIS-DSM-BE"
         property "sonar.organization", "team-return"
         property "sonar.host.url", "https://sonarcloud.io"
-        property 'sonar.coverage.jacoco.xmlReportPaths', 'build/reports/jacoco/test/jacocoTestReport.xml'
     }
 }
 
@@ -76,24 +74,5 @@ jacoco {
 
 tasks.named('test') {
     useJUnitPlatform()
-    finalizedBy 'jacocoTestReport'
 }
-
-jacocoTestReport {
-    reports {
-        html.enabled true
-    }
-    afterEvaluate {
-        classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                    "com/example/**/Q*.class",
-                    "**/controller/**",
-                    "**/enums/*",
-                    "**/type/*",
-                    "com/example/**/*Exception.*",
-                    "com/example/**/*Application.*",
-                    "**/global/*"
-            ])
-        }))
-    }
 }
