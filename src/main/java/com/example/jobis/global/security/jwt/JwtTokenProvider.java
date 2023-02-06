@@ -53,7 +53,8 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
-        if(claims.get("typ") != ACCESS) {
+
+        if(!claims.get("type", String.class).equals(ACCESS)) {
             throw InvalidTokenException.EXCEPTION;
         }
         Authority authority = Authority.valueOf(claims.get("authority",String.class));
