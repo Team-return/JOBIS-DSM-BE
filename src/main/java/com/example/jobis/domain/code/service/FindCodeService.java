@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +20,6 @@ public class FindCodeService {
         return codeRepository.findByKeywordStartsWithAndCodeType(keyword, type)
                 .stream()
                 .map(Code::to)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
