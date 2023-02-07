@@ -10,8 +10,6 @@ import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentR
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.domain.repository.RecruitAreaJpaRepository;
-import com.example.jobis.domain.recruit.domain.repository.RecruitmentJpaRepository;
 import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -77,7 +75,7 @@ public class ApplyRecruitmentService {
             recruitmentRepository.saveAllRecruitAreaCodes(
                     codeList.stream()
                     .map(c -> new RecruitAreaCode(recruitArea, c))
-                    .collect(Collectors.toList())
+                    .toList()
             );
             requestCode.clear();
         }

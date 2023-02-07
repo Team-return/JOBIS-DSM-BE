@@ -61,7 +61,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
-sonarqube {
+sonar {
     properties {
         property "sonar.projectKey", "Team-Return_JOBIS-DSM-BE"
         property "sonar.organization", "team-return"

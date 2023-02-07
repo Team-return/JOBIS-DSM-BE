@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Year;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -31,7 +30,7 @@ public class QueryRecruitListService {
                                 .totalHiring(r.getTotalHiring())
                                 .build()
                 )
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }
