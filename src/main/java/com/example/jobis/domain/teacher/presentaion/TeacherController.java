@@ -12,10 +12,8 @@ import com.example.jobis.domain.recruit.service.UpdateRecruitAreaService;
 import com.example.jobis.domain.recruit.service.UpdateRecruitmentService;
 import com.example.jobis.domain.teacher.presentaion.dto.response.TQueryRecruitmentListResponse;
 import com.example.jobis.domain.teacher.service.TeacherQueryRecruitmentListService;
-import com.example.jobis.domain.teacher.service.ChangeRecruitService;
+import com.example.jobis.domain.teacher.service.ChangeRecruitmentStatusService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -33,7 +31,7 @@ public class TeacherController {
     private final CreateRecruitAreaCodeService createRecruitAreaCodeService;
     private final CreateRecruitAreaService createRecruitAreaService;
     private final TeacherQueryRecruitmentListService teacherQueryRecruitmentListService;
-    private final ChangeRecruitService changeRecruitService;
+    private final ChangeRecruitmentStatusService changeRecruitmentStatusService;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruit-id}")
@@ -80,7 +78,7 @@ public class TeacherController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/recruitment/{recruit-id}")
     public void changeRecruitStatus(@PathVariable("recruit-id") Long recruitId, @RequestParam("status")RecruitStatus status) {
-        changeRecruitService.execute(recruitId, status);
+        changeRecruitmentStatusService.execute(recruitId, status);
     }
 
 }

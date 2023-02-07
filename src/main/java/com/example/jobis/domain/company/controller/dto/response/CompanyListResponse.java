@@ -1,13 +1,21 @@
 package com.example.jobis.domain.company.controller.dto.response;
 
-import lombok.AllArgsConstructor;
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
-@AllArgsConstructor
 public class CompanyListResponse {
 
-    private final List<CompanyResponse> companyList;
+    private final String companyName;
+    private final String companyProfileUrl;
+    private final int take;
+
+    @Builder
+    @QueryProjection
+    public CompanyListResponse(String companyName, String companyProfileUrl, int take) {
+        this.companyName = companyName;
+        this.companyProfileUrl = companyProfileUrl;
+        this.take = take;
+    }
 }

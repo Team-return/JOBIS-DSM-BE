@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
+                .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.name())

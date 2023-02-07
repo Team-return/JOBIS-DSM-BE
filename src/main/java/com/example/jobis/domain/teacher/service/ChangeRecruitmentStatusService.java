@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ChangeRecruitService {
+public class ChangeRecruitmentStatusService {
     private final RecruitFacade recruitFacade;
 
     @Transactional

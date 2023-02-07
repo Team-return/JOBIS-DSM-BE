@@ -60,7 +60,7 @@ public class Company {
     private LocalDate foundedAt;
 
     @NotNull
-    @Column(columnDefinition = "SMALLINT")
+    @Column(columnDefinition = "INTEGER")
     private int sales;
 
     @NotNull
