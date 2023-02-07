@@ -30,7 +30,8 @@ public enum ErrorCode {
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
-    STUDENT_ALREADY_EXISTS(409, "Student Already Exists")
+    STUDENT_ALREADY_EXISTS(409, "Student Already Exists"),
+    APPLICATION_ALREADY_EXISTS(409, "Application Already Exists")
 
     ;
 
