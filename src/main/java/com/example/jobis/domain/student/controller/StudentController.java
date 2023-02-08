@@ -1,5 +1,7 @@
 package com.example.jobis.domain.student.controller;
 
+import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
+import com.example.jobis.domain.application.service.QueryStudentApplicationService;
 import com.example.jobis.domain.recruit.controller.dto.response.StudentRecruitListResponse;
 import com.example.jobis.domain.recruit.service.QueryRecruitListService;
 import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
@@ -25,6 +27,7 @@ public class StudentController {
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final StudentSignUpService studentSignUpService;
     private final QueryRecruitListService queryRecruitListService;
+    private final QueryStudentApplicationService queryStudentApplicationService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")
@@ -50,5 +53,10 @@ public class StudentController {
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
         return queryRecruitListService.execute(companyName, page);
+    }
+
+    @GetMapping("/application")
+    public List<StudentApplicationListResponse> queryApplication() {
+        return queryStudentApplicationService.execute();
     }
 }
