@@ -28,11 +28,13 @@ public enum ErrorCode {
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found"),
     RECRUIT_AREA_CODE_NOT_FOUND(404, "Recruit Area Code Not Found"),
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
+    APPLICATION_NOT_FOUND(404, "Application Not Found"),
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists"),
-    APPLICATION_ALREADY_EXISTS(409, "Application Already Exists")
-
+    APPLICATION_ALREADY_EXISTS(409, "Application Already Exists"),
+    NOT_THIRD_GRADE(409, "Not Third Grade"),
+    ANY_APPLICATION_STATUS_IS_APPROVED(409, "Any Application Status is approved")
     ;
 
     private final Integer status;
