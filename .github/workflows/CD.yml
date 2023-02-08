@@ -47,13 +47,11 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cd jobis
-            whoami
-            pwd
             sudo docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) ${{ secrets.DOCKER_PASSWORD }}
             sudo docker-compose down
             sudo docker image prune -a
             sudo docker pull ${{ secrets.DOCKER_IMAGE }}
-            docker-compose up -d
+            sudo docker-compose up Jobis
             
             
       
