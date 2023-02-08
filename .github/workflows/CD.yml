@@ -48,7 +48,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd jobis
-            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.DOCKER_IMAGE }}
+            docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) ${{ secrets.DOCKER_PASSWORD }}
             docker-compose down
             docker image prune -a
             docker pull ${{ secrets.DOCKER_IMAGE }}
