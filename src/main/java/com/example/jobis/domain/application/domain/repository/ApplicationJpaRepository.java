@@ -5,7 +5,11 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.student.domain.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ApplicationJpaRepository extends JpaRepository<Application, Long> {
 
     boolean existsByStudentAndCompany(Student student, Company company);
+
+    List<Application> findAllByStudent(Student student);
 }
