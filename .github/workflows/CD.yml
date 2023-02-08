@@ -51,7 +51,7 @@ jobs:
             sudo docker-compose down
             sudo docker image prune -a
             sudo docker pull ${{ secrets.DOCKER_IMAGE }}
-            sudo docker-compose up
+            sudo docker-compose up -d
             
             
       
