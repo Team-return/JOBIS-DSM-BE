@@ -21,7 +21,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build --build-cache
 
       - name: Login to ECR
         id: ecr
@@ -47,11 +47,11 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cd jobis
-            docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) ${{ secrets.DOCKER_PASSWORD }}
-            docker-compose down
-            docker image prune -a
-            docker pull ${{ secrets.DOCKER_IMAGE }}
-            docker-compose up -d
+            sudo docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) ${{ secrets.DOCKER_PASSWORD }}
+            sudo docker-compose down
+            sudo docker image prune -a
+            sudo docker pull ${{ secrets.DOCKER_IMAGE }}
+            sudo docker-compose up -d
             
             
       
