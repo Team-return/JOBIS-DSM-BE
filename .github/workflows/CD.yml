@@ -21,7 +21,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build --build-cache
+        run: ./gradlew --build-cache build
 
       - name: Login to ECR
         id: ecr
