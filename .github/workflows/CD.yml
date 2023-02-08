@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: CD
 
 on:
   push:
@@ -10,27 +10,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 17
+      - uses: actions/checkout@v3
+
+      - name: Set up Java
         uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'zulu'
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Login to Dockerhub
-        uses: docker/login-action@v1
+      - name: Login to ECR
+        uses: elgohr/ecr-login-action@master
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_REGION }}
 
-      - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_REPOSITORY }} .
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        run: |
+          docker build -t ${{ secrets.ECR_REPOSITORY }} .
+          docker push ${{ secrets.ECR_REPOSITORY }}
 
-      - name: Push on Dockerhub
-        run: docker push ${{ secrets.DOCKER_REPOSITORY }}
+      - name: Connect EC2 & Deploy Docker Image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          port: ${{ secrets.EC2_PORT }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd dms-server
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.DOCKER_IMAGE }}
+            docker-compose down
+            docker image prune -a
+            docker pull ${{ secrets.DOCKER_IMAGE }}
+            docker-compose up -d
+            
+            
+      
