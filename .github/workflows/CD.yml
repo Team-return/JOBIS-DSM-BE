@@ -43,9 +43,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
-          port: ${{ secrets.EC2_PORT }}
           username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
+          password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cd jobis
             docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) ${{ secrets.DOCKER_PASSWORD }}
