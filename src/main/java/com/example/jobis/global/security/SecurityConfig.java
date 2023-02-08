@@ -66,7 +66,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
-                .antMatchers(HttpMethod.GET, "/students/recruit").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/recruitment").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/application").hasAuthority(Authority.STUDENT.name())
 
                 //application
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(Authority.STUDENT.name())
