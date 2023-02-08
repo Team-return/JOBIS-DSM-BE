@@ -4,6 +4,7 @@ import com.example.jobis.domain.application.controller.dto.response.QStudentAppl
 import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
+import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -48,5 +49,16 @@ public class ApplicationRepository {
 
     public boolean existsApplicationByStudentAndCompany(Student student, Company company) {
         return applicationJpaRepository.existsByStudentAndCompany(student, company);
+    }
+
+    public boolean isAnyApplicationStatusApproved(Student student) {
+        List<Application> applicationList = applicationJpaRepository.findAllByStudent(student);
+
+        for (Application application : applicationList) {
+            if (application.getApplicationStatus().equals(ApplicationStatus.APPROVED)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
