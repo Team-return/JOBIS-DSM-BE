@@ -24,17 +24,20 @@ jobs:
         run: ./gradlew clean build
 
       - name: Login to ECR
+        id: ecr
         uses: elgohr/ecr-login-action@master
         with:
           access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
 
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY }} .
-          docker push ${{ secrets.ECR_REPOSITORY }}
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: ${{ secrets.ECR_REPOSITORY }}
+          username: ${{ steps.ecr.outputs.username }}
+          password: ${{ steps.ecr.outputs.password }}
+          registry: ${{ steps.ecr.outputs.registry }}
 
       - name: Connect EC2 & Deploy Docker Image
         uses: appleboy/ssh-action@master
