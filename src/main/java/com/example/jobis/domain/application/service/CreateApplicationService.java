@@ -32,6 +32,10 @@ public class CreateApplicationService {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
+        if (!student.getGrade().equals(Grade.THIRD)) {
+            throw NotThirdGradeException.EXCEPTION;
+        }
+
         Application application = applicationRepository.saveApplication(Application.builder()
                 .student(student)
                 .company(company)
