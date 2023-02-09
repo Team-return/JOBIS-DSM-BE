@@ -10,6 +10,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
@@ -29,13 +31,14 @@ class ChangeRecruitmentStatusServiceTest {
     @Test
     void execute() {
         //given
+        UUID uuid = UUID.randomUUID();
         Recruitment recruitment = Recruitment.builder()
                 .status(RecruitStatus.REQUESTED)
                 .build();
-        given(recruitFacade.getRecruitById(0L)).willReturn(recruitment);
+        given(recruitFacade.getRecruitById(uuid)).willReturn(recruitment);
 
         //when
-        changeRecruitmentStatusService.execute(0L, RecruitStatus.READY);
+        changeRecruitmentStatusService.execute(uuid, RecruitStatus.READY);
 
 
         assertEquals(recruitment.getStatus(), RecruitStatus.READY);
