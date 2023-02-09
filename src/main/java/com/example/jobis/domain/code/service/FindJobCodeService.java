@@ -17,7 +17,7 @@ public class FindJobCodeService {
     public List<JobCodeResponse> execute() {
         return codeRepository.findAllJobCode().stream()
                 .map(c-> JobCodeResponse.builder()
-                        .code(c.getCode())
+                        .code(c.getId())
                         .keyword(c.getKeyword())
                         .jobType(c.getJobType())
                         .build())

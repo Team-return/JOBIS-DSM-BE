@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/companies")
@@ -51,7 +52,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{company-id}")
-    public CompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
+    public CompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") UUID companyId) {
         return queryCompanyDetailsService.execute(companyId);
     }
 

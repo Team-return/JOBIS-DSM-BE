@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @BatchSize(size = 200)
@@ -28,11 +29,11 @@ import java.util.List;
 public class Company {
     @Id
     @Column(name = "company_id")
-    private Long id;
+    private UUID id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", columnDefinition = "BINARY(16)", nullable = false)
     private User user;
 
     @NotNull
