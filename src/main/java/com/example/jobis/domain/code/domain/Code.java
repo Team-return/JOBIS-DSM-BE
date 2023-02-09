@@ -3,7 +3,6 @@ package com.example.jobis.domain.code.domain;
 import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.code.controller.dto.response.CodeResponse;
 import com.example.jobis.domain.code.domain.enums.JobType;
-import com.example.jobis.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

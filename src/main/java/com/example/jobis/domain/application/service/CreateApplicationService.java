@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -23,7 +24,7 @@ public class CreateApplicationService {
     private final StudentFacade studentFacade;
     private final CompanyFacade companyFacade;
 
-    public void execute(CreateApplicationRequest request, Long companyId) {
+    public void execute(CreateApplicationRequest request, UUID companyId) {
 
         Student student = studentFacade.getCurrentStudent();
         Company company = companyFacade.getCompanyById(companyId);

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-@BatchSize(size = 200)
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

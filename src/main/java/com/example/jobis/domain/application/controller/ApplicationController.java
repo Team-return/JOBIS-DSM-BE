@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/applications")
@@ -17,7 +18,7 @@ public class ApplicationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{company-id}")
-    public void execute(@RequestBody @Valid CreateApplicationRequest request, @PathVariable("company-id") Long companyId) {
+    public void execute(@RequestBody @Valid CreateApplicationRequest request, @PathVariable("company-id") UUID companyId) {
         createApplicationService.execute(request, companyId);
     }
 }
