@@ -5,6 +5,7 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -16,7 +17,7 @@ class CompanyMyPageServiceTest {
 
     @Mock
     private CompanyFacade companyFacade;
-    @Mock
+    @InjectMocks
     private CompanyMyPageService companyMyPageService;
 
     @Test
