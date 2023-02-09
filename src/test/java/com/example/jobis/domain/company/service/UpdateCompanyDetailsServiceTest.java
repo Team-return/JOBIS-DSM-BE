@@ -3,32 +3,24 @@ package com.example.jobis.domain.company.service;
 import com.example.jobis.domain.company.controller.dto.request.UpdateCompanyDetailsRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.when;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 class UpdateCompanyDetailsServiceTest {
-    @MockBean
+    @Mock
     private UpdateCompanyDetailsRequest updateCompanyDetailsRequest;
-    @MockBean
+    @Mock
     private CompanyFacade companyFacade;
+    @InjectMocks
     private UpdateCompanyDetailsService updateCompanyDetailsService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-
-        updateCompanyDetailsService = new UpdateCompanyDetailsService(companyFacade);
-    }
     @Test
     void execute() {
         //given
