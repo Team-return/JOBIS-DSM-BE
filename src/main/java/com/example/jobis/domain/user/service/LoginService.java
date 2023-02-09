@@ -1,9 +1,6 @@
 package com.example.jobis.domain.user.service;
 
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.user.controller.dto.request.LoginRequest;
-import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.exception.InvalidPasswordException;
