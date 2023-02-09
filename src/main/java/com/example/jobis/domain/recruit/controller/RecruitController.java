@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +29,6 @@ public class RecruitController {
     private final DeleteCompanyRecruitAreaCodeService deleteCompanyRecruitAreaCodeService;
     private final CreateCompanyRecruitAreaCodeService createCompanyRecruitAreaCodeService;
     private final CreateCompanyRecruitAreaService createCompanyRecruitAreaService;
-    private final RecruitmentRepository recruitmentRepository;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -44,19 +44,19 @@ public class RecruitController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
-    public void updateRecruitArea(@RequestBody @Valid UpdateRecruitAreaRequest request, @PathVariable("recruit-area-id") Long recruitAreaId) {
+    public void updateRecruitArea(@RequestBody @Valid UpdateRecruitAreaRequest request, @PathVariable("recruit-area-id") UUID recruitAreaId) {
         updateCompanyRecruitAreaService.execute(request, recruitAreaId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/area/code")
-    public void deleteRecruitAreaCode(@RequestParam("recruit-area-id") Long recruitAreaId, @RequestParam("code-id") Long codeId) {
+    public void deleteRecruitAreaCode(@RequestParam("recruit-area-id") UUID recruitAreaId, @RequestParam("code-id") Long codeId) {
         deleteCompanyRecruitAreaCodeService.execute(recruitAreaId, codeId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/area/code/{recruit-area-id}")
-    public void createRecruitAreaCode(@RequestBody @Valid CreateRecruitAreaCodeRequest request, @PathVariable("recruit-area-id") Long recruitAreaId) {
+    public void createRecruitAreaCode(@RequestBody @Valid CreateRecruitAreaCodeRequest request, @PathVariable("recruit-area-id") UUID recruitAreaId) {
         createCompanyRecruitAreaCodeService.execute(recruitAreaId, request);
     }
 

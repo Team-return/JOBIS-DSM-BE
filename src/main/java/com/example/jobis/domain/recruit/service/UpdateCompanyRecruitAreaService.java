@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class UpdateCompanyRecruitAreaService {
@@ -20,7 +22,7 @@ public class UpdateCompanyRecruitAreaService {
     private final RecruitAreaFacade recruitAreaFacade;
 
     @Transactional
-    public void execute(UpdateRecruitAreaRequest request, Long recruitAreaId) {
+    public void execute(UpdateRecruitAreaRequest request, UUID recruitAreaId) {
 
         Company company = companyFacade.getCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);

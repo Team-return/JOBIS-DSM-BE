@@ -20,7 +20,7 @@ import javax.persistence.*;
 @Entity
 public class Code {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private Long id;
 
     private String keyword;
 
@@ -29,9 +29,10 @@ public class Code {
 
     @Enumerated(EnumType.STRING)
     private JobType jobType;
+
     public CodeResponse to() {
         return CodeResponse.builder()
-                .code(code)
+                .code(id)
                 .keyword(keyword)
                 .build();
     }

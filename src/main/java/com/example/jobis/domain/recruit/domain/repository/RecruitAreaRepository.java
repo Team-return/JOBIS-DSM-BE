@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface RecruitAreaRepository extends JpaRepository<RecruitArea, Long> {
+public interface RecruitAreaRepository extends JpaRepository<RecruitArea, UUID> {
 
-    List<RecruitArea> findAllByRecruitment(Recruitment recruitment);
-
-    Optional<RecruitArea> findByIdAndRecruitment(Long id, Recruitment recruitment);
+    Optional<RecruitArea> findByIdAndRecruitment(UUID id, Recruitment recruitment);
 }

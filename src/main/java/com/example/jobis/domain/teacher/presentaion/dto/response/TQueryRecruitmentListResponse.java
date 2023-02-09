@@ -9,11 +9,12 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Builder
 public class TQueryRecruitmentListResponse {
-    private final Long id;
+    private final UUID id;
     private final RecruitStatus recruitmentStatus;
     private final String companyName;
     private final CompanyType companyType;

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -29,7 +30,7 @@ public class CreateRecruitAreaService {
     private final RecruitFacade recruitFacade;
 
     @Transactional
-    public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
+    public void execute(CreateRecruitAreaRequest request, UUID recruitmentId) {
 
         Recruitment recruitment = recruitFacade.getRecruitById(recruitmentId);
 

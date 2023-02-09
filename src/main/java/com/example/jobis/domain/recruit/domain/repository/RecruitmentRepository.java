@@ -19,7 +19,7 @@ import java.util.List;
 
 
 import static com.example.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
-import static com.example.jobis.domain.code.domain.QCode.code1;
+import static com.example.jobis.domain.code.domain.QCode.code;
 import static com.example.jobis.domain.recruit.domain.QRecruitArea.recruitArea;
 import static com.example.jobis.domain.recruit.domain.QRecruitment.recruitment;
 import static com.example.jobis.domain.company.domain.QCompany.company;
@@ -40,14 +40,14 @@ public class RecruitmentRepository {
                 .leftJoin(recruitArea.recruitment, recruitment)
                 .leftJoin(recruitment.company, company)
                 .leftJoin(recruitArea.codeList, recruitAreaCode)
-                .leftJoin(recruitAreaCode.codeId, code1)
+                .leftJoin(recruitAreaCode.codeId, code)
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
                         recruitment.eq(recruitment),
-                        code1.codeType.eq(CodeType.JOB)
+                        code.codeType.eq(CodeType.JOB)
                 )
                 .orderBy(recruitment.createdAt.desc())
                 .offset(page * pageSize)
@@ -57,7 +57,7 @@ public class RecruitmentRepository {
                                 .list(new QQueryRecruitmentListVO(
                                         recruitment,
                                         company,
-                                        set(code1.keyword),
+                                        set(code.keyword),
                                         sum(recruitArea.hiredCount)
                                 ))
                 );

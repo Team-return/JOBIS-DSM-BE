@@ -4,12 +4,11 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.type.Pay;
 import com.example.jobis.domain.recruit.domain.type.RecruitDate;
-import com.example.jobis.global.entity.BaseTimeEntity;
+import com.example.jobis.global.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -20,16 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@BatchSize(size = 200)
 @DynamicUpdate
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Recruitment extends BaseTimeEntity{
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recruit_id")
-    private Long id;
+public class Recruitment extends BaseEntity {
 
     @NotNull
     @Column(columnDefinition = "YEAR")
@@ -119,7 +113,8 @@ public class Recruitment extends BaseTimeEntity{
         this.etc = etc;
     }
 
-    public void changeStatus(RecruitStatus status) {
+    public Recruitment changeStatus(RecruitStatus status) {
         this.status = status;
+        return this;
     }
 }
