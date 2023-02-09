@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -17,7 +18,7 @@ public class UpdateRecruitmentService {
     private final RecruitFacade recruitFacade;
 
     @Transactional
-    public void execute(UpdateRecruitmentRequest request, Long recruitId) {
+    public void execute(UpdateRecruitmentRequest request, UUID recruitId) {
 
         Recruitment recruit = recruitFacade.getRecruitById(recruitId);
 
