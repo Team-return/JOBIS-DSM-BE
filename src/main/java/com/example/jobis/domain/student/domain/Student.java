@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,11 +19,11 @@ public class Student {
 
     @Id
     @Column(name = "student_id")
-    private Long id;
+    private UUID id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", columnDefinition = "BINARY(16)", nullable = false)
     private User user;
 
     @Column(length = 10, nullable = false)

@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class RecruitAreaCode {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruit_area_id", nullable = false)
+    @JoinColumn(columnDefinition = "BINARY(16)", name = "recruit_area_id", nullable = false)
     private RecruitArea recruitAreaId;
 
     @Id
