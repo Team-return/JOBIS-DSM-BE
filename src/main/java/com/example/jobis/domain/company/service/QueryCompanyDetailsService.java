@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class QueryCompanyDetailsService {
@@ -14,7 +16,7 @@ public class QueryCompanyDetailsService {
     private final CompanyFacade companyFacade;
 
     @Transactional(readOnly = true)
-    public CompanyDetailsResponse execute(Long companyId) {
+    public CompanyDetailsResponse execute(UUID companyId) {
         Company company = companyFacade.getCompanyById(companyId);
 
         return CompanyDetailsResponse.builder()
