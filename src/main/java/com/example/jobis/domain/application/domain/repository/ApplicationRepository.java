@@ -27,6 +27,7 @@ public class ApplicationRepository {
         return jpaQueryFactory
                 .select(
                         new QStudentApplicationListResponse(
+                                application.id,
                                 application.company.name,
                                 application.applicationStatus,
                                 application.createdAt
