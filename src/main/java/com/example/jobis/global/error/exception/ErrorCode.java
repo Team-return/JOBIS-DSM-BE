@@ -17,6 +17,8 @@ public enum ErrorCode {
     INVALID_TOKEN(401,"Invalid Token"),
     INVALID_PASSWORD(401, "invalid password"),
     INVALID_CODE(401, "invalid code"),
+    INVALID_GRADE(409, "Invalid Grade"),
+
 
     USER_NOT_FOUND(404, "User Not Found"),
     COMPANY_NOT_FOUND(404, "Company Not Found"),
@@ -32,9 +34,7 @@ public enum ErrorCode {
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists"),
-    APPLICATION_ALREADY_EXISTS(409, "Application Already Exists"),
-    NOT_THIRD_GRADE(409, "Not Third Grade"),
-    ANY_APPLICATION_STATUS_IS_APPROVED(409, "Any Application Status is approved")
+    APPLICATION_ALREADY_EXISTS(409, "Application Already Exists")
     ;
 
     private final Integer status;
