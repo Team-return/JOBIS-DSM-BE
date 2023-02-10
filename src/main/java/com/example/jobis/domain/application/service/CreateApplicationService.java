@@ -5,9 +5,8 @@ import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.exception.AnyApplicationStatusIsApprovedException;
 import com.example.jobis.domain.application.exception.ApplicationAlreadyExistsException;
-import com.example.jobis.domain.application.exception.NotThirdGradeException;
+import com.example.jobis.domain.application.exception.InvalidGradeException;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.student.domain.Student;
@@ -36,11 +35,11 @@ public class CreateApplicationService {
         }
 
         if (!student.getGrade().equals(Grade.THIRD)) {
-            throw NotThirdGradeException.EXCEPTION;
+            throw InvalidGradeException.EXCEPTION;
         }
 
-        if (applicationRepository.isAnyApplicationStatusApproved(student)) {
-            throw AnyApplicationStatusIsApprovedException.EXCEPTION;
+        if (applicationRepository.existsApplicationByStudentAndApplicationStatus(student, ApplicationStatus.APPROVED)) {
+            throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
         Application application = applicationRepository.saveApplication(Application.builder()
