@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class DeleteRecruitAreaCodeService {
@@ -18,7 +20,7 @@ public class DeleteRecruitAreaCodeService {
     private final CodeFacade codeFacade;
 
     @Transactional
-    public void execute(Long recruitAreaId, Long codeId) {
+    public void execute(UUID recruitAreaId, Long codeId) {
 
         RecruitArea recruitArea = recruitAreaFacade.getRecruitAreaById(recruitAreaId);
         Code code = codeFacade.findCodeById(codeId);

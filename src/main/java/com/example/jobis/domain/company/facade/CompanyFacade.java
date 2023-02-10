@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Component
 public class CompanyFacade {
@@ -38,7 +40,7 @@ public class CompanyFacade {
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
-    public Company getCompanyById(Long id) {
+    public Company getCompanyById(UUID id) {
         return companyJpaRepository.findById(id)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }

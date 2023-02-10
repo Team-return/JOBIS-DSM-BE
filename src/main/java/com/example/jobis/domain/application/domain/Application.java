@@ -3,7 +3,7 @@ package com.example.jobis.domain.application.domain;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.student.domain.Student;
-import com.example.jobis.global.entity.BaseTimeEntity;
+import com.example.jobis.global.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,11 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Application extends BaseTimeEntity {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "application_id")
-    private Long id;
+public class Application extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)

@@ -1,7 +1,7 @@
 package com.example.jobis.domain.recruit.domain;
 
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-import com.example.jobis.global.entity.BaseTimeEntity;
+import com.example.jobis.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,10 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class RecruitArea {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recruit_area_id")
-    private Long id;
+public class RecruitArea extends BaseUUIDEntity {
 
     private Integer hiredCount;
 

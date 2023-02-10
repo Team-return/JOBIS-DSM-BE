@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -26,7 +27,7 @@ public class CreateCompanyRecruitAreaCodeService {
     private final RecruitAreaFacade recruitAreaFacade;
     private final CodeFacade codeFacade;
 
-    public void execute(Long recruitAreaId, CreateRecruitAreaCodeRequest request) {
+    public void execute(UUID recruitAreaId, CreateRecruitAreaCodeRequest request) {
 
         Company company = companyFacade.getCurrentCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);

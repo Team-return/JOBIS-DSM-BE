@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -16,7 +17,7 @@ public class RecruitFacade {
 
     private final RecruitmentJpaRepository recruitmentJpaRepository;
 
-    public Recruitment getRecruitById(Long id) {
+    public Recruitment getRecruitById(UUID id) {
         return recruitmentJpaRepository.findById(id)
                 .orElseThrow(() -> RecruitNotFoundException.EXCEPTION);
     }
