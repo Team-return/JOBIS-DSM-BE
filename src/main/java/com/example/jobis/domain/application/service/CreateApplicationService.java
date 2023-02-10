@@ -6,9 +6,11 @@ import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import com.example.jobis.domain.application.exception.ApplicationAlreadyExistsException;
+import com.example.jobis.domain.application.exception.InvalidGradeException;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.student.domain.Student;
+import com.example.jobis.domain.student.domain.types.Grade;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,14 @@ public class CreateApplicationService {
         Company company = companyFacade.getCompanyById(companyId);
 
         if (applicationRepository.existsApplicationByStudentAndCompany(student, company)) {
+            throw ApplicationAlreadyExistsException.EXCEPTION;
+        }
+
+        if (!student.getGrade().equals(Grade.THIRD)) {
+            throw InvalidGradeException.EXCEPTION;
+        }
+
+        if (applicationRepository.existsApplicationByStudentAndApplicationStatus(student, ApplicationStatus.APPROVED)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
