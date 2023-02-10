@@ -51,14 +51,7 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentAndCompany(student, company);
     }
 
-    public boolean isAnyApplicationStatusApproved(Student student) {
-        List<Application> applicationList = applicationJpaRepository.findAllByStudent(student);
-
-        for (Application application : applicationList) {
-            if (application.getApplicationStatus().equals(ApplicationStatus.APPROVED)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean existsApplicationByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus) {
+        return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 }
