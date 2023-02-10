@@ -8,6 +8,6 @@ public class InvalidGradeException extends JobisException {
     public static final JobisException EXCEPTION = new InvalidGradeException();
 
     private InvalidGradeException() {
-        super(ErrorCode.NOT_THIRD_GRADE);
+        super(ErrorCode.INVALID_GRADE);
     }
 }
