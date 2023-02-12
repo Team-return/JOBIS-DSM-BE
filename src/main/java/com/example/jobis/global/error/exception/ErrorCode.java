@@ -25,15 +25,10 @@ public enum ErrorCode {
     STUDENT_NOT_FOUND(404, "Student Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail"),
     FILE_NOT_FOUND(404, "File not Found"),
-<<<<<<< HEAD
-    RECRUIT_NOT_FOUND(404, "Recruit Not Found"),
-
-=======
     CODE_NOT_FOUND(404, "Code Not Found"),
     RECRUIT_NOT_FOUND(404, "Recruit Not Found"),
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found"),
     RECRUIT_AREA_CODE_NOT_FOUND(404, "Recruit Area Code Not Found"),
->>>>>>> main
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
     APPLICATION_NOT_FOUND(404, "Application Not Found"),
 

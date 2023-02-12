@@ -35,20 +35,12 @@ public class SecurityConfig {
                 .authorizeRequests()
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
-<<<<<<< HEAD
-                .antMatchers(HttpMethod.GET, "/companies/exists/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.toString())
-                .antMatchers(HttpMethod.POST, "/recruit").hasAuthority(Authority.COMPANY.toString())
-                .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(Authority.ADMIN.toString(), Authority.STUDENT.toString())
-                .antMatchers(HttpMethod.GET, "recruit/{recruit-id}").hasAnyAuthority(Authority.ADMIN.toString(), Authority.STUDENT.toString())
-=======
                 .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}")
                 .hasAnyAuthority(Authority.STUDENT.toString(), Authority.TEACHER.toString())
->>>>>>> main
 
                 //user
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()

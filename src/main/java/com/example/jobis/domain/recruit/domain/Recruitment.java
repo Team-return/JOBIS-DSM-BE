@@ -9,11 +9,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD:src/main/java/com/example/jobis/domain/recruit/domain/Recruit.java
-=======
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
->>>>>>> main:src/main/java/com/example/jobis/domain/recruit/domain/Recruitment.java
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,20 +34,6 @@ public class Recruitment extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10)")
     private RecruitStatus status;
 
-<<<<<<< HEAD:src/main/java/com/example/jobis/domain/recruit/domain/Recruit.java
-    @Column(nullable = false)
-    private int requiredGrade;
-
-    @Column(nullable = false)
-    private int workHours;
-
-    @Column(length = 500, nullable = false)
-    private String submitDocument;
-
-    @Column(length = 1000)
-    private String benefit;
-=======
->>>>>>> main:src/main/java/com/example/jobis/domain/recruit/domain/Recruitment.java
 
     private String preferentialTreatment;
 
@@ -93,21 +76,11 @@ public class Recruitment extends BaseEntity {
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
     @Builder
-<<<<<<< HEAD:src/main/java/com/example/jobis/domain/recruit/domain/Recruit.java
-    public Recruit(int recruitYear, RecruitStatus status, int requiredGrade, int workHours, String submitDocument, Integer trainPay, Integer pay,
-                   LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
-                   boolean military, String etc, String preferentialTreatment, String hiringProgress
-    ) {
-        this.requiredGrade = requiredGrade;
-        this.workHours = workHours;
-        this.submitDocument = submitDocument;
-=======
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
                        LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
                        boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
     ) {
         this.workingHours = workingHours;
->>>>>>> main:src/main/java/com/example/jobis/domain/recruit/domain/Recruitment.java
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
         this.requiredGrade = requiredGrade;

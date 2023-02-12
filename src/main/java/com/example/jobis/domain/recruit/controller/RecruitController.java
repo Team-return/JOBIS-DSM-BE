@@ -7,15 +7,9 @@ import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitAreaCod
 import com.example.jobis.domain.recruit.service.CreateCompanyRecruitAreaCodeService;
 import com.example.jobis.domain.recruit.service.DeleteCompanyRecruitAreaCodeService;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest;
-<<<<<<< HEAD
-import com.example.jobis.domain.recruit.controller.dto.response.RecruitDetailsResponse;
-import com.example.jobis.domain.recruit.service.ApplyRecruitmentService;
-import com.example.jobis.domain.recruit.service.QueryRecruitDetailsService;
-=======
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitmentRequest;
 import com.example.jobis.domain.recruit.service.*;
->>>>>>> main
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,15 +24,11 @@ import java.util.UUID;
 public class RecruitController {
 
     private final ApplyRecruitmentService applyRecruitmentService;
-<<<<<<< HEAD
-    private final QueryRecruitDetailsService queryRecruitDetailsService;
-=======
     private final UpdateCompanyRecruitService updateCompanyRecruitService;
     private final UpdateCompanyRecruitAreaService updateCompanyRecruitAreaService;
     private final DeleteCompanyRecruitAreaCodeService deleteCompanyRecruitAreaCodeService;
     private final CreateCompanyRecruitAreaCodeService createCompanyRecruitAreaCodeService;
     private final CreateCompanyRecruitAreaService createCompanyRecruitAreaService;
->>>>>>> main
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -46,11 +36,6 @@ public class RecruitController {
         applyRecruitmentService.execute(request);
     }
 
-<<<<<<< HEAD
-    @GetMapping("/{recruit-id}")
-    public RecruitDetailsResponse getDetails(@PathVariable("recruit-id") Long recruitId) {
-        return queryRecruitDetailsService.execute(recruitId);
-=======
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
     public void updateRecruitment(@RequestBody @Valid UpdateRecruitmentRequest request) {
@@ -79,6 +64,5 @@ public class RecruitController {
     @PostMapping("/area")
     public void createRecruitArea(@RequestBody @Valid CreateRecruitAreaRequest request) {
         createCompanyRecruitAreaService.execute(request);
->>>>>>> main
     }
 }

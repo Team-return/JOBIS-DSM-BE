@@ -26,13 +26,4 @@ public class CodeFacade {
         return codeRepository.findById(id)
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
     }
-
-    public List<String> getKeywordByRecruitArea(RecruitArea recruitArea, CodeType codeType) {
-        return recruitArea.getCodeList().stream()
-                .map(RecruitAreaCode::getCodeId)
-                .toList().stream()
-                .filter(code -> code.getCodeType().equals(codeType))
-                .map(Code::getKeyword)
-                .toList();
-    }
 }

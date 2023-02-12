@@ -2,10 +2,6 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
-<<<<<<< HEAD
-import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
-=======
->>>>>>> main
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
@@ -45,17 +41,6 @@ public class ApplyRecruitmentService {
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
                         .company(company)
-<<<<<<< HEAD
-                        .hiringProgress(hiringProgress)
-                        .requiredGrade(request.getRequiredGrade())
-                        .workHours(request.getWorkHours())
-                        .submitDocument(request.getSubmitDocument())
-                        .pay(request.getPay())
-                        .trainPay(request.getTrainPay())
-                        .benefit(request.getBenefits())
-                        .preferentialTreatment(request.getPreferentialTreatment())
-=======
->>>>>>> main
                         .recruitYear(LocalDate.now().getYear())
                         .militarySupport(request.getMilitarySupport())
                         .workingHours(request.getWorkHours())
