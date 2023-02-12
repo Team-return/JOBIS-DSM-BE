@@ -19,7 +19,6 @@ public enum ErrorCode {
     INVALID_CODE(401, "invalid code"),
     INVALID_GRADE(401, "Invalid Grade"),
 
-
     USER_NOT_FOUND(404, "User Not Found"),
     COMPANY_NOT_FOUND(404, "Company Not Found"),
     STUDENT_NOT_FOUND(404, "Student Not Found"),
