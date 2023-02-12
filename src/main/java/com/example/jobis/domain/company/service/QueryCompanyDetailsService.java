@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class QueryCompanyDetailsService {
@@ -14,27 +16,27 @@ public class QueryCompanyDetailsService {
     private final CompanyFacade companyFacade;
 
     @Transactional(readOnly = true)
-    public CompanyDetailsResponse execute(Long companyId) {
+    public CompanyDetailsResponse execute(UUID companyId) {
         Company company = companyFacade.getCompanyById(companyId);
 
         return CompanyDetailsResponse.builder()
-                .businessNumber(company.getBusinessNumber())
-                .companyProfileUrl(company.getCompanyProfileUrl())
-                .companyIntroduce(company.getCompanyDetails().getCompanyIntroduce())
-                .zipCode1(company.getCompanyDetails().getAddress().getZipCode1())
-                .address1(company.getCompanyDetails().getAddress().getAddress1())
-                .zipCode2(company.getCompanyDetails().getAddress().getZipCode2())
-                .address2(company.getCompanyDetails().getAddress().getAddress2())
-                .manager1(company.getCompanyDetails().getManager().getManager1())
-                .phoneNumber1(company.getCompanyDetails().getManager().getPhoneNumber1())
-                .manager2(company.getCompanyDetails().getManager().getManager2())
-                .phoneNumber2(company.getCompanyDetails().getManager().getPhoneNumber2())
-                .fax(company.getCompanyDetails().getContact().getFax())
-                .email(company.getCompanyDetails().getContact().getEmail())
-                .representativeName(company.getCompanyDetails().getCompanyInfo().getRepresentativeName())
-                .foundedAt(company.getCompanyDetails().getCompanyInfo().getFoundedAt())
-                .workerNumber(company.getCompanyDetails().getCompanyInfo().getWorkerNumber())
-                .take(company.getCompanyDetails().getCompanyInfo().getTake())
+                .businessNumber(company.getBizNo())
+                .companyProfileUrl(company.getCompanyLogoUrl())
+                .companyIntroduce(company.getCompanyIntroduce())
+                .zipCode1(company.getAddress().getMainZipCode())
+                .address1(company.getAddress().getMainAddress())
+                .zipCode2(company.getAddress().getSubZipCode())
+                .address2(company.getAddress().getSubAddress())
+                .manager1(company.getManager().getManagerName())
+                .phoneNumber1(company.getManager().getManagerPhoneNo())
+                .manager2(company.getManager().getSubManagerName())
+                .phoneNumber2(company.getManager().getSubManagerPhoneNo())
+                .fax(company.getFax())
+                .email(company.getEmail())
+                .representativeName(company.getRepresentative())
+                .foundedAt(company.getFoundedAt())
+                .workerNumber(company.getWorkersCount())
+                .take(company.getSales())
                 .build();
     }
 

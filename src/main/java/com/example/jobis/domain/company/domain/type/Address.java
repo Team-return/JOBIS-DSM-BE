@@ -1,35 +1,33 @@
 package com.example.jobis.domain.company.domain.type;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Address {
 
-    @Column(length = 5, nullable = false)
-    private String zipCode1;
+    @Column(nullable = false)
+    private String mainAddress;
 
-    @Column(length = 100, nullable = false)
-    private String address1;
+    @Column(columnDefinition = "VARCHAR(5)", nullable = false)
+    private String mainZipCode;
 
-    @Column(length = 5)
-    private String zipCode2;
+    private String subAddress;
 
-    @Column(length = 100)
-    private String address2;
+    @Column(columnDefinition = "VARCHAR(5)")
+    private String subZipCode;
 
-    @Builder
-    public Address(String zipCode1, String address1, String zipCode2, String address2) {
-        this.zipCode1 = zipCode1;
-        this.address1 = address1;
-        this.zipCode2 = zipCode2;
-        this.address2 = address2;
+
+    public void update(String mainAddress, String mainZipCode, String subAddress, String subZipCode) {
+        this.mainAddress = mainAddress;
+        this.mainZipCode = mainZipCode;
+        this.subAddress = subAddress;
+        this.subZipCode = subZipCode;
     }
 }

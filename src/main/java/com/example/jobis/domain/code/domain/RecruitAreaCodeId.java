@@ -6,11 +6,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 public class RecruitAreaCodeId implements Serializable {
-    private Long recruitAreaId;
+    private UUID recruitAreaId;
     private Long codeId;
 }

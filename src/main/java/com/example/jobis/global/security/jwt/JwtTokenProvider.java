@@ -2,9 +2,12 @@ package com.example.jobis.global.security.jwt;
 
 import com.example.jobis.domain.auth.domain.RefreshToken;
 import com.example.jobis.domain.auth.domain.repository.RefreshTokenRepository;
+import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.global.exception.ExpiredTokenException;
 import com.example.jobis.global.exception.InvalidTokenException;
-import com.example.jobis.global.security.auth.AuthDetailsService;
+import com.example.jobis.global.security.auth.company.CompanyDetailsService;
+import com.example.jobis.global.security.auth.student.StudentDetailsService;
+import com.example.jobis.global.security.auth.teacher.TeacherDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -24,18 +27,24 @@ import java.util.Date;
 public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final AuthDetailsService authDetailsService;
+    private final CompanyDetailsService companyDetailsService;
+    private final StudentDetailsService studentDetailsService;
+    private final TeacherDetailsService teacherDetailsService;
 
-    public String generateAccessToken(String id) {
-        return generateToken(id, "access", jwtProperties.getAccessExp());
+    private static final String ACCESS = "ACCESS";
+    private static final String REFRESH = "REFRESH";
+
+    public String generateAccessToken(String id, Authority authority) {
+        return generateToken(id, ACCESS, jwtProperties.getAccessExp(), authority);
     }
 
-    public String generateRefreshToken(String id) {
-        String token = generateToken(id, "refresh", jwtProperties.getRefreshExp());
+    public String generateRefreshToken(String id, Authority authority) {
+        String token = generateToken(id, REFRESH, jwtProperties.getRefreshExp(), authority);
         refreshTokenRepository.save(
                 RefreshToken.builder()
                         .id(id)
                         .token(token)
+                        .authority(authority)
                         .ttl(jwtProperties.getRefreshExp())
                         .build()
         );
@@ -43,7 +52,13 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = authDetailsService.loadUserByUsername(getSubject(token));
+        Claims claims = getClaims(token);
+
+        if(!claims.get("type", String.class).equals(ACCESS)) {
+            throw InvalidTokenException.EXCEPTION;
+        }
+        Authority authority = Authority.valueOf(claims.get("authority",String.class));
+        UserDetails userDetails = getUserDetails(claims.getSubject(), authority);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -59,22 +74,23 @@ public class JwtTokenProvider {
         return LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp());
     }
 
-    public boolean isTokenExpired(String token) {
-        return getClaims(token).getExpiration().before(new Date());
+    private UserDetails getUserDetails(String id, Authority authority) {
+        return switch (authority) {
+            case COMPANY -> companyDetailsService.loadUserByUsername(id);
+            case STUDENT -> studentDetailsService.loadUserByUsername(id);
+            case TEACHER -> teacherDetailsService.loadUserByUsername(id);
+        };
     }
 
-    private String generateToken(String id, String typ, Long exp) {
+    private String generateToken(String id, String typ, Long exp, Authority authority) {
         return Jwts.builder()
                 .setSubject(id)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+ exp))
                 .claim("type", typ)
+                .claim("authority", authority)
                 .compact();
-    }
-
-    private String getSubject(String token) {
-        return getClaims(token).getSubject();
     }
 
     private Claims getClaims(String token) {

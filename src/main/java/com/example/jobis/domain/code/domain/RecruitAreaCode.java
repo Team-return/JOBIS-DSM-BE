@@ -5,10 +5,12 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 
 @Getter
+@BatchSize(size = 200)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -16,11 +18,11 @@ import javax.persistence.*;
 public class RecruitAreaCode {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruit_area_id")
+    @JoinColumn(columnDefinition = "BINARY(16)", name = "recruit_area_id", nullable = false)
     private RecruitArea recruitAreaId;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_id")
+    @JoinColumn(name = "code_id", nullable = false)
     private Code codeId;
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
@@ -14,9 +15,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Pay {
 
-    @Column(columnDefinition = "INT", nullable = false)
-    private Integer trainPay;
+    @NotNull
+    @Column(columnDefinition = "INTEGER")
+    private Integer trainingPay;
 
-    @Column(columnDefinition = "INT")
+    @NotNull
+    @Column(columnDefinition = "INTEGER")
     private Integer pay;
 }

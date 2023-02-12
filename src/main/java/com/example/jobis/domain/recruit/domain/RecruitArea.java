@@ -1,6 +1,7 @@
 package com.example.jobis.domain.recruit.domain;
 
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
+import com.example.jobis.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,27 +14,28 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class RecruitArea {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recruit_area_id")
-    private Long id;
+public class RecruitArea extends BaseUUIDEntity {
 
     private Integer hiredCount;
 
     private String majorTask;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruit_id", nullable = false)
-    private Recruit recruit;
+    @JoinColumn(name = "recruitment_id", nullable = false)
+    private Recruitment recruitment;
 
-    @OneToMany(mappedBy = "recruitAreaId")
+    @OneToMany(mappedBy = "recruitAreaId", orphanRemoval = true)
     private List<RecruitAreaCode> codeList = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String majorTask, Recruit recruit) {
+    public RecruitArea(Integer hiredCount, String majorTask, Recruitment recruitment) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
-        this.recruit = recruit;
+        this.recruitment = recruitment;
     }
 
+    public void update(Integer hiredCount, String majorTask) {
+        this.hiredCount = hiredCount;
+        this.majorTask = majorTask;
+    }
 }

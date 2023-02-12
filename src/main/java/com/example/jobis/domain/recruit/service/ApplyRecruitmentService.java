@@ -2,17 +2,19 @@ package com.example.jobis.domain.recruit.service;
 
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
+<<<<<<< HEAD
 import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
+=======
+>>>>>>> main
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruit.controller.dto.request.ApplyRecruitmentRequest.Area;
-import com.example.jobis.domain.recruit.domain.Recruit;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.domain.repository.RecruitAreaRepository;
-import com.example.jobis.domain.recruit.domain.repository.RecruitRepository;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ApplyRecruitmentService {
-    private final RecruitRepository recruitRepository;
-    private final RecruitAreaRepository recruitAreaRepository;
-    private final RecruitAreaCodeRepository recruitAreaCodeRepository;
+    private final RecruitmentRepository recruitmentRepository;
     private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
 
@@ -38,11 +38,14 @@ public class ApplyRecruitmentService {
         String hiringProgress = request.getHiringProgress()
                         .stream().map(Enum::toString)
                         .collect(Collectors.joining(","));
-        String requiredLicenses = String.join(",", request.getRequiredLicenses());
 
-        Recruit recruit = recruitRepository.save(
-                Recruit.builder()
+        String requiredLicenses = request.getRequiredLicenses() == null?
+                null : String.join(",", request.getRequiredLicenses());
+
+        Recruitment recruitment = recruitmentRepository.saveRecruitment(
+                Recruitment.builder()
                         .company(company)
+<<<<<<< HEAD
                         .hiringProgress(hiringProgress)
                         .requiredGrade(request.getRequiredGrade())
                         .workHours(request.getWorkHours())
@@ -51,33 +54,45 @@ public class ApplyRecruitmentService {
                         .trainPay(request.getTrainPay())
                         .benefit(request.getBenefits())
                         .preferentialTreatment(request.getPreferentialTreatment())
+=======
+>>>>>>> main
                         .recruitYear(LocalDate.now().getYear())
+                        .militarySupport(request.getMilitarySupport())
+                        .workingHours(request.getWorkHours())
+                        .preferentialTreatment(request.getPreferentialTreatment())
                         .requiredLicenses(requiredLicenses)
                         .status(RecruitStatus.REQUESTED)
-                        .etc(request.getEtc())
+                        .requiredGrade(request.getRequiredGrade())
                         .startDate(request.getStartDate())
                         .endDate(request.getEndDate())
-                        .military(request.isMilitary())
+                        .trainPay(request.getTrainPay())
+                        .submitDocument(request.getSubmitDocument())
+                        .pay(request.getPay())
+                        .benefit(request.getBenefits())
+                        .etc(request.getEtc())
+                        .hiringProgress(hiringProgress)
                         .build()
         );
 
-        List<Long> codes = new ArrayList<>();
+        List<Long> requestCode = new ArrayList<>();
         for(Area area : request.getAreas()) {
-            RecruitArea recruitArea = recruitAreaRepository.save(
+            RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
                     RecruitArea.builder()
                             .majorTask(area.getMajorTask())
                             .hiredCount(area.getHiring())
-                            .recruit(recruit)
+                            .recruitment(recruitment)
                             .build()
             );
-            codes.addAll(area.getTech());
-            codes.addAll(area.getJob());
+            requestCode.addAll(area.getJob());
+            requestCode.addAll(area.getTech());
 
-            List<Code> codeList = codeFacade.findAllCodeById(codes);
-            List<RecruitAreaCode> recruitAreaCodes = codeList.stream()
+            List<Code> codeList = codeFacade.findAllCodeById(requestCode);
+            recruitmentRepository.saveAllRecruitAreaCodes(
+                    codeList.stream()
                     .map(c -> new RecruitAreaCode(recruitArea, c))
-                    .collect(Collectors.toList());
-            recruitAreaCodeRepository.saveAll(recruitAreaCodes);
+                    .toList()
+            );
+            requestCode.clear();
         }
     }
 }

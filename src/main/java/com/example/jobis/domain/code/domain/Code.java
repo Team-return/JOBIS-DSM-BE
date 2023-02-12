@@ -7,18 +7,20 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Getter
+@BatchSize(size = 100)
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Code {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private Long id;
 
     private String keyword;
 
@@ -27,7 +29,11 @@ public class Code {
 
     @Enumerated(EnumType.STRING)
     private JobType jobType;
+
     public CodeResponse to() {
-        return new CodeResponse(code, keyword);
+        return CodeResponse.builder()
+                .code(id)
+                .keyword(keyword)
+                .build();
     }
 }

@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
+    id "org.sonarqube" version "3.5.0.2730"
+    id 'jacoco'
 }
 
 group = 'com.example'
@@ -19,29 +21,66 @@ repositories {
 }
 
 dependencies {
+    //lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    //persistence
+    runtimeOnly 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'com.fasterxml.uuid:java-uuid-generator:3.1.4'
+
+    //queryDSL
+    implementation 'com.querydsl:querydsl-jpa'
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:5.0.0:jpa")
+
+    //web
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    //openfeign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
     implementation "io.github.openfeign:feign-httpclient:11.9.1"
 
+    //aws
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
+    //config
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    runtimeOnly 'mysql:mysql-connector-java'
 
+    //jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
+    //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
+sonar {
+    properties {
+        property "sonar.projectKey", "Team-Return_JOBIS-DSM-BE"
+        property "sonar.organization", "team-return"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.7'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }

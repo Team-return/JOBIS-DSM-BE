@@ -1,14 +1,43 @@
 package com.example.jobis.domain.company.domain.repository;
 
+import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
+import com.example.jobis.domain.company.controller.dto.response.QCompanyListResponse;
 import com.example.jobis.domain.company.domain.Company;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.jobis.domain.company.exception.CompanyNotFoundException;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import static com.example.jobis.domain.company.domain.QCompany.company;
 
-public interface CompanyRepository extends JpaRepository<Company, Long> {
-    Optional<Company> findByBusinessNumber(String num);
+import java.util.List;
 
-    boolean existsByBusinessNumber(String accountId);
+@Repository
+@RequiredArgsConstructor
+public class CompanyRepository {
+    private final CompanyJpaRepository companyJpaRepository;
+    private final JPAQueryFactory queryFactory;
 
-    Optional<Company> findByAccountId(String accountId);
+    public List<CompanyListResponse> findCompanyInfoList() {
+        return queryFactory
+                .select(
+                        new QCompanyListResponse(
+                             company.name,
+                             company.companyLogoUrl,
+                             company.sales
+                        )
+                )
+                .from(company)
+                .orderBy(company.name.desc())
+                .fetch();
+    }
+
+    public Company findByBizNo(String bizNo) {
+        return companyJpaRepository.findByBizNo(bizNo)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+    }
+
+    public void saveCompany(Company company) {
+        companyJpaRepository.save(company);
+    }
 }
