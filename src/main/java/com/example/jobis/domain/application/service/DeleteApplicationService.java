@@ -1,7 +1,9 @@
 package com.example.jobis.domain.application.service;
 
 import com.example.jobis.domain.application.domain.Application;
+import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
+import com.example.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,12 @@ public class DeleteApplicationService {
 
         Student student = studentFacade.getCurrentStudent();
         Application application = applicationRepository.findApplicationByIdAndStudent(applicationId, student);
+        ApplicationStatus status = application.getApplicationStatus();
+
+        if (status.equals(ApplicationStatus.APPROVED) || status.equals(ApplicationStatus.FAILED)
+                || status.equals(ApplicationStatus.PASS)) {
+            throw ApplicationAlreadyExistsException.EXCEPTION;
+        }
 
         applicationRepository.deleteApplication(application);
     }
