@@ -19,6 +19,6 @@ public class Teacher {
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
+    @JoinColumn(name = "teacher_id", columnDefinition = "BINARY(16)", nullable = false)
     private User user;
 }
