@@ -58,8 +58,8 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 
-    public Application findApplicationByIdAndStudent(UUID applicationId, Student student) {
-        return applicationJpaRepository.findByIdAndStudent(applicationId, student)
+    public Application findApplicationById(UUID applicationId) {
+        return applicationJpaRepository.findById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
     }
 

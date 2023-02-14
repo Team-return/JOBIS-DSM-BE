@@ -15,5 +15,4 @@ public interface ApplicationJpaRepository extends JpaRepository<Application, UUI
     boolean existsByStudentAndCompany(Student student, Company company);
     boolean existsByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus);
     List<Application> findAllByStudent(Student student);
-    Optional<Application> findByIdAndStudent(UUID id, Student student);
 }
