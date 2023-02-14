@@ -6,12 +6,14 @@ import com.example.jobis.domain.recruit.controller.dto.response.RecruitDetailsRe
 import com.example.jobis.domain.recruit.controller.dto.response.RecruitDetailsResponse.RecruitAreaResponse;
 import com.example.jobis.domain.recruit.domain.Recruit;
 import com.example.jobis.domain.recruit.domain.RecruitArea;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.facade.RecruitFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -21,8 +23,8 @@ public class QueryRecruitDetailsService {
     private final CodeFacade codeFacade;
 
     @Transactional(readOnly = true)
-    public RecruitDetailsResponse execute(Long recruitId) {
-        Recruit recruit = recruitFacade.getRecruitById(recruitId);
+    public RecruitDetailsResponse execute(UUID recruitId) {
+        Recruitment recruit = recruitFacade.getRecruitById(recruitId);
 
         List<RecruitAreaResponse> recruitAreaList = recruit.getRecruitAreaList().stream()
                 .map(this::recruitAreaBuilder)
@@ -32,16 +34,16 @@ public class QueryRecruitDetailsService {
                 .areas(recruitAreaList)
                 .preferentialTreatment(recruit.getPreferentialTreatment())
                 .requiredGrade(recruit.getRequiredGrade())
-                .workHours(recruit.getWorkHours())
+                .workHours(recruit.getWorkingHours())
                 .requiredLicenses(recruit.getRequiredLicenses())
                 .hiringProgress(recruit.getHiringProgress())
-                .trainPay(recruit.getPay().getTrainPay())
+                .trainPay(recruit.getPay().getTrainingPay())
                 .pay(recruit.getPay().getPay())
                 .benefits(recruit.getBenefit())
-                .military(recruit.isMilitary())
+                .military(recruit.isMilitarySupport())
                 .submitDocument(recruit.getSubmitDocument())
                 .startDate(recruit.getRecruitDate().getStartDate())
-                .endDate(recruit.getRecruitDate().getEndDate())
+                .endDate(recruit.getRecruitDate().getFinishDate())
                 .etc(recruit.getEtc())
                 .build();
     }
