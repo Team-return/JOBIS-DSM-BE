@@ -7,10 +7,12 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 public class StudentApplicationListResponse {
 
+    private final UUID applicationId;
     private final String companyName;
     private final ApplicationStatus applicationStatus;
 
@@ -19,7 +21,8 @@ public class StudentApplicationListResponse {
 
     @Builder
     @QueryProjection
-    public StudentApplicationListResponse(String companyName, ApplicationStatus applicationStatus, LocalDateTime createdAt) {
+    public StudentApplicationListResponse(UUID applicationId, String companyName, ApplicationStatus applicationStatus, LocalDateTime createdAt) {
+        this.applicationId = applicationId;
         this.companyName = companyName;
         this.applicationStatus = applicationStatus;
         this.createdAt = createdAt;

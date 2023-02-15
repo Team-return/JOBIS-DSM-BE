@@ -18,7 +18,7 @@ public enum ErrorCode {
     INVALID_PASSWORD(401, "invalid password"),
     INVALID_CODE(401, "invalid code"),
     INVALID_GRADE(401, "Invalid Grade"),
-
+    INVALID_STUDENT(401, "Invalid Student"),
 
     USER_NOT_FOUND(404, "User Not Found"),
     COMPANY_NOT_FOUND(404, "Company Not Found"),

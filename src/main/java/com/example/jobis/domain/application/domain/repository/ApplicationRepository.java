@@ -5,6 +5,7 @@ import com.example.jobis.domain.application.controller.dto.response.StudentAppli
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
+import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import static com.example.jobis.domain.application.domain.QApplication.application;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Repository
@@ -27,6 +29,7 @@ public class ApplicationRepository {
         return jpaQueryFactory
                 .select(
                         new QStudentApplicationListResponse(
+                                application.id,
                                 application.company.name,
                                 application.applicationStatus,
                                 application.createdAt
@@ -53,5 +56,14 @@ public class ApplicationRepository {
 
     public boolean existsApplicationByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus) {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
+    }
+
+    public Application findApplicationById(UUID applicationId) {
+        return applicationJpaRepository.findById(applicationId)
+                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+    }
+
+    public void deleteApplication(Application application) {
+        applicationJpaRepository.delete(application);
     }
 }
