@@ -2,8 +2,10 @@ package com.example.jobis.domain.student.controller;
 
 import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
 import com.example.jobis.domain.application.service.QueryStudentApplicationService;
+import com.example.jobis.domain.recruit.controller.dto.response.StudentRecruitDetailsResponse;
 import com.example.jobis.domain.recruit.controller.dto.response.StudentRecruitListResponse;
 import com.example.jobis.domain.recruit.service.QueryRecruitListService;
+import com.example.jobis.domain.recruit.service.QueryStudentRecruitDetailsService;
 import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
 import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
 import com.example.jobis.domain.student.controller.dto.request.VerifyAuthCodeRequest;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/students")
@@ -28,6 +31,7 @@ public class StudentController {
     private final StudentSignUpService studentSignUpService;
     private final QueryRecruitListService queryRecruitListService;
     private final QueryStudentApplicationService queryStudentApplicationService;
+    private final QueryStudentRecruitDetailsService queryStudentRecruitDetailsService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")
@@ -53,6 +57,11 @@ public class StudentController {
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
         return queryRecruitListService.execute(companyName, page);
+    }
+
+    @GetMapping("/recruitment/{recruitment-id}")
+    public StudentRecruitDetailsResponse queryRecruitmentDetails(@PathVariable("recruitment-id") UUID recruitmentId) {
+        return queryStudentRecruitDetailsService.execute(recruitmentId);
     }
 
     @GetMapping("/application")
