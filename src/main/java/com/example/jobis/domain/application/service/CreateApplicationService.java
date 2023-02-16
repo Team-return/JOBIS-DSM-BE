@@ -7,8 +7,8 @@ import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import com.example.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import com.example.jobis.domain.application.exception.InvalidGradeException;
-import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.recruit.domain.Recruitment;
+import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.domain.types.Grade;
 import com.example.jobis.domain.student.facade.StudentFacade;
@@ -24,14 +24,14 @@ public class CreateApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final StudentFacade studentFacade;
-    private final CompanyFacade companyFacade;
+    private final RecruitmentRepository recruitmentRepository;
 
-    public void execute(CreateApplicationRequest request, UUID companyId) {
+    public void execute(CreateApplicationRequest request, UUID recruitmentId) {
 
         Student student = studentFacade.getCurrentStudent();
-        Company company = companyFacade.getCompanyById(companyId);
+        Recruitment recruitment = recruitmentRepository.findRecruitmentById(recruitmentId);
 
-        if (applicationRepository.existsApplicationByStudentAndCompany(student, company)) {
+        if (applicationRepository.existsApplicationByStudentAndCompany(student, recruitment)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
@@ -45,7 +45,7 @@ public class CreateApplicationService {
 
         Application application = applicationRepository.saveApplication(Application.builder()
                 .student(student)
-                .company(company)
+                .recruitment(recruitment)
                 .applicationStatus(ApplicationStatus.REQUESTED)
                 .build()
         );

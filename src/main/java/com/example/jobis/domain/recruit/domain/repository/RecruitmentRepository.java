@@ -9,6 +9,7 @@ import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.repository.vo.QQueryRecruitmentListVO;
 import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitmentListVO;
+import com.example.jobis.domain.recruit.exception.RecruitmentNotFoundException;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 
 import static com.example.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
@@ -73,6 +75,11 @@ public class RecruitmentRepository {
 
     public RecruitArea saveRecruitArea(RecruitArea recruitArea) {
         return recruitAreaJpaRepository.save(recruitArea);
+    }
+
+    public Recruitment findRecruitmentById(UUID id) {
+        return recruitmentJpaRepository.findById(id)
+                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
     }
 
     //===conditions===//
