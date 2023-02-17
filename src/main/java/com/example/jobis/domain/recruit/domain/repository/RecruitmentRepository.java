@@ -77,11 +77,6 @@ public class RecruitmentRepository {
         return recruitAreaJpaRepository.save(recruitArea);
     }
 
-    public Recruitment findRecruitmentById(UUID id) {
-        return recruitmentJpaRepository.findById(id)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
-    }
-
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {
