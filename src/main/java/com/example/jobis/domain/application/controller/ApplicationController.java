@@ -19,14 +19,14 @@ public class ApplicationController {
     private final DeleteApplicationService deleteApplicationService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{company-id}")
-    public void execute(@RequestBody @Valid CreateApplicationRequest request, @PathVariable("company-id") UUID companyId) {
-        createApplicationService.execute(request, companyId);
+    @PostMapping("/{recruitment-id}")
+    public void createApplication(@RequestBody @Valid CreateApplicationRequest request, @PathVariable("recruitment-id") UUID recruitmentId) {
+        createApplicationService.execute(request, recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{application-id}")
-    public void execute(@PathVariable("application-id") UUID applicationId) {
+    public void deleteApplication(@PathVariable("application-id") UUID applicationId) {
         deleteApplicationService.execute(applicationId);
     }
 }

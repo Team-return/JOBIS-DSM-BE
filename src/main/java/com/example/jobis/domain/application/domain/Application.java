@@ -1,7 +1,7 @@
 package com.example.jobis.domain.application.domain;
 
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
-import com.example.jobis.domain.company.domain.Company;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.global.entity.BaseEntity;
 import lombok.*;
@@ -20,8 +20,8 @@ public class Application extends BaseEntity {
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company;
+    @JoinColumn(name = "recruitment_id")
+    private Recruitment recruitment;
 
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
@@ -30,9 +30,9 @@ public class Application extends BaseEntity {
     private List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
 
     @Builder
-    public Application(Student student, Company company, ApplicationStatus applicationStatus) {
+    public Application(Student student, Recruitment recruitment, ApplicationStatus applicationStatus) {
         this.student = student;
-        this.company = company;
+        this.recruitment = recruitment;
         this.applicationStatus = applicationStatus;
     }
 }

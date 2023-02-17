@@ -6,7 +6,7 @@ import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
-import com.example.jobis.domain.company.domain.Company;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +30,13 @@ public class ApplicationRepository {
                 .select(
                         new QStudentApplicationListResponse(
                                 application.id,
-                                application.company.name,
+                                application.recruitment.company.name,
                                 application.applicationStatus,
                                 application.createdAt
                         )
                 )
                 .from(application)
-                .leftJoin(application.company)
+                .leftJoin(application.recruitment)
                 .where(application.student.eq(student))
                 .orderBy(application.createdAt.desc())
                 .fetch();
@@ -50,8 +50,8 @@ public class ApplicationRepository {
         return applicationAttachmentJpaRepository.saveAll(applicationAttachments);
     }
 
-    public boolean existsApplicationByStudentAndCompany(Student student, Company company) {
-        return applicationJpaRepository.existsByStudentAndCompany(student, company);
+    public boolean existsApplicationByStudentAndCompany(Student student, Recruitment recruitment) {
+        return applicationJpaRepository.existsByStudentAndRecruitment(student, recruitment);
     }
 
     public boolean existsApplicationByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus) {
