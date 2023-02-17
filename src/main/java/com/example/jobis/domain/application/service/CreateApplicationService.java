@@ -8,7 +8,7 @@ import com.example.jobis.domain.application.domain.repository.ApplicationReposit
 import com.example.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import com.example.jobis.domain.application.exception.InvalidGradeException;
 import com.example.jobis.domain.recruit.domain.Recruitment;
-import com.example.jobis.domain.recruit.domain.repository.RecruitmentRepository;
+import com.example.jobis.domain.recruit.facade.RecruitFacade;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.domain.types.Grade;
 import com.example.jobis.domain.student.facade.StudentFacade;
@@ -24,12 +24,12 @@ public class CreateApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final StudentFacade studentFacade;
-    private final RecruitmentRepository recruitmentRepository;
+    private final RecruitFacade recruitFacade;
 
     public void execute(CreateApplicationRequest request, UUID recruitmentId) {
 
         Student student = studentFacade.getCurrentStudent();
-        Recruitment recruitment = recruitmentRepository.findRecruitmentById(recruitmentId);
+        Recruitment recruitment = recruitFacade.getRecruitById(recruitmentId);
 
         if (applicationRepository.existsApplicationByStudentAndCompany(student, recruitment)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
