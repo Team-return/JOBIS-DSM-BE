@@ -6,7 +6,6 @@ import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
-import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.jpa.impl.JPAQueryFactory;
