@@ -17,7 +17,7 @@ public class FindCodeService {
 
     @Transactional(readOnly = true)
     public List<CodeResponse> execute(String keyword, CodeType type) {
-        return codeRepository.findByKeywordStartsWithAndCodeType(keyword, type)
+        return codeRepository.findByKeywordContainingAndCodeType(keyword, type)
                 .stream()
                 .map(Code::to)
                 .toList();

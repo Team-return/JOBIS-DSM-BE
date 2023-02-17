@@ -18,7 +18,7 @@ public class CodeController {
     private final FindJobCodeService findJobCodeService;
 
     @GetMapping("/tech")
-    public List<CodeResponse> findTechCode(@RequestParam("keyword") String keyword) {
+    public List<CodeResponse> findTechCode(@RequestParam(value = "keyword", required = false) String keyword) {
         return findCodeService.execute(keyword, CodeType.TECH);
     }
 
