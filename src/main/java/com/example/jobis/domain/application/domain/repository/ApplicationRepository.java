@@ -1,5 +1,7 @@
 package com.example.jobis.domain.application.domain.repository;
 
+import com.example.jobis.domain.application.controller.dto.response.ApplicationDetailsResponse;
+import com.example.jobis.domain.application.controller.dto.response.QApplicationDetailsResponse;
 import com.example.jobis.domain.application.controller.dto.response.QStudentApplicationListResponse;
 import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
 import com.example.jobis.domain.application.domain.Application;
@@ -13,8 +15,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import static com.example.jobis.domain.application.domain.QApplication.application;
+import static com.example.jobis.domain.application.domain.QApplicationAttachment.applicationAttachment;
+import static com.example.jobis.domain.company.domain.QCompany.company;
+import static com.example.jobis.domain.recruit.domain.QRecruitment.recruitment;
+import static com.example.jobis.domain.student.domain.QStudent.student;
+import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.set;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -40,6 +49,27 @@ public class ApplicationRepository {
                 .where(application.student.eq(student))
                 .orderBy(application.createdAt.desc())
                 .fetch();
+    }
+
+    public Map<UUID, ApplicationDetailsResponse> queryApplicationDetails(UUID applicationId) {
+        return jpaQueryFactory
+                .selectFrom(application)
+                .leftJoin(application.student, student)
+                .leftJoin(application.recruitment, recruitment)
+                .leftJoin(recruitment.company, company)
+                .leftJoin(application.applicationAttachments, applicationAttachment)
+                .where(application.id.eq(applicationId))
+                .transform(
+                        groupBy(application.id)
+                                .as(
+                                        new QApplicationDetailsResponse(
+                                                student.name,
+                                                company.name,
+                                                set(applicationAttachment.attachmentUrl),
+                                                application.applicationStatus
+                                        )
+                                )
+                );
     }
 
     public Application saveApplication(Application application) {
