@@ -68,10 +68,12 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/recruitment").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.GET, "/students/application").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/recruitment/{recruitment-id}").hasAuthority(Authority.STUDENT.name())
 
                 //application
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
 
                 //teacher
                 .antMatchers(HttpMethod.PATCH, "/teachers/recruitment/{recruit-id}").hasAuthority(Authority.TEACHER.name())
