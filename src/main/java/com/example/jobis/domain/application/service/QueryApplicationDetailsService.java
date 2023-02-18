@@ -16,6 +16,6 @@ public class QueryApplicationDetailsService {
 
     @Transactional(readOnly = true)
     public ApplicationDetailsResponse execute(UUID applicationId) {
-        return applicationRepository.queryApplicationDetails(applicationId).get(applicationId);
+        return applicationRepository.queryApplicationDetails(applicationId);
     }
 }

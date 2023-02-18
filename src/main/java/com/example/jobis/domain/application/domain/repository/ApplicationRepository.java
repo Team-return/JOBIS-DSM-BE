@@ -51,7 +51,7 @@ public class ApplicationRepository {
                 .fetch();
     }
 
-    public Map<UUID, ApplicationDetailsResponse> queryApplicationDetails(UUID applicationId) {
+    public ApplicationDetailsResponse queryApplicationDetails(UUID applicationId) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .leftJoin(application.student, student)
@@ -69,7 +69,7 @@ public class ApplicationRepository {
                                                 application.applicationStatus
                                         )
                                 )
-                );
+                ).get(applicationId);
     }
 
     public Application saveApplication(Application application) {
