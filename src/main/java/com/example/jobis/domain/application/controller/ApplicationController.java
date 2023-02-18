@@ -1,8 +1,10 @@
 package com.example.jobis.domain.application.controller;
 
 import com.example.jobis.domain.application.controller.dto.request.CreateApplicationRequest;
+import com.example.jobis.domain.application.controller.dto.response.ApplicationDetailsResponse;
 import com.example.jobis.domain.application.service.CreateApplicationService;
 import com.example.jobis.domain.application.service.DeleteApplicationService;
+import com.example.jobis.domain.application.service.QueryApplicationDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ public class ApplicationController {
 
     private final CreateApplicationService createApplicationService;
     private final DeleteApplicationService deleteApplicationService;
+    private final QueryApplicationDetailsService queryApplicationDetailsService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -28,5 +31,10 @@ public class ApplicationController {
     @DeleteMapping("/{application-id}")
     public void deleteApplication(@PathVariable("application-id") UUID applicationId) {
         deleteApplicationService.execute(applicationId);
+    }
+
+    @GetMapping("/{application-id}")
+    public ApplicationDetailsResponse queryApplicationDetails(@PathVariable("application-id") UUID applicationId) {
+        return queryApplicationDetailsService.execute(applicationId);
     }
 }
