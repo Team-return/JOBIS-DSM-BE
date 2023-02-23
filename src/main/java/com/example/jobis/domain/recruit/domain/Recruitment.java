@@ -75,11 +75,15 @@ public class Recruitment extends BaseEntity {
     @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
+    @NotNull
+    @Column(columnDefinition = "INT")
+    private Integer applicationCount;
+
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
                        LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
-    ) {
+                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade,
+                       Integer applicationCount) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
@@ -88,6 +92,7 @@ public class Recruitment extends BaseEntity {
         this.status = status;
         this.benefit = benefit;
         this.preferentialTreatment = preferentialTreatment;
+        this.applicationCount = applicationCount;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.pay = new Pay(trainPay, pay);
         this.company = company;
@@ -116,5 +121,13 @@ public class Recruitment extends BaseEntity {
     public Recruitment changeStatus(RecruitStatus status) {
         this.status = status;
         return this;
+    }
+
+    public void addApplicationCount() {
+        this.applicationCount += 1;
+    }
+
+    public void subApplicationCount() {
+        this.applicationCount -= 1;
     }
 }
