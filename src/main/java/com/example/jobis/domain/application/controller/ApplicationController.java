@@ -2,14 +2,17 @@ package com.example.jobis.domain.application.controller;
 
 import com.example.jobis.domain.application.controller.dto.request.CreateApplicationRequest;
 import com.example.jobis.domain.application.controller.dto.response.ApplicationDetailsResponse;
+import com.example.jobis.domain.application.controller.dto.response.QueryApplicationListResponse;
 import com.example.jobis.domain.application.service.CreateApplicationService;
 import com.example.jobis.domain.application.service.DeleteApplicationService;
 import com.example.jobis.domain.application.service.QueryApplicationDetailsService;
+import com.example.jobis.domain.application.service.QueryApplicationListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -19,7 +22,7 @@ public class ApplicationController {
 
     private final CreateApplicationService createApplicationService;
     private final DeleteApplicationService deleteApplicationService;
-    private final QueryApplicationDetailsService queryApplicationDetailsService;
+    private final QueryApplicationListService queryApplicationListService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -33,8 +36,10 @@ public class ApplicationController {
         deleteApplicationService.execute(applicationId);
     }
 
-    @GetMapping("/{application-id}")
-    public ApplicationDetailsResponse queryApplicationDetails(@PathVariable("application-id") UUID applicationId) {
+    @GetMapping("/{company-id}")
+    public List<QueryApplicationListResponse> queryApplicationList(@PathVariable("company-id") UUID companyId) {
+        return queryApplicationListService.execute(companyId);
+    }
         return queryApplicationDetailsService.execute(applicationId);
     }
 }
