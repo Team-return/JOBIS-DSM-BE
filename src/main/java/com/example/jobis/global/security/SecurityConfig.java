@@ -4,6 +4,7 @@ import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.bouncycastle.operator.AADProcessor;
 import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class
+SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;
     @Bean
@@ -41,6 +43,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}")
                 .hasAnyAuthority(Authority.STUDENT.toString(), Authority.TEACHER.toString())
+                .antMatchers(HttpMethod.GET, "/companies/application").hasAuthority(Authority.COMPANY.name())
 
                 //user
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
@@ -73,7 +76,8 @@ public class SecurityConfig {
                 //application
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(Authority.TEACHER.name())
+                .antMatchers(HttpMethod.GET, "applications/details/{application-id}").hasAuthority(Authority.TEACHER.name())
 
                 //teacher
                 .antMatchers(HttpMethod.PATCH, "/teachers/recruitment/{recruit-id}").hasAuthority(Authority.TEACHER.name())
