@@ -28,7 +28,7 @@ public class TeacherQueryRecruitmentListService {
                                 .start(r.getRecruitment().getRecruitDate().getStartDate())
                                 .end(r.getRecruitment().getRecruitDate().getFinishDate())
                                 .militarySupport(r.getRecruitment().isMilitarySupport())
-                                //.applicationCount(0) /// TODO('추후 학생 지원로직 개발')
+                                .applicationCount(r.getRecruitment().getApplicationCount())
                                 .recruitmentCount(r.getTotalHiring())
                                 .recruitmentJob(r.getRecruitAreaList())
                                 .build()
