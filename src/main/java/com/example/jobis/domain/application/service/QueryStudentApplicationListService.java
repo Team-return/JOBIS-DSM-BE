@@ -12,16 +12,14 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class QueryStudentApplicationService {
+public class QueryStudentApplicationListService {
 
     private final ApplicationRepository applicationRepository;
     private final StudentFacade studentFacade;
 
     @Transactional(readOnly = true)
     public List<StudentApplicationListResponse> execute() {
-
         Student student = studentFacade.getCurrentStudent();
-
-        return applicationRepository.queryStudentApplication(student);
+        return applicationRepository.queryStudentApplicationList(student.getId());
     }
 }
