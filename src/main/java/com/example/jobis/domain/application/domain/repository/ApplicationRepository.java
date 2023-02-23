@@ -1,9 +1,6 @@
 package com.example.jobis.domain.application.domain.repository;
 
-import com.example.jobis.domain.application.controller.dto.response.ApplicationDetailsResponse;
-import com.example.jobis.domain.application.controller.dto.response.QApplicationDetailsResponse;
-import com.example.jobis.domain.application.controller.dto.response.QStudentApplicationListResponse;
-import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
+import com.example.jobis.domain.application.controller.dto.response.*;
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
@@ -19,11 +16,9 @@ import static com.example.jobis.domain.application.domain.QApplicationAttachment
 import static com.example.jobis.domain.company.domain.QCompany.company;
 import static com.example.jobis.domain.recruit.domain.QRecruitment.recruitment;
 import static com.example.jobis.domain.student.domain.QStudent.student;
-import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.group.GroupBy.set;
+import static com.querydsl.core.group.GroupBy.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -34,42 +29,80 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<StudentApplicationListResponse> queryStudentApplication(Student student) {
-        return jpaQueryFactory
-                .select(
-                        new QStudentApplicationListResponse(
-                                application.id,
-                                application.recruitment.company.name,
-                                application.applicationStatus,
-                                application.createdAt
-                        )
-                )
-                .from(application)
-                .leftJoin(application.recruitment)
-                .where(application.student.eq(student))
-                .orderBy(application.createdAt.desc())
-                .fetch();
-    }
-
-    public ApplicationDetailsResponse queryApplicationDetails(UUID applicationId) {
+    public List<StudentApplicationListResponse> queryStudentApplicationList(UUID studentId) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .leftJoin(application.student, student)
                 .leftJoin(application.recruitment, recruitment)
                 .leftJoin(recruitment.company, company)
                 .leftJoin(application.applicationAttachments, applicationAttachment)
-                .where(application.id.eq(applicationId))
+                .where(student.id.eq(studentId))
                 .transform(
                         groupBy(application.id)
-                                .as(
-                                        new QApplicationDetailsResponse(
+                                .list(
+                                        new QStudentApplicationListResponse(
+                                                application.id,
                                                 student.name,
                                                 company.name,
-                                                set(applicationAttachment.attachmentUrl),
+                                                list(applicationAttachment.attachmentUrl),
                                                 application.applicationStatus
                                         )
                                 )
-                ).get(applicationId);
+                );
+    }
+
+    public List<QueryApplicationListResponse> queryApplicationListByCompanyId(UUID companyId) {
+        return jpaQueryFactory
+                .selectFrom(application)
+                .leftJoin(application.student, student)
+                .leftJoin(application.recruitment, recruitment)
+                .leftJoin(recruitment.company, company)
+                .where(company.id.eq(companyId))
+                .transform(
+                        groupBy(application.id)
+                                .list(
+                                        new QQueryApplicationListResponse(
+                                                application.id,
+                                                student.name,
+                                                student.number,
+                                                application.createdAt,
+                                                application.applicationStatus
+                                        )
+                                )
+                );
+    }
+
+    public List<String> queryApplicationDetailsById(UUID applicationId) {
+        return jpaQueryFactory
+                .selectFrom(application)
+                .leftJoin(application.applicationAttachments , applicationAttachment)
+                .where(application.id.eq(applicationId))
+                .transform(
+                        groupBy(applicationAttachment.attachmentUrl)
+                                .list(applicationAttachment.attachmentUrl)
+                );
+    }
+
+    public List<QueryCompanyApplicationListResponse> queryCompanyApplicationList(UUID companyId) {
+        return jpaQueryFactory
+                .selectFrom(application)
+                .leftJoin(application.student, student)
+                .leftJoin(application.recruitment, recruitment)
+                .leftJoin(recruitment.company, company)
+                .leftJoin(application.applicationAttachments, applicationAttachment)
+                .where(company.id.eq(companyId),
+                        application.applicationStatus.ne(ApplicationStatus.REQUESTED))
+                .transform(
+                        groupBy(application.id)
+                                .list(
+                                        new QQueryCompanyApplicationListResponse(
+                                                student.number,
+                                                student.name,
+                                                list(applicationAttachment.attachmentUrl),
+                                                application.createdAt
+                                        )
+                                )
+                );
     }
 
     public Application saveApplication(Application application) {
