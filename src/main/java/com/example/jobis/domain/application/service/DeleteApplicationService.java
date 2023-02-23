@@ -5,6 +5,7 @@ import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import com.example.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import com.example.jobis.domain.application.exception.InvalidStudentException;
+import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class DeleteApplicationService {
 
         Student student = studentFacade.getCurrentStudent();
         Application application = applicationRepository.findApplicationById(applicationId);
+        Recruitment recruitment = application.getRecruitment();
         ApplicationStatus status = application.getApplicationStatus();
 
         if (!status.equals(ApplicationStatus.REQUESTED)) {
@@ -34,6 +36,8 @@ public class DeleteApplicationService {
         if (!application.getStudent().equals(student)) {
             throw InvalidStudentException.EXCEPTION;
         }
+
+        recruitment.subApplicationCount();
 
         applicationRepository.deleteApplication(application);
     }
