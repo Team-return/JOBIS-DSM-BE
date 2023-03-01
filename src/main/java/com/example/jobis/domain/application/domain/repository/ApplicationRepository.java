@@ -65,21 +65,11 @@ public class ApplicationRepository {
                                                 application.id,
                                                 student.name,
                                                 student.number,
+                                                list(applicationAttachment.attachmentUrl),
                                                 application.createdAt,
                                                 application.applicationStatus
                                         )
                                 )
-                );
-    }
-
-    public List<String> queryApplicationDetailsById(UUID applicationId) {
-        return jpaQueryFactory
-                .selectFrom(application)
-                .leftJoin(application.applicationAttachments , applicationAttachment)
-                .where(application.id.eq(applicationId))
-                .transform(
-                        groupBy(applicationAttachment.attachmentUrl)
-                                .list(applicationAttachment.attachmentUrl)
                 );
     }
 
