@@ -57,7 +57,6 @@ public class ApplicationRepository {
                 .leftJoin(application.student, student)
                 .leftJoin(application.recruitment, recruitment)
                 .leftJoin(application.applicationAttachments, applicationAttachment)
-                .leftJoin(recruitment.company, company)
                 .where(recruitment.id.eq(recruitmentId))
                 .transform(
                         groupBy(application.id)
