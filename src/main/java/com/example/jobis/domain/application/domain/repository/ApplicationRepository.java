@@ -51,13 +51,14 @@ public class ApplicationRepository {
                 );
     }
 
-    public List<QueryApplicationListResponse> queryApplicationListByCompanyId(UUID companyId) {
+    public List<QueryApplicationListResponse> queryApplicationListByCompanyId(UUID recruitmentId) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .leftJoin(application.student, student)
                 .leftJoin(application.recruitment, recruitment)
+                .leftJoin(application.applicationAttachments, applicationAttachment)
                 .leftJoin(recruitment.company, company)
-                .where(company.id.eq(companyId))
+                .where(recruitment.id.eq(recruitmentId))
                 .transform(
                         groupBy(application.id)
                                 .list(
