@@ -43,7 +43,6 @@ SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}")
                 .hasAnyAuthority(Authority.STUDENT.toString(), Authority.TEACHER.toString())
-                .antMatchers(HttpMethod.GET, "/companies/application").hasAuthority(Authority.COMPANY.name())
 
                 //user
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
@@ -70,14 +69,15 @@ SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/recruitment").hasAuthority(Authority.STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/students/application").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.GET, "/students/recruitment/{recruitment-id}").hasAuthority(Authority.STUDENT.name())
 
                 //application
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(Authority.TEACHER.name())
-                .antMatchers(HttpMethod.GET, "applications/details/{application-id}").hasAuthority(Authority.TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(Authority.TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(Authority.COMPANY.name())
 
                 //teacher
                 .antMatchers(HttpMethod.PATCH, "/teachers/recruitment/{recruit-id}").hasAuthority(Authority.TEACHER.name())
@@ -85,7 +85,7 @@ SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/teachers/area/{recruit-area-id}").hasAuthority(Authority.TEACHER.name())
                 .antMatchers(HttpMethod.DELETE, "/teachers/area/code").hasAuthority(Authority.TEACHER.toString())
                 .antMatchers(HttpMethod.POST, "/teachers/area/code/{recruit-area-id}").hasAuthority(Authority.TEACHER.name())
-                .antMatchers(HttpMethod.POST, "teachers/area").hasAuthority(Authority.TEACHER.name())
+                .antMatchers(HttpMethod.POST, "/teachers/area").hasAuthority(Authority.TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/teachers/recruitment").hasAuthority(Authority.TEACHER.name())
                 .anyRequest().authenticated()
                 .and()
