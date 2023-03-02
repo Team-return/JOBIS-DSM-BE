@@ -37,5 +37,13 @@ public class ApplicationController {
     @GetMapping("/{recruitment-id}")
     public List<QueryApplicationListResponse> queryApplicationList(@PathVariable("recruitment-id") UUID recruitmentId) {
         return queryApplicationListService.execute(recruitmentId);
+    @GetMapping("/company")
+    public List<QueryCompanyApplicationListResponse> queryCompanyApplicationList() {
+        return queryCompanyApplicationListService.execute();
+    }
+
+    @PatchMapping("/students")
+    public List<StudentApplicationListResponse> queryApplication() {
+        return queryStudentApplicationListService.execute();
     }
 }

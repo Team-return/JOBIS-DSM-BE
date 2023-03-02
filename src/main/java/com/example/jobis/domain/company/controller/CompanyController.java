@@ -62,9 +62,4 @@ public class CompanyController {
     public CompanyMyPageResponse queryMyPage() {
         return companyMyPageService.execute();
     }
-
-    @GetMapping("/application")
-    public List<QueryCompanyApplicationListResponse> queryCompanyApplicationList() {
-        return queryCompanyApplicationListService.execute();
-    }
 }

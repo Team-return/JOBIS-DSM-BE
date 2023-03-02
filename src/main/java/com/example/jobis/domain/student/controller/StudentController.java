@@ -63,9 +63,4 @@ public class StudentController {
     public StudentRecruitDetailsResponse queryRecruitmentDetails(@PathVariable("recruitment-id") UUID recruitmentId) {
         return queryStudentRecruitDetailsService.execute(recruitmentId);
     }
-
-    @GetMapping("/application")
-    public List<StudentApplicationListResponse> queryApplication() {
-        return queryStudentApplicationListService.execute();
-    }
 }
