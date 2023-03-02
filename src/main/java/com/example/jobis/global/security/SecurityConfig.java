@@ -36,12 +36,12 @@ SecurityConfig {
 
                 .authorizeRequests()
                 //application
+                .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(Authority.COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
                 .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(Authority.TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(Authority.TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(Authority.COMPANY.name())
 
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
