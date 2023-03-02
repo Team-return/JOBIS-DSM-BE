@@ -51,7 +51,7 @@ public class ApplicationController {
         return queryCompanyApplicationListService.execute();
     }
 
-    @PatchMapping("/students")
+    @GetMapping("/students")
     public List<StudentApplicationListResponse> queryApplication() {
         return queryStudentApplicationListService.execute();
     }
