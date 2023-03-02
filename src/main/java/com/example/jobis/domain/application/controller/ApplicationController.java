@@ -1,10 +1,11 @@
 package com.example.jobis.domain.application.controller;
 
 import com.example.jobis.domain.application.controller.dto.request.CreateApplicationRequest;
-import com.example.jobis.domain.application.controller.dto.response.QueryApplicationListResponse;
-import com.example.jobis.domain.application.service.CreateApplicationService;
-import com.example.jobis.domain.application.service.DeleteApplicationService;
-import com.example.jobis.domain.application.service.QueryApplicationListService;
+import com.example.jobis.domain.application.controller.dto.response.QueryTeacherApplicationListResponse;
+import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationListResponse;
+import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
+import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
+import com.example.jobis.domain.application.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,9 @@ public class ApplicationController {
 
     private final CreateApplicationService createApplicationService;
     private final DeleteApplicationService deleteApplicationService;
-    private final QueryApplicationListService queryApplicationListService;
+    private final QueryTeacherApplicationListService queryApplicationListService;
+    private final QueryCompanyApplicationListService queryCompanyApplicationListService;
+    private final QueryStudentApplicationListService queryStudentApplicationListService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -34,9 +37,15 @@ public class ApplicationController {
         deleteApplicationService.execute(applicationId);
     }
 
-    @GetMapping("/{recruitment-id}")
-    public List<QueryApplicationListResponse> queryApplicationList(@PathVariable("recruitment-id") UUID recruitmentId) {
-        return queryApplicationListService.execute(recruitmentId);
+    @GetMapping
+    public List<QueryTeacherApplicationListResponse> queryTeacherApplicationList (
+            @RequestParam(value = "recruitment-id", required = false) UUID recruitmentId,
+            @RequestParam(value = "application-status", required = false) ApplicationStatus applicationStatus,
+            @RequestParam(value = "student-name", required = false) String studentName
+            ) {
+        return queryApplicationListService.execute(recruitmentId, applicationStatus, studentName);
+    }
+
     @GetMapping("/company")
     public List<QueryCompanyApplicationListResponse> queryCompanyApplicationList() {
         return queryCompanyApplicationListService.execute();

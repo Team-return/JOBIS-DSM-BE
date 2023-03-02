@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Year;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,6 +21,14 @@ public class QueryStudentApplicationListService {
     @Transactional(readOnly = true)
     public List<StudentApplicationListResponse> execute() {
         Student student = studentFacade.getCurrentStudent();
-        return applicationRepository.queryStudentApplicationList(student.getId());
+        return applicationRepository.queryApplicationByConditions(null, student.getId(), null, null, Year.now().getValue(), null).stream()
+                .map(a -> StudentApplicationListResponse.builder()
+                        .applicationId(a.getApplicationId())
+                        .student(a.getStudentName())
+                        .company(a.getCompanyName())
+                        .attachmentUrlList(a.getApplicationAttachmentUrl())
+                        .applicationStatus(a.getApplicationStatus())
+                        .build())
+                .toList();
     }
 }
