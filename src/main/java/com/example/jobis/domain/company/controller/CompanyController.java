@@ -1,6 +1,5 @@
 package com.example.jobis.domain.company.controller;
 
-import com.example.jobis.domain.application.service.QueryCompanyApplicationsService;
 import com.example.jobis.domain.company.controller.dto.request.UpdateCompanyDetailsRequest;
 import com.example.jobis.domain.company.controller.dto.response.CompanyDetailsResponse;
 import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
