@@ -4,7 +4,6 @@ import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
