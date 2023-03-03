@@ -1,4 +1,4 @@
-package com.example.jobis.domain.application.domain.repository.vo;
+package com.example.jobis.domain.application.controller.dto.request;
 
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class QueryApplicationsByConditionsVO {
+public class QueryApplicationsRequest {
 
     private final UUID recruitmentId;
     private final UUID studentId;

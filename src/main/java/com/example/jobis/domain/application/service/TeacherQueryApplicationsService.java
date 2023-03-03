@@ -18,8 +18,8 @@ public class TeacherQueryApplicationsService {
     private final ApplicationRepository applicationRepository;
 
     @Transactional(readOnly = true)
-    public List<TeacherQueryApplicationsResponse> execute(UUID recruitmentId, ApplicationStatus applicationStatus, String studentName) {
-        return applicationRepository.queryApplicationByConditions(QueryApplicationsByConditionsVO.builder()
+    public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName) {
+        return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
                         .recruitmentId(recruitmentId)
                         .studentId(null)
                         .neApplicationStatus(null)

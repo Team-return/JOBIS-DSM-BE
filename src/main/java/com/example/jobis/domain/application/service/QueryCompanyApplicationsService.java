@@ -27,7 +27,7 @@ public class QueryCompanyApplicationsService {
     public List<QueryCompanyApplicationsResponse> execute() {
         Company company = companyFacade.getCurrentCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
-        return applicationRepository.queryApplicationByConditions(QueryApplicationsByConditionsVO.builder()
+        return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
                         .recruitmentId(recruitment.getId())
                         .studentId(null)
                         .neApplicationStatus(ApplicationStatus.REQUESTED)

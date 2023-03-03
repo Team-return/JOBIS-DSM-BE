@@ -5,7 +5,7 @@ import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
 import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
-import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationsByConditionsVO;
+import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
@@ -35,7 +35,7 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsByConditionsVO vo) {
+    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsRequest vo) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .join(application.student, student)

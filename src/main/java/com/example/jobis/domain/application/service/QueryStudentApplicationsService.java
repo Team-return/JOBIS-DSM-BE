@@ -22,7 +22,7 @@ public class QueryStudentApplicationsService {
     @Transactional(readOnly = true)
     public List<StudentApplicationsResponse> execute() {
         Student student = studentFacade.getCurrentStudent();
-        return applicationRepository.queryApplicationByConditions(QueryApplicationsByConditionsVO.builder()
+        return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
                         .recruitmentId(null)
                         .studentId(student.getId())
                         .neApplicationStatus(null)
