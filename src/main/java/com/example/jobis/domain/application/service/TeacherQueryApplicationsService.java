@@ -3,13 +3,12 @@ package com.example.jobis.domain.application.service;
 import com.example.jobis.domain.application.controller.dto.response.TeacherQueryApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationsByConditionsVO;
+import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -20,9 +19,6 @@ public class TeacherQueryApplicationsService {
     @Transactional(readOnly = true)
     public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName) {
         return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
-                        .recruitmentId(recruitmentId)
-                        .studentId(null)
-                        .neApplicationStatus(null)
                         .eqApplicationStatus(applicationStatus)
                         .studentName(studentName)
                         .build()).stream()

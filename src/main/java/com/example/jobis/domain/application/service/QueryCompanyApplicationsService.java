@@ -3,7 +3,7 @@ package com.example.jobis.domain.application.service;
 import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationsByConditionsVO;
+import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruit.domain.Recruitment;
@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Year;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,10 +28,7 @@ public class QueryCompanyApplicationsService {
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
         return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
                         .recruitmentId(recruitment.getId())
-                        .studentId(null)
                         .neApplicationStatus(ApplicationStatus.REQUESTED)
-                        .eqApplicationStatus(null)
-                        .studentName(null)
                         .build()).stream()
                 .map(a -> QueryCompanyApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
