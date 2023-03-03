@@ -1,6 +1,6 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationListResponse;
+import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import com.example.jobis.domain.company.domain.Company;
@@ -16,23 +16,23 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class QueryCompanyApplicationListService {
+public class QueryCompanyApplicationsService {
 
     private final ApplicationRepository applicationRepository;
     private final CompanyFacade companyFacade;
     private final RecruitFacade recruitFacade;
 
     @Transactional(readOnly = true)
-    public List<QueryCompanyApplicationListResponse> execute() {
+    public List<QueryCompanyApplicationsResponse> execute() {
         Company company = companyFacade.getCurrentCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
         return applicationRepository.queryApplicationByConditions(recruitment.getId(), null, ApplicationStatus.REQUESTED, null, Year.now().getValue(), null).stream()
-                .map(a -> QueryCompanyApplicationListResponse.builder()
+                .map(a -> QueryCompanyApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
                         .studentName(a.getStudentName())
                         .studentNumber(a.getStudentNumber())
                         .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
-                        .createdAt(a.getCreatedAt())
+                        .createdAt(a.getCreatedAt().toLocalDate())
                         .build())
                 .toList();
     }

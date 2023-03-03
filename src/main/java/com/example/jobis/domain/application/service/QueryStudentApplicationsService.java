@@ -1,6 +1,6 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
+import com.example.jobis.domain.application.controller.dto.response.StudentApplicationsResponse;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.facade.StudentFacade;
@@ -13,16 +13,16 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class QueryStudentApplicationListService {
+public class QueryStudentApplicationsService {
 
     private final ApplicationRepository applicationRepository;
     private final StudentFacade studentFacade;
 
     @Transactional(readOnly = true)
-    public List<StudentApplicationListResponse> execute() {
+    public List<StudentApplicationsResponse> execute() {
         Student student = studentFacade.getCurrentStudent();
         return applicationRepository.queryApplicationByConditions(null, student.getId(), null, null, Year.now().getValue(), null).stream()
-                .map(a -> StudentApplicationListResponse.builder()
+                .map(a -> StudentApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
                         .student(a.getStudentName())
                         .company(a.getCompanyName())

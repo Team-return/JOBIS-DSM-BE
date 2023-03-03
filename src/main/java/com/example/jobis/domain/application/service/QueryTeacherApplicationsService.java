@@ -1,6 +1,6 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.QueryTeacherApplicationListResponse;
+import com.example.jobis.domain.application.controller.dto.response.QueryTeacherApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,19 +13,19 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class QueryTeacherApplicationListService {
+public class QueryTeacherApplicationsService {
 
     private final ApplicationRepository applicationRepository;
 
     @Transactional(readOnly = true)
-    public List<QueryTeacherApplicationListResponse> execute(UUID recruitmentId, ApplicationStatus applicationStatus, String studentName) {
+    public List<QueryTeacherApplicationsResponse> execute(UUID recruitmentId, ApplicationStatus applicationStatus, String studentName) {
         return applicationRepository.queryApplicationByConditions(recruitmentId, null, null, applicationStatus, Year.now().getValue(), studentName).stream()
-                .map(a -> QueryTeacherApplicationListResponse.builder()
+                .map(a -> QueryTeacherApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
                         .studentName(a.getStudentName())
                         .studentNumber(a.getStudentNumber())
                         .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
-                        .createdAt(a.getCreatedAt())
+                        .createdAt(a.getCreatedAt().toLocalDate())
                         .applicationStatus(a.getApplicationStatus())
                         .build())
                 .toList();

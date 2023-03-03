@@ -1,10 +1,9 @@
 package com.example.jobis.domain.application.controller.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +15,5 @@ public class QueryCompanyApplicationsResponse {
     private final String studentNumber;
     private final String studentName;
     private final List<String> applicationAttachmentUrl;
-    @JsonFormat(pattern = "yyyy-mm-dd", timezone = "Asia/Seoul")
-    private final LocalDateTime createdAt;
+    private final LocalDate createdAt;
 }
