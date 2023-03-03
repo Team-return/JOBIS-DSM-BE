@@ -39,11 +39,10 @@ public class ApplicationController {
 
     @GetMapping
     public List<TeacherQueryApplicationsResponse> queryTeacherApplicationList (
-            @RequestParam(value = "recruitment-id", required = false) UUID recruitmentId,
             @RequestParam(value = "application-status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student-name", required = false) String studentName
             ) {
-        return queryApplicationListService.execute(recruitmentId, applicationStatus, studentName);
+        return queryApplicationListService.execute(applicationStatus, studentName);
     }
 
     @GetMapping("/company")
