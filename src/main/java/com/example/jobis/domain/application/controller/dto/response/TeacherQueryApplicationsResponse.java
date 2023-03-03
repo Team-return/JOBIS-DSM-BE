@@ -10,11 +10,12 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class QueryTeacherApplicationsResponse {
+public class TeacherQueryApplicationsResponse {
 
     private final UUID applicationId;
     private final String studentName;
     private final String studentNumber;
+    private final String companyName;
     private final List<String> applicationAttachmentUrl;
     private final LocalDate createdAt;
     private final ApplicationStatus applicationStatus;
