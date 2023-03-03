@@ -49,6 +49,7 @@ public class StudentSignUpService {
                         .email(request.getEmail())
                         .phoneNumber(request.getPhoneNumber())
                         .user(user)
+                        .number(request.getNumber())
                         .name(request.getName())
                         .gender(request.getGender())
                         .grade(request.getGrade())
