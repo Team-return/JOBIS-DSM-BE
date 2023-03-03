@@ -17,7 +17,6 @@ public class QueryApplicationVO {
     private final String studentNumber;
     private final String companyName;
     private final List<String> applicationAttachmentUrl;
-    @JsonFormat(pattern = "yyyy-mm-dd", timezone = "Asia/Seoul")
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;
 
