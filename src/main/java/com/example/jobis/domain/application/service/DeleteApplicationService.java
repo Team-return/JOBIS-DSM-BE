@@ -37,8 +37,6 @@ public class DeleteApplicationService {
             throw InvalidStudentException.EXCEPTION;
         }
 
-        recruitment.subApplicationCount();
-
         applicationRepository.deleteApplication(application);
     }
 }
