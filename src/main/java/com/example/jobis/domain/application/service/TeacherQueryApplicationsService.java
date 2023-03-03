@@ -1,6 +1,6 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.QueryTeacherApplicationsResponse;
+import com.example.jobis.domain.application.controller.dto.response.TeacherQueryApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ public class QueryTeacherApplicationsService {
     private final ApplicationRepository applicationRepository;
 
     @Transactional(readOnly = true)
-    public List<QueryTeacherApplicationsResponse> execute(UUID recruitmentId, ApplicationStatus applicationStatus, String studentName) {
+    public List<TeacherQueryApplicationsResponse> execute(UUID recruitmentId, ApplicationStatus applicationStatus, String studentName) {
         return applicationRepository.queryApplicationByConditions(recruitmentId, null, null, applicationStatus, Year.now().getValue(), studentName).stream()
-                .map(a -> QueryTeacherApplicationsResponse.builder()
+                .map(a -> TeacherQueryApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
                         .studentName(a.getStudentName())
                         .studentNumber(a.getStudentNumber())

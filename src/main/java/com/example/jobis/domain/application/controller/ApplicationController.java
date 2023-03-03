@@ -1,7 +1,7 @@
 package com.example.jobis.domain.application.controller;
 
 import com.example.jobis.domain.application.controller.dto.request.CreateApplicationRequest;
-import com.example.jobis.domain.application.controller.dto.response.QueryTeacherApplicationsResponse;
+import com.example.jobis.domain.application.controller.dto.response.TeacherQueryApplicationsResponse;
 import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationsResponse;
 import com.example.jobis.domain.application.controller.dto.response.StudentApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
@@ -21,7 +21,7 @@ public class ApplicationController {
 
     private final CreateApplicationService createApplicationService;
     private final DeleteApplicationService deleteApplicationService;
-    private final QueryTeacherApplicationsService queryApplicationListService;
+    private final TeacherQueryApplicationsService queryApplicationListService;
     private final QueryCompanyApplicationsService queryCompanyApplicationsService;
     private final QueryStudentApplicationsService queryStudentApplicationsService;
 
@@ -38,7 +38,7 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public List<QueryTeacherApplicationsResponse> queryTeacherApplicationList (
+    public List<TeacherQueryApplicationsResponse> queryTeacherApplicationList (
             @RequestParam(value = "recruitment-id", required = false) UUID recruitmentId,
             @RequestParam(value = "application-status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student-name", required = false) String studentName
