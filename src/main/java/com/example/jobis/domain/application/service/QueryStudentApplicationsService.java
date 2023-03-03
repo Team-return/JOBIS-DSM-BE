@@ -2,6 +2,7 @@ package com.example.jobis.domain.application.service;
 
 import com.example.jobis.domain.application.controller.dto.response.StudentApplicationsResponse;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
+import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationsByConditionsVO;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +22,15 @@ public class QueryStudentApplicationsService {
     @Transactional(readOnly = true)
     public List<StudentApplicationsResponse> execute() {
         Student student = studentFacade.getCurrentStudent();
-        return applicationRepository.queryApplicationByConditions(null, student.getId(), null, null, Year.now().getValue(), null).stream()
+        return applicationRepository.queryApplicationByConditions(QueryApplicationsByConditionsVO.builder()
+                        .recruitmentId(null)
+                        .studentId(student.getId())
+                        .neApplicationStatus(null)
+                        .eqApplicationStatus(null)
+                        .studentName(null)
+                        .build()).stream()
                 .map(a -> StudentApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
-                        .student(a.getStudentName())
                         .company(a.getCompanyName())
                         .attachmentUrlList(a.getApplicationAttachmentUrl())
                         .applicationStatus(a.getApplicationStatus())

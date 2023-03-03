@@ -3,6 +3,7 @@ package com.example.jobis.domain.application.service;
 import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
+import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationsByConditionsVO;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruit.domain.Recruitment;
@@ -26,7 +27,13 @@ public class QueryCompanyApplicationsService {
     public List<QueryCompanyApplicationsResponse> execute() {
         Company company = companyFacade.getCurrentCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
-        return applicationRepository.queryApplicationByConditions(recruitment.getId(), null, ApplicationStatus.REQUESTED, null, Year.now().getValue(), null).stream()
+        return applicationRepository.queryApplicationByConditions(QueryApplicationsByConditionsVO.builder()
+                        .recruitmentId(recruitment.getId())
+                        .studentId(null)
+                        .neApplicationStatus(ApplicationStatus.REQUESTED)
+                        .eqApplicationStatus(null)
+                        .studentName(null)
+                        .build()).stream()
                 .map(a -> QueryCompanyApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
                         .studentName(a.getStudentName())

@@ -5,6 +5,7 @@ import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
 import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
+import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationsByConditionsVO;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
@@ -22,6 +23,7 @@ import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 
 
+import java.time.Year;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +35,7 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<QueryApplicationVO> queryApplicationByConditions(UUID recruitmentId, UUID studentId, ApplicationStatus neApplicationStatus, ApplicationStatus eqApplicationStatus, Integer year, String studentName) {
+    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsByConditionsVO vo) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .join(application.student, student)
@@ -41,12 +43,12 @@ public class ApplicationRepository {
                 .leftJoin(application.applicationAttachments, applicationAttachment)
                 .leftJoin(recruitment.company, company)
                 .where(
-                        eqRecruitmentId(recruitmentId),
-                        eqStudentId(studentId),
-                        neApplicationStatus(neApplicationStatus),
-                        eqApplicationStatus(eqApplicationStatus),
-                        eqYear(year),
-                        containStudentName(studentName)
+                        eqRecruitmentId(vo.getRecruitmentId()),
+                        eqStudentId(vo.getStudentId()),
+                        neApplicationStatus(vo.getNeApplicationStatus()),
+                        eqApplicationStatus(vo.getEqApplicationStatus()),
+                        eqYear(Year.now().getValue()),
+                        containStudentName(vo.getStudentName())
                 )
                 .orderBy(
                         application.createdAt.desc(),
