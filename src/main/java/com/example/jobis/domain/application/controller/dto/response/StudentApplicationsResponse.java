@@ -12,7 +12,6 @@ import java.util.UUID;
 public class StudentApplicationsResponse {
 
     private final UUID applicationId;
-    private final String student;
     private final String company;
     private final List<String> attachmentUrlList;
     private final ApplicationStatus applicationStatus;
