@@ -28,7 +28,7 @@ public class QueryCompanyApplicationsService {
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
         return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
                         .recruitmentId(recruitment.getId())
-                        .neApplicationStatus(ApplicationStatus.REQUESTED)
+                        .applicationStatus(ApplicationStatus.APPROVED)
                         .build()).stream()
                 .map(a -> QueryCompanyApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())

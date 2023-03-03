@@ -12,7 +12,6 @@ public class QueryApplicationsRequest {
 
     private final UUID recruitmentId;
     private final UUID studentId;
-    private final ApplicationStatus neApplicationStatus;
-    private final ApplicationStatus eqApplicationStatus;
+    private final ApplicationStatus applicationStatus;
     private final String studentName;
 }

@@ -19,7 +19,7 @@ public class TeacherQueryApplicationsService {
     @Transactional(readOnly = true)
     public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName) {
         return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
-                        .eqApplicationStatus(applicationStatus)
+                        .applicationStatus(applicationStatus)
                         .studentName(studentName)
                         .build()).stream()
                 .map(a -> TeacherQueryApplicationsResponse.builder()

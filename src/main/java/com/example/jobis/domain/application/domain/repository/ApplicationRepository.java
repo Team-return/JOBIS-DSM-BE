@@ -45,8 +45,7 @@ public class ApplicationRepository {
                 .where(
                         eqRecruitmentId(vo.getRecruitmentId()),
                         eqStudentId(vo.getStudentId()),
-                        neApplicationStatus(vo.getNeApplicationStatus()),
-                        eqApplicationStatus(vo.getEqApplicationStatus()),
+                        eqApplicationStatus(vo.getApplicationStatus()),
                         eqYear(Year.now().getValue()),
                         containStudentName(vo.getStudentName())
                 )
@@ -103,10 +102,6 @@ public class ApplicationRepository {
 
     private BooleanExpression eqStudentId(UUID studentId) {
         return studentId == null ? null : student.id.eq(studentId);
-    }
-
-    private BooleanExpression neApplicationStatus(ApplicationStatus status) {
-        return status == null ? null : application.applicationStatus.ne(status);
     }
 
     private BooleanExpression eqApplicationStatus(ApplicationStatus status) {
