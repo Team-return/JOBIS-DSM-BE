@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class QueryCompanyApplicationListResponse {
+public class QueryCompanyApplicationsResponse {
 
     private final UUID applicationId;
     private final String studentNumber;
