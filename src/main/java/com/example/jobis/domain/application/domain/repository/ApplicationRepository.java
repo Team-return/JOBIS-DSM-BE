@@ -36,8 +36,8 @@ public class ApplicationRepository {
     public List<QueryApplicationVO> queryApplicationByConditions(UUID recruitmentId, UUID studentId, ApplicationStatus neApplicationStatus, ApplicationStatus eqApplicationStatus, Integer year, String studentName) {
         return jpaQueryFactory
                 .selectFrom(application)
-                .leftJoin(application.student, student)
-                .leftJoin(application.recruitment, recruitment)
+                .join(application.student, student)
+                .join(application.recruitment, recruitment)
                 .leftJoin(application.applicationAttachments, applicationAttachment)
                 .leftJoin(recruitment.company, company)
                 .where(
