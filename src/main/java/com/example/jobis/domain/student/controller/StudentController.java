@@ -1,7 +1,6 @@
 package com.example.jobis.domain.student.controller;
 
-import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
-import com.example.jobis.domain.application.service.QueryStudentApplicationListService;
+import com.example.jobis.domain.application.service.QueryStudentApplicationsService;
 import com.example.jobis.domain.recruit.controller.dto.response.StudentRecruitDetailsResponse;
 import com.example.jobis.domain.recruit.controller.dto.response.StudentRecruitListResponse;
 import com.example.jobis.domain.recruit.service.QueryRecruitListService;
@@ -30,7 +29,6 @@ public class StudentController {
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final StudentSignUpService studentSignUpService;
     private final QueryRecruitListService queryRecruitListService;
-    private final QueryStudentApplicationListService queryStudentApplicationListService;
     private final QueryStudentRecruitDetailsService queryStudentRecruitDetailsService;
 
     @ResponseStatus(HttpStatus.CREATED)

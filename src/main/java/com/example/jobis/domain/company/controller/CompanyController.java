@@ -1,7 +1,6 @@
 package com.example.jobis.domain.company.controller;
 
-import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationListResponse;
-import com.example.jobis.domain.application.service.QueryCompanyApplicationListService;
+import com.example.jobis.domain.application.service.QueryCompanyApplicationsService;
 import com.example.jobis.domain.company.controller.dto.request.UpdateCompanyDetailsRequest;
 import com.example.jobis.domain.company.controller.dto.response.CompanyDetailsResponse;
 import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
@@ -29,7 +28,6 @@ public class CompanyController {
     private final QueryCompanyListService queryCompanyListService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
-    private final QueryCompanyApplicationListService queryCompanyApplicationListService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
