@@ -21,9 +21,12 @@ public class QueryStudentApplicationsService {
     @Transactional(readOnly = true)
     public List<StudentApplicationsResponse> execute() {
         Student student = studentFacade.getCurrentStudent();
-        return applicationRepository.queryApplicationByConditions(QueryApplicationsRequest.builder()
-                        .studentId(student.getId())
-                        .build()).stream()
+        QueryApplicationsRequest request =
+                QueryApplicationsRequest.builder()
+                .studentId(student.getId())
+                .build();
+
+        return applicationRepository.queryApplicationByConditions(request).stream()
                 .map(a -> StudentApplicationsResponse.builder()
                         .applicationId(a.getApplicationId())
                         .company(a.getCompanyName())

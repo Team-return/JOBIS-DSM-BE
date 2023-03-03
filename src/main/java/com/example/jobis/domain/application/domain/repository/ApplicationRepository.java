@@ -22,8 +22,6 @@ import static com.example.jobis.domain.student.domain.QStudent.student;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 
-
-import java.time.Year;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +33,7 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsRequest vo) {
+    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsRequest request) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .join(application.student, student)
@@ -43,16 +41,12 @@ public class ApplicationRepository {
                 .leftJoin(application.applicationAttachments, applicationAttachment)
                 .leftJoin(recruitment.company, company)
                 .where(
-                        eqRecruitmentId(vo.getRecruitmentId()),
-                        eqStudentId(vo.getStudentId()),
-                        eqApplicationStatus(vo.getApplicationStatus()),
-                        eqYear(Year.now().getValue()),
-                        containStudentName(vo.getStudentName())
+                        eqRecruitmentId(request.getRecruitmentId()),
+                        eqStudentId(request.getStudentId()),
+                        eqApplicationStatus(request.getApplicationStatus()),
+                        containStudentName(request.getStudentName())
                 )
-                .orderBy(
-                        application.createdAt.desc(),
-                        student.name.asc(),
-                        company.name.asc())
+                .orderBy(application.createdAt.desc())
                 .transform(
                         groupBy(application.id)
                                 .list(
@@ -106,10 +100,6 @@ public class ApplicationRepository {
 
     private BooleanExpression eqApplicationStatus(ApplicationStatus status) {
         return status == null ? null : application.applicationStatus.eq(status);
-    }
-
-    private BooleanExpression eqYear(Integer year) {
-        return year == null ? null : recruitment.recruitYear.eq(year);
     }
 
     private BooleanExpression containStudentName(String studentName) {
