@@ -1,7 +1,6 @@
 package com.example.jobis.domain.application.domain.repository.vo;
 
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 
