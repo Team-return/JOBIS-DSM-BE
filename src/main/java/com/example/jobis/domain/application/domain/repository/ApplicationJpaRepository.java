@@ -2,7 +2,7 @@ package com.example.jobis.domain.application.domain.repository;
 
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
-import com.example.jobis.domain.recruit.domain.Recruitment;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 

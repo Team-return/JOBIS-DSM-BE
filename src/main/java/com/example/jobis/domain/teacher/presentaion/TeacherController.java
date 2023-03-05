@@ -5,11 +5,11 @@ import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaReq
 import com.example.jobis.domain.code.service.CreateRecruitAreaCodeService;
 import com.example.jobis.domain.code.service.CreateRecruitAreaService;
 import com.example.jobis.domain.code.service.DeleteRecruitAreaCodeService;
-import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitAreaRequest;
-import com.example.jobis.domain.recruit.controller.dto.request.UpdateRecruitmentRequest;
-import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.service.UpdateRecruitAreaService;
-import com.example.jobis.domain.recruit.service.UpdateRecruitmentService;
+import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitAreaRequest;
+import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitmentRequest;
+import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import com.example.jobis.domain.recruitment.service.UpdateRecruitAreaService;
+import com.example.jobis.domain.recruitment.service.UpdateRecruitmentService;
 import com.example.jobis.domain.teacher.presentaion.dto.response.TQueryRecruitmentListResponse;
 import com.example.jobis.domain.teacher.service.TeacherQueryRecruitmentListService;
 import com.example.jobis.domain.teacher.service.ChangeRecruitmentStatusService;

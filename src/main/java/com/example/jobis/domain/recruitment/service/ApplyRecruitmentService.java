@@ -1,0 +1,83 @@
+package com.example.jobis.domain.recruitment.service;
+
+import com.example.jobis.domain.code.domain.Code;
+import com.example.jobis.domain.code.domain.RecruitAreaCode;
+import com.example.jobis.domain.code.facade.CodeFacade;
+import com.example.jobis.domain.company.domain.Company;
+import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.recruitment.controller.dto.request.ApplyRecruitmentRequest;
+import com.example.jobis.domain.recruitment.controller.dto.request.ApplyRecruitmentRequest.Area;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
+import com.example.jobis.domain.recruitment.domain.RecruitArea;
+import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class ApplyRecruitmentService {
+    private final RecruitmentRepository recruitmentRepository;
+    private final CompanyFacade companyFacade;
+    private final CodeFacade codeFacade;
+
+    @Transactional
+    public void execute(ApplyRecruitmentRequest request) {
+        Company company = companyFacade.getCurrentCompany();
+
+        String hiringProgress = request.getHiringProgress()
+                        .stream().map(Enum::toString)
+                        .collect(Collectors.joining(","));
+
+        String requiredLicenses = request.getRequiredLicenses() == null?
+                null : String.join(",", request.getRequiredLicenses());
+
+        Recruitment recruitment = recruitmentRepository.saveRecruitment(
+                Recruitment.builder()
+                        .company(company)
+                        .recruitYear(LocalDate.now().getYear())
+                        .militarySupport(request.getMilitarySupport())
+                        .workingHours(request.getWorkHours())
+                        .preferentialTreatment(request.getPreferentialTreatment())
+                        .requiredLicenses(requiredLicenses)
+                        .status(RecruitStatus.REQUESTED)
+                        .requiredGrade(request.getRequiredGrade())
+                        .startDate(request.getStartDate())
+                        .endDate(request.getEndDate())
+                        .trainPay(request.getTrainPay())
+                        .submitDocument(request.getSubmitDocument())
+                        .pay(request.getPay())
+                        .benefit(request.getBenefits())
+                        .etc(request.getEtc())
+                        .hiringProgress(hiringProgress)
+                        .build()
+        );
+
+        List<Long> requestCode = new ArrayList<>();
+        for(Area area : request.getAreas()) {
+            RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
+                    RecruitArea.builder()
+                            .majorTask(area.getMajorTask())
+                            .hiredCount(area.getHiring())
+                            .recruitment(recruitment)
+                            .build()
+            );
+            requestCode.addAll(area.getJob());
+            requestCode.addAll(area.getTech());
+
+            List<Code> codeList = codeFacade.findAllCodeById(requestCode);
+            recruitmentRepository.saveAllRecruitAreaCodes(
+                    codeList.stream()
+                    .map(c -> new RecruitAreaCode(recruitArea, c))
+                    .toList()
+            );
+            requestCode.clear();
+        }
+    }
+}

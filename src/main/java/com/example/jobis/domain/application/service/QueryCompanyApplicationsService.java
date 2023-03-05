@@ -6,8 +6,8 @@ import com.example.jobis.domain.application.domain.repository.ApplicationReposit
 import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
-import com.example.jobis.domain.recruit.domain.Recruitment;
-import com.example.jobis.domain.recruit.facade.RecruitFacade;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
+import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

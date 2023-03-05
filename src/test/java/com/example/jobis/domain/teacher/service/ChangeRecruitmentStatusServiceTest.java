@@ -1,8 +1,8 @@
 package com.example.jobis.domain.teacher.service;
 
-import com.example.jobis.domain.recruit.domain.Recruitment;
-import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.facade.RecruitFacade;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
+import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

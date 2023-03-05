@@ -7,7 +7,7 @@ import com.example.jobis.domain.application.domain.repository.vo.QQueryApplicati
 import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
-import com.example.jobis.domain.recruit.domain.Recruitment;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import static com.example.jobis.domain.application.domain.QApplication.application;
 import static com.example.jobis.domain.application.domain.QApplicationAttachment.applicationAttachment;
 import static com.example.jobis.domain.company.domain.QCompany.company;
-import static com.example.jobis.domain.recruit.domain.QRecruitment.recruitment;
+import static com.example.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.example.jobis.domain.student.domain.QStudent.student;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;

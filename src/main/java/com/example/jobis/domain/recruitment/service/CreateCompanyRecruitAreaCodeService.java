@@ -1,12 +1,16 @@
-package com.example.jobis.domain.code.service;
+package com.example.jobis.domain.recruitment.service;
 
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaCodeRequest;
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeRepository;
 import com.example.jobis.domain.code.facade.CodeFacade;
+import com.example.jobis.domain.company.domain.Company;
+import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitAreaFacade;
+import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +19,19 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class CreateRecruitAreaCodeService {
+public class CreateCompanyRecruitAreaCodeService {
 
     private final RecruitAreaCodeRepository recruitAreaCodeRepository;
+    private final CompanyFacade companyFacade;
+    private final RecruitFacade recruitFacade;
     private final RecruitAreaFacade recruitAreaFacade;
     private final CodeFacade codeFacade;
 
     public void execute(UUID recruitAreaId, CreateRecruitAreaCodeRequest request) {
 
-        RecruitArea recruitArea = recruitAreaFacade.getRecruitAreaById(recruitAreaId);
+        Company company = companyFacade.getCurrentCompany();
+        Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
+        RecruitArea recruitArea = recruitAreaFacade.getRecruitAreaByIdAndRecruitment(recruitAreaId, recruitment);
         List<Code> codeList = codeFacade.findAllCodeById(request.getCodeList());
 
         List<RecruitAreaCode> recruitAreaCodeList = codeList.stream()

@@ -1,7 +1,7 @@
 package com.example.jobis.domain.application.domain;
 
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
-import com.example.jobis.domain.recruit.domain.Recruitment;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.global.entity.BaseEntity;
 import lombok.*;

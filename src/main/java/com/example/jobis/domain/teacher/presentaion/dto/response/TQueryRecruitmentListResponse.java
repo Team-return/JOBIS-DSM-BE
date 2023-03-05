@@ -1,13 +1,11 @@
 package com.example.jobis.domain.teacher.presentaion.dto.response;
 
 import com.example.jobis.domain.company.domain.enums.CompanyType;
-import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruit.domain.repository.vo.QueryRecruitAreaCodeVO;
+import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
