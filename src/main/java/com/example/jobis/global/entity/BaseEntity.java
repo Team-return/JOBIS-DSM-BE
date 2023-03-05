@@ -18,6 +18,6 @@ public abstract class BaseEntity {
     private UUID id = Generators.timeBasedGenerator().generate();
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(columnDefinition = "DATETIME(6)", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 }
