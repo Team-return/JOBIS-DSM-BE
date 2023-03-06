@@ -8,7 +8,6 @@ import com.example.jobis.domain.company.controller.dto.response.ExistsCompanyRes
 import com.example.jobis.domain.company.service.*;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
-import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

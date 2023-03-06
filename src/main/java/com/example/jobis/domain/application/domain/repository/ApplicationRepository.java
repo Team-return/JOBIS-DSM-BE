@@ -1,18 +1,26 @@
 package com.example.jobis.domain.application.domain.repository;
 
-import com.example.jobis.domain.application.controller.dto.response.QStudentApplicationListResponse;
-import com.example.jobis.domain.application.controller.dto.response.StudentApplicationListResponse;
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
+import com.example.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
+import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
+import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import static com.example.jobis.domain.application.domain.QApplication.application;
+import static com.example.jobis.domain.application.domain.QApplicationAttachment.applicationAttachment;
+import static com.example.jobis.domain.company.domain.QCompany.company;
+import static com.example.jobis.domain.recruit.domain.QRecruitment.recruitment;
+import static com.example.jobis.domain.student.domain.QStudent.student;
+import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.list;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,21 +33,34 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<StudentApplicationListResponse> queryStudentApplication(Student student) {
+    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsRequest request) {
         return jpaQueryFactory
-                .select(
-                        new QStudentApplicationListResponse(
-                                application.id,
-                                application.recruitment.company.name,
-                                application.applicationStatus,
-                                application.createdAt
-                        )
+                .selectFrom(application)
+                .join(application.student, student)
+                .join(application.recruitment, recruitment)
+                .leftJoin(application.applicationAttachments, applicationAttachment)
+                .leftJoin(recruitment.company, company)
+                .where(
+                        eqRecruitmentId(request.getRecruitmentId()),
+                        eqStudentId(request.getStudentId()),
+                        eqApplicationStatus(request.getApplicationStatus()),
+                        containStudentName(request.getStudentName())
                 )
-                .from(application)
-                .leftJoin(application.recruitment)
-                .where(application.student.eq(student))
                 .orderBy(application.createdAt.desc())
-                .fetch();
+                .transform(
+                        groupBy(application.id)
+                                .list(
+                                        new QQueryApplicationVO(
+                                                application.id,
+                                                student.name,
+                                                student.number,
+                                                company.name,
+                                                list(applicationAttachment.attachmentUrl),
+                                                application.createdAt,
+                                                application.applicationStatus
+                                        )
+                                )
+                );
     }
 
     public Application saveApplication(Application application) {
@@ -65,5 +86,23 @@ public class ApplicationRepository {
 
     public void deleteApplication(Application application) {
         applicationJpaRepository.delete(application);
+    }
+
+    //==conditions==//
+
+    private BooleanExpression eqRecruitmentId(UUID recruitmentId) {
+        return recruitmentId == null ? null : recruitment.id.eq(recruitmentId);
+    }
+
+    private BooleanExpression eqStudentId(UUID studentId) {
+        return studentId == null ? null : student.id.eq(studentId);
+    }
+
+    private BooleanExpression eqApplicationStatus(ApplicationStatus status) {
+        return status == null ? null : application.applicationStatus.eq(status);
+    }
+
+    private BooleanExpression containStudentName(String studentName) {
+        return studentName == null ? null : student.name.contains(studentName);
     }
 }

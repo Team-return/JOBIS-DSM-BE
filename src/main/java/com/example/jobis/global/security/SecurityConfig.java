@@ -17,7 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class
+SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;
     @Bean
@@ -32,6 +33,14 @@ public class SecurityConfig {
                 .and()
 
                 .authorizeRequests()
+                //application
+                .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(Authority.COMPANY.name())
+                .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(Authority.TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(Authority.TEACHER.name())
+
                 //company
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(Authority.COMPANY.name())
@@ -66,11 +75,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/recruitment").hasAuthority(Authority.STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/students/application").hasAuthority(Authority.STUDENT.name())
-
-                //application
-                .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(Authority.STUDENT.name())
-                .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(Authority.STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/recruitment/{recruitment-id}").hasAuthority(Authority.STUDENT.name())
 
                 //teacher
                 .antMatchers(HttpMethod.PATCH, "/teachers/recruitment/{recruit-id}").hasAuthority(Authority.TEACHER.name())
@@ -78,7 +83,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/teachers/area/{recruit-area-id}").hasAuthority(Authority.TEACHER.name())
                 .antMatchers(HttpMethod.DELETE, "/teachers/area/code").hasAuthority(Authority.TEACHER.toString())
                 .antMatchers(HttpMethod.POST, "/teachers/area/code/{recruit-area-id}").hasAuthority(Authority.TEACHER.name())
-                .antMatchers(HttpMethod.POST, "teachers/area").hasAuthority(Authority.TEACHER.name())
+                .antMatchers(HttpMethod.POST, "/teachers/area").hasAuthority(Authority.TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/teachers/recruitment").hasAuthority(Authority.TEACHER.name())
                 .anyRequest().authenticated()
                 .and()

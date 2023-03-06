@@ -27,6 +27,9 @@ public class StudentSignUpRequest {
     private Grade grade;
     @NotBlank(message = "name은 null 또는 공백을 포함 할 수 없습니다.")
     private String name;
+    @NotBlank(message = "number은 null 또는 공백을 포함 할 수 없습니다.")
+    @Size(min = 4, max = 4, message = "number 4자여야합니다.")
+    private String number;
     @NotBlank(message = "gender는 null 또는 공백을 포함할 수 없습니다.")
     private Gender gender;
 }
