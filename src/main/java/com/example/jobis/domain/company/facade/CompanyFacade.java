@@ -34,12 +34,6 @@ public class CompanyFacade {
         return companyJpaRepository.existsByBizNo(businessNumber);
     }
 
-    public Company getCompany() {
-        String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyJpaRepository.findByBizNo(accountId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-    }
-
     public Company getCompanyById(UUID id) {
         return companyJpaRepository.findById(id)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
