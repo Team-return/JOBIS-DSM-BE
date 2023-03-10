@@ -1,42 +1,45 @@
 package com.example.jobis.domain.recruitment.service;
 
 import com.example.jobis.domain.code.domain.Code;
-import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.company.domain.repository.CompanyRepository;
+import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.recruitment.controller.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruitment.controller.dto.request.ApplyRecruitmentRequest.Area;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class ApplyRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
-    private final CompanyFacade companyFacade;
+    private final CompanyRepository companyRepository;
+    private final UserFacade userFacade;
     private final CodeFacade codeFacade;
 
     @Transactional
     public void execute(ApplyRecruitmentRequest request) {
-        Company company = companyFacade.getCurrentCompany();
+        UUID currentUserId = userFacade.getCurrentUserId();
+        Company company = companyRepository.queryCompanyById(currentUserId)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        String hiringProgress = request.getHiringProgress()
-                        .stream().map(Enum::toString)
-                        .collect(Collectors.joining(","));
-
-        String requiredLicenses = request.getRequiredLicenses() == null?
-                null : String.join(",", request.getRequiredLicenses());
+        String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
+        String requiredLicenses = StringUtil.getRequiredLicenses(request.getRequiredLicenses());
 
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
@@ -59,7 +62,6 @@ public class ApplyRecruitmentService {
                         .build()
         );
 
-        List<Long> requestCode = new ArrayList<>();
         for(Area area : request.getAreas()) {
             RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
                     RecruitArea.builder()
@@ -68,16 +70,16 @@ public class ApplyRecruitmentService {
                             .recruitment(recruitment)
                             .build()
             );
-            requestCode.addAll(area.getJob());
-            requestCode.addAll(area.getTech());
 
-            List<Code> codeList = codeFacade.findAllCodeById(requestCode);
-            recruitmentRepository.saveAllRecruitAreaCodes(
-                    codeList.stream()
-                    .map(c -> new RecruitAreaCode(recruitArea, c))
-                    .toList()
+            List<Code> codes = codeFacade.findAllCodeById(
+                    Stream.of(area.getJob(), area.getTech())
+                            .flatMap(Collection::stream)
+                            .collect(Collectors.toList())
             );
-            requestCode.clear();
+
+            recruitmentRepository.saveAllRecruitAreaCodes(
+                    codeFacade.generateRecruitAreaCode(recruitArea, codes)
+            );
         }
     }
 }
