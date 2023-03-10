@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ExistsCompanyResponse {
+public class CheckCompanyExistsResponse {
 
     private String companyName;
     private boolean exists;

@@ -1,6 +1,6 @@
 package com.example.jobis.domain.company.domain.repository;
 
-import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
+import com.example.jobis.domain.company.controller.dto.response.QueryCompaniesResponse;
 import com.example.jobis.domain.company.controller.dto.response.QCompanyListResponse;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import static com.example.jobis.domain.company.domain.QCompany.company;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class CompanyRepository {
     private final CompanyJpaRepository companyJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public List<CompanyListResponse> findCompanyInfoList() {
+    public List<QueryCompaniesResponse> findCompanyInfoList() {
         return queryFactory
                 .select(
                         new QCompanyListResponse(
@@ -30,6 +32,10 @@ public class CompanyRepository {
                 .from(company)
                 .orderBy(company.name.desc())
                 .fetch();
+    }
+
+    public Optional<Company> queryCompanyById(UUID companyId) {
+        return companyJpaRepository.findById(companyId);
     }
 
     public Company findByBizNo(String bizNo) {

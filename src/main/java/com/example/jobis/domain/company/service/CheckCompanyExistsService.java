@@ -1,6 +1,6 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.response.ExistsCompanyResponse;
+import com.example.jobis.domain.company.controller.dto.response.CheckCompanyExistsResponse;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,12 +13,11 @@ public class CheckCompanyExistsService {
     private final CompanyFacade companyFacade;
 
     @Transactional(readOnly = true)
-    public ExistsCompanyResponse execute(String businessNumber) {
-
+    public CheckCompanyExistsResponse execute(String businessNumber) {
         String companyName = companyFacade.getCompanyName(businessNumber);
         boolean exists = companyFacade.companyExists(businessNumber);
 
-        return ExistsCompanyResponse.builder()
+        return CheckCompanyExistsResponse.builder()
                 .companyName(companyName)
                 .exists(exists)
                 .build();

@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class CompanyListResponse {
+public class QueryCompaniesResponse {
 
     private final String companyName;
     private final String companyProfileUrl;
@@ -13,7 +13,7 @@ public class CompanyListResponse {
 
     @Builder
     @QueryProjection
-    public CompanyListResponse(String companyName, String companyProfileUrl, int take) {
+    public QueryCompaniesResponse(String companyName, String companyProfileUrl, int take) {
         this.companyName = companyName;
         this.companyProfileUrl = companyProfileUrl;
         this.take = take;

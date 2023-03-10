@@ -17,7 +17,7 @@ public class QueryCompanyDetailsService {
 
     @Transactional(readOnly = true)
     public CompanyDetailsResponse execute(UUID companyId) {
-        Company company = companyFacade.getCompanyById(companyId);
+        Company company = companyFacade.queryCompanyById(companyId);
 
         return CompanyDetailsResponse.builder()
                 .businessNumber(company.getBizNo())

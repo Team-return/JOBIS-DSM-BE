@@ -28,7 +28,6 @@ public class RegisterCompanyService {
 
     @Transactional
     public TokenResponse execute(RegisterCompanyRequest request) {
-
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
