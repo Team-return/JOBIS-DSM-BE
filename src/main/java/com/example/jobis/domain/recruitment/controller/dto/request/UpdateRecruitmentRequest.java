@@ -14,25 +14,22 @@ public class UpdateRecruitmentRequest {
 
     private String preferentialTreatment;
     private Integer requiredGrade;
-
-    @NotNull(message = "work_hours는 null일 수 없습니다.")
+    @NotNull
     private Integer workHours;
     private List<String> requiredLicenses;
-
-    @NotNull(message = "hiring_progress는 null일 수 없습니다.")
+    @NotNull
     private List<ProgressType> hiringProgress;
-    @NotNull(message = "train_pay는 null 일 수 없습니다.")
+    @NotNull
     private Integer trainPay;
     private Integer pay;
     private String benefits;
-
-    @NotNull(message = "military는 null일 수 없습니다.")
+    @NotNull
     private boolean military;
-    @NotNull(message = "submit_document는 null일 수 없습니다.")
+    @NotNull
     private String submitDocument;
-    @NotNull(message = "start_date는 null일 수 없습니다.")
+    @NotNull
     private LocalDate startDate;
-    @NotNull(message = "end_date는 null일 수 없습니다.")
+    @NotNull
     private LocalDate endDate;
     private String etc;
 }

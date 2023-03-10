@@ -11,12 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateRecruitAreaRequest {
 
-    @NotNull(message = "job은 null일 수 없습니다.")
-    private List<Long> job;
-    @NotNull(message = "tech는 null일 수 없습니다.")
-    private List<Long> tech;
-    @NotNull(message = "hiring은 null일 수 없습니다.")
+    @NotNull
+    private List<Long> jobCodes;
+    @NotNull
+    private List<Long> techCodes;
+    @NotNull
     private int hiring;
-    @NotBlank(message = "major_task는 null 또는 공백일 수 없습니다.")
+    @NotBlank
     private String majorTask;
 }

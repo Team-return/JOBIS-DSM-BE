@@ -5,14 +5,21 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 public class UpdateRecruitAreaRequest {
 
-    @NotNull(message = "hiring은 null일 수 없습니다.")
+    @NotNull
+    private List<Long> jobCodes;
+
+    @NotNull
+    private List<Long> techCodes;
+
+    @NotNull
     private int hiring;
 
-    @NotBlank(message = "major_task는 null 또는 공백일 수 없습니다.")
+    @NotBlank
     private String majorTask;
 }
