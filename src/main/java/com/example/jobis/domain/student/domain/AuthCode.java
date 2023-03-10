@@ -11,23 +11,23 @@ import org.springframework.data.redis.core.TimeToLive;
 @RedisHash
 public class AuthCode {
 
-     @Id
+    @Id
     private final String email;
 
-     private String code;
+    private String code;
 
-     private boolean isVerified;
+    private boolean isVerified;
 
-     @TimeToLive
+    @TimeToLive
     private Long ttl;
 
-     public void updateAuthCode(String code, Long ttl) {
-         this.code = code;
-         this.ttl = ttl;
-         this.isVerified = false;
+    public void updateAuthCode(String code, Long ttl) {
+        this.code = code;
+        this.ttl = ttl;
+        this.isVerified = false;
      }
 
-     public void verify() {
-         this.isVerified = true;
-     }
+    public void verify() {
+        this.isVerified = true;
+    }
 }
