@@ -16,6 +16,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 
 import static com.example.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
@@ -61,6 +63,10 @@ public class RecruitmentRepository {
                                         sum(recruitArea.hiredCount)
                                 ))
                 );
+    }
+
+    public void deleteRecruitAreaCodeByRecruitAreaId(UUID recruitAreaId) {
+        recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitAreaId);
     }
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
