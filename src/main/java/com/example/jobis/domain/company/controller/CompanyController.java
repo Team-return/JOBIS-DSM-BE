@@ -24,7 +24,7 @@ public class CompanyController {
     private final RegisterCompanyService registerCompanyService;
     private final CheckCompanyExistsService checkCompanyExistsService;
     private final UpdateCompanyDetailsService updateCompanyDetailsService;
-    private final QueryCompanyListService queryCompanyListService;
+    private final StudentQueryCompaniesService studentQueryCompaniesService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
 
@@ -47,7 +47,7 @@ public class CompanyController {
 
     @GetMapping
     public List<CompanyListResponse> queryCompanyList() {
-        return queryCompanyListService.execute();
+        return studentQueryCompaniesService.execute();
     }
 
     @GetMapping("/{company-id}")
