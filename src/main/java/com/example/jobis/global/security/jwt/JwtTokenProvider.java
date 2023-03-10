@@ -8,7 +8,10 @@ import com.example.jobis.global.exception.InvalidTokenException;
 import com.example.jobis.global.security.auth.company.CompanyDetailsService;
 import com.example.jobis.global.security.auth.student.StudentDetailsService;
 import com.example.jobis.global.security.auth.teacher.TeacherDetailsService;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -31,15 +35,15 @@ public class JwtTokenProvider {
     private static final String ACCESS = "ACCESS";
     private static final String REFRESH = "REFRESH";
 
-    public String generateAccessToken(String id, Authority authority) {
-        return generateToken(id, ACCESS, jwtProperties.getAccessExp(), authority);
+    public String generateAccessToken(UUID userId, Authority authority) {
+        return generateToken(userId.toString(), ACCESS, jwtProperties.getAccessExp(), authority);
     }
 
-    public String generateRefreshToken(String id, Authority authority) {
-        String token = generateToken(id, REFRESH, jwtProperties.getRefreshExp(), authority);
+    public String generateRefreshToken(UUID userId, Authority authority) {
+        String token = generateToken(userId.toString(), REFRESH, jwtProperties.getRefreshExp(), authority);
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .id(id)
+                        .id(userId)
                         .token(token)
                         .authority(authority)
                         .ttl(jwtProperties.getRefreshExp())
