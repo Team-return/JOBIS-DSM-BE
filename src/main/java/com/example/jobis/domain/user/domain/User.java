@@ -23,6 +23,7 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(60)")
     private String password;
 
+    @Column(columnDefinition = "VARCHAR(7)", nullable = false)
     @Enumerated(EnumType.STRING)
     private Authority authority;
 

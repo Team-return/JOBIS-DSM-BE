@@ -5,6 +5,7 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.type.Pay;
 import com.example.jobis.domain.recruitment.domain.type.RecruitDate;
+import com.example.jobis.domain.recruitment.exception.CompanyMismatchException;
 import com.example.jobis.global.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,11 +14,20 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @DynamicUpdate
@@ -36,8 +46,11 @@ public class Recruitment extends BaseEntity {
     private RecruitStatus status;
 
 
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(255)")
     private String preferentialTreatment;
 
+    @Column(columnDefinition = "VARCHAR(200)")
     private String requiredLicenses;
 
     @Column(columnDefinition = "TINYINT(100)")
@@ -47,6 +60,7 @@ public class Recruitment extends BaseEntity {
     @Column(columnDefinition = "TINYINT(50)", nullable = false)
     private int workingHours;
 
+    @Column(columnDefinition = "VARCHAR(300)")
     private String benefit;
 
     @NotNull
@@ -60,7 +74,7 @@ public class Recruitment extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(100)")
     private String submitDocument;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "VARCHAR(350)")
     private String etc;
 
     @Embedded
@@ -123,6 +137,12 @@ public class Recruitment extends BaseEntity {
     public Recruitment changeStatus(RecruitStatus status) {
         this.status = status;
         return this;
+    }
+
+    public void checkCompany(UUID companyId) {
+        if (!this.getCompany().getId().equals(companyId)) {
+            throw CompanyMismatchException.EXCEPTION;
+        }
     }
 
     public void addApplicationCount() {

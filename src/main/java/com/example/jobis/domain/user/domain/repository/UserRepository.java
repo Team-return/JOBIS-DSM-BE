@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.example.jobis.domain.user.domain.QUser.user;
 
@@ -23,5 +24,9 @@ public class UserRepository {
 
     public User saveUser(User user) {
         return userJpaRepository.save(user);
+    }
+
+    public Optional<User> queryUserById(UUID userId) {
+        return userJpaRepository.findById(userId);
     }
 }

@@ -7,7 +7,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +22,12 @@ import java.util.List;
 @Entity
 public class RecruitArea extends BaseUUIDEntity {
 
+    @NotNull
+    @Column(columnDefinition = "TINYINT(20)")
     private Integer hiredCount;
 
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(200)")
     private String majorTask;
 
     @ManyToOne(fetch = FetchType.LAZY)
