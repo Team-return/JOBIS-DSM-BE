@@ -2,19 +2,26 @@ package com.example.jobis.domain.company.service;
 
 import com.example.jobis.domain.company.controller.dto.response.CompanyMyPageResponse;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.company.domain.repository.CompanyRepository;
+import com.example.jobis.domain.company.exception.CompanyNotFoundException;
+import com.example.jobis.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class CompanyMyPageService {
-    private final CompanyFacade companyFacade;
+    private final CompanyRepository companyRepository;
+    private final UserFacade userFacade;
 
     @Transactional(readOnly = true)
     public CompanyMyPageResponse execute() {
-        Company company = companyFacade.getCurrentCompany();
+        UUID currentUserId = userFacade.getCurrentUserId();
+        Company company = companyRepository.queryCompanyById(currentUserId)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return CompanyMyPageResponse.builder()
                 .name(company.getName())

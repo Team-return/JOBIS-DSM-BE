@@ -15,7 +15,7 @@ public class RecruitFacade {
 
     private final RecruitmentJpaRepository recruitmentJpaRepository;
 
-    public Recruitment getRecruitById(UUID id) {
+    public Recruitment queryRecruitmentById(UUID id) {
         return recruitmentJpaRepository.findById(id)
                 .orElseThrow(() -> RecruitNotFoundException.EXCEPTION);
     }

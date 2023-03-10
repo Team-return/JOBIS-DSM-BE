@@ -19,9 +19,4 @@ public class RecruitAreaFacade {
         return recruitAreaRepository.findById(id)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
     }
-
-    public RecruitArea getRecruitAreaByIdAndRecruitment(UUID id, Recruitment recruitment) {
-        return recruitAreaRepository.findByIdAndRecruitment(id, recruitment)
-                .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
-    }
 }

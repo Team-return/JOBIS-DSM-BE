@@ -28,7 +28,7 @@ public class CreateApplicationService {
     public void execute(CreateApplicationRequest request, UUID recruitmentId) {
 
         Student student = studentFacade.getCurrentStudent();
-        Recruitment recruitment = recruitFacade.getRecruitById(recruitmentId);
+        Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
 
         if (applicationRepository.existsApplicationByStudentAndCompany(student, recruitment)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
