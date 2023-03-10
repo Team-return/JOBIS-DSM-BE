@@ -31,7 +31,7 @@ public class UpdateRecruitmentService {
         User user = userRepository.queryUserById(currentUserId)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        Recruitment recruitment = recruitFacade.getRecruitById(recruitmentId);
+        Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
 
         if (user.getAuthority() == Authority.COMPANY) {
             Company company = companyFacade.getCompanyById(user.getId());
