@@ -12,6 +12,7 @@ public enum ErrorCode {
     INVALID_EXTENSION(400, "Invalid Extension File"),
 
     UNVERIFIED_EMAIL(401, "Unverified Email"),
+    COMPANY_MISMATCH(403, "Company Mismatch"),
     BAD_AUTH_CODE(401, "Bad Auth Code"),
     EXPIRED_TOKEN(401,"Token Expired" ),
     INVALID_TOKEN(401,"Invalid Token"),
