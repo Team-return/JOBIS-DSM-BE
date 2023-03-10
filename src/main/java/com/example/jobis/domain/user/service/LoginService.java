@@ -28,8 +28,8 @@ public class LoginService {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
         return UserAuthResponse.builder()
                 .accessToken(accessToken)

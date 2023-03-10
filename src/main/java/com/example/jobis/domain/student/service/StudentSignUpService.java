@@ -49,6 +49,7 @@ public class StudentSignUpService {
                         .email(request.getEmail())
                         .phoneNumber(request.getPhoneNumber())
                         .user(user)
+                        .classRoom(request.getClassRoom())
                         .number(request.getNumber())
                         .name(request.getName())
                         .gender(request.getGender())
@@ -56,8 +57,8 @@ public class StudentSignUpService {
                         .build()
         );
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)
