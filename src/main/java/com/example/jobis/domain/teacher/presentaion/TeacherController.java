@@ -1,11 +1,10 @@
 package com.example.jobis.domain.teacher.presentaion;
 
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaRequest;
-import com.example.jobis.domain.code.service.CreateRecruitAreaService;
+import com.example.jobis.domain.recruitment.service.CreateRecruitAreaService;
 import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.service.UpdateRecruitAreaService;
-import com.example.jobis.domain.recruitment.service.UpdateRecruitmentService;
 import com.example.jobis.domain.teacher.presentaion.dto.response.TQueryRecruitmentListResponse;
 import com.example.jobis.domain.teacher.service.TeacherQueryRecruitmentListService;
 import com.example.jobis.domain.teacher.service.ChangeRecruitmentStatusService;
