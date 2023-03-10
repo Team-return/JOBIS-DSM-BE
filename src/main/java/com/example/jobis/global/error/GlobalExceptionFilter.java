@@ -2,6 +2,7 @@ package com.example.jobis.global.error;
 
 import com.example.jobis.global.error.exception.ErrorCode;
 import com.example.jobis.global.error.exception.JobisException;
+import com.example.jobis.global.error.response.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.OncePerRequestFilter;
