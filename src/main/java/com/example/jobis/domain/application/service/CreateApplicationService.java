@@ -10,7 +10,6 @@ import com.example.jobis.domain.application.exception.InvalidGradeException;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import com.example.jobis.domain.student.domain.Student;
-import com.example.jobis.domain.student.domain.types.Grade;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ public class CreateApplicationService {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        if (!student.getGrade().equals(Grade.THIRD)) {
+        if (!student.getGrade().equals(3)) {
             throw InvalidGradeException.EXCEPTION;
         }
 

@@ -4,9 +4,19 @@ import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.global.entity.BaseEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +33,7 @@ public class Application extends BaseEntity {
     @JoinColumn(name = "recruitment_id")
     private Recruitment recruitment;
 
+    @Column(columnDefinition = "VARCHAR(9)", nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
