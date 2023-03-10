@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class ExistsCompanyService {
+public class CheckCompanyExistsService {
 
     private final CompanyFacade companyFacade;
 

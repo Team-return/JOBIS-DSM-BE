@@ -22,7 +22,7 @@ import java.util.UUID;
 public class CompanyController {
 
     private final RegisterCompanyService registerCompanyService;
-    private final ExistsCompanyService existsCompanyService;
+    private final CheckCompanyExistsService checkCompanyExistsService;
     private final UpdateCompanyDetailsService updateCompanyDetailsService;
     private final QueryCompanyListService queryCompanyListService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
@@ -36,7 +36,7 @@ public class CompanyController {
 
     @GetMapping("/exists/{business-number}")
     public ExistsCompanyResponse companyExists(@PathVariable("business-number") String businessNumber) {
-        return existsCompanyService.execute(businessNumber);
+        return checkCompanyExistsService.execute(businessNumber);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
