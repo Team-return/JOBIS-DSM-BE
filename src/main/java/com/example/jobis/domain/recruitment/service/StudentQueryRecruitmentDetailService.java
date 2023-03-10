@@ -1,5 +1,6 @@
 package com.example.jobis.domain.recruitment.service;
 
+import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitDetailsResponse;
 import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitDetailsResponse.RecruitAreaResponse;
@@ -16,14 +17,14 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class QueryStudentRecruitDetailsService {
+public class StudentQueryRecruitmentDetailService {
 
     private final RecruitFacade recruitFacade;
 
     @Transactional(readOnly = true)
     public StudentRecruitDetailsResponse execute(UUID recruitId) {
 
-        Recruitment recruitment = recruitFacade.getRecruitById(recruitId);
+        Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitId);
 
         List<RecruitAreaResponse> recruitAreaList = recruitment.getRecruitAreaList().stream()
                 .map(this::recruitAreaBuilder)
@@ -50,12 +51,12 @@ public class QueryStudentRecruitDetailsService {
     public RecruitAreaResponse recruitAreaBuilder(RecruitArea recruitArea) {
 
         List<String> jobCodes = recruitArea.getCodeList().stream()
-                .filter(recruitAreaCode -> recruitAreaCode.getCodeId().getCodeType().equals(CodeType.JOB))
-                .map(recruitAreaCode -> recruitAreaCode.getCodeId().getKeyword())
+                .filter(recruitAreaCode -> recruitAreaCode.getCodeType().equals(CodeType.JOB))
+                .map(RecruitAreaCode::getCodeKeyword)
                 .toList();
         List<String> techCodes = recruitArea.getCodeList().stream()
-                .filter(recruitAreaCode -> recruitAreaCode.getCodeId().getCodeType().equals(CodeType.TECH))
-                .map(recruitAreaCode -> recruitAreaCode.getCodeId().getKeyword())
+                .filter(recruitAreaCode -> recruitAreaCode.getCodeType().equals(CodeType.TECH))
+                .map(RecruitAreaCode::getCodeKeyword)
                 .toList();
 
         return RecruitAreaResponse.builder()

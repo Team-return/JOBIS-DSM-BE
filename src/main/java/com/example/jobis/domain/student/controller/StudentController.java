@@ -3,7 +3,7 @@ package com.example.jobis.domain.student.controller;
 import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitDetailsResponse;
 import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitListResponse;
 import com.example.jobis.domain.recruitment.service.StudentQueryRecruitmentsService;
-import com.example.jobis.domain.recruitment.service.QueryStudentRecruitDetailsService;
+import com.example.jobis.domain.recruitment.service.StudentQueryRecruitmentDetailService;
 import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
 import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
 import com.example.jobis.domain.student.controller.dto.request.VerifyAuthCodeRequest;
@@ -28,7 +28,7 @@ public class StudentController {
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final StudentSignUpService studentSignUpService;
     private final StudentQueryRecruitmentsService studentQueryRecruitmentsService;
-    private final QueryStudentRecruitDetailsService queryStudentRecruitDetailsService;
+    private final StudentQueryRecruitmentDetailService studentQueryRecruitmentDetailService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")
@@ -58,6 +58,6 @@ public class StudentController {
 
     @GetMapping("/recruitment/{recruitment-id}")
     public StudentRecruitDetailsResponse queryRecruitmentDetails(@PathVariable("recruitment-id") UUID recruitmentId) {
-        return queryStudentRecruitDetailsService.execute(recruitmentId);
+        return studentQueryRecruitmentDetailService.execute(recruitmentId);
     }
 }
