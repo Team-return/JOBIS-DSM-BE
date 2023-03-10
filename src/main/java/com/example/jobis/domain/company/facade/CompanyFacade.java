@@ -34,7 +34,7 @@ public class CompanyFacade {
         return companyJpaRepository.existsByBizNo(businessNumber);
     }
 
-    public Company getCompanyById(UUID id) {
+    public Company queryCompanyById(UUID id) {
         return companyJpaRepository.findById(id)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }

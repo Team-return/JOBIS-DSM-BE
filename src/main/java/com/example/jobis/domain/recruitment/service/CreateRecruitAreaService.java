@@ -45,7 +45,7 @@ public class CreateRecruitAreaService {
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
         if(user.getAuthority() == Authority.COMPANY) {
-            Company company = companyFacade.getCompanyById(user.getId());
+            Company company = companyFacade.queryCompanyById(user.getId());
 
             recruitment.checkCompany(company.getId());
         }

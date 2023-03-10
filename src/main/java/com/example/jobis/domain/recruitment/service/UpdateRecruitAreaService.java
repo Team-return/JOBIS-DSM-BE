@@ -43,7 +43,7 @@ public class UpdateRecruitAreaService {
         RecruitArea recruitArea = recruitAreaFacade.getRecruitAreaById(recruitAreaId);
 
         if (user.getAuthority() == Authority.COMPANY) {
-            Company company = companyFacade.getCompanyById(user.getId());
+            Company company = companyFacade.queryCompanyById(user.getId());
             recruitArea.getRecruitment().checkCompany(company.getId());
         }
 

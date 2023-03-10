@@ -16,7 +16,7 @@ public class ChangeRecruitmentStatusService {
 
     @Transactional
     public void execute(UUID id, RecruitStatus status) {
-        Recruitment recruitment = recruitFacade.getRecruitById(id);
+        Recruitment recruitment = recruitFacade.queryRecruitmentById(id);
         recruitment.changeStatus(status);
     }
 }
