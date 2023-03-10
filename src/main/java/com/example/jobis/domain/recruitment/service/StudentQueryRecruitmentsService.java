@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class QueryRecruitListService {
+public class StudentQueryRecruitmentsService {
     private final RecruitmentRepository recruitmentRepository;
 
     @Transactional(readOnly = true)

@@ -2,7 +2,7 @@ package com.example.jobis.domain.student.controller;
 
 import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitDetailsResponse;
 import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitListResponse;
-import com.example.jobis.domain.recruitment.service.QueryRecruitListService;
+import com.example.jobis.domain.recruitment.service.StudentQueryRecruitmentsService;
 import com.example.jobis.domain.recruitment.service.QueryStudentRecruitDetailsService;
 import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
 import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
@@ -27,7 +27,7 @@ public class StudentController {
     private final SendSignUpAuthCodeService sendSignUpAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final StudentSignUpService studentSignUpService;
-    private final QueryRecruitListService queryRecruitListService;
+    private final StudentQueryRecruitmentsService studentQueryRecruitmentsService;
     private final QueryStudentRecruitDetailsService queryStudentRecruitDetailsService;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -53,7 +53,7 @@ public class StudentController {
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
-        return queryRecruitListService.execute(companyName, page);
+        return studentQueryRecruitmentsService.execute(companyName, page);
     }
 
     @GetMapping("/recruitment/{recruitment-id}")
