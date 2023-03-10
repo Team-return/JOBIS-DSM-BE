@@ -1,4 +1,4 @@
-package com.example.jobis.global.error;
+package com.example.jobis.global.error.response;
 
 import lombok.Builder;
 import lombok.Getter;
