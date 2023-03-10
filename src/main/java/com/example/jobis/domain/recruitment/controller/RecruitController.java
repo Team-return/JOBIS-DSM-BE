@@ -1,16 +1,22 @@
 package com.example.jobis.domain.recruitment.controller;
 
-import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaCodeRequest;
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaRequest;
-import com.example.jobis.domain.recruitment.service.CreateCompanyRecruitAreaCodeService;
-import com.example.jobis.domain.recruitment.service.DeleteCompanyRecruitAreaCodeService;
 import com.example.jobis.domain.recruitment.controller.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitmentRequest;
-import com.example.jobis.domain.recruitment.service.*;
+import com.example.jobis.domain.recruitment.service.ApplyRecruitmentService;
+import com.example.jobis.domain.recruitment.service.CreateCompanyRecruitAreaService;
+import com.example.jobis.domain.recruitment.service.UpdateRecruitAreaService;
+import com.example.jobis.domain.recruitment.service.UpdateRecruitmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.UUID;
@@ -21,10 +27,8 @@ import java.util.UUID;
 public class RecruitController {
 
     private final ApplyRecruitmentService applyRecruitmentService;
-    private final UpdateCompanyRecruitService updateCompanyRecruitService;
-    private final UpdateCompanyRecruitAreaService updateCompanyRecruitAreaService;
-    private final DeleteCompanyRecruitAreaCodeService deleteCompanyRecruitAreaCodeService;
-    private final CreateCompanyRecruitAreaCodeService createCompanyRecruitAreaCodeService;
+    private final UpdateRecruitmentService updateRecruitmentService;
+    private final UpdateRecruitAreaService updateRecruitAreaService;
     private final CreateCompanyRecruitAreaService createCompanyRecruitAreaService;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,27 +38,21 @@ public class RecruitController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping
-    public void updateRecruitment(@RequestBody @Valid UpdateRecruitmentRequest request) {
-        updateCompanyRecruitService.execute(request);
+    @PatchMapping("/{recruitment-id}")
+    public void updateRecruitment(
+            @RequestBody @Valid UpdateRecruitmentRequest request,
+            @PathVariable("recruitment-id") UUID recruitmentId
+    ) {
+        updateRecruitmentService.execute(request, recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
-    public void updateRecruitArea(@RequestBody @Valid UpdateRecruitAreaRequest request, @PathVariable("recruit-area-id") UUID recruitAreaId) {
-        updateCompanyRecruitAreaService.execute(request, recruitAreaId);
-    }
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/area/code")
-    public void deleteRecruitAreaCode(@RequestParam("recruit-area-id") UUID recruitAreaId, @RequestParam("code-id") Long codeId) {
-        deleteCompanyRecruitAreaCodeService.execute(recruitAreaId, codeId);
-    }
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/area/code/{recruit-area-id}")
-    public void createRecruitAreaCode(@RequestBody @Valid CreateRecruitAreaCodeRequest request, @PathVariable("recruit-area-id") UUID recruitAreaId) {
-        createCompanyRecruitAreaCodeService.execute(recruitAreaId, request);
+    public void updateRecruitArea(
+            @RequestBody @Valid UpdateRecruitAreaRequest request,
+            @PathVariable("recruit-area-id") UUID recruitAreaId
+    ) {
+        updateRecruitAreaService.execute(request, recruitAreaId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
