@@ -73,4 +73,10 @@ public class Student {
         this.number = number;
         this.gender = gender;
     }
+
+    public static String processGcn(int grade, int classNumber, int number) {
+        return String.valueOf(grade) +
+                classNumber +
+                (number < 10 ? "0" + number : number);
+    }
 }

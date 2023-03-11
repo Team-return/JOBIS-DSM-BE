@@ -53,6 +53,8 @@ public class ApplicationRepository {
                                         new QQueryApplicationVO(
                                                 application.id,
                                                 student.name,
+                                                student.grade,
+                                                student.classRoom,
                                                 student.number,
                                                 company.name,
                                                 list(applicationAttachment.attachmentUrl),

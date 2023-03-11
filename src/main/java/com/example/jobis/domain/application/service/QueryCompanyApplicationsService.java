@@ -8,6 +8,7 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
+import com.example.jobis.domain.student.domain.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +35,13 @@ public class QueryCompanyApplicationsService {
 
         return applicationRepository.queryApplicationByConditions(request).stream()
                 .map(a -> QueryCompanyApplicationsResponse.builder()
-                        .applicationId(a.getApplicationId())
-                        .studentName(a.getStudentName())
-                        .studentNumber(a.getStudentNumber())
+                        .applicationId(a.getId())
+                        .studentName(a.getName())
+                        .studentNumber(Student.processGcn(
+                                a.getGrade(),
+                                a.getClassNumber(),
+                                a.getNumber())
+                        )
                         .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
                         .createdAt(a.getCreatedAt().toLocalDate())
                         .build())

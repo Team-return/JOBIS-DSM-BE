@@ -14,7 +14,7 @@ public class TeacherQueryApplicationsResponse {
 
     private final UUID applicationId;
     private final String studentName;
-    private final String studentNumber;
+    private final String studentGcn;
     private final String companyName;
     private final List<String> applicationAttachmentUrl;
     private final LocalDate createdAt;

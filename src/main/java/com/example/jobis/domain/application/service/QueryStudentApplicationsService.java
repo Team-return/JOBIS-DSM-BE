@@ -28,7 +28,7 @@ public class QueryStudentApplicationsService {
 
         return applicationRepository.queryApplicationByConditions(request).stream()
                 .map(a -> StudentApplicationsResponse.builder()
-                        .applicationId(a.getApplicationId())
+                        .applicationId(a.getId())
                         .company(a.getCompanyName())
                         .attachmentUrlList(a.getApplicationAttachmentUrl())
                         .applicationStatus(a.getApplicationStatus())
