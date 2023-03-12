@@ -10,6 +10,7 @@ import com.example.jobis.domain.application.exception.ApplicationNotFoundExcepti
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -80,9 +81,8 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 
-    public Application findApplicationById(UUID applicationId) {
-        return applicationJpaRepository.findById(applicationId)
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+    public Optional<Application> queryApplicationById(UUID applicationId) {
+        return applicationJpaRepository.findById(applicationId);
     }
 
     public void deleteApplication(Application application) {
