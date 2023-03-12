@@ -1,6 +1,6 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
+import com.example.jobis.domain.company.controller.dto.response.QueryCompaniesResponse;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,7 @@ public class StudentQueryCompaniesService {
     private final CompanyRepository companyRepository;
 
     @Transactional(readOnly = true)
-    public List<CompanyListResponse> execute() {
-
+    public List<QueryCompaniesResponse> execute() {
         return companyRepository.findCompanyInfoList();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.jobis.domain.recruitment.service;
 
-import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitListResponse;
+import com.example.jobis.domain.recruitment.controller.dto.response.StudentQueryRecruitmentsResponse;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,21 +16,24 @@ public class StudentQueryRecruitmentsService {
     private final RecruitmentRepository recruitmentRepository;
 
     @Transactional(readOnly = true)
-    public List<StudentRecruitListResponse> execute(String name, Integer page) {
-        return recruitmentRepository.queryRecruitmentsByConditions(Year.now().getValue(), null, null,
-                        RecruitStatus.RECRUITING, name, page-1).stream()
-                .map(
-                        r -> StudentRecruitListResponse.builder()
-                                .recruitId(r.getRecruitment().getId())
-                                .companyName(r.getCompany().getName())
-                                .trainPay(r.getRecruitment().getPay().getTrainingPay())
-                                .jobCodeList(r.getRecruitAreaList())
-                                .military(r.getRecruitment().isMilitarySupport())
-                                .companyProfileUrl(r.getCompany().getCompanyLogoUrl())
-                                .totalHiring(r.getTotalHiring())
-                                .build()
-                )
-                .toList();
+    public StudentQueryRecruitmentsResponse execute(String name, Integer page) {
+        List<StudentQueryRecruitmentsResponse.StudentRecruitmentResponse> recruitments =
+                recruitmentRepository.queryRecruitmentsByConditions(
+                        Year.now().getValue(), null, null, RecruitStatus.RECRUITING, name, page-1
+                        ).stream()
+                        .map(
+                                r -> StudentQueryRecruitmentsResponse.StudentRecruitmentResponse.builder()
+                                        .recruitId(r.getRecruitment().getId())
+                                        .companyName(r.getCompany().getName())
+                                        .trainPay(r.getRecruitment().getPay().getTrainingPay())
+                                        .jobCodeList(r.getRecruitAreaList())
+                                        .military(r.getRecruitment().isMilitarySupport())
+                                        .companyProfileUrl(r.getCompany().getCompanyLogoUrl())
+                                        .totalHiring(r.getTotalHiring())
+                                        .build()
+                ).toList();
+
+        return new StudentQueryRecruitmentsResponse(recruitments);
     }
 
 }
