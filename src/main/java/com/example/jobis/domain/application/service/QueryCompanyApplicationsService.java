@@ -5,10 +5,10 @@ import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import com.example.jobis.domain.student.domain.Student;
+import com.example.jobis.domain.user.facade.UserFacade;
 import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
 
@@ -19,12 +19,14 @@ import java.util.List;
 public class QueryCompanyApplicationsService {
 
     private final ApplicationRepository applicationRepository;
-    private final CompanyFacade companyFacade;
     private final RecruitFacade recruitFacade;
+    private final UserFacade userFacade;
 
     public List<QueryCompanyApplicationsResponse> execute() {
-        Company company = companyFacade.getCurrentCompany();
+        Company company = userFacade.getCurrentCompany();
+
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
+
         QueryApplicationsRequest request =
                 QueryApplicationsRequest.builder()
                 .recruitmentId(recruitment.getId())

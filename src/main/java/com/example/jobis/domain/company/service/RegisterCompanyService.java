@@ -30,7 +30,7 @@ public class RegisterCompanyService {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        if (companyFacade.companyExists(request.getBusinessNumber())) {
+        if (companyRepository.existsCompanyByBizNo(request.getBusinessNumber())) {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 

@@ -30,19 +30,9 @@ public class CompanyFacade {
         return items.getBno().replace("-", "").equals(businessNumber);
     }
 
-    public boolean companyExists(String businessNumber) {
-        return companyJpaRepository.existsByBizNo(businessNumber);
-    }
-
     public Company queryCompanyById(UUID id) {
         return companyJpaRepository.findById(id)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-    }
-
-    public Company getCurrentCompany() {
-        String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyJpaRepository.findByBizNo(accountId)
-                .orElseThrow(()->CompanyNotFoundException.EXCEPTION);
     }
 
     private Items getApi(String businessNumber) {
