@@ -1,7 +1,7 @@
 package com.example.jobis.domain.company.service;
 
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.presentation.dto.response.TokenResponse;
 import com.example.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;

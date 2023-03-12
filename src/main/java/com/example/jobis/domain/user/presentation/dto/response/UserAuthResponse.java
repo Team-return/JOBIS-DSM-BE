@@ -1,4 +1,4 @@
-package com.example.jobis.domain.user.controller.dto.response;
+package com.example.jobis.domain.user.presentation.dto.response;
 
 import com.example.jobis.domain.user.domain.enums.Authority;
 import lombok.Builder;

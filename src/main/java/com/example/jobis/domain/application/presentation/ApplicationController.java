@@ -5,14 +5,26 @@ import com.example.jobis.domain.application.presentation.dto.response.TeacherQue
 import com.example.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
 import com.example.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
-import com.example.jobis.domain.application.service.*;
+import com.example.jobis.domain.application.service.CreateApplicationService;
+import com.example.jobis.domain.application.service.DeleteApplicationService;
+import com.example.jobis.domain.application.service.QueryCompanyApplicationsService;
+import com.example.jobis.domain.application.service.QueryStudentApplicationsService;
+import com.example.jobis.domain.application.service.TeacherQueryApplicationsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/applications")

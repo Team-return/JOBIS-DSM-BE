@@ -1,8 +1,8 @@
-package com.example.jobis.domain.user.controller;
+package com.example.jobis.domain.user.presentation;
 
-import com.example.jobis.domain.user.controller.dto.request.LoginRequest;
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
-import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
+import com.example.jobis.domain.user.presentation.dto.request.LoginRequest;
+import com.example.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobis.domain.user.presentation.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.service.LoginService;
 import com.example.jobis.domain.user.service.TokenReissueService;
 import lombok.RequiredArgsConstructor;

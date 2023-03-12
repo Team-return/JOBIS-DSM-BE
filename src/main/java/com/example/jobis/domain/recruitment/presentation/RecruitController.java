@@ -1,6 +1,6 @@
 package com.example.jobis.domain.recruitment.presentation;
 
-import com.example.jobis.domain.code.presentation.dto.request.CreateRecruitAreaRequest;
+import com.example.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
 import com.example.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;

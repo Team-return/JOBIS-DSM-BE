@@ -1,4 +1,4 @@
-package com.example.jobis.domain.code.presentation.dto.request;
+package com.example.jobis.domain.recruitment.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

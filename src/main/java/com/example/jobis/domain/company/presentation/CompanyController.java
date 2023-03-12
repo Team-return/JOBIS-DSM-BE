@@ -11,7 +11,7 @@ import com.example.jobis.domain.company.service.QueryCompanyDetailsService;
 import com.example.jobis.domain.company.service.RegisterCompanyService;
 import com.example.jobis.domain.company.service.StudentQueryCompaniesService;
 import com.example.jobis.domain.company.service.UpdateCompanyDetailsService;
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.presentation.dto.response.TokenResponse;
 import com.example.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

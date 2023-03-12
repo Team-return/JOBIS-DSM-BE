@@ -3,8 +3,6 @@ package com.example.jobis.domain.recruitment.service;
 import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.domain.repository.CompanyRepository;
-import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import com.example.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest.Area;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
@@ -19,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import java.time.Year;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
