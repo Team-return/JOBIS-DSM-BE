@@ -97,9 +97,9 @@ public class RecruitController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/recruitment/{recruit-id}")
+    @PatchMapping("/{recruitment-id}/status")
     public void changeRecruitStatus(
-            @PathVariable("recruit-id") UUID recruitId,
+            @PathVariable("recruitment-id") UUID recruitId,
             @RequestParam("status") RecruitStatus status
     ) {
         changeRecruitmentStatusService.execute(recruitId, status);

@@ -37,7 +37,7 @@ public class StudentQueryRecruitmentDetailService {
                 .hiringProgress(recruitment.getHiringProgress())
                 .trainPay(recruitment.getPay().getTrainingPay())
                 .pay(recruitment.getPay().getPay())
-                .benefits(recruitment.getBenefit())
+                .benefits(recruitment.getBenefits())
                 .military(recruitment.isMilitarySupport())
                 .submitDocument(recruitment.getSubmitDocument())
                 .startDate(recruitment.getRecruitDate().getStartDate())

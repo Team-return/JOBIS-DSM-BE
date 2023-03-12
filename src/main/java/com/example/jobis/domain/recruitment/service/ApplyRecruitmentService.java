@@ -16,7 +16,7 @@ import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.Year;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +42,7 @@ public class ApplyRecruitmentService {
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
                         .company(company)
-                        .recruitYear(LocalDate.now().getYear())
+                        .recruitYear(Year.now().getValue())
                         .militarySupport(request.getMilitarySupport())
                         .workingHours(request.getWorkHours())
                         .preferentialTreatment(request.getPreferentialTreatment())
@@ -54,7 +54,7 @@ public class ApplyRecruitmentService {
                         .trainPay(request.getTrainPay())
                         .submitDocument(request.getSubmitDocument())
                         .pay(request.getPay())
-                        .benefit(request.getBenefits())
+                        .benefits(request.getBenefits())
                         .etc(request.getEtc())
                         .hiringProgress(hiringProgress)
                         .build()
