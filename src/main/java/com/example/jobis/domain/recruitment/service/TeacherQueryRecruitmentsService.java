@@ -28,7 +28,7 @@ public class TeacherQueryRecruitmentsService {
                                         .companyType(r.getCompany().getType())
                                         .start(r.getRecruitment().getRecruitDate().getStartDate())
                                         .end(r.getRecruitment().getRecruitDate().getFinishDate())
-                                        .militarySupport(r.getRecruitment().isMilitarySupport())
+                                        .militarySupport(r.getRecruitment().getMilitarySupport())
                                         //.applicationCount(0) /// TODO('추후 학생 지원로직 개발')
                                         .recruitmentCount(r.getTotalHiring())
                                         .recruitmentJob(r.getRecruitAreaList())

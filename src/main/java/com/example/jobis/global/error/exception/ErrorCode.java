@@ -13,6 +13,7 @@ public enum ErrorCode {
 
     UNVERIFIED_EMAIL(401, "Unverified Email"),
     COMPANY_MISMATCH(403, "Company Mismatch"),
+    APPLICATION_CANNOT_DELETE(403, "Application Cannot Deleted"),
     BAD_AUTH_CODE(401, "Bad Auth Code"),
     EXPIRED_TOKEN(401,"Token Expired" ),
     INVALID_TOKEN(401,"Invalid Token"),

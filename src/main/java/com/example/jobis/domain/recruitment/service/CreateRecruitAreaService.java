@@ -32,15 +32,12 @@ public class CreateRecruitAreaService {
     private final RecruitAreaRepository recruitAreaRepository;
     private final RecruitmentRepository recruitmentRepository;
     private final CompanyFacade companyFacade;
-    private final UserRepository userRepository;
     private final CodeFacade codeFacade;
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
 
     public void execute(CreateRecruitAreaRequest request, UUID recruitmentId) {
-        UUID currentUserId = userFacade.getCurrentUserId();
-        User user = userRepository.queryUserById(currentUserId)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        User user = userFacade.getCurrentUser();
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
         if(user.getAuthority() == Authority.COMPANY) {

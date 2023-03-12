@@ -21,7 +21,6 @@ public class StudentQueryRecruitmentDetailService {
     private final RecruitFacade recruitFacade;
 
     public StudentRecruitDetailsResponse execute(UUID recruitId) {
-
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitId);
 
         List<RecruitAreaResponse> recruitAreaList = recruitment.getRecruitAreaList().stream()
@@ -38,7 +37,7 @@ public class StudentQueryRecruitmentDetailService {
                 .trainPay(recruitment.getPay().getTrainingPay())
                 .pay(recruitment.getPay().getPay())
                 .benefits(recruitment.getBenefits())
-                .military(recruitment.isMilitarySupport())
+                .military(recruitment.getMilitarySupport())
                 .submitDocument(recruitment.getSubmitDocument())
                 .startDate(recruitment.getRecruitDate().getStartDate())
                 .endDate(recruitment.getRecruitDate().getFinishDate())

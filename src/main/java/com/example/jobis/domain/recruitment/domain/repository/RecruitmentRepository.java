@@ -68,6 +68,10 @@ public class RecruitmentRepository {
         recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitAreaId);
     }
 
+    public Optional<Recruitment> queryRecruitmentById(UUID recruitmentId) {
+        return recruitmentJpaRepository.findById(recruitmentId);
+    }
+
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
         System.out.println("==================");
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);

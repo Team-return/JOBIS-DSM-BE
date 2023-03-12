@@ -12,14 +12,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class UpdateCompanyDetailsService {
-
-    private final CompanyRepository companyRepository;
     private final UserFacade userFacade;
 
     public void execute(UpdateCompanyDetailsRequest request) {
-        UUID currentUserId = userFacade.getCurrentUserId();
-        Company company = companyRepository.queryCompanyById(currentUserId)
-                        .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        Company company = userFacade.getCurrentCompany();
 
         company.update(
                 request.getAddress1(), request.getZipCode1(),

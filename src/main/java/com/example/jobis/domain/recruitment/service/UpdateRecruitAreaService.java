@@ -30,13 +30,10 @@ public class UpdateRecruitAreaService {
     private final RecruitmentRepository recruitmentRepository;
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
-    private final UserRepository userRepository;
     private final CompanyFacade companyFacade;
 
     public void execute(UpdateRecruitAreaRequest request, UUID recruitAreaId) {
-        UUID currentUserId = userFacade.getCurrentUserId();
-        User user = userRepository.queryUserById(currentUserId)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        User user = userFacade.getCurrentUser();
 
         RecruitArea recruitArea = recruitAreaFacade.getRecruitAreaById(recruitAreaId);
 

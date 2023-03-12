@@ -25,7 +25,7 @@ public class StudentQueryRecruitmentsService {
                                         .companyName(r.getCompany().getName())
                                         .trainPay(r.getRecruitment().getPay().getTrainingPay())
                                         .jobCodeList(r.getRecruitAreaList())
-                                        .military(r.getRecruitment().isMilitarySupport())
+                                        .military(r.getRecruitment().getMilitarySupport())
                                         .companyProfileUrl(r.getCompany().getCompanyLogoUrl())
                                         .totalHiring(r.getTotalHiring())
                                         .build()

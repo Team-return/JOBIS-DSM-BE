@@ -13,13 +13,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @ReadOnlyService
 public class CompanyMyPageService {
-    private final CompanyRepository companyRepository;
     private final UserFacade userFacade;
 
     public CompanyMyPageResponse execute() {
-        UUID currentUserId = userFacade.getCurrentUserId();
-        Company company = companyRepository.queryCompanyById(currentUserId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        Company company = userFacade.getCurrentCompany();
 
         return CompanyMyPageResponse.builder()
                 .name(company.getName())

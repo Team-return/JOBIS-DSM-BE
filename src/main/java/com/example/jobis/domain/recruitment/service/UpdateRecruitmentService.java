@@ -22,12 +22,9 @@ public class UpdateRecruitmentService {
     private final CompanyFacade companyFacade;
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
-    private final UserRepository userRepository;
 
     public void execute(UpdateRecruitmentRequest request, UUID recruitmentId) {
-        UUID currentUserId = userFacade.getCurrentUserId();
-        User user = userRepository.queryUserById(currentUserId)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        User user = userFacade.getCurrentUser();
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
 
