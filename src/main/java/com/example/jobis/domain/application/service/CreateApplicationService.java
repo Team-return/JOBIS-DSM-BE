@@ -1,6 +1,6 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.request.CreateApplicationRequest;
+import com.example.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;

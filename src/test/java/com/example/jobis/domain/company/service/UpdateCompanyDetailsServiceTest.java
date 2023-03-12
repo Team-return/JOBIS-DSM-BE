@@ -1,6 +1,6 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.request.UpdateCompanyDetailsRequest;
+import com.example.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import org.junit.jupiter.api.Test;

@@ -1,9 +1,9 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.TeacherQueryApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
+import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.student.domain.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

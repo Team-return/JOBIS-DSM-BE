@@ -1,12 +1,10 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
+import com.example.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.company.facade.CompanyFacade;
-import com.example.jobis.domain.user.domain.User;
-import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.Test;
@@ -19,8 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RegisterCompanyServiceTest {

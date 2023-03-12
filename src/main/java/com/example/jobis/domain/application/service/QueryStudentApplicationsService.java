@@ -1,8 +1,8 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.StudentApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
+import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;

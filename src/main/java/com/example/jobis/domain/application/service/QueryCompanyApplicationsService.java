@@ -1,9 +1,9 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
+import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruitment.domain.Recruitment;

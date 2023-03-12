@@ -1,9 +1,9 @@
-package com.example.jobis.domain.application.controller;
+package com.example.jobis.domain.application.presentation;
 
-import com.example.jobis.domain.application.controller.dto.request.CreateApplicationRequest;
-import com.example.jobis.domain.application.controller.dto.response.TeacherQueryApplicationsResponse;
-import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationsResponse;
-import com.example.jobis.domain.application.controller.dto.response.StudentApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
+import com.example.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.service.*;
 import lombok.RequiredArgsConstructor;
