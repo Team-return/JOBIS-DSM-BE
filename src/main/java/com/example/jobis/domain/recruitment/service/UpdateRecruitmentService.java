@@ -10,10 +10,9 @@ import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
 import com.example.jobis.domain.user.exception.UserNotFoundException;
 import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.util.StringUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -25,7 +24,6 @@ public class UpdateRecruitmentService {
     private final UserFacade userFacade;
     private final UserRepository userRepository;
 
-    @Transactional
     public void execute(UpdateRecruitmentRequest request, UUID recruitmentId) {
         UUID currentUserId = userFacade.getCurrentUserId();
         User user = userRepository.queryUserById(currentUserId)

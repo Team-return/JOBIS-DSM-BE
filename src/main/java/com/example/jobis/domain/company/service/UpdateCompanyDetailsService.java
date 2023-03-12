@@ -5,10 +5,8 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -18,7 +16,6 @@ public class UpdateCompanyDetailsService {
     private final CompanyRepository companyRepository;
     private final UserFacade userFacade;
 
-    @Transactional
     public void execute(UpdateCompanyDetailsRequest request) {
         UUID currentUserId = userFacade.getCurrentUserId();
         Company company = companyRepository.queryCompanyById(currentUserId)

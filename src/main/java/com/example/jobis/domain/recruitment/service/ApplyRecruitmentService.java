@@ -12,10 +12,9 @@ import com.example.jobis.domain.recruitment.domain.RecruitArea;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.util.StringUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -24,15 +23,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class ApplyRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
     private final CompanyRepository companyRepository;
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
 
-    @Transactional
     public void execute(ApplyRecruitmentRequest request) {
         UUID currentUserId = userFacade.getCurrentUserId();
         Company company = companyRepository.queryCompanyById(currentUserId)

@@ -10,11 +10,10 @@ import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
+import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,7 +25,6 @@ public class RegisterCompanyService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
 
-    @Transactional
     public TokenResponse execute(RegisterCompanyRequest request) {
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
             throw CompanyNotFoundException.EXCEPTION;

@@ -9,21 +9,19 @@ import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import com.example.jobis.domain.student.domain.Student;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
+@ReadOnlyService
 public class QueryCompanyApplicationsService {
 
     private final ApplicationRepository applicationRepository;
     private final CompanyFacade companyFacade;
     private final RecruitFacade recruitFacade;
 
-    @Transactional(readOnly = true)
     public List<QueryCompanyApplicationsResponse> execute() {
         Company company = companyFacade.getCurrentCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);

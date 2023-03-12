@@ -5,19 +5,17 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-@Service
 @RequiredArgsConstructor
+@ReadOnlyService
 public class CompanyMyPageService {
     private final CompanyRepository companyRepository;
     private final UserFacade userFacade;
 
-    @Transactional(readOnly = true)
     public CompanyMyPageResponse execute() {
         UUID currentUserId = userFacade.getCurrentUserId();
         Company company = companyRepository.queryCompanyById(currentUserId)

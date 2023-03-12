@@ -5,20 +5,18 @@ import com.example.jobis.domain.application.domain.repository.ApplicationReposit
 import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.facade.StudentFacade;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
+@ReadOnlyService
 public class QueryStudentApplicationsService {
 
     private final ApplicationRepository applicationRepository;
     private final StudentFacade studentFacade;
 
-    @Transactional(readOnly = true)
     public List<StudentApplicationsResponse> execute() {
         Student student = studentFacade.getCurrentStudent();
         QueryApplicationsRequest request =

@@ -3,19 +3,17 @@ package com.example.jobis.domain.recruitment.service;
 import com.example.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Year;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
+@ReadOnlyService
 public class StudentQueryRecruitmentsService {
     private final RecruitmentRepository recruitmentRepository;
 
-    @Transactional(readOnly = true)
     public StudentQueryRecruitmentsResponse execute(String name, Integer page) {
         List<StudentQueryRecruitmentsResponse.StudentRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(

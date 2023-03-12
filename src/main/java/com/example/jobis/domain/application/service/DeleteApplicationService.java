@@ -8,9 +8,8 @@ import com.example.jobis.domain.application.exception.InvalidStudentException;
 import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.facade.StudentFacade;
+import com.example.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -21,7 +20,6 @@ public class DeleteApplicationService {
     private final ApplicationRepository applicationRepository;
     private final StudentFacade studentFacade;
 
-    @Transactional
     public void execute(UUID applicationId) {
 
         Student student = studentFacade.getCurrentStudent();

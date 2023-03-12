@@ -10,12 +10,10 @@ import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserJpaRepository;
+import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -28,7 +26,6 @@ public class StudentSignUpService {
     private final StudentFacade studentFacade;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Transactional
     public TokenResponse execute(StudentSignUpRequest request) {
 
         if (studentFacade.existsEmail(request.getEmail())) {

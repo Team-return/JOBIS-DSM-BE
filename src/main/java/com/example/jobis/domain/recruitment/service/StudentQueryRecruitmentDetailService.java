@@ -8,20 +8,18 @@ import com.example.jobis.domain.recruitment.domain.RecruitArea;
 
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Service
+@ReadOnlyService
 public class StudentQueryRecruitmentDetailService {
 
     private final RecruitFacade recruitFacade;
 
-    @Transactional(readOnly = true)
     public StudentRecruitDetailsResponse execute(UUID recruitId) {
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitId);

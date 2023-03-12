@@ -13,9 +13,8 @@ import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
 import com.example.jobis.domain.user.exception.UserNotFoundException;
 import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +33,6 @@ public class UpdateRecruitAreaService {
     private final UserRepository userRepository;
     private final CompanyFacade companyFacade;
 
-    @Transactional
     public void execute(UpdateRecruitAreaRequest request, UUID recruitAreaId) {
         UUID currentUserId = userFacade.getCurrentUserId();
         User user = userRepository.queryUserById(currentUserId)
