@@ -1,7 +1,20 @@
 package com.example.jobis.domain.teacher.domain.repository;
 
 import com.example.jobis.domain.teacher.domain.Teacher;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-public interface TeacherRepository extends JpaRepository<Teacher, Long> {
+import java.util.Optional;
+import java.util.UUID;
+
+@Repository
+@RequiredArgsConstructor
+public class TeacherRepository {
+    private final JPAQueryFactory queryFactory;
+    private final TeacherJpaRepository teacherRepository;
+
+    public Optional<Teacher> queryTeacherById(UUID teacherId) {
+        return teacherRepository.findById(teacherId);
+    }
 }

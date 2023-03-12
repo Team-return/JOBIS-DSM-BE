@@ -8,10 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class TeacherDetails implements UserDetails {
-    private final String teacherId;
+    private final UUID teacherId;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(Authority.TEACHER.name()));
@@ -24,7 +25,7 @@ public class TeacherDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return teacherId;
+        return teacherId.toString();
     }
 
     @Override
