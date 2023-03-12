@@ -1,4 +1,4 @@
-package com.example.jobis.domain.teacher.service;
+package com.example.jobis.domain.recruitment.service;
 
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;

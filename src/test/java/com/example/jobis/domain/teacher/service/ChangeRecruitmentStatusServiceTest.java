@@ -3,6 +3,7 @@ package com.example.jobis.domain.teacher.service;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
+import com.example.jobis.domain.recruitment.service.ChangeRecruitmentStatusService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,7 +30,7 @@ class ChangeRecruitmentStatusServiceTest {
         Recruitment recruitment = Recruitment.builder()
                 .status(RecruitStatus.REQUESTED)
                 .build();
-        given(recruitFacade.getRecruitById(uuid)).willReturn(recruitment);
+        given(recruitFacade.queryRecruitmentById(uuid)).willReturn(recruitment);
 
         //when
         changeRecruitmentStatusService.execute(uuid, RecruitStatus.READY);
