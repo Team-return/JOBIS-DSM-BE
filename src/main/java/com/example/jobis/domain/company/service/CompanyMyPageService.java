@@ -1,6 +1,6 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.response.CompanyMyPageResponse;
+import com.example.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;

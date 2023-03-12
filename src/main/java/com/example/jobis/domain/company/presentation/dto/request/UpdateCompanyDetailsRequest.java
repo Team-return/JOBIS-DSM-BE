@@ -1,29 +1,14 @@
-package com.example.jobis.domain.company.controller.dto.request;
+package com.example.jobis.domain.company.presentation.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
-public class RegisterCompanyRequest {
+public class UpdateCompanyDetailsRequest {
 
-    @NotBlank(message = "name은 null또는 공백을 허용하지 않습니다.")
-    private String name;
-
-    @NotBlank(message = "business_number는 널 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 10, max = 10, message = "business_number는 10글자여야 합니다.")
-    private String businessNumber;
-
-    @NotNull(message = "password는 null을 혀용하지 않습니다.")
-    @Pattern(regexp = "^[0-9]{4}$", message = "password 4자리 숫자로 구성되어야 합니다.")
-    private String password;
-
-    @NotEmpty(message = "company_introduce는 null과 공백을 허용하지 않습니다.")
     @Size(max = 4000, message = "company_introduce는 4000자를 넘을 수 없습니다.")
     private String companyIntroduce;
 
@@ -58,17 +43,9 @@ public class RegisterCompanyRequest {
     @Size(min = 10, max = 12, message = "fax는 10자에서 12자여야 합니다.")
     private String fax;
 
-    @Email
-    @Size(min = 1, max = 30, message = "email은 1자에서 30자사이여야 합니다.")
+    @Email @NotNull
+    @Size(min = 1, max = 20, message = "email은 1자에서 20자여야 합니다.")
     private String email;
-
-    @NotBlank(message = "representative_name은 null 또는 공백을 포함할 수 없습니다.")
-    @Size(max = 40, message = "representative_name은 40자를 넘을 수 없습니다.")
-    private String representativeName;
-
-    @NotNull(message = "founded_at은 null일 수 없습니다.")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate foundedAt;
 
     @NotNull(message = "worker_number는 null을 포함할 수 없습니다.")
     private int workerNumber;

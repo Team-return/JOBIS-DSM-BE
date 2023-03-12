@@ -1,10 +1,10 @@
-package com.example.jobis.domain.company.controller;
+package com.example.jobis.domain.company.presentation;
 
-import com.example.jobis.domain.company.controller.dto.request.UpdateCompanyDetailsRequest;
-import com.example.jobis.domain.company.controller.dto.response.CompanyDetailsResponse;
-import com.example.jobis.domain.company.controller.dto.response.CompanyListResponse;
-import com.example.jobis.domain.company.controller.dto.response.CompanyMyPageResponse;
-import com.example.jobis.domain.company.controller.dto.response.ExistsCompanyResponse;
+import com.example.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
+import com.example.jobis.domain.company.presentation.dto.response.CompanyDetailsResponse;
+import com.example.jobis.domain.company.presentation.dto.response.QueryCompaniesResponse;
+import com.example.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
+import com.example.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
 import com.example.jobis.domain.company.service.CheckCompanyExistsService;
 import com.example.jobis.domain.company.service.CompanyMyPageService;
 import com.example.jobis.domain.company.service.QueryCompanyDetailsService;
@@ -12,7 +12,7 @@ import com.example.jobis.domain.company.service.RegisterCompanyService;
 import com.example.jobis.domain.company.service.StudentQueryCompaniesService;
 import com.example.jobis.domain.company.service.UpdateCompanyDetailsService;
 import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
-import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
+import com.example.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +47,7 @@ public class CompanyController {
     }
 
     @GetMapping("/exists/{business-number}")
-    public ExistsCompanyResponse companyExists(@PathVariable("business-number") String businessNumber) {
+    public CheckCompanyExistsResponse companyExists(@PathVariable("business-number") String businessNumber) {
         return checkCompanyExistsService.execute(businessNumber);
     }
 
@@ -58,7 +58,7 @@ public class CompanyController {
     }
 
     @GetMapping
-    public List<CompanyListResponse> studentQueryCompanies() {
+    public List<QueryCompaniesResponse> studentQueryCompanies() {
         return studentQueryCompaniesService.execute();
     }
 

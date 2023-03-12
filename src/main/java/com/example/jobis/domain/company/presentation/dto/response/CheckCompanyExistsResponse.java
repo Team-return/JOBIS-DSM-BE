@@ -1,4 +1,4 @@
-package com.example.jobis.domain.company.controller.dto.response;
+package com.example.jobis.domain.company.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.example.jobis.domain.company.domain.repository;
 
-import com.example.jobis.domain.company.controller.dto.response.QueryCompaniesResponse;
-import com.example.jobis.domain.company.controller.dto.response.QCompanyListResponse;
+import com.example.jobis.domain.company.presentation.dto.response.QQueryCompaniesResponse;
+import com.example.jobis.domain.company.presentation.dto.response.QueryCompaniesResponse;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -23,7 +23,7 @@ public class CompanyRepository {
     public List<QueryCompaniesResponse> findCompanyInfoList() {
         return queryFactory
                 .select(
-                        new QCompanyListResponse(
+                        new QQueryCompaniesResponse(
                              company.name,
                              company.companyLogoUrl,
                              company.sales

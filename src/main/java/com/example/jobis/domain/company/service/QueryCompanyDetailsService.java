@@ -1,6 +1,6 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.response.CompanyDetailsResponse;
+import com.example.jobis.domain.company.presentation.dto.response.CompanyDetailsResponse;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import lombok.RequiredArgsConstructor;
