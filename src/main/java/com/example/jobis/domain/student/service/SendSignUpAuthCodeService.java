@@ -1,6 +1,6 @@
 package com.example.jobis.domain.student.service;
 
-import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
+import com.example.jobis.domain.student.presentation.dto.request.SendAuthCodeRequest;
 import com.example.jobis.domain.student.exception.StudentAlreadyExistsException;
 import com.example.jobis.domain.student.facade.AuthCodeFacade;
 import com.example.jobis.domain.student.facade.StudentFacade;

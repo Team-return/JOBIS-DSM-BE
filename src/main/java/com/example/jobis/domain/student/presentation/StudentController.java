@@ -1,10 +1,10 @@
-package com.example.jobis.domain.student.controller;
+package com.example.jobis.domain.student.presentation;
 
 import com.example.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse;
 import com.example.jobis.domain.recruitment.service.StudentQueryRecruitmentDetailService;
-import com.example.jobis.domain.student.controller.dto.request.SendAuthCodeRequest;
-import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
-import com.example.jobis.domain.student.controller.dto.request.VerifyAuthCodeRequest;
+import com.example.jobis.domain.student.presentation.dto.request.SendAuthCodeRequest;
+import com.example.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
+import com.example.jobis.domain.student.presentation.dto.request.VerifyAuthCodeRequest;
 import com.example.jobis.domain.student.service.SendSignUpAuthCodeService;
 import com.example.jobis.domain.student.service.StudentSignUpService;
 import com.example.jobis.domain.student.service.VerifyAuthCodeService;

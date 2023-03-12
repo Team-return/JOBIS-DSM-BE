@@ -1,6 +1,6 @@
 package com.example.jobis.domain.student.service;
 
-import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
+import com.example.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.domain.repository.StudentJpaRepository;
 import com.example.jobis.domain.student.exception.StudentAlreadyExistsException;

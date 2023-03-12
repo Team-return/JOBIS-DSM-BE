@@ -1,4 +1,4 @@
-package com.example.jobis.domain.student.controller.dto.request;
+package com.example.jobis.domain.student.presentation.dto.request;
 
 import com.example.jobis.domain.student.domain.types.Gender;
 import com.example.jobis.global.util.RegexProperty;
