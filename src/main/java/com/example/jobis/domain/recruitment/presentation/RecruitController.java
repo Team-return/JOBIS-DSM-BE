@@ -1,10 +1,10 @@
-package com.example.jobis.domain.recruitment.controller;
+package com.example.jobis.domain.recruitment.presentation;
 
 import com.example.jobis.domain.code.controller.dto.request.CreateRecruitAreaRequest;
-import com.example.jobis.domain.recruitment.controller.dto.request.ApplyRecruitmentRequest;
-import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitAreaRequest;
-import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitmentRequest;
-import com.example.jobis.domain.recruitment.controller.dto.response.StudentQueryRecruitmentsResponse;
+import com.example.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
+import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
+import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
+import com.example.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.service.ApplyRecruitmentService;
 import com.example.jobis.domain.recruitment.service.ChangeRecruitmentStatusService;
@@ -13,7 +13,7 @@ import com.example.jobis.domain.recruitment.service.StudentQueryRecruitmentsServ
 import com.example.jobis.domain.recruitment.service.TeacherQueryRecruitmentsService;
 import com.example.jobis.domain.recruitment.service.UpdateRecruitAreaService;
 import com.example.jobis.domain.recruitment.service.UpdateRecruitmentService;
-import com.example.jobis.domain.recruitment.controller.dto.response.TeacherQueryRecruitmentsResponse;
+import com.example.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

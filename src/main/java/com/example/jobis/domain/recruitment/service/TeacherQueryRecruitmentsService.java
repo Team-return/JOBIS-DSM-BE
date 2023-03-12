@@ -2,7 +2,7 @@ package com.example.jobis.domain.recruitment.service;
 
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import com.example.jobis.domain.recruitment.controller.dto.response.TeacherQueryRecruitmentsResponse;
+import com.example.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

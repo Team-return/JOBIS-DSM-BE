@@ -2,7 +2,7 @@ package com.example.jobis.domain.recruitment.service;
 
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
-import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitmentRequest;
+import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import com.example.jobis.domain.user.domain.User;

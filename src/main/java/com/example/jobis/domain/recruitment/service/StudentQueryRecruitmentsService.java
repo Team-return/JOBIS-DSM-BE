@@ -1,6 +1,6 @@
 package com.example.jobis.domain.recruitment.service;
 
-import com.example.jobis.domain.recruitment.controller.dto.response.StudentQueryRecruitmentsResponse;
+import com.example.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import lombok.RequiredArgsConstructor;

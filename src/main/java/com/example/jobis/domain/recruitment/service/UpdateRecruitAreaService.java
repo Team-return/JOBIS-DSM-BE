@@ -4,7 +4,7 @@ import com.example.jobis.domain.code.domain.Code;
 import com.example.jobis.domain.code.facade.CodeFacade;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
-import com.example.jobis.domain.recruitment.controller.dto.request.UpdateRecruitAreaRequest;
+import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import com.example.jobis.domain.recruitment.facade.RecruitAreaFacade;

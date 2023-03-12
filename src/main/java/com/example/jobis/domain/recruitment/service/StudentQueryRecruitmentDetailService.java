@@ -2,8 +2,8 @@ package com.example.jobis.domain.recruitment.service;
 
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.domain.enums.CodeType;
-import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitDetailsResponse;
-import com.example.jobis.domain.recruitment.controller.dto.response.StudentRecruitDetailsResponse.RecruitAreaResponse;
+import com.example.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse;
+import com.example.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse.RecruitAreaResponse;
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
 
 import com.example.jobis.domain.recruitment.domain.Recruitment;
