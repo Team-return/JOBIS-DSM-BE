@@ -42,14 +42,13 @@ public class RecruitmentRepository {
                 .leftJoin(recruitArea.recruitment, recruitment)
                 .leftJoin(recruitment.company, company)
                 .leftJoin(recruitArea.codeList, recruitAreaCode)
-                .leftJoin(recruitAreaCode.codeId, code)
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
                         recruitment.eq(recruitment),
-                        code.codeType.eq(CodeType.JOB)
+                        recruitAreaCode.codeType.eq(CodeType.JOB)
                 )
                 .orderBy(recruitment.createdAt.desc())
                 .offset(page * pageSize)
