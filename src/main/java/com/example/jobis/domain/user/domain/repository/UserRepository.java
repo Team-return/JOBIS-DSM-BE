@@ -17,9 +17,8 @@ public class UserRepository {
     private final UserJpaRepository userJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public User findByAccountId(String accountId) {
-        return userJpaRepository.findByAccountId(accountId)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    public Optional<User> queryUserByAccountId(String accountId) {
+        return userJpaRepository.findByAccountId(accountId);
     }
 
     public User saveUser(User user) {
