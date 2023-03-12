@@ -19,7 +19,6 @@ public class Pay {
     @Column(columnDefinition = "INTEGER")
     private Integer trainingPay;
 
-    @NotNull
     @Column(columnDefinition = "INTEGER")
     private Integer pay;
 }

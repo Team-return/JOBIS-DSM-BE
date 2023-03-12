@@ -45,8 +45,6 @@ public class Recruitment extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10)")
     private RecruitStatus status;
 
-
-    @NotNull
     @Column(columnDefinition = "VARCHAR(255)")
     private String preferentialTreatment;
 
@@ -61,7 +59,7 @@ public class Recruitment extends BaseEntity {
     private int workingHours;
 
     @Column(columnDefinition = "VARCHAR(300)")
-    private String benefit;
+    private String benefits;
 
     @NotNull
     @Column(columnDefinition = "BOOL")
@@ -98,15 +96,16 @@ public class Recruitment extends BaseEntity {
 
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade) {
+                       LocalDate startDate, LocalDate endDate, Company company, String benefits, String requiredLicenses,
+                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
+    ) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
         this.requiredGrade = requiredGrade;
         this.recruitYear = recruitYear;
         this.status = status;
-        this.benefit = benefit;
+        this.benefits = benefits;
         this.preferentialTreatment = preferentialTreatment;
         this.applicationCount = 0;
         this.recruitDate = new RecruitDate(startDate, endDate);
@@ -118,14 +117,14 @@ public class Recruitment extends BaseEntity {
     }
 
     public void update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, String benefit, String requiredLicenses,
+                       LocalDate startDate, LocalDate endDate, String benefits, String requiredLicenses,
                        boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
     ) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
         this.requiredGrade = requiredGrade;
-        this.benefit = benefit;
+        this.benefits = benefits;
         this.preferentialTreatment = preferentialTreatment;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.pay = new Pay(trainPay, pay);

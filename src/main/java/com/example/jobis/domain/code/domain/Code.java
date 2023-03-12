@@ -39,7 +39,6 @@ public class Code {
     @Enumerated(EnumType.STRING)
     private CodeType codeType;
 
-    @NotNull
     @Column(columnDefinition = "VARCHAR(8)")
     @Enumerated(EnumType.STRING)
     private JobType jobType;

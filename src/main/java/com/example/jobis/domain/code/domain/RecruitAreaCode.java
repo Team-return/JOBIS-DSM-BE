@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 
 @Getter
@@ -26,7 +27,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @IdClass(RecruitAreaCodeId.class)
 public class RecruitAreaCode {
-    @MapsId
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(columnDefinition = "BINARY(16)", name = "recruit_area_id", nullable = false)
     private RecruitArea recruitArea;
