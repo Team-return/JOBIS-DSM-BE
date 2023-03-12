@@ -31,7 +31,8 @@ public class RecruitAreaCode {
     @JoinColumn(columnDefinition = "BINARY(16)", name = "recruit_area_id", nullable = false)
     private RecruitArea recruitArea;
 
-    @Id @Column(columnDefinition = "VARCHAR(30)", nullable = false)
+    @Id
+    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
     private String codeKeyword;
 
     @NotNull

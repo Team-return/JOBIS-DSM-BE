@@ -34,7 +34,7 @@ public class RecruitArea extends BaseUUIDEntity {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private Recruitment recruitment;
 
-    @OneToMany(mappedBy = "recruitAreaId", orphanRemoval = true)
+    @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
     private List<RecruitAreaCode> codeList = new ArrayList<>();
 
     @Builder
