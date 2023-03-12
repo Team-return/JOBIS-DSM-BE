@@ -7,8 +7,6 @@ import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
-import com.example.jobis.domain.user.domain.repository.UserRepository;
-import com.example.jobis.domain.user.exception.UserNotFoundException;
 import com.example.jobis.domain.user.facade.UserFacade;
 import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.util.StringUtil;

@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import java.time.Year;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,7 +68,7 @@ public class ApplyRecruitmentService {
             List<Code> codes = codeFacade.findAllCodeById(
                     Stream.of(area.getJobCodes(), area.getTechCodes())
                             .flatMap(Collection::stream)
-                            .collect(Collectors.toList())
+                            .toList()
             );
 
             recruitmentRepository.saveAllRecruitAreaCodes(

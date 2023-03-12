@@ -57,7 +57,7 @@ public class CreateRecruitAreaService {
         List<Code> codes = codeFacade.findAllCodeById(
                 Stream.of(request.getJobCodes(), request.getTechCodes())
                         .flatMap(Collection::stream)
-                        .collect(Collectors.toList())
+                        .toList()
         );
 
         recruitmentRepository.saveAllRecruitAreaCodes(

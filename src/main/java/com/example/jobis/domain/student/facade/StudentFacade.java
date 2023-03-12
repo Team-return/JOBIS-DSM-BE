@@ -16,10 +16,4 @@ public class StudentFacade {
     public boolean existsEmail(String email) {
         return studentJpaRepository.existsByEmail(email);
     }
-
-    public Student getCurrentStudent() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return studentJpaRepository.findByEmail(email)
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
-    }
 }

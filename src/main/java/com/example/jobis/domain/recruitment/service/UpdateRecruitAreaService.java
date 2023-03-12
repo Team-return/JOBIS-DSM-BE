@@ -10,8 +10,6 @@ import com.example.jobis.domain.recruitment.domain.repository.RecruitmentReposit
 import com.example.jobis.domain.recruitment.facade.RecruitAreaFacade;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
-import com.example.jobis.domain.user.domain.repository.UserRepository;
-import com.example.jobis.domain.user.exception.UserNotFoundException;
 import com.example.jobis.domain.user.facade.UserFacade;
 import com.example.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +44,7 @@ public class UpdateRecruitAreaService {
         List<Code> codes = codeFacade.findAllCodeById(
                 Stream.of(request.getJobCodes(), request.getTechCodes())
                         .flatMap(Collection::stream)
-                        .collect(Collectors.toList())
+                        .toList()
         );
 
         recruitArea.update(request.getHiring(), request.getMajorTask());
