@@ -58,7 +58,7 @@ public class RecruitmentRepository {
                                 .list(new QQueryRecruitmentListVO(
                                         recruitment,
                                         company,
-                                        set(code.keyword),
+                                        set(recruitAreaCode.codeKeyword),
                                         sum(recruitArea.hiredCount)
                                 ))
                 );
@@ -69,6 +69,7 @@ public class RecruitmentRepository {
     }
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
+        System.out.println("==================");
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
     }
 

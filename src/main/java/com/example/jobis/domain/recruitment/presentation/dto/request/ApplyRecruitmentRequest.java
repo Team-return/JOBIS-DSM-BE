@@ -4,6 +4,7 @@ import com.example.jobis.domain.recruitment.domain.enums.ProgressType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,21 +13,21 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class ApplyRecruitmentRequest {
-    @NotNull
+    @NotNull @Valid
     private List<Area> areas;
     private String preferentialTreatment;
     private Integer requiredGrade;
     @NotNull
-    private Integer workHours;
+    private int workHours;
     private List<String> requiredLicenses;
     @NotNull
     private List<ProgressType> hiringProgress;
     @NotNull
-    private Integer trainPay;
+    private int trainPay;
     private Integer pay;
     private String benefits;
     @NotNull
-    private Boolean militarySupport;
+    private boolean militarySupport;
     @NotNull
     private String submitDocument;
     @NotNull
@@ -39,9 +40,9 @@ public class ApplyRecruitmentRequest {
     @NoArgsConstructor
     public static class Area{
         @NotNull
-        private List<Long> job;
+        private List<Long> jobCodes;
         @NotNull
-        private List<Long> tech;
+        private List<Long> techCodes;
         @NotNull
         private int hiring;
         @NotBlank

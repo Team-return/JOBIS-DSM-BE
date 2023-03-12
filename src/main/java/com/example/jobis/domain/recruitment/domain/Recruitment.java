@@ -38,7 +38,7 @@ public class Recruitment extends BaseEntity {
 
     @NotNull
     @Column(columnDefinition = "YEAR")
-    private int recruitYear;
+    private Integer recruitYear;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -56,14 +56,14 @@ public class Recruitment extends BaseEntity {
 
     @NotNull
     @Column(columnDefinition = "TINYINT(50)", nullable = false)
-    private int workingHours;
+    private Integer workingHours;
 
     @Column(columnDefinition = "VARCHAR(300)")
     private String benefits;
 
     @NotNull
     @Column(columnDefinition = "BOOL")
-    private boolean militarySupport;
+    private Boolean militarySupport;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(100)")
