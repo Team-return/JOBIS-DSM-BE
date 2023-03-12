@@ -1,6 +1,6 @@
 package com.example.jobis.domain.code.service;
 
-import com.example.jobis.domain.code.controller.dto.response.JobCodeResponse;
+import com.example.jobis.domain.code.presentation.dto.response.JobCodeResponse;
 import com.example.jobis.domain.code.domain.repository.CodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.jobis.domain.code.controller.dto.response;
+package com.example.jobis.domain.code.presentation.dto.response;
 
 import com.example.jobis.domain.code.domain.enums.JobType;
 import lombok.Builder;

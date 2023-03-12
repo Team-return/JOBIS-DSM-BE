@@ -1,8 +1,8 @@
-package com.example.jobis.domain.code.controller;
+package com.example.jobis.domain.code.presentation;
 
-import com.example.jobis.domain.code.controller.dto.response.JobCodeResponse;
+import com.example.jobis.domain.code.presentation.dto.response.JobCodeResponse;
 import com.example.jobis.domain.code.domain.enums.CodeType;
-import com.example.jobis.domain.code.controller.dto.response.CodeResponse;
+import com.example.jobis.domain.code.presentation.dto.response.CodeResponse;
 import com.example.jobis.domain.code.service.FindCodeService;
 import com.example.jobis.domain.code.service.FindJobCodeService;
 import lombok.RequiredArgsConstructor;
