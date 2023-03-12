@@ -11,7 +11,6 @@ import java.util.UUID;
 
 public interface ApplicationJpaRepository extends JpaRepository<Application, UUID> {
 
-    boolean existsByStudentAndRecruitment(Student student, Recruitment recruitment);
+    boolean existsByStudentAndRecruitmentId(Student student, UUID recruitmentId);
     boolean existsByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus);
-    List<Application> findAllByStudent(Student student);
 }

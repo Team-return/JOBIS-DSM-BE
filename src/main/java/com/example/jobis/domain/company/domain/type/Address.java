@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor

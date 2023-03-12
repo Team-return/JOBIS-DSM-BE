@@ -7,7 +7,6 @@ import com.example.jobis.domain.application.domain.repository.vo.QQueryApplicati
 import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
-import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -69,12 +68,12 @@ public class ApplicationRepository {
         return applicationJpaRepository.save(application);
     }
 
-    public List<ApplicationAttachment> saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
-        return applicationAttachmentJpaRepository.saveAll(applicationAttachments);
+    public void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
+        applicationAttachmentJpaRepository.saveAll(applicationAttachments);
     }
 
-    public boolean existsApplicationByStudentAndCompany(Student student, Recruitment recruitment) {
-        return applicationJpaRepository.existsByStudentAndRecruitment(student, recruitment);
+    public boolean existsApplicationByStudentAndRecruitmentId(Student student, UUID recruitmentId) {
+        return applicationJpaRepository.existsByStudentAndRecruitmentId(student, recruitmentId);
     }
 
     public boolean existsApplicationByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus) {

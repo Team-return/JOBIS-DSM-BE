@@ -27,14 +27,11 @@ import java.util.stream.Stream;
 @Service
 public class ApplyRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
-    private final CompanyRepository companyRepository;
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
 
     public void execute(ApplyRecruitmentRequest request) {
-        UUID currentUserId = userFacade.getCurrentUserId();
-        Company company = companyRepository.queryCompanyById(currentUserId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        Company company = userFacade.getCurrentCompany();
 
         String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
         String requiredLicenses = StringUtil.getRequiredLicenses(request.getRequiredLicenses());
@@ -43,7 +40,7 @@ public class ApplyRecruitmentService {
                 Recruitment.builder()
                         .company(company)
                         .recruitYear(Year.now().getValue())
-                        .militarySupport(request.getMilitarySupport())
+                        .militarySupport(request.isMilitarySupport())
                         .workingHours(request.getWorkHours())
                         .preferentialTreatment(request.getPreferentialTreatment())
                         .requiredLicenses(requiredLicenses)
@@ -70,7 +67,7 @@ public class ApplyRecruitmentService {
             );
 
             List<Code> codes = codeFacade.findAllCodeById(
-                    Stream.of(area.getJob(), area.getTech())
+                    Stream.of(area.getJobCodes(), area.getTechCodes())
                             .flatMap(Collection::stream)
                             .collect(Collectors.toList())
             );
