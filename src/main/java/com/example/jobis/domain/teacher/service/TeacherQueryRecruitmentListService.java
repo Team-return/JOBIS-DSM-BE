@@ -28,7 +28,7 @@ public class TeacherQueryRecruitmentListService {
                                 .start(r.getRecruitment().getRecruitDate().getStartDate())
                                 .end(r.getRecruitment().getRecruitDate().getFinishDate())
                                 .militarySupport(r.getRecruitment().isMilitarySupport())
-                                .applicationCount(r.getRecruitment().getApplications().size())
+                                .applicationCount(r.getRecruitment().getApplicationCount())
                                 .recruitmentCount(r.getTotalHiring())
                                 .recruitmentJob(r.getRecruitAreaList())
                                 .build()
