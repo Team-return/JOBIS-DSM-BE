@@ -39,7 +39,10 @@ public class ApplicationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
-    public void createApplication(@RequestBody @Valid CreateApplicationRequest request, @PathVariable("recruitment-id") UUID recruitmentId) {
+    public void createApplication(
+            @RequestBody @Valid CreateApplicationRequest request,
+            @PathVariable("recruitment-id") UUID recruitmentId
+    ) {
         createApplicationService.execute(request, recruitmentId);
     }
 
@@ -53,7 +56,7 @@ public class ApplicationController {
     public List<TeacherQueryApplicationsResponse> queryTeacherApplicationList (
             @RequestParam(value = "application-status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student-name", required = false) String studentName
-            ) {
+    ) {
         return queryApplicationListService.execute(applicationStatus, studentName);
     }
 
