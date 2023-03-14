@@ -7,7 +7,7 @@ import com.example.jobis.domain.recruitment.domain.RecruitArea;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentListVO;
-import com.example.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentListVO;
+import com.example.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +35,8 @@ public class RecruitmentRepository {
     private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
-    public List<QueryRecruitmentListVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
-                                              RecruitStatus status, String companyName, Integer page) {
+    public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
+                                                                   RecruitStatus status, String companyName, Integer page) {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)

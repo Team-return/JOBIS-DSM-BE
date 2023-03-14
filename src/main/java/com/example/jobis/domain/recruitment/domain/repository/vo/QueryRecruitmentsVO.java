@@ -8,14 +8,14 @@ import lombok.Getter;
 import java.util.Set;
 
 @Getter
-public class QueryRecruitmentListVO {
+public class QueryRecruitmentsVO {
     private final Recruitment recruitment;
     private final Company company;
     private final Set<String> recruitAreaList;
     private final Integer totalHiring;
 
     @QueryProjection
-    public QueryRecruitmentListVO(Recruitment recruitment, Company company, Set<String> recruitAreaList, Integer totalHiring) {
+    public QueryRecruitmentsVO(Recruitment recruitment, Company company, Set<String> recruitAreaList, Integer totalHiring) {
         this.recruitment = recruitment;
         this.company = company;
         this.recruitAreaList = recruitAreaList;
