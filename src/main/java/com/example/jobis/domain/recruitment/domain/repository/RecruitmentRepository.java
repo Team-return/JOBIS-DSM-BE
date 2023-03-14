@@ -3,7 +3,6 @@ package com.example.jobis.domain.recruitment.domain.repository;
 import com.example.jobis.domain.code.domain.RecruitAreaCode;
 import com.example.jobis.domain.code.domain.enums.CodeType;
 import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
-
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
@@ -21,11 +20,12 @@ import java.util.UUID;
 
 
 import static com.example.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
-import static com.example.jobis.domain.code.domain.QCode.code;
 import static com.example.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
 import static com.example.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.example.jobis.domain.company.domain.QCompany.company;
-import static com.querydsl.core.group.GroupBy.*;
+import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.set;
+import static com.querydsl.core.group.GroupBy.sum;
 
 @Repository
 @RequiredArgsConstructor
@@ -64,6 +64,13 @@ public class RecruitmentRepository {
                 );
     }
 
+    public List<RecruitArea> queryRecruitAreasByRecruitmentId(UUID recruitmentId) {
+        return queryFactory
+                .selectFrom(recruitArea).distinct()
+                .join(recruitArea.codeList, recruitAreaCode).fetchJoin()
+                .where(recruitArea.recruitment.id.eq(recruitmentId))
+                .fetch();
+    }
     public void deleteRecruitAreaCodeByRecruitAreaId(UUID recruitAreaId) {
         recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitAreaId);
     }
@@ -73,7 +80,6 @@ public class RecruitmentRepository {
     }
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
-        System.out.println("==================");
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
     }
 

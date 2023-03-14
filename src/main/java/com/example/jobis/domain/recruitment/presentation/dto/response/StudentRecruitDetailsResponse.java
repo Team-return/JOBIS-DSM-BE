@@ -14,14 +14,14 @@ public class StudentRecruitDetailsResponse {
     private List<RecruitAreaResponse> areas;
     private String preferentialTreatment;
     private Integer requiredGrade;
-    private int workHours;
-    private String requiredLicenses;
+    private Integer workHours;
+    private List<String> requiredLicenses;
 
-    private String hiringProgress;
+    private List<String> hiringProgress;
     private Integer trainPay;
     private Integer pay;
     private String benefits;
-    private boolean military;
+    private Boolean military;
     private String submitDocument;
     private LocalDate startDate;
     private LocalDate endDate;
