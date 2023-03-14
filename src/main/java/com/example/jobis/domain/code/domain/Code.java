@@ -42,11 +42,4 @@ public class Code {
     @Column(columnDefinition = "VARCHAR(8)")
     @Enumerated(EnumType.STRING)
     private JobType jobType;
-
-    public CodeResponse to() {
-        return CodeResponse.builder()
-                .code(id)
-                .keyword(keyword)
-                .build();
-    }
 }
