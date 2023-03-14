@@ -3,6 +3,7 @@ package com.example.jobis.domain.recruitment.service;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import com.example.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
+import com.example.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
 import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
 
@@ -16,12 +17,12 @@ public class TeacherQueryRecruitmentsService {
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
                                                           Integer year, RecruitStatus status, Integer page) {
-        List<TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse> recruitments =
+        List<TeacherRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(
                         year, start, end, status, companyName, page-1
                         ).stream()
                         .map(r ->
-                                TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse.builder()
+                                TeacherRecruitmentResponse.builder()
                                         .id(r.getRecruitment().getId())
                                         .recruitmentStatus(r.getRecruitment().getStatus())
                                         .companyName(r.getCompany().getName())
