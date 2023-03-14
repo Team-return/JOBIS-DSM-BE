@@ -2,7 +2,7 @@ package com.example.jobis.domain.company.presentation;
 
 import com.example.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import com.example.jobis.domain.company.presentation.dto.response.CompanyDetailsResponse;
-import com.example.jobis.domain.company.presentation.dto.response.QueryCompaniesResponse;
+import com.example.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
 import com.example.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import com.example.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
 import com.example.jobis.domain.company.service.CheckCompanyExistsService;
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -57,8 +56,8 @@ public class CompanyController {
         updateCompanyDetailsService.execute(request);
     }
 
-    @GetMapping
-    public List<QueryCompaniesResponse> studentQueryCompanies() {
+    @GetMapping("/student")
+    public StudentQueryCompaniesResponse studentQueryCompanies() {
         return studentQueryCompaniesService.execute();
     }
 
