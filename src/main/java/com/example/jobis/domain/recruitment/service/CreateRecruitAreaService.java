@@ -7,7 +7,7 @@ import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
-import com.example.jobis.domain.recruitment.domain.repository.RecruitAreaRepository;
+import com.example.jobis.domain.recruitment.domain.repository.RecruitAreaJpaRepository;
 import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import com.example.jobis.domain.recruitment.facade.RecruitFacade;
 import com.example.jobis.domain.user.domain.User;
@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 @Service
 public class CreateRecruitAreaService {
 
-    private final RecruitAreaRepository recruitAreaRepository;
+    private final RecruitAreaJpaRepository recruitAreaJpaRepository;
     private final RecruitmentRepository recruitmentRepository;
     private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
@@ -42,7 +42,7 @@ public class CreateRecruitAreaService {
             recruitment.checkCompany(company.getId());
         }
 
-        RecruitArea recruitArea = recruitAreaRepository.save(
+        RecruitArea recruitArea = recruitAreaJpaRepository.save(
                 RecruitArea.builder()
                         .majorTask(request.getMajorTask())
                         .hiredCount(request.getHiring())

@@ -1,8 +1,7 @@
 package com.example.jobis.domain.recruitment.facade;
 
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
-import com.example.jobis.domain.recruitment.domain.Recruitment;
-import com.example.jobis.domain.recruitment.domain.repository.RecruitAreaRepository;
+import com.example.jobis.domain.recruitment.domain.repository.RecruitAreaJpaRepository;
 import com.example.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,10 +12,10 @@ import java.util.UUID;
 @Component
 public class RecruitAreaFacade {
 
-    private final RecruitAreaRepository recruitAreaRepository;
+    private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
     public RecruitArea getRecruitAreaById(UUID id) {
-        return recruitAreaRepository.findById(id)
+        return recruitAreaJpaRepository.findById(id)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
     }
 }

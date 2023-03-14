@@ -6,7 +6,7 @@ import com.example.jobis.domain.code.domain.repository.RecruitAreaCodeJpaReposit
 import com.example.jobis.domain.recruitment.domain.RecruitArea;
 import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentListVO;
+import com.example.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
 import com.example.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -55,7 +55,7 @@ public class RecruitmentRepository {
                 .limit(pageSize)
                 .transform(
                         groupBy(recruitArea.recruitment.id)
-                                .list(new QQueryRecruitmentListVO(
+                                .list(new QQueryRecruitmentsVO(
                                         recruitment,
                                         company,
                                         set(recruitAreaCode.codeKeyword),
