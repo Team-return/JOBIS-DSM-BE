@@ -6,7 +6,6 @@ import com.example.jobis.domain.application.domain.repository.ApplicationReposit
 import com.example.jobis.domain.application.exception.ApplicationCannotDeleteException;
 import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobis.domain.application.exception.InvalidStudentException;
-import com.example.jobis.domain.recruit.domain.Recruitment;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.user.facade.UserFacade;
 import com.example.jobis.global.annotation.Service;
