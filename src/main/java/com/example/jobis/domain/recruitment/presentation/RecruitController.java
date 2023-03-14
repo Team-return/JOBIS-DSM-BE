@@ -32,7 +32,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/recruitment")
+@RequestMapping("/recruitments")
 public class RecruitController {
 
     private final ApplyRecruitmentService applyRecruitmentService;

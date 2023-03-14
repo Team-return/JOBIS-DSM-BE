@@ -33,7 +33,7 @@ spring:
             required: true
 
 redis:
-  port: ${REDIS_PORT:3306}
+  port: ${REDIS_PORT:6379}
   host: ${REDIS_HOST:localhost}
   password: ${REDIS_PASSWORD:asdf}
 

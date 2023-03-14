@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .and()
 
                 .authorizeRequests()
-                //application
+                //applications
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(STUDENT.name())
@@ -42,36 +42,38 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(TEACHER.name())
 
-                //company
+                //companies
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/companies/student").hasAuthority(STUDENT.name())
 
-                //user
+                //users
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/reissue").permitAll()
 
-                //file
+                //files
                 .antMatchers(HttpMethod.POST, "/files").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/files").permitAll()
 
-                //recruitment
-                .antMatchers(HttpMethod.POST, "/recruitment").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitment/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitment/area/{recruit-area-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.POST, "/recruitment/{recruitment-id}/area").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitment/student").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/recruitment/teacher").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitment/{recruitment-id}/status").hasAuthority(TEACHER.name())
+                //recruitments
+                .antMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
+                .antMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                .antMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/student").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/students/{recruitment-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}/status").hasAuthority(TEACHER.name())
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
 
-                //student
+                //students
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
