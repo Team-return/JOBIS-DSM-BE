@@ -1,5 +1,6 @@
 package com.example.jobis.domain.recruit.domain;
 
+import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.recruit.domain.enums.RecruitStatus;
 import com.example.jobis.domain.recruit.domain.type.Pay;
@@ -72,14 +73,19 @@ public class Recruitment extends BaseEntity {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
+    @Column(columnDefinition = "INT")
+    private Integer applicationCount;
+
     @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
+    private List<Application> applications = new ArrayList<>();
 
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
                        LocalDate startDate, LocalDate endDate, Company company, String benefit, String requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
-    ) {
+                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
@@ -88,6 +94,7 @@ public class Recruitment extends BaseEntity {
         this.status = status;
         this.benefit = benefit;
         this.preferentialTreatment = preferentialTreatment;
+        this.applicationCount = 0;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.pay = new Pay(trainPay, pay);
         this.company = company;
@@ -116,5 +123,13 @@ public class Recruitment extends BaseEntity {
     public Recruitment changeStatus(RecruitStatus status) {
         this.status = status;
         return this;
+    }
+
+    public void addApplicationCount() {
+        this.applicationCount += 1;
+    }
+
+    public void subApplicationCount() {
+        this.applicationCount -= 1;
     }
 }
