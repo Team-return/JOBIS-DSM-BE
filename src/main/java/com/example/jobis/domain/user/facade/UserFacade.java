@@ -10,7 +10,6 @@ import com.example.jobis.domain.teacher.domain.Teacher;
 import com.example.jobis.domain.teacher.domain.repository.TeacherRepository;
 import com.example.jobis.domain.teacher.exception.TeacherNotFoundException;
 import com.example.jobis.domain.user.domain.User;
-import com.example.jobis.domain.user.domain.repository.UserJpaRepository;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
 import com.example.jobis.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;

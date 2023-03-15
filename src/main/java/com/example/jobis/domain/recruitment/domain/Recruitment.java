@@ -3,7 +3,7 @@ package com.example.jobis.domain.recruitment.domain;
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import com.example.jobis.domain.recruitment.domain.type.Pay;
+import com.example.jobis.domain.recruitment.domain.type.PayInfo;
 import com.example.jobis.domain.recruitment.domain.type.RecruitDate;
 import com.example.jobis.domain.recruitment.exception.CompanyMismatchException;
 import com.example.jobis.global.entity.BaseEntity;
@@ -79,7 +79,7 @@ public class Recruitment extends BaseEntity {
     private RecruitDate recruitDate;
 
     @Embedded
-    private Pay pay;
+    private PayInfo payInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -109,7 +109,7 @@ public class Recruitment extends BaseEntity {
         this.preferentialTreatment = preferentialTreatment;
         this.applicationCount = 0;
         this.recruitDate = new RecruitDate(startDate, endDate);
-        this.pay = new Pay(trainPay, pay);
+        this.payInfo = new PayInfo(trainPay, pay);
         this.company = company;
         this.requiredLicenses = requiredLicenses;
         this.militarySupport = militarySupport;
@@ -127,7 +127,7 @@ public class Recruitment extends BaseEntity {
         this.benefits = benefits;
         this.preferentialTreatment = preferentialTreatment;
         this.recruitDate = new RecruitDate(startDate, endDate);
-        this.pay = new Pay(trainPay, pay);
+        this.payInfo = new PayInfo(trainPay, pay);
         this.requiredLicenses = requiredLicenses;
         this.militarySupport = militarySupport;
         this.etc = etc;

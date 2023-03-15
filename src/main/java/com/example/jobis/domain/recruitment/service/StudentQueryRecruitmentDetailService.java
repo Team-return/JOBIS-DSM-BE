@@ -24,8 +24,8 @@ public class StudentQueryRecruitmentDetailService {
 
         return StudentRecruitDetailsResponse.builder()
                 .areas(queryRecruitAreas(recruitment.getId()))
-                .pay(recruitment.getPay().getPay())
-                .trainPay(recruitment.getPay().getTrainingPay())
+                .pay(recruitment.getPayInfo().getPay())
+                .trainPay(recruitment.getPayInfo().getTrainingPay())
                 .etc(recruitment.getEtc())
                 .requiredGrade(recruitment.getRequiredGrade())
                 .requiredLicenses(StringUtil.divideString(recruitment.getRequiredLicenses()))

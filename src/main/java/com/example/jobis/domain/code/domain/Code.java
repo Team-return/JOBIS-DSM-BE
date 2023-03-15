@@ -1,7 +1,6 @@
 package com.example.jobis.domain.code.domain;
 
 import com.example.jobis.domain.code.domain.enums.CodeType;
-import com.example.jobis.domain.code.presentation.dto.response.CodeResponse;
 import com.example.jobis.domain.code.domain.enums.JobType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

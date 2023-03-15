@@ -12,9 +12,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TeacherRepository {
     private final JPAQueryFactory queryFactory;
-    private final TeacherJpaRepository teacherRepository;
+    private final TeacherJpaRepository teacherJpaRepository;
 
     public Optional<Teacher> queryTeacherById(UUID teacherId) {
-        return teacherRepository.findById(teacherId);
+        return teacherJpaRepository.findById(teacherId);
     }
 }

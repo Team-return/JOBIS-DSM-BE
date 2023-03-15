@@ -13,12 +13,12 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class Pay {
+public class PayInfo {
 
     @NotNull
-    @Column(columnDefinition = "INTEGER")
+    @Column(columnDefinition = "INT")
     private Integer trainingPay;
 
-    @Column(columnDefinition = "INTEGER")
+    @Column(columnDefinition = "INT")
     private Integer pay;
 }

@@ -6,7 +6,6 @@ import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
 import com.example.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
-import com.example.jobis.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobis.domain.student.domain.Student;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

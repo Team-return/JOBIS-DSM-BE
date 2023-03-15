@@ -1,15 +1,12 @@
 package com.example.jobis.domain.user.domain.repository;
 
 import com.example.jobis.domain.user.domain.User;
-import com.example.jobis.domain.user.exception.UserNotFoundException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
-
-import static com.example.jobis.domain.user.domain.QUser.user;
 
 @Repository
 @RequiredArgsConstructor

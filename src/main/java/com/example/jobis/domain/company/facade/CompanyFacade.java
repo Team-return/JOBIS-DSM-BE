@@ -7,7 +7,6 @@ import com.example.jobis.infrastructure.feignClients.BizNoFeignClient;
 import com.example.jobis.infrastructure.feignClients.FeignProperty;
 import com.example.jobis.infrastructure.feignClients.dto.Items;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

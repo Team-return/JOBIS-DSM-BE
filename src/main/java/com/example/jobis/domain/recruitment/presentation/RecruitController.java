@@ -6,9 +6,11 @@ import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecru
 import com.example.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import com.example.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import com.example.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import com.example.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse;
 import com.example.jobis.domain.recruitment.service.ApplyRecruitmentService;
 import com.example.jobis.domain.recruitment.service.ChangeRecruitmentStatusService;
 import com.example.jobis.domain.recruitment.service.CreateRecruitAreaService;
+import com.example.jobis.domain.recruitment.service.StudentQueryRecruitmentDetailService;
 import com.example.jobis.domain.recruitment.service.StudentQueryRecruitmentsService;
 import com.example.jobis.domain.recruitment.service.TeacherQueryRecruitmentsService;
 import com.example.jobis.domain.recruitment.service.UpdateRecruitAreaService;
@@ -42,6 +44,7 @@ public class RecruitController {
     private final StudentQueryRecruitmentsService studentQueryRecruitmentsService;
     private final TeacherQueryRecruitmentsService teacherQueryRecruitmentsService;
     private final ChangeRecruitmentStatusService changeRecruitmentStatusService;
+    private final StudentQueryRecruitmentDetailService studentQueryRecruitmentDetailService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -103,5 +106,12 @@ public class RecruitController {
             @RequestParam("status") RecruitStatus status
     ) {
         changeRecruitmentStatusService.execute(recruitId, status);
+    }
+
+    @GetMapping("/student/{recruitment-id}")
+    public StudentRecruitDetailsResponse studentQueryRecruitmentDetail(
+            @PathVariable("recruitment-id") UUID recruitmentId
+    ) {
+        return studentQueryRecruitmentDetailService.execute(recruitmentId);
     }
 }
