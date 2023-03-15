@@ -1,23 +1,18 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.request.UpdateCompanyDetailsRequest;
+import com.example.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
 public class UpdateCompanyDetailsService {
+    private final UserFacade userFacade;
 
-    private final CompanyFacade companyFacade;
-
-    @Transactional
     public void execute(UpdateCompanyDetailsRequest request) {
-
-        Company company = companyFacade.getCompany();
+        Company company = userFacade.getCurrentCompany();
 
         company.update(
                 request.getAddress1(), request.getZipCode1(),

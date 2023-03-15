@@ -12,6 +12,8 @@ public enum ErrorCode {
     INVALID_EXTENSION(400, "Invalid Extension File"),
 
     UNVERIFIED_EMAIL(401, "Unverified Email"),
+    COMPANY_MISMATCH(403, "Company Mismatch"),
+    APPLICATION_CANNOT_DELETE(403, "Application Cannot Deleted"),
     BAD_AUTH_CODE(401, "Bad Auth Code"),
     EXPIRED_TOKEN(401,"Token Expired" ),
     INVALID_TOKEN(401,"Invalid Token"),
@@ -23,6 +25,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(404, "User Not Found"),
     COMPANY_NOT_FOUND(404, "Company Not Found"),
     STUDENT_NOT_FOUND(404, "Student Not Found"),
+    TEACHER_NOT_FOUND(404, "Teacher Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail"),
     FILE_NOT_FOUND(404, "File not Found"),
     CODE_NOT_FOUND(404, "Code Not Found"),

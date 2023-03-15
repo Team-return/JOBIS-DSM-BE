@@ -4,8 +4,8 @@ import com.example.jobis.infrastructure.s3.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class DeleteFileService {
     private final S3Util s3Util;
 

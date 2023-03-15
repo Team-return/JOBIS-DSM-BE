@@ -1,22 +1,21 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.TeacherQueryApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
+import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
+import com.example.jobis.domain.student.domain.Student;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
+@ReadOnlyService
 public class TeacherQueryApplicationsService {
 
     private final ApplicationRepository applicationRepository;
 
-    @Transactional(readOnly = true)
     public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName) {
         QueryApplicationsRequest request =
                 QueryApplicationsRequest.builder()
@@ -26,9 +25,13 @@ public class TeacherQueryApplicationsService {
 
         return applicationRepository.queryApplicationByConditions(request).stream()
                 .map(a -> TeacherQueryApplicationsResponse.builder()
-                        .applicationId(a.getApplicationId())
-                        .studentName(a.getStudentName())
-                        .studentNumber(a.getStudentNumber())
+                        .applicationId(a.getId())
+                        .studentName(a.getName())
+                        .studentGcn(Student.processGcn(
+                                a.getGrade(),
+                                a.getClassNumber(),
+                                a.getNumber())
+                        )
                         .companyName(a.getCompanyName())
                         .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
                         .createdAt(a.getCreatedAt().toLocalDate())

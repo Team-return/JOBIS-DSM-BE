@@ -1,15 +1,14 @@
 package com.example.jobis.domain.user.service;
 
-import com.example.jobis.domain.user.controller.dto.request.LoginRequest;
-import com.example.jobis.domain.user.controller.dto.response.UserAuthResponse;
+import com.example.jobis.domain.user.presentation.dto.request.LoginRequest;
+import com.example.jobis.domain.user.presentation.dto.response.UserAuthResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.exception.InvalidPasswordException;
 import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,7 +18,6 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Transactional
     public UserAuthResponse execute(LoginRequest request) {
 
         User user = userFacade.getUser(request.getAccountId());
@@ -28,8 +26,8 @@ public class LoginService {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
         return UserAuthResponse.builder()
                 .accessToken(accessToken)

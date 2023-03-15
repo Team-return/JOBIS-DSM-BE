@@ -1,8 +1,8 @@
 package com.example.jobis.domain.company.service;
 
 import com.example.jobis.domain.company.domain.repository.CompanyRepository;
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
-import com.example.jobis.domain.company.controller.dto.request.RegisterCompanyRequest;
+import com.example.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import com.example.jobis.domain.company.domain.Company;
 import com.example.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobis.domain.company.exception.CompanyNotFoundException;
@@ -10,11 +10,10 @@ import com.example.jobis.domain.company.facade.CompanyFacade;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserRepository;
+import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,14 +25,12 @@ public class RegisterCompanyService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
 
-    @Transactional
     public TokenResponse execute(RegisterCompanyRequest request) {
-
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        if (companyFacade.companyExists(request.getBusinessNumber())) {
+        if (companyRepository.existsCompanyByBizNo(request.getBusinessNumber())) {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
@@ -70,12 +67,13 @@ public class RegisterCompanyService {
         );
 
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
                 .build();
     }
 }

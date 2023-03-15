@@ -1,31 +1,32 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.response.QueryCompanyApplicationsResponse;
+import com.example.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
-import com.example.jobis.domain.application.controller.dto.request.QueryApplicationsRequest;
+import com.example.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
-import com.example.jobis.domain.recruit.domain.Recruitment;
-import com.example.jobis.domain.recruit.facade.RecruitFacade;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
+import com.example.jobis.domain.recruitment.facade.RecruitFacade;
+import com.example.jobis.domain.student.domain.Student;
+import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
+@ReadOnlyService
 public class QueryCompanyApplicationsService {
 
     private final ApplicationRepository applicationRepository;
-    private final CompanyFacade companyFacade;
     private final RecruitFacade recruitFacade;
+    private final UserFacade userFacade;
 
-    @Transactional(readOnly = true)
     public List<QueryCompanyApplicationsResponse> execute() {
-        Company company = companyFacade.getCurrentCompany();
+        Company company = userFacade.getCurrentCompany();
+
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
+
         QueryApplicationsRequest request =
                 QueryApplicationsRequest.builder()
                 .recruitmentId(recruitment.getId())
@@ -34,9 +35,13 @@ public class QueryCompanyApplicationsService {
 
         return applicationRepository.queryApplicationByConditions(request).stream()
                 .map(a -> QueryCompanyApplicationsResponse.builder()
-                        .applicationId(a.getApplicationId())
-                        .studentName(a.getStudentName())
-                        .studentNumber(a.getStudentNumber())
+                        .applicationId(a.getId())
+                        .studentName(a.getName())
+                        .studentNumber(Student.processGcn(
+                                a.getGrade(),
+                                a.getClassNumber(),
+                                a.getNumber())
+                        )
                         .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
                         .createdAt(a.getCreatedAt().toLocalDate())
                         .build())

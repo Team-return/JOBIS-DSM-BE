@@ -7,6 +7,8 @@ import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
+import java.util.UUID;
+
 
 @Getter
 @RedisHash
@@ -14,7 +16,7 @@ import org.springframework.data.redis.core.index.Indexed;
 public class RefreshToken {
 
     @Id
-    private String id;
+    private UUID id;
 
     @Indexed
     private String token;

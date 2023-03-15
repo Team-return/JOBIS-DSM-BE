@@ -1,19 +1,19 @@
 package com.example.jobis.domain.application.service;
 
-import com.example.jobis.domain.application.controller.dto.request.CreateApplicationRequest;
+import com.example.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import com.example.jobis.domain.application.domain.Application;
 import com.example.jobis.domain.application.domain.ApplicationAttachment;
 import com.example.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.example.jobis.domain.application.domain.repository.ApplicationRepository;
 import com.example.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import com.example.jobis.domain.application.exception.InvalidGradeException;
-import com.example.jobis.domain.recruit.domain.Recruitment;
-import com.example.jobis.domain.recruit.facade.RecruitFacade;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
+import com.example.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import com.example.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import com.example.jobis.domain.student.domain.Student;
-import com.example.jobis.domain.student.domain.types.Grade;
-import com.example.jobis.domain.student.facade.StudentFacade;
+import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,19 +23,19 @@ import java.util.UUID;
 public class CreateApplicationService {
 
     private final ApplicationRepository applicationRepository;
-    private final StudentFacade studentFacade;
-    private final RecruitFacade recruitFacade;
+    private final UserFacade userFacade;
+    private final RecruitmentRepository recruitmentRepository;
 
     public void execute(CreateApplicationRequest request, UUID recruitmentId) {
+        Student student = userFacade.getCurrentStudent();
+        Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
+                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        Student student = studentFacade.getCurrentStudent();
-        Recruitment recruitment = recruitFacade.getRecruitById(recruitmentId);
-
-        if (applicationRepository.existsApplicationByStudentAndCompany(student, recruitment)) {
+        if (applicationRepository.existsApplicationByStudentAndRecruitmentId(student, recruitmentId)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        if (!student.getGrade().equals(Grade.THIRD)) {
+        if (!student.getGrade().equals(3)) {
             throw InvalidGradeException.EXCEPTION;
         }
 
@@ -43,11 +43,12 @@ public class CreateApplicationService {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        Application application = applicationRepository.saveApplication(Application.builder()
-                .student(student)
-                .recruitment(recruitment)
-                .applicationStatus(ApplicationStatus.REQUESTED)
-                .build()
+        Application application = applicationRepository.saveApplication(
+                Application.builder()
+                        .student(student)
+                        .recruitment(recruitment)
+                        .applicationStatus(ApplicationStatus.REQUESTED)
+                        .build()
         );
 
         recruitment.addApplicationCount();

@@ -7,7 +7,6 @@ import com.example.jobis.infrastructure.feignClients.BizNoFeignClient;
 import com.example.jobis.infrastructure.feignClients.FeignProperty;
 import com.example.jobis.infrastructure.feignClients.dto.Items;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -30,25 +29,9 @@ public class CompanyFacade {
         return items.getBno().replace("-", "").equals(businessNumber);
     }
 
-    public boolean companyExists(String businessNumber) {
-        return companyJpaRepository.existsByBizNo(businessNumber);
-    }
-
-    public Company getCompany() {
-        String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyJpaRepository.findByBizNo(accountId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-    }
-
-    public Company getCompanyById(UUID id) {
+    public Company queryCompanyById(UUID id) {
         return companyJpaRepository.findById(id)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-    }
-
-    public Company getCurrentCompany() {
-        String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return companyJpaRepository.findByBizNo(accountId)
-                .orElseThrow(()->CompanyNotFoundException.EXCEPTION);
     }
 
     private Items getApi(String businessNumber) {

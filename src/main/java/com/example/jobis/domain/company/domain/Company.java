@@ -3,17 +3,26 @@ package com.example.jobis.domain.company.domain;
 import com.example.jobis.domain.company.domain.enums.CompanyType;
 import com.example.jobis.domain.company.domain.type.Address;
 import com.example.jobis.domain.company.domain.type.Manager;
-import com.example.jobis.domain.recruit.domain.Recruitment;
+import com.example.jobis.domain.recruitment.domain.Recruitment;
 import com.example.jobis.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -78,12 +87,12 @@ public class Company {
     private String email;
 
     @NotNull
+    @Column(columnDefinition = "VARCHAR(300)")
     private String companyIntroduce;
 
     @NotNull
+    @Column(columnDefinition = "VARCHAR(300)")
     private String companyLogoUrl;
-
-
 
     @OneToMany(mappedBy = "company")
     private List<Recruitment> recruitmentList = new ArrayList<>();

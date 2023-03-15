@@ -11,20 +11,25 @@ import java.util.UUID;
 @Getter
 public class QueryApplicationVO {
 
-    private final UUID applicationId;
-    private final String studentName;
-    private final String studentNumber;
+    private final UUID id;
+    private final String name;
+    private final Integer grade;
+    private final Integer number;
+    private final Integer classNumber;
     private final String companyName;
     private final List<String> applicationAttachmentUrl;
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;
 
     @QueryProjection
-    public QueryApplicationVO(UUID applicationId, String studentName, String studentNumber,
-                              String companyName, List<String> applicationAttachmentUrl, LocalDateTime createdAt, ApplicationStatus applicationStatus) {
-        this.applicationId = applicationId;
-        this.studentName = studentName;
-        this.studentNumber = studentNumber;
+    public QueryApplicationVO(UUID id, String name, Integer grade, Integer number,
+                              Integer classNumber, String companyName, List<String> applicationAttachmentUrl,
+                              LocalDateTime createdAt, ApplicationStatus applicationStatus) {
+        this.id = id;
+        this.name = name;
+        this.grade = grade;
+        this.number = number;
+        this.classNumber = classNumber;
         this.companyName = companyName;
         this.applicationAttachmentUrl = applicationAttachmentUrl;
         this.createdAt = createdAt;

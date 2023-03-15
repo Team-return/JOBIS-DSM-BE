@@ -1,12 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/jobis?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:11111111}
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
     properties:
@@ -33,30 +33,30 @@ spring:
             required: true
 
 redis:
-  port: ${REDIS_PORT}
-  host: ${REDIS_HOST}
-  password: ${REDIS_PASSWORD}
+  port: ${REDIS_PORT:6379}
+  host: ${REDIS_HOST:localhost}
+  password: ${REDIS_PASSWORD:asdf}
 
 jwt:
-  header: ${JWT_HEADER}
-  prefix : ${JWT_PREFIX}
-  secret: ${JWT_SECRET}
-  access-exp: ${TOKEN_ACCESS_EXP}
-  refresh-exp: ${TOKEN_REFRESH_EXP}
+  header: ${JWT_HEADER:Authorization}
+  prefix : ${JWT_PREFIX:Bearer }
+  secret: ${JWT_SECRET:asdf}
+  access-exp: ${TOKEN_ACCESS_EXP:36000}
+  refresh-exp: ${TOKEN_REFRESH_EXP:36000}
 
 openfeign:
-  access-key: ${API_ACCESS_KEY}
+  access-key: ${API_ACCESS_KEY:asdf}
 
 cloud:
   aws:
     s3:
-      bucket: ${S3_BUCKET}
-      url: ${S3_URL}
+      bucket: ${S3_BUCKET:jobis}
+      url: ${S3_URL:asdf}
     credentials:
-      access-key: ${S3_ACCESS}
-      secret-key: ${S3_SECRET}
+      access-key: ${S3_ACCESS:asdf}
+      secret-key: ${S3_SECRET:asdf}
     region:
-      static: ${S3_REGION}
+      static: ${S3_REGION:ap-northeast-2}
     stack:
       auto: false
 

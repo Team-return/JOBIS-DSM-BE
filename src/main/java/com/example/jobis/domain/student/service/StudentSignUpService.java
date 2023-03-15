@@ -1,21 +1,19 @@
 package com.example.jobis.domain.student.service;
 
-import com.example.jobis.domain.student.controller.dto.request.StudentSignUpRequest;
+import com.example.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import com.example.jobis.domain.student.domain.Student;
 import com.example.jobis.domain.student.domain.repository.StudentJpaRepository;
 import com.example.jobis.domain.student.exception.StudentAlreadyExistsException;
 import com.example.jobis.domain.student.facade.AuthCodeFacade;
 import com.example.jobis.domain.student.facade.StudentFacade;
-import com.example.jobis.domain.user.controller.dto.response.TokenResponse;
+import com.example.jobis.domain.user.presentation.dto.response.TokenResponse;
 import com.example.jobis.domain.user.domain.User;
 import com.example.jobis.domain.user.domain.enums.Authority;
 import com.example.jobis.domain.user.domain.repository.UserJpaRepository;
+import com.example.jobis.global.annotation.Service;
 import com.example.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -28,7 +26,6 @@ public class StudentSignUpService {
     private final StudentFacade studentFacade;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Transactional
     public TokenResponse execute(StudentSignUpRequest request) {
 
         if (studentFacade.existsEmail(request.getEmail())) {
@@ -49,6 +46,7 @@ public class StudentSignUpService {
                         .email(request.getEmail())
                         .phoneNumber(request.getPhoneNumber())
                         .user(user)
+                        .classRoom(request.getClassRoom())
                         .number(request.getNumber())
                         .name(request.getName())
                         .gender(request.getGender())
@@ -56,8 +54,8 @@ public class StudentSignUpService {
                         .build()
         );
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getAccountId(), user.getAuthority());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getAccountId(), user.getAuthority());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)

@@ -12,6 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 public class RecruitAreaCodeId implements Serializable {
-    private UUID recruitAreaId;
-    private Long codeId;
+    private UUID recruitArea;
+    private String codeKeyword;
 }

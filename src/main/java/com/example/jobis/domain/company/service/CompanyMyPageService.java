@@ -1,20 +1,19 @@
 package com.example.jobis.domain.company.service;
 
-import com.example.jobis.domain.company.controller.dto.response.CompanyMyPageResponse;
+import com.example.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import com.example.jobis.domain.company.domain.Company;
-import com.example.jobis.domain.company.facade.CompanyFacade;
+import com.example.jobis.domain.user.facade.UserFacade;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
+@ReadOnlyService
 public class CompanyMyPageService {
-    private final CompanyFacade companyFacade;
 
-    @Transactional(readOnly = true)
+    private final UserFacade userFacade;
+
     public CompanyMyPageResponse execute() {
-        Company company = companyFacade.getCurrentCompany();
+        Company company = userFacade.getCurrentCompany();
 
         return CompanyMyPageResponse.builder()
                 .name(company.getName())

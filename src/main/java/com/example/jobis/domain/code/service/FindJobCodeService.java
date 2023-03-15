@@ -1,15 +1,15 @@
 package com.example.jobis.domain.code.service;
 
-import com.example.jobis.domain.code.controller.dto.response.JobCodeResponse;
+import com.example.jobis.domain.code.presentation.dto.response.JobCodeResponse;
 import com.example.jobis.domain.code.domain.repository.CodeRepository;
+import com.example.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
+@ReadOnlyService
 public class FindJobCodeService {
     private final CodeRepository codeRepository;
 

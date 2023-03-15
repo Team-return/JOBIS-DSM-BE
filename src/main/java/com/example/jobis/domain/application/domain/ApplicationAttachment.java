@@ -5,16 +5,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class ApplicationAttachment {
 
-    @Id
-    @NotNull
+    @Id @Column(columnDefinition = "VARCHAR(400)")
     private String attachmentUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)

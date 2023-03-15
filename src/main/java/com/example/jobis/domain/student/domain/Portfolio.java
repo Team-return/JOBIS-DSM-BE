@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -16,17 +17,18 @@ public class Portfolio {
     @Column(name = "portfolio_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String portfolio;
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(300)")
+    private String portfolioUrl;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(columnDefinition = "BINARY(16)", name = "student_id", nullable = false)
     private Student student;
 
 
     @Builder
-    public Portfolio(String portfolio, Student student) {
-        this.portfolio = portfolio;
+    public Portfolio(String portfolioUrl, Student student) {
+        this.portfolioUrl = portfolioUrl;
         this.student = student;
     }
 }
