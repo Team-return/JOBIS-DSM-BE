@@ -9,7 +9,7 @@ import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
-        basePackages = {"com.example.jobis"},
+        basePackages = {"team.returm.jobis"},
         includeFilters = {
                 @Filter(
                         type = FilterType.ANNOTATION,
