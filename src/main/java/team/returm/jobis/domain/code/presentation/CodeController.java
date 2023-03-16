@@ -19,7 +19,7 @@ public class CodeController {
 
     @GetMapping("/tech")
     public List<CodeResponse> findTechCode(@RequestParam(value = "keyword", required = false) String keyword) {
-        return queryTechCodesService.execute(keyword, CodeType.TECH);
+        return queryTechCodesService.execute(keyword);
     }
 
     @GetMapping("/job")
