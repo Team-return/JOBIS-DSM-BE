@@ -72,8 +72,20 @@ public class RecruitmentRepository {
                 .where(recruitArea.recruitment.id.eq(recruitmentId))
                 .fetch();
     }
+
+    public List<Recruitment> queryRecruitmentsAfterRecruitDate() {
+        return queryFactory
+                .selectFrom(recruitment)
+                .where(recruitment.recruitDate.startDate.before(LocalDate.now()))
+                .fetch();
+    }
+
     public void deleteRecruitAreaCodeByRecruitAreaId(UUID recruitAreaId) {
         recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitAreaId);
+    }
+
+    public void saveAllRecruitments(List<Recruitment> recruitments) {
+        recruitmentJpaRepository.saveAll(recruitments);
     }
 
     public Optional<Recruitment> queryRecruitmentById(UUID recruitmentId) {
