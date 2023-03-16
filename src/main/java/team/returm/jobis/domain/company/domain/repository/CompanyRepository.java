@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import team.returm.jobis.domain.company.domain.QCompany;
+import team.returm.jobis.domain.company.presentation.dto.response.QQueryCompanyDetailsResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 
+import static team.returm.jobis.domain.company.domain.QCompany.company;
 @Repository
 @RequiredArgsConstructor
 public class CompanyRepository {
@@ -23,13 +25,13 @@ public class CompanyRepository {
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
-                             QCompany.company.name,
-                             QCompany.company.companyLogoUrl,
-                             QCompany.company.sales
+                             company.name,
+                             company.companyLogoUrl,
+                             company.sales
                         )
                 )
-                .from(QCompany.company)
-                .orderBy(QCompany.company.name.desc())
+                .from(company)
+                .orderBy(company.name.desc())
                 .fetch();
     }
 
