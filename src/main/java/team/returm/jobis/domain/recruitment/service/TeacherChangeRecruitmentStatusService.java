@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class ChangeRecruitmentStatusService {
+public class TeacherChangeRecruitmentStatusService {
     private final RecruitFacade recruitFacade;
 
     public void execute(UUID id, RecruitStatus status) {
