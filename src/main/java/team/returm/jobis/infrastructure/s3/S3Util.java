@@ -1,7 +1,10 @@
 package team.returm.jobis.infrastructure.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.*;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import team.returm.jobis.domain.file.exception.FileNotFoundException;
 import team.returm.jobis.domain.file.exception.InvalidExtensionException;
 import team.returm.jobis.domain.file.presentation.type.FileType;
@@ -43,6 +46,7 @@ public class S3Util {
         } catch (IOException e) {
             throw FileNotFoundException.EXCEPTION;
         }
+
         return s3Properties.getUrl() + fileName;
     }
 
@@ -54,7 +58,12 @@ public class S3Util {
     }
 
     private String getExtensionWithValidation(String fileName, FileType fileType) {
+        if(fileName == null) {
+            throw FileNotFoundException.EXCEPTION;
+        }
+
         String extension = fileName.substring(fileName.lastIndexOf("."));
+
         if(!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".svg") || extension.equals(".jpeg"))) {
             if(fileType.equals(FileType.LOGO_IMAGE)) {
                 throw InvalidExtensionException.EXCEPTION;
@@ -64,6 +73,7 @@ public class S3Util {
                 throw InvalidExtensionException.EXCEPTION;
             }
         }
+
         return extension;
     }
 }

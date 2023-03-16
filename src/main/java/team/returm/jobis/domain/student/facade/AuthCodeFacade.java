@@ -38,7 +38,6 @@ public class AuthCodeFacade {
 
     public void checkIsVerified(String email) {
         authCodeRepository.findById(email)
-                .filter(AuthCode::isVerified)
                 .orElseThrow(() -> UnverifiedEmailException.EXCEPTION);
     }
 
