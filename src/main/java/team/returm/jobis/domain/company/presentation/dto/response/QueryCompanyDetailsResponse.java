@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
-public class CompanyDetailsResponse {
+public class QueryCompanyDetailsResponse {
 
     private final String businessNumber;
     private final String companyProfileUrl;
@@ -31,11 +31,11 @@ public class CompanyDetailsResponse {
 
     @QueryProjection
     @Builder
-    public CompanyDetailsResponse(String businessNumber, String companyProfileUrl, String companyIntroduce,
-                                  String zipCode1, String address1, String zipCode2, String address2,
-                                  String manager1, String phoneNumber1, String manager2,
-                                  String phoneNumber2, String fax, String email, String representativeName,
-                                  LocalDate foundedAt, int workerNumber, int take, UUID latestRecruitmentId) {
+    public QueryCompanyDetailsResponse(String businessNumber, String companyProfileUrl, String companyIntroduce,
+                                       String zipCode1, String address1, String zipCode2, String address2,
+                                       String manager1, String phoneNumber1, String manager2,
+                                       String phoneNumber2, String fax, String email, String representativeName,
+                                       LocalDate foundedAt, int workerNumber, int take, UUID latestRecruitmentId) {
         this.businessNumber = businessNumber;
         this.companyProfileUrl = companyProfileUrl;
         this.companyIntroduce = companyIntroduce;
