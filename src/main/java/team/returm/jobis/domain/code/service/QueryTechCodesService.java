@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyService
-public class FindCodeService {
+public class QueryTechCodesService {
     private final CodeJpaRepository codeJpaRepository;
 
     public List<CodeResponse> execute(String keyword, CodeType type) {
