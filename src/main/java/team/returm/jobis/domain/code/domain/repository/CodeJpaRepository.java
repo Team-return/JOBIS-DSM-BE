@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CodeRepository extends JpaRepository<Code, Long> {
+public interface CodeJpaRepository extends JpaRepository<Code, Long> {
     List<Code> findByKeywordContainingAndCodeType(String keyword, CodeType codeType);
 
     @Query("select c from Code c where c.codeType = 'JOB'")
