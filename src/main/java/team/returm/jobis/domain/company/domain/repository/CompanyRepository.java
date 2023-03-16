@@ -8,6 +8,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,6 +16,8 @@ import team.returm.jobis.domain.company.presentation.dto.response.QQueryCompanyD
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 
 import static team.returm.jobis.domain.company.domain.QCompany.company;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
+
 @Repository
 @RequiredArgsConstructor
 public class CompanyRepository {
@@ -33,6 +36,39 @@ public class CompanyRepository {
                 .from(company)
                 .orderBy(company.name.desc())
                 .fetch();
+    }
+
+    public QueryCompanyDetailsResponse queryCompanyDetails(UUID companyId) {
+        return queryFactory
+                .select(
+                        new QQueryCompanyDetailsResponse(
+                                company.bizNo,
+                                company.companyLogoUrl,
+                                company.companyIntroduce,
+                                company.address.mainZipCode,
+                                company.address.mainAddress,
+                                company.address.subZipCode,
+                                company.address.subAddress,
+                                company.manager.managerName,
+                                company.manager.managerPhoneNo,
+                                company.manager.subManagerName,
+                                company.manager.subManagerPhoneNo,
+                                company.fax,
+                                company.email,
+                                company.representative,
+                                company.foundedAt,
+                                company.workersCount,
+                                company.sales,
+                                recruitment.id
+                        )
+                )
+                .from(company)
+                .leftJoin(company.recruitmentList, recruitment)
+                .where(
+                        company.id.eq(companyId),
+                        recruitment.recruitYear.eq(Year.now().getValue())
+                )
+                .fetchOne();
     }
 
     public Optional<Company> queryCompanyById(UUID companyId) {
