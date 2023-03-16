@@ -10,6 +10,7 @@ import java.util.List;
 @Builder
 public class StudentRecruitDetailsResponse {
 
+    private UUID companyId;
     private List<RecruitAreaResponse> areas;
     private String preferentialTreatment;
     private Integer requiredGrade;
