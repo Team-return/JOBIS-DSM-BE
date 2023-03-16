@@ -2,8 +2,6 @@ package team.returm.jobis.domain.company.service;
 
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
-import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.company.facade.CompanyFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
 
