@@ -10,12 +10,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyService
-public class FindJobCodeService {
+public class QueryJobCodesService {
     private final CodeJpaRepository codeJpaRepository;
 
     @Transactional(readOnly = true)
     public List<JobCodeResponse> execute() {
-        return codeJpaRepository.findAllJobCode().stream()
+        return codeJpaRepository.queryJobCodes().stream()
                 .map(c-> JobCodeResponse.builder()
                         .code(c.getId())
                         .keyword(c.getKeyword())

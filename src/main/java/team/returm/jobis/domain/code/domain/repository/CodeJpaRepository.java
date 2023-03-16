@@ -10,5 +10,5 @@ public interface CodeJpaRepository extends JpaRepository<Code, Long> {
     List<Code> queryCodeByKeywordContaining(String keyword);
 
     @Query("select c from Code c where c.codeType = 'JOB'")
-    List<Code> findAllJobCode();
+    List<Code> queryJobCodes();
 }
