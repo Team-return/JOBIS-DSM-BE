@@ -13,7 +13,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +24,8 @@ import team.returm.jobis.domain.company.domain.QCompany;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.group.GroupBy.set;
+import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
+import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static com.querydsl.core.group.GroupBy.sum;
 
 @Repository
@@ -41,8 +41,8 @@ public class RecruitmentRepository {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
-                .leftJoin(recruitment.company, QCompany.company)
-                .leftJoin(recruitArea.codeList, QRecruitAreaCode.recruitAreaCode)
+                .leftJoin(recruitment.company, company)
+                .leftJoin(recruitArea.codeList, recruitAreaCode)
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
@@ -59,8 +59,9 @@ public class RecruitmentRepository {
                                 .list(new QQueryRecruitmentsVO(
                                         recruitment,
                                         QCompany.company,
-                                        GroupBy.set(QRecruitAreaCode.recruitAreaCode.codeKeyword),
-                                        sum(recruitArea.hiredCount)
+                                        GroupBy.set(recruitAreaCode.codeKeyword),
+                                        sum(recruitArea.hiredCount),
+                                        recruitment.applicationCount
                                 ))
                 );
     }
