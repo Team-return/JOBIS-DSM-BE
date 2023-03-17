@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.student.domain;
 
+import javax.persistence.CascadeType;
 import team.returm.jobis.domain.student.domain.types.Gender;
 import team.returm.jobis.domain.user.domain.User;
 import lombok.AccessLevel;
@@ -29,7 +30,7 @@ public class Student {
     private UUID id;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "student_id", columnDefinition = "BINARY(16)", nullable = false)
     private User user;
 

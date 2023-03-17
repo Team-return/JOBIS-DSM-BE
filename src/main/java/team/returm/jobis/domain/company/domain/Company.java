@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.company.domain;
 
+import javax.persistence.CascadeType;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.type.Address;
 import team.returm.jobis.domain.company.domain.type.Manager;
@@ -40,7 +41,7 @@ public class Company {
     private UUID id;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "company_id", columnDefinition = "BINARY(16)", nullable = false)
     private User user;
 
