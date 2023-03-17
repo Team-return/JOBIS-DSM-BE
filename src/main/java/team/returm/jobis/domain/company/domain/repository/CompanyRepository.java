@@ -65,14 +65,19 @@ public class CompanyRepository {
                         )
                 )
                 .from(company)
-                .leftJoin(company.recruitmentList, recruitment)
-                .where(
-                        company.id.eq(companyId),
-                        recruitment.recruitYear.eq(Year.now().getValue()),
-                        recruitment.status.eq(RecruitStatus.RECRUITING),
-                        recruitment.eq(
-                                selectFrom(recruitment)
-                                        .orderBy(recruitment.createdAt.desc())
+                .leftJoin(recruitment)
+                .on(
+                        recruitment.company.id.eq(company.id),
+                        recruitment.createdAt.eq(
+                                JPAExpressions.select(recruitment.createdAt.max())
+                                        .from(recruitment)
+                                        .where(
+                                                recruitment.company.id.eq(company.id),
+                                                recruitment.status.eq(RecruitStatus.RECRUITING)
+                                        )
+                        )
+                )
+                .where(company.id.eq(companyId))
                         )
                 )
                 .fetchOne();
