@@ -14,7 +14,9 @@ import java.util.Optional;
 import java.util.UUID;
 import team.returm.jobis.domain.company.presentation.dto.response.QQueryCompanyDetailsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
+import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
+import static com.querydsl.jpa.JPAExpressions.selectFrom;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
@@ -66,7 +68,12 @@ public class CompanyRepository {
                 .leftJoin(company.recruitmentList, recruitment)
                 .where(
                         company.id.eq(companyId),
-                        recruitment.recruitYear.eq(Year.now().getValue())
+                        recruitment.recruitYear.eq(Year.now().getValue()),
+                        recruitment.status.eq(RecruitStatus.RECRUITING),
+                        recruitment.eq(
+                                selectFrom(recruitment)
+                                        .orderBy(recruitment.createdAt.desc())
+                        )
                 )
                 .fetchOne();
     }
