@@ -9,7 +9,6 @@ import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.domain.company.facade.CompanyFacade;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
-import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,6 @@ public class RegisterCompanyService {
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserRepository userRepository;
 
     public TokenResponse execute(RegisterCompanyRequest request) {
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
@@ -34,13 +32,11 @@ public class RegisterCompanyService {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        User user = userRepository.saveUser(
-                User.builder()
-                        .accountId(request.getBusinessNumber())
-                        .password(passwordEncoder.encode(request.getPassword()))
-                        .authority(Authority.COMPANY)
-                        .build()
-        );
+        User user = User.builder()
+                .accountId(request.getBusinessNumber())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .authority(Authority.COMPANY)
+                .build();
 
         companyRepository.saveCompany(
                 Company.builder()

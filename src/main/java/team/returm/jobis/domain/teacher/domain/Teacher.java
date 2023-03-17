@@ -18,7 +18,7 @@ public class Teacher {
     private UUID id;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "teacher_id", columnDefinition = "BINARY(16)", nullable = false)
     private User user;
 }
