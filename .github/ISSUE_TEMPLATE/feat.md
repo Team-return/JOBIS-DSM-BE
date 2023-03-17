@@ -1,6 +1,6 @@
 ---
 name: 기능추가✏️
-about: 새로운 기능 또는 설정
+about: 새로운 기능이나 설정을 추가해요
 title: ''
 labels: 기능추가
 assignees: ''

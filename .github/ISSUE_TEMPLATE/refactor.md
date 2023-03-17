@@ -1,6 +1,6 @@
 ---
 name: 리펙토링♻️
-about: 리팩토링이 필요하다?
+about: 코드 리펙토링이 필요해요
 title: ''
 labels: 리팩토링
 assignees: ''
