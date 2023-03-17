@@ -27,7 +27,7 @@ public class QueryCompanyDetailsResponse {
     private final LocalDate foundedAt;
     private final int workerNumber;
     private final int take;
-    private final UUID latestRecruitmentId;
+    private final UUID recruitmentId;
 
     @QueryProjection
     @Builder
@@ -35,7 +35,7 @@ public class QueryCompanyDetailsResponse {
                                        String zipCode1, String address1, String zipCode2, String address2,
                                        String manager1, String phoneNumber1, String manager2,
                                        String phoneNumber2, String fax, String email, String representativeName,
-                                       LocalDate foundedAt, int workerNumber, int take, UUID latestRecruitmentId) {
+                                       LocalDate foundedAt, int workerNumber, int take, UUID recruitmentId) {
         this.businessNumber = businessNumber;
         this.companyProfileUrl = companyProfileUrl;
         this.companyIntroduce = companyIntroduce;
@@ -53,6 +53,6 @@ public class QueryCompanyDetailsResponse {
         this.foundedAt = foundedAt;
         this.workerNumber = workerNumber;
         this.take = take;
-        this.latestRecruitmentId = latestRecruitmentId;
+        this.recruitmentId = recruitmentId;
     }
 }
