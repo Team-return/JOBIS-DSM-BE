@@ -44,18 +44,12 @@ public class UserFacade {
         ).orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
-    public Teacher getCurrentTeacher() {
-        return teacherRepository.queryTeacherById(
-                this.getCurrentUserId()
-        ).orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
-    }
-
     public User getCurrentUser() {
         return userRepository.queryUserById(
                 this.getCurrentUserId()
         ).orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
-    private UUID getCurrentUserId() {
+    public UUID getCurrentUserId() {
         return UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }
