@@ -26,14 +26,4 @@ public class StudentRecruitDetailsResponse {
     private LocalDate startDate;
     private LocalDate endDate;
     private String etc;
-
-    @Getter
-    @Builder
-    public static class RecruitAreaResponse {
-        private UUID recruitAreaId;
-        private List<String> job;
-        private List<String> tech;
-        private int hiring;
-        private String majorTask;
-    }
 }
