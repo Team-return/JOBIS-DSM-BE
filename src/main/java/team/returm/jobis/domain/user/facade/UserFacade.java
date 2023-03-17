@@ -6,9 +6,7 @@ import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentRepository;
 import team.returm.jobis.domain.student.exception.StudentNotFoundException;
-import team.returm.jobis.domain.teacher.domain.Teacher;
 import team.returm.jobis.domain.teacher.domain.repository.TeacherRepository;
-import team.returm.jobis.domain.teacher.exception.TeacherNotFoundException;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.domain.user.exception.UserNotFoundException;
@@ -44,18 +42,12 @@ public class UserFacade {
         ).orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
-    public Teacher getCurrentTeacher() {
-        return teacherRepository.queryTeacherById(
-                this.getCurrentUserId()
-        ).orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
-    }
-
     public User getCurrentUser() {
         return userRepository.queryUserById(
                 this.getCurrentUserId()
         ).orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
-    private UUID getCurrentUserId() {
+    public UUID getCurrentUserId() {
         return UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

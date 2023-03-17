@@ -74,6 +74,14 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
+    public Recruitment queryRecentRecruitmentByCompanyId(UUID companyId) {
+        return queryFactory
+                .selectFrom(recruitment)
+                .where(recruitment.company.id.eq(companyId))
+                .orderBy(recruitment.createdAt.desc())
+                .fetchFirst();
+    }
+
     public List<Recruitment> queryRecruitmentsAfterRecruitDate() {
         return queryFactory
                 .selectFrom(recruitment)
