@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.company.domain.repository;
 
+import com.querydsl.jpa.JPAExpressions;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.Company;
@@ -78,8 +79,6 @@ public class CompanyRepository {
                         )
                 )
                 .where(company.id.eq(companyId))
-                        )
-                )
                 .fetchOne();
     }
 
