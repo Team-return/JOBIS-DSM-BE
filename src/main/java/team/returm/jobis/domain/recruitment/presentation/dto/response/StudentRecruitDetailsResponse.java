@@ -5,11 +5,13 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Builder
 public class StudentRecruitDetailsResponse {
 
+    private UUID companyId;
     private List<RecruitAreaResponse> areas;
     private String preferentialTreatment;
     private Integer requiredGrade;

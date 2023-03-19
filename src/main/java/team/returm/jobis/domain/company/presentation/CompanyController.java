@@ -1,7 +1,7 @@
 package team.returm.jobis.domain.company.presentation;
 
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
-import team.returm.jobis.domain.company.presentation.dto.response.CompanyDetailsResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
@@ -62,7 +62,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{company-id}")
-    public CompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") UUID companyId) {
+    public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") UUID companyId) {
         return queryCompanyDetailsService.execute(companyId);
     }
 

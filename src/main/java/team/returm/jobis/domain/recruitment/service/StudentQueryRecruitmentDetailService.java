@@ -21,6 +21,7 @@ public class StudentQueryRecruitmentDetailService {
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         return StudentRecruitDetailsResponse.builder()
+                .companyId(recruitment.getCompany().getId())
                 .areas(recruitFacade.queryRecruitAreas(recruitment.getId()))
                 .pay(recruitment.getPayInfo().getPay())
                 .trainPay(recruitment.getPayInfo().getTrainingPay())
