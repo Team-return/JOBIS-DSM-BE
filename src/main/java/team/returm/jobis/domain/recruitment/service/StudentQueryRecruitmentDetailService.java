@@ -22,7 +22,7 @@ public class StudentQueryRecruitmentDetailService {
 
         return StudentRecruitDetailsResponse.builder()
                 .companyId(recruitment.getCompany().getId())
-                .areas(queryRecruitAreas(recruitment.getId()))
+                .areas(recruitFacade.queryRecruitAreas(recruitment.getId()))
                 .pay(recruitment.getPayInfo().getPay())
                 .trainPay(recruitment.getPayInfo().getTrainingPay())
                 .etc(recruitment.getEtc())
