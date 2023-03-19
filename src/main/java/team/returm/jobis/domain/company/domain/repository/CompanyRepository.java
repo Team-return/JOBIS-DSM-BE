@@ -9,7 +9,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,7 +16,6 @@ import team.returm.jobis.domain.company.presentation.dto.response.QQueryCompanyD
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
-import static com.querydsl.jpa.JPAExpressions.selectFrom;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
