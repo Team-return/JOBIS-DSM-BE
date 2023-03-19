@@ -19,7 +19,7 @@ public class ChangeRecruitmentStatusSchedulerService {
 
         recruitmentRepository.saveAllRecruitments(
                 recruitments.stream()
-                        .map(recruitment -> recruitment.changeStatus(RecruitStatus.READY))
+                        .map(recruitment -> recruitment.changeStatus(RecruitStatus.RECRUITING))
                         .filter(
                                 recruitment ->
                                         recruitment.getRecruitDate().getFinishDate().isBefore(LocalDate.now())
