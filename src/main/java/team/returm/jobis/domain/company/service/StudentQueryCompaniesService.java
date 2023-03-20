@@ -12,6 +12,6 @@ public class StudentQueryCompaniesService {
     private final CompanyRepository companyRepository;
 
     public StudentQueryCompaniesResponse execute() {
-        return new StudentQueryCompaniesResponse(companyRepository.findCompanyInfoList());
+        return new StudentQueryCompaniesResponse(companyRepository.queryCompanyVoList());
     }
 }

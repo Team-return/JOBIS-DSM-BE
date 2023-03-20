@@ -4,11 +4,9 @@ import com.querydsl.jpa.JPAExpressions;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,13 +23,14 @@ public class CompanyRepository {
     private final CompanyJpaRepository companyJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public List<StudentQueryCompaniesVO> findCompanyInfoList() {
+    public List<StudentQueryCompaniesVO> queryCompanyVoList() {
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
-                             company.name,
-                             company.companyLogoUrl,
-                             company.sales
+                                company.id,
+                                company.name,
+                                company.companyLogoUrl,
+                                company.sales
                         )
                 )
                 .from(company)
@@ -82,11 +81,6 @@ public class CompanyRepository {
 
     public Optional<Company> queryCompanyById(UUID companyId) {
         return companyJpaRepository.findById(companyId);
-    }
-
-    public Company findByBizNo(String bizNo) {
-        return companyJpaRepository.findByBizNo(bizNo)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
     public boolean existsCompanyByBizNo(String bizNo) {
