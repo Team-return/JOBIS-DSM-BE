@@ -105,6 +105,10 @@ public class RecruitmentRepository {
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
     }
 
+    public void deleteRecruitment(UUID recruitmentId) {
+        recruitmentJpaRepository.deleteById(recruitmentId);
+    }
+
     public Recruitment saveRecruitment(Recruitment recruitment) {
         return recruitmentJpaRepository.save(recruitment);
     }
