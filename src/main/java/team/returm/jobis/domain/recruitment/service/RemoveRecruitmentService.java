@@ -3,7 +3,9 @@ package team.returm.jobis.domain.recruitment.service;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
+import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.exception.RecruitmentCannotDeleteException;
 import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
@@ -12,7 +14,7 @@ import team.returm.jobis.global.annotation.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteRecruitmentService {
+public class RemoveRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
     private final UserFacade userFacade;
 
@@ -26,6 +28,10 @@ public class DeleteRecruitmentService {
             recruitment.checkCompany(user.getId());
         }
 
-        recruitmentRepository.saveRecruitment(recruitment.deleteRecruitment());
+        if (recruitment.getStatus() == RecruitStatus.RECRUITING) {
+            throw RecruitmentCannotDeleteException.EXCEPTION;
+        }
+
+        recruitmentRepository.deleteRecruitment(recruitment.getId());
     }
 }
