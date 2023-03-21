@@ -138,7 +138,7 @@ public class Recruitment extends BaseEntity {
     }
 
     public void checkCompany(UUID companyId) {
-        if (!this.getCompany().getId().equals(companyId)) {
+        if (!this.company.getId().equals(companyId)) {
             throw CompanyMismatchException.EXCEPTION;
         }
     }
