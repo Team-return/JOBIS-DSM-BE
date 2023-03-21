@@ -14,7 +14,7 @@ import team.returm.jobis.global.annotation.Service;
 
 @Service
 @RequiredArgsConstructor
-public class RemoveRecruitmentService {
+public class DeleteRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
     private final UserFacade userFacade;
 
