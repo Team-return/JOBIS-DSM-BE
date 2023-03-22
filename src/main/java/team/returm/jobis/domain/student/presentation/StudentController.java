@@ -27,10 +27,12 @@ public class StudentController {
     private final SendSignUpAuthCodeService sendSignUpAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;
     private final StudentSignUpService studentSignUpService;
+    private final SendPasswordAuthCodeService sendPasswordAuthCodeService;
+    private final UpdatePasswordService updatePasswordService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/code")
-    public void sendCode(@RequestBody @Valid SendAuthCodeRequest request) {
+    @PostMapping("/code/signup")
+    public void sendSignUpCode(@RequestBody @Valid SendAuthCodeRequest request) {
         sendSignUpAuthCodeService.execute(request);
     }
 
