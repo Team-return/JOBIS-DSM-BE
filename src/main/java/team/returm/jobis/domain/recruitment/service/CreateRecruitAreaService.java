@@ -3,8 +3,6 @@ package team.returm.jobis.domain.recruitment.service;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.facade.CodeFacade;
-import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.company.facade.CompanyFacade;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitAreaJpaRepository;
@@ -27,7 +25,6 @@ public class CreateRecruitAreaService {
 
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
     private final RecruitmentRepository recruitmentRepository;
-    private final CompanyFacade companyFacade;
     private final CodeFacade codeFacade;
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
@@ -37,9 +34,7 @@ public class CreateRecruitAreaService {
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
         if(user.getAuthority() == Authority.COMPANY) {
-            Company company = companyFacade.queryCompanyById(user.getId());
-
-            recruitment.checkCompany(company.getId());
+            recruitment.checkCompany(recruitment.getId());
         }
 
         RecruitArea recruitArea = recruitAreaJpaRepository.save(
