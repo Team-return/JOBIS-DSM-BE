@@ -2,10 +2,12 @@ package team.returm.jobis.domain.student.presentation;
 
 import team.returm.jobis.domain.student.presentation.dto.request.SendAuthCodeRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
+import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.VerifyAuthCodeRequest;
 import team.returm.jobis.domain.student.service.SendPasswordAuthCodeService;
 import team.returm.jobis.domain.student.service.SendSignUpAuthCodeService;
 import team.returm.jobis.domain.student.service.StudentSignUpService;
+import team.returm.jobis.domain.student.service.UpdatePasswordService;
 import team.returm.jobis.domain.student.service.VerifyAuthCodeService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +54,11 @@ public class StudentController {
     @PostMapping("/signup")
     public TokenResponse signup(@RequestBody @Valid StudentSignUpRequest request) {
         return studentSignUpService.execute(request);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/password")
+    public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
+        updatePasswordService.execute(request);
     }
 }
