@@ -34,6 +34,15 @@ public class SecurityConfig {
                 .and()
 
                 .authorizeRequests()
+
+                //students
+                .antMatchers(HttpMethod.POST, "/students").permitAll()
+                .antMatchers(HttpMethod.POST, "/students/code/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/students/code/password").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
+
+
                 //applications
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
@@ -73,11 +82,6 @@ public class SecurityConfig {
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
-
-                //students
-                .antMatchers(HttpMethod.POST, "/students").permitAll()
-                .antMatchers(HttpMethod.POST, "/students/code").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
