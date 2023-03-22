@@ -70,6 +70,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}/status").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
 
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
