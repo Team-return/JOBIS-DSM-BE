@@ -7,11 +7,11 @@ import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentJpaRepository;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import team.returm.jobis.domain.recruitment.exception.RecruitNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
 
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class RecruitFacade {
 
     public Recruitment queryRecruitmentById(UUID id) {
         return recruitmentJpaRepository.findById(id)
-                .orElseThrow(() -> RecruitNotFoundException.EXCEPTION);
+                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
     }
 
     public Recruitment getLatestRecruitByCompany(Company company) {
