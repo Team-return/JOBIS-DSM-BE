@@ -3,6 +3,7 @@ package team.returm.jobis.domain.student.presentation;
 import team.returm.jobis.domain.student.presentation.dto.request.SendAuthCodeRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.VerifyAuthCodeRequest;
+import team.returm.jobis.domain.student.service.SendPasswordAuthCodeService;
 import team.returm.jobis.domain.student.service.SendSignUpAuthCodeService;
 import team.returm.jobis.domain.student.service.StudentSignUpService;
 import team.returm.jobis.domain.student.service.VerifyAuthCodeService;
@@ -31,6 +32,12 @@ public class StudentController {
     @PostMapping("/code")
     public void sendCode(@RequestBody @Valid SendAuthCodeRequest request) {
         sendSignUpAuthCodeService.execute(request);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/code/password")
+    public void sendPasswordCode(@RequestBody @Valid SendAuthCodeRequest request) {
+        sendPasswordAuthCodeService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
