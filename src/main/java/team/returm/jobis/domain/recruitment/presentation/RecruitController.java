@@ -39,6 +39,7 @@ import team.returm.jobis.domain.recruitment.service.UpdateRecruitmentService;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recruitments")
