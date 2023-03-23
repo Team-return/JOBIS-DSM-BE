@@ -1,9 +1,11 @@
-package team.returm.jobis.domain.student.presentation.dto.request;
+package team.returm.jobis.domain.auth.presentation.dto.request;
 
+import team.returm.jobis.domain.auth.domain.types.AuthCodeType;
 import team.returm.jobis.global.util.RegexProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter
@@ -12,4 +14,7 @@ public class SendAuthCodeRequest {
 
     @Pattern(regexp = RegexProperty.EMAIL)
     private String email;
+
+    @NotNull
+    private AuthCodeType authCodeType;
 }

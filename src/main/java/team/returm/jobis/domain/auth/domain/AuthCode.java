@@ -1,4 +1,4 @@
-package team.returm.jobis.domain.student.domain;
+package team.returm.jobis.domain.auth.domain;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -2,9 +2,8 @@ package team.returm.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.exception.StudentNotFoundException;
-import team.returm.jobis.domain.student.facade.AuthCodeFacade;
+import team.returm.jobis.domain.auth.facade.AuthCodeFacade;
 import team.returm.jobis.domain.student.facade.StudentFacade;
 import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
 import team.returm.jobis.domain.user.domain.User;

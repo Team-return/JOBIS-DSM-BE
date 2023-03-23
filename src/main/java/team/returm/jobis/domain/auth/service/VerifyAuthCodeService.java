@@ -1,7 +1,7 @@
-package team.returm.jobis.domain.student.service;
+package team.returm.jobis.domain.auth.service;
 
-import team.returm.jobis.domain.student.presentation.dto.request.VerifyAuthCodeRequest;
-import team.returm.jobis.domain.student.facade.AuthCodeFacade;
+import team.returm.jobis.domain.auth.presentation.dto.request.VerifyAuthCodeRequest;
+import team.returm.jobis.domain.auth.facade.AuthCodeFacade;
 import team.returm.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
 

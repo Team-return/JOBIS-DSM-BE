@@ -4,7 +4,7 @@ import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRe
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentJpaRepository;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
-import team.returm.jobis.domain.student.facade.AuthCodeFacade;
+import team.returm.jobis.domain.auth.facade.AuthCodeFacade;
 import team.returm.jobis.domain.student.facade.StudentFacade;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.domain.user.domain.User;

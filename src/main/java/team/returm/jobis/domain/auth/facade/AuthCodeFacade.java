@@ -1,10 +1,13 @@
-package team.returm.jobis.domain.student.facade;
+package team.returm.jobis.domain.auth.facade;
 
-import team.returm.jobis.domain.student.domain.AuthCode;
+import team.returm.jobis.domain.auth.domain.AuthCode;
 import team.returm.jobis.domain.student.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.student.exception.BadAuthCodeException;
 import team.returm.jobis.domain.student.exception.BadEmailException;
+import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
+import team.returm.jobis.domain.student.exception.StudentNotFoundException;
 import team.returm.jobis.domain.student.exception.UnverifiedEmailException;
+import team.returm.jobis.domain.student.facade.StudentFacade;
 import team.returm.jobis.global.util.RegexProperty;
 import team.returm.jobis.global.util.jms.JmsProperties;
 import team.returm.jobis.global.util.jms.JmsUtil;
@@ -21,6 +24,25 @@ public class AuthCodeFacade {
     private final AuthCodeRepository authCodeRepository;
     private final JmsUtil jmsUtil;
     private final JmsProperties jmsProperties;
+    private final StudentFacade studentFacade;
+
+    public void sendSignUpAuthCode(String email) {
+
+        if (studentFacade.existsEmail(email)) {
+            throw StudentAlreadyExistsException.EXCEPTION;
+        }
+        checkEmailDomain(email);
+        sendMail(email);
+    }
+
+    public void sendPasswordAuthCode(String email) {
+
+        if (!studentFacade.existsEmail(email)) {
+            throw StudentNotFoundException.EXCEPTION;
+        }
+        checkEmailDomain(email);
+        sendMail(email);
+    }
 
     public void verifyAuthCode(String code, String email) {
         AuthCode authCode = authCodeRepository.findById(email)
@@ -30,7 +52,7 @@ public class AuthCodeFacade {
         authCodeRepository.save(authCode);
     }
 
-    public void checkEmailDomain(String email) {
+    private void checkEmailDomain(String email) {
         if (!email.matches(RegexProperty.EMAIL)) {
             throw BadEmailException.EXCEPTION;
         }
