@@ -1,5 +1,19 @@
 package team.returm.jobis.domain.company.presentation;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
+import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
+import team.returm.jobis.domain.company.service.CheckCompanyExistsService;
+import team.returm.jobis.domain.company.service.CompanyMyPageService;
+import team.returm.jobis.domain.company.service.QueryCompanyDetailsService;
+import team.returm.jobis.domain.company.service.RegisterCompanyService;
+import team.returm.jobis.domain.company.service.StudentQueryCompaniesService;
+import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
+import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
+import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +39,8 @@ import team.returm.jobis.domain.company.service.StudentQueryCompaniesService;
 import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 
+import javax.validation.Valid;
+import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/companies")
 @RestController
@@ -33,7 +49,8 @@ public class CompanyController {
     private final RegisterCompanyService registerCompanyService;
     private final CheckCompanyExistsService checkCompanyExistsService;
     private final UpdateCompanyDetailsService updateCompanyDetailsService;
-    private final StudentQueryCompaniesService studentQueryCompaniesService;
+    private final
+    StudentQueryCompaniesService studentQueryCompaniesService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
 
@@ -55,8 +72,12 @@ public class CompanyController {
     }
 
     @GetMapping("/student")
-    public StudentQueryCompaniesResponse studentQueryCompanies() {
-        return studentQueryCompaniesService.execute();
+    public StudentQueryCompaniesResponse studentQueryCompanies(
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "keyword", required = false)List<String> keywords
+            ) {
+        return studentQueryCompaniesService.execute(page, name, keywords);
     }
 
     @GetMapping("/{company-id}")
