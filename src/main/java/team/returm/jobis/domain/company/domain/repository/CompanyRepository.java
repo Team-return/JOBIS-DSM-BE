@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.company.domain.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -23,7 +24,8 @@ public class CompanyRepository {
     private final CompanyJpaRepository companyJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public List<StudentQueryCompaniesVO> queryCompanyVoList() {
+    public List<StudentQueryCompaniesVO> queryCompanyVoList(Integer page, String name, List<String> keywords) {
+        long pageSize = 11;
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
@@ -34,7 +36,13 @@ public class CompanyRepository {
                         )
                 )
                 .from(company)
+                .where(
+                        containsName(name),
+                        inKeywords(keywords)
+                )
                 .orderBy(company.name.desc())
+                .offset(page * pageSize)
+                .limit(pageSize)
                 .fetch();
     }
 
@@ -89,5 +97,15 @@ public class CompanyRepository {
 
     public void saveCompany(Company company) {
         companyJpaRepository.save(company);
+    }
+
+    //==conditions==//
+
+    private BooleanExpression containsName(String name) {
+        return name == null ? null : company.name.contains(name);
+    }
+
+    private BooleanExpression inKeywords(List<String> keywords) {
+        return keywords == null ? null : company.recruitmentList.any().recruitAreaList.any().codeList.any().codeKeyword.in(keywords);
     }
 }
