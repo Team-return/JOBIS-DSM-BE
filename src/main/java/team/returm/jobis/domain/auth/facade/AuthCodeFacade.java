@@ -14,12 +14,13 @@ import team.returm.jobis.global.util.jms.JmsUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.security.SecureRandom;
 
 @RequiredArgsConstructor
 @Component
 public class AuthCodeFacade {
 
+    private static final SecureRandom RANDOM = new SecureRandom();
     private final AuthCodeRepository authCodeRepository;
     private final JmsUtil jmsUtil;
     private final JmsProperties jmsProperties;
@@ -89,6 +90,6 @@ public class AuthCodeFacade {
     }
 
     private String createRandomCode() {
-        return String.format("%06d", ThreadLocalRandom.current().nextInt(1000000) % 1000000);
+        return String.format("%06d", RANDOM.nextInt(1000000) % 1000000);
     }
 }
