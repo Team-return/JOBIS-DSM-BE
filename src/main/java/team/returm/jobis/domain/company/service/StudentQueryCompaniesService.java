@@ -5,6 +5,8 @@ import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @ReadOnlyService
 public class StudentQueryCompaniesService {

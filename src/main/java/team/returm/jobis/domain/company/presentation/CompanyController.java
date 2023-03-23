@@ -50,7 +50,8 @@ public class CompanyController {
     private final RegisterCompanyService registerCompanyService;
     private final CheckCompanyExistsService checkCompanyExistsService;
     private final UpdateCompanyDetailsService updateCompanyDetailsService;
-    private final StudentQueryCompaniesService studentQueryCompaniesService;
+    private final
+    StudentQueryCompaniesService studentQueryCompaniesService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
 
