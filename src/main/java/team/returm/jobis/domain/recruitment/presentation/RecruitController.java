@@ -36,6 +36,9 @@ import team.returm.jobis.domain.recruitment.service.TeacherQueryRecruitmentsServ
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitAreaService;
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitmentService;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recruitments")
@@ -89,9 +92,10 @@ public class RecruitController {
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
-            @RequestParam(value = "page", required = false) Integer page
-    ) {
-        return studentQueryRecruitmentsService.execute(companyName, page);
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "keyword", required = false) List<String> keywords
+            ) {
+        return studentQueryRecruitmentsService.execute(companyName, page, keywords);
     }
 
     @GetMapping("/teacher")

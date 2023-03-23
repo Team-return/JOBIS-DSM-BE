@@ -13,10 +13,10 @@ import team.returm.jobis.global.annotation.ReadOnlyService;
 public class StudentQueryRecruitmentsService {
     private final RecruitmentRepository recruitmentRepository;
 
-    public StudentQueryRecruitmentsResponse execute(String name, Integer page) {
+    public StudentQueryRecruitmentsResponse execute(String name, Integer page, List<String> keywords) {
         List<StudentQueryRecruitmentsResponse.StudentRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(
-                                Year.now().getValue(), null, null, RecruitStatus.RECRUITING, name, page - 1
+                        Year.now().getValue(), null, null, RecruitStatus.RECRUITING, name, page-1, keywords
                         ).stream()
                         .map(
                                 r -> StudentQueryRecruitmentsResponse.StudentRecruitmentResponse.builder()
