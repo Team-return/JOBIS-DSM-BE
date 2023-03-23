@@ -58,8 +58,9 @@ public class AuthCodeFacade {
     }
 
     public void checkIsVerified(String email) {
-        authCodeRepository.findById(email)
-                .orElseThrow(() -> UnverifiedEmailException.EXCEPTION);
+        if (!authCodeRepository.existsByEmailAndVerifiedIsTrue(email)) {
+            throw UnverifiedEmailException.EXCEPTION;
+        }
     }
 
     public void sendMail(String email) {
