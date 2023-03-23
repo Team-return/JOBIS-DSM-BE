@@ -17,7 +17,7 @@ public class TeacherQueryRecruitmentsService {
                                                     Integer year, RecruitStatus status, Integer page) {
         List<TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(
-                                year, start, end, status, companyName, page - 1
+                        year, start, end, status, companyName, page-1, null
                         ).stream()
                         .map(r ->
                                 TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse.builder()
