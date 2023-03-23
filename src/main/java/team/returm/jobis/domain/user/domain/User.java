@@ -7,7 +7,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -16,11 +19,11 @@ import javax.validation.constraints.NotNull;
 public class User extends BaseEntity {
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(20)", unique = true)
+    @Column(columnDefinition = "VARCHAR(30)", unique = true)
     private String accountId;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(60)")
+    @Column(columnDefinition = "VARCHAR(30)")
     private String password;
 
     @Column(columnDefinition = "VARCHAR(7)", nullable = false)
