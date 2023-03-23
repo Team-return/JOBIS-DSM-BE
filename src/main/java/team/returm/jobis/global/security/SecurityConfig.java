@@ -28,20 +28,19 @@ public class SecurityConfig {
                 csrf().disable()
                 .cors().and()
 
-
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
 
                 .authorizeRequests()
 
+                //auth
+                .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
+
                 //students
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
-                .antMatchers(HttpMethod.POST, "/students/code/signup").permitAll()
-                .antMatchers(HttpMethod.POST, "/students/code/password").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
-
 
                 //applications
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
