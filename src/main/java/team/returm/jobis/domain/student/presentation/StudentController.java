@@ -3,7 +3,7 @@ package team.returm.jobis.domain.student.presentation;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
 import team.returm.jobis.domain.student.service.StudentSignUpService;
-import team.returm.jobis.domain.student.service.UpdatePasswordService;
+import team.returm.jobis.domain.student.service.UpdateStudentPasswordService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
 
     private final StudentSignUpService studentSignUpService;
-    private final UpdatePasswordService updatePasswordService;
+    private final UpdateStudentPasswordService updateStudentPasswordService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
@@ -33,6 +33,6 @@ public class StudentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/password")
     public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
-        updatePasswordService.execute(request);
+        updateStudentPasswordService.execute(request);
     }
 }

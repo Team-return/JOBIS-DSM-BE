@@ -12,7 +12,7 @@ import team.returm.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UpdatePasswordService {
+public class UpdateStudentPasswordService {
 
     private final AuthCodeFacade authCodeFacade;
     private final StudentFacade studentFacade;
