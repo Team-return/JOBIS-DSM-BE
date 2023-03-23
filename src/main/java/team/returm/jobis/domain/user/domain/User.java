@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.user.domain;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import team.returm.jobis.global.entity.BaseEntity;
 import team.returm.jobis.domain.user.domain.enums.Authority;
 import lombok.AccessLevel;
