@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DB_URL:jdbc:mysql://localhost:3306/jobis?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul}
     username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:qaz}
+    password: ${DB_PASSWORD:11111111}
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
