@@ -18,7 +18,19 @@ import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 
+import static com.querydsl.core.group.GroupBy.set;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
@@ -35,7 +47,7 @@ public class RecruitmentRepository {
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
-                                                                   RecruitStatus status, String companyName, Integer page) {
+                                                                   RecruitStatus status, String companyName, Integer page, List<String> keywords) {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
@@ -46,8 +58,10 @@ public class RecruitmentRepository {
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
+                        inKeywords(keywords),
                         recruitment.eq(recruitment),
-                        QRecruitAreaCode.recruitAreaCode.codeType.eq(CodeType.JOB)
+                        recruitAreaCode.codeType.eq(CodeType.JOB)
+
                 )
                 .orderBy(recruitment.createdAt.desc())
                 .offset(page * pageSize)
@@ -56,8 +70,8 @@ public class RecruitmentRepository {
                         groupBy(recruitArea.recruitment.id)
                                 .list(new QQueryRecruitmentsVO(
                                         recruitment,
-                                        QCompany.company,
-                                        GroupBy.set(recruitAreaCode.codeKeyword),
+                                        company,
+                                        set(recruitAreaCode.codeKeyword),
                                         sum(recruitArea.hiredCount),
                                         recruitment.applicationCount
                                 ))
@@ -147,6 +161,10 @@ public class RecruitmentRepository {
     private BooleanExpression containName(String name) {
         if (name == null) return null;
 
-        return QCompany.company.name.contains(name);
+        return company.name.contains(name);
+    }
+
+    private BooleanExpression inKeywords(List<String> keywords) {
+        return keywords == null ? null : recruitment.recruitAreaList.any().codeList.any().codeKeyword.in(keywords);
     }
 }
