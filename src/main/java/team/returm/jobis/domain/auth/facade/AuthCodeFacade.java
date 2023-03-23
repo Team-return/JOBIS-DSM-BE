@@ -31,7 +31,6 @@ public class AuthCodeFacade {
         if (studentFacade.existsEmail(email)) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
-        checkEmailDomain(email);
         sendMail(email);
     }
 
@@ -40,7 +39,6 @@ public class AuthCodeFacade {
         if (!studentFacade.existsEmail(email)) {
             throw StudentNotFoundException.EXCEPTION;
         }
-        checkEmailDomain(email);
         sendMail(email);
     }
 
@@ -50,12 +48,6 @@ public class AuthCodeFacade {
                 .orElseThrow(() -> BadAuthCodeException.EXCEPTION);
         authCode.verify();
         authCodeRepository.save(authCode);
-    }
-
-    private void checkEmailDomain(String email) {
-        if (!email.matches(RegexProperty.EMAIL)) {
-            throw BadEmailException.EXCEPTION;
-        }
     }
 
     public void checkIsVerified(String email) {
