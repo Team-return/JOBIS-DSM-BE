@@ -38,7 +38,7 @@ public class CompanyRepository {
                 .from(company)
                 .where(
                         containsName(name),
-                        inKeywords(keywords)
+                        containsKeywords(keywords)
                 )
                 .orderBy(company.name.desc())
                 .offset(page * pageSize)
@@ -105,7 +105,7 @@ public class CompanyRepository {
         return name == null ? null : company.name.contains(name);
     }
 
-    private BooleanExpression inKeywords(List<String> keywords) {
+    private BooleanExpression containsKeywords(List<String> keywords) {
         return keywords == null ? null : company.recruitmentList.any().recruitAreaList.any().codeList.any().codeKeyword.in(keywords);
     }
 }

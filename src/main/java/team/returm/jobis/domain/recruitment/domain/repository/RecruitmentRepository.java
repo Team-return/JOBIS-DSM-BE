@@ -58,7 +58,7 @@ public class RecruitmentRepository {
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
-                        inKeywords(keywords),
+                        containsKeywords(keywords),
                         recruitment.eq(recruitment),
                         recruitAreaCode.codeType.eq(CodeType.JOB)
 
@@ -164,7 +164,7 @@ public class RecruitmentRepository {
         return company.name.contains(name);
     }
 
-    private BooleanExpression inKeywords(List<String> keywords) {
+    private BooleanExpression containsKeywords(List<String> keywords) {
         return keywords == null ? null : recruitment.recruitAreaList.any().codeList.any().codeKeyword.in(keywords);
     }
 }
