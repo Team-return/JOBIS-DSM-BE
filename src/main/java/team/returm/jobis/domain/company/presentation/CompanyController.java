@@ -49,8 +49,7 @@ public class CompanyController {
     private final RegisterCompanyService registerCompanyService;
     private final CheckCompanyExistsService checkCompanyExistsService;
     private final UpdateCompanyDetailsService updateCompanyDetailsService;
-    private final
-    StudentQueryCompaniesService studentQueryCompaniesService;
+    private final StudentQueryCompaniesService studentQueryCompaniesService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
 
@@ -73,7 +72,7 @@ public class CompanyController {
 
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
-            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "keyword", required = false)List<String> keywords
             ) {
