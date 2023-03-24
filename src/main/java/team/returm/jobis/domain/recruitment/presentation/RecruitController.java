@@ -10,6 +10,7 @@ import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQue
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse;
 import team.returm.jobis.domain.recruitment.service.ApplyRecruitmentService;
+import team.returm.jobis.domain.recruitment.service.DeleteRecruitAreaService;
 import team.returm.jobis.domain.recruitment.service.DeleteRecruitmentService;
 import team.returm.jobis.domain.recruitment.service.QueryMyRecruitmentService;
 import team.returm.jobis.domain.recruitment.service.TeacherChangeRecruitmentStatusService;
@@ -51,6 +52,7 @@ public class RecruitController {
     private final StudentQueryRecruitmentDetailService studentQueryRecruitmentDetailService;
     private final QueryMyRecruitmentService queryMyRecruitmentService;
     private final DeleteRecruitmentService deleteRecruitmentService;
+    private final DeleteRecruitAreaService deleteRecruitAreaService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -130,5 +132,11 @@ public class RecruitController {
     @DeleteMapping("/{recruitment-id}")
     public void deleteRecruitment(@PathVariable("recruitment-id") UUID recruitmentId) {
         deleteRecruitmentService.execute(recruitmentId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/area/{recruit-area-id}")
+    public void deleteRecruitArea(@PathVariable("recruit-area-id") UUID recruitAreaId) {
+        deleteRecruitAreaService.execute(recruitAreaId);
     }
 }
