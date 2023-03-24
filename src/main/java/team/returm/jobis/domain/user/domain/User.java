@@ -23,7 +23,7 @@ public class User extends BaseEntity {
     private String accountId;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(30)")
+    @Column(columnDefinition = "CHAR(60)")
     private String password;
 
     @Column(columnDefinition = "VARCHAR(7)", nullable = false)

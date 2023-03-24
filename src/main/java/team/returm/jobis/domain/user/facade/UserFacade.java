@@ -51,7 +51,7 @@ public class UserFacade {
         return UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
-    public boolean existsEmail(String accountId) {
+    public boolean existsAccountId(String accountId) {
         return userJpaRepository.existsByAccountId(accountId);
     }
 }

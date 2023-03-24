@@ -26,7 +26,7 @@ public class StudentSignUpService {
 
     public TokenResponse execute(StudentSignUpRequest request) {
 
-        if (userFacade.existsEmail(request.getEmail())) {
+        if (userFacade.existsAccountId(request.getEmail())) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
         authCodeFacade.checkIsVerified(request.getEmail());

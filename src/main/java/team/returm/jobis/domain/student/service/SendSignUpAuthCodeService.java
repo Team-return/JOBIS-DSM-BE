@@ -16,7 +16,7 @@ public class SendSignUpAuthCodeService {
 
     public void execute(SendAuthCodeRequest request) {
 
-        if (userFacade.existsEmail(request.getEmail())) {
+        if (userFacade.existsAccountId(request.getEmail())) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
         authCodeFacade.checkEmailDomain(request.getEmail());
