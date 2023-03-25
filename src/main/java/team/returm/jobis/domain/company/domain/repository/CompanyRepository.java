@@ -24,7 +24,7 @@ public class CompanyRepository {
     private final CompanyJpaRepository companyJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public List<StudentQueryCompaniesVO> queryCompanyVoList(Integer page, String name, List<String> keywords) {
+    public List<StudentQueryCompaniesVO> queryCompanyVoList(Integer page, String name) {
         long pageSize = 11;
         return queryFactory
                 .select(
@@ -37,8 +37,7 @@ public class CompanyRepository {
                 )
                 .from(company)
                 .where(
-                        containsName(name),
-                        containsKeywords(keywords)
+                        containsName(name)
                 )
                 .orderBy(company.name.desc())
                 .offset(page * pageSize)
@@ -105,7 +104,4 @@ public class CompanyRepository {
         return name == null ? null : company.name.contains(name);
     }
 
-    private BooleanExpression containsKeywords(List<String> keywords) {
-        return keywords == null ? null : company.recruitmentList.any().recruitAreaList.any().codeList.any().codeKeyword.in(keywords);
-    }
 }

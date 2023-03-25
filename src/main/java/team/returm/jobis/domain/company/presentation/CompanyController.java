@@ -41,6 +41,7 @@ import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/companies")
 @RestController
@@ -73,10 +74,9 @@ public class CompanyController {
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "keyword", required = false)List<String> keywords
+            @RequestParam(value = "name", required = false) String name
             ) {
-        return studentQueryCompaniesService.execute(page, name, keywords);
+        return studentQueryCompaniesService.execute(page, name);
     }
 
     @GetMapping("/{company-id}")

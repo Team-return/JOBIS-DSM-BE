@@ -13,9 +13,9 @@ public class StudentQueryCompaniesService {
 
     private final CompanyRepository companyRepository;
 
-    public StudentQueryCompaniesResponse execute(Integer page, String name, List<String> keywords) {
+    public StudentQueryCompaniesResponse execute(Integer page, String name) {
         return new StudentQueryCompaniesResponse(
-                companyRepository.queryCompanyVoList(page, name, keywords)
+                companyRepository.queryCompanyVoList(page, name)
         );
     }
 }
