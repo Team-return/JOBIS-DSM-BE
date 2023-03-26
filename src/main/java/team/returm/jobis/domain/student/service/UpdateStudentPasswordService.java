@@ -26,9 +26,9 @@ public class UpdateStudentPasswordService {
         }
         authCodeFacade.checkIsVerified(request.getEmail());
 
-        User student = userRepository.queryUserByAccountId(request.getEmail())
+        User user = userRepository.queryUserByAccountId(request.getEmail())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        student.updatePassword(passwordEncoder.encode(request.getPassword()));
+        user.updatePassword(passwordEncoder.encode(request.getPassword()));
     }
 }

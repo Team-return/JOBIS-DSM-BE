@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class VerifyAuthCodeRequest {
 
+    @NotBlank
     @Pattern(regexp = RegexProperty.EMAIL)
     private String email;
 
