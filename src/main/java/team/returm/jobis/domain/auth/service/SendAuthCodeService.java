@@ -18,26 +18,29 @@ public class SendAuthCodeService {
 
     public void execute(SendAuthCodeRequest request) {
 
+        String code = authCodeFacade.createRandomCode();
+        authCodeFacade.getAuthCode(request.getEmail(), code);
+
         if (request.getAuthCodeType().equals(AuthCodeType.SIGN_UP)) {
-            sendSignUpAuthCode(request.getEmail());
+            sendSignUpAuthCode(request.getEmail(), code);
         } else {
-            sendPasswordAuthCode(request.getEmail());
+            sendPasswordAuthCode(request.getEmail(), code);
         }
     }
 
-    private void sendSignUpAuthCode(String email) {
+    private void sendSignUpAuthCode(String email, String code) {
 
         if (studentFacade.existsEmail(email)) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
-        authCodeFacade.sendMail(email);
+        authCodeFacade.sendMail(email, code);
     }
 
-    private void sendPasswordAuthCode(String email) {
+    private void sendPasswordAuthCode(String email, String code) {
 
         if (!studentFacade.existsEmail(email)) {
             throw StudentNotFoundException.EXCEPTION;
         }
-        authCodeFacade.sendMail(email);
+        authCodeFacade.sendMail(email, code);
     }
 }

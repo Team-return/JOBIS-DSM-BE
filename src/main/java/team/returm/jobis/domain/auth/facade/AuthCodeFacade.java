@@ -20,7 +20,6 @@ public class AuthCodeFacade {
     private final JmsUtil jmsUtil;
     private final JmsProperties jmsProperties;
 
-
     public void verifyAuthCode(String code, String email) {
         AuthCode authCode = authCodeRepository.findById(email)
                 .filter(a ->  a.getCode().equals(code))
@@ -35,20 +34,15 @@ public class AuthCodeFacade {
         }
     }
 
-    public void sendMail(String email) {
-        String code = createRandomCode();
-        AuthCode authCode = getAuthCode(email, code);
-        authCodeRepository.save(authCode);
-
-        jmsUtil.sendMail(email, authCode.getCode());
+    public void sendMail(String email, String code) {
+        jmsUtil.sendMail(email, code);
     }
 
-    private AuthCode getAuthCode(String email, String code) {
+    public void getAuthCode(String email, String code) {
         AuthCode authCode = authCodeRepository.findById(email)
                 .orElseGet(() -> createAuthCode(email, code));
 
         authCode.updateAuthCode(code, jmsProperties.getAuthExp());
-        return authCode;
     }
 
     private AuthCode createAuthCode(String email, String code) {
@@ -60,7 +54,7 @@ public class AuthCodeFacade {
                 .build();
     }
 
-    private String createRandomCode() {
+    public String createRandomCode() {
         return String.format("%06d", RANDOM.nextInt(1000000) % 1000000);
     }
 }
