@@ -5,7 +5,6 @@ import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.presentation.dto.response.JobCodeResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @ReadOnlyService
