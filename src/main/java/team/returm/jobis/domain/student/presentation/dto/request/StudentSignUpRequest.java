@@ -36,6 +36,6 @@ public class StudentSignUpRequest {
     @NotNull
     private Integer number;
 
-    @NotBlank
+    @NotNull
     private Gender gender;
 }

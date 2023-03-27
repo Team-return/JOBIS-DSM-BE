@@ -39,10 +39,6 @@ public class Student {
     private String name;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(30)")
-    private String email;
-
-    @NotNull
     @Column(columnDefinition = "VARCHAR(12)")
     private String phoneNumber;
 
@@ -63,11 +59,10 @@ public class Student {
     private Gender gender;
 
     @Builder
-    public Student(User user, String name, String email, String phoneNumber,
+    public Student(User user, String name, String phoneNumber,
                    Integer grade, Integer classRoom, Integer number, Gender gender) {
         this.user = user;
         this.name = name;
-        this.email = email;
         this.phoneNumber = phoneNumber;
         this.grade = grade;
         this.classRoom = classRoom;
