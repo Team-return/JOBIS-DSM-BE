@@ -77,7 +77,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
 
                 //students
-                .antMatchers(HttpMethod.POST, "/students").permitAll()
+                .antMatchers(HttpMethod.POST, "/students/signup").permitAll()
                 .antMatchers(HttpMethod.POST, "/students/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/code").permitAll()
 

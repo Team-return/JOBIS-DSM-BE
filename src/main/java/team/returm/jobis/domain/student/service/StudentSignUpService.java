@@ -55,6 +55,7 @@ public class StudentSignUpService {
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
                 .build();
     }
 }
