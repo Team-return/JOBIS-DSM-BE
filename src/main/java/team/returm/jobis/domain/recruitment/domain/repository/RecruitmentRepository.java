@@ -47,7 +47,7 @@ public class RecruitmentRepository {
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
-                                                                   RecruitStatus status, String companyName, Integer page, List<String> keywords) {
+                                                                   RecruitStatus status, String companyName, Integer page, List<RecruitAreaCode> codes) {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
@@ -58,10 +58,9 @@ public class RecruitmentRepository {
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
-                        containsKeywords(keywords),
+                        containsKeywords(codes),
                         recruitment.eq(recruitment),
                         recruitAreaCode.codeType.eq(CodeType.JOB)
-
                 )
                 .orderBy(recruitment.createdAt.desc())
                 .offset(page * pageSize)
@@ -164,7 +163,7 @@ public class RecruitmentRepository {
         return company.name.contains(name);
     }
 
-    private BooleanExpression containsKeywords(List<String> keywords) {
-        return keywords == null ? null : recruitment.recruitAreaList.any().codeList.any().codeKeyword.in(keywords);
+    private BooleanExpression containsKeywords(List<RecruitAreaCode> codes) {
+        return codes == null ? null : recruitment.recruitAreaList.any().codeList.any().in(codes);
     }
 }
