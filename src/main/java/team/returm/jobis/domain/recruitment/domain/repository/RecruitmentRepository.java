@@ -89,8 +89,16 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
+    public Optional<RecruitArea> queryRecruitAreaById(UUID recruitAreaId) {
+        return recruitAreaJpaRepository.findById(recruitAreaId);
+    }
+
     public void deleteRecruitAreaCodeByRecruitAreaId(UUID recruitAreaId) {
         recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitAreaId);
+    }
+
+    public void deleteRecruitAreaById(UUID recruitAreaId) {
+        recruitAreaJpaRepository.deleteById(recruitAreaId);
     }
 
     public void saveAllRecruitments(List<Recruitment> recruitments) {
@@ -103,6 +111,10 @@ public class RecruitmentRepository {
 
     public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
+    }
+
+    public void deleteRecruitment(UUID recruitmentId) {
+        recruitmentJpaRepository.deleteById(recruitmentId);
     }
 
     public Recruitment saveRecruitment(Recruitment recruitment) {

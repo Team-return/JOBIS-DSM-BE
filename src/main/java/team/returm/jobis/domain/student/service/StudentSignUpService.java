@@ -1,18 +1,21 @@
 package team.returm.jobis.domain.student.service;
 
-import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentJpaRepository;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
+import team.returm.jobis.domain.student.facade.AuthCodeFacade;
+import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.returm.jobis.domain.auth.facade.AuthCodeFacade;
 import team.returm.jobis.domain.student.facade.StudentFacade;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
+import team.returm.jobis.domain.user.facade.UserFacade;
+import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
 @Service
@@ -21,12 +24,12 @@ public class StudentSignUpService {
     private final StudentJpaRepository studentJpaRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthCodeFacade authCodeFacade;
-    private final StudentFacade studentFacade;
+    private final UserFacade userFacade;
     private final JwtTokenProvider jwtTokenProvider;
 
     public TokenResponse execute(StudentSignUpRequest request) {
 
-        if (studentFacade.existsEmail(request.getEmail())) {
+        if (userFacade.existsAccountId(request.getEmail())) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
         authCodeFacade.checkIsVerified(request.getEmail());
@@ -39,7 +42,6 @@ public class StudentSignUpService {
 
         studentJpaRepository.save(
                 Student.builder()
-                        .email(request.getEmail())
                         .phoneNumber(request.getPhoneNumber())
                         .user(user)
                         .classRoom(request.getClassRoom())
@@ -56,6 +58,7 @@ public class StudentSignUpService {
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
                 .build();
     }
 }

@@ -1,5 +1,7 @@
 package team.returm.jobis.domain.code.domain;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import lombok.AccessLevel;
@@ -35,6 +37,7 @@ public class RecruitAreaCode {
     private String codeKeyword;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(4)")
     private CodeType codeType;
 }

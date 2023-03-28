@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface UserJpaRepository extends CrudRepository<User, UUID> {
     Optional<User> findByAccountId(String accountId);
+
+    boolean existsByAccountId(String accountId);
 }

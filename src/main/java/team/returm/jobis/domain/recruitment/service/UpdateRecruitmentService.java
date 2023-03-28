@@ -1,7 +1,5 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.company.facade.CompanyFacade;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.facade.RecruitFacade;
@@ -17,7 +15,6 @@ import java.util.UUID;
 @Service
 public class UpdateRecruitmentService {
 
-    private final CompanyFacade companyFacade;
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
 
@@ -25,10 +22,8 @@ public class UpdateRecruitmentService {
         User user = userFacade.getCurrentUser();
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
-
         if (user.getAuthority() == Authority.COMPANY) {
-            Company company = companyFacade.queryCompanyById(user.getId());
-            recruitment.checkCompany(company.getId());
+            recruitment.checkCompany(user.getId());
         }
 
         String requiredLicenses = StringUtil.getRequiredLicenses(request.getRequiredLicenses());

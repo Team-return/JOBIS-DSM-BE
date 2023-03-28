@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.domain;
 
-import javax.persistence.CascadeType;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
@@ -81,17 +80,17 @@ public class Recruitment extends BaseEntity {
     @Embedded
     private PayInfo payInfo;
 
+    @Column(columnDefinition = "INT")
+    private Integer applicationCount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @Column(columnDefinition = "INT")
-    private Integer applicationCount;
-
-    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
     private List<RecruitArea> recruitAreaList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recruitment")
     private List<Application> applications = new ArrayList<>();
 
     @Builder
@@ -139,7 +138,7 @@ public class Recruitment extends BaseEntity {
     }
 
     public void checkCompany(UUID companyId) {
-        if (!this.getCompany().getId().equals(companyId)) {
+        if (!this.company.getId().equals(companyId)) {
             throw CompanyMismatchException.EXCEPTION;
         }
     }
