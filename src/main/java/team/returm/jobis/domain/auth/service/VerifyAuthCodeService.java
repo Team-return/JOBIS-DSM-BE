@@ -11,7 +11,7 @@ public class VerifyAuthCodeService {
 
     private final AuthCodeFacade authCodeFacade;
 
-    public void execute(VerifyAuthCodeRequest request) {
-        authCodeFacade.verifyAuthCode(request.getAuthCode(), request.getEmail());
+    public void execute(String email, String authCode) {
+        authCodeFacade.verifyAuthCode(email, authCode);
     }
 }
