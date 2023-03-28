@@ -7,7 +7,6 @@ import team.returm.jobis.domain.application.exception.ApplicationCannotDeleteExc
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.application.exception.InvalidStudentException;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
