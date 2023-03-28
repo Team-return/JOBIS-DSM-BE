@@ -6,7 +6,7 @@ import team.returm.jobis.domain.auth.facade.AuthCodeFacade;
 import team.returm.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.returm.jobis.domain.student.exception.StudentNotFoundException;
-import team.returm.jobis.domain.student.facade.StudentFacade;
+import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor
@@ -14,7 +14,7 @@ import team.returm.jobis.global.annotation.Service;
 public class SendAuthCodeService {
 
     private final AuthCodeFacade authCodeFacade;
-    private final StudentFacade studentFacade;
+    private final UserFacade userFacade;
 
     public void execute(SendAuthCodeRequest request) {
 
@@ -30,7 +30,7 @@ public class SendAuthCodeService {
 
     private void sendSignUpAuthCode(String email, String code) {
 
-        if (studentFacade.existsEmail(email)) {
+        if (userFacade.existsAccountId(email)) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
         authCodeFacade.sendMail(email, code);
@@ -38,7 +38,7 @@ public class SendAuthCodeService {
 
     private void sendPasswordAuthCode(String email, String code) {
 
-        if (!studentFacade.existsEmail(email)) {
+        if (!userFacade.existsAccountId(email)) {
             throw StudentNotFoundException.EXCEPTION;
         }
         authCodeFacade.sendMail(email, code);
