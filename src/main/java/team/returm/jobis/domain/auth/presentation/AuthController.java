@@ -32,7 +32,10 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/code")
-    public void verifyCode(@RequestParam("email") String email, @RequestParam("auth-code") String authCode) {
+    public void verifyCode(
+            @RequestParam("email") String email,
+            @RequestParam("auth-code") String authCode
+    ) {
         verifyAuthCodeService.execute(email, authCode);
     }
 }

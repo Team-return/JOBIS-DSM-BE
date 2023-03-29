@@ -17,7 +17,6 @@ public class SendAuthCodeService {
     private final UserFacade userFacade;
 
     public void execute(SendAuthCodeRequest request) {
-
         String code = authCodeFacade.createRandomCode();
         authCodeFacade.getAuthCode(request.getEmail(), code);
 
