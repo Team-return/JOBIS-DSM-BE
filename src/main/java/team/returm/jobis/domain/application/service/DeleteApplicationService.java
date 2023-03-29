@@ -6,6 +6,7 @@ import team.returm.jobis.domain.application.domain.repository.ApplicationReposit
 import team.returm.jobis.domain.application.exception.ApplicationCannotDeleteException;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.application.exception.InvalidStudentException;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
@@ -20,10 +21,12 @@ public class DeleteApplicationService {
     private final ApplicationRepository applicationRepository;
     private final UserFacade userFacade;
 
+
     public void execute(UUID applicationId) {
         Student student = userFacade.getCurrentStudent();
         Application application = applicationRepository.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+        Recruitment recruitment = application.getRecruitment();
 
         if (!application.getStudent().equals(student)) {
             throw InvalidStudentException.EXCEPTION;
@@ -34,5 +37,6 @@ public class DeleteApplicationService {
         }
 
         applicationRepository.deleteApplication(application);
+        recruitment.subApplicationCount();
     }
 }

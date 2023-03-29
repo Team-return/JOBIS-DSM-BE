@@ -1,4 +1,4 @@
-package team.returm.jobis.domain.student.presentation.dto.request;
+package team.returm.jobis.domain.auth.presentation.dto.request;
 
 import team.returm.jobis.global.util.RegexProperty;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class VerifyAuthCodeRequest {
 
+    @NotBlank
     @Pattern(regexp = RegexProperty.EMAIL)
     private String email;
 
