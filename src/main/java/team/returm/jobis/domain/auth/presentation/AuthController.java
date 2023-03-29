@@ -3,6 +3,7 @@ package team.returm.jobis.domain.auth.presentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class AuthController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @GetMapping("/code")
+    @PatchMapping ("/code")
     public void verifyCode(@RequestParam("email") String email, @RequestParam("auth-code") String authCode) {
         verifyAuthCodeService.execute(email, authCode);
     }
