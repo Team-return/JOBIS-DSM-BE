@@ -15,13 +15,12 @@ import team.returm.jobis.global.annotation.Service;
 public class UpdateStudentPasswordService {
 
     private final AuthCodeFacade authCodeFacade;
-    private final UserFacade userFacade;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public void execute(UpdatePasswordRequest request) {
 
-        if (!userFacade.existsAccountId(request.getEmail())) {
+        if (!userRepository.existsByAccountId(request.getEmail())) {
             throw UserNotFoundException.EXCEPTION;
         }
         authCodeFacade.checkIsVerified(request.getEmail());

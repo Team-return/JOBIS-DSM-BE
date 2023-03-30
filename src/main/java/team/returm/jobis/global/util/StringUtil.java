@@ -1,5 +1,6 @@
 package team.returm.jobis.global.util;
 
+import net.bytebuddy.utility.RandomString;
 import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 
 import java.util.List;
@@ -22,5 +23,9 @@ public class StringUtil {
 
     public static List<String> divideString(String content) {
         return content==null ? null : List.of(content.split(","));
+    }
+
+    public static String generateRandomCode(int size) {
+        return RandomString.make(size);
     }
 }

@@ -24,6 +24,7 @@ public enum ErrorCode {
     INVALID_STUDENT(401, "Invalid Student"),
 
     USER_NOT_FOUND(404, "User Not Found"),
+    AUTH_CODE_NOT_FOUND(404, "AuthCode Not Found"),
     COMPANY_NOT_FOUND(404, "Company Not Found"),
     STUDENT_NOT_FOUND(404, "Student Not Found"),
     TEACHER_NOT_FOUND(404, "Teacher Not Found"),
