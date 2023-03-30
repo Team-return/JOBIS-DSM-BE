@@ -7,10 +7,10 @@ import team.returm.jobis.domain.student.domain.repository.StudentJpaRepository;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.returm.jobis.domain.auth.facade.AuthCodeFacade;
+import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
-import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 
@@ -21,12 +21,12 @@ public class StudentSignUpService {
     private final StudentJpaRepository studentJpaRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthCodeFacade authCodeFacade;
-    private final UserFacade userFacade;
+    private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     public TokenResponse execute(StudentSignUpRequest request) {
 
-        if (userFacade.existsAccountId(request.getEmail())) {
+        if (userRepository.existsByAccountId(request.getEmail())) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
         authCodeFacade.checkIsVerified(request.getEmail());

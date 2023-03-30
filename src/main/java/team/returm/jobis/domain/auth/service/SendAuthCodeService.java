@@ -30,7 +30,7 @@ public class SendAuthCodeService {
                 throw StudentNotFoundException.EXCEPTION;
             }
         }
-        
+
         AuthCode authCode = AuthCode.builder()
                 .code(StringUtil.generateRandomCode(6))
                 .email(request.getEmail())
