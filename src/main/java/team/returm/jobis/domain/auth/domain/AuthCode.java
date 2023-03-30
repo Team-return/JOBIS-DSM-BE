@@ -5,29 +5,33 @@ import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
+import org.springframework.data.redis.core.index.Indexed;
 
 @Getter
-@Builder
 @RedisHash
 public class AuthCode {
 
     @Id
-    private final String email;
+    private String email;
 
+    @Indexed
     private String code;
 
     private boolean isVerified;
 
     @TimeToLive
-    private Long ttl;
+    private Integer ttl;
 
-    public void updateAuthCode(String code, Long ttl) {
+    @Builder
+    public AuthCode(String email, String code) {
+        this.email = email;
         this.code = code;
-        this.ttl = ttl;
         this.isVerified = false;
-     }
+        this.ttl = 300;
+    }
 
-    public void verify() {
+    public AuthCode verify() {
         this.isVerified = true;
+        return this;
     }
 }
