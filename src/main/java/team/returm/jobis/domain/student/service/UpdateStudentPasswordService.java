@@ -7,7 +7,6 @@ import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordR
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.domain.user.exception.UserNotFoundException;
-import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor
