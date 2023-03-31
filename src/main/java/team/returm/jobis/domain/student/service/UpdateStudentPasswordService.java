@@ -7,7 +7,6 @@ import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordR
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.domain.user.exception.UserNotFoundException;
-import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor
@@ -15,13 +14,12 @@ import team.returm.jobis.global.annotation.Service;
 public class UpdateStudentPasswordService {
 
     private final AuthCodeFacade authCodeFacade;
-    private final UserFacade userFacade;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public void execute(UpdatePasswordRequest request) {
 
-        if (!userFacade.existsAccountId(request.getEmail())) {
+        if (!userRepository.existsByAccountId(request.getEmail())) {
             throw UserNotFoundException.EXCEPTION;
         }
         authCodeFacade.checkIsVerified(request.getEmail());

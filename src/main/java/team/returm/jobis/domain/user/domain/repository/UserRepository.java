@@ -18,11 +18,11 @@ public class UserRepository {
         return userJpaRepository.findByAccountId(accountId);
     }
 
-    public User saveUser(User user) {
-        return userJpaRepository.save(user);
-    }
-
     public Optional<User> queryUserById(UUID userId) {
         return userJpaRepository.findById(userId);
+    }
+
+    public boolean existsByAccountId(String accountId) {
+        return userJpaRepository.existsByAccountId(accountId);
     }
 }

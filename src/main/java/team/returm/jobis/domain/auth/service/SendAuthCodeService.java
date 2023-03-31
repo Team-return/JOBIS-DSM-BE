@@ -1,45 +1,42 @@
 package team.returm.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.auth.domain.AuthCode;
 import team.returm.jobis.domain.auth.domain.types.AuthCodeType;
-import team.returm.jobis.domain.auth.facade.AuthCodeFacade;
 import team.returm.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
+import team.returm.jobis.domain.student.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.returm.jobis.domain.student.exception.StudentNotFoundException;
-import team.returm.jobis.domain.user.facade.UserFacade;
+import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.global.annotation.Service;
+import team.returm.jobis.global.util.StringUtil;
+import team.returm.jobis.global.util.jms.JmsUtil;
 
 @RequiredArgsConstructor
 @Service
 public class SendAuthCodeService {
 
-    private final AuthCodeFacade authCodeFacade;
-    private final UserFacade userFacade;
+    private final AuthCodeRepository authCodeRepository;
+    private final UserRepository userRepository;
+    private final JmsUtil jmsUtil;
 
     public void execute(SendAuthCodeRequest request) {
-        String code = authCodeFacade.createRandomCode();
-        authCodeFacade.getAuthCode(request.getEmail(), code);
-
-        if (request.getAuthCodeType().equals(AuthCodeType.SIGN_UP)) {
-            sendSignUpAuthCode(request.getEmail(), code);
+        if (request.getAuthCodeType() == AuthCodeType.SIGN_UP) {
+            if (userRepository.existsByAccountId(request.getEmail())) {
+                throw StudentAlreadyExistsException.EXCEPTION;
+            }
         } else {
-            sendPasswordAuthCode(request.getEmail(), code);
+            if (!userRepository.existsByAccountId(request.getEmail())) {
+                throw StudentNotFoundException.EXCEPTION;
+            }
         }
-    }
 
-    private void sendSignUpAuthCode(String email, String code) {
+        AuthCode authCode = AuthCode.builder()
+                .code(StringUtil.generateRandomCode(6))
+                .email(request.getEmail())
+                .build();
+        authCodeRepository.save(authCode);
 
-        if (userFacade.existsAccountId(email)) {
-            throw StudentAlreadyExistsException.EXCEPTION;
-        }
-        authCodeFacade.sendMail(email, code);
-    }
-
-    private void sendPasswordAuthCode(String email, String code) {
-
-        if (!userFacade.existsAccountId(email)) {
-            throw StudentNotFoundException.EXCEPTION;
-        }
-        authCodeFacade.sendMail(email, code);
+        jmsUtil.sendMail(authCode.getEmail(), authCode.getCode(), request.getUserName());
     }
 }
