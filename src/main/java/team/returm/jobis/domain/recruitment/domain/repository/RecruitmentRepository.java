@@ -125,6 +125,10 @@ public class RecruitmentRepository {
         return recruitAreaJpaRepository.save(recruitArea);
     }
 
+    public List<Recruitment> queryRecruitmentsByIdIn(List<UUID> recruitmentIds) {
+        return recruitmentJpaRepository.findByIdIn(recruitmentIds);
+    }
+
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {
