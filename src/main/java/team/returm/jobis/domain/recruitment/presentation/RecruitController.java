@@ -1,6 +1,7 @@
 package team.returm.jobis.domain.recruitment.presentation;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
@@ -108,12 +109,9 @@ public class RecruitController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{recruitment-id}/status")
-    public void changeRecruitStatus(
-            @PathVariable("recruitment-id") UUID recruitId,
-            @RequestParam("status") RecruitStatus status
-    ) {
-        teacherChangeRecruitmentStatusService.execute(recruitId, status);
+    @PatchMapping("/status")
+    public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentRequest request) {
+        teacherChangeRecruitmentStatusService.execute(request);
     }
 
     @GetMapping("/student/{recruitment-id}")
