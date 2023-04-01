@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.recruitment.service;
 
+import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -7,8 +8,6 @@ import team.returm.jobis.domain.recruitment.facade.RecruitFacade;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 import team.returm.jobis.global.util.StringUtil;
-import lombok.RequiredArgsConstructor;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @ReadOnlyService

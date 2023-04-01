@@ -1,18 +1,18 @@
 package team.returm.jobis.domain.company.service;
 
-import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
-import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
-import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.domain.company.facade.CompanyFacade;
+import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
+import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
 @Service

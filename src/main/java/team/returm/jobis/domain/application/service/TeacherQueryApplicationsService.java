@@ -1,14 +1,13 @@
 package team.returm.jobis.domain.application.service;
 
-import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
+import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyService
@@ -19,9 +18,9 @@ public class TeacherQueryApplicationsService {
     public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName) {
         QueryApplicationsRequest request =
                 QueryApplicationsRequest.builder()
-                .applicationStatus(applicationStatus)
-                .studentName(studentName)
-                .build();
+                        .applicationStatus(applicationStatus)
+                        .studentName(studentName)
+                        .build();
 
         return applicationRepository.queryApplicationByConditions(request).stream()
                 .map(a -> TeacherQueryApplicationsResponse.builder()

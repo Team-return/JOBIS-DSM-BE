@@ -1,10 +1,9 @@
 package team.returm.jobis.domain.code.domain.repository;
 
-import team.returm.jobis.domain.code.domain.Code;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
+import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 
 public interface CodeJpaRepository extends JpaRepository<Code, Long> {

@@ -1,13 +1,12 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
-import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import team.returm.jobis.global.annotation.ReadOnlyService;
-import lombok.RequiredArgsConstructor;
-
 import java.time.Year;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
+import team.returm.jobis.global.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
 @ReadOnlyService
@@ -17,7 +16,7 @@ public class StudentQueryRecruitmentsService {
     public StudentQueryRecruitmentsResponse execute(String name, Integer page) {
         List<StudentQueryRecruitmentsResponse.StudentRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(
-                        Year.now().getValue(), null, null, RecruitStatus.RECRUITING, name, page-1
+                                Year.now().getValue(), null, null, RecruitStatus.RECRUITING, name, page - 1
                         ).stream()
                         .map(
                                 r -> StudentQueryRecruitmentsResponse.StudentRecruitmentResponse.builder()
@@ -29,7 +28,7 @@ public class StudentQueryRecruitmentsService {
                                         .companyProfileUrl(r.getCompany().getCompanyLogoUrl())
                                         .totalHiring(r.getTotalHiring())
                                         .build()
-                ).toList();
+                        ).toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
     }

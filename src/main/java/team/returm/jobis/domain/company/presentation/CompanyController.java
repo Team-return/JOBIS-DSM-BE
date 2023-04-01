@@ -1,18 +1,6 @@
 package team.returm.jobis.domain.company.presentation;
 
-import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
-import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
-import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
-import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
-import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
-import team.returm.jobis.domain.company.service.CheckCompanyExistsService;
-import team.returm.jobis.domain.company.service.CompanyMyPageService;
-import team.returm.jobis.domain.company.service.QueryCompanyDetailsService;
-import team.returm.jobis.domain.company.service.RegisterCompanyService;
-import team.returm.jobis.domain.company.service.StudentQueryCompaniesService;
-import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
-import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
-import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +11,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.UUID;
+import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
+import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
+import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
+import team.returm.jobis.domain.company.service.CheckCompanyExistsService;
+import team.returm.jobis.domain.company.service.CompanyMyPageService;
+import team.returm.jobis.domain.company.service.QueryCompanyDetailsService;
+import team.returm.jobis.domain.company.service.RegisterCompanyService;
+import team.returm.jobis.domain.company.service.StudentQueryCompaniesService;
+import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
+import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 @RequiredArgsConstructor
 @RequestMapping("/companies")

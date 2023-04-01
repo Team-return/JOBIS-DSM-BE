@@ -1,14 +1,13 @@
 package team.returm.jobis.global.util.jms;
 
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
-import team.returm.jobis.global.exception.MailSendException;
+import javax.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-
-import javax.mail.internet.MimeMessage;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import team.returm.jobis.global.exception.MailSendException;
 
 @RequiredArgsConstructor
 @Component

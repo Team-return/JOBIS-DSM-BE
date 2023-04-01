@@ -1,14 +1,5 @@
 package team.returm.jobis.domain.code.domain;
 
-import team.returm.jobis.domain.code.domain.enums.CodeType;
-import team.returm.jobis.domain.code.domain.enums.JobType;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.DynamicInsert;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,6 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.DynamicInsert;
+import team.returm.jobis.domain.code.domain.enums.CodeType;
+import team.returm.jobis.domain.code.domain.enums.JobType;
 
 @Getter
 @BatchSize(size = 100)

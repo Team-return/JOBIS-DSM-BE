@@ -1,11 +1,10 @@
 package team.returm.jobis.global.entity;
 
-import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
-
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDateTime;
+import lombok.Getter;
+import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @MappedSuperclass

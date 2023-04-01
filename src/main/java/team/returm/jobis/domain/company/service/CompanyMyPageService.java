@@ -1,10 +1,10 @@
 package team.returm.jobis.domain.company.service;
 
-import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
+import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @ReadOnlyService

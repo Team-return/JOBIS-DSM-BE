@@ -1,12 +1,11 @@
 package team.returm.jobis.domain.auth.presentation.dto.request;
 
-import team.returm.jobis.global.util.RegexProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.global.util.RegexProperty;
 
 @Getter
 @NoArgsConstructor

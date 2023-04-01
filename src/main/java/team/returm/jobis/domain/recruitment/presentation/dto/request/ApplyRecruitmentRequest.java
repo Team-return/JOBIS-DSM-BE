@@ -1,19 +1,19 @@
 package team.returm.jobis.domain.recruitment.presentation.dto.request;
 
-import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDate;
+import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 
 @Getter
 @NoArgsConstructor
 public class ApplyRecruitmentRequest {
-    @NotNull @Valid
+    @NotNull
+    @Valid
     private List<Area> areas;
     private String preferentialTreatment;
     private Integer requiredGrade;
@@ -38,7 +38,7 @@ public class ApplyRecruitmentRequest {
 
     @Getter
     @NoArgsConstructor
-    public static class Area{
+    public static class Area {
         @NotNull
         private List<Long> jobCodes;
         @NotNull

@@ -2,9 +2,9 @@ package team.returm.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.auth.domain.AuthCode;
+import team.returm.jobis.domain.auth.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.auth.domain.types.AuthCodeType;
 import team.returm.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
-import team.returm.jobis.domain.auth.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.returm.jobis.domain.student.exception.StudentNotFoundException;
 import team.returm.jobis.domain.user.domain.repository.UserRepository;

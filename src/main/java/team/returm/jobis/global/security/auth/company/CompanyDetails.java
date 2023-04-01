@@ -1,17 +1,17 @@
 package team.returm.jobis.global.security.auth.company;
 
-import team.returm.jobis.domain.user.domain.enums.Authority;
+import java.util.Collection;
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.Collections;
+import team.returm.jobis.domain.user.domain.enums.Authority;
 
 @RequiredArgsConstructor
 public class CompanyDetails implements UserDetails {
     private final Long companyId;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(Authority.COMPANY.name()));

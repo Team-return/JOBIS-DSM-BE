@@ -1,11 +1,11 @@
 package team.returm.jobis.global.annotation.config;
 
-import team.returm.jobis.global.annotation.ReadOnlyService;
-import team.returm.jobis.global.annotation.Service;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import team.returm.jobis.global.annotation.ReadOnlyService;
+import team.returm.jobis.global.annotation.Service;
 
 @Configuration
 @ComponentScan(
@@ -20,4 +20,5 @@ import org.springframework.context.annotation.FilterType;
                 )
         }
 )
-public class ComponentScanConfig {}
+public class ComponentScanConfig {
+}

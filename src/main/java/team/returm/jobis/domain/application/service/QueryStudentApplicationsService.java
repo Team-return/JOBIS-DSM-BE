@@ -1,14 +1,13 @@
 package team.returm.jobis.domain.application.service;
 
-import team.returm.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
+import team.returm.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyService
@@ -22,8 +21,8 @@ public class QueryStudentApplicationsService {
 
         QueryApplicationsRequest request =
                 QueryApplicationsRequest.builder()
-                .studentId(student.getId())
-                .build();
+                        .studentId(student.getId())
+                        .build();
 
         return applicationRepository.queryApplicationByConditions(request).stream()
                 .map(a -> StudentApplicationsResponse.builder()

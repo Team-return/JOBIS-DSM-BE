@@ -1,13 +1,6 @@
 package team.returm.jobis.domain.student.domain;
 
 import javax.persistence.CascadeType;
-import team.returm.jobis.domain.student.domain.types.Gender;
-import team.returm.jobis.domain.user.domain.User;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.student.domain.types.Gender;
+import team.returm.jobis.domain.user.domain.User;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

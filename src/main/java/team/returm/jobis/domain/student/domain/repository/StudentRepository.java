@@ -1,11 +1,9 @@
 package team.returm.jobis.domain.student.domain.repository;
 
-import team.returm.jobis.domain.student.domain.Student;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
-import java.util.UUID;
+import team.returm.jobis.domain.student.domain.Student;
 
 @Repository
 @RequiredArgsConstructor

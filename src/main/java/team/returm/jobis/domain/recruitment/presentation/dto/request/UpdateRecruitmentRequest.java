@@ -1,12 +1,11 @@
 package team.returm.jobis.domain.recruitment.presentation.dto.request;
 
-import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 
 @Getter
 @NoArgsConstructor

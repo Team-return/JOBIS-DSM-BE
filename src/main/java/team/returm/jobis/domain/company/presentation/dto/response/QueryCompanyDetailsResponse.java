@@ -1,9 +1,9 @@
 package team.returm.jobis.domain.company.presentation.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
-import java.time.LocalDate;
 
 @Getter
 public class QueryCompanyDetailsResponse {

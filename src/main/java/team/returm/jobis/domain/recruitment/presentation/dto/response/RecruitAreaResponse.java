@@ -1,7 +1,6 @@
 package team.returm.jobis.domain.recruitment.presentation.dto.response;
 
 import java.util.List;
-import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 

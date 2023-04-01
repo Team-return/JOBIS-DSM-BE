@@ -1,16 +1,14 @@
 package team.returm.jobis.domain.recruitment.facade;
 
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentJpaRepository;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
 

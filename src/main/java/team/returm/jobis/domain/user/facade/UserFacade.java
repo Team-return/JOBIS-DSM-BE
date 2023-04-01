@@ -46,6 +46,7 @@ public class UserFacade {
                 this.getCurrentUserId()
         ).orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
+
     public Long getCurrentUserId() {
         return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
     }

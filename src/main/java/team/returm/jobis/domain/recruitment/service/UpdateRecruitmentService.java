@@ -1,15 +1,14 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
+import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.facade.RecruitFacade;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
-import lombok.RequiredArgsConstructor;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service

@@ -1,6 +1,5 @@
 package team.returm.jobis.global.security;
 
-import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,9 +11,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import static team.returm.jobis.domain.user.domain.enums.Authority.TEACHER;
-import static team.returm.jobis.domain.user.domain.enums.Authority.STUDENT;
+import team.returm.jobis.global.security.jwt.JwtTokenProvider;
+
+
 import static team.returm.jobis.domain.user.domain.enums.Authority.COMPANY;
+import static team.returm.jobis.domain.user.domain.enums.Authority.STUDENT;
+import static team.returm.jobis.domain.user.domain.enums.Authority.TEACHER;
 
 @EnableWebSecurity
 @Configuration
@@ -22,6 +24,7 @@ import static team.returm.jobis.domain.user.domain.enums.Authority.COMPANY;
 public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;
+
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.
@@ -89,6 +92,7 @@ public class SecurityConfig {
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

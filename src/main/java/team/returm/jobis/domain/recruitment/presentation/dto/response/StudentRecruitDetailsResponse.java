@@ -1,11 +1,9 @@
 package team.returm.jobis.domain.recruitment.presentation.dto.response;
 
-import lombok.Builder;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
+import lombok.Builder;
+import lombok.Getter;
 
 @Getter
 @Builder

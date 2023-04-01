@@ -1,23 +1,22 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import team.returm.jobis.domain.code.domain.Code;
-import team.returm.jobis.domain.code.facade.CodeFacade;
-import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest.Area;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.recruitment.domain.RecruitArea;
-import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import team.returm.jobis.domain.user.facade.UserFacade;
-import team.returm.jobis.global.annotation.Service;
-import team.returm.jobis.global.util.StringUtil;
-import lombok.RequiredArgsConstructor;
-
 import java.time.Year;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.code.domain.Code;
+import team.returm.jobis.domain.code.facade.CodeFacade;
+import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.recruitment.domain.RecruitArea;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
+import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest.Area;
+import team.returm.jobis.domain.user.facade.UserFacade;
+import team.returm.jobis.global.annotation.Service;
+import team.returm.jobis.global.util.StringUtil;
 
 @RequiredArgsConstructor
 @Service
@@ -53,7 +52,7 @@ public class ApplyRecruitmentService {
                         .build()
         );
 
-        for(Area area : request.getAreas()) {
+        for (Area area : request.getAreas()) {
             RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
                     RecruitArea.builder()
                             .majorTask(area.getMajorTask())

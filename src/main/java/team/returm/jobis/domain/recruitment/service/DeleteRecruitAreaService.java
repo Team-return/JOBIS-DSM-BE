@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;

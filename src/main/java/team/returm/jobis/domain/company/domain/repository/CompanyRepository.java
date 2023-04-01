@@ -1,17 +1,18 @@
 package team.returm.jobis.domain.company.domain.repository;
 
 import com.querydsl.jpa.JPAExpressions;
-import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
-import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
-import team.returm.jobis.domain.company.domain.Company;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
+import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
 import team.returm.jobis.domain.company.presentation.dto.response.QQueryCompanyDetailsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
+
 
 import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;

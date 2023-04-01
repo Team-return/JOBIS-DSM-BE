@@ -1,13 +1,12 @@
 package team.returm.jobis.global.util;
 
-import net.bytebuddy.utility.RandomString;
-import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Component;
+import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 
 @Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
