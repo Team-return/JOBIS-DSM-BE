@@ -72,7 +72,7 @@ public class ApplicationRepository {
         applicationAttachmentJpaRepository.saveAll(applicationAttachments);
     }
 
-    public boolean existsApplicationByStudentAndRecruitmentId(Student student, UUID recruitmentId) {
+    public boolean existsApplicationByStudentAndRecruitmentId(Student student, Long recruitmentId) {
         return applicationJpaRepository.existsByStudentAndRecruitmentId(student, recruitmentId);
     }
 
@@ -80,7 +80,7 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 
-    public Optional<Application> queryApplicationById(UUID applicationId) {
+    public Optional<Application> queryApplicationById(Long applicationId) {
         return applicationJpaRepository.findById(applicationId);
     }
 
@@ -90,11 +90,11 @@ public class ApplicationRepository {
 
     //==conditions==//
 
-    private BooleanExpression eqRecruitmentId(UUID recruitmentId) {
+    private BooleanExpression eqRecruitmentId(Long recruitmentId) {
         return recruitmentId == null ? null : recruitment.id.eq(recruitmentId);
     }
 
-    private BooleanExpression eqStudentId(UUID studentId) {
+    private BooleanExpression eqStudentId(Long studentId) {
         return studentId == null ? null : student.id.eq(studentId);
     }
 

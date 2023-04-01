@@ -21,7 +21,7 @@ public class RecruitFacade {
     private final RecruitmentJpaRepository recruitmentJpaRepository;
     private final RecruitmentRepository recruitmentRepository;
 
-    public Recruitment queryRecruitmentById(UUID id) {
+    public Recruitment queryRecruitmentById(Long id) {
         return recruitmentJpaRepository.findById(id)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
     }
@@ -30,7 +30,7 @@ public class RecruitFacade {
         return company.getRecruitmentList().get(company.getRecruitmentList().size() - 1);
     }
 
-    public List<RecruitAreaResponse> queryRecruitAreas(UUID recruitmentId) {
+    public List<RecruitAreaResponse> queryRecruitAreas(Long recruitmentId) {
         return recruitmentRepository.queryRecruitAreasByRecruitmentId(recruitmentId).stream()
                 .map(recruitArea ->
                         RecruitAreaResponse.builder()

@@ -25,7 +25,7 @@ public class UpdateRecruitAreaService {
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
 
-    public void execute(UpdateRecruitAreaRequest request, UUID recruitAreaId) {
+    public void execute(UpdateRecruitAreaRequest request, Long recruitAreaId) {
         User user = userFacade.getCurrentUser();
 
         RecruitArea recruitArea = recruitAreaFacade.getRecruitAreaById(recruitAreaId);

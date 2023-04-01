@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class QueryMyRecruitmentResponse {
-    private final UUID recruitmentId;
+    private final Long recruitmentId;
     private final Integer recruitYear;
     private final List<RecruitAreaResponse> areas;
     private final String preferentialTreatment;

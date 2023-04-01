@@ -13,9 +13,9 @@ import java.util.UUID;
 public class QueryApplicationsRequest {
 
     @NotNull
-    private final UUID recruitmentId;
+    private final Long recruitmentId;
     @NotNull
-    private final UUID studentId;
+    private final Long studentId;
     @NotNull
     private final ApplicationStatus applicationStatus;
     @NotBlank

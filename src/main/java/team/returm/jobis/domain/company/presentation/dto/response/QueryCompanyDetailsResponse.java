@@ -3,9 +3,7 @@ package team.returm.jobis.domain.company.presentation.dto.response;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
-
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 public class QueryCompanyDetailsResponse {
@@ -27,7 +25,7 @@ public class QueryCompanyDetailsResponse {
     private final LocalDate foundedAt;
     private final int workerNumber;
     private final int take;
-    private final UUID recruitmentId;
+    private final Long recruitmentId;
 
     @QueryProjection
     @Builder
@@ -35,7 +33,7 @@ public class QueryCompanyDetailsResponse {
                                        String zipCode1, String address1, String zipCode2, String address2,
                                        String manager1, String phoneNumber1, String manager2,
                                        String phoneNumber2, String fax, String email, String representativeName,
-                                       LocalDate foundedAt, int workerNumber, int take, UUID recruitmentId) {
+                                       LocalDate foundedAt, int workerNumber, int take, Long recruitmentId) {
         this.businessNumber = businessNumber;
         this.companyProfileUrl = companyProfileUrl;
         this.companyIntroduce = companyIntroduce;

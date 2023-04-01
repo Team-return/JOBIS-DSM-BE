@@ -18,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,11 +26,11 @@ public class Student {
 
     @Id
     @Column(name = "student_id")
-    private UUID id;
+    private Long id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "student_id", columnDefinition = "BINARY(16)", nullable = false)
+    @JoinColumn(name = "student_id", nullable = false)
     private User user;
 
     @NotNull

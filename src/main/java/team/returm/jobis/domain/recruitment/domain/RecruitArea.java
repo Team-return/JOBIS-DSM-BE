@@ -1,7 +1,9 @@
 package team.returm.jobis.domain.recruitment.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +22,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class RecruitArea extends BaseUUIDEntity {
+public class RecruitArea {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(columnDefinition = "TINYINT(20)")

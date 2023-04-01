@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface StudentJpaRepository extends JpaRepository<Student, UUID> {
+public interface StudentJpaRepository extends JpaRepository<Student, Long> {
 }

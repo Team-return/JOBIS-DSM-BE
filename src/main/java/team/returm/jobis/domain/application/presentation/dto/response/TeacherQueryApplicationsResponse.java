@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 public class TeacherQueryApplicationsResponse {
 
-    private final UUID applicationId;
+    private final Long applicationId;
     private final String studentName;
     private final String studentGcn;
     private final String companyName;

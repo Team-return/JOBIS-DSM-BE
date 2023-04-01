@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 public class StudentRecruitDetailsResponse {
 
-    private UUID companyId;
+    private Long companyId;
     private List<RecruitAreaResponse> areas;
     private String preferentialTreatment;
     private Integer requiredGrade;

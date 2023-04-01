@@ -14,7 +14,7 @@ public class TeacherRepository {
     private final JPAQueryFactory queryFactory;
     private final TeacherJpaRepository teacherJpaRepository;
 
-    public Optional<Teacher> queryTeacherById(UUID teacherId) {
+    public Optional<Teacher> queryTeacherById(Long teacherId) {
         return teacherJpaRepository.findById(teacherId);
     }
 }

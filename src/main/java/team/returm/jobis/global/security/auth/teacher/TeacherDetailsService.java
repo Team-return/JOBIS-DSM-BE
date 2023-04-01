@@ -19,7 +19,7 @@ public class TeacherDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String teacherId) throws UsernameNotFoundException {
         Teacher teacher = teacherRepository.queryTeacherById(
-                UUID.fromString(teacherId)
+                Long.valueOf(teacherId)
         ).orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 
         return new TeacherDetails(teacher.getId());

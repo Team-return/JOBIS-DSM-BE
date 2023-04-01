@@ -35,11 +35,11 @@ public class JwtTokenProvider {
     private static final String ACCESS = "ACCESS";
     private static final String REFRESH = "REFRESH";
 
-    public String generateAccessToken(UUID userId, Authority authority) {
+    public String generateAccessToken(Long userId, Authority authority) {
         return generateToken(userId.toString(), ACCESS, jwtProperties.getAccessExp(), authority);
     }
 
-    public String generateRefreshToken(UUID userId, Authority authority) {
+    public String generateRefreshToken(Long userId, Authority authority) {
         String token = generateToken(userId.toString(), REFRESH, jwtProperties.getRefreshExp(), authority);
         refreshTokenRepository.save(
                 RefreshToken.builder()

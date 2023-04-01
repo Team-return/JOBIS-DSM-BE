@@ -18,7 +18,7 @@ public class StudentDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String studentId) throws UsernameNotFoundException {
         Student student = studentRepository.queryStudentById(
-                UUID.fromString(studentId)
+                Long.valueOf(studentId)
         ).orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         return new StudentDetails(student.getId());

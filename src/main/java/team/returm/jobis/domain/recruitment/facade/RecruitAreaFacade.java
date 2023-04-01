@@ -14,7 +14,7 @@ public class RecruitAreaFacade {
 
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
-    public RecruitArea getRecruitAreaById(UUID id) {
+    public RecruitArea getRecruitAreaById(Long id) {
         return recruitAreaJpaRepository.findById(id)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
     }

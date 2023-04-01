@@ -17,7 +17,7 @@ public class StudentQueryRecruitmentsResponse {
     @Getter
     @Builder
     public static class StudentRecruitmentResponse {
-        private UUID recruitId;
+        private Long recruitId;
         private String companyName;
         private String companyProfileUrl;
         private Integer trainPay;

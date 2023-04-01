@@ -14,9 +14,7 @@ import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;
-
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -26,7 +24,7 @@ public class CreateApplicationService {
     private final UserFacade userFacade;
     private final RecruitmentRepository recruitmentRepository;
 
-    public void execute(CreateApplicationRequest request, UUID recruitmentId) {
+    public void execute(CreateApplicationRequest request, Long recruitmentId) {
         Student student = userFacade.getCurrentStudent();
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);

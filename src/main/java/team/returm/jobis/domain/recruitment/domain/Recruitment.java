@@ -1,12 +1,15 @@
 package team.returm.jobis.domain.recruitment.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.type.PayInfo;
 import team.returm.jobis.domain.recruitment.domain.type.RecruitDate;
 import team.returm.jobis.domain.recruitment.exception.CompanyMismatchException;
-import team.returm.jobis.global.entity.BaseEntity;
+import team.returm.jobis.global.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +36,10 @@ import java.util.UUID;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Recruitment extends BaseEntity {
+public class Recruitment extends BaseTimeEntity {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(columnDefinition = "YEAR")
@@ -137,7 +143,7 @@ public class Recruitment extends BaseEntity {
         return this;
     }
 
-    public void checkCompany(UUID companyId) {
+    public void checkCompany(Long companyId) {
         if (!this.company.getId().equals(companyId)) {
             throw CompanyMismatchException.EXCEPTION;
         }

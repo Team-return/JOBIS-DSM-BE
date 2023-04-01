@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,14 +40,14 @@ public class ApplicationController {
     @PostMapping("/{recruitment-id}")
     public void createApplication(
             @RequestBody @Valid CreateApplicationRequest request,
-            @PathVariable("recruitment-id") UUID recruitmentId
+            @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createApplicationService.execute(request, recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{application-id}")
-    public void deleteApplication(@PathVariable("application-id") UUID applicationId) {
+    public void deleteApplication(@PathVariable("application-id") Long applicationId) {
         deleteApplicationService.execute(applicationId);
     }
 

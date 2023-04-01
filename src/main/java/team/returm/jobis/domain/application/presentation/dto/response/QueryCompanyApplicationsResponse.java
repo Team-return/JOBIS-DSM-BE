@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 public class QueryCompanyApplicationsResponse {
 
-    private final UUID applicationId;
+    private final Long applicationId;
     private final String studentNumber;
     private final String studentName;
     private final List<String> applicationAttachmentUrl;

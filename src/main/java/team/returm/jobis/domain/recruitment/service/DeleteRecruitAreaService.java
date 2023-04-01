@@ -17,7 +17,7 @@ public class DeleteRecruitAreaService {
     private final UserFacade userFacade;
     private final RecruitmentRepository recruitmentRepository;
 
-    public void execute(UUID recruitAreaId) {
+    public void execute(Long recruitAreaId) {
         User user = userFacade.getCurrentUser();
 
         RecruitArea recruitArea = recruitmentRepository.queryRecruitAreaById(recruitAreaId)

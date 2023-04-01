@@ -4,9 +4,7 @@ import team.returm.jobis.domain.user.domain.User;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,7 +16,7 @@ public class UserRepository {
         return userJpaRepository.findByAccountId(accountId);
     }
 
-    public Optional<User> queryUserById(UUID userId) {
+    public Optional<User> queryUserById(Long userId) {
         return userJpaRepository.findById(userId);
     }
 

@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 @RequiredArgsConstructor
 public class CompanyDetailsService implements UserDetailsService {
@@ -19,7 +17,7 @@ public class CompanyDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String companyId) throws UsernameNotFoundException {
         Company company = companyRepository.queryCompanyById(
-                UUID.fromString(companyId)
+                Long.valueOf(companyId)
         ).orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return new CompanyDetails(company.getId());

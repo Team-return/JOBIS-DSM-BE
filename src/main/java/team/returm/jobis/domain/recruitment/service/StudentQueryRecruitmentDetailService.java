@@ -16,7 +16,7 @@ public class StudentQueryRecruitmentDetailService {
     private final RecruitmentRepository recruitmentRepository;
     private final RecruitFacade recruitFacade;
 
-    public StudentRecruitDetailsResponse execute(UUID recruitId) {
+    public StudentRecruitDetailsResponse execute(Long recruitId) {
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 

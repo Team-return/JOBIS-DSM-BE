@@ -66,7 +66,7 @@ public class RecruitmentRepository {
                 );
     }
 
-    public List<RecruitArea> queryRecruitAreasByRecruitmentId(UUID recruitmentId) {
+    public List<RecruitArea> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
         return queryFactory
                 .selectFrom(recruitArea).distinct()
                 .join(recruitArea.codeList, QRecruitAreaCode.recruitAreaCode).fetchJoin()
@@ -74,7 +74,7 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
-    public Recruitment queryRecentRecruitmentByCompanyId(UUID companyId) {
+    public Recruitment queryRecentRecruitmentByCompanyId(Long companyId) {
         return queryFactory
                 .selectFrom(recruitment)
                 .where(recruitment.company.id.eq(companyId))
@@ -89,15 +89,15 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
-    public Optional<RecruitArea> queryRecruitAreaById(UUID recruitAreaId) {
+    public Optional<RecruitArea> queryRecruitAreaById(Long recruitAreaId) {
         return recruitAreaJpaRepository.findById(recruitAreaId);
     }
 
-    public void deleteRecruitAreaCodeByRecruitAreaId(UUID recruitAreaId) {
+    public void deleteRecruitAreaCodeByRecruitAreaId(Long recruitAreaId) {
         recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitAreaId);
     }
 
-    public void deleteRecruitAreaById(UUID recruitAreaId) {
+    public void deleteRecruitAreaById(Long recruitAreaId) {
         recruitAreaJpaRepository.deleteById(recruitAreaId);
     }
 
@@ -105,7 +105,7 @@ public class RecruitmentRepository {
         recruitmentJpaRepository.saveAll(recruitments);
     }
 
-    public Optional<Recruitment> queryRecruitmentById(UUID recruitmentId) {
+    public Optional<Recruitment> queryRecruitmentById(Long recruitmentId) {
         return recruitmentJpaRepository.findById(recruitmentId);
     }
 
@@ -113,7 +113,7 @@ public class RecruitmentRepository {
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
     }
 
-    public void deleteRecruitment(UUID recruitmentId) {
+    public void deleteRecruitment(Long recruitmentId) {
         recruitmentJpaRepository.deleteById(recruitmentId);
     }
 

@@ -22,7 +22,7 @@ public class DeleteApplicationService {
     private final UserFacade userFacade;
 
 
-    public void execute(UUID applicationId) {
+    public void execute(Long applicationId) {
         Student student = userFacade.getCurrentStudent();
         Application application = applicationRepository.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);

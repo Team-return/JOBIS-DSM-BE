@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface ApplicationJpaRepository extends JpaRepository<Application, UUID> {
+public interface ApplicationJpaRepository extends JpaRepository<Application, Long> {
 
-    boolean existsByStudentAndRecruitmentId(Student student, UUID recruitmentId);
+    boolean existsByStudentAndRecruitmentId(Student student, Long recruitmentId);
     boolean existsByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus);
 }

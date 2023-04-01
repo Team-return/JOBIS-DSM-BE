@@ -9,7 +9,6 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
@@ -19,7 +18,7 @@ public class TeacherQueryRecruitmentsResponse {
     @Getter
     @Builder
     public static class TeacherRecruitmentResponse {
-        private UUID id;
+        private Long id;
         private RecruitStatus recruitmentStatus;
         private String companyName;
         private CompanyType companyType;

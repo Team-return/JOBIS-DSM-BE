@@ -62,7 +62,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{company-id}")
-    public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") UUID companyId) {
+    public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
         return queryCompanyDetailsService.execute(companyId);
     }
 

@@ -22,7 +22,7 @@ public class Portfolio {
     private String portfolioUrl;
 
     @ManyToOne
-    @JoinColumn(columnDefinition = "BINARY(16)", name = "student_id", nullable = false)
+    @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
 

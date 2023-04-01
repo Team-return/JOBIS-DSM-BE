@@ -12,7 +12,7 @@ import java.util.UUID;
 public class StudentRepository {
     private final StudentJpaRepository studentJpaRepository;
 
-    public Optional<Student> queryStudentById(UUID studentId) {
+    public Optional<Student> queryStudentById(Long studentId) {
         return studentJpaRepository.findById(studentId);
     }
 }

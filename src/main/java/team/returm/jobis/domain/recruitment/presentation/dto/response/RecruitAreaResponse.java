@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class RecruitAreaResponse {
-    private final UUID recruitAreaId;
+    private final Long recruitAreaId;
     private final List<String> job;
     private final List<String> tech;
     private final int hiring;

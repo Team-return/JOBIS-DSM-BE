@@ -19,7 +19,7 @@ public class QueryMyRecruitmentService {
     private final RecruitFacade recruitFacade;
 
     public QueryMyRecruitmentResponse execute() {
-        UUID currentUserId = userFacade.getCurrentUserId();
+        Long currentUserId = userFacade.getCurrentUserId();
 
         Recruitment recruitment =
                 recruitmentRepository.queryRecentRecruitmentByCompanyId(currentUserId);

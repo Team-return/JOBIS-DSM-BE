@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
 public class RecruitAreaCode {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "BINARY(16)", name = "recruit_area_id", nullable = false)
+    @JoinColumn(name = "recruit_area_id", nullable = false)
     private RecruitArea recruitArea;
 
     @Id

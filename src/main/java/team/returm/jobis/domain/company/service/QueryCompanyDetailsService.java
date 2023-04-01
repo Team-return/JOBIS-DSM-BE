@@ -13,7 +13,7 @@ public class QueryCompanyDetailsService {
 
     private final CompanyRepository companyRepository;
 
-    public QueryCompanyDetailsResponse execute(UUID companyId) {
+    public QueryCompanyDetailsResponse execute(Long companyId) {
         return companyRepository.queryCompanyDetails(companyId);
     }
 

@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
@@ -18,7 +17,7 @@ public class DeleteRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
     private final UserFacade userFacade;
 
-    public void execute(UUID recruitmentId) {
+    public void execute(Long recruitmentId) {
         User user = userFacade.getCurrentUser();
 
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)

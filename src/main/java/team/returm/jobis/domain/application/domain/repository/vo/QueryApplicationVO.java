@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 public class QueryApplicationVO {
 
-    private final UUID id;
+    private final Long id;
     private final String name;
     private final Integer grade;
     private final Integer number;
@@ -22,7 +22,7 @@ public class QueryApplicationVO {
     private final ApplicationStatus applicationStatus;
 
     @QueryProjection
-    public QueryApplicationVO(UUID id, String name, Integer grade, Integer number,
+    public QueryApplicationVO(Long id, String name, Integer grade, Integer number,
                               Integer classNumber, String companyName, List<String> applicationAttachmentUrl,
                               LocalDateTime createdAt, ApplicationStatus applicationStatus) {
         this.id = id;

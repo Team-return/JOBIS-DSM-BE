@@ -18,7 +18,7 @@ public class UpdateRecruitmentService {
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
 
-    public void execute(UpdateRecruitmentRequest request, UUID recruitmentId) {
+    public void execute(UpdateRecruitmentRequest request, Long recruitmentId) {
         User user = userFacade.getCurrentUser();
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);

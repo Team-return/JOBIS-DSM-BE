@@ -14,7 +14,6 @@ import team.returm.jobis.domain.user.domain.repository.UserJpaRepository;
 import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.domain.user.exception.UserNotFoundException;
 
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -47,7 +46,7 @@ public class UserFacade {
                 this.getCurrentUserId()
         ).orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
-    public UUID getCurrentUserId() {
-        return UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName());
+    public Long getCurrentUserId() {
+        return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

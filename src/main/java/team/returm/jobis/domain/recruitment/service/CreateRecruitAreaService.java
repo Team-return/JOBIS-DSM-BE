@@ -29,7 +29,7 @@ public class CreateRecruitAreaService {
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
 
-    public void execute(CreateRecruitAreaRequest request, UUID recruitmentId) {
+    public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
         User user = userFacade.getCurrentUser();
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);

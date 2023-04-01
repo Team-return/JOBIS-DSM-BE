@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public class TeacherDetails implements UserDetails {
-    private final UUID teacherId;
+    private final Long teacherId;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(Authority.TEACHER.name()));

@@ -1,6 +1,9 @@
 package team.returm.jobis.domain.user.domain;
 
-import team.returm.jobis.global.entity.BaseEntity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import team.returm.jobis.global.entity.BaseTimeEntity;
 import team.returm.jobis.domain.user.domain.enums.Authority;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,7 +19,10 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class User extends BaseEntity {
+public class User extends BaseTimeEntity {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(30)", unique = true)

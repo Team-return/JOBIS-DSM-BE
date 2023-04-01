@@ -65,7 +65,7 @@ public class RecruitController {
     @PatchMapping("/{recruitment-id}")
     public void updateRecruitment(
             @RequestBody @Valid UpdateRecruitmentRequest request,
-            @PathVariable("recruitment-id") UUID recruitmentId
+            @PathVariable("recruitment-id") Long recruitmentId
     ) {
         updateRecruitmentService.execute(request, recruitmentId);
     }
@@ -74,7 +74,7 @@ public class RecruitController {
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(
             @RequestBody @Valid UpdateRecruitAreaRequest request,
-            @PathVariable("recruit-area-id") UUID recruitAreaId
+            @PathVariable("recruit-area-id") Long recruitAreaId
     ) {
         updateRecruitAreaService.execute(request, recruitAreaId);
     }
@@ -83,7 +83,7 @@ public class RecruitController {
     @PostMapping("/{recruitment-id}/area")
     public void createRecruitArea(
             @RequestBody @Valid CreateRecruitAreaRequest request,
-            @PathVariable("recruitment-id") UUID recruitmentId
+            @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createRecruitAreaService.execute(request, recruitmentId);
     }
@@ -112,11 +112,17 @@ public class RecruitController {
     @PatchMapping("/status")
     public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentRequest request) {
         teacherChangeRecruitmentStatusService.execute(request);
+    @PatchMapping("/{recruitment-id}/status")
+    public void changeRecruitStatus(
+            @PathVariable("recruitment-id") Long recruitId,
+            @RequestParam("status") RecruitStatus status
+    ) {
+        teacherChangeRecruitmentStatusService.execute(recruitId, status);
     }
 
     @GetMapping("/student/{recruitment-id}")
     public StudentRecruitDetailsResponse studentQueryRecruitmentDetail(
-            @PathVariable("recruitment-id") UUID recruitmentId
+            @PathVariable("recruitment-id") Long recruitmentId
     ) {
         return studentQueryRecruitmentDetailService.execute(recruitmentId);
     }
@@ -128,13 +134,13 @@ public class RecruitController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{recruitment-id}")
-    public void deleteRecruitment(@PathVariable("recruitment-id") UUID recruitmentId) {
+    public void deleteRecruitment(@PathVariable("recruitment-id") Long recruitmentId) {
         deleteRecruitmentService.execute(recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/area/{recruit-area-id}")
-    public void deleteRecruitArea(@PathVariable("recruit-area-id") UUID recruitAreaId) {
+    public void deleteRecruitArea(@PathVariable("recruit-area-id") Long recruitAreaId) {
         deleteRecruitAreaService.execute(recruitAreaId);
     }
 }

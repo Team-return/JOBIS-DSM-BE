@@ -1,4 +1,4 @@
-package team.returm.jobis.domain.student.domain.repository;
+package team.returm.jobis.domain.auth.domain.repository;
 
 import team.returm.jobis.domain.auth.domain.AuthCode;
 import org.springframework.data.repository.CrudRepository;

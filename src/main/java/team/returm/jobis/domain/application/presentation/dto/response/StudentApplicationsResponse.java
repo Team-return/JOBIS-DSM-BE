@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 public class StudentApplicationsResponse {
 
-    private final UUID applicationId;
+    private final Long applicationId;
     private final String company;
     private final List<String> attachmentUrlList;
     private final ApplicationStatus applicationStatus;

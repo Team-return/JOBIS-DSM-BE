@@ -2,7 +2,7 @@ package team.returm.jobis.domain.auth.service;
 
 import team.returm.jobis.domain.auth.domain.AuthCode;
 import team.returm.jobis.domain.auth.exception.AuthCodeNotFoundException;
-import team.returm.jobis.domain.student.domain.repository.AuthCodeRepository;
+import team.returm.jobis.domain.auth.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.student.exception.BadAuthCodeException;
 import team.returm.jobis.global.annotation.Service;
 import lombok.RequiredArgsConstructor;

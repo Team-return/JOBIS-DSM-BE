@@ -38,11 +38,11 @@ import java.util.UUID;
 public class Company {
     @Id
     @Column(name = "company_id")
-    private UUID id;
+    private Long id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "company_id", columnDefinition = "BINARY(16)", nullable = false)
+    @JoinColumn(name = "company_id", nullable = false)
     private User user;
 
     @NotNull

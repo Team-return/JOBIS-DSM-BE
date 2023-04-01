@@ -8,11 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class CompanyDetails implements UserDetails {
-    private final UUID companyId;
+    private final Long companyId;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(Authority.COMPANY.name()));
