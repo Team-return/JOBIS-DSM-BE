@@ -1,12 +1,10 @@
 package team.returm.jobis.domain.application.domain.repository.vo;
 
-import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+import lombok.Getter;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 
 @Getter
 public class QueryApplicationVO {
