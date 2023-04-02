@@ -1,21 +1,9 @@
 package team.returm.jobis.domain.application.presentation;
 
-import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
-import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
-import team.returm.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
-import team.returm.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
-import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
-import team.returm.jobis.domain.application.service.CreateApplicationService;
-import team.returm.jobis.domain.application.service.DeleteApplicationService;
-import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
-import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
-import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
+import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.UUID;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
+import team.returm.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
+import team.returm.jobis.domain.application.service.CreateApplicationService;
+import team.returm.jobis.domain.application.service.DeleteApplicationService;
+import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
+import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
+import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
 
 @RequiredArgsConstructor
 @RequestMapping("/applications")
@@ -41,19 +39,19 @@ public class ApplicationController {
     @PostMapping("/{recruitment-id}")
     public void createApplication(
             @RequestBody @Valid CreateApplicationRequest request,
-            @PathVariable("recruitment-id") UUID recruitmentId
+            @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createApplicationService.execute(request, recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{application-id}")
-    public void deleteApplication(@PathVariable("application-id") UUID applicationId) {
+    public void deleteApplication(@PathVariable("application-id") Long applicationId) {
         deleteApplicationService.execute(applicationId);
     }
 
     @GetMapping
-    public List<TeacherQueryApplicationsResponse> queryTeacherApplicationList (
+    public List<TeacherQueryApplicationsResponse> queryTeacherApplicationList(
             @RequestParam(value = "application-status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student-name", required = false) String studentName
     ) {

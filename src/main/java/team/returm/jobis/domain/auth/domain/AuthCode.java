@@ -15,12 +15,12 @@ public class AuthCode {
     private String email;
 
     @Indexed
-    private String code;
+    private final String code;
 
     private boolean isVerified;
 
     @TimeToLive
-    private Integer ttl;
+    private final Integer ttl;
 
     @Builder
     public AuthCode(String email, String code) {

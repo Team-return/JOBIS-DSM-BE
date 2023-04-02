@@ -1,10 +1,9 @@
 package team.returm.jobis.domain.company.presentation.dto.response;
 
-import team.returm.jobis.domain.company.domain.enums.CompanyType;
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.LocalDate;
+import team.returm.jobis.domain.company.domain.enums.CompanyType;
 
 @Getter
 @Builder

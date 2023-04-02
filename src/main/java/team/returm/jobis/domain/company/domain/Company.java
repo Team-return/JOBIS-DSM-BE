@@ -1,18 +1,9 @@
 package team.returm.jobis.domain.company.domain;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
-import team.returm.jobis.domain.company.domain.enums.CompanyType;
-import team.returm.jobis.domain.company.domain.type.Address;
-import team.returm.jobis.domain.company.domain.type.Manager;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.user.domain.User;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -25,10 +16,17 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import team.returm.jobis.domain.company.domain.enums.CompanyType;
+import team.returm.jobis.domain.company.domain.type.Address;
+import team.returm.jobis.domain.company.domain.type.Manager;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
+import team.returm.jobis.domain.user.domain.User;
 
 @Getter
 @DynamicInsert
@@ -38,11 +36,11 @@ import java.util.UUID;
 public class Company {
     @Id
     @Column(name = "company_id")
-    private UUID id;
+    private Long id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "company_id", columnDefinition = "BINARY(16)", nullable = false)
+    @JoinColumn(name = "company_id", nullable = false)
     private User user;
 
     @NotNull

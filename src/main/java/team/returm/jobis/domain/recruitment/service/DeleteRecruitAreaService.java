@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
@@ -17,7 +16,7 @@ public class DeleteRecruitAreaService {
     private final UserFacade userFacade;
     private final RecruitmentRepository recruitmentRepository;
 
-    public void execute(UUID recruitAreaId) {
+    public void execute(Long recruitAreaId) {
         User user = userFacade.getCurrentUser();
 
         RecruitArea recruitArea = recruitmentRepository.queryRecruitAreaById(recruitAreaId)

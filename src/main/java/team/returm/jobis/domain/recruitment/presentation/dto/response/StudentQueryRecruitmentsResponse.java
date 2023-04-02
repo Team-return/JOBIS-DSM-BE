@@ -1,12 +1,10 @@
 package team.returm.jobis.domain.recruitment.presentation.dto.response;
 
+import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
@@ -17,7 +15,7 @@ public class StudentQueryRecruitmentsResponse {
     @Getter
     @Builder
     public static class StudentRecruitmentResponse {
-        private UUID recruitId;
+        private Long recruitId;
         private String companyName;
         private String companyProfileUrl;
         private Integer trainPay;

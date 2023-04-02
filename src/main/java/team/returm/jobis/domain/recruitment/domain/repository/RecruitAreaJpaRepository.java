@@ -1,8 +1,7 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
-import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.UUID;
+import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 
-public interface RecruitAreaJpaRepository extends JpaRepository<RecruitArea, UUID> {
+public interface RecruitAreaJpaRepository extends JpaRepository<RecruitArea, Long> {
 }

@@ -2,14 +2,13 @@ package team.returm.jobis.domain.recruitment.presentation.dto.response;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
 public class QueryMyRecruitmentResponse {
-    private final UUID recruitmentId;
+    private final Long recruitmentId;
     private final Integer recruitYear;
     private final List<RecruitAreaResponse> areas;
     private final String preferentialTreatment;

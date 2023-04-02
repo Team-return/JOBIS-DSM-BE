@@ -16,8 +16,8 @@ public enum ErrorCode {
     RECRUITMENT_CANNOT_DELETE(403, "Recruitment Cannot Deleted"),
     APPLICATION_CANNOT_DELETE(403, "Application Cannot Deleted"),
     BAD_AUTH_CODE(401, "Bad Auth Code"),
-    EXPIRED_TOKEN(401,"Token Expired" ),
-    INVALID_TOKEN(401,"Invalid Token"),
+    EXPIRED_TOKEN(401, "Token Expired"),
+    INVALID_TOKEN(401, "Invalid Token"),
     INVALID_PASSWORD(401, "invalid password"),
     INVALID_CODE(401, "invalid code"),
     INVALID_GRADE(401, "Invalid Grade"),
@@ -39,8 +39,7 @@ public enum ErrorCode {
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists"),
-    APPLICATION_ALREADY_EXISTS(409, "Application Already Exists")
-    ;
+    APPLICATION_ALREADY_EXISTS(409, "Application Already Exists");
 
     private final Integer status;
     private final String message;

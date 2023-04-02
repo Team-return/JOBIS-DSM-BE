@@ -1,9 +1,7 @@
 package team.returm.jobis.global.error;
 
-import team.returm.jobis.global.error.exception.ErrorCode;
-import team.returm.jobis.global.error.exception.JobisException;
-import team.returm.jobis.global.error.response.ErrorResponse;
-import team.returm.jobis.global.error.response.ValidationErrorResponse;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +10,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
-import java.util.Map;
+import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.global.error.exception.JobisException;
+import team.returm.jobis.global.error.response.ErrorResponse;
+import team.returm.jobis.global.error.response.ValidationErrorResponse;
 
 @Slf4j
 @RestControllerAdvice
@@ -35,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ValidationErrorResponse handleValidException(MethodArgumentNotValidException e) {
         Map<String, String> filedErrors = new HashMap<>();
-        for(FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
             filedErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
 

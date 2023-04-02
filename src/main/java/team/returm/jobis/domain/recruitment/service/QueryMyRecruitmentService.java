@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
@@ -19,7 +18,7 @@ public class QueryMyRecruitmentService {
     private final RecruitFacade recruitFacade;
 
     public QueryMyRecruitmentResponse execute() {
-        UUID currentUserId = userFacade.getCurrentUserId();
+        Long currentUserId = userFacade.getCurrentUserId();
 
         Recruitment recruitment =
                 recruitmentRepository.queryRecentRecruitmentByCompanyId(currentUserId);

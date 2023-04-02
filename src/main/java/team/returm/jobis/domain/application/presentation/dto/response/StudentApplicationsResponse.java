@@ -1,17 +1,15 @@
 package team.returm.jobis.domain.application.presentation.dto.response;
 
-import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
-import java.util.UUID;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 
 @Getter
 @Builder
 public class StudentApplicationsResponse {
 
-    private final UUID applicationId;
+    private final Long applicationId;
     private final String company;
     private final List<String> attachmentUrlList;
     private final ApplicationStatus applicationStatus;

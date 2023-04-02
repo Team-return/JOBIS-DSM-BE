@@ -1,17 +1,15 @@
 package team.returm.jobis.domain.application.presentation.dto.response;
 
-import lombok.Builder;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
+import lombok.Builder;
+import lombok.Getter;
 
 @Getter
 @Builder
 public class QueryCompanyApplicationsResponse {
 
-    private final UUID applicationId;
+    private final Long applicationId;
     private final String studentNumber;
     private final String studentName;
     private final List<String> applicationAttachmentUrl;

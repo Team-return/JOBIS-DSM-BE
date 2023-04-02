@@ -1,5 +1,11 @@
 package team.returm.jobis.domain.application.domain.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
@@ -7,22 +13,15 @@ import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicati
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import team.returm.jobis.domain.student.domain.Student;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.Optional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
+
+import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.list;
 import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.application.domain.QApplicationAttachment.applicationAttachment;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static team.returm.jobis.domain.student.domain.QStudent.student;
-import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.group.GroupBy.list;
-
-import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Repository
@@ -72,7 +71,7 @@ public class ApplicationRepository {
         applicationAttachmentJpaRepository.saveAll(applicationAttachments);
     }
 
-    public boolean existsApplicationByStudentAndRecruitmentId(Student student, UUID recruitmentId) {
+    public boolean existsApplicationByStudentAndRecruitmentId(Student student, Long recruitmentId) {
         return applicationJpaRepository.existsByStudentAndRecruitmentId(student, recruitmentId);
     }
 
@@ -80,7 +79,7 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 
-    public Optional<Application> queryApplicationById(UUID applicationId) {
+    public Optional<Application> queryApplicationById(Long applicationId) {
         return applicationJpaRepository.findById(applicationId);
     }
 
@@ -90,11 +89,11 @@ public class ApplicationRepository {
 
     //==conditions==//
 
-    private BooleanExpression eqRecruitmentId(UUID recruitmentId) {
+    private BooleanExpression eqRecruitmentId(Long recruitmentId) {
         return recruitmentId == null ? null : recruitment.id.eq(recruitmentId);
     }
 
-    private BooleanExpression eqStudentId(UUID studentId) {
+    private BooleanExpression eqStudentId(Long studentId) {
         return studentId == null ? null : student.id.eq(studentId);
     }
 

@@ -1,8 +1,8 @@
 package team.returm.jobis.domain.file.service;
 
-import team.returm.jobis.infrastructure.s3.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import team.returm.jobis.infrastructure.s3.S3Util;
 
 @RequiredArgsConstructor
 @Service

@@ -1,15 +1,12 @@
 package team.returm.jobis.domain.company.facade;
 
-import team.returm.jobis.domain.company.domain.Company;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import team.returm.jobis.domain.company.domain.repository.CompanyJpaRepository;
 import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.infrastructure.feignClients.BizNoFeignClient;
 import team.returm.jobis.infrastructure.feignClients.FeignProperty;
 import team.returm.jobis.infrastructure.feignClients.dto.Items;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -27,11 +24,6 @@ public class CompanyFacade {
     public boolean checkCompany(String businessNumber) {
         Items items = getApi(businessNumber);
         return items.getBno().replace("-", "").equals(businessNumber);
-    }
-
-    public Company queryCompanyById(UUID id) {
-        return companyJpaRepository.findById(id)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
     private Items getApi(String businessNumber) {

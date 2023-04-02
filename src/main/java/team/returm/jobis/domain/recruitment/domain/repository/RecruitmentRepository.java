@@ -1,32 +1,30 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
+import com.querydsl.core.group.GroupBy;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
+import team.returm.jobis.domain.company.domain.QCompany;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
-import com.querydsl.core.group.GroupBy;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
-import team.returm.jobis.domain.company.domain.QCompany;
 
-
-import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
-import static com.querydsl.core.group.GroupBy.sum;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
 @Repository
 @RequiredArgsConstructor
@@ -66,7 +64,7 @@ public class RecruitmentRepository {
                 );
     }
 
-    public List<RecruitArea> queryRecruitAreasByRecruitmentId(UUID recruitmentId) {
+    public List<RecruitArea> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
         return queryFactory
                 .selectFrom(recruitArea).distinct()
                 .join(recruitArea.codeList, QRecruitAreaCode.recruitAreaCode).fetchJoin()
@@ -74,7 +72,7 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
-    public Recruitment queryRecentRecruitmentByCompanyId(UUID companyId) {
+    public Recruitment queryRecentRecruitmentByCompanyId(Long companyId) {
         return queryFactory
                 .selectFrom(recruitment)
                 .where(recruitment.company.id.eq(companyId))
@@ -89,15 +87,15 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
-    public Optional<RecruitArea> queryRecruitAreaById(UUID recruitAreaId) {
+    public Optional<RecruitArea> queryRecruitAreaById(Long recruitAreaId) {
         return recruitAreaJpaRepository.findById(recruitAreaId);
     }
 
-    public void deleteRecruitAreaCodeByRecruitAreaId(UUID recruitAreaId) {
+    public void deleteRecruitAreaCodeByRecruitAreaId(Long recruitAreaId) {
         recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitAreaId);
     }
 
-    public void deleteRecruitAreaById(UUID recruitAreaId) {
+    public void deleteRecruitAreaById(Long recruitAreaId) {
         recruitAreaJpaRepository.deleteById(recruitAreaId);
     }
 
@@ -105,7 +103,7 @@ public class RecruitmentRepository {
         recruitmentJpaRepository.saveAll(recruitments);
     }
 
-    public Optional<Recruitment> queryRecruitmentById(UUID recruitmentId) {
+    public Optional<Recruitment> queryRecruitmentById(Long recruitmentId) {
         return recruitmentJpaRepository.findById(recruitmentId);
     }
 
@@ -113,7 +111,7 @@ public class RecruitmentRepository {
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
     }
 
-    public void deleteRecruitment(UUID recruitmentId) {
+    public void deleteRecruitment(Long recruitmentId) {
         recruitmentJpaRepository.deleteById(recruitmentId);
     }
 
@@ -125,7 +123,7 @@ public class RecruitmentRepository {
         return recruitAreaJpaRepository.save(recruitArea);
     }
 
-    public List<Recruitment> queryRecruitmentsByIdIn(List<UUID> recruitmentIds) {
+    public List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds) {
         return recruitmentJpaRepository.findByIdIn(recruitmentIds);
     }
 
@@ -136,7 +134,7 @@ public class RecruitmentRepository {
     }
 
     private BooleanExpression betweenRecruitDate(LocalDate start, LocalDate end) {
-        if(start == null || end == null) return null;
+        if (start == null || end == null) return null;
 
         return recruitment.recruitDate.startDate.after(start)
                 .and(recruitment.recruitDate.finishDate.before(end));
@@ -147,7 +145,7 @@ public class RecruitmentRepository {
     }
 
     private BooleanExpression containName(String name) {
-        if(name == null) return null;
+        if (name == null) return null;
 
         return QCompany.company.name.contains(name);
     }

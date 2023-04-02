@@ -1,17 +1,16 @@
 package team.returm.jobis.global.error;
 
-import team.returm.jobis.global.error.exception.ErrorCode;
-import team.returm.jobis.global.error.exception.JobisException;
-import team.returm.jobis.global.error.response.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.filter.OncePerRequestFilter;
-
+import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.filter.OncePerRequestFilter;
+import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.global.error.exception.JobisException;
+import team.returm.jobis.global.error.response.ErrorResponse;
 
 @RequiredArgsConstructor
 public class GlobalExceptionFilter extends OncePerRequestFilter {
@@ -21,8 +20,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             filterChain.doFilter(request, response);
-        }
-        catch (JobisException e) {
+        } catch (JobisException e) {
             ErrorCode errorCode = e.getErrorCode();
             response.setStatus(errorCode.getStatus());
             response.setContentType("application/json");
