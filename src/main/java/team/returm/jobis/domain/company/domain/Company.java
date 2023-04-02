@@ -86,7 +86,7 @@ public class Company {
     private String email;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(300)")
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String companyIntroduce;
 
     @NotNull
