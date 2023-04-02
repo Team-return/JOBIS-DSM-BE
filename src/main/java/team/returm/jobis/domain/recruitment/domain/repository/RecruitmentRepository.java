@@ -19,7 +19,6 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 
-
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
@@ -124,7 +123,7 @@ public class RecruitmentRepository {
         return recruitAreaJpaRepository.save(recruitArea);
     }
 
-    public List<Recruitment> queryRecruitmentsByIdIn(List<UUID> recruitmentIds) {
+    public List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds) {
         return recruitmentJpaRepository.findByIdIn(recruitmentIds);
     }
 

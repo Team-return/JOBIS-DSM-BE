@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
@@ -111,12 +110,7 @@ public class RecruitController {
     @PatchMapping("/status")
     public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentRequest request) {
         teacherChangeRecruitmentStatusService.execute(request);
-    @PatchMapping("/{recruitment-id}/status")
-    public void changeRecruitStatus(
-            @PathVariable("recruitment-id") Long recruitId,
-            @RequestParam("status") RecruitStatus status
-    ) {
-        teacherChangeRecruitmentStatusService.execute(recruitId, status);
+
     }
 
     @GetMapping("/student/{recruitment-id}")
