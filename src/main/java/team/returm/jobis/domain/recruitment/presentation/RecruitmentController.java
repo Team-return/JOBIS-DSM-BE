@@ -41,7 +41,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recruitments")
-public class RecruitController {
+public class RecruitmentController {
 
     private final ApplyRecruitmentService applyRecruitmentService;
     private final UpdateRecruitmentService updateRecruitmentService;
