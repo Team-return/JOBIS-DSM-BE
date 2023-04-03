@@ -13,13 +13,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.DynamicInsert;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.enums.JobType;
 
 @Getter
 @BatchSize(size = 100)
-@DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -28,16 +25,11 @@ public class Code {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(30)")
-    private String keyword;
-
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(4)")
-    @Enumerated(EnumType.STRING)
-    private CodeType codeType;
-
     @Column(columnDefinition = "VARCHAR(8)")
     @Enumerated(EnumType.STRING)
     private JobType jobType;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String keyword;
 }
