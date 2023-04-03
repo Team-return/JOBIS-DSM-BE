@@ -44,10 +44,10 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd jobis
-            docker-compose down
             docker pull ${{ secrets.DOCKER_IMAGE }}
+            docker rm -f jobis
             docker system prune -a -f
-            docker-compose up -d
+            docker run --name jobis -p 8080:8080 --env-file .env -d ${{ secrets.DOCKER_IMAGE }}
             
             
       
