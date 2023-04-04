@@ -13,6 +13,7 @@ import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
+import team.returm.jobis.global.security.jwt.TokenType;
 
 @RequiredArgsConstructor
 @Service
@@ -55,7 +56,8 @@ public class StudentSignUpService {
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
+                .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
+                .accessExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.ACCESS))
                 .build();
     }
 }
