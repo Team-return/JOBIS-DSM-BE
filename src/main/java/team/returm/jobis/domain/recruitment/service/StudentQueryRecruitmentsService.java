@@ -23,7 +23,6 @@ public class StudentQueryRecruitmentsService {
     private final CodeRepository codeRepository;
 
     public StudentQueryRecruitmentsResponse execute(String name, Integer page, List<String> keywords) {
-
         List<RecruitAreaCode> codes = codeRepository.queryCodesByKeywordsAndCodeType(keywords, CodeType.TECH);
 
         List<StudentRecruitmentResponse> recruitments =

@@ -36,9 +36,7 @@ public class CompanyRepository {
                         )
                 )
                 .from(company)
-                .where(
-                        containsName(name)
-                )
+                .where(containsName(name))
                 .orderBy(company.name.desc())
                 .offset(page * pageSize)
                 .limit(pageSize)
