@@ -40,7 +40,6 @@ public class StudentSignUpService {
 
         studentJpaRepository.save(
                 Student.builder()
-                        .phoneNumber(request.getPhoneNumber())
                         .user(user)
                         .classRoom(request.getClassRoom())
                         .number(request.getNumber())
