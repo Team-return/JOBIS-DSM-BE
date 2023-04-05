@@ -43,6 +43,7 @@ public class RegisterCompanyService {
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
+                        .bizRegistrationUrl(request.getBizRegistrationUrl())
                         .name(request.getName())
                         .sales(request.getTake())
                         .mainAddress(request.getAddress1())
