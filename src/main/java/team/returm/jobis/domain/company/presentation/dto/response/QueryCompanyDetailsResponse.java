@@ -1,11 +1,13 @@
 package team.returm.jobis.domain.company.presentation.dto.response;
 
-import com.querydsl.core.annotations.QueryProjection;
-import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Getter
+@Builder
 public class QueryCompanyDetailsResponse {
 
     private final String businessNumber;
@@ -26,31 +28,5 @@ public class QueryCompanyDetailsResponse {
     private final int workerNumber;
     private final int take;
     private final Long recruitmentId;
-
-    @QueryProjection
-    @Builder
-    public QueryCompanyDetailsResponse(String businessNumber, String companyProfileUrl, String companyIntroduce,
-                                       String zipCode1, String address1, String zipCode2, String address2,
-                                       String manager1, String phoneNumber1, String manager2,
-                                       String phoneNumber2, String fax, String email, String representativeName,
-                                       LocalDate foundedAt, int workerNumber, int take, Long recruitmentId) {
-        this.businessNumber = businessNumber;
-        this.companyProfileUrl = companyProfileUrl;
-        this.companyIntroduce = companyIntroduce;
-        this.zipCode1 = zipCode1;
-        this.address1 = address1;
-        this.zipCode2 = zipCode2;
-        this.address2 = address2;
-        this.manager1 = manager1;
-        this.phoneNumber1 = phoneNumber1;
-        this.manager2 = manager2;
-        this.phoneNumber2 = phoneNumber2;
-        this.fax = fax;
-        this.email = email;
-        this.representativeName = representativeName;
-        this.foundedAt = foundedAt;
-        this.workerNumber = workerNumber;
-        this.take = take;
-        this.recruitmentId = recruitmentId;
-    }
+    private final List<String> attachments;
 }
