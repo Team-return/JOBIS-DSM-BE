@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
-import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
@@ -20,6 +19,7 @@ import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitme
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.set;
 import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
@@ -56,8 +56,8 @@ public class RecruitmentRepository {
                         groupBy(recruitArea.recruitment.id)
                                 .list(new QQueryRecruitmentsVO(
                                         recruitment,
-                                        QCompany.company,
-                                        GroupBy.set(recruitAreaCode.codeKeyword),
+                                        company,
+                                        set(recruitAreaCode.codeKeyword),
                                         sum(recruitArea.hiredCount),
                                         recruitment.applicationCount
                                 ))
