@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.code.domain.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,13 +20,10 @@ public class CodeRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     public List<RecruitAreaCode> queryCodesByKeywordsAndCodeType(List<String> keywords, CodeType codeType) {
-        if (keywords.isEmpty()) {
-            return null;
-        }
         return jpaQueryFactory
                 .selectFrom(recruitAreaCode)
                 .where(
-                        recruitAreaCode.codeKeyword.in(keywords),
+                        inKeywords(keywords),
                         recruitAreaCode.codeType.eq(codeType)
                 ).fetch();
     }
@@ -36,5 +34,11 @@ public class CodeRepository {
 
     public List<Code> queryJobCodes() {
         return codeJpaRepository.queryJobCodes();
+    }
+
+    //==conditions==//
+
+    private BooleanExpression inKeywords(List<String> keywords) {
+        return keywords == null ? null : recruitAreaCode.codeKeyword.in(keywords);
     }
 }
