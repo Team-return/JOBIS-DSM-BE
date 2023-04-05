@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.returm.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusRequest;
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import team.returm.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
+import team.returm.jobis.domain.application.service.ChangeApplicationsStatusService;
 import team.returm.jobis.domain.application.service.CreateApplicationService;
 import team.returm.jobis.domain.application.service.DeleteApplicationService;
 import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
@@ -34,6 +37,7 @@ public class ApplicationController {
     private final TeacherQueryApplicationsService queryApplicationListService;
     private final QueryCompanyApplicationsService queryCompanyApplicationsService;
     private final QueryStudentApplicationsService queryStudentApplicationsService;
+    private final ChangeApplicationsStatusService changeApplicationsStatusService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -66,5 +70,14 @@ public class ApplicationController {
     @GetMapping("/students")
     public List<StudentApplicationsResponse> queryApplication() {
         return queryStudentApplicationsService.execute();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/status")
+    public void changeApplicationsStatus(@RequestBody @Valid ChangeApplicationsStatusRequest request) {
+        changeApplicationsStatusService.execute(
+                request.getApplicationIdList(),
+                request.getStatus()
+        );
     }
 }
