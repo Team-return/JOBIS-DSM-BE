@@ -1,4 +1,4 @@
-package team.returm.jobis.domain.user.service;
+package team.returm.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.auth.domain.RefreshToken;

@@ -40,6 +40,7 @@ public class SecurityConfig {
                 //auth
                 .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
+                .antMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
 
                 //students
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
@@ -64,7 +65,6 @@ public class SecurityConfig {
 
                 //users
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
-                .antMatchers(HttpMethod.PUT, "/users/reissue").permitAll()
 
                 //files
                 .antMatchers(HttpMethod.POST, "/files").permitAll()
