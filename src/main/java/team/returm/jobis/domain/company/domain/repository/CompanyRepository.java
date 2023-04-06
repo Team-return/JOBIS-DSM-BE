@@ -95,6 +95,9 @@ public class CompanyRepository {
     public void saveCompany(Company company) {
         companyJpaRepository.save(company);
     }
+    public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
+        return companyJpaRepository.findAllByIdIn(companyIds);
+    }
 
     //==conditions==//
 
