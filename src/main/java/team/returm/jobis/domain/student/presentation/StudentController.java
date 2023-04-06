@@ -24,7 +24,7 @@ public class StudentController {
     private final UpdateStudentPasswordService updateStudentPasswordService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/signup")
+    @PostMapping
     public TokenResponse signup(@RequestBody @Valid StudentSignUpRequest request) {
         return studentSignUpService.execute(request);
     }
