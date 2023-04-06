@@ -28,12 +28,12 @@ public class CodeRepository {
                 ).fetch();
     }
 
-    public List<Code> queryCodeByKeywordContaining(String keyword, CodeType codeType) {
-        return codeJpaRepository.queryCodeByKeywordContainingAndCodeType(keyword, codeType);
+    public List<Code> queryCodeByKeywordContaining(String keyword) {
+        return codeJpaRepository.queryCodeByKeywordContaining(keyword);
     }
 
     public List<Code> queryJobCodes() {
-        return codeJpaRepository.queryJobCodes();
+        return codeJpaRepository.findAll();
     }
 
     //==conditions==//

@@ -10,6 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyService
 public class QueryTechCodesService {
+
     private final CodeRepository codeRepository;
 
     public List<CodeResponse> execute(String keyword) {
@@ -17,7 +18,7 @@ public class QueryTechCodesService {
             keyword = "";
         }
 
-        return codeJpaRepository.queryCodeByKeywordContaining(
+        return codeRepository.queryCodeByKeywordContaining(
                         keyword
                 ).stream()
                 .map(code ->

@@ -13,7 +13,7 @@ public class QueryJobCodesService {
     private final CodeRepository codeRepository;
 
     public List<JobCodeResponse> execute() {
-        return codeJpaRepository.findAll().stream()
+        return codeRepository.queryJobCodes().stream()
                 .map(c -> JobCodeResponse.builder()
                         .code(c.getId())
                         .keyword(c.getKeyword())
