@@ -51,7 +51,7 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
 
-        if (claims.get("type", TokenType.class) != TokenType.ACCESS) {
+        if (claims.get("type") != TokenType.ACCESS.name()) {
             throw InvalidTokenException.EXCEPTION;
         }
 
@@ -83,13 +83,13 @@ public class JwtTokenProvider {
         };
     }
 
-    private String generateToken(String id, TokenType typ, Long exp, Authority authority) {
+    private String generateToken(String id, TokenType type, Long exp, Authority authority) {
         return Jwts.builder()
                 .setSubject(id)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + exp))
-                .claim("type", typ.name())
+                .claim("type", type)
                 .claim("authority", authority)
                 .compact();
     }
