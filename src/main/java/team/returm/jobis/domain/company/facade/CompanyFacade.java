@@ -35,10 +35,4 @@ public class CompanyFacade {
             throw CompanyNotFoundException.EXCEPTION;
         }
     }
-
-    public List<String> getAttachmentUrls(List<CompanyAttachment> companyAttachments) {
-        return companyAttachments.stream()
-                .map(CompanyAttachment::getAttachmentUrl)
-                .toList();
-    }
 }
