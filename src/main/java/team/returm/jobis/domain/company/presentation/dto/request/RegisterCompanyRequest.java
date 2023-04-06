@@ -28,7 +28,7 @@ public class RegisterCompanyRequest {
     private String password;
 
     @NotEmpty
-    @Size(max = 300)
+    @Size(max = 1000)
     private String companyIntroduce;
 
     @NotBlank
@@ -82,5 +82,8 @@ public class RegisterCompanyRequest {
 
     @NotBlank
     private String companyProfileUrl;
+
+    @NotBlank
+    private String bizRegistrationUrl;
 
 }

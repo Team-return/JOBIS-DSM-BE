@@ -1,6 +1,15 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
-import com.querydsl.core.group.GroupBy;
+import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
+import team.returm.jobis.domain.code.domain.RecruitAreaCode;
+import team.returm.jobis.domain.code.domain.enums.CodeType;
+import team.returm.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
+import team.returm.jobis.domain.recruitment.domain.RecruitArea;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
+import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
+import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
+
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
@@ -8,34 +17,26 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
-import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
-import team.returm.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
-import team.returm.jobis.domain.company.domain.QCompany;
-import team.returm.jobis.domain.recruitment.domain.RecruitArea;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
-import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 
+import static com.querydsl.core.group.GroupBy.set;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
 @Repository
 @RequiredArgsConstructor
 public class RecruitmentRepository {
+
     private final JPAQueryFactory queryFactory;
     private final RecruitmentJpaRepository recruitmentJpaRepository;
     private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
-                                                                   RecruitStatus status, String companyName, Integer page) {
+                                                                   RecruitStatus status, String companyName, Integer page, List<RecruitAreaCode> codes) {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
@@ -46,8 +47,9 @@ public class RecruitmentRepository {
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
+                        containsKeywords(codes),
                         recruitment.eq(recruitment),
-                        QRecruitAreaCode.recruitAreaCode.codeType.eq(CodeType.JOB)
+                        recruitAreaCode.codeType.eq(CodeType.JOB)
                 )
                 .orderBy(recruitment.createdAt.desc())
                 .offset(page * pageSize)
@@ -56,8 +58,8 @@ public class RecruitmentRepository {
                         groupBy(recruitArea.recruitment.id)
                                 .list(new QQueryRecruitmentsVO(
                                         recruitment,
-                                        QCompany.company,
-                                        GroupBy.set(recruitAreaCode.codeKeyword),
+                                        company,
+                                        set(recruitAreaCode.codeKeyword),
                                         sum(recruitArea.hiredCount),
                                         recruitment.applicationCount
                                 ))
@@ -147,6 +149,10 @@ public class RecruitmentRepository {
     private BooleanExpression containName(String name) {
         if (name == null) return null;
 
-        return QCompany.company.name.contains(name);
+        return company.name.contains(name);
+    }
+
+    private BooleanExpression containsKeywords(List<RecruitAreaCode> codes) {
+        return codes == null ? null : recruitment.recruitAreaList.any().codeList.any().in(codes);
     }
 }

@@ -1,16 +1,16 @@
 package team.returm.jobis.domain.code.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
-import team.returm.jobis.domain.code.domain.repository.CodeJpaRepository;
+import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.presentation.dto.response.CodeResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyService
 public class QueryTechCodesService {
-    private final CodeJpaRepository codeJpaRepository;
+    private final CodeRepository codeRepository;
 
     public List<CodeResponse> execute(String keyword) {
         if (keyword == null) {

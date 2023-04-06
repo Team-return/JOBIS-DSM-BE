@@ -24,8 +24,7 @@ import team.returm.jobis.global.security.auth.teacher.TeacherDetailsService;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-    private static final String ACCESS = "ACCESS";
-    private static final String REFRESH = "REFRESH";
+
     private final JwtProperties jwtProperties;
     private final RefreshTokenRepository refreshTokenRepository;
     private final CompanyDetailsService companyDetailsService;
@@ -33,11 +32,11 @@ public class JwtTokenProvider {
     private final TeacherDetailsService teacherDetailsService;
 
     public String generateAccessToken(Long userId, Authority authority) {
-        return generateToken(userId.toString(), ACCESS, jwtProperties.getAccessExp(), authority);
+        return generateToken(userId.toString(), TokenType.ACCESS, jwtProperties.getAccessExp(), authority);
     }
 
     public String generateRefreshToken(Long userId, Authority authority) {
-        String token = generateToken(userId.toString(), REFRESH, jwtProperties.getRefreshExp(), authority);
+        String token = generateToken(userId.toString(), TokenType.REFRESH, jwtProperties.getRefreshExp(), authority);
         refreshTokenRepository.save(
                 RefreshToken.builder()
                         .id(userId)
@@ -52,9 +51,10 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
 
-        if (!claims.get("type", String.class).equals(ACCESS)) {
+        if (!claims.get("type").equals(TokenType.ACCESS.name())) {
             throw InvalidTokenException.EXCEPTION;
         }
+
         Authority authority = Authority.valueOf(claims.get("authority", String.class));
         UserDetails userDetails = getUserDetails(claims.getSubject(), authority);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
@@ -68,8 +68,11 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public LocalDateTime getExpiredAt() {
-        return LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp());
+    public LocalDateTime getExpiredAt(TokenType type) {
+        return switch (type) {
+            case ACCESS -> LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp());
+            case REFRESH -> LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp());
+        };
     }
 
     private UserDetails getUserDetails(String id, Authority authority) {
@@ -80,13 +83,13 @@ public class JwtTokenProvider {
         };
     }
 
-    private String generateToken(String id, String typ, Long exp, Authority authority) {
+    private String generateToken(String id, TokenType type, Long exp, Authority authority) {
         return Jwts.builder()
                 .setSubject(id)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + exp))
-                .claim("type", typ)
+                .claim("type", type.name())
                 .claim("authority", authority)
                 .compact();
     }
