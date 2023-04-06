@@ -17,8 +17,8 @@ public class QueryTechCodesService {
             keyword = "";
         }
 
-        return codeJpaRepository.queryCodeByKeywordContainingAndCodeType(
-                        keyword, CodeType.TECH
+        return codeJpaRepository.queryCodeByKeywordContaining(
+                        keyword
                 ).stream()
                 .map(code ->
                         CodeResponse.builder()

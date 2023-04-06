@@ -14,7 +14,7 @@ public class QueryJobCodesService {
 
     @Transactional(readOnly = true)
     public List<JobCodeResponse> execute() {
-        return codeJpaRepository.queryJobCodes().stream()
+        return codeJpaRepository.findAll().stream()
                 .map(c -> JobCodeResponse.builder()
                         .code(c.getId())
                         .keyword(c.getKeyword())
