@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
-import com.querydsl.core.group.GroupBy;
 import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
@@ -18,25 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
-import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
-import team.returm.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
-import team.returm.jobis.domain.company.domain.QCompany;
-import team.returm.jobis.domain.recruitment.domain.RecruitArea;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
-import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 
 import static com.querydsl.core.group.GroupBy.set;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
@@ -45,8 +25,6 @@ import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
 
 @Repository
 @RequiredArgsConstructor
