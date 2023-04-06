@@ -138,7 +138,7 @@ public class Company {
         this.email = email;
     }
 
-    public Company changeType(CompanyType type) {
+    public Company changeCompanyType(CompanyType type) {
         this.type = type;
         return this;
     }

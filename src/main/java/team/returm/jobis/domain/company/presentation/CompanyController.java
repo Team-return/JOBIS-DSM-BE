@@ -78,7 +78,7 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/type")
-    public void updateType(@RequestBody @Valid UpdateCompanyTypeRequest request) {
+    public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeRequest request) {
         updateCompanyTypeService.execute(request);
     }
 }
