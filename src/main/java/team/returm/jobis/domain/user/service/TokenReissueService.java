@@ -8,6 +8,7 @@ import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtProperties;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
+import team.returm.jobis.global.security.jwt.TokenType;
 
 @RequiredArgsConstructor
 @Service
@@ -26,8 +27,10 @@ public class TokenReissueService {
 
         return TokenResponse.builder()
                 .accessToken(newAccess)
+                .accessExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.ACCESS))
                 .refreshToken(newRefresh)
-                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
+                .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
+                .authority(token.getAuthority())
                 .build();
     }
 }
