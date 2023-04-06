@@ -20,7 +20,7 @@ public class JwtProperties {
         this.secret = Base64.getEncoder().encodeToString(secret.getBytes());
         this.header = header;
         this.prefix = prefix;
-        this.accessExp = accessExp;
+        this.accessExp = accessExp * 1000;
         this.refreshExp = refreshExp;
     }
 }
