@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.returm.jobis.domain.company.service.UpdateCompanyTypeService;
+import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
 
 @RequiredArgsConstructor
 @RequestMapping("/companies")
@@ -37,6 +39,7 @@ public class CompanyController {
     private final StudentQueryCompaniesService studentQueryCompaniesService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
+    private final UpdateCompanyTypeService updateCompanyTypeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -71,5 +74,11 @@ public class CompanyController {
     @GetMapping("/my")
     public CompanyMyPageResponse queryMyPage() {
         return companyMyPageService.execute();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/type")
+    public void updateType(@RequestBody @Valid UpdateCompanyTypeRequest request) {
+        updateCompanyTypeService.execute(request);
     }
 }
