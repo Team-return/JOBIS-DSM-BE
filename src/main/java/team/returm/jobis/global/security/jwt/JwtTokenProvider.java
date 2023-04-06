@@ -51,7 +51,7 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
 
-        if (claims.get("type") != TokenType.ACCESS.name()) {
+        if (!claims.get("type").equals(TokenType.ACCESS.name())) {
             throw InvalidTokenException.EXCEPTION;
         }
 
@@ -89,7 +89,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + exp))
-                .claim("type", type)
+                .claim("type", type.name())
                 .claim("authority", authority)
                 .compact();
     }
