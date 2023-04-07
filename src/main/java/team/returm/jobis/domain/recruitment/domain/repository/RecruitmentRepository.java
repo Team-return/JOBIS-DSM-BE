@@ -17,14 +17,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import static com.querydsl.core.group.GroupBy.set;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.group.GroupBy.set;
 import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;

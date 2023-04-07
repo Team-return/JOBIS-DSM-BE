@@ -15,7 +15,6 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.groupBy;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static team.returm.jobis.domain.company.domain.QCompanyAttachment.companyAttachment;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;

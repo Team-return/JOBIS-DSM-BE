@@ -1,14 +1,9 @@
 package team.returm.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
-import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.company.domain.CompanyAttachment;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.domain.repository.vo.QueryCompanyDetailsVO;
-import team.returm.jobis.domain.company.facade.CompanyFacade;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
 import java.util.List;
