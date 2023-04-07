@@ -76,7 +76,7 @@ public class ApplicationController {
     @PatchMapping("/status")
     public void changeApplicationsStatus(@RequestBody @Valid ChangeApplicationsStatusRequest request) {
         changeApplicationsStatusService.execute(
-                request.getApplicationIdList(),
+                request.getApplicationIds(),
                 request.getStatus()
         );
     }
