@@ -86,6 +86,7 @@ public class ApplicationRepository {
     public List<Application> queryApplicationByIds(List<Long> applicationIds) {
         return applicationJpaRepository.findByIdIn(applicationIds);
     }
+
     public Optional<Application> queryApplicationById(Long applicationId) {
         return applicationJpaRepository.findById(applicationId);
     }

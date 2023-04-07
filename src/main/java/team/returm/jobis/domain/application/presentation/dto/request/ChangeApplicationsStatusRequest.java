@@ -9,8 +9,9 @@ import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 @Getter
 @NoArgsConstructor
 public class ChangeApplicationsStatusRequest {
+
     @NotNull
-    private List<Long> applicationIdList;
+    private List<Long> applicationIds;
 
     @NotNull
     private ApplicationStatus status;
