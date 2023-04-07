@@ -13,6 +13,7 @@ import team.returm.jobis.domain.user.domain.enums.Authority;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
+import team.returm.jobis.global.security.jwt.TokenType;
 
 @RequiredArgsConstructor
 @Service
@@ -43,6 +44,7 @@ public class RegisterCompanyService {
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
+                        .bizRegistrationUrl(request.getBizRegistrationUrl())
                         .name(request.getName())
                         .sales(request.getTake())
                         .mainAddress(request.getAddress1())
@@ -68,8 +70,9 @@ public class RegisterCompanyService {
 
         return TokenResponse.builder()
                 .accessToken(accessToken)
+                .accessExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.ACCESS))
                 .refreshToken(refreshToken)
-                .accessExpiredAt(jwtTokenProvider.getExpiredAt())
+                .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
                 .build();
     }
 }

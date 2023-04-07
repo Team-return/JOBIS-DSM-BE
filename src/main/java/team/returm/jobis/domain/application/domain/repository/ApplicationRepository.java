@@ -67,6 +67,10 @@ public class ApplicationRepository {
         return applicationJpaRepository.save(application);
     }
 
+    public void saveApplications(List<Application> applications) {
+        applicationJpaRepository.saveAll(applications);
+    }
+
     public void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
         applicationAttachmentJpaRepository.saveAll(applicationAttachments);
     }
@@ -77,6 +81,10 @@ public class ApplicationRepository {
 
     public boolean existsApplicationByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus) {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
+    }
+
+    public List<Application> queryApplicationByIds(List<Long> applicationIds) {
+        return applicationJpaRepository.findByIdIn(applicationIds);
     }
 
     public Optional<Application> queryApplicationById(Long applicationId) {

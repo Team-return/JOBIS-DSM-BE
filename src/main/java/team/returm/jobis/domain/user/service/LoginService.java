@@ -6,9 +6,10 @@ import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.exception.InvalidPasswordException;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.domain.user.presentation.dto.request.LoginRequest;
-import team.returm.jobis.domain.user.presentation.dto.response.UserAuthResponse;
+import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
+import team.returm.jobis.global.security.jwt.TokenType;
 
 @RequiredArgsConstructor
 @Service
@@ -18,7 +19,7 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public UserAuthResponse execute(LoginRequest request) {
+    public TokenResponse execute(LoginRequest request) {
 
         User user = userFacade.getUser(request.getAccountId());
 
@@ -29,10 +30,11 @@ public class LoginService {
         String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
-        return UserAuthResponse.builder()
+        return TokenResponse.builder()
                 .accessToken(accessToken)
+                .accessExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.ACCESS))
                 .refreshToken(refreshToken)
-                .accessExpiresAt(jwtTokenProvider.getExpiredAt())
+                .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
                 .authority(user.getAuthority())
                 .build();
     }

@@ -6,8 +6,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
+import team.returm.jobis.domain.student.exception.UnverifiedEmailException;
 
 @Getter
+@Builder
 @RedisHash
 public class AuthCode {
 
@@ -17,21 +19,20 @@ public class AuthCode {
     @Indexed
     private final String code;
 
+    @Indexed
     private boolean isVerified;
 
     @TimeToLive
     private final Integer ttl;
 
-    @Builder
-    public AuthCode(String email, String code) {
-        this.email = email;
-        this.code = code;
-        this.isVerified = false;
-        this.ttl = 300;
-    }
-
     public AuthCode verify() {
         this.isVerified = true;
         return this;
+    }
+
+    public void checkIsVerified() {
+        if (!this.isVerified) {
+            throw UnverifiedEmailException.EXCEPTION;
+        }
     }
 }

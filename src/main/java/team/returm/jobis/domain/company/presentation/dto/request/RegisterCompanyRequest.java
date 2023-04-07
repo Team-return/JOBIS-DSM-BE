@@ -83,4 +83,7 @@ public class RegisterCompanyRequest {
     @NotBlank
     private String companyProfileUrl;
 
+    @NotBlank
+    private String bizRegistrationUrl;
+
 }

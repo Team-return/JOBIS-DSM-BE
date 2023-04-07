@@ -40,6 +40,7 @@ public class SecurityConfig {
                 //auth
                 .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
+                .antMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
 
                 //students
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
@@ -52,8 +53,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
 
                 //companies
+                .antMatchers(HttpMethod.PATCH, "/companies/type").hasAnyAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(COMPANY.name())
@@ -64,7 +67,6 @@ public class SecurityConfig {
 
                 //users
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
-                .antMatchers(HttpMethod.PUT, "/users/reissue").permitAll()
 
                 //files
                 .antMatchers(HttpMethod.POST, "/files").permitAll()

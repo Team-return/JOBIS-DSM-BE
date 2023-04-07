@@ -52,4 +52,9 @@ public class Application extends BaseTimeEntity {
         this.recruitment = recruitment;
         this.applicationStatus = applicationStatus;
     }
+
+    public Application changeStatus(ApplicationStatus status) {
+        this.applicationStatus = status;
+        return this;
+    }
 }

@@ -21,6 +21,6 @@ public class JwtProperties {
         this.header = header;
         this.prefix = prefix;
         this.accessExp = accessExp * 1000;
-        this.refreshExp = refreshExp * 1000;
+        this.refreshExp = refreshExp;
     }
 }

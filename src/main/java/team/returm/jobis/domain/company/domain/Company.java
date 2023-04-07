@@ -93,6 +93,10 @@ public class Company {
     @Column(columnDefinition = "VARCHAR(300)")
     private String companyLogoUrl;
 
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(300)")
+    private String bizRegistrationUrl;
+
     @OneToMany(mappedBy = "company")
     private List<Recruitment> recruitmentList = new ArrayList<>();
 
@@ -103,9 +107,10 @@ public class Company {
     public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
                    String representative, LocalDate foundedAt, int sales, int workersCount, String managerName, String managerPhoneNo,
                    String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                   String fax, String email, String bizNo) {
+                   String fax, String email, String bizNo, String bizRegistrationUrl) {
         this.user = user;
         this.name = name;
+        this.bizRegistrationUrl = bizRegistrationUrl;
         this.type = CompanyType.PARTICIPATING;
         this.address = new Address(mainAddress, mainZipCode, subAddress, subZipCode);
         this.representative = representative;
@@ -131,5 +136,10 @@ public class Company {
         this.companyLogoUrl = companyLogoUrl;
         this.fax = fax;
         this.email = email;
+    }
+
+    public Company changeCompanyType(CompanyType type) {
+        this.type = type;
+        return this;
     }
 }
