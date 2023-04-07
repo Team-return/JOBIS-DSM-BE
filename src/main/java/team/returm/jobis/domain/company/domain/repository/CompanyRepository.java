@@ -85,7 +85,7 @@ public class CompanyRepository {
         return queryFactory
                 .select(companyAttachment.attachmentUrl)
                 .from(companyAttachment)
-                .where(company.id.eq(companyId))
+                .where(companyAttachment.company.id.eq(companyId))
                 .fetch();
     }
 
