@@ -2,21 +2,22 @@ package team.returm.jobis.domain.company.domain.repository;
 
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.company.domain.CompanyAttachment;
 import team.returm.jobis.domain.company.domain.repository.vo.QQueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
+import java.util.List;
+import java.util.Optional;
+
+import static com.querydsl.core.group.GroupBy.groupBy;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static team.returm.jobis.domain.company.domain.QCompanyAttachment.companyAttachment;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
 @Repository
 @RequiredArgsConstructor
@@ -80,9 +81,10 @@ public class CompanyRepository {
                 .fetchOne();
     }
 
-    public List<CompanyAttachment> queryCompanyAttachments(Long companyId) {
+    public List<String> queryCompanyAttachmentUrls(Long companyId) {
         return queryFactory
-                .selectFrom(companyAttachment)
+                .select(companyAttachment.attachmentUrl)
+                .from(companyAttachment)
                 .leftJoin(companyAttachment.company, company)
                 .where(company.id.eq(companyId))
                 .fetch();

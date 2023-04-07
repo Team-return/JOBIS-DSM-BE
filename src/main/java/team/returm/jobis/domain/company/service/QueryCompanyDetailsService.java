@@ -21,7 +21,7 @@ public class QueryCompanyDetailsService {
 
     public QueryCompanyDetailsResponse execute(Long companyId) {
         QueryCompanyDetailsVO vo = companyRepository.queryCompanyDetails(companyId);
-        List<CompanyAttachment> companyAttachments = companyRepository.queryCompanyAttachments(companyId);
+        List<String> attachmentUrls = companyRepository.queryCompanyAttachmentUrls(companyId);
 
         return QueryCompanyDetailsResponse
                 .builder()
@@ -43,14 +43,7 @@ public class QueryCompanyDetailsService {
                 .workerNumber(vo.getWorkerNumber())
                 .take(vo.getTake())
                 .recruitmentId(vo.getRecruitmentId())
-                .attachments(getAttachmentUrls(companyAttachments))
+                .attachments(attachmentUrls)
                 .build();
     }
-
-    private List<String> getAttachmentUrls(List<CompanyAttachment> companyAttachments) {
-        return companyAttachments.stream()
-                .map(CompanyAttachment::getAttachmentUrl)
-                .toList();
-    }
-
 }
