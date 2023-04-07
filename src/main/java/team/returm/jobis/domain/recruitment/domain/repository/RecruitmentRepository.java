@@ -1,5 +1,7 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
@@ -15,8 +17,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import static com.querydsl.core.group.GroupBy.set;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
