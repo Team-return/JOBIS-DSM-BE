@@ -96,6 +96,14 @@ public class CompanyRepository {
         companyJpaRepository.save(company);
     }
 
+    public void saveAllCompanies(List<Company> companies) {
+        companyJpaRepository.saveAll(companies);
+    }
+
+    public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
+        return companyJpaRepository.findAllByIdIn(companyIds);
+    }
+
     //==conditions==//
 
     private BooleanExpression containsName(String name) {
