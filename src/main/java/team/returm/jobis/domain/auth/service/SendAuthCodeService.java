@@ -33,6 +33,8 @@ public class SendAuthCodeService {
 
         AuthCode authCode = AuthCode.builder()
                 .code(StringUtil.generateRandomCode(6))
+                .ttl(300)
+                .isVerified(false)
                 .email(request.getEmail())
                 .build();
         authCodeRepository.save(authCode);
