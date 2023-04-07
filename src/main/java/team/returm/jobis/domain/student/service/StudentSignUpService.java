@@ -37,8 +37,8 @@ public class StudentSignUpService {
                 .orElseThrow(() -> UnverifiedEmailException.EXCEPTION);
         authCode.checkIsVerified();
 
-        if (studentJpaRepository.existsByGradeAndClassRoomAndNumber(request.getGrade(),
-                request.getClassRoom(), request.getNumber())
+        if (studentJpaRepository.existsByGradeAndClassRoomAndNumber(
+                request.getGrade(), request.getClassRoom(), request.getNumber())
         ) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
