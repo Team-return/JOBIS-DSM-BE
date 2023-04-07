@@ -1,15 +1,21 @@
 package team.returm.jobis.domain.company.domain.repository;
 
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.domain.CompanyAttachment;
+import team.returm.jobis.domain.company.domain.repository.vo.QQueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
+import team.returm.jobis.domain.company.domain.repository.vo.QueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
+import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
 import static team.returm.jobis.domain.company.domain.QCompany.company;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static team.returm.jobis.domain.company.domain.QCompanyAttachment.companyAttachment;
 
 @Repository
@@ -33,12 +39,53 @@ public class CompanyRepository {
                 .fetch();
     }
 
-    public Company queryCompanyDetails(Long companyId) {
+    public QueryCompanyDetailsVO queryCompanyDetails(Long companyId) {
         return queryFactory
-                .selectFrom(company)
-                .leftJoin(company.companyAttachments, companyAttachment).fetchJoin()
+                .select(
+                        new QQueryCompanyDetailsVO(
+                                company.bizNo,
+                                company.companyLogoUrl,
+                                company.companyIntroduce,
+                                company.address.mainZipCode,
+                                company.address.mainAddress,
+                                company.address.subZipCode,
+                                company.address.subAddress,
+                                company.manager.managerName,
+                                company.manager.managerPhoneNo,
+                                company.manager.subManagerName,
+                                company.manager.subManagerPhoneNo,
+                                company.fax,
+                                company.email,
+                                company.representative,
+                                company.foundedAt,
+                                company.workersCount,
+                                company.sales,
+                                recruitment.id
+                        )
+                )
+                .from(company)
+                .leftJoin(recruitment)
+                .on(
+                        recruitment.company.id.eq(company.id),
+                        recruitment.createdAt.eq(
+                                JPAExpressions.select(recruitment.createdAt.max())
+                                        .from(recruitment)
+                                        .where(
+                                                recruitment.company.id.eq(company.id),
+                                                recruitment.status.eq(RecruitStatus.RECRUITING)
+                                        )
+                        )
+                )
                 .where(company.id.eq(companyId))
                 .fetchOne();
+    }
+
+    public List<CompanyAttachment> queryCompanyAttachments(Long companyId) {
+        return queryFactory
+                .selectFrom(companyAttachment)
+                .leftJoin(companyAttachment.company, company)
+                .where(company.id.eq(companyId))
+                .fetch();
     }
 
     public Optional<Company> queryCompanyById(Long companyId) {
