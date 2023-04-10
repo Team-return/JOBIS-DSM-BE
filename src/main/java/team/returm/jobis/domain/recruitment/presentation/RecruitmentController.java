@@ -93,20 +93,20 @@ public class RecruitmentController {
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(value = "keyword", required = false) List<String> keywords
-            ) {
+    ) {
         return studentQueryRecruitmentsService.execute(companyName, page, keywords);
     }
 
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
             @RequestParam(value = "company-name", required = false) String companyName,
-            @RequestParam(value = "start", required = false) LocalDate start,
-            @RequestParam(value = "end", required = false) LocalDate end,
+            @RequestParam(value = "start", required = false) String start,
+            @RequestParam(value = "end", required = false) String end,
             @RequestParam(value = "status", required = false) RecruitStatus status,
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
-        return teacherQueryRecruitmentsService.execute(companyName, start, end, year, status, page);
+        return teacherQueryRecruitmentsService.execute(companyName, LocalDate.parse(start), LocalDate.parse(end), year, status, page);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
