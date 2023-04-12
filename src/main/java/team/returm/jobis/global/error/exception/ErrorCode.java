@@ -10,6 +10,7 @@ public enum ErrorCode {
 
     BAD_EMAIL(400, "Bad Email Domain"),
     INVALID_EXTENSION(400, "Invalid Extension File"),
+    INVALID_DATE_FILTER_RANGE(400, "Invalid Date Filter"),
 
     UNVERIFIED_EMAIL(401, "Unverified Email"),
     COMPANY_MISMATCH(403, "Company Mismatch"),

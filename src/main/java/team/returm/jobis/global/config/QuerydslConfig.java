@@ -1,4 +1,4 @@
-package team.returm.jobis.global.querydsl;
+package team.returm.jobis.global.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;

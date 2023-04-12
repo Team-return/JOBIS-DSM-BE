@@ -3,6 +3,7 @@ package team.returm.jobis.domain.recruitment.presentation;
 import java.time.LocalDate;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,13 +101,13 @@ public class RecruitmentController {
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
             @RequestParam(value = "company-name", required = false) String companyName,
-            @RequestParam(value = "start", required = false) String start,
-            @RequestParam(value = "end", required = false) String end,
+            @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
             @RequestParam(value = "status", required = false) RecruitStatus status,
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
-        return teacherQueryRecruitmentsService.execute(companyName, LocalDate.parse(start), LocalDate.parse(end), year, status, page);
+        return teacherQueryRecruitmentsService.execute(companyName, start, end, year, status, page);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
