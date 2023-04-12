@@ -36,7 +36,8 @@ public class RecruitmentRepository {
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
-                                                                   RecruitStatus status, String companyName, Integer page, List<RecruitAreaCode> codes) {
+                                                                   RecruitStatus status, String companyName,
+                                                                   Integer page, List<RecruitAreaCode> codes) {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
@@ -136,7 +137,15 @@ public class RecruitmentRepository {
     }
 
     private BooleanExpression betweenRecruitDate(LocalDate start, LocalDate end) {
-        if (start == null || end == null) return null;
+        if (start == null && end == null) return null;
+
+        if (start != null && end == null) {
+            return recruitment.recruitDate.startDate.after(start);
+        }
+
+        if (start == null && end != null) {
+            return recruitment.recruitDate.finishDate.before(end);
+        }
 
         return recruitment.recruitDate.startDate.after(start)
                 .and(recruitment.recruitDate.finishDate.before(end));
