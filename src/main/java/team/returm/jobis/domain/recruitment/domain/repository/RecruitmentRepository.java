@@ -90,8 +90,8 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
-    public void queryRecruitmentsByApplications(List<Application> applications) {
-        queryFactory
+    public List<Long> queryRecruitmentsByApplications(List<Application> applications) {
+        return queryFactory
                 .select(recruitment.id)
                 .from(recruitment)
                 .join(recruitment.applications, application)
