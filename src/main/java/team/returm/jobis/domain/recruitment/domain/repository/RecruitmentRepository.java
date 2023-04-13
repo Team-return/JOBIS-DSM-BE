@@ -2,6 +2,7 @@ package team.returm.jobis.domain.recruitment.domain.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.set;
+import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
@@ -49,7 +51,6 @@ public class RecruitmentRepository {
                         eqRecruitStatus(status),
                         containName(companyName),
                         containsKeywords(codes),
-                        recruitment.eq(recruitment),
                         recruitAreaCode.codeType.eq(CodeType.JOB)
                 )
                 .orderBy(recruitment.createdAt.desc())
@@ -61,8 +62,7 @@ public class RecruitmentRepository {
                                         recruitment,
                                         company,
                                         set(recruitAreaCode.codeKeyword),
-                                        sum(recruitArea.hiredCount),
-                                        recruitment.applicationCount
+                                        sum(recruitArea.hiredCount)
                                 ))
                 );
     }
@@ -88,6 +88,33 @@ public class RecruitmentRepository {
                 .selectFrom(recruitment)
                 .where(recruitment.recruitDate.startDate.before(LocalDate.now()))
                 .fetch();
+    }
+
+    public void queryRecruitmentsByApplications(List<Application> applications) {
+        queryFactory
+                .select(recruitment.id)
+                .from(recruitment)
+                .join(recruitment.applications, application)
+                .where(application.in(applications))
+                .fetch();
+    }
+
+    public void addApplicationApprovedCount(List<Long> recruitmentIds) {
+        queryFactory
+                .update(recruitment)
+                .set(recruitment.applicationApprovedCount, recruitment.applicationApprovedCount.add(1))
+                .set(recruitment.applicationRequestedCount, recruitment.applicationRequestedCount.subtract(1))
+                .where(recruitment.id.in(recruitmentIds))
+                .execute();
+    }
+
+    public void addApplicationRequestedCount(List<Long> recruitmentIds) {
+        queryFactory
+                .update(recruitment)
+                .set(recruitment.applicationRequestedCount, recruitment.applicationRequestedCount.add(1))
+                .set(recruitment.applicationApprovedCount, recruitment.applicationApprovedCount.subtract(1))
+                .where(recruitment.id.in(recruitmentIds))
+                .execute();
     }
 
     public Optional<RecruitArea> queryRecruitAreaById(Long recruitAreaId) {

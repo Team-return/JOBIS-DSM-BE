@@ -95,6 +95,14 @@ public class ApplicationRepository {
         applicationJpaRepository.delete(application);
     }
 
+    public void changeApplicationStatus(ApplicationStatus status, List<Application> applications) {
+        jpaQueryFactory
+                .update(application)
+                .set(application.applicationStatus, status)
+                .where(application.in(applications))
+                .execute();
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {
