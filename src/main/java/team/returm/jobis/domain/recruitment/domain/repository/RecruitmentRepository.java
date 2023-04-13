@@ -139,12 +139,15 @@ public class RecruitmentRepository {
     private BooleanExpression betweenRecruitDate(LocalDate start, LocalDate end) {
         if (start == null && end == null) return null;
 
-        if (start != null && end == null) {
-            return recruitment.recruitDate.startDate.after(start);
+        start = start.minusDays(1);
+        end = end.plusDays(1);
+
+        if (start == null) {
+            return recruitment.recruitDate.finishDate.before(end);
         }
 
-        if (start == null && end != null) {
-            return recruitment.recruitDate.finishDate.before(end);
+        if (end == null) {
+            return recruitment.recruitDate.startDate.after(start);
         }
 
         return recruitment.recruitDate.startDate.after(start)
