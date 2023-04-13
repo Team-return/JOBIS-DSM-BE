@@ -87,7 +87,10 @@ public class Recruitment extends BaseTimeEntity {
     private PayInfo payInfo;
 
     @Column(columnDefinition = "INT")
-    private Integer applicationCount;
+    private Integer applicationRequestedCount;
+
+    @Column(columnDefinition = "INT")
+    private Integer applicationApprovedCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -102,8 +105,8 @@ public class Recruitment extends BaseTimeEntity {
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
                        LocalDate startDate, LocalDate endDate, Company company, String benefits, String requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
-    ) {
+                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade,
+                       Integer applicationRequestedCount, Integer applicationApprovedCount) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
@@ -112,7 +115,8 @@ public class Recruitment extends BaseTimeEntity {
         this.status = status;
         this.benefits = benefits;
         this.preferentialTreatment = preferentialTreatment;
-        this.applicationCount = 0;
+        this.applicationRequestedCount = applicationRequestedCount;
+        this.applicationApprovedCount = applicationApprovedCount;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.payInfo = new PayInfo(trainPay, pay);
         this.company = company;
@@ -149,11 +153,11 @@ public class Recruitment extends BaseTimeEntity {
         }
     }
 
-    public void addApplicationCount() {
-        this.applicationCount += 1;
+    public void addApplicationRequestedCount() {
+        this.applicationRequestedCount += 1;
     }
 
-    public void subApplicationCount() {
-        this.applicationCount -= 1;
+    public void subApplicationRequestedCount() {
+        this.applicationRequestedCount -= 1;
     }
 }

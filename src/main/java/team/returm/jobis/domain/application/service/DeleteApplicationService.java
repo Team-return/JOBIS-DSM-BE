@@ -35,6 +35,6 @@ public class DeleteApplicationService {
         }
 
         applicationRepository.deleteApplication(application);
-        recruitment.subApplicationCount();
+        recruitment.subApplicationRequestedCount();
     }
 }

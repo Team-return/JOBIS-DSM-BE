@@ -49,7 +49,7 @@ public class CreateApplicationService {
                         .build()
         );
 
-        recruitment.addApplicationCount();
+        recruitment.addApplicationRequestedCount();
 
         List<ApplicationAttachment> applicationAttachmentList = request.getAttachmentUrl()
                 .stream()
