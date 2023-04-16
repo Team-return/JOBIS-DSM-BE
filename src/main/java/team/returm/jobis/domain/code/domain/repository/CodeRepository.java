@@ -11,6 +11,7 @@ import team.returm.jobis.domain.code.domain.enums.CodeType;
 import java.util.List;
 
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
+import static team.returm.jobis.domain.code.domain.QCode.code;
 
 @RequiredArgsConstructor
 @Repository
@@ -28,12 +29,17 @@ public class CodeRepository {
                 ).fetch();
     }
 
-    public List<Code> queryCodeByKeywordContaining(String keyword) {
-        return codeJpaRepository.queryCodeByKeywordContaining(keyword);
+    public List<Code> queryTechCodesByKeywordContaining(String keyword) {
+        return jpaQueryFactory
+                .selectFrom(code)
+                .where(
+                        code.keyword.contains(keyword),
+                        code.codeType.eq(CodeType.TECH)
+                ).fetch();
     }
 
     public List<Code> queryJobCodes() {
-        return codeJpaRepository.findAll();
+        return codeJpaRepository.queryJobCodes();
     }
 
     //==conditions==//

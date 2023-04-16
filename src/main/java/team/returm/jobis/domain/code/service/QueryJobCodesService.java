@@ -14,10 +14,10 @@ public class QueryJobCodesService {
 
     public List<JobCodeResponse> execute() {
         return codeRepository.queryJobCodes().stream()
-                .map(c -> JobCodeResponse.builder()
-                        .code(c.getId())
-                        .keyword(c.getKeyword())
-                        .jobType(c.getJobType())
+                .map(code -> JobCodeResponse.builder()
+                        .code(code.getId())
+                        .keyword(code.getKeyword())
+                        .jobType(code.getJobType())
                         .build())
                 .toList();
     }

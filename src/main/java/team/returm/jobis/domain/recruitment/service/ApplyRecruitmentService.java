@@ -1,20 +1,18 @@
 package team.returm.jobis.domain.recruitment.service;
 
 import java.time.Year;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
+
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
-import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.domain.code.domain.SubCode;
 import team.returm.jobis.domain.code.facade.CodeFacade;
-import team.returm.jobis.domain.code.facade.SubCodeFacade;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import team.returm.jobis.domain.recruitment.facade.RecruitAreaFacade;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest.Area;
 import team.returm.jobis.domain.user.facade.UserFacade;
@@ -27,8 +25,6 @@ public class ApplyRecruitmentService {
     private final RecruitmentRepository recruitmentRepository;
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
-    private final SubCodeFacade subCodeFacade;
-    private final RecruitAreaFacade recruitAreaFacade;
 
     public void execute(ApplyRecruitmentRequest request) {
         Company company = userFacade.getCurrentCompany();
@@ -57,8 +53,6 @@ public class ApplyRecruitmentService {
                         .build()
         );
 
-        List<RecruitAreaCode> recruitAreaCodes = new ArrayList<>();
-
         for (Area area : request.getAreas()) {
             RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
                     RecruitArea.builder()
@@ -68,11 +62,14 @@ public class ApplyRecruitmentService {
                             .build()
             );
 
-            List<Code> codes = codeFacade.findAllCodeById(area.getJobCodes());
-            List<SubCode> subCodes = subCodeFacade.findAllCodeById(area.getTechCodes());
+            List<Code> codes = codeFacade.findAllCodeById(
+                    Stream.of(area.getJobCodes(), area.getTechCodes())
+                            .flatMap(Collection::stream)
+                            .toList()
+            );
 
             recruitmentRepository.saveAllRecruitAreaCodes(
-                    recruitAreaFacade.addRecruitAreaCodes(recruitArea, codes, subCodes)
+                    codeFacade.generateRecruitAreaCode(recruitArea, codes)
             );
         }
     }

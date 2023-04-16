@@ -1,13 +1,12 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
+
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
-import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.domain.code.domain.SubCode;
 import team.returm.jobis.domain.code.facade.CodeFacade;
-import team.returm.jobis.domain.code.facade.SubCodeFacade;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.domain.recruitment.facade.RecruitAreaFacade;
@@ -25,7 +24,6 @@ public class UpdateRecruitAreaService {
     private final RecruitmentRepository recruitmentRepository;
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
-    private final SubCodeFacade subCodeFacade;
 
     public void execute(UpdateRecruitAreaRequest request, Long recruitAreaId) {
         User user = userFacade.getCurrentUser();
@@ -37,13 +35,17 @@ public class UpdateRecruitAreaService {
         }
 
         recruitmentRepository.deleteRecruitAreaCodeByRecruitAreaId(recruitArea.getId());
-        List<Code> codes = codeFacade.findAllCodeById(request.getJobCodes());
-        List<SubCode> subCodes = subCodeFacade.findAllCodeById(request.getTechCodes());
+
+        List<Code> codes = codeFacade.findAllCodeById(
+                Stream.of(request.getJobCodes(), request.getTechCodes())
+                        .flatMap(Collection::stream)
+                        .toList()
+        );
 
         recruitArea.update(request.getHiring(), request.getMajorTask());
 
         recruitmentRepository.saveAllRecruitAreaCodes(
-                recruitAreaFacade.addRecruitAreaCodes(recruitArea, codes, subCodes)
+                codeFacade.generateRecruitAreaCode(recruitArea, codes)
         );
     }
 }

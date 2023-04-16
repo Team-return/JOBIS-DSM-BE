@@ -18,7 +18,7 @@ public class QueryTechCodesService {
             keyword = "";
         }
 
-        return codeRepository.queryCodeByKeywordContaining(
+        return codeRepository.queryTechCodesByKeywordContaining(
                         keyword
                 ).stream()
                 .map(code ->

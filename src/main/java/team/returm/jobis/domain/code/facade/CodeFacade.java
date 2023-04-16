@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.domain.code.domain.SubCode;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.repository.CodeJpaRepository;
 import team.returm.jobis.domain.code.exception.CodeNotFoundException;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
@@ -30,25 +28,15 @@ public class CodeFacade {
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
     }
 
-    public List<RecruitAreaCode> generateRecruitAreaCodeByCode(RecruitArea recruitArea, List<Code> codes) {
+    public List<RecruitAreaCode> generateRecruitAreaCode(RecruitArea recruitArea, List<Code> codes) {
         return codes.stream()
                 .map(code ->
                         new RecruitAreaCode(
                                 recruitArea,
                                 code.getKeyword(),
-                                CodeType.JOB
+                                code.getCodeType()
                         )
-                ).toList();
-    }
-
-    public List<RecruitAreaCode> generateRecruitAreaCodeBySubCode(RecruitArea recruitArea, List<SubCode> subCodes) {
-        return subCodes.stream()
-                .map(code ->
-                        new RecruitAreaCode(
-                                recruitArea,
-                                code.getKeyword(),
-                                CodeType.TECH
-                        )
-                ).toList();
+                )
+                .toList();
     }
 }
