@@ -13,13 +13,17 @@ public class QueryRecruitmentsVO {
     private final Company company;
     private final Set<String> recruitAreaList;
     private final Integer totalHiring;
+    private final Long requestedApplicationCount;
+    private final Long approvedApplicationCount;
 
     @QueryProjection
     public QueryRecruitmentsVO(Recruitment recruitment, Company company,
-                               Set<String> recruitAreaList, Integer totalHiring) {
+                               Set<String> recruitAreaList, Integer totalHiring, Long requestedApplicationCount, Long approvedApplicationCount) {
         this.recruitment = recruitment;
         this.company = company;
         this.recruitAreaList = recruitAreaList;
         this.totalHiring = totalHiring;
+        this.requestedApplicationCount = requestedApplicationCount;
+        this.approvedApplicationCount = approvedApplicationCount;
     }
 }

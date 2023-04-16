@@ -3,6 +3,8 @@ package team.returm.jobis.domain.recruitment.domain.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.application.domain.Application;
+import team.returm.jobis.domain.application.domain.QApplication;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
@@ -40,9 +42,15 @@ public class RecruitmentRepository {
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
                                                                    RecruitStatus status, String companyName,
                                                                    Integer page, List<RecruitAreaCode> codes) {
+        QApplication requestedApplication = new QApplication("requestedApplication");
+        QApplication approvedApplication = new QApplication("approvedApplication");
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
+                .leftJoin(recruitment.applications, requestedApplication)
+                .on(requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED))
+                .leftJoin(recruitment.applications, approvedApplication)
+                .on(approvedApplication.applicationStatus.ne(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitment.company, company)
                 .leftJoin(recruitArea.codeList, recruitAreaCode)
                 .where(
@@ -54,15 +62,22 @@ public class RecruitmentRepository {
                         recruitAreaCode.codeType.eq(CodeType.JOB)
                 )
                 .orderBy(recruitment.createdAt.desc())
+                .groupBy(
+                        recruitment.id,
+                        recruitAreaCode.codeKeyword,
+                        recruitArea.hiredCount
+                )
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .transform(
-                        groupBy(recruitArea.recruitment.id)
+                        groupBy(recruitment.id)
                                 .list(new QQueryRecruitmentsVO(
                                         recruitment,
                                         company,
                                         set(recruitAreaCode.codeKeyword),
-                                        sum(recruitArea.hiredCount)
+                                        sum(recruitArea.hiredCount),
+                                        requestedApplication.count(),
+                                        approvedApplication.count()
                                 ))
                 );
     }
@@ -97,24 +112,6 @@ public class RecruitmentRepository {
                 .join(recruitment.applications, application)
                 .where(application.in(applications))
                 .fetch();
-    }
-
-    public void addApplicationApprovedCount(List<Long> recruitmentIds) {
-        queryFactory
-                .update(recruitment)
-                .set(recruitment.applicationApprovedCount, recruitment.applicationApprovedCount.add(1))
-                .set(recruitment.applicationRequestedCount, recruitment.applicationRequestedCount.subtract(1))
-                .where(recruitment.id.in(recruitmentIds))
-                .execute();
-    }
-
-    public void addApplicationRequestedCount(List<Long> recruitmentIds) {
-        queryFactory
-                .update(recruitment)
-                .set(recruitment.applicationRequestedCount, recruitment.applicationRequestedCount.add(1))
-                .set(recruitment.applicationApprovedCount, recruitment.applicationApprovedCount.subtract(1))
-                .where(recruitment.id.in(recruitmentIds))
-                .execute();
     }
 
     public Optional<RecruitArea> queryRecruitAreaById(Long recruitAreaId) {

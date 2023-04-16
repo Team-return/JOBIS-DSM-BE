@@ -23,8 +23,8 @@ public class TeacherQueryRecruitmentsResponse {
         private CompanyType companyType;
         private Set<String> recruitmentJob;
         private Integer recruitmentCount;
-        private Integer applicationRequestedCount;
-        private Integer applicationApprovedCount;
+        private Long applicationRequestedCount;
+        private Long applicationApprovedCount;
         private LocalDate start;
         private LocalDate end;
         private Boolean militarySupport;

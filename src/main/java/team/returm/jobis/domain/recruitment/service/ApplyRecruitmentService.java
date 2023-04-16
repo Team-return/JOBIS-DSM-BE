@@ -49,8 +49,6 @@ public class ApplyRecruitmentService {
                         .benefits(request.getBenefits())
                         .etc(request.getEtc())
                         .hiringProgress(hiringProgress)
-                        .applicationApprovedCount(0)
-                        .applicationRequestedCount(0)
                         .build()
         );
 
