@@ -19,8 +19,6 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.group.GroupBy.list;
 import static team.returm.jobis.domain.acceptance.domain.QAcceptance.acceptance;
 import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
