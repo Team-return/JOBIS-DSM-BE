@@ -1,15 +1,18 @@
 package team.returm.jobis.domain.company.presentation;
 
+import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.returm.jobis.domain.company.service.CheckCompanyExistsService;
 import team.returm.jobis.domain.company.service.CompanyMyPageService;
 import team.returm.jobis.domain.company.service.QueryCompanyDetailsService;
 import team.returm.jobis.domain.company.service.RegisterCompanyService;
 import team.returm.jobis.domain.company.service.StudentQueryCompaniesService;
+import team.returm.jobis.domain.company.service.TeacherQueryEmployCompaniesService;
 import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
@@ -40,6 +43,7 @@ public class CompanyController {
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
     private final UpdateCompanyTypeService updateCompanyTypeService;
+    private final TeacherQueryEmployCompaniesService teacherQueryEmployCompaniesService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -80,5 +84,13 @@ public class CompanyController {
     @PatchMapping("/type")
     public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeRequest request) {
         updateCompanyTypeService.execute(request);
+    }
+
+    @GetMapping("/teacher/employ")
+    public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
+            @RequestParam(value = "company-name", required = false) String companyName,
+            @RequestParam(value = "company-type", required = false) CompanyType type
+            ) {
+        return teacherQueryEmployCompaniesService.execute(companyName, type);
     }
 }
