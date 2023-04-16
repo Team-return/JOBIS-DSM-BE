@@ -39,7 +39,7 @@ public class Application extends BaseTimeEntity {
     @JoinColumn(name = "recruitment_id")
     private Recruitment recruitment;
 
-    @Column(columnDefinition = "VARCHAR(9)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(11)", nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
