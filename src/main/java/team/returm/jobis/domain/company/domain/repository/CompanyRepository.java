@@ -3,19 +3,20 @@ package team.returm.jobis.domain.company.domain.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.domain.repository.vo.QQueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
+import team.returm.jobis.domain.company.domain.repository.vo.QueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
-import team.returm.jobis.domain.company.presentation.dto.response.QQueryCompanyDetailsResponse;
-import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
+import java.util.List;
+import java.util.Optional;
 
 import static team.returm.jobis.domain.company.domain.QCompany.company;
+import static team.returm.jobis.domain.company.domain.QCompanyAttachment.companyAttachment;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
 @Repository
@@ -43,10 +44,10 @@ public class CompanyRepository {
                 .fetch();
     }
 
-    public QueryCompanyDetailsResponse queryCompanyDetails(Long companyId) {
+    public QueryCompanyDetailsVO queryCompanyDetails(Long companyId) {
         return queryFactory
                 .select(
-                        new QQueryCompanyDetailsResponse(
+                        new QQueryCompanyDetailsVO(
                                 company.bizNo,
                                 company.companyLogoUrl,
                                 company.companyIntroduce,
@@ -84,6 +85,14 @@ public class CompanyRepository {
                 .fetchOne();
     }
 
+    public List<String> queryCompanyAttachmentUrls(Long companyId) {
+        return queryFactory
+                .select(companyAttachment.attachmentUrl)
+                .from(companyAttachment)
+                .where(companyAttachment.company.id.eq(companyId))
+                .fetch();
+    }
+
     public Optional<Company> queryCompanyById(Long companyId) {
         return companyJpaRepository.findById(companyId);
     }
@@ -94,6 +103,14 @@ public class CompanyRepository {
 
     public void saveCompany(Company company) {
         companyJpaRepository.save(company);
+    }
+
+    public void saveAllCompanies(List<Company> companies) {
+        companyJpaRepository.saveAll(companies);
+    }
+
+    public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
+        return companyJpaRepository.findAllByIdIn(companyIds);
     }
 
     //==conditions==//

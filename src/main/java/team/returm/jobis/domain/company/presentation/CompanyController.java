@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.company.presentation;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
@@ -14,9 +13,12 @@ import team.returm.jobis.domain.company.service.StudentQueryCompaniesService;
 import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
+import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
+import team.returm.jobis.domain.company.service.UpdateCompanyTypeService;
+import org.springframework.http.HttpStatus;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +39,7 @@ public class CompanyController {
     private final StudentQueryCompaniesService studentQueryCompaniesService;
     private final QueryCompanyDetailsService queryCompanyDetailsService;
     private final CompanyMyPageService companyMyPageService;
+    private final UpdateCompanyTypeService updateCompanyTypeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -71,5 +74,11 @@ public class CompanyController {
     @GetMapping("/my")
     public CompanyMyPageResponse queryMyPage() {
         return companyMyPageService.execute();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/type")
+    public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeRequest request) {
+        updateCompanyTypeService.execute(request);
     }
 }

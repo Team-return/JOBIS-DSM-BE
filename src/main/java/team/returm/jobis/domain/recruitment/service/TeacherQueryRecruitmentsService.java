@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.exception.InvalidDateFilterRangeException;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
@@ -15,9 +16,10 @@ public class TeacherQueryRecruitmentsService {
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Integer page) {
+
         List<TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(
-                        year, start, end, status, companyName, page-1, null
+                                year, start, end, status, companyName, page - 1, null
                         ).stream()
                         .map(r ->
                                 TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse.builder()

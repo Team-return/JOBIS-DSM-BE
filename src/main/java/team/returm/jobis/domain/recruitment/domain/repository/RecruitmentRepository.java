@@ -1,5 +1,7 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
@@ -15,8 +17,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import static com.querydsl.core.group.GroupBy.set;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
@@ -36,7 +36,8 @@ public class RecruitmentRepository {
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
-                                                                   RecruitStatus status, String companyName, Integer page, List<RecruitAreaCode> codes) {
+                                                                   RecruitStatus status, String companyName,
+                                                                   Integer page, List<RecruitAreaCode> codes) {
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
@@ -136,10 +137,18 @@ public class RecruitmentRepository {
     }
 
     private BooleanExpression betweenRecruitDate(LocalDate start, LocalDate end) {
-        if (start == null || end == null) return null;
+        if (start == null && end == null) return null;
 
-        return recruitment.recruitDate.startDate.after(start)
-                .and(recruitment.recruitDate.finishDate.before(end));
+        if (start == null) {
+            return recruitment.recruitDate.finishDate.before(end.plusDays(1));
+        }
+
+        if (end == null) {
+            return recruitment.recruitDate.startDate.after(start.minusDays(1));
+        }
+
+        return recruitment.recruitDate.startDate.after(start.minusDays(1))
+                .and(recruitment.recruitDate.finishDate.before(end.plusDays(1)));
     }
 
     private BooleanExpression eqRecruitStatus(RecruitStatus status) {

@@ -137,4 +137,9 @@ public class Company {
         this.fax = fax;
         this.email = email;
     }
+
+    public Company changeCompanyType(CompanyType type) {
+        this.type = type;
+        return this;
+    }
 }

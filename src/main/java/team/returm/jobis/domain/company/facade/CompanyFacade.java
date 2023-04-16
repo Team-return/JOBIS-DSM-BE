@@ -2,11 +2,13 @@ package team.returm.jobis.domain.company.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.returm.jobis.domain.company.domain.repository.CompanyJpaRepository;
+import team.returm.jobis.domain.company.domain.CompanyAttachment;
 import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.infrastructure.feignClients.BizNoFeignClient;
 import team.returm.jobis.infrastructure.feignClients.FeignProperty;
 import team.returm.jobis.infrastructure.feignClients.dto.Items;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
@@ -14,7 +16,6 @@ public class CompanyFacade {
 
     private final BizNoFeignClient bizNoFeignClient;
     private final FeignProperty feignProperty;
-    private final CompanyJpaRepository companyJpaRepository;
 
     public String getCompanyName(String businessNumber) {
         Items items = getApi(businessNumber);
