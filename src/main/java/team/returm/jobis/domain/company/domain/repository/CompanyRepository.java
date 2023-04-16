@@ -5,16 +5,24 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.repository.vo.QQueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
+import team.returm.jobis.domain.company.domain.repository.vo.QTeacherQueryEmployCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
+import team.returm.jobis.domain.company.domain.repository.vo.TeacherQueryEmployCompaniesVO;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
 import java.util.List;
 import java.util.Optional;
 
+import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.list;
+import static team.returm.jobis.domain.acceptance.domain.QAcceptance.acceptance;
+import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static team.returm.jobis.domain.company.domain.QCompanyAttachment.companyAttachment;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
@@ -85,6 +93,38 @@ public class CompanyRepository {
                 .fetchOne();
     }
 
+    public List<TeacherQueryEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type) {
+        return queryFactory
+                .select(
+                        new QTeacherQueryEmployCompaniesVO(
+                                company.id,
+                                company.name,
+                                application.count(),
+                                acceptance.count()
+                        )
+                )
+                .from(company)
+                .leftJoin(company.acceptances, acceptance)
+                .leftJoin(company.recruitmentList, recruitment)
+                .on(
+                        recruitment.company.id.eq(company.id),
+                        recruitment.createdAt.eq(
+                                JPAExpressions.select(recruitment.createdAt.max())
+                                        .from(recruitment)
+                                        .where(recruitment.company.id.eq(company.id))
+                        )
+                )
+                .leftJoin(recruitment.applications, application)
+                .on(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .where(
+                        containsName(name),
+                        eqCompanyType(type)
+                )
+                .orderBy(company.name.asc())
+                .groupBy(company.id, company.name)
+                .fetch();
+    }
+
     public List<String> queryCompanyAttachmentUrls(Long companyId) {
         return queryFactory
                 .select(companyAttachment.attachmentUrl)
@@ -119,4 +159,7 @@ public class CompanyRepository {
         return name == null ? null : company.name.contains(name);
     }
 
+    private BooleanExpression eqCompanyType(CompanyType type) {
+        return type == null ? null : company.type.eq(type);
+    }
 }
