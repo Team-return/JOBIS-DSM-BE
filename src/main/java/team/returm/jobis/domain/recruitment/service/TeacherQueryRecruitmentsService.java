@@ -16,9 +16,6 @@ public class TeacherQueryRecruitmentsService {
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Integer page) {
-        if ((start == null) != (end == null)) {
-            throw InvalidDateFilterRangeException.EXCEPTION;
-        }
 
         List<TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(
