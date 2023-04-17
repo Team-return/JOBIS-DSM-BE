@@ -15,14 +15,9 @@ public class TeacherQueryApplicationsService {
 
     private final ApplicationRepository applicationRepository;
 
-    public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName) {
-        QueryApplicationsRequest request =
-                QueryApplicationsRequest.builder()
-                        .applicationStatus(applicationStatus)
-                        .studentName(studentName)
-                        .build();
-
-        return applicationRepository.queryApplicationByConditions(request).stream()
+    public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName, Long companyId) {
+        return applicationRepository.queryApplicationByConditions(
+                null, null, applicationStatus, studentName, companyId).stream()
                 .map(a -> TeacherQueryApplicationsResponse.builder()
                         .applicationId(a.getId())
                         .studentName(a.getName())

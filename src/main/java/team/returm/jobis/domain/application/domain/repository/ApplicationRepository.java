@@ -11,7 +11,6 @@ import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
-import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import team.returm.jobis.domain.student.domain.Student;
 
 
@@ -31,7 +30,7 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsRequest request) {
+    public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName, Long companyId) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .join(application.student, student)
@@ -39,10 +38,11 @@ public class ApplicationRepository {
                 .leftJoin(application.applicationAttachments, applicationAttachment)
                 .leftJoin(recruitment.company, company)
                 .where(
-                        eqRecruitmentId(request.getRecruitmentId()),
-                        eqStudentId(request.getStudentId()),
-                        eqApplicationStatus(request.getApplicationStatus()),
-                        containStudentName(request.getStudentName())
+                        eqRecruitmentId(recruitmentId),
+                        eqStudentId(studentId),
+                        eqApplicationStatus(applicationStatus),
+                        containStudentName(studentName),
+                        eqCompanyId(companyId)
                 )
                 .orderBy(application.createdAt.desc())
                 .transform(
@@ -111,5 +111,9 @@ public class ApplicationRepository {
 
     private BooleanExpression containStudentName(String studentName) {
         return studentName == null ? null : student.name.contains(studentName);
+    }
+
+    private BooleanExpression eqCompanyId(Long companyId) {
+        return companyId == null ? null : company.id.eq(companyId);
     }
 }
