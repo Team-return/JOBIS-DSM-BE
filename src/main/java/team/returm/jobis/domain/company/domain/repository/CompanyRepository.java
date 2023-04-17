@@ -91,7 +91,7 @@ public class CompanyRepository {
                 .fetchOne();
     }
 
-    public List<TeacherQueryEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type) {
+    public List<TeacherQueryEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type, Integer year) {
         return queryFactory
                 .select(
                         new QTeacherQueryEmployCompaniesVO(
@@ -116,7 +116,8 @@ public class CompanyRepository {
                 .on(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 .where(
                         containsName(name),
-                        eqCompanyType(type)
+                        eqCompanyType(type),
+                        eqYear(year)
                 )
                 .orderBy(company.name.asc())
                 .groupBy(company.id, company.name)
@@ -159,5 +160,9 @@ public class CompanyRepository {
 
     private BooleanExpression eqCompanyType(CompanyType type) {
         return type == null ? null : company.type.eq(type);
+    }
+
+    private BooleanExpression eqYear(Integer year) {
+        return year == null ? null : recruitment.recruitYear.eq(year);
     }
 }

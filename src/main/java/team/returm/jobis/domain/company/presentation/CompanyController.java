@@ -88,9 +88,10 @@ public class CompanyController {
 
     @GetMapping("/employment")
     public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
-            @RequestParam(value = "company-name", required = false) String companyName,
-            @RequestParam(value = "company-type", required = false) CompanyType type
+            @RequestParam(value = "company_name", required = false) String companyName,
+            @RequestParam(value = "company_type", required = false) CompanyType type,
+            @RequestParam("year") Integer year
             ) {
-        return teacherQueryEmployCompaniesService.execute(companyName, type);
+        return teacherQueryEmployCompaniesService.execute(companyName, type, year);
     }
 }

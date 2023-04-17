@@ -12,9 +12,9 @@ public class TeacherQueryEmployCompaniesService {
 
     private final CompanyRepository companyRepository;
 
-    public TeacherQueryEmployCompaniesResponse execute(String companyName, CompanyType type) {
+    public TeacherQueryEmployCompaniesResponse execute(String companyName, CompanyType type, Integer year) {
         return new TeacherQueryEmployCompaniesResponse(
-                companyRepository.queryEmployCompanies(companyName, type)
+                companyRepository.queryEmployCompanies(companyName, type, year)
         );
     }
 }
