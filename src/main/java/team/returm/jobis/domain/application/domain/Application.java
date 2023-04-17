@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.application.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -43,14 +44,29 @@ public class Application extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
+    @Column(columnDefinition = "VARCHAR(50)")
+    private String rejectionReason;
+
+    @Column(columnDefinition = "DATE")
+    private LocalDate startDate;
+
+    @Column(columnDefinition = "DATE")
+    private LocalDate endDate;
+
     @OneToMany(mappedBy = "application", orphanRemoval = true)
     private List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
 
     @Builder
-    public Application(Student student, Recruitment recruitment, ApplicationStatus applicationStatus) {
+    public Application(Student student, Recruitment recruitment, ApplicationStatus applicationStatus,
+                       String rejectionReason, LocalDate startDate, LocalDate endDate, List<ApplicationAttachment> applicationAttachments
+    ) {
         this.student = student;
         this.recruitment = recruitment;
         this.applicationStatus = applicationStatus;
+        this.rejectionReason = rejectionReason;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.applicationAttachments = applicationAttachments;
     }
 
     public Application changeStatus(ApplicationStatus status) {
