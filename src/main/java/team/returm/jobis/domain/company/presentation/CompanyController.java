@@ -90,7 +90,7 @@ public class CompanyController {
     public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "company_type", required = false) CompanyType type,
-            @RequestParam("year") Integer year
+            @RequestParam(value = "year", required = false) Integer year
             ) {
         return teacherQueryEmployCompaniesService.execute(companyName, type, year);
     }
