@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import team.returm.jobis.domain.acceptance.domain.Acceptance;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.type.Address;
 import team.returm.jobis.domain.company.domain.type.Manager;
@@ -102,6 +103,9 @@ public class Company {
 
     @OneToMany(mappedBy = "company")
     private List<CompanyAttachment> companyAttachments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company")
+    private List<Acceptance> acceptances = new ArrayList<>();
 
     @Builder
     public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,

@@ -23,16 +23,10 @@ public class QueryCompanyApplicationsService {
 
     public List<QueryCompanyApplicationsResponse> execute() {
         Company company = userFacade.getCurrentCompany();
-
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
 
-        QueryApplicationsRequest request =
-                QueryApplicationsRequest.builder()
-                        .recruitmentId(recruitment.getId())
-                        .applicationStatus(ApplicationStatus.APPROVED)
-                        .build();
-
-        return applicationRepository.queryApplicationByConditions(request).stream()
+        return applicationRepository.queryApplicationByConditions(
+                recruitment.getId(), null, ApplicationStatus.APPROVED, null, null).stream()
                 .map(a -> QueryCompanyApplicationsResponse.builder()
                         .applicationId(a.getId())
                         .studentName(a.getName())

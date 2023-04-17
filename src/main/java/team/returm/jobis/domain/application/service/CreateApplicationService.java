@@ -49,8 +49,6 @@ public class CreateApplicationService {
                         .build()
         );
 
-        recruitment.addApplicationCount();
-
         List<ApplicationAttachment> applicationAttachmentList = request.getAttachmentUrl()
                 .stream()
                 .map(a -> new ApplicationAttachment(a, application))

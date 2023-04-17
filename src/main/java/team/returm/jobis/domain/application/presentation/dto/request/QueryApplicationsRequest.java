@@ -18,4 +18,6 @@ public class QueryApplicationsRequest {
     private final ApplicationStatus applicationStatus;
     @NotBlank
     private final String studentName;
+    @NotNull
+    private Long companyId;
 }
