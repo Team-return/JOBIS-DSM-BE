@@ -31,7 +31,7 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<QueryApplicationVO> queryApplicationByConditions(QueryApplicationsRequest request) {
+    public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName, Long companyId) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .join(application.student, student)
@@ -39,11 +39,11 @@ public class ApplicationRepository {
                 .leftJoin(application.applicationAttachments, applicationAttachment)
                 .leftJoin(recruitment.company, company)
                 .where(
-                        eqRecruitmentId(request.getRecruitmentId()),
-                        eqStudentId(request.getStudentId()),
-                        eqApplicationStatus(request.getApplicationStatus()),
-                        containStudentName(request.getStudentName()),
-                        eqCompanyId(request.getCompanyId())
+                        eqRecruitmentId(recruitmentId),
+                        eqStudentId(studentId),
+                        eqApplicationStatus(applicationStatus),
+                        containStudentName(studentName),
+                        eqCompanyId(companyId)
                 )
                 .orderBy(application.createdAt.desc())
                 .transform(

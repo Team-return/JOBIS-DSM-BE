@@ -32,7 +32,8 @@ public class QueryCompanyApplicationsService {
                         .applicationStatus(ApplicationStatus.APPROVED)
                         .build();
 
-        return applicationRepository.queryApplicationByConditions(request).stream()
+        return applicationRepository.queryApplicationByConditions(
+                recruitment.getId(), null, ApplicationStatus.APPROVED, null, null).stream()
                 .map(a -> QueryCompanyApplicationsResponse.builder()
                         .applicationId(a.getId())
                         .studentName(a.getName())

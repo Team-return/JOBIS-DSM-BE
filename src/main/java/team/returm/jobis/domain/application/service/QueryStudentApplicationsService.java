@@ -19,12 +19,8 @@ public class QueryStudentApplicationsService {
     public List<StudentApplicationsResponse> execute() {
         Student student = userFacade.getCurrentStudent();
 
-        QueryApplicationsRequest request =
-                QueryApplicationsRequest.builder()
-                        .studentId(student.getId())
-                        .build();
-
-        return applicationRepository.queryApplicationByConditions(request).stream()
+        return applicationRepository.queryApplicationByConditions(
+                null, student.getId(), null, null, null).stream()
                 .map(a -> StudentApplicationsResponse.builder()
                         .applicationId(a.getId())
                         .company(a.getCompanyName())
