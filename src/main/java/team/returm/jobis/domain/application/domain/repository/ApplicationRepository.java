@@ -11,7 +11,6 @@ import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
-import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import team.returm.jobis.domain.student.domain.Student;
 
 
