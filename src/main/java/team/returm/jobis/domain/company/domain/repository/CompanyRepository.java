@@ -78,14 +78,7 @@ public class CompanyRepository {
                 .leftJoin(recruitment)
                 .on(
                         recruitment.company.id.eq(company.id),
-                        recruitment.createdAt.eq(
-                                JPAExpressions.select(recruitment.createdAt.max())
-                                        .from(recruitment)
-                                        .where(
-                                                recruitment.company.id.eq(company.id),
-                                                recruitment.status.eq(RecruitStatus.RECRUITING)
-                                        )
-                        )
+                        recentRecruitment(RecruitStatus.RECRUITING)
                 )
                 .where(company.id.eq(companyId))
                 .fetchOne();
@@ -106,11 +99,7 @@ public class CompanyRepository {
                 .leftJoin(company.recruitmentList, recruitment)
                 .on(
                         recruitment.company.id.eq(company.id),
-                        recruitment.createdAt.eq(
-                                JPAExpressions.select(recruitment.createdAt.max())
-                                        .from(recruitment)
-                                        .where(recruitment.company.id.eq(company.id))
-                        )
+                        recentRecruitment(null)
                 )
                 .leftJoin(recruitment.applications, application)
                 .on(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
@@ -164,5 +153,20 @@ public class CompanyRepository {
 
     private BooleanExpression eqYear(Integer year) {
         return year == null ? null : recruitment.recruitYear.eq(year);
+    }
+
+    private BooleanExpression recentRecruitment(RecruitStatus status) {
+        return recruitment.createdAt.eq(
+                JPAExpressions.select(recruitment.createdAt.max())
+                        .from(recruitment)
+                        .where(
+                                recruitment.company.id.eq(company.id),
+                                eqRecruitmentStatus(status)
+                        )
+        );
+    }
+
+    private BooleanExpression eqRecruitmentStatus(RecruitStatus status) {
+        return status == null ? null : recruitment.status.eq(RecruitStatus.RECRUITING);
     }
 }
