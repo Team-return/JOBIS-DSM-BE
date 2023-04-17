@@ -15,11 +15,12 @@ public class TeacherQueryApplicationsService {
 
     private final ApplicationRepository applicationRepository;
 
-    public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName) {
+    public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName, Long companyId) {
         QueryApplicationsRequest request =
                 QueryApplicationsRequest.builder()
                         .applicationStatus(applicationStatus)
                         .studentName(studentName)
+                        .companyId(companyId)
                         .build();
 
         return applicationRepository.queryApplicationByConditions(request).stream()

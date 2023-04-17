@@ -42,7 +42,8 @@ public class ApplicationRepository {
                         eqRecruitmentId(request.getRecruitmentId()),
                         eqStudentId(request.getStudentId()),
                         eqApplicationStatus(request.getApplicationStatus()),
-                        containStudentName(request.getStudentName())
+                        containStudentName(request.getStudentName()),
+                        eqCompanyId(request.getCompanyId())
                 )
                 .orderBy(application.createdAt.desc())
                 .transform(
@@ -111,5 +112,9 @@ public class ApplicationRepository {
 
     private BooleanExpression containStudentName(String studentName) {
         return studentName == null ? null : student.name.contains(studentName);
+    }
+
+    private BooleanExpression eqCompanyId(Long companyId) {
+        return companyId == null ? null : company.id.eq(companyId);
     }
 }
