@@ -2,6 +2,9 @@ package team.returm.jobis.domain.recruitment.domain.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.returm.jobis.domain.application.domain.Application;
+import team.returm.jobis.domain.application.domain.QApplication;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
@@ -19,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.set;
+import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
@@ -38,9 +42,15 @@ public class RecruitmentRepository {
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
                                                                    RecruitStatus status, String companyName,
                                                                    Integer page, List<RecruitAreaCode> codes) {
+        QApplication requestedApplication = new QApplication("requestedApplication");
+        QApplication approvedApplication = new QApplication("approvedApplication");
         long pageSize = 11;
         return queryFactory.selectFrom(recruitArea)
                 .leftJoin(recruitArea.recruitment, recruitment)
+                .leftJoin(recruitment.applications, requestedApplication)
+                .on(requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED))
+                .leftJoin(recruitment.applications, approvedApplication)
+                .on(approvedApplication.applicationStatus.ne(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitment.company, company)
                 .leftJoin(recruitArea.codeList, recruitAreaCode)
                 .where(
@@ -49,20 +59,25 @@ public class RecruitmentRepository {
                         eqRecruitStatus(status),
                         containName(companyName),
                         containsKeywords(codes),
-                        recruitment.eq(recruitment),
                         recruitAreaCode.codeType.eq(CodeType.JOB)
                 )
                 .orderBy(recruitment.createdAt.desc())
+                .groupBy(
+                        recruitment.id,
+                        recruitAreaCode.codeKeyword,
+                        recruitArea.hiredCount
+                )
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .transform(
-                        groupBy(recruitArea.recruitment.id)
+                        groupBy(recruitment.id)
                                 .list(new QQueryRecruitmentsVO(
                                         recruitment,
                                         company,
                                         set(recruitAreaCode.codeKeyword),
                                         sum(recruitArea.hiredCount),
-                                        recruitment.applicationCount
+                                        requestedApplication.count(),
+                                        approvedApplication.count()
                                 ))
                 );
     }
@@ -87,6 +102,15 @@ public class RecruitmentRepository {
         return queryFactory
                 .selectFrom(recruitment)
                 .where(recruitment.recruitDate.startDate.before(LocalDate.now()))
+                .fetch();
+    }
+
+    public List<Long> queryRecruitmentsByApplications(List<Application> applications) {
+        return queryFactory
+                .select(recruitment.id)
+                .from(recruitment)
+                .join(recruitment.applications, application)
+                .where(application.in(applications))
                 .fetch();
     }
 

@@ -7,6 +7,7 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.domain.recruitment.exception.InvalidDateFilterRangeException;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
+import team.returm.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
@@ -17,22 +18,23 @@ public class TeacherQueryRecruitmentsService {
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Integer page) {
 
-        List<TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse> recruitments =
+        List<TeacherRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(
                                 year, start, end, status, companyName, page - 1, null
                         ).stream()
-                        .map(r ->
-                                TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse.builder()
-                                        .id(r.getRecruitment().getId())
-                                        .recruitmentStatus(r.getRecruitment().getStatus())
-                                        .companyName(r.getCompany().getName())
-                                        .companyType(r.getCompany().getType())
-                                        .start(r.getRecruitment().getRecruitDate().getStartDate())
-                                        .end(r.getRecruitment().getRecruitDate().getFinishDate())
-                                        .militarySupport(r.getRecruitment().getMilitarySupport())
-                                        .applicationCount(r.getApplicationCount())
-                                        .recruitmentCount(r.getTotalHiring())
-                                        .recruitmentJob(r.getRecruitAreaList())
+                        .map(vo ->
+                                TeacherRecruitmentResponse.builder()
+                                        .id(vo.getRecruitment().getId())
+                                        .recruitmentStatus(vo.getRecruitment().getStatus())
+                                        .companyName(vo.getCompany().getName())
+                                        .companyType(vo.getCompany().getType())
+                                        .start(vo.getRecruitment().getRecruitDate().getStartDate())
+                                        .end(vo.getRecruitment().getRecruitDate().getFinishDate())
+                                        .militarySupport(vo.getRecruitment().getMilitarySupport())
+                                        .applicationRequestedCount(vo.getRequestedApplicationCount())
+                                        .applicationApprovedCount(vo.getApprovedApplicationCount())
+                                        .recruitmentCount(vo.getTotalHiring())
+                                        .recruitmentJob(vo.getRecruitAreaList())
                                         .build()
                         ).toList();
 

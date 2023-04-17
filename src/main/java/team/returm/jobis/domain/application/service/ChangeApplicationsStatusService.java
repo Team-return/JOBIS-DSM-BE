@@ -21,10 +21,6 @@ public class ChangeApplicationsStatusService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        applicationRepository.saveApplications(
-                applications.stream()
-                        .map(application -> application.changeStatus(status))
-                        .toList()
-        );
+            applicationRepository.changeApplicationStatus(status, applications);
     }
 }

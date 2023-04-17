@@ -73,6 +73,7 @@ public class RegisterCompanyService {
                 .accessExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.ACCESS))
                 .refreshToken(refreshToken)
                 .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
+                .authority(Authority.COMPANY)
                 .build();
     }
 }

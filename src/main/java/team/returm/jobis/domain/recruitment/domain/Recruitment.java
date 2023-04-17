@@ -86,9 +86,6 @@ public class Recruitment extends BaseTimeEntity {
     @Embedded
     private PayInfo payInfo;
 
-    @Column(columnDefinition = "INT")
-    private Integer applicationCount;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
@@ -102,8 +99,7 @@ public class Recruitment extends BaseTimeEntity {
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
                        LocalDate startDate, LocalDate endDate, Company company, String benefits, String requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
-    ) {
+                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
@@ -112,7 +108,6 @@ public class Recruitment extends BaseTimeEntity {
         this.status = status;
         this.benefits = benefits;
         this.preferentialTreatment = preferentialTreatment;
-        this.applicationCount = 0;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.payInfo = new PayInfo(trainPay, pay);
         this.company = company;
@@ -147,13 +142,5 @@ public class Recruitment extends BaseTimeEntity {
         if (!this.company.getId().equals(companyId)) {
             throw CompanyMismatchException.EXCEPTION;
         }
-    }
-
-    public void addApplicationCount() {
-        this.applicationCount += 1;
-    }
-
-    public void subApplicationCount() {
-        this.applicationCount -= 1;
     }
 }
