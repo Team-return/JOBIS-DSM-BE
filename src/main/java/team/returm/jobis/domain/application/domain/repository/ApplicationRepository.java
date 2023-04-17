@@ -1,6 +1,7 @@
 package team.returm.jobis.domain.application.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,11 @@ import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTraineesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
+import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
+import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.student.domain.Student;
 
 
@@ -63,6 +68,31 @@ public class ApplicationRepository {
                 );
     }
 
+    public List<QueryFieldTraineesVO> queryApplicationsFieldTraineesByCompanyId(Long companyId) {
+        return jpaQueryFactory
+                .select(
+                        new QQueryFieldTraineesVO(
+                                student.grade,
+                                student.classRoom,
+                                student.number,
+                                student.name,
+                                application.startDate,
+                                application.endDate
+                        )
+                )
+                .from(application)
+                .join(application.student, student)
+                .on(application.student.id.eq(student.id))
+                .join(application.recruitment, recruitment)
+                .on(recruitment.createdAt.eq(
+                        JPAExpressions.select(recruitment.createdAt.max())
+                                .from(recruitment)
+                                .where(recruitment.company.id.eq(companyId))
+                ))
+                .where(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .fetch();
+    }
+
     public Application saveApplication(Application application) {
         return applicationJpaRepository.save(application);
     }
@@ -84,7 +114,7 @@ public class ApplicationRepository {
     }
 
     public List<Application> queryApplicationByIds(List<Long> applicationIds) {
-        return applicationJpaRepository.findByIdIn(applicationIds);
+        return applicationJpaRepository.queryByIdIn(applicationIds);
     }
 
     public Optional<Application> queryApplicationById(Long applicationId) {

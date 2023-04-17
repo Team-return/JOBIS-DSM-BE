@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.application.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,9 +42,19 @@ public class Application extends BaseTimeEntity {
     @JoinColumn(name = "recruitment_id")
     private Recruitment recruitment;
 
-    @Column(columnDefinition = "VARCHAR(11)", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(11)")
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
+
+    @Column(columnDefinition = "VARCHAR(100)")
+    private String rejectionReason;
+
+    @Column(columnDefinition = "DATE")
+    private LocalDate startDate;
+
+    @Column(columnDefinition = "DATE")
+    private LocalDate endDate;
 
     @OneToMany(mappedBy = "application", orphanRemoval = true)
     private List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
