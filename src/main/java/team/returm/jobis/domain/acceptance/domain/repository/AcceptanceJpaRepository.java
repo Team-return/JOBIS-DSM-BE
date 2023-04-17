@@ -6,5 +6,5 @@ import team.returm.jobis.domain.acceptance.domain.Acceptance;
 import java.util.List;
 
 public interface AcceptanceJpaRepository extends JpaRepository<Acceptance, Long> {
-    List<Acceptance> queryByCompanyId(Long companyId);
+    List<Acceptance> queryByCompanyIdAndYear(Long companyId, Integer year);
 }

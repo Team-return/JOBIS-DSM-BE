@@ -11,6 +11,7 @@ import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTrain
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
+import java.time.Year;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,9 +23,9 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
 
     public TeacherQueryFieldTraineesAndContractWorkersResponse execute(Long companyId) {
 
-        List<Acceptance> acceptances = acceptanceRepository.queryAcceptancesByCompanyId(companyId);
-
         List<QueryFieldTraineesVO> queryFieldTraineesVOs = applicationRepository.queryApplicationsFieldTraineesByCompanyId(companyId);
+
+        List<Acceptance> acceptances = acceptanceRepository.queryAcceptancesByCompanyIdAndYear(companyId, Year.now().getValue());
 
         return new TeacherQueryFieldTraineesAndContractWorkersResponse(
                 queryFieldTraineesVOs.stream()
