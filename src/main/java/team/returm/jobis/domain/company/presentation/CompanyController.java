@@ -86,7 +86,7 @@ public class CompanyController {
         updateCompanyTypeService.execute(request);
     }
 
-    @GetMapping("/teacher/employ")
+    @GetMapping("/employment")
     public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
             @RequestParam(value = "company-name", required = false) String companyName,
             @RequestParam(value = "company-type", required = false) CompanyType type
