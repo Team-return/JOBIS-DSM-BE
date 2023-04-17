@@ -23,29 +23,39 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
 
     public TeacherQueryFieldTraineesAndContractWorkersResponse execute(Long companyId) {
 
-        List<QueryFieldTraineesVO> queryFieldTraineesVOs = applicationRepository.queryApplicationsFieldTraineesByCompanyId(companyId);
+        List<QueryFieldTraineesVO> queryFieldTraineesVOs =
+                applicationRepository.queryApplicationsFieldTraineesByCompanyId(companyId);
 
-        List<Acceptance> acceptances = acceptanceRepository.queryAcceptancesByCompanyIdAndYear(companyId, Year.now().getValue());
+        List<Acceptance> acceptances =
+                acceptanceRepository.queryAcceptancesByCompanyIdAndYear(companyId, Year.now().getValue());
 
         return new TeacherQueryFieldTraineesAndContractWorkersResponse(
-                queryFieldTraineesVOs.stream()
-                        .map(vo -> TeacherQueryFieldTraineesResponse
-                                .builder()
-                                .studentGcn(
-                                        Student.processGcn(
-                                                vo.getGrade(), vo.getClassRoom(), vo.getNumber()
-                                        )
-                                )
-                                .studentName(vo.getStudentName())
-                                .startDate(vo.getStartDate())
-                                .endDate(vo.getEndDate())
-                                .build())
-                        .toList(),
+                buildFieldTrainees(queryFieldTraineesVOs),
                 buildContractWorkers(acceptances)
         );
     }
 
-    private List<TeacherQueryContractWorkersResponse> buildContractWorkers(List<Acceptance> acceptances) {
+    private List<TeacherQueryFieldTraineesResponse> buildFieldTrainees(
+            List<QueryFieldTraineesVO> queryFieldTraineesVOs
+    ) {
+        return queryFieldTraineesVOs.stream()
+                .map(vo -> TeacherQueryFieldTraineesResponse
+                        .builder()
+                        .studentGcn(
+                                Student.processGcn(
+                                        vo.getGrade(), vo.getClassRoom(), vo.getNumber()
+                                )
+                        )
+                        .studentName(vo.getStudentName())
+                        .startDate(vo.getStartDate())
+                        .endDate(vo.getEndDate())
+                        .build())
+                .toList();
+    }
+
+    private List<TeacherQueryContractWorkersResponse> buildContractWorkers(
+            List<Acceptance> acceptances
+    ) {
         return acceptances
                 .stream()
                 .map(

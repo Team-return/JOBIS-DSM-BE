@@ -91,7 +91,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
 
                 //acceptance
-                .antMatchers(HttpMethod.GET, "/acceptance/field_trainees").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/acceptance/field_trainees/{company-id}").hasAuthority(TEACHER.name())
 
                 .anyRequest().authenticated()
                 .and()
