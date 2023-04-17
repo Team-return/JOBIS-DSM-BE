@@ -1,6 +1,7 @@
 package team.returm.jobis.domain.code.service;
 
 import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.presentation.dto.response.CodeResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
@@ -18,9 +19,8 @@ public class QueryTechCodesService {
             keyword = "";
         }
 
-        return codeRepository.queryTechCodesByKeywordContaining(
-                        keyword
-                ).stream()
+        return codeRepository.queryCodeByKeywordContaining(keyword, CodeType.TECH)
+                .stream()
                 .map(code ->
                         CodeResponse.builder()
                                 .code(code.getId())

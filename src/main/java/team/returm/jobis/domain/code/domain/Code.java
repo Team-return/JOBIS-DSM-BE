@@ -34,7 +34,6 @@ public class Code {
     @Column(columnDefinition = "VARCHAR(4)")
     private CodeType codeType;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(8)")
     private JobType jobType;
@@ -44,6 +43,6 @@ public class Code {
     private String keyword;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_code_id")
     private Code parentCode;
 }

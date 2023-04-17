@@ -44,7 +44,7 @@ public class CreateRecruitAreaService {
                         .build()
         );
 
-        List<Code> codes = codeFacade.findAllCodeById(
+        List<Code> codes = codeFacade.queryCodesByIdIn(
                 Stream.of(request.getJobCodes(), request.getTechCodes())
                         .flatMap(Collection::stream)
                         .toList()

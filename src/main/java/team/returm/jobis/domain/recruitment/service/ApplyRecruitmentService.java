@@ -62,7 +62,7 @@ public class ApplyRecruitmentService {
                             .build()
             );
 
-            List<Code> codes = codeFacade.findAllCodeById(
+            List<Code> codes = codeFacade.queryCodesByIdIn(
                     Stream.of(area.getJobCodes(), area.getTechCodes())
                             .flatMap(Collection::stream)
                             .toList()
