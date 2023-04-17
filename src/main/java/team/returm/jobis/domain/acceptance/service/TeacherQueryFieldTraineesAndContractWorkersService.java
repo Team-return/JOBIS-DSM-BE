@@ -43,7 +43,9 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
                         .builder()
                         .studentGcn(
                                 Student.processGcn(
-                                        vo.getGrade(), vo.getClassRoom(), vo.getNumber()
+                                        vo.getGrade(),
+                                        vo.getClassRoom(),
+                                        vo.getNumber()
                                 )
                         )
                         .studentName(vo.getStudentName())
