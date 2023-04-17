@@ -90,6 +90,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
 
+                //acceptance
+                .antMatchers(HttpMethod.GET, "/acceptance/field_trainees").hasAuthority(TEACHER.name())
+
                 .anyRequest().authenticated()
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper));
