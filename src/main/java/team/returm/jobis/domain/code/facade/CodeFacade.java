@@ -15,7 +15,7 @@ public class CodeFacade {
     private final CodeJpaRepository codeJpaRepository;
 
     public List<Code> queryCodesByIdIn(List<Long> requestCodes) {
-        List<Code> codes = codeJpaRepository.queryCodesByIdIn(requestCodes);
+        List<Code> codes = codeJpaRepository.findCodesByIdIn(requestCodes);
         if (codes.size() != requestCodes.size()) {
             throw CodeNotFoundException.EXCEPTION;
         }
