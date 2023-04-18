@@ -14,8 +14,6 @@ import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicati
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTraineesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
-import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
-import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.student.domain.Student;
 
 
@@ -84,11 +82,7 @@ public class ApplicationRepository {
                 .join(application.student, student)
                 .on(application.student.id.eq(student.id))
                 .join(application.recruitment, recruitment)
-                .on(recruitment.createdAt.eq(
-                        JPAExpressions.select(recruitment.createdAt.max())
-                                .from(recruitment)
-                                .where(recruitment.company.id.eq(companyId))
-                ))
+                .on(recentRecruitment(companyId))
                 .where(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 .fetch();
     }
@@ -114,7 +108,7 @@ public class ApplicationRepository {
     }
 
     public List<Application> queryApplicationByIds(List<Long> applicationIds) {
-        return applicationJpaRepository.queryByIdIn(applicationIds);
+        return applicationJpaRepository.findByIdIn(applicationIds);
     }
 
     public Optional<Application> queryApplicationById(Long applicationId) {
@@ -153,5 +147,13 @@ public class ApplicationRepository {
 
     private BooleanExpression eqCompanyId(Long companyId) {
         return companyId == null ? null : company.id.eq(companyId);
+    }
+
+    private BooleanExpression recentRecruitment(Long companyId) {
+        return recruitment.createdAt.eq(
+                JPAExpressions.select(recruitment.createdAt.max())
+                        .from(recruitment)
+                        .where(recruitment.company.id.eq(companyId))
+        );
     }
 }

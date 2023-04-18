@@ -9,13 +9,13 @@ import team.returm.jobis.domain.acceptance.presentation.dto.response.TeacherQuer
 import team.returm.jobis.domain.acceptance.service.TeacherQueryFieldTraineesAndContractWorkersService;
 
 @RequiredArgsConstructor
-@RequestMapping("/acceptance")
+@RequestMapping("/acceptances")
 @RestController
 public class AcceptanceController {
 
     private final TeacherQueryFieldTraineesAndContractWorkersService teacherQueryFieldTraineesAndContractWorkersService;
 
-    @GetMapping("/field_trainees/{company-id}")
+    @GetMapping("/{company-id}")
     public TeacherQueryFieldTraineesAndContractWorkersResponse teacherQueryFieldTraineesAndContractWorkers(
             @PathVariable(name = "company-id") Long companyId
     ) {

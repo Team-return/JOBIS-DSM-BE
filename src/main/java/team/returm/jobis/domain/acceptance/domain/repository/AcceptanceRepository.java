@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.acceptance.domain.Acceptance;
 
-import java.time.Year;
 import java.util.List;
 
 @RequiredArgsConstructor
