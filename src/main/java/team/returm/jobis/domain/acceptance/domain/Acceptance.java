@@ -50,7 +50,7 @@ public class Acceptance {
     private LocalDate contractDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "BIGINT", nullable = false)
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
     @Builder
