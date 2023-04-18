@@ -3,6 +3,7 @@ package team.returm.jobis.domain.recruitment.service;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.facade.CodeFacade;
@@ -34,13 +35,15 @@ public class UpdateRecruitAreaService {
         }
 
         recruitmentRepository.deleteRecruitAreaCodeByRecruitAreaId(recruitArea.getId());
-        List<Code> codes = codeFacade.findAllCodeById(
+
+        List<Code> codes = codeFacade.queryCodesByIdIn(
                 Stream.of(request.getJobCodes(), request.getTechCodes())
                         .flatMap(Collection::stream)
                         .toList()
         );
 
         recruitArea.update(request.getHiring(), request.getMajorTask());
+
         recruitmentRepository.saveAllRecruitAreaCodes(
                 codeFacade.generateRecruitAreaCode(recruitArea, codes)
         );

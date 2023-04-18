@@ -3,6 +3,7 @@ package team.returm.jobis.domain.recruitment.service;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.facade.CodeFacade;
@@ -32,7 +33,7 @@ public class CreateRecruitAreaService {
 
         Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
         if (user.getAuthority() == Authority.COMPANY) {
-            recruitment.checkCompany(recruitment.getId());
+            recruitment.checkCompany(user.getId());
         }
 
         RecruitArea recruitArea = recruitAreaJpaRepository.save(
@@ -43,7 +44,7 @@ public class CreateRecruitAreaService {
                         .build()
         );
 
-        List<Code> codes = codeFacade.findAllCodeById(
+        List<Code> codes = codeFacade.queryCodesByIdIn(
                 Stream.of(request.getJobCodes(), request.getTechCodes())
                         .flatMap(Collection::stream)
                         .toList()

@@ -4,6 +4,7 @@ import java.time.Year;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.facade.CodeFacade;
@@ -61,7 +62,7 @@ public class ApplyRecruitmentService {
                             .build()
             );
 
-            List<Code> codes = codeFacade.findAllCodeById(
+            List<Code> codes = codeFacade.queryCodesByIdIn(
                     Stream.of(area.getJobCodes(), area.getTechCodes())
                             .flatMap(Collection::stream)
                             .toList()

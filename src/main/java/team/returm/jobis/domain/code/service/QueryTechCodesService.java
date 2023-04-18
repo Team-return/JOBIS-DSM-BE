@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyService
 public class QueryTechCodesService {
+
     private final CodeRepository codeRepository;
 
     public List<CodeResponse> execute(String keyword) {
@@ -18,7 +19,8 @@ public class QueryTechCodesService {
             keyword = "";
         }
 
-        return codeRepository.queryCodeByKeywordContaining(keyword, CodeType.TECH).stream()
+        return codeRepository.queryCodeByKeywordContaining(keyword, CodeType.TECH)
+                .stream()
                 .map(code ->
                         CodeResponse.builder()
                                 .code(code.getId())

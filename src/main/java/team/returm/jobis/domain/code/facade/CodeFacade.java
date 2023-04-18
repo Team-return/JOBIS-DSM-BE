@@ -14,8 +14,8 @@ import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 public class CodeFacade {
     private final CodeJpaRepository codeJpaRepository;
 
-    public List<Code> findAllCodeById(List<Long> requestCodes) {
-        List<Code> codes = codeJpaRepository.findAllById(requestCodes);
+    public List<Code> queryCodesByIdIn(List<Long> requestCodes) {
+        List<Code> codes = codeJpaRepository.findCodesByIdIn(requestCodes);
         if (codes.size() != requestCodes.size()) {
             throw CodeNotFoundException.EXCEPTION;
         }
@@ -36,6 +36,7 @@ public class CodeFacade {
                                 code.getKeyword(),
                                 code.getCodeType()
                         )
-                ).toList();
+                )
+                .toList();
     }
 }

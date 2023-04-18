@@ -4,22 +4,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.DynamicInsert;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.enums.JobType;
 
 @Getter
 @BatchSize(size = 100)
-@DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -29,15 +30,19 @@ public class Code {
     private Long id;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(30)")
-    private String keyword;
-
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(4)")
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(4)")
     private CodeType codeType;
 
-    @Column(columnDefinition = "VARCHAR(8)")
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(8)")
     private JobType jobType;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String keyword;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_code_id")
+    private Code parentCode;
 }

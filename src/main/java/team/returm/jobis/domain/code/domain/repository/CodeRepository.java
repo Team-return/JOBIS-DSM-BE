@@ -29,11 +29,11 @@ public class CodeRepository {
     }
 
     public List<Code> queryCodeByKeywordContaining(String keyword, CodeType codeType) {
-        return codeJpaRepository.queryCodeByKeywordContainingAndCodeType(keyword, codeType);
+        return codeJpaRepository.findCodeByKeywordContainingAndCodeType(keyword, codeType);
     }
 
     public List<Code> queryJobCodes() {
-        return codeJpaRepository.queryJobCodes();
+        return codeJpaRepository.findJobCodes();
     }
 
     //==conditions==//
