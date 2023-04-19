@@ -21,6 +21,6 @@ public class ChangeApplicationsStatusService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-            applicationRepository.changeApplicationStatus(status, applications);
+        applicationRepository.changeApplicationStatus(status, applications);
     }
 }

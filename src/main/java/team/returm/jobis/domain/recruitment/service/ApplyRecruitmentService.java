@@ -30,7 +30,7 @@ public class ApplyRecruitmentService {
         Company company = userFacade.getCurrentCompany();
 
         String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
-        String requiredLicenses = StringUtil.getRequiredLicenses(request.getRequiredLicenses());
+        String requiredLicenses = StringUtil.joinStringList(request.getRequiredLicenses());
 
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
