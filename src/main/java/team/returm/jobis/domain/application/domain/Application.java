@@ -66,8 +66,11 @@ public class Application extends BaseTimeEntity {
         this.applicationStatus = applicationStatus;
     }
 
-    public Application changeStatus(ApplicationStatus status) {
-        this.applicationStatus = status;
+    public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
+        this.applicationStatus = ApplicationStatus.FIELD_TRAIN;
+        this.startDate = startDate;
+        this.endDate = endDate;
+
         return this;
     }
 }

@@ -11,11 +11,9 @@ public enum ErrorCode {
     BAD_EMAIL(400, "Bad Email Domain"),
     INVALID_EXTENSION(400, "Invalid Extension File"),
     INVALID_DATE_FILTER_RANGE(400, "Invalid Date Filter"),
+    APPLICATION_STATUS_CANNOT_CHANGE(400, "Application Status Cannot be changed"),
 
     UNVERIFIED_EMAIL(401, "Unverified Email"),
-    COMPANY_MISMATCH(403, "Company Mismatch"),
-    RECRUITMENT_CANNOT_DELETE(403, "Recruitment Cannot Deleted"),
-    APPLICATION_CANNOT_DELETE(403, "Application Cannot Deleted"),
     BAD_AUTH_CODE(401, "Bad Auth Code"),
     EXPIRED_TOKEN(401, "Token Expired"),
     INVALID_TOKEN(401, "Invalid Token"),
@@ -23,6 +21,10 @@ public enum ErrorCode {
     INVALID_CODE(401, "invalid code"),
     INVALID_GRADE(401, "Invalid Grade"),
     INVALID_STUDENT(401, "Invalid Student"),
+
+    COMPANY_MISMATCH(403, "Company Mismatch"),
+    RECRUITMENT_CANNOT_DELETE(403, "Recruitment Cannot Deleted"),
+    APPLICATION_CANNOT_DELETE(403, "Application Cannot Deleted"),
 
     USER_NOT_FOUND(404, "User Not Found"),
     AUTH_CODE_NOT_FOUND(404, "AuthCode Not Found"),
