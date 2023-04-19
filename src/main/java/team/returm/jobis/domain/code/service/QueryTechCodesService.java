@@ -16,7 +16,7 @@ public class QueryTechCodesService {
     private final CodeRepository codeRepository;
 
     public List<CodeResponse> execute(String keyword) {
-        keyword = StringUtil.nullToBlank(keyword);
+        keyword = StringUtil.nullToEmpty(keyword);
 
         return codeRepository.queryCodeByKeywordContaining(keyword, CodeType.TECH)
                 .stream()

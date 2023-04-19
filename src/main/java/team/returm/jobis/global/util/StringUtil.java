@@ -28,7 +28,7 @@ public class StringUtil {
         return RandomString.make(size);
     }
 
-    public static String nullToBlank(String request) {
+    public static String nullToEmpty(String request) {
         if (request == null) {
             return "";
         }
