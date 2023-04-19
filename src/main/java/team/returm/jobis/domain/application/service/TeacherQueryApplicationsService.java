@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
-import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.annotation.ReadOnlyService;
@@ -17,7 +16,7 @@ public class TeacherQueryApplicationsService {
 
     public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName, Long companyId) {
         return applicationRepository.queryApplicationByConditions(
-                null, null, applicationStatus, studentName, companyId).stream()
+                        null, null, applicationStatus, studentName, companyId).stream()
                 .map(a -> TeacherQueryApplicationsResponse.builder()
                         .applicationId(a.getId())
                         .studentName(a.getName())
