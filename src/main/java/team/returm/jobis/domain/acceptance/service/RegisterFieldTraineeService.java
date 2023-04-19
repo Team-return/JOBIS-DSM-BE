@@ -1,4 +1,4 @@
-package team.returm.jobis.domain.application.service;
+package team.returm.jobis.domain.acceptance.service;
 
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;

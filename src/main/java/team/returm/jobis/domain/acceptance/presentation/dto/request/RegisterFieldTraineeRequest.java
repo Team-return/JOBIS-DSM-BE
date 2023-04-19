@@ -1,4 +1,4 @@
-package team.returm.jobis.domain.application.presentation.dto.request;
+package team.returm.jobis.domain.acceptance.presentation.dto.request;
 
 import java.time.LocalDate;
 import javax.validation.constraints.NotNull;

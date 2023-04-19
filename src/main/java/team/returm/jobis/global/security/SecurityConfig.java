@@ -54,7 +54,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/field-train/{application-id}").hasAnyAuthority(TEACHER.name())
 
                 //companies
                 .antMatchers(HttpMethod.PATCH, "/companies/type").hasAnyAuthority(TEACHER.name())
@@ -93,6 +92,7 @@ public class SecurityConfig {
 
                 //acceptance
                 .antMatchers(HttpMethod.GET, "/acceptances/{company-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/acceptances/field-train/{application-id}").hasAnyAuthority(TEACHER.name())
 
                 .anyRequest().authenticated()
                 .and()
