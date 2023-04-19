@@ -93,6 +93,7 @@ public class SecurityConfig {
 
                 //acceptance
                 .antMatchers(HttpMethod.GET, "/acceptances/{company-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/acceptances/field-train/{application-id}").hasAnyAuthority(TEACHER.name())
 
                 .anyRequest().authenticated()
                 .and()

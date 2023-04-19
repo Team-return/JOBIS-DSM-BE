@@ -27,6 +27,7 @@ import team.returm.jobis.domain.application.service.CreateApplicationService;
 import team.returm.jobis.domain.application.service.DeleteApplicationService;
 import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
 import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
+import team.returm.jobis.domain.acceptance.service.RegisterFieldTraineeService;
 import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
 
 @RequiredArgsConstructor
@@ -41,6 +42,7 @@ public class ApplicationController {
     private final QueryStudentApplicationsService queryStudentApplicationsService;
     private final ChangeApplicationsStatusService changeApplicationsStatusService;
     private final ChangeFieldTrainDateService changeFieldTrainDateService;
+    private final RegisterFieldTraineeService registerFieldTraineeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
