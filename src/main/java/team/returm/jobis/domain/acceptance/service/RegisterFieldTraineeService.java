@@ -12,6 +12,7 @@ import team.returm.jobis.global.annotation.Service;
 @Service
 @RequiredArgsConstructor
 public class RegisterFieldTraineeService {
+
     private final ApplicationRepository applicationRepository;
 
     public void execute(Long applicationId, LocalDate startDate, LocalDate endDate) {
