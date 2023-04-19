@@ -23,7 +23,8 @@ public class CodeController {
 
     @GetMapping("/tech")
     public List<CodeResponse> findTechCode(
-            @RequestParam(value = "keyword", required = false) String keyword) {
+            @RequestParam(value = "keyword", required = false) String keyword
+    ) {
         return queryTechCodesService.execute(keyword);
     }
 
@@ -32,9 +33,10 @@ public class CodeController {
         return queryJobCodesService.execute();
     }
 
-    @GetMapping("/business_area")
+    @GetMapping("/business-area")
     public List<CodeResponse> findBusinessAreaCodes(
-            @RequestParam(value = "keyword", required = false) String keyword) {
+            @RequestParam(value = "keyword", required = false) String keyword
+    ) {
         return queryBusinessAreaCodesService.execute(keyword);
     }
 }
