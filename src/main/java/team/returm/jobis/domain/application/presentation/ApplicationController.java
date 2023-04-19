@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusRequest;
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
+import team.returm.jobis.domain.application.presentation.dto.request.RegisterFieldTraineeRequest;
 import team.returm.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
@@ -25,6 +26,7 @@ import team.returm.jobis.domain.application.service.CreateApplicationService;
 import team.returm.jobis.domain.application.service.DeleteApplicationService;
 import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
 import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
+import team.returm.jobis.domain.application.service.RegisterFieldTraineeService;
 import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
 
 @RequiredArgsConstructor
@@ -38,6 +40,7 @@ public class ApplicationController {
     private final QueryCompanyApplicationsService queryCompanyApplicationsService;
     private final QueryStudentApplicationsService queryStudentApplicationsService;
     private final ChangeApplicationsStatusService changeApplicationsStatusService;
+    private final RegisterFieldTraineeService registerFieldTraineeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -80,5 +83,14 @@ public class ApplicationController {
                 request.getApplicationIds(),
                 request.getStatus()
         );
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/field-train/{application-id}")
+    public void registerFieldTrainee(
+            @PathVariable("application-id") Long applicationId,
+            @RequestBody @Valid RegisterFieldTraineeRequest request
+    ) {
+        registerFieldTraineeService.execute(applicationId, request.getStartDate(), request.getEndDate());
     }
 }
