@@ -3,6 +3,8 @@ package team.returm.jobis.domain.application.domain.repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -123,6 +125,19 @@ public class ApplicationRepository {
         jpaQueryFactory
                 .update(application)
                 .set(application.applicationStatus, status)
+                .where(application.in(applications))
+                .execute();
+    }
+
+    public List<Application> queryApplicationsByStudentIds(List<Long> studentIds) {
+        return applicationJpaRepository.findByStudentIdIn(studentIds);
+    }
+
+    public void changeFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
+        jpaQueryFactory
+                .update(application)
+                .set(application.startDate, startDate)
+                .set(application.endDate, endDate)
                 .where(application.in(applications))
                 .execute();
     }
