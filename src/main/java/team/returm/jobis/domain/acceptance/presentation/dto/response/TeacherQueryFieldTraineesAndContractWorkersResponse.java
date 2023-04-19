@@ -27,6 +27,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
     @Getter
     @Builder
     public static class TeacherQueryContractWorkersResponse {
+        private Long id;
         private String studentGcn;
         private String studentName;
         private LocalDate contractDate;
