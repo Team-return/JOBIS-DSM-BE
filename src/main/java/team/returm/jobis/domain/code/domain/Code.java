@@ -31,7 +31,7 @@ public class Code {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(4)")
+    @Column(columnDefinition = "VARCHAR(13)")
     private CodeType codeType;
 
     @Enumerated(EnumType.STRING)
