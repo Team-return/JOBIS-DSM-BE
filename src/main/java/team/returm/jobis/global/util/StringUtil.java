@@ -27,4 +27,11 @@ public class StringUtil {
     public static String generateRandomCode(int size) {
         return RandomString.make(size);
     }
+
+    public static String nullToBlank(String request) {
+        if (request == null) {
+            return "";
+        }
+        return request;
+    }
 }

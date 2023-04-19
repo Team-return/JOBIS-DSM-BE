@@ -5,6 +5,7 @@ import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.presentation.dto.response.CodeResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
+import team.returm.jobis.global.util.StringUtil;
 
 import java.util.List;
 
@@ -15,9 +16,7 @@ public class QueryTechCodesService {
     private final CodeRepository codeRepository;
 
     public List<CodeResponse> execute(String keyword) {
-        if (keyword == null) {
-            keyword = "";
-        }
+        keyword = StringUtil.nullToBlank(keyword);
 
         return codeRepository.queryCodeByKeywordContaining(keyword, CodeType.TECH)
                 .stream()
