@@ -55,5 +55,8 @@ public class RegisterEmploymentContractService {
                 ).toList();
 
         acceptanceRepository.saveAllAcceptance(acceptances);
+        applicationRepository.deleteApplicationByIds(
+                applications.stream().map(ApplicationDetailVO::getId).toList()
+        );
     }
 }

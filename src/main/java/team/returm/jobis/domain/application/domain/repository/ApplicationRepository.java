@@ -71,13 +71,13 @@ public class ApplicationRepository {
         return jpaQueryFactory
                 .select(
                         new QQueryFieldTraineesVO(
+                                application.id,
                                 student.grade,
                                 student.classRoom,
                                 student.number,
                                 student.name,
                                 application.startDate,
-                                application.endDate,
-                                application.id
+                                application.endDate
                         )
                 )
                 .from(application)
@@ -94,7 +94,10 @@ public class ApplicationRepository {
     }
 
     public void deleteApplicationByIds(List<Long> applicationIds) {
-        applicationJpaRepository.deleteByIdIn(applicationIds);
+        jpaQueryFactory
+                .delete(application)
+                .where(application.id.in(applicationIds))
+                .execute();
     }
 
     public void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
