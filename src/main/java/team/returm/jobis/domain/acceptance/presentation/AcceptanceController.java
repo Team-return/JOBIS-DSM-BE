@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
 import team.returm.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
+import team.returm.jobis.domain.acceptance.service.RegisterEmploymentContractService;
 import team.returm.jobis.domain.acceptance.service.TeacherQueryFieldTraineesAndContractWorkersService;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
 import team.returm.jobis.domain.acceptance.service.RegisterFieldTraineeService;
@@ -24,6 +25,7 @@ public class AcceptanceController {
 
     private final TeacherQueryFieldTraineesAndContractWorkersService teacherQueryFieldTraineesAndContractWorkersService;
     private final RegisterFieldTraineeService registerFieldTraineeService;
+    private final RegisterEmploymentContractService registerEmploymentContractService;
 
     @GetMapping("/{company-id}")
     public TeacherQueryFieldTraineesAndContractWorkersResponse teacherQueryFieldTraineesAndContractWorkers(
@@ -43,9 +45,7 @@ public class AcceptanceController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
-    public void registerEmploymentContract(
-            @RequestBody @Valid RegisterEmploymentContractRequest request
-    ) {
-
+    public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractRequest request) {
+        registerEmploymentContractService.execute(request);
     }
 }
