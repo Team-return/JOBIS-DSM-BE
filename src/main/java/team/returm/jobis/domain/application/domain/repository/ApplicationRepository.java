@@ -133,7 +133,7 @@ public class ApplicationRepository {
         return applicationJpaRepository.findByStudentIdIn(studentIds);
     }
 
-    public void changeFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
+    public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
         jpaQueryFactory
                 .update(application)
                 .set(application.startDate, startDate)
