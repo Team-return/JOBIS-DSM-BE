@@ -2,6 +2,7 @@ package team.returm.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.exception.CompanyAlreadyExistsException;
@@ -23,6 +24,7 @@ public class RegisterCompanyService {
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final CodeFacade codeFacade;
 
     public TokenResponse execute(RegisterCompanyRequest request) {
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
@@ -39,12 +41,16 @@ public class RegisterCompanyService {
                 .authority(Authority.COMPANY)
                 .build();
 
+        String businessAreaKeyword = codeFacade.findCodeById(request.getBusinessAreaCode()).getKeyword();
+
         companyRepository.saveCompany(
                 Company.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
+                        .businessArea(businessAreaKeyword)
+                        .serviceName(request.getServiceName())
                         .name(request.getName())
                         .sales(request.getTake())
                         .mainAddress(request.getAddress1())

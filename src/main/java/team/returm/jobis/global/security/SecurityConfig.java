@@ -90,6 +90,7 @@ public class SecurityConfig {
                 //code
                 .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
                 .antMatchers(HttpMethod.GET, "/code/job").permitAll()
+                .antMatchers(HttpMethod.GET, "/code/business-area").permitAll()
 
                 //acceptance
                 .antMatchers(HttpMethod.GET, "/acceptances/{company-id}").hasAuthority(TEACHER.name())

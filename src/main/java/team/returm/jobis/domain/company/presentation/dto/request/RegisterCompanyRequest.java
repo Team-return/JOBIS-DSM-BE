@@ -86,4 +86,10 @@ public class RegisterCompanyRequest {
     @NotBlank
     private String bizRegistrationUrl;
 
+    @NotNull
+    private Long businessAreaCode;
+
+    @NotBlank
+    @Size(min = 1, max = 20)
+    private String serviceName;
 }
