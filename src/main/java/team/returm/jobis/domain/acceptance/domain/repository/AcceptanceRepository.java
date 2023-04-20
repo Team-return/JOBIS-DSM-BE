@@ -17,4 +17,8 @@ public class AcceptanceRepository {
     public List<Acceptance> queryAcceptancesByCompanyIdAndYear(Long companyId, Integer year) {
         return acceptanceJpaRepository.queryByCompanyIdAndYear(companyId, year);
     }
+
+    public void saveAllAcceptance(List<Acceptance> acceptances) {
+        acceptanceJpaRepository.saveAll(acceptances);
+    }
 }

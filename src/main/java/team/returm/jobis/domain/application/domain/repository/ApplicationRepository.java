@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.returm.jobis.domain.acceptance.domain.repository.vo.ApplicationDetailVO;
+import team.returm.jobis.domain.acceptance.domain.repository.vo.QApplicationDetailVO;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
@@ -15,7 +17,6 @@ import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTrai
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
 import team.returm.jobis.domain.student.domain.Student;
-
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
@@ -75,7 +76,8 @@ public class ApplicationRepository {
                                 student.number,
                                 student.name,
                                 application.startDate,
-                                application.endDate
+                                application.endDate,
+                                application.id
                         )
                 )
                 .from(application)
@@ -91,8 +93,8 @@ public class ApplicationRepository {
         return applicationJpaRepository.save(application);
     }
 
-    public void saveApplications(List<Application> applications) {
-        applicationJpaRepository.saveAll(applications);
+    public void deleteApplicationByIds(List<Long> applicationIds) {
+        applicationJpaRepository.deleteByIdIn(applicationIds);
     }
 
     public void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
@@ -109,6 +111,27 @@ public class ApplicationRepository {
 
     public List<Application> queryApplicationByIds(List<Long> applicationIds) {
         return applicationJpaRepository.findByIdIn(applicationIds);
+    }
+
+    public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
+        return jpaQueryFactory
+                .select(
+                        new QApplicationDetailVO(
+                                application.id,
+                                student.name,
+                                student.grade,
+                                student.classRoom,
+                                student.number,
+                                company,
+                                application.applicationStatus
+                        )
+                )
+                .from(application)
+                .join(application.student, student)
+                .join(application.recruitment, recruitment)
+                .join(recruitment.company, company)
+                .where(application.id.in(applicationIds))
+                .fetch();
     }
 
     public Optional<Application> queryApplicationById(Long applicationId) {

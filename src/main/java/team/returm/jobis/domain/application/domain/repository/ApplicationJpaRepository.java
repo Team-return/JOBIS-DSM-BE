@@ -13,4 +13,6 @@ public interface ApplicationJpaRepository extends JpaRepository<Application, Lon
     boolean existsByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus);
 
     List<Application> findByIdIn(List<Long> applicationIds);
+
+    void deleteByIdIn(List<Long> applicationIds);
 }
