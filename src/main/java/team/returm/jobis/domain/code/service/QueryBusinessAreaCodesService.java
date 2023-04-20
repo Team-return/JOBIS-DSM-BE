@@ -4,27 +4,25 @@ import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.presentation.dto.response.CodeResponse;
-import team.returm.jobis.global.annotation.ReadOnlyService;
+import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@ReadOnlyService
-public class QueryTechCodesService {
+@Service
+public class QueryBusinessAreaCodesService {
 
     private final CodeRepository codeRepository;
 
     public List<CodeResponse> execute(String keyword) {
         keyword = StringUtil.nullToEmpty(keyword);
 
-        return codeRepository.queryCodeByKeywordContaining(keyword, CodeType.TECH)
-                .stream()
-                .map(code ->
-                        CodeResponse.builder()
-                                .code(code.getId())
-                                .keyword(code.getKeyword())
-                                .build()
+        return codeRepository.queryCodeByKeywordContaining(keyword, CodeType.BUSINESS_AREA).stream()
+                .map(code -> CodeResponse.builder()
+                        .code(code.getId())
+                        .keyword(code.getKeyword())
+                        .build()
                 )
                 .toList();
     }
