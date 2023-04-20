@@ -100,7 +100,7 @@ public class Company {
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
-    private String businessAreas;
+    private String businessArea;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
@@ -119,11 +119,11 @@ public class Company {
     public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
                    String representative, LocalDate foundedAt, int sales, int workersCount, String managerName, String managerPhoneNo,
                    String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                   String fax, String email, String bizNo, String bizRegistrationUrl, String businessAreas, String serviceName) {
+                   String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
         this.user = user;
         this.name = name;
         this.bizRegistrationUrl = bizRegistrationUrl;
-        this.businessAreas = businessAreas;
+        this.businessArea = businessArea;
         this.serviceName = serviceName;
         this.type = CompanyType.PARTICIPATING;
         this.address = new Address(mainAddress, mainZipCode, subAddress, subZipCode);
