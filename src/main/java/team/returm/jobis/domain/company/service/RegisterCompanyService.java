@@ -49,7 +49,7 @@ public class RegisterCompanyService {
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
-                        .businessAreas(businessAreaKeyword)
+                        .businessArea(businessAreaKeyword)
                         .serviceName(request.getServiceName())
                         .name(request.getName())
                         .sales(request.getTake())
