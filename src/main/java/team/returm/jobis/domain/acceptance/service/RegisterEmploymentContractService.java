@@ -12,7 +12,6 @@ import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
-import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
@@ -23,11 +22,10 @@ public class RegisterEmploymentContractService {
 
     private final AcceptanceRepository acceptanceRepository;
     private final ApplicationRepository applicationRepository;
-    private final CodeFacade codeFacade;
 
     public void execute(RegisterEmploymentContractRequest request) {
         List<ApplicationDetailVO> applications = applicationRepository.queryApplicationDetailsByIds(request.getApplicationIds());
-        if(applications.size() != request.getApplicationIds().size()) {
+        if (applications.size() != request.getApplicationIds().size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
@@ -51,7 +49,7 @@ public class RegisterEmploymentContractService {
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
                                     .tech(codeKeywords)
-                                    .businessArea(application.getCompany().getBusinessArea()) // TODO: 2023/04/20 rebase후 작업
+                                    .businessArea(application.getCompany().getBusinessArea())
                                     .build();
                         }
                 ).toList();
