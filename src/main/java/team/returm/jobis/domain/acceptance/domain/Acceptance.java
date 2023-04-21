@@ -34,8 +34,8 @@ public class Acceptance {
     private String studentName;
 
     @NotNull
-    @Column(columnDefinition = "BIGINT")
-    private Long businessArea;
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String businessArea;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(40)")
@@ -54,7 +54,7 @@ public class Acceptance {
     private Company company;
 
     @Builder
-    public Acceptance(Integer year, String studentName, Long businessArea, String tech,
+    public Acceptance(Integer year, String studentName, String businessArea, String tech,
                       String studentGcn, LocalDate contractDate, Company company) {
         this.year = year;
         this.studentName = studentName;
