@@ -11,13 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 public class TeacherQueryFieldTraineesAndContractWorkersResponse {
 
-    private List<TeacherQueryFieldTraineesResponse> fieldTraineesResponse;
-    private List<TeacherQueryContractWorkersResponse> acceptancesResponse;
+    private final List<TeacherQueryFieldTraineesResponse> fieldTraineesResponse;
+    private final List<TeacherQueryContractWorkersResponse> acceptancesResponse;
 
 
     @Getter
     @Builder
     public static class TeacherQueryFieldTraineesResponse {
+        private Long applicationId;
         private String studentGcn;
         private String studentName;
         private LocalDate startDate;

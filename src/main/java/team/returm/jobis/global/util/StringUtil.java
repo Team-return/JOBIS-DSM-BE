@@ -11,7 +11,7 @@ import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 @Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtil {
-    public static String getRequiredLicenses(List<String> request) {
+    public static String joinStringList(List<String> request) {
         return request == null ? null : String.join(",", request);
     }
 
@@ -26,5 +26,12 @@ public class StringUtil {
 
     public static String generateRandomCode(int size) {
         return RandomString.make(size);
+    }
+
+    public static String nullToEmpty(String request) {
+        if (request == null) {
+            return "";
+        }
+        return request;
     }
 }

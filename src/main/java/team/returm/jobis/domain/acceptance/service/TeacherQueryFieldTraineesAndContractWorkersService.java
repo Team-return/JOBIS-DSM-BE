@@ -41,6 +41,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
         return queryFieldTraineesVOs.stream()
                 .map(vo -> TeacherQueryFieldTraineesResponse
                         .builder()
+                        .applicationId(vo.getApplicationId())
                         .studentGcn(
                                 Student.processGcn(
                                         vo.getGrade(),

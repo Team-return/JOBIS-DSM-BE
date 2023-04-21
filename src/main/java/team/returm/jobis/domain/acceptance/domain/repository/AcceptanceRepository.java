@@ -30,5 +30,8 @@ public class AcceptanceRepository {
                 .set(acceptance.contractDate, contractDate)
                 .where(acceptance.in(acceptances))
                 .execute();
+
+    public void saveAllAcceptance(List<Acceptance> acceptances) {
+        acceptanceJpaRepository.saveAll(acceptances);
     }
 }
