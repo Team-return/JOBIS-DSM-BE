@@ -25,7 +25,7 @@ public class UpdateRecruitmentService {
             recruitment.checkCompany(user.getId());
         }
 
-        String requiredLicenses = StringUtil.getRequiredLicenses(request.getRequiredLicenses());
+        String requiredLicenses = StringUtil.joinStringList(request.getRequiredLicenses());
         String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
 
         recruitment.update(
