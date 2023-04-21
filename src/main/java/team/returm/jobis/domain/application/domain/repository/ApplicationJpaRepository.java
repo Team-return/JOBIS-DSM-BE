@@ -14,5 +14,7 @@ public interface ApplicationJpaRepository extends JpaRepository<Application, Lon
 
     List<Application> findByIdIn(List<Long> applicationIds);
 
+    List<Application> findByStudentIdIn(List<Long> studentIds);
+
     void deleteByIdIn(List<Long> applicationIds);
 }
