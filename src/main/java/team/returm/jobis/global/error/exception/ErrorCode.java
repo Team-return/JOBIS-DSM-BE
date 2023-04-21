@@ -26,7 +26,7 @@ public enum ErrorCode {
     COMPANY_MISMATCH(403, "Company Mismatch"),
     RECRUITMENT_CANNOT_DELETE(403, "Recruitment Cannot Deleted"),
     APPLICATION_CANNOT_DELETE(403, "Application Cannot Deleted"),
-    FIELD_TRAIN_DATE_CANNOT_Change(403, "Field Train Date Cannot Changed"),
+    FIELD_TRAIN_DATE_CANNOT_CHANGE(403, "Field Train Date Cannot Changed"),
 
     USER_NOT_FOUND(404, "User Not Found"),
     AUTH_CODE_NOT_FOUND(404, "AuthCode Not Found"),
