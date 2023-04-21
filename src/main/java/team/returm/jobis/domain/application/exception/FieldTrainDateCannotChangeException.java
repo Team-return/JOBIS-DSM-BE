@@ -8,6 +8,6 @@ public class FieldTrainDateCannotChangeException extends JobisException {
     public static final JobisException EXCEPTION = new FieldTrainDateCannotChangeException();
 
     private FieldTrainDateCannotChangeException() {
-        super(ErrorCode.FIELD_TRAIN_DATE_CANNOT_Change);
+        super(ErrorCode.FIELD_TRAIN_DATE_CANNOT_CHANGE);
     }
 }

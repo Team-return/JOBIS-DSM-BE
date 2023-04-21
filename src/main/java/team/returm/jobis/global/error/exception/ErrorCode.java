@@ -12,7 +12,7 @@ public enum ErrorCode {
     INVALID_EXTENSION(400, "Invalid Extension File"),
     INVALID_DATE_FILTER_RANGE(400, "Invalid Date Filter"),
     APPLICATION_STATUS_CANNOT_CHANGE(400, "Application Status Cannot be changed"),
-    DAY_OUT_OF_RANGE(400, "Day Out Of Range"),
+    INVALID_DATE(400, "Invalid Date"),
 
     UNVERIFIED_EMAIL(401, "Unverified Email"),
     BAD_AUTH_CODE(401, "Bad Auth Code"),
