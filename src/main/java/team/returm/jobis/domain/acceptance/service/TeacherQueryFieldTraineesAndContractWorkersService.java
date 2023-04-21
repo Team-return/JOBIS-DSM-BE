@@ -64,7 +64,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
                 .map(
                         acceptance -> TeacherQueryContractWorkersResponse
                                 .builder()
-                                .id(acceptance.getId())
+                                .acceptanceId(acceptance.getId())
                                 .studentGcn(acceptance.getStudentGcn())
                                 .studentName(acceptance.getStudentName())
                                 .contractDate(acceptance.getContractDate())

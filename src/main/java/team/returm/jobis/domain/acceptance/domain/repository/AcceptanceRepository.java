@@ -17,19 +17,16 @@ public class AcceptanceRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     public List<Acceptance> queryAcceptancesByCompanyIdAndYear(Long companyId, Integer year) {
-        return acceptanceJpaRepository.queryByCompanyIdAndYear(companyId, year);
+        return acceptanceJpaRepository.findByCompanyIdAndYear(companyId, year);
     }
 
-    public List<Acceptance> queryByIdIn(List<Long> ids) {
-        return acceptanceJpaRepository.queryByIdIn(ids);
-    }
-
-    public void updateContractDate(LocalDate contractDate, List<Acceptance> acceptances) {
+    public void updateContractDate(LocalDate contractDate, List<Long> acceptanceIds) {
         jpaQueryFactory
                 .update(acceptance)
                 .set(acceptance.contractDate, contractDate)
-                .where(acceptance.in(acceptances))
+                .where(acceptance.id.in(acceptanceIds))
                 .execute();
+    }
 
     public void saveAllAcceptance(List<Acceptance> acceptances) {
         acceptanceJpaRepository.saveAll(acceptances);
