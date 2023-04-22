@@ -1,11 +1,10 @@
 package team.returm.jobis.domain.application.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
-import team.returm.jobis.domain.application.presentation.dto.request.QueryApplicationsRequest;
-import team.returm.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse.CompanyQueryApplicationResponse;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.facade.RecruitFacade;
@@ -21,13 +20,14 @@ public class QueryCompanyApplicationsService {
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
 
-    public List<QueryCompanyApplicationsResponse> execute() {
+    public CompanyQueryApplicationsResponse execute() {
         Company company = userFacade.getCurrentCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
 
-        return applicationRepository.queryApplicationByConditions(
+        return new CompanyQueryApplicationsResponse(
+                applicationRepository.queryApplicationByConditions(
                 recruitment.getId(), null, ApplicationStatus.APPROVED, null, null).stream()
-                .map(a -> QueryCompanyApplicationsResponse.builder()
+                .map(a -> CompanyQueryApplicationResponse.builder()
                         .applicationId(a.getId())
                         .studentName(a.getName())
                         .studentNumber(Student.processGcn(
@@ -37,7 +37,8 @@ public class QueryCompanyApplicationsService {
                         )
                         .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
                         .createdAt(a.getCreatedAt().toLocalDate())
-                        .build())
-                .toList();
+                        .build()
+                ).toList()
+        );
     }
 }

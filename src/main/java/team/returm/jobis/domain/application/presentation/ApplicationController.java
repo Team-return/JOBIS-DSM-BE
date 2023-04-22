@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.application.presentation;
 
-import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusRequest;
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
-import team.returm.jobis.domain.application.presentation.dto.response.QueryCompanyApplicationsResponse;
-import team.returm.jobis.domain.application.presentation.dto.response.StudentApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.returm.jobis.domain.application.service.ChangeApplicationsStatusService;
 import team.returm.jobis.domain.application.service.CreateApplicationService;
 import team.returm.jobis.domain.application.service.DeleteApplicationService;
 import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
 import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
-import team.returm.jobis.domain.acceptance.service.RegisterFieldTraineeService;
 import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
 
 @RequiredArgsConstructor
@@ -39,7 +37,6 @@ public class ApplicationController {
     private final QueryCompanyApplicationsService queryCompanyApplicationsService;
     private final QueryStudentApplicationsService queryStudentApplicationsService;
     private final ChangeApplicationsStatusService changeApplicationsStatusService;
-    private final RegisterFieldTraineeService registerFieldTraineeService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -57,7 +54,7 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public List<TeacherQueryApplicationsResponse> queryTeacherApplicationList(
+    public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
             @RequestParam(value = "company_id", required = false) Long companyId
@@ -66,12 +63,12 @@ public class ApplicationController {
     }
 
     @GetMapping("/company")
-    public List<QueryCompanyApplicationsResponse> queryCompanyApplicationList() {
+    public CompanyQueryApplicationsResponse queryCompanyApplicationList() {
         return queryCompanyApplicationsService.execute();
     }
 
     @GetMapping("/students")
-    public List<StudentApplicationsResponse> queryApplication() {
+    public StudentQueryApplicationsResponse queryApplication() {
         return queryStudentApplicationsService.execute();
     }
 
