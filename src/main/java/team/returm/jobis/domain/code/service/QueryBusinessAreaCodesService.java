@@ -8,8 +8,6 @@ import team.returm.jobis.domain.code.presentation.dto.response.CodesResponse.Cod
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
 public class QueryBusinessAreaCodesService {
