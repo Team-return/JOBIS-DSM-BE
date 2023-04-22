@@ -6,6 +6,8 @@ import team.returm.jobis.domain.code.presentation.dto.response.JobCodesResponse.
 import team.returm.jobis.global.annotation.ReadOnlyService;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @ReadOnlyService
 public class QueryJobCodesService {
@@ -13,12 +15,14 @@ public class QueryJobCodesService {
     private final CodeRepository codeRepository;
 
     public JobCodesResponse execute() {
-        return new JobCodesResponse(codeRepository.queryJobCodes().stream()
+        List<JobCodeResponse> codes = codeRepository.queryJobCodes().stream()
                 .map(code -> JobCodeResponse.builder()
                         .code(code.getId())
                         .keyword(code.getKeyword())
                         .jobType(code.getJobType())
                         .build())
-                .toList());
+                .toList();
+
+        return new JobCodesResponse(codes);
     }
 }

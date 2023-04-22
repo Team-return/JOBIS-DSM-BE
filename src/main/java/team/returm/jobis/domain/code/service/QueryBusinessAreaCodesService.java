@@ -8,6 +8,8 @@ import team.returm.jobis.domain.code.presentation.dto.response.CodesResponse.Cod
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class QueryBusinessAreaCodesService {
@@ -17,13 +19,13 @@ public class QueryBusinessAreaCodesService {
     public CodesResponse execute(String keyword) {
         keyword = StringUtil.nullToEmpty(keyword);
 
-        return new CodesResponse(
-                codeRepository.queryCodeByKeywordContaining(keyword, CodeType.BUSINESS_AREA).stream()
+        List<CodeResponse> codes = codeRepository.queryCodeByKeywordContaining(keyword, CodeType.BUSINESS_AREA).stream()
                 .map(code -> CodeResponse.builder()
                         .code(code.getId())
                         .keyword(code.getKeyword())
                         .build()
-                ).toList()
-        );
+                ).toList();
+
+        return new CodesResponse(codes);
     }
 }
