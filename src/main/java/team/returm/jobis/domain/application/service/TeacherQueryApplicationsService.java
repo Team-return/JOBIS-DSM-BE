@@ -1,10 +1,10 @@
 package team.returm.jobis.domain.application.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
@@ -14,10 +14,11 @@ public class TeacherQueryApplicationsService {
 
     private final ApplicationRepository applicationRepository;
 
-    public List<TeacherQueryApplicationsResponse> execute(ApplicationStatus applicationStatus, String studentName, Long companyId) {
-        return applicationRepository.queryApplicationByConditions(
+    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long companyId) {
+        return new TeacherQueryApplicationsResponse(
+                applicationRepository.queryApplicationByConditions(
                         null, null, applicationStatus, studentName, companyId).stream()
-                .map(a -> TeacherQueryApplicationsResponse.builder()
+                .map(a -> TeacherQueryApplicationResponse.builder()
                         .applicationId(a.getId())
                         .studentName(a.getName())
                         .studentGcn(Student.processGcn(
@@ -29,7 +30,8 @@ public class TeacherQueryApplicationsService {
                         .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
                         .createdAt(a.getCreatedAt().toLocalDate())
                         .applicationStatus(a.getApplicationStatus())
-                        .build())
-                .toList();
+                        .build()
+                ).toList()
+        );
     }
 }
