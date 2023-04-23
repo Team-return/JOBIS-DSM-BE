@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.returm.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateRequest;
+import team.returm.jobis.domain.acceptance.service.ChangeContractDateService;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
 import team.returm.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
 import team.returm.jobis.domain.acceptance.service.RegisterEmploymentContractService;
@@ -24,6 +26,7 @@ import team.returm.jobis.domain.acceptance.service.RegisterFieldTraineeService;
 public class AcceptanceController {
 
     private final TeacherQueryFieldTraineesAndContractWorkersService teacherQueryFieldTraineesAndContractWorkersService;
+    private final ChangeContractDateService changeContractDateService;
     private final RegisterFieldTraineeService registerFieldTraineeService;
     private final RegisterEmploymentContractService registerEmploymentContractService;
 
@@ -43,6 +46,12 @@ public class AcceptanceController {
         registerFieldTraineeService.execute(applicationId, request.getStartDate(), request.getEndDate());
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/contract-date")
+    public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateRequest request) {
+        changeContractDateService.execute(request);
+    }
+    
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
     public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractRequest request) {
