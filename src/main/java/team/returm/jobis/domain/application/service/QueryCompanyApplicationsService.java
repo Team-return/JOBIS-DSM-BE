@@ -26,17 +26,17 @@ public class QueryCompanyApplicationsService {
 
         return new CompanyQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
-                recruitment.getId(), null, ApplicationStatus.APPROVED, null, null).stream()
-                .map(a -> CompanyQueryApplicationResponse.builder()
-                        .applicationId(a.getId())
-                        .studentName(a.getName())
+                recruitment.getId(), null, ApplicationStatus.APPROVED, null).stream()
+                .map(application -> CompanyQueryApplicationResponse.builder()
+                        .applicationId(application.getId())
+                        .studentName(application.getName())
                         .studentNumber(Student.processGcn(
-                                a.getGrade(),
-                                a.getClassNumber(),
-                                a.getNumber())
+                                application.getGrade(),
+                                application.getClassNumber(),
+                                application.getNumber())
                         )
-                        .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
-                        .createdAt(a.getCreatedAt().toLocalDate())
+                        .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
+                        .createdAt(application.getCreatedAt().toLocalDate())
                         .build()
                 ).toList()
         );

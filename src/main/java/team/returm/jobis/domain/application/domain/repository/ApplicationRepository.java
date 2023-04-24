@@ -36,7 +36,7 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName, Long companyId) {
+    public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
         return jpaQueryFactory
                 .selectFrom(application)
                 .join(application.student, student)
@@ -47,8 +47,7 @@ public class ApplicationRepository {
                         eqRecruitmentId(recruitmentId),
                         eqStudentId(studentId),
                         eqApplicationStatus(applicationStatus),
-                        containStudentName(studentName),
-                        eqCompanyId(companyId)
+                        containStudentName(studentName)
                 )
                 .orderBy(application.createdAt.desc())
                 .transform(
@@ -58,8 +57,8 @@ public class ApplicationRepository {
                                                 application.id,
                                                 student.name,
                                                 student.grade,
-                                                student.classRoom,
                                                 student.number,
+                                                student.classRoom,
                                                 company.name,
                                                 list(applicationAttachment.attachmentUrl),
                                                 application.createdAt,
@@ -184,10 +183,6 @@ public class ApplicationRepository {
 
     private BooleanExpression containStudentName(String studentName) {
         return studentName == null ? null : student.name.contains(studentName);
-    }
-
-    private BooleanExpression eqCompanyId(Long companyId) {
-        return companyId == null ? null : company.id.eq(companyId);
     }
 
     private BooleanExpression recentRecruitment(Long companyId) {

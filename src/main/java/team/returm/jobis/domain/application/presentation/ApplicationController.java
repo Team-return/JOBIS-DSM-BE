@@ -60,9 +60,9 @@ public class ApplicationController {
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
-            @RequestParam(value = "company_id", required = false) Long companyId
+            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, companyId);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
     }
 
     @GetMapping("/company")

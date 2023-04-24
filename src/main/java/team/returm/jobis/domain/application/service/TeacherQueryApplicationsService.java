@@ -14,22 +14,22 @@ public class TeacherQueryApplicationsService {
 
     private final ApplicationRepository applicationRepository;
 
-    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long companyId) {
+    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId) {
         return new TeacherQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
-                        null, null, applicationStatus, studentName, companyId).stream()
-                .map(a -> TeacherQueryApplicationResponse.builder()
-                        .applicationId(a.getId())
-                        .studentName(a.getName())
+                        recruitmentId, null, applicationStatus, studentName).stream()
+                .map(application -> TeacherQueryApplicationResponse.builder()
+                        .applicationId(application.getId())
+                        .studentName(application.getName())
                         .studentGcn(Student.processGcn(
-                                a.getGrade(),
-                                a.getClassNumber(),
-                                a.getNumber())
+                                application.getGrade(),
+                                application.getClassNumber(),
+                                application.getNumber())
                         )
-                        .companyName(a.getCompanyName())
-                        .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
-                        .createdAt(a.getCreatedAt().toLocalDate())
-                        .applicationStatus(a.getApplicationStatus())
+                        .companyName(application.getCompanyName())
+                        .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
+                        .createdAt(application.getCreatedAt().toLocalDate())
+                        .applicationStatus(application.getApplicationStatus())
                         .build()
                 ).toList()
         );
