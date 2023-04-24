@@ -11,6 +11,7 @@ import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 @Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtil {
+
     public static String joinStringList(List<String> request) {
         return request == null ? null : String.join(",", request);
     }
