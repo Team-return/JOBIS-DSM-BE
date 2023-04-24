@@ -14,10 +14,10 @@ public class TeacherQueryApplicationsService {
 
     private final ApplicationRepository applicationRepository;
 
-    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long companyId) {
+    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId) {
         return new TeacherQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
-                        null, null, applicationStatus, studentName, companyId).stream()
+                        recruitmentId, null, applicationStatus, studentName).stream()
                 .map(application -> TeacherQueryApplicationResponse.builder()
                         .applicationId(application.getId())
                         .studentName(application.getName())
