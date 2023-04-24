@@ -18,18 +18,18 @@ public class TeacherQueryApplicationsService {
         return new TeacherQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
                         null, null, applicationStatus, studentName, companyId).stream()
-                .map(a -> TeacherQueryApplicationResponse.builder()
-                        .applicationId(a.getId())
-                        .studentName(a.getName())
+                .map(application -> TeacherQueryApplicationResponse.builder()
+                        .applicationId(application.getId())
+                        .studentName(application.getName())
                         .studentGcn(Student.processGcn(
-                                a.getGrade(),
-                                a.getClassNumber(),
-                                a.getNumber())
+                                application.getGrade(),
+                                application.getClassNumber(),
+                                application.getNumber())
                         )
-                        .companyName(a.getCompanyName())
-                        .applicationAttachmentUrl(a.getApplicationAttachmentUrl())
-                        .createdAt(a.getCreatedAt().toLocalDate())
-                        .applicationStatus(a.getApplicationStatus())
+                        .companyName(application.getCompanyName())
+                        .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
+                        .createdAt(application.getCreatedAt().toLocalDate())
+                        .applicationStatus(application.getApplicationStatus())
                         .build()
                 ).toList()
         );
