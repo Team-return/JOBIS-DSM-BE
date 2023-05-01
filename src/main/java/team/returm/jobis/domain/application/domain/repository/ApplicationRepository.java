@@ -117,6 +117,25 @@ public class ApplicationRepository {
         return applicationJpaRepository.findByIdIn(applicationIds);
     }
 
+    public Integer queryApplicationCountByConditions(Long recruitmentId, Long studentId,
+                                         ApplicationStatus applicationStatus, String studentName) {
+        return jpaQueryFactory
+                .select(application.id)
+                .from(application)
+                .join(application.student, student)
+                .join(application.recruitment, recruitment)
+                .leftJoin(application.applicationAttachments, applicationAttachment)
+                .leftJoin(recruitment.company, company)
+                .where(
+                        eqRecruitmentId(recruitmentId),
+                        eqStudentId(studentId),
+                        eqApplicationStatus(applicationStatus),
+                        containStudentName(studentName)
+                ).distinct()
+                .fetch()
+                .size();
+    }
+
     public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
         return jpaQueryFactory
                 .select(

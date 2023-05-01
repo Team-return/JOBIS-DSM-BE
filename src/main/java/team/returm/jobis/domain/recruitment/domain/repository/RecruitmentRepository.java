@@ -98,6 +98,27 @@ public class RecruitmentRepository {
                 .fetchFirst();
     }
 
+    public Integer queryRecruitmentCountByConditions(Integer year, LocalDate start, LocalDate end,
+                                                     RecruitStatus status, String companyName,
+                                                     List<RecruitAreaCode> codes) {
+        return queryFactory
+                .select(recruitment.id)
+                .from(recruitment)
+                .leftJoin(recruitment.company, company)
+                .leftJoin(recruitment.recruitAreaList, recruitArea)
+                .leftJoin(recruitArea.codeList, recruitAreaCode)
+                .where(
+                        eqYear(year),
+                        betweenRecruitDate(start, end),
+                        eqRecruitStatus(status),
+                        containName(companyName),
+                        containsKeywords(codes),
+                        recruitAreaCode.codeType.eq(CodeType.JOB)
+                ).distinct()
+                .fetch()
+                .size();
+    }
+
     public List<Recruitment> queryRecruitmentsAfterRecruitDate() {
         return queryFactory
                 .selectFrom(recruitment)
