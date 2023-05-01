@@ -31,7 +31,7 @@ public class CompanyRepository {
     private final CompanyJpaRepository companyJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public List<StudentQueryCompaniesVO> queryCompanyVoList(Integer page, String name) {
+    public List<StudentQueryCompaniesVO> queryCompanies(Integer page, String name) {
         long pageSize = 11;
         return queryFactory
                 .select(

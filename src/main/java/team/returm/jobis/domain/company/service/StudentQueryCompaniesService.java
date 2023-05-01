@@ -13,7 +13,7 @@ public class StudentQueryCompaniesService {
 
     public StudentQueryCompaniesResponse execute(Integer page, String name) {
         return new StudentQueryCompaniesResponse(
-                companyRepository.queryCompanyVoList(page, name)
+                companyRepository.queryCompanies(page, name)
         );
     }
 }
