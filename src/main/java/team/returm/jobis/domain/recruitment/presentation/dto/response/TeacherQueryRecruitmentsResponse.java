@@ -13,6 +13,7 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 @AllArgsConstructor
 public class TeacherQueryRecruitmentsResponse {
     private final List<TeacherRecruitmentResponse> recruitments;
+    private final Integer recruitmentCount;
 
     @Getter
     @Builder

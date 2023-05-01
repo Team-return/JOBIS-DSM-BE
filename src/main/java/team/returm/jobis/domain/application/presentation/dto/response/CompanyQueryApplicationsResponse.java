@@ -12,6 +12,7 @@ import lombok.Getter;
 public class CompanyQueryApplicationsResponse {
 
     private final List<CompanyQueryApplicationResponse> applications;
+    private final Integer count;
 
     @Getter
     @Builder

@@ -11,6 +11,7 @@ import lombok.Getter;
 public class StudentQueryRecruitmentsResponse {
 
     private final List<StudentRecruitmentResponse> recruitments;
+    private final Integer count;
 
     @Getter
     @Builder

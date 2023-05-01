@@ -12,6 +12,7 @@ import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 public class StudentQueryApplicationsResponse {
 
     private final List<StudentQueryApplicationResponse> applications;
+    private final Integer count;
 
     @Getter
     @Builder
