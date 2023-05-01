@@ -12,6 +12,7 @@ import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
+import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyService
 public class QueryCompanyApplicationsService {
@@ -20,12 +21,12 @@ public class QueryCompanyApplicationsService {
     private final RecruitFacade recruitFacade;
     private final UserFacade userFacade;
 
-    public CompanyQueryApplicationsResponse execute() {
+    public CompanyQueryApplicationsResponse execute(Long page) {
         Company company = userFacade.getCurrentCompany();
         Recruitment recruitment = recruitFacade.getLatestRecruitByCompany(company);
 
-        return new CompanyQueryApplicationsResponse(
-                applicationRepository.queryApplicationByConditions(
+        List<CompanyQueryApplicationResponse> applications = applicationRepository.queryApplicationByConditions(
+                        recruitment.getId(), null, ApplicationStatus.APPROVED, null, page - 1).stream()
                 recruitment.getId(), null, ApplicationStatus.APPROVED, null).stream()
                 .map(application -> CompanyQueryApplicationResponse.builder()
                         .applicationId(application.getId())

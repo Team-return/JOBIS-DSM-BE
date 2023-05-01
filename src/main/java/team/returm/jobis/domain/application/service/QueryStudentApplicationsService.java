@@ -8,6 +8,8 @@ import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @ReadOnlyService
 public class QueryStudentApplicationsService {
@@ -15,11 +17,11 @@ public class QueryStudentApplicationsService {
     private final ApplicationRepository applicationRepository;
     private final UserFacade userFacade;
 
-    public StudentQueryApplicationsResponse execute() {
+    public StudentQueryApplicationsResponse execute(Long page) {
         Student student = userFacade.getCurrentStudent();
 
-        return new StudentQueryApplicationsResponse(
-                applicationRepository.queryApplicationByConditions(
+        List<StudentQueryApplicationResponse> applications = applicationRepository.queryApplicationByConditions(
+                        null, student.getId(), null, null, page - 1).stream()
                 null, student.getId(), null, null).stream()
                 .map(application -> StudentQueryApplicationResponse.builder()
                         .applicationId(application.getId())

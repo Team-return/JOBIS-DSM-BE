@@ -36,7 +36,9 @@ public class ApplicationRepository {
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
+    public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus,
+                                                                 String studentName, Long page) {
+        long pageSize = 11;
         return jpaQueryFactory
                 .selectFrom(application)
                 .join(application.student, student)
@@ -50,6 +52,8 @@ public class ApplicationRepository {
                         containStudentName(studentName)
                 )
                 .orderBy(application.createdAt.desc())
+                .offset(page * pageSize)
+                .limit(pageSize)
                 .transform(
                         groupBy(application.id)
                                 .list(

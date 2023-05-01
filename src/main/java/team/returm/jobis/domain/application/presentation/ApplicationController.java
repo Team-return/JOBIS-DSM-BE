@@ -60,19 +60,24 @@ public class ApplicationController {
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
-            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId
+            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+            @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, page);
     }
 
     @GetMapping("/company")
-    public CompanyQueryApplicationsResponse queryCompanyApplicationList() {
-        return queryCompanyApplicationsService.execute();
+    public CompanyQueryApplicationsResponse queryCompanyApplicationList(
+            @RequestParam(value = "page", defaultValue = "1") Long page
+    ) {
+        return queryCompanyApplicationsService.execute(page);
     }
 
     @GetMapping("/students")
-    public StudentQueryApplicationsResponse queryApplication() {
-        return queryStudentApplicationsService.execute();
+    public StudentQueryApplicationsResponse queryApplications(
+            @RequestParam(value = "page", defaultValue = "1") Long page
+    ) {
+        return queryStudentApplicationsService.execute(page);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
