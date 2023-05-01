@@ -39,7 +39,15 @@ public class StudentQueryRecruitmentsService {
                                         .build()
                         ).toList();
 
-        return new StudentQueryRecruitmentsResponse(recruitments);
+        Integer count = recruitmentRepository.queryRecruitmentCountByConditions(
+                Year.now().getValue(), null, null,
+                RecruitStatus.RECRUITING, name, codes
+        );
+
+        return new StudentQueryRecruitmentsResponse(
+                recruitments,
+                count
+        );
     }
 
 }

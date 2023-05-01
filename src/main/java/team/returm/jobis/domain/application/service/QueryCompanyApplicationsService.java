@@ -13,6 +13,7 @@ import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
 import java.util.List;
+
 @RequiredArgsConstructor
 @ReadOnlyService
 public class QueryCompanyApplicationsService {
@@ -27,7 +28,6 @@ public class QueryCompanyApplicationsService {
 
         List<CompanyQueryApplicationResponse> applications = applicationRepository.queryApplicationByConditions(
                         recruitment.getId(), null, ApplicationStatus.APPROVED, null, page - 1).stream()
-                recruitment.getId(), null, ApplicationStatus.APPROVED, null).stream()
                 .map(application -> CompanyQueryApplicationResponse.builder()
                         .applicationId(application.getId())
                         .studentName(application.getName())
@@ -39,7 +39,15 @@ public class QueryCompanyApplicationsService {
                         .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
                         .createdAt(application.getCreatedAt().toLocalDate())
                         .build()
-                ).toList()
+                ).toList();
+
+        Integer count = applicationRepository.queryApplicationCountByConditions(
+                recruitment.getId(), null, ApplicationStatus.APPROVED, null
+        );
+
+        return new CompanyQueryApplicationsResponse(
+                applications,
+                count
         );
     }
 }

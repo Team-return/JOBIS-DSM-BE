@@ -38,6 +38,12 @@ public class TeacherQueryRecruitmentsService {
                                         .build()
                         ).toList();
 
-        return new TeacherQueryRecruitmentsResponse(recruitments);
+        Integer count = recruitmentRepository.queryRecruitmentCountByConditions(
+                year, start, end, status, companyName, null
+        );
+
+        return new TeacherQueryRecruitmentsResponse(
+                recruitments, count
+        );
     }
 }

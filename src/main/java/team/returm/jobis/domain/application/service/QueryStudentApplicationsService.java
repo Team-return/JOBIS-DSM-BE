@@ -22,14 +22,21 @@ public class QueryStudentApplicationsService {
 
         List<StudentQueryApplicationResponse> applications = applicationRepository.queryApplicationByConditions(
                         null, student.getId(), null, null, page - 1).stream()
-                null, student.getId(), null, null).stream()
                 .map(application -> StudentQueryApplicationResponse.builder()
                         .applicationId(application.getId())
                         .company(application.getCompanyName())
                         .attachmentUrlList(application.getApplicationAttachmentUrl())
                         .applicationStatus(application.getApplicationStatus())
                         .build()
-                ).toList()
+                ).toList();
+
+        Integer count = applicationRepository.queryApplicationCountByConditions(
+                null, student.getId(), null, null
+        );
+
+        return new StudentQueryApplicationsResponse(
+                applications,
+                count
         );
     }
 }

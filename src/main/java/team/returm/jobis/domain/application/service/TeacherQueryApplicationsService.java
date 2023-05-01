@@ -34,7 +34,15 @@ public class TeacherQueryApplicationsService {
                         .createdAt(application.getCreatedAt().toLocalDate())
                         .applicationStatus(application.getApplicationStatus())
                         .build()
-                ).toList()
+                ).toList();
+
+        Integer count = applicationRepository.queryApplicationCountByConditions(
+                recruitmentId, null, applicationStatus, studentName
+        );
+
+        return new TeacherQueryApplicationsResponse(
+                applications,
+                count
         );
     }
 }
