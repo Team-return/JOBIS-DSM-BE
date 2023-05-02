@@ -43,7 +43,7 @@ public class Acceptance {
     private String tech;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(5)")
+    @Column(columnDefinition = "CHAR(4)")
     private String studentGcn;
 
     @NotNull
