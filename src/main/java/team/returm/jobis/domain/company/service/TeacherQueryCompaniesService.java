@@ -1,6 +1,7 @@
 package team.returm.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
@@ -13,9 +14,9 @@ public class TeacherQueryCompaniesService {
 
     private final CompanyRepository companyRepository;
 
-    public TeacherQueryCompaniesResponse execute(Long page) {
+    public TeacherQueryCompaniesResponse execute(CompanyType type, String companyName, String region, Long page) {
         return new TeacherQueryCompaniesResponse(
-                companyRepository.queryCompaniesByConditions(page - 1).stream()
+                companyRepository.queryCompaniesByConditions(type, companyName, region, page - 1).stream()
                         .map(company -> TeacherQueryCompanyResponse.builder()
                                 .companyId(company.getCompanyId())
                                 .companyName(company.getCompanyName())

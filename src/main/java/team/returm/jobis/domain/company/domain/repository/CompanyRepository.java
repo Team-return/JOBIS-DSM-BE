@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.company.domain.repository;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -53,13 +54,18 @@ public class CompanyRepository {
                 .fetch();
     }
 
-    public List<TeacherQueryCompaniesVO> queryCompaniesByConditions(Long page) {
+    public List<TeacherQueryCompaniesVO> queryCompaniesByConditions(CompanyType type, String companyName, String region, Long page) {
         long pageSize = 11;
         return queryFactory
                 .selectFrom(company)
                 .leftJoin(company.acceptances, acceptance)
                 .leftJoin(company.recruitmentList, recruitment)
                 .on(recentRecruitment(null))
+                .where(
+                        eqCompanyType(type),
+                        containsName(companyName),
+                        startWithRegion(region)
+                )
                 .orderBy(company.name.desc())
                 .groupBy(
                         company.id,
@@ -211,4 +217,10 @@ public class CompanyRepository {
     private BooleanExpression eqRecruitmentStatus(RecruitStatus status) {
         return status == null ? null : recruitment.status.eq(RecruitStatus.RECRUITING);
     }
+
+
+    private BooleanExpression startWithRegion(String region) {
+        return region == null ? null : company.address.mainAddress.startsWith(region);
+    }
+
 }
