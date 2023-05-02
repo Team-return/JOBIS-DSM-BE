@@ -13,11 +13,14 @@ import team.returm.jobis.domain.acceptance.domain.repository.vo.ApplicationDetai
 import team.returm.jobis.domain.acceptance.domain.repository.vo.QApplicationDetailVO;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.ApplicationAttachment;
+import team.returm.jobis.domain.application.domain.QApplication;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTraineesVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QQueryTotalApplicationCountVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
 import team.returm.jobis.domain.student.domain.Student;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
@@ -87,6 +90,36 @@ public class ApplicationRepository {
                 .join(application.recruitment, recruitment)
                 .on(recentRecruitment(companyId))
                 .where(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .fetch();
+    }
+
+    public QueryTotalApplicationCountVO queryTotalApplicationCount() {
+        QApplication approvedApplication = new QApplication("approvedApplication");
+        QApplication passedApplication = new QApplication("passedApplication");
+        return jpaQueryFactory
+                .select(
+                        new QQueryTotalApplicationCountVO(
+                                student.count(),
+                                passedApplication.count(),
+                                approvedApplication.count()
+                        )
+                )
+                .from(student)
+                .leftJoin(student.applications, approvedApplication)
+                .on(approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED))
+                .leftJoin(student.applications, passedApplication)
+                .on(passedApplication.applicationStatus.eq(ApplicationStatus.PASS))
+                .fetchOne();
+    }
+
+    public List<String> queryApplyCompanyNames(Long studentId) {
+        return jpaQueryFactory
+                .select(company.name)
+                .from(application)
+                .join(application.student, student)
+                .join(application.recruitment, recruitment)
+                .join(recruitment.company, company)
+                .where(student.id.eq(studentId))
                 .fetch();
     }
 
