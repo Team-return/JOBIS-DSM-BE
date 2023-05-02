@@ -18,10 +18,10 @@ public class VerifiedStudent {
 
     @Id
     @Column(columnDefinition = "CHAR(4)")
-    private String studentGcn;
+    private String gcn;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(10)")
-    private String studentName;
+    private String name;
 
 }
