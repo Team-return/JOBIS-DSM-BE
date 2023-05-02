@@ -7,7 +7,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +24,9 @@ public class S3Util {
         if (multipartFile == null || multipartFile.getOriginalFilename() == null) {
             throw FileNotFoundException.EXCEPTION;
         }
-        String fileExtension = getExtensionWithValidation(multipartFile.getOriginalFilename(), fileType);
-        String fileName = fileType + "/" + UUID.randomUUID() + fileExtension;
+
+        validateExtension(multipartFile.getOriginalFilename(), fileType);
+        String fileName = fileType + "/" + multipartFile.getOriginalFilename();
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(multipartFile.getContentType());
@@ -56,7 +56,7 @@ public class S3Util {
         amazonS3.deleteObject(new DeleteObjectRequest(s3Properties.getBucket(), path));
     }
 
-    private String getExtensionWithValidation(String fileName, FileType fileType) {
+    private void validateExtension(String fileName, FileType fileType) {
         if (fileName == null) {
             throw FileNotFoundException.EXCEPTION;
         }
@@ -72,7 +72,5 @@ public class S3Util {
                 throw InvalidExtensionException.EXCEPTION;
             }
         }
-
-        return extension;
     }
 }
