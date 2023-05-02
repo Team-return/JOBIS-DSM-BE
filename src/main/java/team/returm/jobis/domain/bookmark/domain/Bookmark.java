@@ -30,7 +30,7 @@ public class Bookmark {
     private Recruitment recruitment;
 
     @Id
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 }
