@@ -8,20 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        columnNames = {"studentGcn", "studentName"}
-                )
-        }
-)
 @Entity
 public class VerifiedStudent {
 
