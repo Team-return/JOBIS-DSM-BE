@@ -9,6 +9,8 @@ import team.returm.jobis.domain.review.domain.enums.ReviewType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +37,7 @@ public class Review {
     private String studentName;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(5)")
+    @Column(columnDefinition = "CHAR(4)")
     private String studentGcn;
 
     @NotNull
@@ -43,8 +45,9 @@ public class Review {
     private Integer year;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(16)")
-    private ReviewType reviewType;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(18)")
+    private ReviewType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -57,7 +60,7 @@ public class Review {
         this.studentName = studentName;
         this.studentGcn = studentGcn;
         this.year = year;
-        this.reviewType = reviewType;
+        this.type = reviewType;
         this.company = company;
     }
 }
