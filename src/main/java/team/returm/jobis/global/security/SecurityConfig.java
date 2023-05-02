@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
 
                 //students
+                .antMatchers(HttpMethod.GET, "/students/main").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
 
