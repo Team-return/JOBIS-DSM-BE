@@ -124,7 +124,7 @@ public class ApplicationRepository {
     public Integer queryApplicationCountByConditions(Long recruitmentId, Long studentId,
                                          ApplicationStatus applicationStatus, String studentName) {
         return jpaQueryFactory
-                .select(application.id)
+                .select(application.id).distinct()
                 .from(application)
                 .join(application.student, student)
                 .join(application.recruitment, recruitment)
@@ -135,8 +135,7 @@ public class ApplicationRepository {
                         eqStudentId(studentId),
                         eqApplicationStatus(applicationStatus),
                         containStudentName(studentName)
-                ).distinct()
-                .fetch()
+                ).fetch()
                 .size();
     }
 
