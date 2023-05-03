@@ -25,10 +25,6 @@ public class StringUtil {
         return content == null ? null : List.of(content.split(","));
     }
 
-    public static String getRegionByAddress(String address) {
-        return address.substring(0, 2);
-    }
-
     public static String generateRandomCode(int size) {
         return RandomString.make(size);
     }

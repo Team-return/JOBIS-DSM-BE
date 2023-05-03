@@ -100,8 +100,8 @@ public class CompanyController {
 
     @GetMapping("/teacher")
     public TeacherQueryCompaniesResponse queryCompanies(
-            @RequestParam(value = "company_type", required = false) CompanyType type,
-            @RequestParam(value = "company_name", required = false) String companyName,
+            @RequestParam(value = "type", required = false) CompanyType type,
+            @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "region", required = false) String region,
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {

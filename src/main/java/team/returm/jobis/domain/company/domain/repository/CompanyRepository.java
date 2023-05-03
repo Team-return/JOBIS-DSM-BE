@@ -59,12 +59,12 @@ public class CompanyRepository {
         return queryFactory
                 .selectFrom(company)
                 .leftJoin(company.acceptances, acceptance)
-                .leftJoin(company.recruitmentList, recruitment)
+                .leftJoin(recruitment)
                 .on(recentRecruitment(null))
                 .where(
                         eqCompanyType(type),
                         containsName(companyName),
-                        startWithRegion(region)
+                        eqRegion(region)
                 )
                 .orderBy(company.name.desc())
                 .groupBy(
@@ -219,7 +219,7 @@ public class CompanyRepository {
     }
 
 
-    private BooleanExpression startWithRegion(String region) {
+    private BooleanExpression eqRegion(String region) {
         return region == null ? null : company.address.mainAddress.startsWith(region);
     }
 

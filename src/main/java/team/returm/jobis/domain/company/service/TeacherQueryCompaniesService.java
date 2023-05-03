@@ -20,7 +20,7 @@ public class TeacherQueryCompaniesService {
                         .map(company -> TeacherQueryCompanyResponse.builder()
                                 .companyId(company.getCompanyId())
                                 .companyName(company.getCompanyName())
-                                .region(StringUtil.getRegionByAddress(company.getMainAddress()))
+                                .region(getRegionByAddress(company.getMainAddress()))
                                 .businessArea(company.getBusinessArea())
                                 .workersCount(company.getWorkersCount())
                                 .sales(company.getSales())
@@ -32,4 +32,9 @@ public class TeacherQueryCompaniesService {
                         ).toList()
         );
     }
+
+    private String getRegionByAddress(String address) {
+        return address.substring(0, 2);
+    }
+
 }
