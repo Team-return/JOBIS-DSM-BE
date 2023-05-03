@@ -4,9 +4,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.student.domain.Student;
+import team.returm.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,12 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Getter
-@BatchSize(size = 200)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(BookMarkId.class)
 @Entity
-public class Bookmark {
+public class Bookmark extends BaseTimeEntity {
 
     @Id
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
