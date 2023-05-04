@@ -103,8 +103,9 @@ public class CompanyController {
             @RequestParam(value = "type", required = false) CompanyType type,
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "region", required = false) String region,
+            @RequestParam(value = "business_area", required = false) String businessArea,
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return teacherQueryCompaniesService.execute(type, companyName, region, page);
+        return teacherQueryCompaniesService.execute(type, companyName, region, businessArea, page);
     }
 }

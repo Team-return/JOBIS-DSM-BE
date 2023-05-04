@@ -53,7 +53,7 @@ public class CompanyRepository {
                 .fetch();
     }
 
-    public List<TeacherQueryCompaniesVO> queryCompaniesByConditions(CompanyType type, String companyName, String region, Long page) {
+    public List<TeacherQueryCompaniesVO> queryCompaniesByConditions(CompanyType type, String companyName, String region, String businessArea, Long page) {
         long pageSize = 11;
         return queryFactory
                 .selectFrom(company)
@@ -63,7 +63,8 @@ public class CompanyRepository {
                 .where(
                         eqCompanyType(type),
                         containsName(companyName),
-                        eqRegion(region)
+                        eqRegion(region),
+                        eqBusinessArea(businessArea)
                 )
                 .orderBy(company.name.desc())
                 .groupBy(
@@ -222,4 +223,7 @@ public class CompanyRepository {
         return region == null ? null : company.address.mainAddress.startsWith(region);
     }
 
+    private BooleanExpression eqBusinessArea(String businessArea) {
+        return businessArea == null ? null : company.businessArea.eq(businessArea);
+    }
 }

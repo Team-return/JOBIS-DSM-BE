@@ -14,9 +14,9 @@ public class TeacherQueryCompaniesService {
 
     private final CompanyRepository companyRepository;
 
-    public TeacherQueryCompaniesResponse execute(CompanyType type, String companyName, String region, Long page) {
+    public TeacherQueryCompaniesResponse execute(CompanyType type, String companyName, String region, String businessArea, Long page) {
         return new TeacherQueryCompaniesResponse(
-                companyRepository.queryCompaniesByConditions(type, companyName, region, page - 1).stream()
+                companyRepository.queryCompaniesByConditions(type, companyName, region, businessArea, page - 1).stream()
                         .map(company -> TeacherQueryCompanyResponse.builder()
                                 .companyId(company.getCompanyId())
                                 .companyName(company.getCompanyName())
