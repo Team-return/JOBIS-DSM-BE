@@ -1,23 +1,18 @@
 package team.returm.jobis.domain.recruitment.facade;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentJpaRepository;
-import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 
 @RequiredArgsConstructor
 @Component
 public class RecruitFacade {
 
     private final RecruitmentJpaRepository recruitmentJpaRepository;
-    private final RecruitmentRepository recruitmentRepository;
 
     public Recruitment queryRecruitmentById(Long id) {
         return recruitmentJpaRepository.findById(id)
@@ -28,24 +23,7 @@ public class RecruitFacade {
         return company.getRecruitmentList().get(company.getRecruitmentList().size() - 1);
     }
 
-    public List<RecruitAreaResponse> queryRecruitAreas(Long recruitmentId) {
-        return recruitmentRepository.queryRecruitAreasByRecruitmentId(recruitmentId).stream()
-                .map(recruitArea ->
-                        RecruitAreaResponse.builder()
-                                .recruitAreaId(recruitArea.getId())
-                                .majorTask(recruitArea.getMajorTask())
-                                .hiring(recruitArea.getHiredCount())
-                                .tech(
-                                        recruitArea.getRecruitAreaCodes().stream()
-                                                .filter(recruitAreaCode -> recruitAreaCode.getCodeType() == CodeType.TECH)
-                                                .map(RecruitAreaCode::getCodeKeyword).toList()
-                                )
-                                .job(
-                                        recruitArea.getRecruitAreaCodes().stream()
-                                                .filter(recruitAreaCode -> recruitAreaCode.getCodeType() == CodeType.JOB)
-                                                .map(RecruitAreaCode::getCodeKeyword).toList()
-                                )
-                                .build()
-                ).toList();
+    public void generateRecruitArea(RecruitAreaRequest request) {
+
     }
 }

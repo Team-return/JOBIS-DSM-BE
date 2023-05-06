@@ -1,16 +1,11 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
-
 import lombok.RequiredArgsConstructor;
-import team.returm.jobis.domain.code.domain.Code;
-import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.domain.service.RecruitAreaService;
 import team.returm.jobis.domain.recruitment.facade.RecruitAreaFacade;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
 import team.returm.jobis.domain.user.facade.UserFacade;
@@ -23,9 +18,9 @@ public class UpdateRecruitAreaService {
     private final RecruitAreaFacade recruitAreaFacade;
     private final RecruitmentRepository recruitmentRepository;
     private final UserFacade userFacade;
-    private final CodeFacade codeFacade;
+    private final RecruitAreaService recruitAreaService;
 
-    public void execute(UpdateRecruitAreaRequest request, Long recruitAreaId) {
+    public void execute(RecruitAreaRequest request, Long recruitAreaId) {
         User user = userFacade.getCurrentUser();
 
         RecruitArea recruitArea = recruitAreaFacade.getRecruitAreaById(recruitAreaId);
@@ -36,16 +31,6 @@ public class UpdateRecruitAreaService {
 
         recruitmentRepository.deleteRecruitAreaCodeByRecruitAreaId(recruitArea.getId());
 
-        List<Code> codes = codeFacade.queryCodesByIdIn(
-                Stream.of(request.getJobCodes(), request.getTechCodes())
-                        .flatMap(Collection::stream)
-                        .toList()
-        );
-
-        recruitArea.update(request.getHiring(), request.getMajorTask());
-
-        recruitmentRepository.saveAllRecruitAreaCodes(
-                codeFacade.generateRecruitAreaCode(recruitArea, codes)
-        );
+        recruitAreaService.createRecruitArea(request, recruitArea.getRecruitment());
     }
 }
