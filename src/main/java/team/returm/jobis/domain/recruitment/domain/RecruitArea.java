@@ -1,7 +1,11 @@
 package team.returm.jobis.domain.recruitment.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.code.domain.RecruitAreaCode;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,11 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import team.returm.jobis.domain.code.domain.RecruitAreaCode;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -52,11 +53,5 @@ public class RecruitArea {
         this.majorTask = majorTask;
         this.jobCodes = jobCodes;
         this.recruitment = recruitment;
-    }
-
-    public void update(Integer hiredCount, String majorTask, String jobCodes) {
-        this.hiredCount = hiredCount;
-        this.majorTask = majorTask;
-        this.jobCodes = jobCodes;
     }
 }

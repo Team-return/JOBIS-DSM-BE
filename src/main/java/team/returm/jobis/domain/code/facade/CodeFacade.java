@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.code.facade;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.returm.jobis.domain.code.domain.Code;
@@ -8,6 +7,8 @@ import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.repository.CodeJpaRepository;
 import team.returm.jobis.domain.code.exception.CodeNotFoundException;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -17,6 +18,15 @@ public class CodeFacade {
     public List<Code> queryCodesByIdIn(List<Long> requestCodes) {
         List<Code> codes = codeJpaRepository.findCodesByIdIn(requestCodes);
         if (codes.size() != requestCodes.size()) {
+            throw CodeNotFoundException.EXCEPTION;
+        }
+
+        return codes;
+    }
+
+    public List<Code> queryCodeByKeywordIn(List<String> codeKeywords) {
+        List<Code> codes = codeJpaRepository.findCodesByKeywordIn(codeKeywords);
+        if (codes.size() != codeKeywords.size()) {
             throw CodeNotFoundException.EXCEPTION;
         }
 
@@ -33,8 +43,7 @@ public class CodeFacade {
                 .map(code ->
                         new RecruitAreaCode(
                                 recruitArea,
-                                code.getKeyword(),
-                                code.getCodeType()
+                                code
                         )
                 )
                 .toList();
