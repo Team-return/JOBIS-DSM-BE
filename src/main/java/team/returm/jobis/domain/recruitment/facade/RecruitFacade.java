@@ -36,12 +36,12 @@ public class RecruitFacade {
                                 .majorTask(recruitArea.getMajorTask())
                                 .hiring(recruitArea.getHiredCount())
                                 .tech(
-                                        recruitArea.getCodeList().stream()
+                                        recruitArea.getRecruitAreaCodes().stream()
                                                 .filter(recruitAreaCode -> recruitAreaCode.getCodeType() == CodeType.TECH)
                                                 .map(RecruitAreaCode::getCodeKeyword).toList()
                                 )
                                 .job(
-                                        recruitArea.getCodeList().stream()
+                                        recruitArea.getRecruitAreaCodes().stream()
                                                 .filter(recruitAreaCode -> recruitAreaCode.getCodeType() == CodeType.JOB)
                                                 .map(RecruitAreaCode::getCodeKeyword).toList()
                                 )

@@ -35,22 +35,28 @@ public class RecruitArea {
     @Column(columnDefinition = "VARCHAR(200)")
     private String majorTask;
 
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(40)")
+    private String jobCodes;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
     private Recruitment recruitment;
 
     @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
-    private List<RecruitAreaCode> codeList = new ArrayList<>();
+    private List<RecruitAreaCode> recruitAreaCodes = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String majorTask, Recruitment recruitment) {
+    public RecruitArea(Integer hiredCount, String majorTask, String jobCodes, Recruitment recruitment) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
+        this.jobCodes = jobCodes;
         this.recruitment = recruitment;
     }
 
-    public void update(Integer hiredCount, String majorTask) {
+    public void update(Integer hiredCount, String majorTask, String jobCodes) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
+        this.jobCodes = jobCodes;
     }
 }

@@ -52,7 +52,7 @@ public class RecruitmentRepository {
                 .leftJoin(recruitment.applications, approvedApplication)
                 .on(approvedApplication.applicationStatus.ne(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitment.company, company)
-                .leftJoin(recruitArea.codeList, recruitAreaCode)
+                .leftJoin(recruitArea.recruitAreaCodes, recruitAreaCode)
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
@@ -85,7 +85,7 @@ public class RecruitmentRepository {
     public List<RecruitArea> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
         return queryFactory
                 .selectFrom(recruitArea).distinct()
-                .join(recruitArea.codeList, QRecruitAreaCode.recruitAreaCode).fetchJoin()
+                .join(recruitArea.recruitAreaCodes, QRecruitAreaCode.recruitAreaCode).fetchJoin()
                 .where(recruitArea.recruitment.id.eq(recruitmentId))
                 .fetch();
     }
@@ -102,15 +102,6 @@ public class RecruitmentRepository {
         return queryFactory
                 .selectFrom(recruitment)
                 .where(recruitment.recruitDate.startDate.before(LocalDate.now()))
-                .fetch();
-    }
-
-    public List<Long> queryRecruitmentsByApplications(List<Application> applications) {
-        return queryFactory
-                .select(recruitment.id)
-                .from(recruitment)
-                .join(recruitment.applications, application)
-                .where(application.in(applications))
                 .fetch();
     }
 
@@ -186,6 +177,6 @@ public class RecruitmentRepository {
     }
 
     private BooleanExpression containsKeywords(List<RecruitAreaCode> codes) {
-        return codes == null ? null : recruitment.recruitAreaList.any().codeList.any().in(codes);
+        return codes == null ? null : recruitment.recruitAreas.any().recruitAreaCodes.any().in(codes);
     }
 }
