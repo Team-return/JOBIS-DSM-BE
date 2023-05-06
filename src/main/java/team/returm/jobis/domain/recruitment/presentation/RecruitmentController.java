@@ -1,42 +1,22 @@
 package team.returm.jobis.domain.recruitment.presentation;
 
-import java.time.LocalDate;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryMyRecruitmentResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
-import team.returm.jobis.domain.recruitment.service.ApplyRecruitmentService;
-import team.returm.jobis.domain.recruitment.service.CreateRecruitAreaService;
-import team.returm.jobis.domain.recruitment.service.DeleteRecruitAreaService;
-import team.returm.jobis.domain.recruitment.service.DeleteRecruitmentService;
-import team.returm.jobis.domain.recruitment.service.QueryMyRecruitmentService;
-import team.returm.jobis.domain.recruitment.service.StudentQueryRecruitmentDetailService;
-import team.returm.jobis.domain.recruitment.service.StudentQueryRecruitmentsService;
-import team.returm.jobis.domain.recruitment.service.TeacherChangeRecruitmentStatusService;
-import team.returm.jobis.domain.recruitment.service.TeacherQueryRecruitmentsService;
-import team.returm.jobis.domain.recruitment.service.UpdateRecruitAreaService;
-import team.returm.jobis.domain.recruitment.service.UpdateRecruitmentService;
+import team.returm.jobis.domain.recruitment.service.*;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -74,7 +54,7 @@ public class RecruitmentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(
-            @RequestBody @Valid UpdateRecruitAreaRequest request,
+            @RequestBody @Valid RecruitAreaRequest request,
             @PathVariable("recruit-area-id") Long recruitAreaId
     ) {
         updateRecruitAreaService.execute(request, recruitAreaId);
@@ -83,7 +63,7 @@ public class RecruitmentController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}/area")
     public void createRecruitArea(
-            @RequestBody @Valid CreateRecruitAreaRequest request,
+            @RequestBody @Valid RecruitAreaRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createRecruitAreaService.execute(request, recruitmentId);
