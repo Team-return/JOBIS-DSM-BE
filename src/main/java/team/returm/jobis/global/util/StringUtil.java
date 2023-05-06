@@ -1,19 +1,20 @@
 package team.returm.jobis.global.util;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Component;
 import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtil {
 
-    public static String joinStringList(List<String> request) {
-        return request == null ? null : String.join(",", request);
+    public static <E> String joinStringList(List<E> request) {
+        return request == null ? null : String.join(",", request.stream().map(Object::toString).toList());
     }
 
     public static String getHiringProgress(List<ProgressType> request) {
