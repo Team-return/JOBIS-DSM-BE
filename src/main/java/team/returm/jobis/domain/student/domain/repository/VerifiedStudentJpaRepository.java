@@ -7,6 +7,4 @@ import java.util.Optional;
 
 public interface VerifiedStudentJpaRepository extends CrudRepository<VerifiedStudent, String> {
     Optional<VerifiedStudent> findByGcnAndName(String gcn, String name);
-
-    void deleteByGcnAndName(String gcn, String name);
 }

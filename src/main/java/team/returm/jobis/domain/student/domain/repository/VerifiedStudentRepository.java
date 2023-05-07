@@ -18,7 +18,7 @@ public class VerifiedStudentRepository {
         return verifiedStudentJpaRepository.findByGcnAndName(gcn, name);
     }
 
-    public void deleteVerifiedStudentByGcnAndName(String gcn, String name) {
-        verifiedStudentJpaRepository.deleteByGcnAndName(gcn, name);
+    public void deleteVerifiedStudent(VerifiedStudent verifiedStudent) {
+        verifiedStudentJpaRepository.delete(verifiedStudent);
     }
 }
