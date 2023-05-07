@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@IdClass(BookMarkId.class)
+@IdClass(BookmarkId.class)
 @Entity
 public class Bookmark extends BaseTimeEntity {
 
