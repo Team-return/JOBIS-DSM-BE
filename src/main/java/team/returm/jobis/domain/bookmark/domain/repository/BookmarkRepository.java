@@ -11,5 +11,9 @@ public class BookmarkRepository {
 
     public void saveBookmark(Bookmark bookmark) {
         bookmarkJpaRepository.save(bookmark);
+    }
 
+    public Optional<Bookmark> queryBookmarkByRecruitmentAndStudent(Recruitment recruitment, Student student) {
+        return bookmarkJpaRepository.findByRecruitmentAndStudent(recruitment, student);
+    }
 }
