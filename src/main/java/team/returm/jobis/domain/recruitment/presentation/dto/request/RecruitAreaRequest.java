@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 @Getter
 @NoArgsConstructor
 public class RecruitAreaRequest {
+
     @NotNull
     private List<Long> jobCodes;
 

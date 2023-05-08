@@ -22,17 +22,18 @@ public class RecruitAreaResponse {
     private final String majorTask;
 
     public static List<RecruitAreaResponse> of(List<RecruitAreaVO> recruitAreas) {
-        return recruitAreas.stream().map(recruitArea ->
-                RecruitAreaResponse.builder()
-                        .id(recruitArea.getId())
-                        .majorTask(recruitArea.getMajorTask())
-                        .hiring(recruitArea.getHiredCount())
-                        .tech(recruitArea.getTechCodes().stream()
-                                .map(Code::getKeyword)
-                                .toList()
-                        )
-                        .job(recruitArea.getJobCodes())
-                        .build()
+        return recruitAreas.stream()
+                .map(recruitArea ->
+                        RecruitAreaResponse.builder()
+                                .id(recruitArea.getId())
+                                .majorTask(recruitArea.getMajorTask())
+                                .hiring(recruitArea.getHiredCount())
+                                .tech(recruitArea.getTechCodes().stream()
+                                        .map(Code::getKeyword)
+                                        .toList()
+                                )
+                                .job(recruitArea.getJobCodes())
+                                .build()
         ).toList();
     }
 }
