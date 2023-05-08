@@ -39,21 +39,19 @@ public class BookmarkRepository {
 
     public List<QueryStudentBookmarksVO> queryBookmarksByStudentId(Long studentId) {
         return queryFactory
-                .selectFrom(bookmark)
+                .select(
+                        new QQueryStudentBookmarksVO(
+                                company.name,
+                                recruitment.id,
+                                bookmark.createdAt
+                        )
+                )
+                .from(bookmark)
                 .join(bookmark.recruitment, recruitment)
                 .join(recruitment.company, company)
                 .join(bookmark.student, student)
                 .where(student.id.eq(studentId))
                 .orderBy(bookmark.createdAt.desc())
-                .transform(
-                        groupBy(recruitment.id)
-                                .list(
-                                        new QQueryStudentBookmarksVO(
-                                                company.name,
-                                                recruitment.id,
-                                                bookmark.createdAt
-                                        )
-                                )
-                );
+                .fetch();
     }
 }
