@@ -7,6 +7,8 @@ import team.returm.jobis.domain.recruitment.domain.repository.vo.RecruitAreaVO;
 
 import java.util.List;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class RecruitAreaResponse {
