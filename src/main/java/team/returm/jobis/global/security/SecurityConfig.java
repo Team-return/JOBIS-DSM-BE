@@ -37,6 +37,11 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
+                //bookmarks
+                .antMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.DELETE, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/bookmarks").hasAuthority(STUDENT.name())
+
                 //auth
                 .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
@@ -45,6 +50,7 @@ public class SecurityConfig {
                 //students
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
+                .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
 
                 //applications
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())

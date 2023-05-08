@@ -27,14 +27,18 @@ public class FileController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile multipartFile,
-                                         @RequestParam("type") FileType fileType) {
+    public FileUploadResponse uploadFile(
+            @RequestParam("file") MultipartFile multipartFile,
+            @RequestParam("type") FileType fileType
+    ) {
         return new FileUploadResponse(fileUploadService.execute(multipartFile, fileType));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
-    public void deleteFile(@RequestBody @Valid DeleteFileRequest request) {
-        deleteFileService.execute(request.getPath());
+    public void deleteFile(
+            @RequestParam("path") String path
+    ) {
+        deleteFileService.execute(path);
     }
 }

@@ -1,8 +1,14 @@
 package team.returm.jobis.domain.bookmark.domain.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import team.returm.jobis.domain.bookmark.domain.BookMarkId;
+import team.returm.jobis.domain.bookmark.domain.BookmarkId;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
+import team.returm.jobis.domain.student.domain.Student;
 
-public interface BookmarkJpaRepository extends CrudRepository<Bookmark, BookMarkId> {
+import java.util.Optional;
+
+public interface BookmarkJpaRepository extends CrudRepository<Bookmark, BookmarkId> {
+
+    Optional<Bookmark> findByRecruitmentAndStudent(Recruitment recruitment, Student student);
 }
