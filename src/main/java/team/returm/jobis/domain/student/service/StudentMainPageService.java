@@ -2,6 +2,7 @@ package team.returm.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.returm.jobis.domain.application.domain.repository.vo.QueryApplyCompaniesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.presentation.dto.response.StudentMainPageResponse;
@@ -20,7 +21,7 @@ public class StudentMainPageService {
     public StudentMainPageResponse execute() {
         Student student = userFacade.getCurrentStudent();
         QueryTotalApplicationCountVO counts = applicationRepository.queryTotalApplicationCount();
-        List<String> applyCompanies = applicationRepository.queryApplyCompanyNames(student.getId());
+        List<QueryApplyCompaniesVO> applyCompanies = applicationRepository.queryApplyCompanyNames(student.getId());
 
 
         return StudentMainPageResponse.builder()
