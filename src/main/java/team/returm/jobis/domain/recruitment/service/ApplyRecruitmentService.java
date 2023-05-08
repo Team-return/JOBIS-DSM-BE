@@ -1,10 +1,5 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.time.Year;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
-
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.facade.CodeFacade;
@@ -18,6 +13,11 @@ import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecrui
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
+
+import java.time.Year;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service

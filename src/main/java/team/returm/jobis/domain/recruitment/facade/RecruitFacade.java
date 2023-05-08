@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.recruitment.facade;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
@@ -11,6 +10,8 @@ import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentJpaRepo
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component

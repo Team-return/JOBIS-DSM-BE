@@ -1,5 +1,7 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.application.domain.Application;
@@ -15,20 +17,18 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.set;
-import static team.returm.jobis.domain.application.domain.QApplication.application;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.set;
 import static com.querydsl.core.group.GroupBy.sum;
+import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
 @Repository
 @RequiredArgsConstructor

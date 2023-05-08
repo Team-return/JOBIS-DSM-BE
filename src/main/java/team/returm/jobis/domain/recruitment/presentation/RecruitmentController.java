@@ -1,7 +1,5 @@
 package team.returm.jobis.domain.recruitment.presentation;
 
-import java.time.LocalDate;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -37,6 +35,8 @@ import team.returm.jobis.domain.recruitment.service.TeacherQueryRecruitmentsServ
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitAreaService;
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitmentService;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
