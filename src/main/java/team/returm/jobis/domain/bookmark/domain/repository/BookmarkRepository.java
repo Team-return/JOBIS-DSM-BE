@@ -2,7 +2,6 @@ package team.returm.jobis.domain.bookmark.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
 import team.returm.jobis.domain.bookmark.domain.repository.vo.QQueryStudentBookmarksVO;
