@@ -10,7 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
-public class BookMarkId implements Serializable {
+public class BookmarkId implements Serializable {
     private Long recruitment;
     private Long student;
 }
