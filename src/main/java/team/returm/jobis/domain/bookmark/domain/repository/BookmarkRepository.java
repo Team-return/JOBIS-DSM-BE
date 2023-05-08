@@ -12,7 +12,6 @@ import team.returm.jobis.domain.student.domain.Student;
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.groupBy;
 import static team.returm.jobis.domain.bookmark.domain.QBookmark.bookmark;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
 import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
