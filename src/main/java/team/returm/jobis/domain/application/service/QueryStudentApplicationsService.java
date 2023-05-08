@@ -20,14 +20,14 @@ public class QueryStudentApplicationsService {
 
         return new StudentQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
-                null, student.getId(), null, null).stream()
-                .map(application -> StudentQueryApplicationResponse.builder()
-                        .applicationId(application.getId())
-                        .company(application.getCompanyName())
-                        .attachmentUrlList(application.getApplicationAttachmentUrl())
-                        .applicationStatus(application.getApplicationStatus())
-                        .build()
-                ).toList()
+                                null, student.getId(), null, null).stream()
+                        .map(application -> StudentQueryApplicationResponse.builder()
+                                .applicationId(application.getId())
+                                .company(application.getCompanyName())
+                                .attachmentUrlList(application.getApplicationAttachmentUrl())
+                                .applicationStatus(application.getApplicationStatus())
+                                .build()
+                        ).toList()
         );
     }
 }
