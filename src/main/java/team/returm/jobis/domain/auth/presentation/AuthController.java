@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.auth.presentation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,6 +16,8 @@ import team.returm.jobis.domain.auth.service.SendAuthCodeService;
 import team.returm.jobis.domain.auth.service.TokenReissueService;
 import team.returm.jobis.domain.auth.service.VerifyAuthCodeService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/auth")

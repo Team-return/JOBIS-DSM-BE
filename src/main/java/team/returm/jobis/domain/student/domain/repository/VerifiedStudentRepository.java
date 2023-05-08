@@ -10,5 +10,5 @@ public class VerifiedStudentRepository {
 
     private final JPAQueryFactory queryFactory;
     private final VerifiedStudentJpaRepository verifiedStudentJpaRepository;
-    
+
 }

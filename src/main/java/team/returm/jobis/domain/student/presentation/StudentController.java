@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.student.presentation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,6 +13,8 @@ import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordR
 import team.returm.jobis.domain.student.service.StudentSignUpService;
 import team.returm.jobis.domain.student.service.UpdateStudentPasswordService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/students")

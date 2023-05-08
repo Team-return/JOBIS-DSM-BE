@@ -1,8 +1,14 @@
 package team.returm.jobis.domain.application.domain;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
+import team.returm.jobis.domain.student.domain.Student;
+import team.returm.jobis.global.entity.BaseTimeEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,15 +21,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.student.domain.Student;
-import team.returm.jobis.global.entity.BaseTimeEntity;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -57,7 +57,7 @@ public class Application extends BaseTimeEntity {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "application", orphanRemoval = true)
-    private List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
+    private final List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
 
     @Builder
     public Application(Student student, Recruitment recruitment, ApplicationStatus applicationStatus) {

@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.file.presentation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +15,8 @@ import team.returm.jobis.domain.file.presentation.dto.response.FileUploadRespons
 import team.returm.jobis.domain.file.presentation.type.FileType;
 import team.returm.jobis.domain.file.service.DeleteFileService;
 import team.returm.jobis.domain.file.service.FileUploadService;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/files")

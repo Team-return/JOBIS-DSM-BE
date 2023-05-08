@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.application.presentation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +27,8 @@ import team.returm.jobis.domain.application.service.QueryCompanyApplicationsServ
 import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
 import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/applications")
 @RestController
@@ -40,7 +41,7 @@ public class ApplicationController {
     private final QueryStudentApplicationsService queryStudentApplicationsService;
     private final ChangeApplicationsStatusService changeApplicationsStatusService;
     private final ChangeFieldTrainDateService changeFieldTrainDateService;
-    
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
     public void createApplication(

@@ -1,11 +1,11 @@
 package team.returm.jobis.domain.application.presentation.dto.response;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor

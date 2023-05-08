@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.acceptance.presentation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateRequest;
-import team.returm.jobis.domain.acceptance.service.ChangeContractDateService;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
-import team.returm.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
-import team.returm.jobis.domain.acceptance.service.RegisterEmploymentContractService;
-import team.returm.jobis.domain.acceptance.service.TeacherQueryFieldTraineesAndContractWorkersService;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
+import team.returm.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
+import team.returm.jobis.domain.acceptance.service.ChangeContractDateService;
+import team.returm.jobis.domain.acceptance.service.RegisterEmploymentContractService;
 import team.returm.jobis.domain.acceptance.service.RegisterFieldTraineeService;
+import team.returm.jobis.domain.acceptance.service.TeacherQueryFieldTraineesAndContractWorkersService;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/acceptances")
@@ -51,7 +52,7 @@ public class AcceptanceController {
     public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateRequest request) {
         changeContractDateService.execute(request);
     }
-    
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
     public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractRequest request) {

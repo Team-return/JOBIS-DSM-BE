@@ -4,6 +4,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.acceptance.domain.Acceptance;
+
 import java.time.LocalDate;
 import java.util.List;
 
