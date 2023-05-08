@@ -17,6 +17,13 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
 
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_DB_HOST:localhost}:27017/${MONGO_DB_NAME:jobis}?authSorce=admin
+      username: ${MONGO_DB_USERNAME:root}
+      password: ${MONGO_DB_PASSWORD:qaz}
+
+
   mail:
     host: smtp.gmail.com
     port: 587
