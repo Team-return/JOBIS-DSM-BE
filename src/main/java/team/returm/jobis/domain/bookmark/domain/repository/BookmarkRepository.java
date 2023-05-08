@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 public class BookmarkRepository {
 
     private final BookmarkJpaRepository bookmarkJpaRepository;
+
+    public void saveBookmark(Bookmark bookmark) {
+        bookmarkJpaRepository.save(bookmark);
+
 }
