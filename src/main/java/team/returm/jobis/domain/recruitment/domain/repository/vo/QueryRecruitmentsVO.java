@@ -1,9 +1,9 @@
 package team.returm.jobis.domain.recruitment.domain.repository.vo;
 
-import team.returm.jobis.domain.company.domain.Company;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
+import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
 
 import java.util.Set;
 

@@ -1,9 +1,10 @@
 package team.returm.jobis.domain.user.presentation.dto.response;
 
-import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import team.returm.jobis.domain.user.domain.enums.Authority;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Builder

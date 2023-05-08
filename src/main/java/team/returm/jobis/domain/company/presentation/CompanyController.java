@@ -1,11 +1,24 @@
 package team.returm.jobis.domain.company.presentation;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
+import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
+import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
+import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
+import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
-import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
-import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.returm.jobis.domain.company.service.CheckCompanyExistsService;
@@ -16,22 +29,10 @@ import team.returm.jobis.domain.company.service.StudentQueryCompaniesService;
 import team.returm.jobis.domain.company.service.TeacherQueryCompaniesService;
 import team.returm.jobis.domain.company.service.TeacherQueryEmployCompaniesService;
 import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
-import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
-import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
-import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
 import team.returm.jobis.domain.company.service.UpdateCompanyTypeService;
-import org.springframework.http.HttpStatus;
+import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
+
 import javax.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/companies")
@@ -69,7 +70,7 @@ public class CompanyController {
     public StudentQueryCompaniesResponse studentQueryCompanies(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "name", required = false) String name
-            ) {
+    ) {
         return studentQueryCompaniesService.execute(page, name);
     }
 
@@ -94,7 +95,7 @@ public class CompanyController {
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "company_type", required = false) CompanyType type,
             @RequestParam(value = "year", required = false) Integer year
-            ) {
+    ) {
         return teacherQueryEmployCompaniesService.execute(companyName, type, year);
     }
 

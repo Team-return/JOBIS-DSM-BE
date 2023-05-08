@@ -1,8 +1,5 @@
 package team.returm.jobis.domain.acceptance.service;
 
-import java.time.LocalDate;
-import java.time.Year;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.acceptance.domain.Acceptance;
 import team.returm.jobis.domain.acceptance.domain.repository.AcceptanceRepository;
@@ -15,6 +12,10 @@ import team.returm.jobis.domain.application.exception.ApplicationStatusCannotCha
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
+
+import java.time.LocalDate;
+import java.time.Year;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

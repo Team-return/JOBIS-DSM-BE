@@ -1,10 +1,11 @@
 package team.returm.jobis.domain.user.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.user.domain.User;
+
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor

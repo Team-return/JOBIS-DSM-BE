@@ -2,7 +2,7 @@ package team.returm.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.recruitment.facade.RecruitFacade;
+import team.returm.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
@@ -14,13 +14,13 @@ import team.returm.jobis.global.util.StringUtil;
 @Service
 public class UpdateRecruitmentService {
 
-    private final RecruitFacade recruitFacade;
+    private final RecruitmentFacade recruitmentFacade;
     private final UserFacade userFacade;
 
     public void execute(UpdateRecruitmentRequest request, Long recruitmentId) {
         User user = userFacade.getCurrentUser();
 
-        Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
+        Recruitment recruitment = recruitmentFacade.queryRecruitmentById(recruitmentId);
         if (user.getAuthority() == Authority.COMPANY) {
             recruitment.checkCompany(user.getId());
         }

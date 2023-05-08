@@ -6,7 +6,6 @@ import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import team.returm.jobis.global.util.StringUtil;
 
 @RequiredArgsConstructor
 @ReadOnlyService

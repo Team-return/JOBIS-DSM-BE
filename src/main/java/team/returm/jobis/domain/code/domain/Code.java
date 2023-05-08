@@ -1,5 +1,12 @@
 package team.returm.jobis.domain.code.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.code.domain.enums.CodeType;
+import team.returm.jobis.domain.code.domain.enums.JobType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,16 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
-import team.returm.jobis.domain.code.domain.enums.JobType;
 
 @Getter
-@BatchSize(size = 100)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity

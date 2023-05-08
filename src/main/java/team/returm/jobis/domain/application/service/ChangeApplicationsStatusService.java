@@ -1,12 +1,13 @@
 package team.returm.jobis.domain.application.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.global.annotation.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service

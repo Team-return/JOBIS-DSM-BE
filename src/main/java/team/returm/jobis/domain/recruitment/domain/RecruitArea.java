@@ -1,7 +1,11 @@
 package team.returm.jobis.domain.recruitment.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.code.domain.RecruitAreaCode;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,11 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import team.returm.jobis.domain.code.domain.RecruitAreaCode;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,22 +36,22 @@ public class RecruitArea {
     @Column(columnDefinition = "VARCHAR(200)")
     private String majorTask;
 
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(40)")
+    private String jobCodes;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
     private Recruitment recruitment;
 
     @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
-    private List<RecruitAreaCode> codeList = new ArrayList<>();
+    private final List<RecruitAreaCode> recruitAreaCodes = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String majorTask, Recruitment recruitment) {
+    public RecruitArea(Integer hiredCount, String majorTask, String jobCodes, Recruitment recruitment) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
+        this.jobCodes = jobCodes;
         this.recruitment = recruitment;
-    }
-
-    public void update(Integer hiredCount, String majorTask) {
-        this.hiredCount = hiredCount;
-        this.majorTask = majorTask;
     }
 }

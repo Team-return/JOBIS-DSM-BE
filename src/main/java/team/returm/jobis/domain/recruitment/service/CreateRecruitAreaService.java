@@ -1,57 +1,46 @@
 package team.returm.jobis.domain.recruitment.service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
-
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
+import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.facade.CodeFacade;
-import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.recruitment.domain.repository.RecruitAreaJpaRepository;
-import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import team.returm.jobis.domain.recruitment.facade.RecruitFacade;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
+import team.returm.jobis.domain.recruitment.facade.RecruitmentFacade;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class CreateRecruitAreaService {
 
-    private final RecruitAreaJpaRepository recruitAreaJpaRepository;
-    private final RecruitmentRepository recruitmentRepository;
-    private final CodeFacade codeFacade;
-    private final RecruitFacade recruitFacade;
+    private final RecruitmentFacade recruitmentFacade;
     private final UserFacade userFacade;
+    private final CodeFacade codeFacade;
 
-    public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
+    public void execute(RecruitAreaRequest request, Long recruitmentId) {
         User user = userFacade.getCurrentUser();
 
-        Recruitment recruitment = recruitFacade.queryRecruitmentById(recruitmentId);
+        Recruitment recruitment = recruitmentFacade.queryRecruitmentById(recruitmentId);
         if (user.getAuthority() == Authority.COMPANY) {
             recruitment.checkCompany(user.getId());
         }
 
-        RecruitArea recruitArea = recruitAreaJpaRepository.save(
-                RecruitArea.builder()
-                        .majorTask(request.getMajorTask())
-                        .hiredCount(request.getHiring())
-                        .recruitment(recruitment)
-                        .build()
-        );
+        Map<CodeType, List<Code>> codes = codeFacade
+                .queryCodesByIdIn(request.getCodes()).stream()
+                .collect(Collectors.groupingBy(Code::getCodeType));
 
-        List<Code> codes = codeFacade.queryCodesByIdIn(
-                Stream.of(request.getJobCodes(), request.getTechCodes())
-                        .flatMap(Collection::stream)
-                        .toList()
-        );
-
-        recruitmentRepository.saveAllRecruitAreaCodes(
-                codeFacade.generateRecruitAreaCode(recruitArea, codes)
+        recruitmentFacade.createRecruitArea(
+                codes,
+                recruitment,
+                request.getMajorTask(),
+                request.getHiring()
         );
     }
 }

@@ -2,13 +2,10 @@ package team.returm.jobis.domain.company.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.returm.jobis.domain.company.domain.CompanyAttachment;
 import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.infrastructure.feignClients.BizNoFeignClient;
 import team.returm.jobis.infrastructure.feignClients.FeignProperty;
 import team.returm.jobis.infrastructure.feignClients.dto.Items;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component
