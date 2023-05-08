@@ -57,7 +57,7 @@ public class Application extends BaseTimeEntity {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "application", orphanRemoval = true)
-    private final List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
+    private List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
 
     @Builder
     public Application(Student student, Recruitment recruitment, ApplicationStatus applicationStatus) {
