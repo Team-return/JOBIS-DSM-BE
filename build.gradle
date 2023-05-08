@@ -29,7 +29,6 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'com.fasterxml.uuid:java-uuid-generator:3.1.4'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     //queryDSL
