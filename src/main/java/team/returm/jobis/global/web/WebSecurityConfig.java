@@ -11,11 +11,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry
                 .addMapping("/**")
-                .allowedOrigins(
-                        "http://localhost:4000",
-                        "http://localhost:4001",
-                        "https://jobis-admin.team-return.com"
-                )
+                .allowedOrigins("*")
                 .allowedMethods("*")
                 .allowedHeaders("*");
     }
