@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 public class SendAuthCodeRequest {
 
     @NotBlank
-    @Pattern(regexp = RegexProperty.EMAIL)
+//    @Pattern(regexp = RegexProperty.EMAIL)
     private String email;
 
     @NotNull
