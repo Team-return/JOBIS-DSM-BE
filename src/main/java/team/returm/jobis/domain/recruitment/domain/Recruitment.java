@@ -68,7 +68,7 @@ public class Recruitment extends BaseTimeEntity {
     private String benefits;
 
     @NotNull
-    @Column(columnDefinition = "BOOL")
+    @Column(columnDefinition = "BIT(1)")
     private Boolean militarySupport;
 
     @NotNull
