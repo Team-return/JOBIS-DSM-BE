@@ -45,7 +45,7 @@ public class RecruitArea {
     private Recruitment recruitment;
 
     @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
-    private List<RecruitAreaCode> codeList = new ArrayList<>();
+    private final List<RecruitAreaCode> codeList = new ArrayList<>();
 
     @Builder
     public RecruitArea(Integer hiredCount, String majorTask, String jobCodes, Recruitment recruitment) {

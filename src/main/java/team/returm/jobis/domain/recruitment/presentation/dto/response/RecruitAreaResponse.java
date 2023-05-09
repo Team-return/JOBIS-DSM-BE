@@ -9,6 +9,8 @@ import java.util.List;
 
 import java.util.List;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class RecruitAreaResponse {

@@ -92,7 +92,7 @@ public class Recruitment extends BaseTimeEntity {
     private Company company;
 
     @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
-    private List<RecruitArea> recruitAreaList = new ArrayList<>();
+    private final List<RecruitArea> recruitAreaList = new ArrayList<>();
 
     @OneToMany(mappedBy = "recruitment")
     private final List<Application> applications = new ArrayList<>();
