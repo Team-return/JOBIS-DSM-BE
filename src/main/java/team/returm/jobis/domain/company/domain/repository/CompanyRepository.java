@@ -75,6 +75,8 @@ public class CompanyRepository {
                         company.workersCount,
                         company.sales,
                         company.type,
+                        company.convention,
+                        recruitment.personalContact,
                         recruitment.recruitYear
                 )
                 .offset(page * pageSize)

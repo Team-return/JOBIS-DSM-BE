@@ -24,6 +24,8 @@ public class TeacherQueryCompaniesService {
                                 .workersCount(company.getWorkersCount())
                                 .sales(company.getSales())
                                 .companyType(company.getCompanyType())
+                                .convention(company.getConvention())
+                                .personalContact(company.getPersonalContact())
                                 .recentRecruitYear(company.getRecentRecruitYear())
                                 .totalAcceptanceCount(company.getTotalAcceptanceCount())
                                 //TODO :: 후기 개수 반환

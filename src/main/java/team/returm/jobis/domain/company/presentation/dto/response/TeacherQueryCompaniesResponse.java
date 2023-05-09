@@ -23,6 +23,8 @@ public class TeacherQueryCompaniesResponse {
         private final Integer workersCount;
         private final Integer sales;
         private final CompanyType companyType;
+        private final Boolean convention;
+        private final Boolean personalContact;
         private final Integer recentRecruitYear;
         private final Long totalAcceptanceCount;
         private final Long reviewCount;
