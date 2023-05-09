@@ -158,8 +158,13 @@ public class Company {
         this.email = email;
     }
 
-    public Company changeCompanyType(CompanyType type) {
+    public Company updateCompanyType(CompanyType type) {
         this.type = type;
+        return this;
+    }
+
+    public Company updateConvention(Boolean convention) {
+        this.convention = convention;
         return this;
     }
 }
