@@ -1,8 +1,9 @@
 package team.returm.jobis.domain.user.presentation.dto.request;
 
-import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor

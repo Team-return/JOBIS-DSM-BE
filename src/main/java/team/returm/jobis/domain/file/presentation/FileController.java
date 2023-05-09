@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.file.presentation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +16,8 @@ import team.returm.jobis.domain.file.presentation.type.FileType;
 import team.returm.jobis.domain.file.service.DeleteFileService;
 import team.returm.jobis.domain.file.service.FileUploadService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/files")
 @RequiredArgsConstructor
@@ -26,14 +27,18 @@ public class FileController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile multipartFile,
-                                         @RequestParam("type") FileType fileType) {
+    public FileUploadResponse uploadFile(
+            @RequestParam("file") MultipartFile multipartFile,
+            @RequestParam("type") FileType fileType
+    ) {
         return new FileUploadResponse(fileUploadService.execute(multipartFile, fileType));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
-    public void deleteFile(@RequestBody @Valid DeleteFileRequest request) {
-        deleteFileService.execute(request.getPath());
+    public void deleteFile(
+            @RequestParam("path") String path
+    ) {
+        deleteFileService.execute(path);
     }
 }

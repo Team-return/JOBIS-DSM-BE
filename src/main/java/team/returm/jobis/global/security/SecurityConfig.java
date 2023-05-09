@@ -37,6 +37,11 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
+                //bookmarks
+                .antMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.DELETE, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/bookmarks").hasAuthority(STUDENT.name())
+
                 //auth
                 .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
@@ -46,6 +51,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/students/main").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
+                .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
 
                 //applications
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
@@ -58,7 +64,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "applications/train-date").hasAuthority(TEACHER.name())
 
                 //companies
-                .antMatchers(HttpMethod.PATCH, "/companies/type").hasAnyAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/companies/type").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(COMPANY.name())
@@ -66,7 +73,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/companies/student").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/companies/employment").hasAnyAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
 
                 //users
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()

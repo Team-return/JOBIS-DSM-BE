@@ -10,15 +10,18 @@ import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.repository.vo.QQueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
+import team.returm.jobis.domain.company.domain.repository.vo.QTeacherQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QTeacherQueryEmployCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
+import team.returm.jobis.domain.company.domain.repository.vo.TeacherQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.TeacherQueryEmployCompaniesVO;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
 import java.util.List;
 import java.util.Optional;
 
+import static com.querydsl.core.group.GroupBy.groupBy;
 import static team.returm.jobis.domain.acceptance.domain.QAcceptance.acceptance;
 import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
@@ -48,6 +51,51 @@ public class CompanyRepository {
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .fetch();
+    }
+
+    public List<TeacherQueryCompaniesVO> queryCompaniesByConditions(CompanyType type, String companyName, String region, String businessArea, Long page) {
+        long pageSize = 11;
+        return queryFactory
+                .selectFrom(company)
+                .leftJoin(company.acceptances, acceptance)
+                .leftJoin(recruitment)
+                .on(recentRecruitment(null))
+                .where(
+                        eqCompanyType(type),
+                        containsName(companyName),
+                        eqRegion(region),
+                        eqBusinessArea(businessArea)
+                )
+                .orderBy(company.name.desc())
+                .groupBy(
+                        company.id,
+                        company.name,
+                        company.address.mainAddress,
+                        company.businessArea,
+                        company.workersCount,
+                        company.sales,
+                        company.type,
+                        recruitment.recruitYear
+                )
+                .offset(page * pageSize)
+                .limit(pageSize)
+                .transform(
+                        groupBy(company.id)
+                                .list(
+                                        new QTeacherQueryCompaniesVO(
+                                                company.id,
+                                                company.name,
+                                                company.address.mainAddress,
+                                                company.businessArea,
+                                                company.workersCount,
+                                                company.sales,
+                                                company.type,
+                                                recruitment.recruitYear,
+                                                acceptance.count()
+                                                //TODO :: 후기 개수 반환
+                                        )
+                                )
+                );
     }
 
     public QueryCompanyDetailsVO queryCompanyDetails(Long companyId) {
@@ -168,5 +216,14 @@ public class CompanyRepository {
 
     private BooleanExpression eqRecruitmentStatus(RecruitStatus status) {
         return status == null ? null : recruitment.status.eq(RecruitStatus.RECRUITING);
+    }
+
+
+    private BooleanExpression eqRegion(String region) {
+        return region == null ? null : company.address.mainAddress.startsWith(region);
+    }
+
+    private BooleanExpression eqBusinessArea(String businessArea) {
+        return businessArea == null ? null : company.businessArea.eq(businessArea);
     }
 }

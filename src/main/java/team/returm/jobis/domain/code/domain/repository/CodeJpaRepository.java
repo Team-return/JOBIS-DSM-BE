@@ -1,10 +1,11 @@
 package team.returm.jobis.domain.code.domain.repository;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
+
+import java.util.List;
 
 public interface CodeJpaRepository extends CrudRepository<Code, Long> {
 
@@ -14,4 +15,6 @@ public interface CodeJpaRepository extends CrudRepository<Code, Long> {
     List<Code> findJobCodes();
 
     List<Code> findCodeByKeywordContainingAndCodeType(String keyword, CodeType codeType);
+
+    List<Code> findCodesByKeywordIn(List<String> keywords);
 }

@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.application.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.ApplicationAttachment;
@@ -15,6 +14,8 @@ import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundExcepti
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service

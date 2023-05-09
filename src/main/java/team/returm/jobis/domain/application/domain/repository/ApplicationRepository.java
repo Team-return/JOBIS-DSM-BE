@@ -2,10 +2,6 @@ package team.returm.jobis.domain.application.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.acceptance.domain.repository.vo.ApplicationDetailVO;
@@ -23,6 +19,10 @@ import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTrain
 import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
 import team.returm.jobis.domain.student.domain.QStudent;
 import team.returm.jobis.domain.student.domain.Student;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;

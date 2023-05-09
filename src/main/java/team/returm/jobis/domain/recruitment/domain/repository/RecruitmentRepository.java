@@ -1,34 +1,35 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.QApplication;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
-import team.returm.jobis.domain.code.domain.QRecruitAreaCode;
+import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
-import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitmentsVO;
+import team.returm.jobis.domain.recruitment.domain.repository.vo.QRecruitAreaVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
+import team.returm.jobis.domain.recruitment.domain.repository.vo.RecruitAreaVO;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.set;
-import static team.returm.jobis.domain.application.domain.QApplication.application;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
-import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.list;
+import static com.querydsl.core.group.GroupBy.set;
 import static com.querydsl.core.group.GroupBy.sum;
+import static team.returm.jobis.domain.code.domain.QCode.code;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitArea.recruitArea;
+import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitment;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,53 +42,62 @@ public class RecruitmentRepository {
 
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
                                                                    RecruitStatus status, String companyName,
-                                                                   Integer page, List<RecruitAreaCode> codes) {
+                                                                   Integer page, List<Code> codes) {
         QApplication requestedApplication = new QApplication("requestedApplication");
         QApplication approvedApplication = new QApplication("approvedApplication");
         long pageSize = 11;
-        return queryFactory.selectFrom(recruitArea)
-                .leftJoin(recruitArea.recruitment, recruitment)
+        return queryFactory
+                .selectFrom(recruitment)
+                .join(recruitment.recruitAreas, recruitArea)
+                .join(recruitment.company, company)
                 .leftJoin(recruitment.applications, requestedApplication)
                 .on(requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitment.applications, approvedApplication)
                 .on(approvedApplication.applicationStatus.ne(ApplicationStatus.REQUESTED))
-                .leftJoin(recruitment.company, company)
-                .leftJoin(recruitArea.codeList, recruitAreaCode)
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
                         eqRecruitStatus(status),
                         containName(companyName),
-                        containsKeywords(codes),
-                        recruitAreaCode.codeType.eq(CodeType.JOB)
+                        containsKeywords(codes)
                 )
                 .orderBy(recruitment.createdAt.desc())
-                .groupBy(
-                        recruitment.id,
-                        recruitAreaCode.codeKeyword,
-                        recruitArea.hiredCount
-                )
+                .groupBy(recruitArea.id)
                 .offset(page * pageSize)
                 .limit(pageSize)
                 .transform(
                         groupBy(recruitment.id)
-                                .list(new QQueryRecruitmentsVO(
-                                        recruitment,
-                                        company,
-                                        set(recruitAreaCode.codeKeyword),
-                                        sum(recruitArea.hiredCount),
-                                        requestedApplication.count(),
-                                        approvedApplication.count()
-                                ))
+                                .list(
+                                        new QQueryRecruitmentsVO(
+                                                recruitment,
+                                                company,
+                                                set(recruitArea.jobCodes),
+                                                sum(recruitArea.hiredCount),
+                                                requestedApplication.count(),
+                                                approvedApplication.count()
+                                        )
+                                )
                 );
     }
 
-    public List<RecruitArea> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
+    public List<RecruitAreaVO> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
         return queryFactory
-                .selectFrom(recruitArea).distinct()
-                .join(recruitArea.codeList, QRecruitAreaCode.recruitAreaCode).fetchJoin()
+                .selectFrom(recruitArea)
+                .join(recruitArea.recruitAreaCodes, recruitAreaCode)
+                .join(recruitAreaCode.code, code)
                 .where(recruitArea.recruitment.id.eq(recruitmentId))
-                .fetch();
+                .transform(
+                        groupBy(recruitArea.id)
+                                .list(
+                                        new QRecruitAreaVO(
+                                                recruitArea.id,
+                                                recruitArea.hiredCount,
+                                                recruitArea.majorTask,
+                                                recruitArea.jobCodes,
+                                                list(code)
+                                        )
+                                )
+                );
     }
 
     public Recruitment queryRecentRecruitmentByCompanyId(Long companyId) {
@@ -102,15 +112,6 @@ public class RecruitmentRepository {
         return queryFactory
                 .selectFrom(recruitment)
                 .where(recruitment.recruitDate.startDate.before(LocalDate.now()))
-                .fetch();
-    }
-
-    public List<Long> queryRecruitmentsByApplications(List<Application> applications) {
-        return queryFactory
-                .select(recruitment.id)
-                .from(recruitment)
-                .join(recruitment.applications, application)
-                .where(application.in(applications))
                 .fetch();
     }
 
@@ -185,7 +186,7 @@ public class RecruitmentRepository {
         return company.name.contains(name);
     }
 
-    private BooleanExpression containsKeywords(List<RecruitAreaCode> codes) {
-        return codes == null ? null : recruitment.recruitAreaList.any().codeList.any().in(codes);
+    private BooleanExpression containsKeywords(List<Code> codes) {
+        return codes == null ? null : recruitArea.recruitAreaCodes.any().code.in(codes);
     }
 }

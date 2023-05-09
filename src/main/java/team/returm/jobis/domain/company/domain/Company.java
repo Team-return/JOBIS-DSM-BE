@@ -1,8 +1,18 @@
 package team.returm.jobis.domain.company.domain;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import team.returm.jobis.domain.acceptance.domain.Acceptance;
+import team.returm.jobis.domain.company.domain.enums.CompanyType;
+import team.returm.jobis.domain.company.domain.type.Address;
+import team.returm.jobis.domain.company.domain.type.Manager;
+import team.returm.jobis.domain.recruitment.domain.Recruitment;
+import team.returm.jobis.domain.user.domain.User;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -16,18 +26,9 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import team.returm.jobis.domain.acceptance.domain.Acceptance;
-import team.returm.jobis.domain.company.domain.enums.CompanyType;
-import team.returm.jobis.domain.company.domain.type.Address;
-import team.returm.jobis.domain.company.domain.type.Manager;
-import team.returm.jobis.domain.recruitment.domain.Recruitment;
-import team.returm.jobis.domain.user.domain.User;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @DynamicInsert
@@ -107,13 +108,13 @@ public class Company {
     private String serviceName;
 
     @OneToMany(mappedBy = "company")
-    private List<Recruitment> recruitmentList = new ArrayList<>();
+    private final List<Recruitment> recruitmentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
-    private List<CompanyAttachment> companyAttachments = new ArrayList<>();
+    private final List<CompanyAttachment> companyAttachments = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
-    private List<Acceptance> acceptances = new ArrayList<>();
+    private final List<Acceptance> acceptances = new ArrayList<>();
 
     @Builder
     public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,

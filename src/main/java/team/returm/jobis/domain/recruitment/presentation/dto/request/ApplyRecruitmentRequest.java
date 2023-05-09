@@ -1,20 +1,20 @@
 package team.returm.jobis.domain.recruitment.presentation.dto.request;
 
-import java.time.LocalDate;
-import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 public class ApplyRecruitmentRequest {
     @NotNull
     @Valid
-    private List<Area> areas;
+    private List<RecruitAreaRequest> areas;
     private String preferentialTreatment;
     private Integer requiredGrade;
     @NotNull
@@ -35,17 +35,4 @@ public class ApplyRecruitmentRequest {
     @NotNull
     private LocalDate endDate;
     private String etc;
-
-    @Getter
-    @NoArgsConstructor
-    public static class Area {
-        @NotNull
-        private List<Long> jobCodes;
-        @NotNull
-        private List<Long> techCodes;
-        @NotNull
-        private int hiring;
-        @NotBlank
-        private String majorTask;
-    }
 }

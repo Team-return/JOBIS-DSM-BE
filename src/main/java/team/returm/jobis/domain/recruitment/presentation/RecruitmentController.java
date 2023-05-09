@@ -1,7 +1,5 @@
 package team.returm.jobis.domain.recruitment.presentation;
 
-import java.time.LocalDate;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.CreateRecruitAreaRequest;
-import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitAreaRequest;
+import team.returm.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryMyRecruitmentResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
@@ -37,6 +34,8 @@ import team.returm.jobis.domain.recruitment.service.TeacherQueryRecruitmentsServ
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitAreaService;
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitmentService;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -74,7 +73,7 @@ public class RecruitmentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(
-            @RequestBody @Valid UpdateRecruitAreaRequest request,
+            @RequestBody @Valid RecruitAreaRequest request,
             @PathVariable("recruit-area-id") Long recruitAreaId
     ) {
         updateRecruitAreaService.execute(request, recruitAreaId);
@@ -83,7 +82,7 @@ public class RecruitmentController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}/area")
     public void createRecruitArea(
-            @RequestBody @Valid CreateRecruitAreaRequest request,
+            @RequestBody @Valid RecruitAreaRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createRecruitAreaService.execute(request, recruitmentId);

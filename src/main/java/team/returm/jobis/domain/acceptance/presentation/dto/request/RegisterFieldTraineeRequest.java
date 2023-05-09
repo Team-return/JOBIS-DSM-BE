@@ -1,9 +1,10 @@
 package team.returm.jobis.domain.acceptance.presentation.dto.request;
 
-import java.time.LocalDate;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor

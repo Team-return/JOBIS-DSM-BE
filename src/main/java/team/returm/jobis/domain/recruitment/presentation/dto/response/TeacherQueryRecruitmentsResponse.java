@@ -1,13 +1,14 @@
 package team.returm.jobis.domain.recruitment.presentation.dto.response;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor

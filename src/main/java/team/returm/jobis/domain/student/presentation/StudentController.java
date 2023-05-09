@@ -1,6 +1,5 @@
 package team.returm.jobis.domain.student.presentation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +7,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
@@ -16,7 +16,10 @@ import team.returm.jobis.domain.student.presentation.dto.response.StudentMainPag
 import team.returm.jobis.domain.student.service.StudentMainPageService;
 import team.returm.jobis.domain.student.service.StudentSignUpService;
 import team.returm.jobis.domain.student.service.UpdateStudentPasswordService;
+import team.returm.jobis.domain.student.service.VerifyStudentService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/students")
@@ -26,6 +29,7 @@ public class StudentController {
     private final StudentSignUpService studentSignUpService;
     private final UpdateStudentPasswordService updateStudentPasswordService;
     private final StudentMainPageService studentMainPageService;
+    private final VerifyStudentService verifyStudentService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -42,5 +46,13 @@ public class StudentController {
     @GetMapping("/main")
     public StudentMainPageResponse mainPage() {
         return studentMainPageService.execute();
+    }
+      
+    @GetMapping("/exists")
+    public void checkStudentExists(
+            @RequestParam("gcn") String gcn,
+            @RequestParam("name") String name
+    ) {
+        verifyStudentService.execute(gcn, name);
     }
 }
