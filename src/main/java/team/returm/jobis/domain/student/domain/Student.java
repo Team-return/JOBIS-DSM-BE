@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
 import team.returm.jobis.domain.student.domain.types.Gender;
 import team.returm.jobis.domain.user.domain.User;
@@ -22,16 +23,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import team.returm.jobis.domain.application.domain.Application;
-import team.returm.jobis.domain.student.domain.types.Gender;
-import team.returm.jobis.domain.user.domain.User;
-import java.util.ArrayList;
-import java.util.List;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +69,7 @@ public class Student {
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private List<Application> applications = new ArrayList<>();
- 
+
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private final List<Bookmark> bookmarks = new ArrayList<>();
 
