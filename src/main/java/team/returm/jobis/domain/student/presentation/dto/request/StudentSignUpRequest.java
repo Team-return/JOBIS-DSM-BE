@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class StudentSignUpRequest {
 
-    @Pattern(regexp = RegexProperty.EMAIL)
+//    @Pattern(regexp = RegexProperty.EMAIL)
     private String email;
 
     @Pattern(regexp = RegexProperty.PASSWORD)
