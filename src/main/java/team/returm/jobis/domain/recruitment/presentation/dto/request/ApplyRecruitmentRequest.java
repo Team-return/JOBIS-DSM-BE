@@ -13,26 +13,41 @@ import java.util.List;
 @NoArgsConstructor
 public class ApplyRecruitmentRequest {
     @NotNull
-    @Valid
     private List<RecruitAreaRequest> areas;
+
     private String preferentialTreatment;
+
     private Integer requiredGrade;
+
     @NotNull
     private int workHours;
+
     private List<String> requiredLicenses;
+
     @NotNull
     private List<ProgressType> hiringProgress;
+
     @NotNull
     private int trainPay;
+
     private Integer pay;
+
     private String benefits;
+
     @NotNull
     private boolean militarySupport;
+
+    @NotNull
+    private boolean personalContact;
+
     @NotNull
     private String submitDocument;
+
     @NotNull
     private LocalDate startDate;
+
     @NotNull
     private LocalDate endDate;
+
     private String etc;
 }
