@@ -1,7 +1,6 @@
 package team.returm.jobis.domain.application.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,9 +10,14 @@ import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplyCompaniesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTraineesVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QQueryTotalApplicationCountVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QueryApplyCompaniesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
+import team.returm.jobis.domain.student.domain.QStudent;
 import team.returm.jobis.domain.student.domain.Student;
 
 import java.time.LocalDate;
@@ -22,6 +26,7 @@ import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
+import static com.querydsl.jpa.JPAExpressions.select;
 import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.application.domain.QApplicationAttachment.applicationAttachment;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
@@ -87,6 +92,42 @@ public class ApplicationRepository {
                 .join(application.recruitment, recruitment)
                 .on(recentRecruitment(companyId))
                 .where(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .fetch();
+    }
+
+    public QueryTotalApplicationCountVO queryTotalApplicationCount() {
+        QStudent approvedStudent = new QStudent("approvedStudent");
+        QStudent passedStudent = new QStudent("passedStudent");
+        return jpaQueryFactory
+                .select(
+                        new QQueryTotalApplicationCountVO(
+                                student.count(),
+                                passedStudent.countDistinct(),
+                                approvedStudent.countDistinct()
+                        )
+                )
+                .from(application)
+                .leftJoin(application.student, approvedStudent)
+                .on(approvedStudent.applications.any().applicationStatus.eq(ApplicationStatus.APPROVED))
+                .leftJoin(application.student, passedStudent)
+                .on(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS))
+                .leftJoin(application.student, student)
+                .fetchOne();
+    }
+
+    public List<QueryApplyCompaniesVO> queryApplyCompanyNames(Long studentId) {
+        return jpaQueryFactory
+                .select(
+                        new QQueryApplyCompaniesVO(
+                                company.name,
+                                application.applicationStatus
+                        )
+                )
+                .from(application)
+                .join(application.student, student)
+                .join(application.recruitment, recruitment)
+                .join(recruitment.company, company)
+                .where(student.id.eq(studentId))
                 .fetch();
     }
 
@@ -187,7 +228,7 @@ public class ApplicationRepository {
 
     private BooleanExpression recentRecruitment(Long companyId) {
         return recruitment.createdAt.eq(
-                JPAExpressions.select(recruitment.createdAt.max())
+                select(recruitment.createdAt.max())
                         .from(recruitment)
                         .where(recruitment.company.id.eq(companyId))
         );

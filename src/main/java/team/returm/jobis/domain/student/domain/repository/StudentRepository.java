@@ -6,9 +6,10 @@ import team.returm.jobis.domain.student.domain.Student;
 
 import java.util.Optional;
 
-@Repository
 @RequiredArgsConstructor
+@Repository
 public class StudentRepository {
+
     private final StudentJpaRepository studentJpaRepository;
 
     public Optional<Student> queryStudentById(Long studentId) {

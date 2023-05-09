@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
 import team.returm.jobis.domain.student.domain.types.Gender;
 import team.returm.jobis.domain.user.domain.User;
@@ -65,6 +66,9 @@ public class Student {
     @Column(columnDefinition = "VARCHAR(6)", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @OneToMany(mappedBy = "student", orphanRemoval = true)
+    private List<Application> applications = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private final List<Bookmark> bookmarks = new ArrayList<>();

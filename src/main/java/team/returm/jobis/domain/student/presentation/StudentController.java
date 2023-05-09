@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
+import team.returm.jobis.domain.student.presentation.dto.response.StudentMainPageResponse;
+import team.returm.jobis.domain.student.service.StudentMainPageService;
 import team.returm.jobis.domain.student.service.StudentSignUpService;
 import team.returm.jobis.domain.student.service.UpdateStudentPasswordService;
 import team.returm.jobis.domain.student.service.VerifyStudentService;
@@ -26,6 +28,7 @@ public class StudentController {
 
     private final StudentSignUpService studentSignUpService;
     private final UpdateStudentPasswordService updateStudentPasswordService;
+    private final StudentMainPageService studentMainPageService;
     private final VerifyStudentService verifyStudentService;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -40,6 +43,11 @@ public class StudentController {
         updateStudentPasswordService.execute(request);
     }
 
+    @GetMapping("/main")
+    public StudentMainPageResponse mainPage() {
+        return studentMainPageService.execute();
+    }
+      
     @GetMapping("/exists")
     public void checkStudentExists(
             @RequestParam("gcn") String gcn,
