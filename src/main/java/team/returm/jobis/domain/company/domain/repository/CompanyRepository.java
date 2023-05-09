@@ -90,6 +90,8 @@ public class CompanyRepository {
                                                 company.workersCount,
                                                 company.sales,
                                                 company.type,
+                                                company.convention,
+                                                recruitment.personalContact,
                                                 recruitment.recruitYear,
                                                 acceptance.count()
                                                 //TODO :: 후기 개수 반환

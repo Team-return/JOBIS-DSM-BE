@@ -14,12 +14,15 @@ public class TeacherQueryCompaniesVO {
     private final Integer workersCount;
     private final Integer sales;
     private final CompanyType companyType;
+    private final Boolean convention;
+    private final Boolean personalContact;
     private final Integer recentRecruitYear;
     private final Long totalAcceptanceCount;
 
     @QueryProjection
     public TeacherQueryCompaniesVO(Long companyId, String companyName, String mainAddress, String businessArea,
                                    Integer workersCount, Integer sales, CompanyType companyType,
+                                   Boolean convention, Boolean personalContact,
                                    Integer recentRecruitYear, Long totalAcceptanceCount) {
         this.companyId = companyId;
         this.companyName = companyName;
@@ -28,6 +31,8 @@ public class TeacherQueryCompaniesVO {
         this.workersCount = workersCount;
         this.sales = sales;
         this.companyType = companyType;
+        this.convention = convention;
+        this.personalContact = personalContact;
         this.recentRecruitYear = recentRecruitYear;
         this.totalAcceptanceCount = totalAcceptanceCount;
     }
