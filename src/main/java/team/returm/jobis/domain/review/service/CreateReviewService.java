@@ -27,7 +27,7 @@ public class CreateReviewService {
         Application application = applicationRepository.queryApplicationByStudentId(currentUserId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
-        if (application.getApplicationStatus() == ApplicationStatus.REQUESTED) {
+        if (application.getApplicationStatus().equals(ApplicationStatus.REQUESTED)) {
             throw ReviewCannotWriteException.EXCEPTION;
         }
 
