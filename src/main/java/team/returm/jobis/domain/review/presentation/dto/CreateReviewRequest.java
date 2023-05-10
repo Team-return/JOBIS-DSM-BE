@@ -16,6 +16,7 @@ public class CreateReviewRequest {
     @NotNull
     private Long companyId;
 
+    @Valid
     @NotNull
     private List<QnAElement> qnaElements;
 

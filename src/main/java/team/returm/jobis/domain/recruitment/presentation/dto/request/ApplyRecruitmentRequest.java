@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ApplyRecruitmentRequest {
 
+    @Valid
     @NotNull
     private List<RecruitAreaRequest> areas;
 
