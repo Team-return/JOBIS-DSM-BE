@@ -208,8 +208,8 @@ public class ApplicationRepository {
                 .execute();
     }
 
-    public Optional<Application> queryApplicationByStudentId(Long currentUserId) {
-        return applicationJpaRepository.findByStudentId(currentUserId);
+    public Optional<Application> queryApplicationByStudentId(Long studentId) {
+        return applicationJpaRepository.findByStudentId(studentId);
     }
 
     //==conditions==//
