@@ -193,6 +193,10 @@ public class CompanyRepository {
         return companyJpaRepository.findAllByIdIn(companyIds);
     }
 
+    public boolean existsCompanyById(Long companyId) {
+        return companyJpaRepository.existsById(companyId);
+    }
+
     //==conditions==//
 
     private BooleanExpression containsName(String name) {
