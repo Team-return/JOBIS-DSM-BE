@@ -21,18 +21,16 @@ public class Review {
     private List<QnAElement> qnAElements;
     private String companyName;
     private String studentName;
-    private String studentGcn;
     private Integer year;
     private LocalDate createdDate;
 
     @Builder
     public Review(Long companyId, String companyName, List<QnAElement> qnAElements,
-                  String studentName, String studentGcn, Integer year) {
+                  String studentName, Integer year) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.qnAElements = qnAElements;
         this.studentName =studentName;
-        this.studentGcn = studentGcn;
         this.year = year;
         this.createdDate = LocalDate.now();
     }
