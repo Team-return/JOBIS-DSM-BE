@@ -75,6 +75,8 @@ public class CompanyRepository {
                         company.workersCount,
                         company.sales,
                         company.type,
+                        company.isMou,
+                        recruitment.personalContact,
                         recruitment.recruitYear
                 )
                 .offset(page * pageSize)
@@ -90,6 +92,8 @@ public class CompanyRepository {
                                                 company.workersCount,
                                                 company.sales,
                                                 company.type,
+                                                company.isMou,
+                                                recruitment.personalContact,
                                                 recruitment.recruitYear,
                                                 acceptance.count()
                                                 //TODO :: 후기 개수 반환

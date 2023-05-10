@@ -39,6 +39,7 @@ public class ApplyRecruitmentService {
                         .company(company)
                         .recruitYear(Year.now().getValue())
                         .militarySupport(request.isMilitarySupport())
+                        .personalContact(request.isPersonalContact())
                         .workingHours(request.getWorkHours())
                         .preferentialTreatment(request.getPreferentialTreatment())
                         .requiredLicenses(requiredLicenses)
