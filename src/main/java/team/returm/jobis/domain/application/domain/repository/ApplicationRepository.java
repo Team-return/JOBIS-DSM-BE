@@ -208,6 +208,10 @@ public class ApplicationRepository {
                 .execute();
     }
 
+    public Optional<Application> queryApplicationByStudentId(Long currentUserId) {
+        return applicationJpaRepository.findByStudentId(currentUserId);
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {
