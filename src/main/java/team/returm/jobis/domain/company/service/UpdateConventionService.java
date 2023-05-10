@@ -24,7 +24,7 @@ public class UpdateConventionService {
 
         companyRepository.saveAllCompanies(
                 companies.stream()
-                        .map(company -> company.changeMou(request.getIsMou()))
+                        .map(Company::convertToMou)
                         .toList()
         );
     }

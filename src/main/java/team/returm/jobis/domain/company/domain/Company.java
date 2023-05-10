@@ -163,8 +163,8 @@ public class Company {
         return this;
     }
 
-    public Company changeMou(Boolean isMou) {
-        this.isMou = isMou;
+    public Company convertToMou() {
+        this.isMou = !this.isMou;
         return this;
     }
 }

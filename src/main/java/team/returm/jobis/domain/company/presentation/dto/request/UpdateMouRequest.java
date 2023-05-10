@@ -12,7 +12,4 @@ public class UpdateMouRequest {
 
     @NotNull
     private List<Long> companyIds;
-
-    @NotNull
-    private Boolean isMou;
 }
