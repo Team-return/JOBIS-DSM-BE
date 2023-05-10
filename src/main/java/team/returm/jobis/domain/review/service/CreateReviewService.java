@@ -31,7 +31,6 @@ public class CreateReviewService {
             throw ReviewCannotWriteException.EXCEPTION;
         }
 
-        System.out.println(request.getQnaElements());
         reviewRepository.save(Review.builder()
                 .companyId(request.getCompanyId())
                 .qnAElements(request.getQnaElements())
