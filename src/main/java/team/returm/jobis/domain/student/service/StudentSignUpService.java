@@ -6,6 +6,7 @@ import team.returm.jobis.domain.auth.domain.AuthCode;
 import team.returm.jobis.domain.auth.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentJpaRepository;
+import team.returm.jobis.domain.student.domain.repository.VerifiedStudentRepository;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.returm.jobis.domain.student.exception.UnverifiedEmailException;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
@@ -24,6 +25,7 @@ public class StudentSignUpService {
     private final StudentJpaRepository studentJpaRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthCodeRepository authCodeRepository;
+    private final VerifiedStudentRepository verifiedStudentRepository;
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -49,7 +51,7 @@ public class StudentSignUpService {
                 .authority(Authority.STUDENT)
                 .build();
 
-        studentJpaRepository.save(
+        Student student = studentJpaRepository.save(
                 Student.builder()
                         .user(user)
                         .classRoom(request.getClassRoom())
@@ -60,6 +62,15 @@ public class StudentSignUpService {
                         .build()
         );
 
+        verifiedStudentRepository.deleteVerifiedStudentByGcnAndName(
+                Student.processGcn(
+                        student.getGrade(),
+                        student.getClassRoom(),
+                        student.getNumber()
+                ),
+                student.getName()
+        );
+
         String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
@@ -68,6 +79,7 @@ public class StudentSignUpService {
                 .refreshToken(refreshToken)
                 .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
                 .accessExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.ACCESS))
+                .authority(Authority.STUDENT)
                 .build();
     }
 }

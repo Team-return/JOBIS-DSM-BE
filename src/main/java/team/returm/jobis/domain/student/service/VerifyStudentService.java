@@ -13,9 +13,8 @@ public class VerifyStudentService {
     private final VerifiedStudentRepository verifiedStudentRepository;
 
     public void execute(String gcn, String name) {
-        VerifiedStudent verifiedStudent = verifiedStudentRepository.queryVerifiedStudentByGcnAndName(gcn, name)
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
-
-        verifiedStudentRepository.deleteVerifiedStudent(verifiedStudent);
+        if (!verifiedStudentRepository.existsVerifiedStudentByGcnAndName(gcn, name)) {
+            throw StudentNotFoundException.EXCEPTION;
+        }
     }
 }
