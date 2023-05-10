@@ -15,7 +15,7 @@ import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
-import team.returm.jobis.domain.company.presentation.dto.request.UpdateConventionRequest;
+import team.returm.jobis.domain.company.presentation.dto.request.UpdateMouRequest;
 import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
@@ -115,7 +115,7 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/convention")
-    public void updateConvention(@RequestBody @Valid UpdateConventionRequest request) {
+    public void updateConvention(@RequestBody @Valid UpdateMouRequest request) {
         updateConventionService.execute(request);
     }
 }

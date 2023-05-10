@@ -75,7 +75,7 @@ public class CompanyRepository {
                         company.workersCount,
                         company.sales,
                         company.type,
-                        company.convention,
+                        company.isMou,
                         recruitment.personalContact,
                         recruitment.recruitYear
                 )
@@ -92,7 +92,7 @@ public class CompanyRepository {
                                                 company.workersCount,
                                                 company.sales,
                                                 company.type,
-                                                company.convention,
+                                                company.isMou,
                                                 recruitment.personalContact,
                                                 recruitment.recruitYear,
                                                 acceptance.count()

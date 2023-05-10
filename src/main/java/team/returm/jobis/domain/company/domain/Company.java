@@ -60,7 +60,7 @@ public class Company {
 
     @NotNull
     @Column(columnDefinition = "BIT(1)")
-    private Boolean convention;
+    private Boolean isMou;
 
     @Embedded
     private Address address;
@@ -127,7 +127,7 @@ public class Company {
                    String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
         this.user = user;
         this.name = name;
-        this.convention = false;
+        this.isMou = false;
         this.bizRegistrationUrl = bizRegistrationUrl;
         this.businessArea = businessArea;
         this.serviceName = serviceName;
@@ -158,13 +158,13 @@ public class Company {
         this.email = email;
     }
 
-    public Company updateCompanyType(CompanyType type) {
+    public Company changeCompanyType(CompanyType type) {
         this.type = type;
         return this;
     }
 
-    public Company updateConvention(Boolean convention) {
-        this.convention = convention;
+    public Company changeMou(Boolean isMou) {
+        this.isMou = isMou;
         return this;
     }
 }

@@ -25,7 +25,7 @@ public class UpdateCompanyTypeService {
 
         companyRepository.saveAllCompanies(
                 companies.stream()
-                        .map(company -> company.updateCompanyType(request.getCompanyType()))
+                        .map(company -> company.changeCompanyType(request.getCompanyType()))
                         .toList()
         );
     }

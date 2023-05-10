@@ -8,11 +8,11 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class UpdateConventionRequest {
+public class UpdateMouRequest {
 
     @NotNull
     private List<Long> companyIds;
 
     @NotNull
-    private Boolean convention;
+    private Boolean isMou;
 }
