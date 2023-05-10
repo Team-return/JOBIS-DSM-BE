@@ -114,8 +114,8 @@ public class CompanyController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/convention")
-    public void updateConvention(@RequestBody @Valid UpdateMouRequest request) {
+    @PatchMapping("/mou")
+    public void updateMou(@RequestBody @Valid UpdateMouRequest request) {
         updateConventionService.execute(request);
     }
 }
