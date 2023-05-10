@@ -108,6 +108,7 @@ public class SecurityConfig {
 
                 //review
                 .antMatchers(HttpMethod.POST, "/reviews").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
 
                 .anyRequest().authenticated()
                 .and()
