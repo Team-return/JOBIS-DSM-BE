@@ -21,9 +21,6 @@ public class CreateReviewRequest {
     private List<QnAElement> qnaElements;
 
     @NotBlank
-    private String companyName;
-
-    @NotBlank
     private String studentName;
 
     @NotNull

@@ -34,7 +34,6 @@ public class CreateReviewService {
         reviewRepository.save(Review.builder()
                 .companyId(request.getCompanyId())
                 .qnAElements(request.getQnaElements())
-                .companyName(request.getCompanyName())
                 .studentName(request.getStudentName())
                 .year(request.getYear())
                 .build());
