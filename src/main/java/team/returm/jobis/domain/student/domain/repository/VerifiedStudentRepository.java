@@ -14,11 +14,11 @@ public class VerifiedStudentRepository {
     private final JPAQueryFactory queryFactory;
     private final VerifiedStudentJpaRepository verifiedStudentJpaRepository;
 
-    public Optional<VerifiedStudent> queryVerifiedStudentByGcnAndName(String gcn, String name) {
-        return verifiedStudentJpaRepository.findByGcnAndName(gcn, name);
+    public boolean existsVerifiedStudentByGcnAndName(String gcn, String name) {
+        return verifiedStudentJpaRepository.existsByGcnAndName(gcn, name);
     }
 
-    public void deleteVerifiedStudent(VerifiedStudent verifiedStudent) {
-        verifiedStudentJpaRepository.delete(verifiedStudent);
+    public void deleteVerifiedStudentByGcnAndName(String gcn, String name) {
+        verifiedStudentJpaRepository.deleteByGcnAndName(gcn, name);
     }
 }
