@@ -3,9 +3,6 @@ package team.returm.jobis.domain.student.domain.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.returm.jobis.domain.student.domain.VerifiedStudent;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository

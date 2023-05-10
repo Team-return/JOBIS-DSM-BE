@@ -1,7 +1,6 @@
 package team.returm.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
-import team.returm.jobis.domain.student.domain.VerifiedStudent;
 import team.returm.jobis.domain.student.domain.repository.VerifiedStudentRepository;
 import team.returm.jobis.domain.student.exception.StudentNotFoundException;
 import team.returm.jobis.global.annotation.Service;
