@@ -66,6 +66,7 @@ public class SecurityConfig {
                 //companies
                 .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/companies/type").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/companies/mou").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(COMPANY.name())

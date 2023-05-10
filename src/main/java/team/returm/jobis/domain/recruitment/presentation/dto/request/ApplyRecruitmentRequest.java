@@ -40,6 +40,9 @@ public class ApplyRecruitmentRequest {
     private boolean militarySupport;
 
     @NotNull
+    private boolean personalContact;
+
+    @NotNull
     private String submitDocument;
 
     @NotNull

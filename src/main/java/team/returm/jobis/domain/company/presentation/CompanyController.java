@@ -15,6 +15,7 @@ import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import team.returm.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
+import team.returm.jobis.domain.company.presentation.dto.request.UpdateMouRequest;
 import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
@@ -30,6 +31,7 @@ import team.returm.jobis.domain.company.service.TeacherQueryCompaniesService;
 import team.returm.jobis.domain.company.service.TeacherQueryEmployCompaniesService;
 import team.returm.jobis.domain.company.service.UpdateCompanyDetailsService;
 import team.returm.jobis.domain.company.service.UpdateCompanyTypeService;
+import team.returm.jobis.domain.company.service.UpdateConventionService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;
@@ -48,6 +50,7 @@ public class CompanyController {
     private final UpdateCompanyTypeService updateCompanyTypeService;
     private final TeacherQueryEmployCompaniesService teacherQueryEmployCompaniesService;
     private final TeacherQueryCompaniesService teacherQueryCompaniesService;
+    private final UpdateConventionService updateConventionService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -108,5 +111,11 @@ public class CompanyController {
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
         return teacherQueryCompaniesService.execute(type, companyName, region, businessArea, page);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/mou")
+    public void updateMou(@RequestBody @Valid UpdateMouRequest request) {
+        updateConventionService.execute(request);
     }
 }

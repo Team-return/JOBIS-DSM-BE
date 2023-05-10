@@ -58,6 +58,10 @@ public class Company {
     @Column(columnDefinition = "VARCHAR(13)")
     private CompanyType type;
 
+    @NotNull
+    @Column(columnDefinition = "BIT(1)")
+    private Boolean isMou;
+
     @Embedded
     private Address address;
 
@@ -123,6 +127,7 @@ public class Company {
                    String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
         this.user = user;
         this.name = name;
+        this.isMou = false;
         this.bizRegistrationUrl = bizRegistrationUrl;
         this.businessArea = businessArea;
         this.serviceName = serviceName;
@@ -155,6 +160,11 @@ public class Company {
 
     public Company changeCompanyType(CompanyType type) {
         this.type = type;
+        return this;
+    }
+
+    public Company convertToMou() {
+        this.isMou = !this.isMou;
         return this;
     }
 }
