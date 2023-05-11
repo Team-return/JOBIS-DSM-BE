@@ -88,7 +88,7 @@ public class ApplicationController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{application-id}")
+    @PatchMapping("/reject/{application-id}")
     public void rejectApplication(
             @PathVariable("application-id") Long applicationId,
             @Valid @RequestBody RejectApplicationRequest request
