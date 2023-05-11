@@ -15,7 +15,7 @@ public class CodeRepository {
     private final CodeJpaRepository codeJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<Code> queryCodeByKeywordContaining(String keyword, CodeType codeType) {
+    public List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType) {
         return codeJpaRepository.findCodeByKeywordContainingAndCodeType(keyword, codeType);
     }
 
