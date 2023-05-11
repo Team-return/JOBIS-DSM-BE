@@ -22,4 +22,8 @@ public class CodeRepository {
     public List<Code> queryJobCodes() {
         return codeJpaRepository.findJobCodes();
     }
+
+    public List<Code> queryCodesByIdIn(List<Long> ids) {
+        return codeJpaRepository.findCodesByIdIn(ids);
+    }
 }
