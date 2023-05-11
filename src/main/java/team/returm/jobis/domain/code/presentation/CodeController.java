@@ -21,7 +21,7 @@ public class CodeController {
     public CodesResponse getCodes(
             @RequestParam(value = "code_type") CodeType codeType,
             @RequestParam(value = "keyword", required = false) String keyword
-    )  {
+    ) {
         keyword = StringUtil.nullToEmpty(keyword);
         return codesService.execute(keyword, codeType);
     }

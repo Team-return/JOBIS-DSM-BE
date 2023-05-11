@@ -25,8 +25,8 @@ public class CodeFacade {
     }
 
     public List<Code> queryCodeByKeywordIn(List<String> codeKeywords) {
-        if (codeKeywords==null) {
-           return null;
+        if (codeKeywords == null) {
+            return null;
         }
         List<Code> codes = codeJpaRepository.findCodesByKeywordIn(codeKeywords);
         if (codes.size() != codeKeywords.size()) {
