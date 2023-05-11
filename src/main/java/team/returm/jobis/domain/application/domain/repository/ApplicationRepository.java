@@ -212,6 +212,13 @@ public class ApplicationRepository {
         return applicationJpaRepository.findByStudentId(studentId);
     }
 
+    public boolean existsApplicationByApplicationIdAndApplicationStatus(
+            Long applicationId,
+            ApplicationStatus applicationStatus
+    ) {
+        return applicationJpaRepository.existsByIdAndApplicationStatus(applicationId, applicationStatus);
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {

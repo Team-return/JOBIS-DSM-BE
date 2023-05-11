@@ -21,4 +21,6 @@ public interface ApplicationJpaRepository extends JpaRepository<Application, Lon
     void deleteByIdIn(List<Long> applicationIds);
 
     Optional<Application> findByStudentId(Long studentId);
+
+    boolean existsByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus);
 }

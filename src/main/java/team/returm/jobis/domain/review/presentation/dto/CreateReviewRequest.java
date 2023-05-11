@@ -20,8 +20,8 @@ public class CreateReviewRequest {
     @NotNull
     private List<QnAElement> qnaElements;
 
-    @NotBlank
-    private String studentName;
+    @NotNull
+    private Long applicationId;
 
     @NotNull
     private int year;
