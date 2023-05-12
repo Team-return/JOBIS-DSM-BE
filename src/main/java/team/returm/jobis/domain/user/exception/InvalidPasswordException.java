@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.user.exception;
 
+import team.returm.jobis.domain.user.exception.error.UserErrorCode;
 import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
@@ -9,6 +10,6 @@ public class InvalidPasswordException extends JobisException {
             new InvalidPasswordException();
 
     private InvalidPasswordException() {
-        super(GlobalErrorCode.INVALID_PASSWORD);
+        super(UserErrorCode.INVALID_PASSWORD);
     }
 }
