@@ -10,7 +10,6 @@ public enum GlobalErrorCode implements ErrorProperty {
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
 
     BAD_EMAIL(400, "Bad Email Domain"),
-    INVALID_EXTENSION(400, "Invalid Extension File"),
     INVALID_DATE_FILTER_RANGE(400, "Invalid Date Filter"),
 
     UNVERIFIED_EMAIL(401, "Unverified Email"),
@@ -26,7 +25,6 @@ public enum GlobalErrorCode implements ErrorProperty {
     STUDENT_NOT_FOUND(404, "Student Not Found"),
     TEACHER_NOT_FOUND(404, "Teacher Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail"),
-    FILE_NOT_FOUND(404, "File not Found"),
     RECRUIT_NOT_FOUND(404, "Recruit Not Found"),
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found"),
 
