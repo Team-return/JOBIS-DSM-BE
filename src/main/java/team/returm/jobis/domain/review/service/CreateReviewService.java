@@ -3,9 +3,9 @@ package team.returm.jobis.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.review.domain.Review;
 import team.returm.jobis.domain.review.domain.repository.ReviewRepository;
-import team.returm.jobis.domain.review.exception.ReviewCannotWriteException;
 import team.returm.jobis.domain.review.presentation.dto.CreateReviewRequest;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentRepository;
@@ -31,7 +31,7 @@ public class CreateReviewService {
 
         if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatus(
                 request.getApplicationId(), ApplicationStatus.REQUESTED)) {
-            throw ReviewCannotWriteException.EXCEPTION;
+            throw ApplicationNotFoundException.EXCEPTION;
         }
 
         reviewRepository.save(
