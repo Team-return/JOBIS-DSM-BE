@@ -23,7 +23,6 @@ public enum GlobalErrorCode implements ErrorProperty {
     RECRUITMENT_CANNOT_DELETE(403, "Recruitment Cannot Deleted"),
 
     USER_NOT_FOUND(404, "User Not Found"),
-    COMPANY_NOT_FOUND(404, "Company Not Found"),
     STUDENT_NOT_FOUND(404, "Student Not Found"),
     TEACHER_NOT_FOUND(404, "Teacher Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail"),
@@ -31,7 +30,6 @@ public enum GlobalErrorCode implements ErrorProperty {
     RECRUIT_NOT_FOUND(404, "Recruit Not Found"),
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found"),
 
-    COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists");
 
     private final Integer status;
