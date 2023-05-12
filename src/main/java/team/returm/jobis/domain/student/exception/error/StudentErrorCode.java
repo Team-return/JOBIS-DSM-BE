@@ -8,8 +8,6 @@ import team.returm.jobis.global.error.ErrorProperty;
 @AllArgsConstructor
 public enum StudentErrorCode implements ErrorProperty {
 
-    BAD_EMAIL(400, "Bad Email Domain"),
-
     UNVERIFIED_EMAIL(401, "Unverified Email"),
     BAD_AUTH_CODE(401, "Bad Auth Code"),
 

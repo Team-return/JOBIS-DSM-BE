@@ -8,8 +8,6 @@ import team.returm.jobis.global.error.ErrorProperty;
 @AllArgsConstructor
 public enum CodeErrorCode implements ErrorProperty {
 
-    INVALID_CODE(401, "invalid code"),
-
     RECRUIT_AREA_CODE_NOT_FOUND(404, "Recruit Area Code Not Found"),
     CODE_NOT_FOUND(404, "Code Not Found");
 
