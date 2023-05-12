@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class JobisException extends RuntimeException {
-    private final ErrorCode errorCode;
+    private final GlobalErrorCode globalErrorCode;
 }

@@ -1,6 +1,6 @@
 package team.returm.jobis.domain.student.exception;
 
-import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
 public class StudentAlreadyExistsException extends JobisException {
@@ -9,6 +9,6 @@ public class StudentAlreadyExistsException extends JobisException {
             new StudentAlreadyExistsException();
 
     private StudentAlreadyExistsException() {
-        super(ErrorCode.STUDENT_ALREADY_EXISTS);
+        super(GlobalErrorCode.STUDENT_ALREADY_EXISTS);
     }
 }

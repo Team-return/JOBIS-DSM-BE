@@ -1,6 +1,6 @@
 package team.returm.jobis.domain.student.exception;
 
-import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
 public class UnverifiedEmailException extends JobisException {
@@ -8,6 +8,6 @@ public class UnverifiedEmailException extends JobisException {
             new UnverifiedEmailException();
 
     private UnverifiedEmailException() {
-        super(ErrorCode.UNVERIFIED_EMAIL);
+        super(GlobalErrorCode.UNVERIFIED_EMAIL);
     }
 }
