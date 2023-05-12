@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class QueryReviewsResponse {
 
-    private final List<ReviewElement> reviewsResponse;
+    private final List<ReviewElement> reviews;
 
 
     @Getter
