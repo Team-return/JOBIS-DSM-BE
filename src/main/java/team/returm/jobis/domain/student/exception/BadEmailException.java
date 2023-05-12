@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.student.exception;
 
+import team.returm.jobis.domain.student.exception.error.StudentErrorCode;
 import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
@@ -8,6 +9,6 @@ public class BadEmailException extends JobisException {
             new BadEmailException();
 
     private BadEmailException() {
-        super(GlobalErrorCode.BAD_EMAIL);
+        super(StudentErrorCode.BAD_EMAIL);
     }
 }
