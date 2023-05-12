@@ -96,7 +96,6 @@ public class CompanyRepository {
                                                 recruitment.personalContact,
                                                 recruitment.recruitYear,
                                                 acceptance.count()
-                                                //TODO :: 후기 개수 반환
                                         )
                                 )
                 );
