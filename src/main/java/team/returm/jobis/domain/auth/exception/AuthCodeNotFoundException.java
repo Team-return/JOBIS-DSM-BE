@@ -1,7 +1,6 @@
 package team.returm.jobis.domain.auth.exception;
 
 import team.returm.jobis.domain.auth.exception.error.AuthErrorCode;
-import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
 public class AuthCodeNotFoundException extends JobisException {
