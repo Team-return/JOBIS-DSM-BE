@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.recruitment.exception;
 
+import team.returm.jobis.domain.recruitment.exception.error.RecruitmentErrorCode;
 import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
@@ -9,6 +10,6 @@ public class RecruitAreaNotFoundException extends JobisException {
             new RecruitAreaNotFoundException();
 
     private RecruitAreaNotFoundException() {
-        super(GlobalErrorCode.RECRUIT_AREA_NOT_FOUND);
+        super(RecruitmentErrorCode.RECRUIT_AREA_NOT_FOUND);
     }
 }
