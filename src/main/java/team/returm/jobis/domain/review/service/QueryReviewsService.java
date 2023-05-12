@@ -24,7 +24,7 @@ public class QueryReviewsService {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        List<Review> reviews = reviewRepository.findByCompanyId(companyId);
+        List<Review> reviews = reviewRepository.findAllByCompanyId(companyId);
 
         return new QueryReviewsResponse(
                 reviews.stream()
