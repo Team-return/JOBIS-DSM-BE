@@ -33,7 +33,6 @@ public enum GlobalErrorCode implements ErrorProperty {
     RECRUIT_NOT_FOUND(404, "Recruit Not Found"),
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found"),
     RECRUIT_AREA_CODE_NOT_FOUND(404, "Recruit Area Code Not Found"),
-    BOOKMARK_NOT_FOUND(404, "Bookmark Not Found"),
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists");
