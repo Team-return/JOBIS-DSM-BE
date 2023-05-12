@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.code.exception;
 
+import team.returm.jobis.domain.code.exception.error.CodeErrorCode;
 import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
@@ -9,6 +10,6 @@ public class CodeNotFoundException extends JobisException {
             = new CodeNotFoundException();
 
     private CodeNotFoundException() {
-        super(GlobalErrorCode.CODE_NOT_FOUND);
+        super(CodeErrorCode.CODE_NOT_FOUND);
     }
 }

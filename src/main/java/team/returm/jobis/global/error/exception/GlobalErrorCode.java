@@ -18,7 +18,6 @@ public enum GlobalErrorCode implements ErrorProperty {
     EXPIRED_TOKEN(401, "Token Expired"),
     INVALID_TOKEN(401, "Invalid Token"),
     INVALID_PASSWORD(401, "invalid password"),
-    INVALID_CODE(401, "invalid code"),
 
     COMPANY_MISMATCH(403, "Company Mismatch"),
     RECRUITMENT_CANNOT_DELETE(403, "Recruitment Cannot Deleted"),
@@ -29,10 +28,8 @@ public enum GlobalErrorCode implements ErrorProperty {
     TEACHER_NOT_FOUND(404, "Teacher Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail"),
     FILE_NOT_FOUND(404, "File not Found"),
-    CODE_NOT_FOUND(404, "Code Not Found"),
     RECRUIT_NOT_FOUND(404, "Recruit Not Found"),
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found"),
-    RECRUIT_AREA_CODE_NOT_FOUND(404, "Recruit Area Code Not Found"),
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists");
