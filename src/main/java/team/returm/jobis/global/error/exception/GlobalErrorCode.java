@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum GlobalErrorCode {
+public enum GlobalErrorCode implements ErrorProperty {
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
 
     BAD_EMAIL(400, "Bad Email Domain"),

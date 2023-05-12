@@ -22,12 +22,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JobisException.class)
     protected ResponseEntity<ErrorResponse> handleBaseException(JobisException e) {
         log.warn("RuntimeException " + e);
-        GlobalErrorCode globalErrorCode = e.getGlobalErrorCode();
+        ErrorProperty errorProperty = e.getErrorProperty();
         ErrorResponse response = ErrorResponse.builder()
-                .message(globalErrorCode.getMessage())
-                .status(globalErrorCode.getStatus())
+                .message(errorProperty.getMessage())
+                .status(errorProperty.getStatus())
                 .build();
-        return new ResponseEntity<>(response, HttpStatus.valueOf(globalErrorCode.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorProperty.getStatus()));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
