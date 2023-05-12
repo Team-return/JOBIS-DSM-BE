@@ -14,7 +14,6 @@ public enum GlobalErrorCode implements ErrorProperty {
     INVALID_PASSWORD(401, "invalid password"),
 
     USER_NOT_FOUND(404, "User Not Found"),
-    TEACHER_NOT_FOUND(404, "Teacher Not Found"),
     MAIL_SEND_FAIL(404, "Mail Send Fail");
 
     private final Integer status;
