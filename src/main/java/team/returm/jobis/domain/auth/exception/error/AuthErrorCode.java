@@ -8,7 +8,8 @@ import team.returm.jobis.global.error.ErrorProperty;
 @AllArgsConstructor
 public enum AuthErrorCode implements ErrorProperty {
 
-    INVALID_STUDENT(401, "Invalid Student"),
+    UNVERIFIED_EMAIL(401, "Unverified Email"),
+    BAD_AUTH_CODE(401, "Bad Auth Code"),
 
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
     AUTH_CODE_NOT_FOUND(404, "AuthCode Not Found");

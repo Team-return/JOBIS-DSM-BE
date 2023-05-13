@@ -8,9 +8,6 @@ import team.returm.jobis.global.error.ErrorProperty;
 @AllArgsConstructor
 public enum StudentErrorCode implements ErrorProperty {
 
-    UNVERIFIED_EMAIL(401, "Unverified Email"),
-    BAD_AUTH_CODE(401, "Bad Auth Code"),
-
     STUDENT_NOT_FOUND(404, "Student Not Found"),
 
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists");
