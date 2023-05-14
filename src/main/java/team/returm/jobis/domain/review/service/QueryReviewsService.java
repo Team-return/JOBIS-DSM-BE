@@ -6,7 +6,7 @@ import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.domain.review.domain.Review;
 import team.returm.jobis.domain.review.domain.repository.ReviewRepository;
 import team.returm.jobis.domain.review.presentation.dto.QueryReviewsResponse;
-import team.returm.jobis.domain.review.presentation.dto.QueryReviewsResponse.ReviewElement;
+import team.returm.jobis.domain.review.presentation.dto.QueryReviewsResponse.ReviewResponse;
 import team.returm.jobis.global.annotation.Service;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class QueryReviewsService {
 
         return new QueryReviewsResponse(
                 reviews.stream()
-                        .map(review -> ReviewElement.builder()
+                        .map(review -> ReviewResponse.builder()
                                 .reviewId(review.getId())
                                 .year(review.getYear())
                                 .writer(review.getStudentName())

@@ -11,12 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 public class QueryReviewsResponse {
 
-    private final List<ReviewElement> reviews;
+    private final List<ReviewResponse> reviews;
 
 
     @Getter
     @Builder
-    public static class ReviewElement {
+    public static class ReviewResponse {
         private final String reviewId;
         private final int year;
         private final String writer;

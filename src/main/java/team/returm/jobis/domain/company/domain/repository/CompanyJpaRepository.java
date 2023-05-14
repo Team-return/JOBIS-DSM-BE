@@ -11,5 +11,5 @@ public interface CompanyJpaRepository extends JpaRepository<Company, Long> {
 
     List<Company> findAllByIdIn(List<Long> companyIds);
 
-    boolean existsById(Long id);
+    boolean existsById(Long companyId);
 }
