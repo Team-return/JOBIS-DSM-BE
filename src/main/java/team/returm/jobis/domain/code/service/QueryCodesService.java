@@ -6,24 +6,22 @@ import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.presentation.dto.response.CodesResponse;
 import team.returm.jobis.domain.code.presentation.dto.response.CodesResponse.CodeResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyService
-public class QueryTechCodesService {
+public class QueryCodesService {
 
     private final CodeRepository codeRepository;
 
-    public CodesResponse execute(String keyword) {
-        keyword = StringUtil.nullToEmpty(keyword);
-
-        List<CodeResponse> codes = codeRepository.queryCodeByKeywordContaining(keyword, CodeType.TECH).stream()
-                .map(code ->
-                        CodeResponse.builder()
+    public CodesResponse execute(String keyword, CodeType codeType) {
+        List<CodeResponse> codes = codeRepository.queryCodesByKeywordAndType(keyword, codeType).stream()
+                .map(
+                        code -> CodeResponse.builder()
                                 .code(code.getId())
                                 .keyword(code.getKeyword())
+                                .jobType(code.getJobType())
                                 .build()
                 ).toList();
 

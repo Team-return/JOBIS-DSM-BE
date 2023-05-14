@@ -31,6 +31,7 @@ import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitme
 @Repository
 @RequiredArgsConstructor
 public class CompanyRepository {
+
     private final CompanyJpaRepository companyJpaRepository;
     private final JPAQueryFactory queryFactory;
 
