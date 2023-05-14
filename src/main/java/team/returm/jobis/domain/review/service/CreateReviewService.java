@@ -13,6 +13,8 @@ import team.returm.jobis.domain.student.exception.StudentNotFoundException;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 
+import java.time.Year;
+
 @RequiredArgsConstructor
 @Service
 public class CreateReviewService {
@@ -39,7 +41,7 @@ public class CreateReviewService {
                         .companyId(request.getCompanyId())
                         .qnAElements(request.getQnaElements())
                         .studentName(student.getName())
-                        .year(request.getYear())
+                        .year(Year.now().getValue())
                         .build()
         );
     }

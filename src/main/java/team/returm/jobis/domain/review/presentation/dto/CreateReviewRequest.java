@@ -22,7 +22,4 @@ public class CreateReviewRequest {
     @NotNull
     private Long applicationId;
 
-    @NotNull
-    private int year;
-
 }
