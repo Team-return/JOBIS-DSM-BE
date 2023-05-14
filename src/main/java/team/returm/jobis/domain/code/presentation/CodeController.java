@@ -19,7 +19,7 @@ public class CodeController {
 
     @GetMapping
     public CodesResponse getCodes(
-            @RequestParam(value = "code_type") CodeType codeType,
+            @RequestParam(value = "type") CodeType codeType,
             @RequestParam(value = "keyword", required = false) String keyword
     ) {
         keyword = StringUtil.nullToEmpty(keyword);
