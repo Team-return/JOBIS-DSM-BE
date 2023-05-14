@@ -97,9 +97,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
 
                 //code
-                .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
-                .antMatchers(HttpMethod.GET, "/code/job").permitAll()
-                .antMatchers(HttpMethod.GET, "/code/business-area").permitAll()
+                .antMatchers(HttpMethod.GET, "/codes").permitAll()
 
                 //acceptance
                 .antMatchers(HttpMethod.GET, "/acceptances/{company-id}").hasAuthority(TEACHER.name())
