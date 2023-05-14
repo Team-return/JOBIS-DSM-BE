@@ -16,16 +16,11 @@ import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusRequest;
 import team.returm.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateRequest;
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
+import team.returm.jobis.domain.application.presentation.dto.request.RejectApplicationRequest;
 import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
-import team.returm.jobis.domain.application.service.ChangeApplicationsStatusService;
-import team.returm.jobis.domain.application.service.ChangeFieldTrainDateService;
-import team.returm.jobis.domain.application.service.CreateApplicationService;
-import team.returm.jobis.domain.application.service.DeleteApplicationService;
-import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
-import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
-import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
+import team.returm.jobis.domain.application.service.*;
 
 import javax.validation.Valid;
 
@@ -41,6 +36,7 @@ public class ApplicationController {
     private final QueryStudentApplicationsService queryStudentApplicationsService;
     private final ChangeApplicationsStatusService changeApplicationsStatusService;
     private final ChangeFieldTrainDateService changeFieldTrainDateService;
+    private final RejectApplicationService rejectApplicationService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -89,5 +85,14 @@ public class ApplicationController {
     @PatchMapping("/train-date")
     public void changeFieldTrainDate(@RequestBody @Valid ChangeFieldTrainDateRequest request) {
         changeFieldTrainDateService.execute(request);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/reject/{application-id}")
+    public void rejectApplication(
+            @PathVariable("application-id") Long applicationId,
+            @Valid @RequestBody RejectApplicationRequest request
+    ) {
+        rejectApplicationService.execute(applicationId, request.getReason());
     }
 }

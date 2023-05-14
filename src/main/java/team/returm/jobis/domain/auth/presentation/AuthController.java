@@ -38,7 +38,7 @@ public class AuthController {
     @PatchMapping("/code")
     public void verifyCode(
             @RequestParam("email") String email,
-            @RequestParam("auth-code") String authCode
+            @RequestParam("auth_code") String authCode
     ) {
         verifyAuthCodeService.execute(email, authCode);
     }

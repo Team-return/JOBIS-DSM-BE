@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.entity.BaseTimeEntity;
@@ -72,5 +73,14 @@ public class Application extends BaseTimeEntity {
         this.endDate = endDate;
 
         return this;
+    }
+
+    public void rejectApplication(String reason) {
+        if (applicationStatus != ApplicationStatus.REQUESTED) {
+            throw ApplicationStatusCannotChangeException.EXCEPTION;
+        }
+
+        this.applicationStatus = ApplicationStatus.REJECTED;
+        this.rejectionReason = reason;
     }
 }
