@@ -19,7 +19,6 @@ public class QueryReviewsService {
     private final ReviewRepository reviewRepository;
 
     public QueryReviewsResponse execute(Long companyId) {
-
         if (!companyRepository.existsCompanyById(companyId)) {
             throw CompanyNotFoundException.EXCEPTION;
         }
