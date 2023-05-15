@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.auth.domain.AuthCode;
 import team.returm.jobis.domain.auth.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.auth.exception.AuthCodeNotFoundException;
-import team.returm.jobis.domain.student.exception.BadAuthCodeException;
+import team.returm.jobis.domain.auth.exception.BadAuthCodeException;
 import team.returm.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor

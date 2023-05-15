@@ -1,6 +1,6 @@
-package team.returm.jobis.domain.student.exception;
+package team.returm.jobis.domain.auth.exception;
 
-import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.domain.auth.exception.error.AuthErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
 public class BadAuthCodeException extends JobisException {
@@ -8,6 +8,6 @@ public class BadAuthCodeException extends JobisException {
             new BadAuthCodeException();
 
     private BadAuthCodeException() {
-        super(ErrorCode.BAD_AUTH_CODE);
+        super(AuthErrorCode.BAD_AUTH_CODE);
     }
 }

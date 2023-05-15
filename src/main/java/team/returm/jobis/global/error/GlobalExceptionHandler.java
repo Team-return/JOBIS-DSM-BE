@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 import team.returm.jobis.global.error.response.ErrorResponse;
 import team.returm.jobis.global.error.response.ValidationErrorResponse;
@@ -22,12 +22,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JobisException.class)
     protected ResponseEntity<ErrorResponse> handleBaseException(JobisException e) {
         log.warn("RuntimeException " + e);
-        ErrorCode errorCode = e.getErrorCode();
+        ErrorProperty errorProperty = e.getErrorProperty();
         ErrorResponse response = ErrorResponse.builder()
-                .message(errorCode.getMessage())
-                .status(errorCode.getStatus())
+                .message(errorProperty.getMessage())
+                .status(errorProperty.getStatus())
                 .build();
-        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorProperty.getStatus()));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
