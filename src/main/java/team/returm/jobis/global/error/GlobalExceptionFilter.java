@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.OncePerRequestFilter;
-import team.returm.jobis.global.error.exception.ErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 import team.returm.jobis.global.error.response.ErrorResponse;
 
@@ -21,13 +20,13 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (JobisException e) {
-            ErrorCode errorCode = e.getErrorCode();
-            response.setStatus(errorCode.getStatus());
+            ErrorProperty errorProperty = e.getErrorProperty();
+            response.setStatus(errorProperty.getStatus());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
             ErrorResponse errorResponse =
-                    new ErrorResponse(errorCode.getStatus(), errorCode.getMessage());
+                    new ErrorResponse(errorProperty.getStatus(), errorProperty.getMessage());
 
             objectMapper.writeValue(response.getWriter(), errorResponse);
         }

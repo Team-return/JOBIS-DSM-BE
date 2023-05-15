@@ -1,6 +1,6 @@
 package team.returm.jobis.domain.company.exception;
 
-import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.domain.company.exception.error.CompanyErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
 public class CompanyAlreadyExistsException extends JobisException {
@@ -9,6 +9,6 @@ public class CompanyAlreadyExistsException extends JobisException {
             new CompanyAlreadyExistsException();
 
     private CompanyAlreadyExistsException() {
-        super(ErrorCode.COMPANY_ALREADY_EXISTS);
+        super(CompanyErrorCode.COMPANY_ALREADY_EXISTS);
     }
 }

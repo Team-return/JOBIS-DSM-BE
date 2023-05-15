@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
-import team.returm.jobis.domain.student.exception.UnverifiedEmailException;
+import team.returm.jobis.domain.auth.exception.UnverifiedEmailException;
 
 @Getter
 @Builder

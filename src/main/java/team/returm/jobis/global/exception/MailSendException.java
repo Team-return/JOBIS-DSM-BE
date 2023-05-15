@@ -1,6 +1,6 @@
 package team.returm.jobis.global.exception;
 
-import team.returm.jobis.global.error.exception.ErrorCode;
+import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 
 public class MailSendException extends JobisException {
@@ -9,6 +9,6 @@ public class MailSendException extends JobisException {
             new MailSendException();
 
     private MailSendException() {
-        super(ErrorCode.MAIL_SEND_FAIL);
+        super(GlobalErrorCode.MAIL_SEND_FAIL);
     }
 }
