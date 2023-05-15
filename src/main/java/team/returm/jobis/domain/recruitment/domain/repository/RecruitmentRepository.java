@@ -53,7 +53,7 @@ public class RecruitmentRepository {
                 .leftJoin(recruitment.applications, requestedApplication)
                 .on(requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitment.applications, approvedApplication)
-                .on(approvedApplication.applicationStatus.ne(ApplicationStatus.REQUESTED))
+                .on(approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED))
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),

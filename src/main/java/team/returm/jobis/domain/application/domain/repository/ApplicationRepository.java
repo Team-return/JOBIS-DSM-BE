@@ -208,6 +208,17 @@ public class ApplicationRepository {
                 .execute();
     }
 
+    public Optional<Application> queryApplicationByStudentId(Long studentId) {
+        return applicationJpaRepository.findByStudentId(studentId);
+    }
+
+    public boolean existsApplicationByApplicationIdAndApplicationStatus(
+            Long applicationId,
+            ApplicationStatus applicationStatus
+    ) {
+        return applicationJpaRepository.existsByIdAndApplicationStatus(applicationId, applicationStatus);
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {

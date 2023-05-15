@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ApplyRecruitmentRequest {
 
-    @NotNull
     @Valid
+    @NotNull
     private List<RecruitAreaRequest> areas;
 
     private String preferentialTreatment;

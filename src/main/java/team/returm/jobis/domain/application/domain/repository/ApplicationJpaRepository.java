@@ -6,6 +6,7 @@ import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.student.domain.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ApplicationJpaRepository extends JpaRepository<Application, Long> {
 
@@ -18,4 +19,8 @@ public interface ApplicationJpaRepository extends JpaRepository<Application, Lon
     List<Application> findByStudentIdIn(List<Long> studentIds);
 
     void deleteByIdIn(List<Long> applicationIds);
+
+    Optional<Application> findByStudentId(Long studentId);
+
+    boolean existsByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus);
 }

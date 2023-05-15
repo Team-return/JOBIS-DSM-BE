@@ -61,7 +61,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "applications/train-date").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/applications/reject/{application-id}").hasAuthority(TEACHER.name())
 
                 //companies
                 .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
@@ -97,15 +98,17 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
 
                 //code
-                .antMatchers(HttpMethod.GET, "/code/tech").permitAll()
-                .antMatchers(HttpMethod.GET, "/code/job").permitAll()
-                .antMatchers(HttpMethod.GET, "/code/business-area").permitAll()
+                .antMatchers(HttpMethod.GET, "/codes").permitAll()
 
                 //acceptance
                 .antMatchers(HttpMethod.GET, "/acceptances/{company-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/acceptances/field-train/{application-id}").hasAnyAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/acceptances/contract-date").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/acceptances/employment").hasAnyAuthority(TEACHER.name())
+
+                //review
+                .antMatchers(HttpMethod.POST, "/reviews").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
 
                 .anyRequest().authenticated()
                 .and()
