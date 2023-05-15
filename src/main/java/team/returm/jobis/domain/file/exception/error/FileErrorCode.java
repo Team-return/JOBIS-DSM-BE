@@ -12,6 +12,6 @@ public enum FileErrorCode implements ErrorProperty {
 
     FILE_NOT_FOUND(404, "File not Found");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

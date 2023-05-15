@@ -12,6 +12,6 @@ public enum CompanyErrorCode implements ErrorProperty {
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

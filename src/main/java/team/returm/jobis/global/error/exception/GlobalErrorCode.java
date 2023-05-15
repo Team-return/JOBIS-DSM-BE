@@ -14,6 +14,6 @@ public enum GlobalErrorCode implements ErrorProperty {
 
     MAIL_SEND_FAIL(404, "Mail Send Fail");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

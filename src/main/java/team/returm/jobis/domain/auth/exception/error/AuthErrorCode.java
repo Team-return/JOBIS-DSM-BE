@@ -14,6 +14,6 @@ public enum AuthErrorCode implements ErrorProperty {
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
     AUTH_CODE_NOT_FOUND(404, "AuthCode Not Found");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

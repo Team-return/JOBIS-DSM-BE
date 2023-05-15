@@ -10,6 +10,6 @@ public enum BookmarkErrorCode implements ErrorProperty {
 
     BOOKMARK_NOT_FOUND(404, "Bookmark Not Found");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

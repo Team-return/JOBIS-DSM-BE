@@ -15,6 +15,6 @@ public enum RecruitmentErrorCode implements ErrorProperty {
     RECRUIT_AREA_NOT_FOUND(404, "Recruit Area Not Found");
 
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

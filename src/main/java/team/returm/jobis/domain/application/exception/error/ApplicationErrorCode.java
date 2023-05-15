@@ -21,6 +21,6 @@ public enum ApplicationErrorCode implements ErrorProperty {
 
     APPLICATION_ALREADY_EXISTS(409, "Application Already Exists");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

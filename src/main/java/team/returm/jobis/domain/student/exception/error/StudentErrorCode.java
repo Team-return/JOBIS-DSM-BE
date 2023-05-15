@@ -12,6 +12,6 @@ public enum StudentErrorCode implements ErrorProperty {
 
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

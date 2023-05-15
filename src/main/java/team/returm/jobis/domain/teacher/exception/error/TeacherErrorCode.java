@@ -10,6 +10,6 @@ public enum TeacherErrorCode implements ErrorProperty {
 
     TEACHER_NOT_FOUND(404, "Teacher Not Found");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }

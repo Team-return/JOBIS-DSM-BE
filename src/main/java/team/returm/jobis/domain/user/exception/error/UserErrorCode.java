@@ -12,6 +12,6 @@ public enum UserErrorCode implements ErrorProperty {
 
     USER_NOT_FOUND(404, "User Not Found");
 
-    private final Integer status;
+    private final int status;
     private final String message;
 }
