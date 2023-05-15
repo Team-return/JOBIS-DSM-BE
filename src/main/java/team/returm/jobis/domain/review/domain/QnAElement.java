@@ -3,17 +3,22 @@ package team.returm.jobis.domain.review.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.returm.jobis.domain.code.domain.Code;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class QnAElement {
 
+    @NotBlank
     private String question;
 
+    @NotBlank
     private String answer;
 
-    private Code code;
+    @NotNull
+    private Long codeId;
 
 }

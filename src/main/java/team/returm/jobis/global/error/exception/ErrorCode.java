@@ -27,6 +27,7 @@ public enum ErrorCode {
     RECRUITMENT_CANNOT_DELETE(403, "Recruitment Cannot Deleted"),
     APPLICATION_CANNOT_DELETE(403, "Application Cannot Deleted"),
     FIELD_TRAIN_DATE_CANNOT_CHANGE(403, "Field Train Date Cannot Changed"),
+    REVIEW_CANNOT_WRITE(403, "Review Cannot Write"),
 
     USER_NOT_FOUND(404, "User Not Found"),
     AUTH_CODE_NOT_FOUND(404, "AuthCode Not Found"),
@@ -42,6 +43,7 @@ public enum ErrorCode {
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
     APPLICATION_NOT_FOUND(404, "Application Not Found"),
     BOOKMARK_NOT_FOUND(404, "Bookmark Not Found"),
+    REVIEW_NOT_FOUND(404, "Review Not Found"),
 
     COMPANY_ALREADY_EXISTS(409, "Company Already Exists"),
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists"),
