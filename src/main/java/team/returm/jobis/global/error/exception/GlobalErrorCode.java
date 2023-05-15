@@ -7,6 +7,7 @@ import team.returm.jobis.global.error.ErrorProperty;
 @Getter
 @AllArgsConstructor
 public enum GlobalErrorCode implements ErrorProperty {
+
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
 
     EXPIRED_TOKEN(401, "Token Expired"),
