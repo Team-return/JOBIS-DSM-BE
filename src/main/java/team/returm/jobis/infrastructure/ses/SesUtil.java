@@ -1,7 +1,11 @@
 package team.returm.jobis.infrastructure.ses;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsync;
-import com.amazonaws.services.simpleemail.model.*;
+import com.amazonaws.services.simpleemail.model.Body;
+import com.amazonaws.services.simpleemail.model.Content;
+import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.Message;
+import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
