@@ -10,7 +10,7 @@ import team.returm.jobis.domain.student.exception.StudentNotFoundException;
 import team.returm.jobis.domain.user.domain.repository.UserRepository;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.util.StringUtil;
-import team.returm.jobis.global.util.jms.JmsUtil;
+import team.returm.jobis.infrastructure.ses.SesUtil;
 
 @RequiredArgsConstructor
 @Service
@@ -18,7 +18,7 @@ public class SendAuthCodeService {
 
     private final AuthCodeRepository authCodeRepository;
     private final UserRepository userRepository;
-    private final JmsUtil jmsUtil;
+    private final SesUtil sesUtil;
 
     public void execute(SendAuthCodeRequest request) {
         if (request.getAuthCodeType() == AuthCodeType.SIGN_UP) {
@@ -39,6 +39,6 @@ public class SendAuthCodeService {
                 .build();
         authCodeRepository.save(authCode);
 
-        jmsUtil.sendMail(authCode.getEmail(), authCode.getCode(), request.getUserName());
+        sesUtil.sendMail(authCode.getCode(), request.getUserName(), authCode.getEmail());
     }
 }
