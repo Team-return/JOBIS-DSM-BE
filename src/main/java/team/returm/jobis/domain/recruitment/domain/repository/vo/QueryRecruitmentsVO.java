@@ -15,15 +15,17 @@ public class QueryRecruitmentsVO {
     private final Integer totalHiring;
     private final Long requestedApplicationCount;
     private final Long approvedApplicationCount;
+    private final Long isBookmarked;
 
     @QueryProjection
     public QueryRecruitmentsVO(Recruitment recruitment, Company company,
-                               Set<String> recruitAreaList, Integer totalHiring, Long requestedApplicationCount, Long approvedApplicationCount) {
+                               Set<String> recruitAreaList, Integer totalHiring, Long requestedApplicationCount, Long approvedApplicationCount, Long isBookmarked) {
         this.recruitment = recruitment;
         this.company = company;
         this.recruitAreaList = recruitAreaList;
         this.totalHiring = totalHiring;
         this.requestedApplicationCount = requestedApplicationCount;
         this.approvedApplicationCount = approvedApplicationCount;
+        this.isBookmarked = isBookmarked;
     }
 }

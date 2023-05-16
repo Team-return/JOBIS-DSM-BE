@@ -23,5 +23,6 @@ public class StudentQueryRecruitmentsResponse {
         private boolean military;
         private Integer totalHiring;
         private Set<String> jobCodeList;
+        private boolean isBookmarked;
     }
 }

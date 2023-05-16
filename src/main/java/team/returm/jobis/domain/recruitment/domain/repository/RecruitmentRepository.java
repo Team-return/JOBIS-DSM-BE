@@ -16,6 +16,7 @@ import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitme
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QRecruitAreaVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.RecruitAreaVO;
+import team.returm.jobis.domain.student.domain.Student;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,6 +26,7 @@ import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.core.group.GroupBy.set;
 import static com.querydsl.core.group.GroupBy.sum;
+import static team.returm.jobis.domain.bookmark.domain.QBookmark.bookmark;
 import static team.returm.jobis.domain.code.domain.QCode.code;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
@@ -42,7 +44,7 @@ public class RecruitmentRepository {
 
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
                                                                    RecruitStatus status, String companyName,
-                                                                   Integer page, List<Code> codes) {
+                                                                   Integer page, List<Code> codes, Long studentId) {
         QApplication requestedApplication = new QApplication("requestedApplication");
         QApplication approvedApplication = new QApplication("approvedApplication");
         long pageSize = 11;
@@ -54,6 +56,8 @@ public class RecruitmentRepository {
                 .on(requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitment.applications, approvedApplication)
                 .on(approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED))
+                .leftJoin(recruitment.bookmarks, bookmark)
+                .on(eqStudentId(studentId))
                 .where(
                         eqYear(year),
                         betweenRecruitDate(start, end),
@@ -74,7 +78,8 @@ public class RecruitmentRepository {
                                                 set(recruitArea.jobCodes),
                                                 sum(recruitArea.hiredCount),
                                                 requestedApplication.count(),
-                                                approvedApplication.count()
+                                                approvedApplication.count(),
+                                                bookmark.count()
                                         )
                                 )
                 );
@@ -188,5 +193,9 @@ public class RecruitmentRepository {
 
     private BooleanExpression containsKeywords(List<Code> codes) {
         return codes == null ? null : recruitArea.recruitAreaCodes.any().code.in(codes);
+    }
+
+    private BooleanExpression eqStudentId(Long studentId) {
+        return studentId == null ? bookmark.recruitment.eq(recruitment) : bookmark.student.id.eq(studentId);
     }
 }
