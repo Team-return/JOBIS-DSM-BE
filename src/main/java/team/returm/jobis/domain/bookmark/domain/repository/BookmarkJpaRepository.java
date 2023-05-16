@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface BookmarkJpaRepository extends CrudRepository<Bookmark, BookmarkId> {
 
     Optional<Bookmark> findByRecruitmentAndStudent(Recruitment recruitment, Student student);
+
+    boolean existsByRecruitmentAndStudent(Recruitment recruitment, Student student);
 }

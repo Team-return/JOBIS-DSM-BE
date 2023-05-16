@@ -1,8 +1,10 @@
 package team.returm.jobis.domain.bookmark.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
 import team.returm.jobis.domain.bookmark.domain.repository.BookmarkRepository;
+import team.returm.jobis.domain.bookmark.exception.BookmarkAlreadyExistsException;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.returm.jobis.domain.student.domain.Student;
@@ -20,6 +22,10 @@ public class CreateBookmarkService {
     public void execute(Long recruitmentId) {
         Student student = userFacade.getCurrentStudent();
         Recruitment recruitment = recruitmentFacade.queryRecruitmentById(recruitmentId);
+
+        if (bookmarkRepository.existsBookmarkByRecruitmentAndStudent(recruitment, student)) {
+            throw BookmarkAlreadyExistsException.EXCEPTION;
+        }
 
         bookmarkRepository.saveBookmark(
                 new Bookmark(recruitment, student)

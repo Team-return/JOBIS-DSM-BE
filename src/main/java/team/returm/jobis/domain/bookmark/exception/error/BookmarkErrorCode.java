@@ -8,7 +8,9 @@ import team.returm.jobis.global.error.ErrorProperty;
 @AllArgsConstructor
 public enum BookmarkErrorCode implements ErrorProperty {
 
-    BOOKMARK_NOT_FOUND(404, "Bookmark Not Found");
+    BOOKMARK_NOT_FOUND(404, "Bookmark Not Found"),
+
+    BOOKMARK_ALREADY_EXISTS(409, "Bookmark Already Exists");
 
     private final int status;
     private final String message;

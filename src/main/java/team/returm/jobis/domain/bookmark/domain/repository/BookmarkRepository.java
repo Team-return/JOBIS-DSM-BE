@@ -36,6 +36,10 @@ public class BookmarkRepository {
         bookmarkJpaRepository.delete(bookmark);
     }
 
+    public boolean existsBookmarkByRecruitmentAndStudent(Recruitment recruitment, Student student) {
+        return bookmarkJpaRepository.existsByRecruitmentAndStudent(recruitment, student);
+    }
+
     public List<QueryStudentBookmarksVO> queryBookmarksByStudentId(Long studentId) {
         return queryFactory
                 .select(
