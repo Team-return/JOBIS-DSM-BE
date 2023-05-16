@@ -60,8 +60,10 @@ cloud:
       bucket: ${S3_BUCKET:jobis}
       url: ${S3_URL:asdf}
     credentials:
-      access-key: ${S3_ACCESS:asdf}
-      secret-key: ${S3_SECRET:asdf}
+      access-key: ${AWS_ACCESS:asdf}
+      secret-key: ${AWS_SECRET:asdf}
+    ses:
+      source: ${EMAIL:team-return@team-return.com}
     region:
       static: ${S3_REGION:ap-northeast-2}
     stack:
