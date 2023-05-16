@@ -23,7 +23,7 @@ public class QueryReviewDetailResponse {
     public static class QnAResponse {
         private final String question;
         private final String answer;
-        private final String keyword;
+        private final String area;
 
         public static List<QnAResponse> of(
                 List<QnAElement> qnAElements,
@@ -40,7 +40,7 @@ public class QueryReviewDetailResponse {
                         return QnAResponse.builder()
                                 .question(qnAElement.getQuestion())
                                 .answer(qnAElement.getAnswer())
-                                .keyword(keyword)
+                                .area(keyword)
                                 .build();
                     })
                     .toList();
