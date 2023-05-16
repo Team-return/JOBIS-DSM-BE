@@ -31,15 +31,15 @@ public class StudentQueryRecruitmentsService {
                                 RecruitStatus.RECRUITING, name, page - 1, codes, studentId
                         ).stream()
                         .map(
-                                r -> StudentRecruitmentResponse.builder()
-                                        .recruitId(r.getRecruitment().getId())
-                                        .companyName(r.getCompany().getName())
-                                        .trainPay(r.getRecruitment().getPayInfo().getTrainingPay())
-                                        .jobCodeList(r.getRecruitAreaList())
-                                        .military(r.getRecruitment().getMilitarySupport())
-                                        .companyProfileUrl(r.getCompany().getCompanyLogoUrl())
-                                        .totalHiring(r.getTotalHiring())
-                                        .isBookmarked(r.getIsBookmarked() != 0)
+                                recruitment -> StudentRecruitmentResponse.builder()
+                                        .recruitId(recruitment.getRecruitment().getId())
+                                        .companyName(recruitment.getCompany().getName())
+                                        .trainPay(recruitment.getRecruitment().getPayInfo().getTrainingPay())
+                                        .jobCodeList(recruitment.getRecruitAreaList())
+                                        .military(recruitment.getRecruitment().getMilitarySupport())
+                                        .companyProfileUrl(recruitment.getCompany().getCompanyLogoUrl())
+                                        .totalHiring(recruitment.getTotalHiring())
+                                        .isBookmarked(recruitment.getIsBookmarked() != 0)
                                         .build()
                         ).toList();
 
