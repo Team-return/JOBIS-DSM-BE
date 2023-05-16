@@ -97,7 +97,6 @@ public class CompanyRepository {
                                                 recruitment.personalContact,
                                                 recruitment.recruitYear,
                                                 acceptance.count()
-                                                //TODO :: 후기 개수 반환
                                         )
                                 )
                 );
@@ -192,6 +191,10 @@ public class CompanyRepository {
 
     public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
         return companyJpaRepository.findAllByIdIn(companyIds);
+    }
+
+    public boolean existsCompanyById(Long companyId) {
+        return companyJpaRepository.existsById(companyId);
     }
 
     //==conditions==//

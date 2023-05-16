@@ -10,4 +10,6 @@ public interface CompanyJpaRepository extends JpaRepository<Company, Long> {
     boolean existsByBizNo(String bizNo);
 
     List<Company> findAllByIdIn(List<Long> companyIds);
+
+    boolean existsById(Long companyId);
 }
