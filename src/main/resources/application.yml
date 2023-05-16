@@ -60,8 +60,8 @@ cloud:
       bucket: ${S3_BUCKET:jobis}
       url: ${S3_URL:asdf}
     credentials:
-      access-key: AKIAQLMBDP2AHWRATYHC
-      secret-key: 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
+      access-key: asdf
+      secret-key: asdf
     ses:
       source: ${EMAIL:team-return@team-return.com}
     region:
