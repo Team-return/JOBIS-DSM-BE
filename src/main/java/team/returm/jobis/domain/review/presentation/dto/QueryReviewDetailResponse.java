@@ -32,7 +32,7 @@ public class QueryReviewDetailResponse {
             return qnAElements.stream()
                     .map(qnAElement -> {
                         String keyword = codes.stream()
-                                .filter(code -> code.getId() == qnAElement.getCodeId())
+                                .filter(code -> code.getId().equals(qnAElement.getCodeId()))
                                 .map(Code::getKeyword)
                                 .findFirst()
                                 .orElse("");
