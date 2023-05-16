@@ -1,7 +1,6 @@
 package team.returm.jobis.domain.bookmark.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
 import team.returm.jobis.domain.bookmark.domain.repository.BookmarkRepository;
 import team.returm.jobis.domain.bookmark.exception.BookmarkAlreadyExistsException;

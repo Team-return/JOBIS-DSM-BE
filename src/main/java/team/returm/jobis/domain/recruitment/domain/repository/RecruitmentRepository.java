@@ -16,7 +16,6 @@ import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitme
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QRecruitAreaVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.RecruitAreaVO;
-import team.returm.jobis.domain.student.domain.Student;
 
 import java.time.LocalDate;
 import java.util.List;
