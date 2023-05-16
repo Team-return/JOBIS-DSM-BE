@@ -18,4 +18,8 @@ public class CodeRepository {
     public List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType) {
         return codeJpaRepository.findCodeByKeywordContainingAndCodeType(keyword, codeType);
     }
+
+    public List<Code> queryCodesByIdIn(List<Long> codeIds) {
+        return codeJpaRepository.findCodesByIdIn(codeIds);
+    }
 }
