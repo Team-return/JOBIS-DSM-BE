@@ -3,6 +3,7 @@ package team.returm.jobis.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.repository.CodeRepository;
+import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.review.domain.QnAElement;
 import team.returm.jobis.domain.review.domain.Review;
 import team.returm.jobis.domain.review.domain.repository.ReviewRepository;
@@ -18,7 +19,7 @@ import java.util.List;
 public class QueryReviewDetailService {
 
     private final ReviewRepository reviewRepository;
-    private final CodeRepository codeRepository;
+    private final CodeFacade codeFacade;
 
     public QueryReviewDetailResponse execute(String reviewId) {
 
@@ -29,7 +30,7 @@ public class QueryReviewDetailService {
                 .map(QnAElement::getCodeId)
                 .toList();
 
-        List<Code> codes = codeRepository.queryCodesByIdIn(codeIds);
+        List<Code> codes = codeFacade.queryCodesByIdIn(codeIds);
 
         return QueryReviewDetailResponse.builder()
                 .year(review.getYear())
