@@ -12,6 +12,7 @@ import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.domain.review.domain.QnAElement;
 import team.returm.jobis.domain.review.domain.Review;
 import team.returm.jobis.domain.review.domain.repository.ReviewRepository;
+import team.returm.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.returm.jobis.domain.review.presentation.dto.CreateReviewRequest;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentRepository;
@@ -57,6 +58,10 @@ public class CreateReviewService {
         if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatus(
                 request.getApplicationId(), ApplicationStatus.REQUESTED)) {
             throw ApplicationNotFoundException.EXCEPTION;
+        }
+
+        if (reviewRepository.existsByCompanyIdAndStudentName(request.getCompanyId(), student.getName())) {
+            throw ReviewAlreadyExistsException.EXCEPTION;
         }
 
         reviewRepository.save(
