@@ -7,6 +7,7 @@ import team.returm.jobis.domain.application.exception.ApplicationNotFoundExcepti
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.exception.CodeNotFoundException;
+import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.domain.review.domain.QnAElement;
@@ -33,33 +34,32 @@ public class CreateReviewService {
     private final ReviewRepository reviewRepository;
     private final CompanyRepository companyRepository;
     private final CodeRepository codeRepository;
+    private final CodeFacade codeFacade;
 
     public void execute(CreateReviewRequest request) {
-
-        Long currentUserId = userFacade.getCurrentUserId();
 
         if (!companyRepository.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
-
-        List<Long> codeIds = request.getQnaElements().stream()
-                .map(QnAElement::getCodeId)
-                .toList();
-
-        List<Code> codes = codeRepository.queryCodesByIdIn(codeIds);
-
-        if (codes.size() != codeIds.size()) {
-            throw CodeNotFoundException.EXCEPTION;
-        }
-
-        Student student =  studentRepository.queryStudentById(currentUserId)
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatus(
                 request.getApplicationId(), ApplicationStatus.REQUESTED)) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
+        List<Long> codeIds = request.getQnaElements().stream()
+                .map(QnAElement::getCodeId)
+                .toList();
+
+        codeFacade.queryCodesByIdIn(codeIds);
+
+        Student student =  studentRepository.queryStudentById(userFacade.getCurrentUserId())
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+
+        saveReview(request, student);
+    }
+
+    private void saveReview(CreateReviewRequest request, Student student) {
         if (reviewRepository.existsByCompanyIdAndStudentName(request.getCompanyId(), student.getName())) {
             throw ReviewAlreadyExistsException.EXCEPTION;
         }
