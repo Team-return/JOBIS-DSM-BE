@@ -34,6 +34,6 @@ public class RecruitAreaResponse {
                                 )
                                 .job(recruitArea.getJobCodes())
                                 .build()
-        ).toList();
+                ).toList();
     }
 }

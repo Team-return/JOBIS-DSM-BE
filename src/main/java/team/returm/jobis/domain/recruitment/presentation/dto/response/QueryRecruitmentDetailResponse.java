@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class StudentRecruitDetailsResponse {
+public class QueryRecruitmentDetailResponse {
 
     private Long companyId;
     private List<RecruitAreaResponse> areas;
