@@ -55,7 +55,7 @@ public class RecruitmentRepository {
                 .on(requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitment.applications, approvedApplication)
                 .on(approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED))
-                .leftJoin(recruitment.bookmarks, bookmark)
+                .leftJoin(bookmark)
                 .on(eqStudentId(studentId))
                 .where(
                         eqYear(year),

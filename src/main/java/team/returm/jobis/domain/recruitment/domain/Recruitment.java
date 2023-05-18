@@ -102,9 +102,6 @@ public class Recruitment extends BaseTimeEntity {
     @OneToMany(mappedBy = "recruitment")
     private final List<Application> applications = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recruitment")
-    public final List<Bookmark> bookmarks = new ArrayList<>();
-
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
                        LocalDate startDate, LocalDate endDate, Company company, String benefits, String requiredLicenses,
