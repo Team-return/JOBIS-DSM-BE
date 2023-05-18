@@ -19,15 +19,15 @@ import team.returm.jobis.domain.recruitment.presentation.dto.request.ChangeRecru
 import team.returm.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryMyRecruitmentResponse;
+import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryRecruitmentDetailResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
-import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentRecruitDetailsResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
 import team.returm.jobis.domain.recruitment.service.ApplyRecruitmentService;
 import team.returm.jobis.domain.recruitment.service.CreateRecruitAreaService;
 import team.returm.jobis.domain.recruitment.service.DeleteRecruitAreaService;
 import team.returm.jobis.domain.recruitment.service.DeleteRecruitmentService;
 import team.returm.jobis.domain.recruitment.service.QueryMyRecruitmentService;
-import team.returm.jobis.domain.recruitment.service.StudentQueryRecruitmentDetailService;
+import team.returm.jobis.domain.recruitment.service.QueryRecruitmentDetailService;
 import team.returm.jobis.domain.recruitment.service.StudentQueryRecruitmentsService;
 import team.returm.jobis.domain.recruitment.service.TeacherChangeRecruitmentStatusService;
 import team.returm.jobis.domain.recruitment.service.TeacherQueryRecruitmentsService;
@@ -50,7 +50,7 @@ public class RecruitmentController {
     private final StudentQueryRecruitmentsService studentQueryRecruitmentsService;
     private final TeacherQueryRecruitmentsService teacherQueryRecruitmentsService;
     private final TeacherChangeRecruitmentStatusService teacherChangeRecruitmentStatusService;
-    private final StudentQueryRecruitmentDetailService studentQueryRecruitmentDetailService;
+    private final QueryRecruitmentDetailService queryRecruitmentDetailService;
     private final QueryMyRecruitmentService queryMyRecruitmentService;
     private final DeleteRecruitmentService deleteRecruitmentService;
     private final DeleteRecruitAreaService deleteRecruitAreaService;
@@ -116,11 +116,11 @@ public class RecruitmentController {
 
     }
 
-    @GetMapping("/student/{recruitment-id}")
-    public StudentRecruitDetailsResponse studentQueryRecruitmentDetail(
+    @GetMapping("/{recruitment-id}")
+    public QueryRecruitmentDetailResponse studentQueryRecruitmentDetail(
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        return studentQueryRecruitmentDetailService.execute(recruitmentId);
+        return queryRecruitmentDetailService.execute(recruitmentId);
     }
 
     @GetMapping("/my")

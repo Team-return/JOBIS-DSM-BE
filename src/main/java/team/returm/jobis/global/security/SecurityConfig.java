@@ -90,7 +90,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/recruitments/student").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/students/{recruitment-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
