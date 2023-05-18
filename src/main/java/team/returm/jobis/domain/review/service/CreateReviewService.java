@@ -56,10 +56,6 @@ public class CreateReviewService {
         Student student =  studentRepository.queryStudentById(userFacade.getCurrentUserId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        saveReview(request, student);
-    }
-
-    private void saveReview(CreateReviewRequest request, Student student) {
         if (reviewRepository.existsByCompanyIdAndStudentName(request.getCompanyId(), student.getName())) {
             throw ReviewAlreadyExistsException.EXCEPTION;
         }
