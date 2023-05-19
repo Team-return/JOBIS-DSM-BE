@@ -11,4 +11,6 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     List<Review> findAllByCompanyId(Long companyId);
 
     long countByCompanyId(Long companyId);
+
+    boolean existsByCompanyIdAndStudentName(Long companyId, String studentName);
 }

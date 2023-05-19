@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.repository.CodeRepository;
-import team.returm.jobis.domain.code.exception.CodeNotFoundException;
+import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
 import team.returm.jobis.domain.review.domain.QnAElement;
 import team.returm.jobis.domain.review.domain.Review;
 import team.returm.jobis.domain.review.domain.repository.ReviewRepository;
+import team.returm.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.returm.jobis.domain.review.presentation.dto.CreateReviewRequest;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentRepository;
@@ -32,31 +32,30 @@ public class CreateReviewService {
     private final ReviewRepository reviewRepository;
     private final CompanyRepository companyRepository;
     private final CodeRepository codeRepository;
+    private final CodeFacade codeFacade;
 
     public void execute(CreateReviewRequest request) {
 
-        Long currentUserId = userFacade.getCurrentUserId();
-
         if (!companyRepository.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
+        }
+
+        if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatus(
+                request.getApplicationId(), ApplicationStatus.REQUESTED)) {
+            throw ApplicationNotFoundException.EXCEPTION;
         }
 
         List<Long> codeIds = request.getQnaElements().stream()
                 .map(QnAElement::getCodeId)
                 .toList();
 
-        List<Code> codes = codeRepository.queryCodesByIdIn(codeIds);
+        codeFacade.queryCodesByIdIn(codeIds);
 
-        if (codes.size() != codeIds.size()) {
-            throw CodeNotFoundException.EXCEPTION;
-        }
-
-        Student student =  studentRepository.queryStudentById(currentUserId)
+        Student student =  studentRepository.queryStudentById(userFacade.getCurrentUserId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatus(
-                request.getApplicationId(), ApplicationStatus.REQUESTED)) {
-            throw ApplicationNotFoundException.EXCEPTION;
+        if (reviewRepository.existsByCompanyIdAndStudentName(request.getCompanyId(), student.getName())) {
+            throw ReviewAlreadyExistsException.EXCEPTION;
         }
 
         reviewRepository.save(
