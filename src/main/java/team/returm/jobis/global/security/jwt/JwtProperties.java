@@ -12,11 +12,11 @@ public class JwtProperties {
     private final String secret;
     private final String header;
     private final String prefix;
-    private final Long accessExp;
-    private final Long refreshExp;
+    private final Integer accessExp;
+    private final Integer refreshExp;
 
     public JwtProperties(String secret, String header, String prefix
-            , Long accessExp, Long refreshExp) {
+            , Integer accessExp, Integer refreshExp) {
         this.secret = Base64.getEncoder().encodeToString(secret.getBytes());
         this.header = header;
         this.prefix = prefix;

@@ -48,8 +48,8 @@ jwt:
   header: ${JWT_HEADER:Authorization}
   prefix : ${JWT_PREFIX:Bearer }
   secret: ${JWT_SECRET:asdf}
-  access-exp: ${TOKEN_ACCESS_EXP:36000}
-  refresh-exp: ${TOKEN_REFRESH_EXP:36000}
+  access-exp: ${TOKEN_ACCESS_EXP:3600}
+  refresh-exp: ${TOKEN_REFRESH_EXP:1209600}
 
 openfeign:
   access-key: ${API_ACCESS_KEY:asdf}

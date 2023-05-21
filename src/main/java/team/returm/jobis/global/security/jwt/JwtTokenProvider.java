@@ -42,7 +42,7 @@ public class JwtTokenProvider {
                         .id(userId)
                         .token(token)
                         .authority(authority)
-                        .ttl(jwtProperties.getRefreshExp())
+                        .ttl(jwtProperties.getRefreshExp().longValue())
                         .build()
         );
         return token;
@@ -83,12 +83,12 @@ public class JwtTokenProvider {
         };
     }
 
-    private String generateToken(String id, TokenType type, Long exp, Authority authority) {
+    private String generateToken(String id, TokenType type, Integer exp, Authority authority) {
         return Jwts.builder()
                 .setSubject(id)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + exp))
+                .setExpiration(new Date(System.currentTimeMillis() + (exp * 1000)))
                 .claim("type", type.name())
                 .claim("authority", authority)
                 .compact();
