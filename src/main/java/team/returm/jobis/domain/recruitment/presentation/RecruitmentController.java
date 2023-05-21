@@ -94,7 +94,7 @@ public class RecruitmentController {
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(value = "keyword", required = false) List<String> keywords
     ) {
-        return studentQueryRecruitmentsService.execute(companyName, page, keywords);
+        return studentQueryRecruitmentsService.execute(companyName, page-1, keywords);
     }
 
     @GetMapping("/teacher")
@@ -106,7 +106,7 @@ public class RecruitmentController {
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
-        return teacherQueryRecruitmentsService.execute(companyName, start, end, year, status, page);
+        return teacherQueryRecruitmentsService.execute(companyName, start, end, year, status, page-1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
