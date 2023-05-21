@@ -13,7 +13,10 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 public class TeacherQueryRecruitmentsResponse {
+
     private final List<TeacherRecruitmentResponse> recruitments;
+
+    private final int totalPageCount;
 
     @Getter
     @Builder
