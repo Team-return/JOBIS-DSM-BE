@@ -20,9 +20,9 @@ public class CodeController {
     @GetMapping
     public CodesResponse getCodes(
             @RequestParam(value = "type") CodeType codeType,
-            @RequestParam(value = "keyword", required = false) String keyword
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "parent_code", required = false) Long parentCode
     ) {
-        keyword = StringUtil.nullToEmpty(keyword);
-        return codesService.execute(keyword, codeType);
+        return codesService.execute(keyword, codeType, parentCode);
     }
 }
