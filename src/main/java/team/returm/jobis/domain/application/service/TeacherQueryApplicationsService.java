@@ -15,6 +15,9 @@ public class TeacherQueryApplicationsService {
     private final ApplicationRepository applicationRepository;
 
     public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId) {
+        int totalPageCount = (int) Math.ceil(
+                applicationRepository.getApplicationCountByCondition(applicationStatus, studentName).doubleValue() / 11
+        );
         return new TeacherQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
                                 recruitmentId, null, applicationStatus, studentName).stream()
@@ -31,7 +34,7 @@ public class TeacherQueryApplicationsService {
                                 .createdAt(application.getCreatedAt().toLocalDate())
                                 .applicationStatus(application.getApplicationStatus())
                                 .build()
-                        ).toList()
+                        ).toList(),totalPageCount
         );
     }
 }
