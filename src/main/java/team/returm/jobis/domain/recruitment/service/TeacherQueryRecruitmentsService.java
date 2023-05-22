@@ -3,6 +3,7 @@ package team.returm.jobis.domain.recruitment.service;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
@@ -19,10 +20,21 @@ public class TeacherQueryRecruitmentsService {
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Integer page) {
 
+        RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
+                .companyName(companyName)
+                .status(status)
+                .startDate(start)
+                .endDate(end)
+                .year(year)
+                .page(page)
+                .build();
+
+        int totalPageCount = (int) Math.ceil(
+                recruitmentRepository.getRecruitmentCountByCondition(recruitmentFilter).doubleValue() / 11
+        );
+
         List<TeacherRecruitmentResponse> recruitments =
-                recruitmentRepository.queryRecruitmentsByConditions(
-                                year, start, end, status, companyName, page - 1, null, null
-                        ).stream()
+                recruitmentRepository.queryRecruitmentsByConditions(recruitmentFilter).stream()
                         .map(vo ->
                                 TeacherRecruitmentResponse.builder()
                                         .id(vo.getRecruitment().getId())
@@ -39,6 +51,6 @@ public class TeacherQueryRecruitmentsService {
                                         .build()
                         ).toList();
 
-        return new TeacherQueryRecruitmentsResponse(recruitments);
+        return new TeacherQueryRecruitmentsResponse(recruitments, totalPageCount);
     }
 }

@@ -39,10 +39,10 @@ public class ApplicationRepository {
 
     private final ApplicationJpaRepository applicationJpaRepository;
     private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
-    private final JPAQueryFactory jpaQueryFactory;
+    private final JPAQueryFactory queryFactory;
 
     public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
-        return jpaQueryFactory
+        return queryFactory
                 .selectFrom(application)
                 .join(application.student, student)
                 .join(application.recruitment, recruitment)
@@ -73,8 +73,18 @@ public class ApplicationRepository {
                 );
     }
 
+    public Long getApplicationCountByCondition(ApplicationStatus applicationStatus, String studentName) {
+        return queryFactory
+                .select(application.count())
+                .from(application)
+                .where(
+                        eqApplicationStatus(applicationStatus),
+                        containStudentName(studentName)
+                ).fetchOne();
+    }
+
     public List<QueryFieldTraineesVO> queryApplicationsFieldTraineesByCompanyId(Long companyId) {
-        return jpaQueryFactory
+        return queryFactory
                 .select(
                         new QQueryFieldTraineesVO(
                                 application.id,
@@ -98,7 +108,7 @@ public class ApplicationRepository {
     public QueryTotalApplicationCountVO queryTotalApplicationCount() {
         QStudent approvedStudent = new QStudent("approvedStudent");
         QStudent passedStudent = new QStudent("passedStudent");
-        return jpaQueryFactory
+        return queryFactory
                 .select(
                         new QQueryTotalApplicationCountVO(
                                 student.count(),
@@ -116,7 +126,7 @@ public class ApplicationRepository {
     }
 
     public List<QueryApplyCompaniesVO> queryApplyCompanyNames(Long studentId) {
-        return jpaQueryFactory
+        return queryFactory
                 .select(
                         new QQueryApplyCompaniesVO(
                                 company.name,
@@ -136,7 +146,7 @@ public class ApplicationRepository {
     }
 
     public void deleteApplicationByIds(List<Long> applicationIds) {
-        jpaQueryFactory
+        queryFactory
                 .delete(application)
                 .where(application.id.in(applicationIds))
                 .execute();
@@ -159,7 +169,7 @@ public class ApplicationRepository {
     }
 
     public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
-        return jpaQueryFactory
+        return queryFactory
                 .select(
                         new QApplicationDetailVO(
                                 application.id,
@@ -188,7 +198,7 @@ public class ApplicationRepository {
     }
 
     public void changeApplicationStatus(ApplicationStatus status, List<Application> applications) {
-        jpaQueryFactory
+        queryFactory
                 .update(application)
                 .set(application.applicationStatus, status)
                 .where(application.in(applications))
@@ -200,16 +210,12 @@ public class ApplicationRepository {
     }
 
     public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
-        jpaQueryFactory
+        queryFactory
                 .update(application)
                 .set(application.startDate, startDate)
                 .set(application.endDate, endDate)
                 .where(application.in(applications))
                 .execute();
-    }
-
-    public Optional<Application> queryApplicationByStudentId(Long studentId) {
-        return applicationJpaRepository.findByStudentId(studentId);
     }
 
     public boolean existsApplicationByApplicationIdAndApplicationStatus(

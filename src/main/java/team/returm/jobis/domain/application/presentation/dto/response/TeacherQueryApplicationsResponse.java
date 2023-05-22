@@ -13,6 +13,7 @@ import java.util.List;
 public class TeacherQueryApplicationsResponse {
 
     private final List<TeacherQueryApplicationResponse> applications;
+    private final int totalPageCount;
 
     @Getter
     @Builder

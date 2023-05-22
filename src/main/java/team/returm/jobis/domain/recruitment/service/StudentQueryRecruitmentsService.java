@@ -5,6 +5,7 @@ import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
 import team.returm.jobis.domain.user.facade.UserFacade;
@@ -25,11 +26,17 @@ public class StudentQueryRecruitmentsService {
         Long studentId = userFacade.getCurrentUserId();
         List<Code> codes = codeFacade.queryCodeByKeywordIn(keywords);
 
+        RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
+                .year(Year.now().getValue())
+                .status(RecruitStatus.RECRUITING)
+                .companyName(name)
+                .page(page)
+                .codes(codes)
+                .studentId(studentId)
+                .build();
+
         List<StudentRecruitmentResponse> recruitments =
-                recruitmentRepository.queryRecruitmentsByConditions(
-                                Year.now().getValue(), null, null,
-                                RecruitStatus.RECRUITING, name, page - 1, codes, studentId
-                        ).stream()
+                recruitmentRepository.queryRecruitmentsByConditions(recruitmentFilter).stream()
                         .map(
                                 recruitment -> StudentRecruitmentResponse.builder()
                                         .recruitId(recruitment.getRecruitment().getId())

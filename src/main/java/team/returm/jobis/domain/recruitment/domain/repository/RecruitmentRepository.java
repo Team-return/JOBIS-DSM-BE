@@ -16,6 +16,7 @@ import team.returm.jobis.domain.recruitment.domain.repository.vo.QQueryRecruitme
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QRecruitAreaVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.QueryRecruitmentsVO;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.RecruitAreaVO;
+import team.returm.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -41,9 +42,7 @@ public class RecruitmentRepository {
     private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
 
-    public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(Integer year, LocalDate start, LocalDate end,
-                                                                   RecruitStatus status, String companyName,
-                                                                   Integer page, List<Code> codes, Long studentId) {
+    public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(RecruitmentFilter filter) {
         QApplication requestedApplication = new QApplication("requestedApplication");
         QApplication approvedApplication = new QApplication("approvedApplication");
         long pageSize = 11;
@@ -56,17 +55,17 @@ public class RecruitmentRepository {
                 .leftJoin(recruitment.applications, approvedApplication)
                 .on(approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED))
                 .leftJoin(bookmark)
-                .on(eqStudentId(studentId))
+                .on(eqStudentId(filter.getStudentId()))
                 .where(
-                        eqYear(year),
-                        betweenRecruitDate(start, end),
-                        eqRecruitStatus(status),
-                        containName(companyName),
-                        containsKeywords(codes)
+                        eqYear(filter.getYear()),
+                        betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
+                        eqRecruitStatus(filter.getStatus()),
+                        containName(filter.getCompanyName()),
+                        containsKeywords(filter.getCodes())
                 )
                 .orderBy(recruitment.createdAt.desc())
                 .groupBy(recruitArea.id)
-                .offset(page * pageSize)
+                .offset(filter.getPage() * pageSize)
                 .limit(pageSize)
                 .transform(
                         groupBy(recruitment.id)
@@ -82,6 +81,19 @@ public class RecruitmentRepository {
                                         )
                                 )
                 );
+    }
+
+    public Long getRecruitmentCountByCondition(RecruitmentFilter filter) {
+        return queryFactory
+                .select(recruitment.count())
+                .from(recruitment)
+                .join(recruitment.company, company)
+                .where(
+                        eqYear(filter.getYear()),
+                        betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
+                        eqRecruitStatus(filter.getStatus()),
+                        containName(filter.getCompanyName())
+                ).fetchOne();
     }
 
     public List<RecruitAreaVO> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
