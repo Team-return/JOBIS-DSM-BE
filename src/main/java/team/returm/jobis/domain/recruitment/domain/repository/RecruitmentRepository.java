@@ -207,6 +207,6 @@ public class RecruitmentRepository {
     }
 
     private BooleanExpression eqStudentId(Long studentId) {
-        return studentId == null ? bookmark.recruitment.eq(recruitment) : bookmark.student.id.eq(studentId);
+        return studentId == null ? bookmark.recruitment.eq(recruitment) : bookmark.student.id.eq(studentId).and(bookmark.recruitment.eq(recruitment));
     }
 }
