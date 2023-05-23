@@ -5,7 +5,8 @@ import team.returm.jobis.domain.application.domain.repository.ApplicationReposit
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplyCompaniesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
 import team.returm.jobis.domain.student.domain.Student;
-import team.returm.jobis.domain.student.presentation.dto.response.StudentMainPageResponse;
+import team.returm.jobis.domain.student.exception.ClassRoomNotFoundException;
+import team.returm.jobis.domain.student.presentation.dto.response.StudentMyPageResponse;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
@@ -13,28 +14,24 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyService
-public class StudentMainPageService {
+public class StudentMyPageService {
 
-    private final ApplicationRepository applicationRepository;
     private final UserFacade userFacade;
 
-    public StudentMainPageResponse execute() {
+    public StudentMyPageResponse execute() {
         Student student = userFacade.getCurrentStudent();
-        QueryTotalApplicationCountVO counts = applicationRepository.queryTotalApplicationCount();
-        List<QueryApplyCompaniesVO> applyCompanies = applicationRepository.queryApplyCompanyNames(student.getId());
 
-
-        return StudentMainPageResponse.builder()
+        return StudentMyPageResponse.builder()
                 .studentName(student.getName())
                 .studentGcn(Student.processGcn(
                         student.getGrade(),
                         student.getClassRoom(),
                         student.getNumber()
                 ))
-                .applyCompanies(applyCompanies)
-                .totalStudentCount(counts.getTotalStudentCount())
-                .passCount(counts.getPassCount())
-                .approvedCount(counts.getApprovedCount())
+                .department(Student.getDepartment(
+                        student.getGrade(),
+                        student.getClassRoom()
+                ))
                 .build();
     }
 }
