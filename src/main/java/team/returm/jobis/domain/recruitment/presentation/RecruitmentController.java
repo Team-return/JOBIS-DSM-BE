@@ -94,7 +94,7 @@ public class RecruitmentController {
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(value = "code-id", required = false) List<Long> codeIds
     ) {
-        return studentQueryRecruitmentsService.execute(companyName, page, codeIds);
+        return studentQueryRecruitmentsService.execute(companyName, page-1, codeIds);
     }
 
     @GetMapping("/teacher")
