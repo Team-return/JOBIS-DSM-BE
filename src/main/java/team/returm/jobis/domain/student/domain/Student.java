@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
+import team.returm.jobis.domain.student.domain.enums.Department;
 import team.returm.jobis.domain.student.domain.enums.Gender;
 import team.returm.jobis.domain.student.exception.ClassRoomNotFoundException;
 import team.returm.jobis.domain.user.domain.User;
@@ -68,6 +69,10 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Department department;
+
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private List<Application> applications = new ArrayList<>();
 
@@ -76,13 +81,14 @@ public class Student {
 
     @Builder
     public Student(User user, String name, Integer grade,
-                   Integer classRoom, Integer number, Gender gender) {
+                   Integer classRoom, Integer number, Gender gender, Department department) {
         this.user = user;
         this.name = name;
         this.grade = grade;
         this.classRoom = classRoom;
         this.number = number;
         this.gender = gender;
+        this.department = department;
     }
 
     public static String processGcn(int grade, int classNumber, int number) {
@@ -91,15 +97,15 @@ public class Student {
                 (number < 10 ? "0" + number : number);
     }
 
-    public static String getDepartment(Integer grade, Integer classRoom) {
+    public static Department getDepartment(Integer grade, Integer classRoom) {
         if (grade == 1) {
-            return "공통과정";
+            return Department.COMMON;
         }
 
         return switch (classRoom) {
-            case 1, 2 -> "소프트웨어개발과";
-            case 3 -> "임베디드소프트웨어과";
-            case 4 -> "정보보안과";
+            case 1, 2 -> Department.SOFTWARE_DEVELOP;
+            case 3 -> Department.EMBEDDED_SOFTWARE;
+            case 4 -> Department.INFORMATION_SECURITY;
             default -> throw ClassRoomNotFoundException.EXCEPTION;
         };
     }

@@ -22,10 +22,7 @@ public class StudentMyPageService {
                         student.getClassRoom(),
                         student.getNumber()
                 ))
-                .department(Student.getDepartment(
-                        student.getGrade(),
-                        student.getClassRoom()
-                ))
+                .department(student.getDepartment())
                 .build();
     }
 }
