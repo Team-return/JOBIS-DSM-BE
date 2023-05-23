@@ -22,9 +22,9 @@ public class StudentQueryRecruitmentsService {
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
 
-    public StudentQueryRecruitmentsResponse execute(String name, Integer page, List<String> keywords) {
+    public StudentQueryRecruitmentsResponse execute(String name, Integer page, List<Long> codeIds) {
         Long studentId = userFacade.getCurrentUserId();
-        List<Code> codes = codeFacade.queryCodeByKeywordIn(keywords);
+        List<Code> codes = codeFacade.queryCodesByIdIn(codeIds);
 
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
                 .year(Year.now().getValue())

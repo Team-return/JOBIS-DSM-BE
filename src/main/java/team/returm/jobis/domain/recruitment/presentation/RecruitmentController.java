@@ -92,9 +92,9 @@ public class RecruitmentController {
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            @RequestParam(value = "keyword", required = false) List<String> keywords
+            @RequestParam(value = "code-id", required = false) List<Long> codeIds
     ) {
-        return studentQueryRecruitmentsService.execute(companyName, page-1, keywords);
+        return studentQueryRecruitmentsService.execute(companyName, page, codeIds);
     }
 
     @GetMapping("/teacher")
