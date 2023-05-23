@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.presentation.dto.response.CodesResponse;
 import team.returm.jobis.domain.code.service.QueryCodesService;
-import team.returm.jobis.global.util.StringUtil;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,9 +19,9 @@ public class CodeController {
     @GetMapping
     public CodesResponse getCodes(
             @RequestParam(value = "type") CodeType codeType,
-            @RequestParam(value = "keyword", required = false) String keyword
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "parent_code", required = false) Long parentCode
     ) {
-        keyword = StringUtil.nullToEmpty(keyword);
-        return codesService.execute(keyword, codeType);
+        return codesService.execute(keyword, codeType, parentCode);
     }
 }

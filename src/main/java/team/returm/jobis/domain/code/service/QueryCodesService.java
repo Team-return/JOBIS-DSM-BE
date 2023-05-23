@@ -15,15 +15,12 @@ public class QueryCodesService {
 
     private final CodeRepository codeRepository;
 
-    public CodesResponse execute(String keyword, CodeType codeType) {
-        List<CodeResponse> codes = codeRepository.queryCodesByKeywordAndType(keyword, codeType).stream()
-                .map(
-                        code -> CodeResponse.builder()
-                                .code(code.getId())
-                                .keyword(code.getKeyword())
-                                .jobType(code.getJobType())
-                                .build()
-                ).toList();
+    public CodesResponse execute(String keyword, CodeType codeType, Long parentCode) {
+        List<CodeResponse> codes = codeRepository.queryCodesByKeywordAndType(
+                    keyword, codeType, parentCode
+                ).stream()
+                .map(CodesResponse::of)
+                .toList();
 
         return new CodesResponse(codes);
     }
