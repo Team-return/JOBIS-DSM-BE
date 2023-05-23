@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.code.domain.enums.CodeType;
 import team.returm.jobis.domain.code.presentation.dto.response.CodesResponse;
 import team.returm.jobis.domain.code.service.QueryCodesService;
-import team.returm.jobis.global.util.StringUtil;
 
 @RestController
 @RequiredArgsConstructor
