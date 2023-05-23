@@ -1,12 +1,13 @@
 package team.returm.jobis.global.security.auth.teacher;
 
-import java.util.Collection;
-import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import team.returm.jobis.domain.user.domain.enums.Authority;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @RequiredArgsConstructor
 public class TeacherDetails implements UserDetails {

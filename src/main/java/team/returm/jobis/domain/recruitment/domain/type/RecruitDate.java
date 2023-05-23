@@ -1,7 +1,6 @@
 package team.returm.jobis.domain.recruitment.domain.type;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.exception.InvalidDateException;

@@ -2,7 +2,6 @@ package team.returm.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.code.domain.Code;
-import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.review.domain.QnAElement;
 import team.returm.jobis.domain.review.domain.Review;

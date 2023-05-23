@@ -18,9 +18,18 @@ import team.returm.jobis.domain.application.presentation.dto.request.ChangeField
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import team.returm.jobis.domain.application.presentation.dto.request.RejectApplicationRequest;
 import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.QueryEmploymentCountResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
-import team.returm.jobis.domain.application.service.*;
+import team.returm.jobis.domain.application.service.ChangeApplicationsStatusService;
+import team.returm.jobis.domain.application.service.ChangeFieldTrainDateService;
+import team.returm.jobis.domain.application.service.CreateApplicationService;
+import team.returm.jobis.domain.application.service.DeleteApplicationService;
+import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
+import team.returm.jobis.domain.application.service.QueryEmploymentCountService;
+import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
+import team.returm.jobis.domain.application.service.RejectApplicationService;
+import team.returm.jobis.domain.application.service.TeacherQueryApplicationsService;
 
 import javax.validation.Valid;
 
@@ -37,6 +46,7 @@ public class ApplicationController {
     private final ChangeApplicationsStatusService changeApplicationsStatusService;
     private final ChangeFieldTrainDateService changeFieldTrainDateService;
     private final RejectApplicationService rejectApplicationService;
+    private final QueryEmploymentCountService queryEmploymentCountService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -94,5 +104,10 @@ public class ApplicationController {
             @Valid @RequestBody RejectApplicationRequest request
     ) {
         rejectApplicationService.execute(applicationId, request.getReason());
+    }
+
+    @GetMapping("/employment/count")
+    public QueryEmploymentCountResponse queryEmploymentCount() {
+        return queryEmploymentCountService.execute();
     }
 }

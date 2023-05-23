@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
-import team.returm.jobis.domain.student.domain.types.Gender;
+import team.returm.jobis.domain.student.domain.enums.Department;
+import team.returm.jobis.domain.student.domain.enums.Gender;
+import team.returm.jobis.domain.student.exception.ClassRoomNotFoundException;
 import team.returm.jobis.domain.user.domain.User;
 
 import javax.persistence.CascadeType;
@@ -63,9 +65,15 @@ public class Student {
     @Column(columnDefinition = "TINYINT")
     private Integer number;
 
-    @Column(columnDefinition = "VARCHAR(6)", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(6)")
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(20)")
+    @Enumerated(EnumType.STRING)
+    private Department department;
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private List<Application> applications = new ArrayList<>();
@@ -75,18 +83,32 @@ public class Student {
 
     @Builder
     public Student(User user, String name, Integer grade,
-                   Integer classRoom, Integer number, Gender gender) {
+                   Integer classRoom, Integer number, Gender gender, Department department) {
         this.user = user;
         this.name = name;
         this.grade = grade;
         this.classRoom = classRoom;
         this.number = number;
         this.gender = gender;
+        this.department = department;
     }
 
     public static String processGcn(int grade, int classNumber, int number) {
         return String.valueOf(grade) +
                 classNumber +
                 (number < 10 ? "0" + number : number);
+    }
+
+    public static Department getDepartment(Integer grade, Integer classRoom) {
+        if (grade == 1) {
+            return Department.COMMON;
+        }
+
+        return switch (classRoom) {
+            case 1, 2 -> Department.SOFTWARE_DEVELOP;
+            case 3 -> Department.EMBEDDED_SOFTWARE;
+            case 4 -> Department.INFORMATION_SECURITY;
+            default -> throw ClassRoomNotFoundException.EXCEPTION;
+        };
     }
 }

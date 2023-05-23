@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import team.returm.jobis.domain.auth.domain.AuthCode;
 import team.returm.jobis.domain.auth.domain.repository.AuthCodeRepository;
+import team.returm.jobis.domain.auth.exception.UnverifiedEmailException;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.student.domain.repository.StudentJpaRepository;
 import team.returm.jobis.domain.student.domain.repository.VerifiedStudentRepository;
 import team.returm.jobis.domain.student.exception.StudentAlreadyExistsException;
-import team.returm.jobis.domain.auth.exception.UnverifiedEmailException;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
@@ -59,6 +59,12 @@ public class StudentSignUpService {
                         .name(request.getName())
                         .gender(request.getGender())
                         .grade(request.getGrade())
+                        .department(
+                                Student.getDepartment(
+                                        request.getGrade(),
+                                        request.getClassRoom()
+                                )
+                        )
                         .build()
         );
 

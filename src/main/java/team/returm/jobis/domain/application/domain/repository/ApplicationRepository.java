@@ -10,11 +10,9 @@ import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
-import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplyCompaniesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTraineesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryTotalApplicationCountVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
-import team.returm.jobis.domain.application.domain.repository.vo.QueryApplyCompaniesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
 import team.returm.jobis.domain.student.domain.QStudent;
@@ -123,22 +121,6 @@ public class ApplicationRepository {
                 .on(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS))
                 .leftJoin(application.student, student)
                 .fetchOne();
-    }
-
-    public List<QueryApplyCompaniesVO> queryApplyCompanyNames(Long studentId) {
-        return queryFactory
-                .select(
-                        new QQueryApplyCompaniesVO(
-                                company.name,
-                                application.applicationStatus
-                        )
-                )
-                .from(application)
-                .join(application.student, student)
-                .join(application.recruitment, recruitment)
-                .join(recruitment.company, company)
-                .where(student.id.eq(studentId))
-                .fetch();
     }
 
     public Application saveApplication(Application application) {

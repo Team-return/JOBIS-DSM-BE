@@ -9,6 +9,7 @@ import team.returm.jobis.global.error.ErrorProperty;
 public enum StudentErrorCode implements ErrorProperty {
 
     STUDENT_NOT_FOUND(404, "Student Not Found"),
+    CLASSROOM_NOT_FOUND(404, "Classroom Not Found"),
 
     STUDENT_ALREADY_EXISTS(409, "Student Already Exists");
 
