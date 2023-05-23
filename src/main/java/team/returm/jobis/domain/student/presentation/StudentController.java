@@ -44,7 +44,7 @@ public class StudentController {
     }
 
     @GetMapping("/my")
-    public StudentMyPageResponse mainPage() {
+    public StudentMyPageResponse myPage() {
         return studentMyPageService.execute();
     }
       
