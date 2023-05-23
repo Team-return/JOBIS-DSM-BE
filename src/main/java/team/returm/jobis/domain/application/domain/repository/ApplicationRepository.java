@@ -125,22 +125,6 @@ public class ApplicationRepository {
                 .fetchOne();
     }
 
-    public List<QueryApplyCompaniesVO> queryApplyCompanyNames(Long studentId) {
-        return queryFactory
-                .select(
-                        new QQueryApplyCompaniesVO(
-                                company.name,
-                                application.applicationStatus
-                        )
-                )
-                .from(application)
-                .join(application.student, student)
-                .join(application.recruitment, recruitment)
-                .join(recruitment.company, company)
-                .where(student.id.eq(studentId))
-                .fetch();
-    }
-
     public Application saveApplication(Application application) {
         return applicationJpaRepository.save(application);
     }
