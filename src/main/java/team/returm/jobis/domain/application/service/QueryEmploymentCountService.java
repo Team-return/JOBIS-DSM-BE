@@ -15,10 +15,6 @@ public class QueryEmploymentCountService {
     public QueryEmploymentCountResponse execute() {
         QueryTotalApplicationCountVO counts = applicationRepository.queryTotalApplicationCount();
 
-        return QueryEmploymentCountResponse.builder()
-                .totalStudentCount(counts.getTotalStudentCount())
-                .passCount(counts.getPassCount())
-                .approvedCount(counts.getApprovedCount())
-                .build();
+        return QueryEmploymentCountResponse.of(counts);
     }
 }
