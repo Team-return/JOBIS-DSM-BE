@@ -14,15 +14,7 @@ public class StudentMyPageService {
 
     public StudentMyPageResponse execute() {
         Student student = userFacade.getCurrentStudent();
-
-        return StudentMyPageResponse.builder()
-                .studentName(student.getName())
-                .studentGcn(Student.processGcn(
-                        student.getGrade(),
-                        student.getClassRoom(),
-                        student.getNumber()
-                ))
-                .department(student.getDepartment())
-                .build();
+        
+        return StudentMyPageResponse.of(student);
     }
 }

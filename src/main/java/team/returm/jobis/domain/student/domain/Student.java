@@ -65,11 +65,13 @@ public class Student {
     @Column(columnDefinition = "TINYINT")
     private Integer number;
 
-    @Column(columnDefinition = "VARCHAR(6)", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(6)")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
     private Department department;
 

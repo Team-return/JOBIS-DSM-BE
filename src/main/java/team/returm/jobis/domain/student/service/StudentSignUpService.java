@@ -59,10 +59,12 @@ public class StudentSignUpService {
                         .name(request.getName())
                         .gender(request.getGender())
                         .grade(request.getGrade())
-                        .department(Student.getDepartment(
-                                request.getGrade(),
-                                request.getClassRoom()
-                        ))
+                        .department(
+                                Student.getDepartment(
+                                        request.getGrade(),
+                                        request.getClassRoom()
+                                )
+                        )
                         .build()
         );
 
