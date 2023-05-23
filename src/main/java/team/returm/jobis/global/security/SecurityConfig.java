@@ -48,12 +48,13 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
 
                 //students
-                .antMatchers(HttpMethod.GET, "/students/main").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/my").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
 
                 //applications
+                .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(STUDENT.name())
