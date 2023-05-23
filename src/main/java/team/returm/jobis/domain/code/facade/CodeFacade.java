@@ -15,23 +15,11 @@ public class CodeFacade {
     private final CodeJpaRepository codeJpaRepository;
 
     public List<Code> queryCodesByIdIn(List<Long> requestCodes) {
-        if (requestCodes == null) {
+        if (requestCodes == null || requestCodes.size() == 0) {
             return null;
         }
         List<Code> codes = codeJpaRepository.findCodesByIdIn(requestCodes);
         if (codes.size() != requestCodes.size()) {
-            throw CodeNotFoundException.EXCEPTION;
-        }
-
-        return codes;
-    }
-
-    public List<Code> queryCodeByKeywordIn(List<String> codeKeywords) {
-        if (codeKeywords == null) {
-            return null;
-        }
-        List<Code> codes = codeJpaRepository.findCodesByKeywordIn(codeKeywords);
-        if (codes.size() != codeKeywords.size()) {
             throw CodeNotFoundException.EXCEPTION;
         }
 
