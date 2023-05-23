@@ -1,8 +1,9 @@
 package team.returm.jobis.global.error.response;
 
-import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.Map;
 
 @Getter
 @Builder

@@ -4,9 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.time.LocalDateTime;
-import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +17,10 @@ import team.returm.jobis.global.exception.InvalidTokenException;
 import team.returm.jobis.global.security.auth.company.CompanyDetailsService;
 import team.returm.jobis.global.security.auth.student.StudentDetailsService;
 import team.returm.jobis.global.security.auth.teacher.TeacherDetailsService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Component
 @RequiredArgsConstructor

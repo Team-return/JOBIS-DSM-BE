@@ -1,7 +1,5 @@
 package team.returm.jobis.global.error;
 
-import java.util.HashMap;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +8,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import team.returm.jobis.global.error.exception.GlobalErrorCode;
 import team.returm.jobis.global.error.exception.JobisException;
 import team.returm.jobis.global.error.response.ErrorResponse;
 import team.returm.jobis.global.error.response.ValidationErrorResponse;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice

@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 
-
 import static team.returm.jobis.domain.user.domain.enums.Authority.COMPANY;
 import static team.returm.jobis.domain.user.domain.enums.Authority.STUDENT;
 import static team.returm.jobis.domain.user.domain.enums.Authority.TEACHER;
