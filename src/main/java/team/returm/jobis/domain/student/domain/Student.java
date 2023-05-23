@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
-import team.returm.jobis.domain.student.domain.types.Gender;
+import team.returm.jobis.domain.student.domain.enums.Gender;
+import team.returm.jobis.domain.student.exception.ClassRoomNotFoundException;
 import team.returm.jobis.domain.user.domain.User;
 
 import javax.persistence.CascadeType;
@@ -88,5 +89,18 @@ public class Student {
         return String.valueOf(grade) +
                 classNumber +
                 (number < 10 ? "0" + number : number);
+    }
+
+    public static String getDepartment(Integer grade, Integer classRoom) {
+        if (grade == 1) {
+            return "공통과정";
+        }
+
+        return switch (classRoom) {
+            case 1, 2 -> "소프트웨어개발과";
+            case 3 -> "임베디드소프트웨어과";
+            case 4 -> "정보보안과";
+            default -> throw ClassRoomNotFoundException.EXCEPTION;
+        };
     }
 }
