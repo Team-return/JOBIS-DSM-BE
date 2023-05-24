@@ -71,7 +71,7 @@ public class CompanyController {
 
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
-            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(value = "name", required = false) String name
     ) {
         return studentQueryCompaniesService.execute(page, name);
