@@ -55,7 +55,7 @@ public class UpdateCompanyDetailsRequest {
     private int workerNumber;
 
     @NotNull(message = "take는 null을 포함할 수 없습니다.")
-    private int take;
+    private double take;
 
     @NotBlank(message = "company_profile_url은 null 또는 공백 포함 불가입니다.")
     private String companyProfileUrl;

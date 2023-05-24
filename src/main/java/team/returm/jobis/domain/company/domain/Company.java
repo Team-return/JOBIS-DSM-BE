@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.returm.jobis.domain.acceptance.domain.Acceptance;
@@ -12,6 +13,7 @@ import team.returm.jobis.domain.company.domain.type.Address;
 import team.returm.jobis.domain.company.domain.type.Manager;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.user.domain.User;
+import team.returm.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -74,8 +76,8 @@ public class Company {
     private LocalDate foundedAt;
 
     @NotNull
-    @Column(columnDefinition = "INTEGER")
-    private int sales;
+    @Column(columnDefinition = "DOUBLE")
+    private double take;
 
     @NotNull
     @Column(columnDefinition = "SMALLINT")
@@ -92,6 +94,7 @@ public class Company {
     private String email;
 
     @NotNull
+    @ColumnDefault(ImageProperty.DEFAULT_COMPANY_LOGO_IMAGE)
     @Column(columnDefinition = "VARCHAR(1000)")
     private String companyIntroduce;
 
@@ -122,7 +125,7 @@ public class Company {
 
     @Builder
     public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
-                   String representative, LocalDate foundedAt, int sales, int workersCount, String managerName, String managerPhoneNo,
+                   String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                    String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
                    String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
         this.user = user;
@@ -135,7 +138,7 @@ public class Company {
         this.address = new Address(mainAddress, mainZipCode, subAddress, subZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;
-        this.sales = sales;
+        this.take = take;
         this.workersCount = workersCount;
         this.manager = new Manager(managerName, managerPhoneNo, subManagerName, subManagerPhoneNo);
         this.email = email;
@@ -146,10 +149,10 @@ public class Company {
     }
 
     public void update(String mainAddress, String mainZipCode, String subAddress, String subZipCode,
-                       int sales, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
+                       double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
                        String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email) {
         this.address.update(mainAddress, mainZipCode, subAddress, subZipCode);
-        this.sales = sales;
+        this.take = take;
         this.workersCount = workersCount;
         this.manager.update(managerName, managerPhoneNo, subManagerName, subManagerPhoneNo);
         this.companyIntroduce = companyIntroduce;

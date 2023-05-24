@@ -43,7 +43,7 @@ public class CompanyRepository {
                                 company.id,
                                 company.name,
                                 company.companyLogoUrl,
-                                company.sales
+                                company.take
                         )
                 )
                 .from(company)
@@ -74,7 +74,7 @@ public class CompanyRepository {
                         company.address.mainAddress,
                         company.businessArea,
                         company.workersCount,
-                        company.sales,
+                        company.take,
                         company.type,
                         company.isMou,
                         recruitment.personalContact,
@@ -91,7 +91,7 @@ public class CompanyRepository {
                                                 company.address.mainAddress,
                                                 company.businessArea,
                                                 company.workersCount,
-                                                company.sales,
+                                                company.take,
                                                 company.type,
                                                 company.isMou,
                                                 recruitment.personalContact,
@@ -122,7 +122,7 @@ public class CompanyRepository {
                                 company.representative,
                                 company.foundedAt,
                                 company.workersCount,
-                                company.sales,
+                                company.take,
                                 recruitment.id
                         )
                 )

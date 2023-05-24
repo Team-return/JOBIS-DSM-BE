@@ -79,7 +79,7 @@ public class RegisterCompanyRequest {
     private int workerNumber;
 
     @NotNull
-    private int take;
+    private double take;
 
     @NotBlank
     private String companyProfileUrl;

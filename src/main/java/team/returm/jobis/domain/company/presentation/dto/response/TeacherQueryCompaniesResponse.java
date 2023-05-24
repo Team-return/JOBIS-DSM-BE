@@ -21,7 +21,7 @@ public class TeacherQueryCompaniesResponse {
         private final String region;
         private final String businessArea;
         private final Integer workersCount;
-        private final Integer sales;
+        private final double take;
         private final CompanyType companyType;
         private final Boolean convention;
         private final Boolean personalContact;

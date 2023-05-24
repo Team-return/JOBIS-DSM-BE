@@ -52,7 +52,7 @@ public class RegisterCompanyService {
                         .businessArea(businessAreaKeyword)
                         .serviceName(request.getServiceName())
                         .name(request.getName())
-                        .sales(request.getTake())
+                        .take(request.getTake())
                         .mainAddress(request.getAddress1())
                         .mainZipCode(request.getZipCode1())
                         .subAddress(request.getAddress2())
