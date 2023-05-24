@@ -33,4 +33,7 @@ public class StudentSignUpRequest {
 
     @NotNull
     private Gender gender;
+
+    @NotBlank
+    private String profileImageUrl;
 }
