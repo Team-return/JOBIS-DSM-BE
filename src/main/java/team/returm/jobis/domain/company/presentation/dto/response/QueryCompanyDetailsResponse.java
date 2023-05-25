@@ -11,6 +11,7 @@ import java.util.List;
 public class QueryCompanyDetailsResponse {
 
     private final String businessNumber;
+    private final String companyName;
     private final String companyProfileUrl;
     private final String companyIntroduce;
     private final String zipCode1;

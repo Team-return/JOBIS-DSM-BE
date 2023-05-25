@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class QueryCompanyDetailsVO {
 
     private final String businessNumber;
+    private final String companyName;
     private final String companyProfileUrl;
     private final String companyIntroduce;
     private final String zipCode1;
@@ -28,12 +29,13 @@ public class QueryCompanyDetailsVO {
     private final Long recruitmentId;
 
     @QueryProjection
-    public QueryCompanyDetailsVO(String businessNumber, String companyProfileUrl, String companyIntroduce,
+    public QueryCompanyDetailsVO(String businessNumber, String companyName, String companyProfileUrl, String companyIntroduce,
                                  String zipCode1, String address1, String zipCode2, String address2,
                                  String manager1, String phoneNumber1, String manager2, String phoneNumber2,
                                  String fax, String email, String representativeName,
                                  LocalDate foundedAt, int workerNumber, double take, Long recruitmentId) {
         this.businessNumber = businessNumber;
+        this.companyName = companyName;
         this.companyProfileUrl = companyProfileUrl;
         this.companyIntroduce = companyIntroduce;
         this.zipCode1 = zipCode1;

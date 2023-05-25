@@ -21,6 +21,7 @@ public class QueryCompanyDetailsService {
         return QueryCompanyDetailsResponse
                 .builder()
                 .businessNumber(vo.getBusinessNumber())
+                .companyName(vo.getCompanyName())
                 .companyProfileUrl(vo.getCompanyProfileUrl())
                 .companyIntroduce(vo.getCompanyIntroduce())
                 .zipCode1(vo.getCompanyIntroduce())

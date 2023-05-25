@@ -107,6 +107,7 @@ public class CompanyRepository {
                 .select(
                         new QQueryCompanyDetailsVO(
                                 company.bizNo,
+                                company.name,
                                 company.companyLogoUrl,
                                 company.companyIntroduce,
                                 company.address.mainZipCode,
