@@ -1,6 +1,7 @@
 package team.returm.jobis.domain.recruitment.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -24,8 +25,6 @@ import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
-import static com.querydsl.core.group.GroupBy.set;
-import static com.querydsl.core.group.GroupBy.sum;
 import static team.returm.jobis.domain.bookmark.domain.QBookmark.bookmark;
 import static team.returm.jobis.domain.code.domain.QCode.code;
 import static team.returm.jobis.domain.code.domain.QRecruitAreaCode.recruitAreaCode;
@@ -45,9 +44,25 @@ public class RecruitmentRepository {
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(RecruitmentFilter filter) {
         QApplication requestedApplication = new QApplication("requestedApplication");
         QApplication approvedApplication = new QApplication("approvedApplication");
-        long pageSize = 11;
         return queryFactory
-                .selectFrom(recruitment)
+                .select(
+                        new QQueryRecruitmentsVO(
+                                recruitment.id,
+                                recruitment.status,
+                                recruitment.recruitDate,
+                                company.name,
+                                company.type,
+                                recruitment.payInfo.trainingPay,
+                                recruitment.militarySupport,
+                                company.companyLogoUrl,
+                                Expressions.stringTemplate("group_concat({0})", recruitArea.jobCodes),
+                                recruitArea.hiredCount.sum(),
+                                requestedApplication.count(),
+                                approvedApplication.count(),
+                                bookmark.count()
+                        )
+                )
+                .from(recruitment)
                 .join(recruitment.recruitAreas, recruitArea)
                 .join(recruitment.company, company)
                 .leftJoin(recruitment.applications, requestedApplication)
@@ -63,24 +78,11 @@ public class RecruitmentRepository {
                         containName(filter.getCompanyName()),
                         containsKeywords(filter.getCodes())
                 )
+                .offset(filter.getOffset())
+                .limit(11)
                 .orderBy(recruitment.createdAt.desc())
-                .groupBy(recruitArea.id)
-                .offset(filter.getPage() * pageSize)
-                .limit(pageSize)
-                .transform(
-                        groupBy(recruitment.id)
-                                .list(
-                                        new QQueryRecruitmentsVO(
-                                                recruitment,
-                                                company,
-                                                set(recruitArea.jobCodes),
-                                                sum(recruitArea.hiredCount),
-                                                requestedApplication.count(),
-                                                approvedApplication.count(),
-                                                bookmark.count()
-                                        )
-                                )
-                );
+                .groupBy(recruitment.id)
+                .fetch();
     }
 
     public Long getRecruitmentCountByCondition(RecruitmentFilter filter) {

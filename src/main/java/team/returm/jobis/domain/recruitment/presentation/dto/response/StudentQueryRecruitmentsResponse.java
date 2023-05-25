@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -22,7 +21,7 @@ public class StudentQueryRecruitmentsResponse {
         private Integer trainPay;
         private boolean military;
         private Integer totalHiring;
-        private Set<String> jobCodeList;
+        private String jobCodeList;
         private boolean isBookmarked;
     }
 }

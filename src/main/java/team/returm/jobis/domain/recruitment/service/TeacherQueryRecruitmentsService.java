@@ -35,19 +35,19 @@ public class TeacherQueryRecruitmentsService {
 
         List<TeacherRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(recruitmentFilter).stream()
-                        .map(vo ->
+                        .map(recruitment ->
                                 TeacherRecruitmentResponse.builder()
-                                        .id(vo.getRecruitment().getId())
-                                        .recruitmentStatus(vo.getRecruitment().getStatus())
-                                        .companyName(vo.getCompany().getName())
-                                        .companyType(vo.getCompany().getType())
-                                        .start(vo.getRecruitment().getRecruitDate().getStartDate())
-                                        .end(vo.getRecruitment().getRecruitDate().getFinishDate())
-                                        .militarySupport(vo.getRecruitment().getMilitarySupport())
-                                        .applicationRequestedCount(vo.getRequestedApplicationCount())
-                                        .applicationApprovedCount(vo.getApprovedApplicationCount())
-                                        .recruitmentCount(vo.getTotalHiring())
-                                        .recruitmentJob(vo.getRecruitAreaList())
+                                        .id(recruitment.getRecruitmentId())
+                                        .recruitmentStatus(recruitment.getRecruitStatus())
+                                        .companyName(recruitment.getCompanyName())
+                                        .companyType(recruitment.getCompanyType())
+                                        .start(recruitment.getRecruitDate().getStartDate())
+                                        .end(recruitment.getRecruitDate().getFinishDate())
+                                        .militarySupport(recruitment.isMilitarySupport())
+                                        .applicationRequestedCount(recruitment.getRequestedApplicationCount())
+                                        .applicationApprovedCount(recruitment.getApprovedApplicationCount())
+                                        .recruitmentCount(recruitment.getTotalHiring())
+                                        .recruitmentJob(recruitment.getRecruitAreaList())
                                         .build()
                         ).toList();
 

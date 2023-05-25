@@ -8,7 +8,6 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class TeacherQueryRecruitmentsResponse {
         private RecruitStatus recruitmentStatus;
         private String companyName;
         private CompanyType companyType;
-        private Set<String> recruitmentJob;
+        private String recruitmentJob;
         private Integer recruitmentCount;
         private Long applicationRequestedCount;
         private Long applicationApprovedCount;
