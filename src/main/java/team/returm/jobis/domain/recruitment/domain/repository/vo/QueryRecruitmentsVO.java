@@ -5,7 +5,6 @@ import lombok.Getter;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.type.RecruitDate;
-import java.util.Set;
 
 @Getter
 public class QueryRecruitmentsVO {
