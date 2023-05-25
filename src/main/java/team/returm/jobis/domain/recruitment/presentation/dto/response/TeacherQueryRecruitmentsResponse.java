@@ -8,7 +8,6 @@ import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @AllArgsConstructor
