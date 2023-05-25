@@ -80,7 +80,7 @@ public class Student {
     private Department department;
 
     @ColumnDefault(ImageProperty.DEFAULT_STUDENT_PROFILE_IMAGE)
-    @Column(columnDefinition = "VARCHAR(300)")
+    @Column(columnDefinition = "VARCHAR(300)", nullable = false)
     private String profileImageUrl;
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
