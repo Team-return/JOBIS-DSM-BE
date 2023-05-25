@@ -1,7 +1,9 @@
 package team.returm.jobis.global.error;
 
+import org.springframework.http.HttpStatus;
+
 public interface ErrorProperty {
 
-    int getStatus();
+    HttpStatus getStatus();
     String getMessage();
 }

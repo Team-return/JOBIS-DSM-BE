@@ -2,18 +2,19 @@ package team.returm.jobis.domain.auth.exception.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import team.returm.jobis.global.error.ErrorProperty;
 
 @Getter
 @AllArgsConstructor
 public enum AuthErrorCode implements ErrorProperty {
 
-    UNVERIFIED_EMAIL(401, "Unverified Email"),
-    BAD_AUTH_CODE(401, "Bad Auth Code"),
+    UNVERIFIED_EMAIL(HttpStatus.UNAUTHORIZED, "Unverified Email"),
+    BAD_AUTH_CODE(HttpStatus.UNAUTHORIZED, "Bad Auth Code"),
 
-    REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
-    AUTH_CODE_NOT_FOUND(404, "AuthCode Not Found");
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Refresh Token Not Found"),
+    AUTH_CODE_NOT_FOUND(HttpStatus.NOT_FOUND, "AuthCode Not Found");
 
-    private final int status;
+    private final HttpStatus status;
     private final String message;
 }
