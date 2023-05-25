@@ -27,4 +27,8 @@ public class RecruitmentFilter {
     private final List<Code> codes;
 
     private final Long studentId;
+
+    public Long getOffset() {
+        return 11L * page;
+    }
 }

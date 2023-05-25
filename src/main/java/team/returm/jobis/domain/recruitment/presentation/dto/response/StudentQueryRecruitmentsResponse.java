@@ -22,7 +22,7 @@ public class StudentQueryRecruitmentsResponse {
         private Integer trainPay;
         private boolean military;
         private Integer totalHiring;
-        private Set<String> jobCodeList;
+        private String jobCodeList;
         private boolean isBookmarked;
     }
 }
