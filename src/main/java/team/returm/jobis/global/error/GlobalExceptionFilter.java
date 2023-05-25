@@ -22,12 +22,12 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (JobisException e) {
             ErrorProperty errorProperty = e.getErrorProperty();
-            response.setStatus(errorProperty.getStatus());
+            response.setStatus(errorProperty.getStatus().value());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
             ErrorResponse errorResponse =
-                    new ErrorResponse(errorProperty.getStatus(), errorProperty.getMessage());
+                    new ErrorResponse(errorProperty.getStatus().value(), errorProperty.getMessage());
 
             objectMapper.writeValue(response.getWriter(), errorResponse);
         }

@@ -2,16 +2,17 @@ package team.returm.jobis.domain.user.exception.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import team.returm.jobis.global.error.ErrorProperty;
 
 @Getter
 @AllArgsConstructor
 public enum UserErrorCode implements ErrorProperty {
 
-    INVALID_PASSWORD(401, "invalid password"),
+    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "invalid password"),
 
-    USER_NOT_FOUND(404, "User Not Found");
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "User Not Found");
 
-    private final int status;
+    private final HttpStatus status;
     private final String message;
 }
