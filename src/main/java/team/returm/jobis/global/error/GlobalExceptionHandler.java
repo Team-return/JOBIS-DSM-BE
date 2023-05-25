@@ -25,9 +25,9 @@ public class GlobalExceptionHandler {
         ErrorProperty errorProperty = e.getErrorProperty();
         ErrorResponse response = ErrorResponse.builder()
                 .message(errorProperty.getMessage())
-                .status(errorProperty.getStatus())
+                .status(errorProperty.getStatus().value())
                 .build();
-        return new ResponseEntity<>(response, HttpStatus.valueOf(errorProperty.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorProperty.getStatus().value()));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
