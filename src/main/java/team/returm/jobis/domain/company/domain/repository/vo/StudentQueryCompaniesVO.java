@@ -8,10 +8,10 @@ public class StudentQueryCompaniesVO {
     private final Long id;
     private final String name;
     private final String logoUrl;
-    private final Integer take;
+    private final double take;
 
     @QueryProjection
-    public StudentQueryCompaniesVO(Long id, String name, String logoUrl, Integer take) {
+    public StudentQueryCompaniesVO(Long id, String name, String logoUrl, double take) {
         this.id = id;
         this.name = name;
         this.logoUrl = logoUrl;

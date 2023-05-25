@@ -24,7 +24,7 @@ public class QueryCompanyDetailsVO {
     private final String representativeName;
     private final LocalDate foundedAt;
     private final int workerNumber;
-    private final int take;
+    private final double take;
     private final Long recruitmentId;
 
     @QueryProjection
@@ -32,7 +32,7 @@ public class QueryCompanyDetailsVO {
                                  String zipCode1, String address1, String zipCode2, String address2,
                                  String manager1, String phoneNumber1, String manager2, String phoneNumber2,
                                  String fax, String email, String representativeName,
-                                 LocalDate foundedAt, int workerNumber, int take, Long recruitmentId) {
+                                 LocalDate foundedAt, int workerNumber, double take, Long recruitmentId) {
         this.businessNumber = businessNumber;
         this.companyProfileUrl = companyProfileUrl;
         this.companyIntroduce = companyIntroduce;

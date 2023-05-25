@@ -4,12 +4,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
 import team.returm.jobis.domain.student.domain.enums.Department;
 import team.returm.jobis.domain.student.domain.enums.Gender;
 import team.returm.jobis.domain.student.exception.ClassRoomNotFoundException;
 import team.returm.jobis.domain.user.domain.User;
+import team.returm.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,6 +33,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(
@@ -75,6 +79,10 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private Department department;
 
+    @ColumnDefault(ImageProperty.DEFAULT_STUDENT_PROFILE_IMAGE)
+    @Column(columnDefinition = "VARCHAR(300)", nullable = false)
+    private String profileImageUrl;
+
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private List<Application> applications = new ArrayList<>();
 
@@ -83,7 +91,7 @@ public class Student {
 
     @Builder
     public Student(User user, String name, Integer grade,
-                   Integer classRoom, Integer number, Gender gender, Department department) {
+                   Integer classRoom, Integer number, Gender gender, Department department, String profileImageUrl) {
         this.user = user;
         this.name = name;
         this.grade = grade;
@@ -91,6 +99,7 @@ public class Student {
         this.number = number;
         this.gender = gender;
         this.department = department;
+        this.profileImageUrl = profileImageUrl;
     }
 
     public static String processGcn(int grade, int classNumber, int number) {

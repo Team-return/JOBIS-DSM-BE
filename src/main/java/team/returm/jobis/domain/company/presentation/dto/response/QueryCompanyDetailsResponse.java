@@ -26,7 +26,7 @@ public class QueryCompanyDetailsResponse {
     private final String representativeName;
     private final LocalDate foundedAt;
     private final int workerNumber;
-    private final int take;
+    private final double take;
     private final Long recruitmentId;
     private final List<String> attachments;
 }

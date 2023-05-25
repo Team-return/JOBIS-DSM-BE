@@ -18,7 +18,7 @@ public class CompanyMyPageResponse {
     private final String subZipCode;
     private final String representative;
     private final LocalDate foundedAt;
-    private final int salesPerYear;
+    private final double take;
     private final int workersCount;
     private final String managerName;
     private final String managerPhoneNo;

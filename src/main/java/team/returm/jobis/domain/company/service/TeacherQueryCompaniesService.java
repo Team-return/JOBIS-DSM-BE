@@ -32,7 +32,7 @@ public class TeacherQueryCompaniesService {
                                 .region(getRegionByAddress(company.getMainAddress()))
                                 .businessArea(company.getBusinessArea())
                                 .workersCount(company.getWorkersCount())
-                                .sales(company.getSales())
+                                .take(company.getTake())
                                 .companyType(company.getCompanyType())
                                 .convention(company.getConvention())
                                 .personalContact(company.getPersonalContact())

@@ -25,7 +25,7 @@ public class CompanyMyPageService {
                 .subZipCode(company.getAddress().getSubZipCode())
                 .representative(company.getRepresentative())
                 .foundedAt(company.getFoundedAt())
-                .salesPerYear(company.getSales())
+                .take(company.getTake())
                 .workersCount(company.getWorkersCount())
                 .managerName(company.getManager().getManagerName())
                 .managerPhoneNo(company.getManager().getManagerPhoneNo())

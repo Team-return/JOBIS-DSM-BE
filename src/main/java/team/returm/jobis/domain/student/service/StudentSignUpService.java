@@ -65,6 +65,7 @@ public class StudentSignUpService {
                                         request.getClassRoom()
                                 )
                         )
+                        .profileImageUrl(request.getProfileImageUrl())
                         .build()
         );
 
