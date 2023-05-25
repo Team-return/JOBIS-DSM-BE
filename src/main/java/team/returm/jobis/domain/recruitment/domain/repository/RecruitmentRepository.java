@@ -71,6 +71,13 @@ public class RecruitmentRepository {
                 .on(approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED))
                 .leftJoin(bookmark)
                 .on(eqStudentId(filter.getStudentId()))
+                .where(
+                        eqYear(filter.getYear()),
+                        betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
+                        eqRecruitStatus(filter.getStatus()),
+                        containName(filter.getCompanyName()),
+                        containsKeywords(filter.getCodes())
+                )
                 .offset(filter.getOffset())
                 .limit(11)
                 .orderBy(recruitment.createdAt.desc())
@@ -198,7 +205,7 @@ public class RecruitmentRepository {
     }
 
     private BooleanExpression containsKeywords(List<Code> codes) {
-        return codes == null ? null : recruitment.recruitAreas.any().recruitAreaCodes.any().code.in(codes);
+        return codes == null ? null : recruitArea.recruitAreaCodes.any().code.in(codes);
     }
 
     private BooleanExpression eqStudentId(Long studentId) {
