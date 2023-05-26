@@ -47,7 +47,7 @@ public class StudentController {
     public StudentMyPageResponse myPage() {
         return studentMyPageService.execute();
     }
-      
+
     @GetMapping("/exists")
     public void checkStudentExists(
             @RequestParam("gcn") String gcn,

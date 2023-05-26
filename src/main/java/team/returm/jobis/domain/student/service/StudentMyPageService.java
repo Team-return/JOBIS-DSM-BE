@@ -14,7 +14,7 @@ public class StudentMyPageService {
 
     public StudentMyPageResponse execute() {
         Student student = userFacade.getCurrentStudent();
-        
+
         return StudentMyPageResponse.of(student);
     }
 }

@@ -51,7 +51,7 @@ public class CreateReviewService {
 
         codeFacade.queryCodesByIdIn(codeIds);
 
-        Student student =  studentRepository.queryStudentById(userFacade.getCurrentUserId())
+        Student student = studentRepository.queryStudentById(userFacade.getCurrentUserId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         if (reviewRepository.existsByCompanyIdAndStudentName(request.getCompanyId(), student.getName())) {

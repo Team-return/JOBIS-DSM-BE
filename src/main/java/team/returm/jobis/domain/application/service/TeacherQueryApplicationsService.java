@@ -34,7 +34,7 @@ public class TeacherQueryApplicationsService {
                                 .createdAt(application.getCreatedAt().toLocalDate())
                                 .applicationStatus(application.getApplicationStatus())
                                 .build()
-                        ).toList(),totalPageCount
+                        ).toList(), totalPageCount
         );
     }
 }
