@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.returm.jobis.domain.code.domain.repository.CodeRepository;
 import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
@@ -20,6 +19,8 @@ import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
 
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -31,17 +32,21 @@ public class CreateReviewService {
     private final ApplicationRepository applicationRepository;
     private final ReviewRepository reviewRepository;
     private final CompanyRepository companyRepository;
-    private final CodeRepository codeRepository;
     private final CodeFacade codeFacade;
+    private static final List<ApplicationStatus> cannotWriteStatuses =
+            new ArrayList<>(Arrays.asList(
+                    ApplicationStatus.REQUESTED,
+                    ApplicationStatus.APPROVED,
+                    ApplicationStatus.REJECTED)
+            );
 
     public void execute(CreateReviewRequest request) {
-
         if (!companyRepository.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatus(
-                request.getApplicationId(), ApplicationStatus.REQUESTED)) {
+        if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatusIn(
+                request.getApplicationId(), cannotWriteStatuses)) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
