@@ -2,6 +2,7 @@ package team.returm.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
+import team.returm.jobis.domain.company.presentation.dto.CompanyFilter;
 import team.returm.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
 
@@ -11,9 +12,14 @@ public class StudentQueryCompaniesService {
 
     private final CompanyRepository companyRepository;
 
-    public StudentQueryCompaniesResponse execute(Integer page, String name) {
+    public StudentQueryCompaniesResponse execute(Long page, String name) {
+        CompanyFilter filter = CompanyFilter.builder()
+                .name(name)
+                .page(page)
+                .build();
+
         return new StudentQueryCompaniesResponse(
-                companyRepository.queryCompanyVoList(page - 1, name)
+                companyRepository.queryCompanyVoList(filter)
         );
     }
 }
