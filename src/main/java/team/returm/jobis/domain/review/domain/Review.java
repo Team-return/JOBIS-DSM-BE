@@ -21,6 +21,7 @@ public class Review {
     private List<QnAElement> qnAElements;
     private String studentName;
     private Integer year;
+    private LocalDate createdDate;
 
     @Builder
     public Review(Long companyId, List<QnAElement> qnAElements,
@@ -29,5 +30,6 @@ public class Review {
         this.qnAElements = qnAElements;
         this.studentName = studentName;
         this.year = year;
+        this.createdDate = LocalDate.now();
     }
 }
