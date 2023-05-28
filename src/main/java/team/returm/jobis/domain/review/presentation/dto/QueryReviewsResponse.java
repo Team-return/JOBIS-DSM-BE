@@ -20,6 +20,5 @@ public class QueryReviewsResponse {
         private final String reviewId;
         private final int year;
         private final String writer;
-        private final LocalDate createdDate;
     }
 }

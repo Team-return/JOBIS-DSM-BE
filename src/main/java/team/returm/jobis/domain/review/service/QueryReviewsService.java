@@ -31,7 +31,6 @@ public class QueryReviewsService {
                                 .reviewId(review.getId())
                                 .year(review.getYear())
                                 .writer(review.getStudentName())
-                                .createdDate(review.getCreatedDate())
                                 .build())
                         .toList()
         );

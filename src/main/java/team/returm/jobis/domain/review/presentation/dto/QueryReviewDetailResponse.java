@@ -14,7 +14,6 @@ public class QueryReviewDetailResponse {
 
     private final int year;
     private final String writer;
-    private final LocalDate createdDate;
     private final List<QnAResponse> qnaResponses;
 
     @Getter
