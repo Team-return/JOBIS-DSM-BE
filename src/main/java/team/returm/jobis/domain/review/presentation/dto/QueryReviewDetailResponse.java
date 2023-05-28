@@ -5,7 +5,6 @@ import lombok.Getter;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.review.domain.QnAElement;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
