@@ -71,10 +71,10 @@ public class CompanyController {
 
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
-            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(value = "name", required = false) String name
     ) {
-        return studentQueryCompaniesService.execute(page, name);
+        return studentQueryCompaniesService.execute(page - 1, name);
     }
 
     @GetMapping("/{company-id}")
@@ -110,7 +110,7 @@ public class CompanyController {
             @RequestParam(value = "business_area", required = false) String businessArea,
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return teacherQueryCompaniesService.execute(type, companyName, region, businessArea, page);
+        return teacherQueryCompaniesService.execute(type, companyName, region, businessArea, page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

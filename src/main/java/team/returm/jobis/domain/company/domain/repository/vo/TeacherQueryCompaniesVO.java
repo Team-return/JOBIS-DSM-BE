@@ -22,8 +22,8 @@ public class TeacherQueryCompaniesVO {
     @QueryProjection
     public TeacherQueryCompaniesVO(Long companyId, String companyName, String mainAddress, String businessArea,
                                    Integer workersCount, double take, CompanyType companyType,
-                                   Boolean convention, Boolean personalContact,
-                                   Integer recentRecruitYear, Long totalAcceptanceCount) {
+                                   Boolean convention, Boolean personalContact, Integer recentRecruitYear,
+                                   Long totalAcceptanceCount) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.mainAddress = mainAddress;
