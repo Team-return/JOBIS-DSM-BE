@@ -28,7 +28,7 @@ public class Review {
                   String studentName, Integer year) {
         this.companyId = companyId;
         this.qnAElements = qnAElements;
-        this.studentName = studentName;
+        this.studentName =studentName;
         this.year = year;
         this.createdDate = LocalDate.now();
     }
