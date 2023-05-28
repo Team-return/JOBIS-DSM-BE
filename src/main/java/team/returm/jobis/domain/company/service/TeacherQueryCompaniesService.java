@@ -24,7 +24,7 @@ public class TeacherQueryCompaniesService {
     ) {
         return new TeacherQueryCompaniesResponse(
                 companyRepository.queryCompaniesByConditions(
-                        type, companyName, region, businessArea, page - 1
+                                type, companyName, region, businessArea, page - 1
                         ).stream()
                         .map(company -> TeacherQueryCompanyResponse.builder()
                                 .companyId(company.getCompanyId())

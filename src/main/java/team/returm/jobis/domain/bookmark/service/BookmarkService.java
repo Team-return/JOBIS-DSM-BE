@@ -25,6 +25,6 @@ public class BookmarkService {
                 .ifPresentOrElse(
                         bookmarkRepository::deleteBookmark,
                         () -> bookmarkRepository.saveBookmark(new Bookmark(recruitment, student))
-        );
+                );
     }
 }

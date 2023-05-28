@@ -17,7 +17,7 @@ public class QueryCodesService {
 
     public CodesResponse execute(String keyword, CodeType codeType, Long parentCode) {
         List<CodeResponse> codes = codeRepository.queryCodesByKeywordAndType(
-                    keyword, codeType, parentCode
+                        keyword, codeType, parentCode
                 ).stream()
                 .map(CodesResponse::of)
                 .toList();

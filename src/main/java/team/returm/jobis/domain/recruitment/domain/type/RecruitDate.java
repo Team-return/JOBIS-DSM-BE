@@ -30,7 +30,7 @@ public class RecruitDate {
     }
 
     private void validateDateRage(LocalDate start, LocalDate end) {
-        if(start.isAfter(end)) {
+        if (start.isAfter(end)) {
             throw InvalidDateException.EXCEPTION;
         }
     }
