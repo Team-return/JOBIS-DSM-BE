@@ -3,6 +3,7 @@ package team.returm.jobis.domain.company.service;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
+import team.returm.jobis.domain.company.presentation.dto.CompanyFilter;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
 import team.returm.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.returm.jobis.domain.review.domain.repository.ReviewRepository;
@@ -22,10 +23,20 @@ public class TeacherQueryCompaniesService {
             String businessArea,
             Long page
     ) {
+        CompanyFilter filter = CompanyFilter.builder()
+                .type(type)
+                .name(companyName)
+                .region(region)
+                .businessArea(businessArea)
+                .page(page)
+                .build();
+
+        int totalPageCount = (int) Math.ceil(
+                companyRepository.getTotalCompanyCount(filter).doubleValue() / 11
+        );
+
         return new TeacherQueryCompaniesResponse(
-                companyRepository.queryCompaniesByConditions(
-                                type, companyName, region, businessArea, page - 1
-                        ).stream()
+                companyRepository.queryCompaniesByConditions(filter).stream()
                         .map(company -> TeacherQueryCompanyResponse.builder()
                                 .companyId(company.getCompanyId())
                                 .companyName(company.getCompanyName())
@@ -42,7 +53,8 @@ public class TeacherQueryCompaniesService {
                                         reviewRepository.countByCompanyId(company.getCompanyId())
                                 )
                                 .build()
-                        ).toList()
+                        ).toList(),
+                totalPageCount
         );
     }
 

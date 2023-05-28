@@ -12,6 +12,7 @@ import java.util.List;
 public class TeacherQueryCompaniesResponse {
 
     private final List<TeacherQueryCompanyResponse> companies;
+    private final int totalPageCount;
 
     @Getter
     @Builder
