@@ -9,6 +9,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
+import java.util.Objects;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -21,7 +22,7 @@ public @interface ValidListElements {
 
     Class<? extends Payload>[] payload() default {};
 
-    class NotNullElementsValidator implements ConstraintValidator<ValidListElements, List> {
+    class NotNullElementsValidator implements ConstraintValidator<ValidListElements, List<?>> {
 
         @Override
         public boolean isValid(List value, ConstraintValidatorContext context) {
@@ -30,7 +31,7 @@ public @interface ValidListElements {
             }
 
             return value.stream()
-                    .allMatch(element -> element != null);
+                    .allMatch(Objects::nonNull);
         }
     }
 }
