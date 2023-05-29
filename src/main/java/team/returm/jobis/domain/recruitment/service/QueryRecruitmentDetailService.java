@@ -31,6 +31,7 @@ public class QueryRecruitmentDetailService {
                 .pay(recruitment.getPayInfo().getPay())
                 .trainPay(recruitment.getPayInfo().getTrainingPay())
                 .etc(recruitment.getEtc())
+                .submitDocument(recruitment.getSubmitDocument())
                 .requiredGrade(recruitment.getRequiredGrade())
                 .requiredLicenses(StringUtil.divideString(recruitment.getRequiredLicenses()))
                 .startDate(recruitment.getRecruitDate().getStartDate())

@@ -75,6 +75,7 @@ public class Recruitment extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(100)")
     private String hiringProgress;
 
+    @NotNull
     @Column(columnDefinition = "VARCHAR(100)")
     private String submitDocument;
 
