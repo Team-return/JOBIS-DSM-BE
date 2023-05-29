@@ -3,6 +3,7 @@ package team.returm.jobis.domain.recruitment.presentation.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
+import team.returm.jobis.global.annotation.ValidListElements;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ import java.util.List;
 public class ApplyRecruitmentRequest {
 
     @Valid
-    @NotNull
+    @ValidListElements
     private List<RecruitAreaRequest> areas;
 
     private String preferentialTreatment;
@@ -26,7 +27,7 @@ public class ApplyRecruitmentRequest {
 
     private List<String> requiredLicenses;
 
-    @NotNull
+    @ValidListElements
     private List<ProgressType> hiringProgress;
 
     @NotNull
