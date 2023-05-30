@@ -17,7 +17,7 @@ public class FileUploadService {
     private final S3Util s3Util;
 
     public FileUploadResponse execute(List<MultipartFile> multipartFiles, FileType fileType) {
-        List<String> imageUrls = multipartFiles.stream()
+        List<String> fileUrls = multipartFiles.stream()
                 .map(
                         multipartFile -> {
                             if(multipartFile == null || multipartFile.getOriginalFilename() == null)
@@ -30,6 +30,6 @@ public class FileUploadService {
                         }
                 ).toList();
 
-        return new FileUploadResponse(imageUrls);
+        return new FileUploadResponse(fileUrls);
     }
 }
