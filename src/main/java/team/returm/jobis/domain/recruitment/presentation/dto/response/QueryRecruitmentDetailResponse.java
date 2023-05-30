@@ -12,6 +12,7 @@ public class QueryRecruitmentDetailResponse {
 
     private final Long companyId;
     private final String companyProfileUrl;
+    private final String companyName;
     private final List<RecruitAreaResponse> areas;
     private final String preferentialTreatment;
     private final Integer requiredGrade;
