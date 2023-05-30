@@ -2,6 +2,8 @@ package team.returm.jobis.domain.company.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,12 +18,13 @@ import team.returm.jobis.domain.company.domain.repository.vo.QueryCompanyDetails
 import team.returm.jobis.domain.company.domain.repository.vo.StudentQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.TeacherQueryCompaniesVO;
 import team.returm.jobis.domain.company.domain.repository.vo.TeacherQueryEmployCompaniesVO;
+import team.returm.jobis.domain.company.presentation.dto.CompanyFilter;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.jpa.JPAExpressions.select;
 import static team.returm.jobis.domain.acceptance.domain.QAcceptance.acceptance;
 import static team.returm.jobis.domain.application.domain.QApplication.application;
 import static team.returm.jobis.domain.company.domain.QCompany.company;
@@ -35,8 +38,7 @@ public class CompanyRepository {
     private final CompanyJpaRepository companyJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public List<StudentQueryCompaniesVO> queryCompanyVoList(Integer page, String name) {
-        long pageSize = 11;
+    public List<StudentQueryCompaniesVO> queryCompanyVoList(CompanyFilter filter) {
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
@@ -47,59 +49,60 @@ public class CompanyRepository {
                         )
                 )
                 .from(company)
-                .where(containsName(name))
+                .where(containsName(filter.getName()))
                 .orderBy(company.name.desc())
-                .offset(page * pageSize)
-                .limit(pageSize)
+                .offset(filter.getOffset())
+                .limit(11)
                 .fetch();
     }
 
-    public List<TeacherQueryCompaniesVO> queryCompaniesByConditions(CompanyType type, String companyName, String region, String businessArea, Long page) {
-        long pageSize = 11;
+    public List<TeacherQueryCompaniesVO> queryCompaniesByConditions(CompanyFilter filter) {
         return queryFactory
-                .selectFrom(company)
-                .leftJoin(company.acceptances, acceptance)
+                .select(
+                        new QTeacherQueryCompaniesVO(
+                                company.id,
+                                company.name,
+                                company.address.mainAddress,
+                                company.businessArea,
+                                company.workersCount,
+                                company.take,
+                                company.type,
+                                company.isMou,
+                                recruitment.personalContact,
+                                recruitment.recruitYear,
+                                acceptancesCount()
+                        )
+                ).from(company)
                 .leftJoin(recruitment)
                 .on(recentRecruitment(null))
                 .where(
-                        eqCompanyType(type),
-                        containsName(companyName),
-                        eqRegion(region),
-                        eqBusinessArea(businessArea)
+                        eqCompanyType(filter.getType()),
+                        containsName(filter.getName()),
+                        eqRegion(filter.getRegion()),
+                        eqBusinessArea(filter.getBusinessArea())
                 )
                 .orderBy(company.name.desc())
-                .groupBy(
-                        company.id,
-                        company.name,
-                        company.address.mainAddress,
-                        company.businessArea,
-                        company.workersCount,
-                        company.take,
-                        company.type,
-                        company.isMou,
-                        recruitment.personalContact,
-                        recruitment.recruitYear
-                )
-                .offset(page * pageSize)
-                .limit(pageSize)
-                .transform(
-                        groupBy(company.id)
-                                .list(
-                                        new QTeacherQueryCompaniesVO(
-                                                company.id,
-                                                company.name,
-                                                company.address.mainAddress,
-                                                company.businessArea,
-                                                company.workersCount,
-                                                company.take,
-                                                company.type,
-                                                company.isMou,
-                                                recruitment.personalContact,
-                                                recruitment.recruitYear,
-                                                acceptance.count()
-                                        )
-                                )
-                );
+                .offset(filter.getOffset())
+                .limit(11)
+                .fetch();
+    }
+
+    public Long getTotalCompanyCount(CompanyFilter filter) {
+        return queryFactory
+                .select(company.count())
+                .from(company)
+                .where(
+                        eqCompanyType(filter.getType()),
+                        containsName(filter.getName()),
+                        eqRegion(filter.getRegion()),
+                        eqBusinessArea(filter.getBusinessArea())
+                ).fetchOne();
+    }
+
+    public JPQLQuery<Long> acceptancesCount() {
+        return select(acceptance.count())
+                .from(acceptance)
+                .where(acceptance.company.eq(company));
     }
 
     public QueryCompanyDetailsVO queryCompanyDetails(Long companyId) {

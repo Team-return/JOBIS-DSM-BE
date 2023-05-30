@@ -44,6 +44,7 @@ public class RecruitmentRepository {
     public List<QueryRecruitmentsVO> queryRecruitmentsByConditions(RecruitmentFilter filter) {
         QApplication requestedApplication = new QApplication("requestedApplication");
         QApplication approvedApplication = new QApplication("approvedApplication");
+
         return queryFactory
                 .select(
                         new QQueryRecruitmentsVO(
