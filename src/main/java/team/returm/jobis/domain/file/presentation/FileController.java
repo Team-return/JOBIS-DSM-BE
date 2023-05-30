@@ -14,6 +14,8 @@ import team.returm.jobis.domain.file.presentation.type.FileType;
 import team.returm.jobis.domain.file.service.DeleteFileService;
 import team.returm.jobis.domain.file.service.FileUploadService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/files")
 @RequiredArgsConstructor
@@ -24,10 +26,10 @@ public class FileController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public FileUploadResponse uploadFile(
-            @RequestParam("file") MultipartFile multipartFile,
+            @RequestParam("file") List<MultipartFile> multipartFiles,
             @RequestParam("type") FileType fileType
     ) {
-        return new FileUploadResponse(fileUploadService.execute(multipartFile, fileType));
+        return fileUploadService.execute(multipartFiles, fileType);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
