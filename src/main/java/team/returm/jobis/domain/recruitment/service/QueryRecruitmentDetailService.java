@@ -27,6 +27,8 @@ public class QueryRecruitmentDetailService {
 
         return QueryRecruitmentDetailResponse.builder()
                 .companyId(recruitment.getCompany().getId())
+                .companyProfileUrl(recruitment.getCompany().getCompanyLogoUrl())
+                .companyName(recruitment.getCompany().getName())
                 .areas(RecruitAreaResponse.of(recruitAreas))
                 .pay(recruitment.getPayInfo().getPay())
                 .trainPay(recruitment.getPayInfo().getTrainingPay())
