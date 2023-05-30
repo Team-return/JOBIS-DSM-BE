@@ -21,6 +21,10 @@ spring:
       username: ${MONGO_DB_USERNAME:root}
       password: ${MONGO_DB_PASSWORD:qaz}
 
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
 
   mail:
     host: smtp.gmail.com
