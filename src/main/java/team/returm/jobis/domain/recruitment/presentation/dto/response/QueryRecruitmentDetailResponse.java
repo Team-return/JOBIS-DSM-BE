@@ -10,20 +10,21 @@ import java.util.List;
 @Builder
 public class QueryRecruitmentDetailResponse {
 
-    private Long companyId;
-    private List<RecruitAreaResponse> areas;
-    private String preferentialTreatment;
-    private Integer requiredGrade;
-    private Integer workHours;
-    private List<String> requiredLicenses;
+    private final Long companyId;
+    private final String companyProfileUrl;
+    private final List<RecruitAreaResponse> areas;
+    private final String preferentialTreatment;
+    private final Integer requiredGrade;
+    private final Integer workHours;
+    private final List<String> requiredLicenses;
 
-    private List<String> hiringProgress;
-    private Integer trainPay;
-    private Integer pay;
-    private String benefits;
-    private Boolean military;
-    private String submitDocument;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String etc;
+    private final List<String> hiringProgress;
+    private final Integer trainPay;
+    private final Integer pay;
+    private final String benefits;
+    private final Boolean military;
+    private final String submitDocument;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final String etc;
 }
