@@ -86,16 +86,10 @@ public class Application extends BaseTimeEntity {
         this.rejectionReason = reason;
     }
 
-    private static final List<ApplicationStatus> cannotWriteStatuses =
-            new ArrayList<>(Arrays.asList(
-                    ApplicationStatus.REQUESTED,
-                    ApplicationStatus.APPROVED,
-                    ApplicationStatus.REJECTED
-            ));
-
     public void checkReviewAuthority() {
-        if (cannotWriteStatuses.stream()
-                .anyMatch(element -> element == this.applicationStatus)) {
+        if (this.applicationStatus == ApplicationStatus.REQUESTED
+                || this.applicationStatus == ApplicationStatus.APPROVED
+                || this.applicationStatus == ApplicationStatus.REJECTED) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
     }
