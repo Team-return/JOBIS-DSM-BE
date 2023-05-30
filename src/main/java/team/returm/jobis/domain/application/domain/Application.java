@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.student.domain.Student;
@@ -24,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -82,5 +84,19 @@ public class Application extends BaseTimeEntity {
 
         this.applicationStatus = ApplicationStatus.REJECTED;
         this.rejectionReason = reason;
+    }
+
+    private static final List<ApplicationStatus> cannotWriteStatuses =
+            new ArrayList<>(Arrays.asList(
+                    ApplicationStatus.REQUESTED,
+                    ApplicationStatus.APPROVED,
+                    ApplicationStatus.REJECTED
+            ));
+
+    public void checkReviewAuthority() {
+        if (cannotWriteStatuses.stream()
+                .anyMatch(element -> element == this.applicationStatus)) {
+            throw ApplicationNotFoundException.EXCEPTION;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package team.returm.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
@@ -44,11 +45,10 @@ public class CreateReviewService {
         if (!companyRepository.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
+        Application application = applicationRepository.queryApplicationById(request.getApplicationId())
+                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
-        if (applicationRepository.existsApplicationByApplicationIdAndApplicationStatusIn(
-                request.getApplicationId(), cannotWriteStatuses)) {
-            throw ApplicationNotFoundException.EXCEPTION;
-        }
+        application.checkReviewAuthority();
 
         List<Long> codeIds = request.getQnaElements().stream()
                 .map(QnAElement::getCodeId)
