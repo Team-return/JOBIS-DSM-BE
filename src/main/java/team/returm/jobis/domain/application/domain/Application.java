@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.student.domain.Student;
@@ -82,5 +83,13 @@ public class Application extends BaseTimeEntity {
 
         this.applicationStatus = ApplicationStatus.REJECTED;
         this.rejectionReason = reason;
+    }
+
+    public void checkReviewAuthority() {
+        if (this.applicationStatus == ApplicationStatus.REQUESTED
+                || this.applicationStatus == ApplicationStatus.APPROVED
+                || this.applicationStatus == ApplicationStatus.REJECTED) {
+            throw ApplicationNotFoundException.EXCEPTION;
+        }
     }
 }

@@ -22,5 +22,5 @@ public interface ApplicationJpaRepository extends JpaRepository<Application, Lon
 
     Optional<Application> findByStudentId(Long studentId);
 
-    boolean existsByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus);
+    boolean existsByIdAndApplicationStatusIn(Long applicationId, List<ApplicationStatus> applicationStatuses);
 }

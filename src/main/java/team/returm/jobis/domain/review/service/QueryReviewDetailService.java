@@ -34,7 +34,6 @@ public class QueryReviewDetailService {
         return QueryReviewDetailResponse.builder()
                 .year(review.getYear())
                 .writer(review.getStudentName())
-                .createdDate(review.getCreatedDate())
                 .qnaResponses(
                         QnAResponse.of(review.getQnAElements(), codes)
                 )

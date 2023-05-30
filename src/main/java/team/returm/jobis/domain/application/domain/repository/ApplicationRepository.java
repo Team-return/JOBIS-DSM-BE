@@ -200,11 +200,11 @@ public class ApplicationRepository {
                 .execute();
     }
 
-    public boolean existsApplicationByApplicationIdAndApplicationStatus(
+    public boolean existsApplicationByApplicationIdAndApplicationStatusIn(
             Long applicationId,
-            ApplicationStatus applicationStatus
+            List<ApplicationStatus> applicationStatuses
     ) {
-        return applicationJpaRepository.existsByIdAndApplicationStatus(applicationId, applicationStatus);
+        return applicationJpaRepository.existsByIdAndApplicationStatusIn(applicationId, applicationStatuses);
     }
 
     //==conditions==//

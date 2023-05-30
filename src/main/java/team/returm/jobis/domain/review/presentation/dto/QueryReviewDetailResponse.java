@@ -5,7 +5,6 @@ import lombok.Getter;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.review.domain.QnAElement;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -14,7 +13,6 @@ public class QueryReviewDetailResponse {
 
     private final int year;
     private final String writer;
-    private final LocalDate createdDate;
     private final List<QnAResponse> qnaResponses;
 
     @Getter
