@@ -94,11 +94,11 @@ public class Company {
     private String email;
 
     @NotNull
-    @ColumnDefault(ImageProperty.DEFAULT_COMPANY_LOGO_IMAGE)
-    @Column(columnDefinition = "VARCHAR(1000)")
+    @Column(columnDefinition = "VARCHAR(4000)")
     private String companyIntroduce;
 
     @NotNull
+    @ColumnDefault(ImageProperty.DEFAULT_COMPANY_LOGO_IMAGE)
     @Column(columnDefinition = "VARCHAR(300)")
     private String companyLogoUrl;
 
