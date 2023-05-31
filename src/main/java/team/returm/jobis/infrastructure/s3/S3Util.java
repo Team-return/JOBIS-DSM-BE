@@ -58,8 +58,8 @@ public class S3Util {
             if (fileType.equals(FileType.LOGO_IMAGE)) {
                 throw InvalidExtensionException.EXCEPTION;
             }
-            if (!(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals("pptx")
-                    || extension.equals("hwp") || extension.equals(".zip"))) {
+            if (!(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals(".pptx")
+                    || extension.equals(".hwp") || extension.equals(".zip"))) {
                 throw InvalidExtensionException.EXCEPTION;
             }
         }
