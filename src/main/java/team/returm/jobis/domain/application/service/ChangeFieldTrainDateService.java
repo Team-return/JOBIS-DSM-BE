@@ -27,9 +27,10 @@ public class ChangeFieldTrainDateService {
         List<Application> fieldTrainApplications =
                 applicationRepository.queryApplicationsByStudentIds(request.getStudentIds());
 
-        boolean isFieldTrainsExist = fieldTrainApplications.stream()
+        boolean isFieldTrainsExist = applications.stream()
                 .allMatch(application ->
-                        application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN);
+                        application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN
+                );
 
         if (!isFieldTrainsExist) {
             throw FieldTrainDateCannotChangeException.EXCEPTION;
