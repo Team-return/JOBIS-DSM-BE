@@ -12,7 +12,7 @@ import java.util.List;
 public class ChangeFieldTrainDateRequest {
 
     @NotNull
-    private List<Long> studentIds;
+    private List<Long> applicationIds;
 
     @NotNull
     private LocalDate startDate;

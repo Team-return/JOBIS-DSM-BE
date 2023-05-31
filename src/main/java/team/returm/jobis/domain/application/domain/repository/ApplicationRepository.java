@@ -146,8 +146,8 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 
-    public List<Application> queryApplicationByIds(List<Long> applicationIds) {
-        return applicationJpaRepository.findByIdIn(applicationIds);
+    public List<Application> queryApplicationsByIds(List<Long> applicationIds) {
+        return applicationJpaRepository.findAllByIdIn(applicationIds);
     }
 
     public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
@@ -187,9 +187,7 @@ public class ApplicationRepository {
                 .execute();
     }
 
-    public List<Application> queryApplicationsByStudentIds(List<Long> studentIds) {
-        return applicationJpaRepository.findByStudentIdIn(studentIds);
-    }
+
 
     public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
         queryFactory
