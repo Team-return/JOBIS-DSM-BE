@@ -54,6 +54,7 @@ public class SecurityConfig {
 
                 //applications
                 .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
+                .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(STUDENT.name())
