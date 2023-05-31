@@ -146,8 +146,8 @@ public class CompanyRepository {
                         new QTeacherQueryEmployCompaniesVO(
                                 company.id,
                                 company.name,
-                                application.count(),
-                                acceptance.count()
+                                application.countDistinct(),
+                                acceptance.countDistinct()
                         )
                 )
                 .from(company)
