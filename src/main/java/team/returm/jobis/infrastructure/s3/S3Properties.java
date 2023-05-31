@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 @RequiredArgsConstructor
 @ConfigurationProperties("cloud.aws.s3")
 public class S3Properties {
+
     private final String bucket;
     private final String url;
 }
