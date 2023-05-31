@@ -25,7 +25,7 @@ public class RegisterCompanyService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final CodeFacade codeFacade;
-    private static final String DEFAULT_PROFILE = "https://jobis-file.s3.ap-northeast-2.amazonaws.com/LOGO_IMAGE/COMPANY-DEFAULT.jpg"
+    private static final String DEFAULT_PROFILE = "https://jobis-file.s3.ap-northeast-2.amazonaws.com/LOGO_IMAGE/COMPANY-DEFAULT.jpg";
 
     public TokenResponse execute(RegisterCompanyRequest request) {
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
