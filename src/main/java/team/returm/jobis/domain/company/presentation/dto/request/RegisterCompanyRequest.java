@@ -81,7 +81,6 @@ public class RegisterCompanyRequest {
     @NotNull
     private double take;
 
-    @NotBlank
     private String companyProfileUrl;
 
     @NotBlank

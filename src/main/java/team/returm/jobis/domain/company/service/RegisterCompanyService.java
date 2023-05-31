@@ -25,6 +25,7 @@ public class RegisterCompanyService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final CodeFacade codeFacade;
+    private static final String DEFAULT_PROFILE = "https://jobis-file.s3.ap-northeast-2.amazonaws.com/LOGO_IMAGE/COMPANY-DEFAULT.jpg"
 
     public TokenResponse execute(RegisterCompanyRequest request) {
         if (!companyFacade.checkCompany(request.getBusinessNumber())) {
@@ -42,12 +43,12 @@ public class RegisterCompanyService {
                 .build();
 
         String businessAreaKeyword = codeFacade.findCodeById(request.getBusinessAreaCode()).getKeyword();
-
+        String companyLogoUrl = request.getCompanyProfileUrl() == null ? DEFAULT_PROFILE : request.getCompanyProfileUrl();
         companyRepository.saveCompany(
                 Company.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
-                        .companyLogoUrl(request.getCompanyProfileUrl())
+                        .companyLogoUrl(companyLogoUrl)
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
                         .businessArea(businessAreaKeyword)
                         .serviceName(request.getServiceName())
