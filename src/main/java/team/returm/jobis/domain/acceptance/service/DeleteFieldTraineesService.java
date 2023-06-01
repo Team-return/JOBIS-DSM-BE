@@ -25,7 +25,7 @@ public class DeleteFieldTraineesService {
         }
 
         if (!applications.stream()
-                .anyMatch(application -> application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN)) {
+                .allMatch(application -> application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN)) {
             throw ApplicationCannotDeleteException.EXCEPTION;
         }
 
