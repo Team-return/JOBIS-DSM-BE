@@ -14,7 +14,6 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
     private final List<TeacherQueryFieldTraineesResponse> fieldTraineesResponse;
     private final List<TeacherQueryContractWorkersResponse> acceptancesResponse;
 
-
     @Getter
     @Builder
     public static class TeacherQueryFieldTraineesResponse {

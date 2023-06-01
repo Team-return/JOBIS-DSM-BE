@@ -24,12 +24,12 @@ public class ChangeFieldTrainDateService {
             throw InvalidDateException.EXCEPTION;
         }
 
-        List<Application> fieldTrainApplications =
-                applicationRepository.queryApplicationsByStudentIds(request.getStudentIds());
+        List<Application> applications = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
 
-        boolean isFieldTrainsExist = fieldTrainApplications.stream()
+        boolean isFieldTrainsExist = applications.stream()
                 .allMatch(application ->
-                        application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN);
+                        application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN
+                );
 
         if (!isFieldTrainsExist) {
             throw FieldTrainDateCannotChangeException.EXCEPTION;
@@ -38,7 +38,7 @@ public class ChangeFieldTrainDateService {
         applicationRepository.updateFieldTrainDate(
                 request.getStartDate(),
                 request.getEndDate(),
-                fieldTrainApplications
+                applications
         );
     }
 }

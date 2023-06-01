@@ -11,7 +11,9 @@ import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTraineesVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QQueryPassedApplicationStudentsVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryTotalApplicationCountVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QueryPassedApplicationStudentsVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
@@ -103,6 +105,28 @@ public class ApplicationRepository {
                 .fetch();
     }
 
+    public List<QueryPassedApplicationStudentsVO> queryPassedApplicationStudentsByCompanyId(Long companyId) {
+        return queryFactory
+                .select(
+                        new QQueryPassedApplicationStudentsVO(
+                                application.id,
+                                student.name,
+                                student.grade,
+                                student.classRoom,
+                                student.number
+                        )
+                )
+                .from(application)
+                .join(application.student, student)
+                .join(application.recruitment, recruitment)
+                .join(recruitment.company, company)
+                .where(
+                        company.id.eq(companyId),
+                        application.applicationStatus.eq(ApplicationStatus.PASS)
+                )
+                .fetch();
+    }
+
     public QueryTotalApplicationCountVO queryTotalApplicationCount() {
         QStudent approvedStudent = new QStudent("approvedStudent");
         QStudent passedStudent = new QStudent("passedStudent");
@@ -146,8 +170,8 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 
-    public List<Application> queryApplicationByIds(List<Long> applicationIds) {
-        return applicationJpaRepository.findByIdIn(applicationIds);
+    public List<Application> queryApplicationsByIds(List<Long> applicationIds) {
+        return applicationJpaRepository.findAllByIdIn(applicationIds);
     }
 
     public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
@@ -187,9 +211,7 @@ public class ApplicationRepository {
                 .execute();
     }
 
-    public List<Application> queryApplicationsByStudentIds(List<Long> studentIds) {
-        return applicationJpaRepository.findByStudentIdIn(studentIds);
-    }
+
 
     public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
         queryFactory

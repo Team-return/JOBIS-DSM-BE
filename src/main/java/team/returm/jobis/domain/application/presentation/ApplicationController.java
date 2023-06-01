@@ -18,6 +18,7 @@ import team.returm.jobis.domain.application.presentation.dto.request.ChangeField
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import team.returm.jobis.domain.application.presentation.dto.request.RejectApplicationRequest;
 import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
+import team.returm.jobis.domain.application.presentation.dto.response.QueryPassedApplicationStudentsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.QueryEmploymentCountResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
@@ -25,6 +26,7 @@ import team.returm.jobis.domain.application.service.ChangeApplicationsStatusServ
 import team.returm.jobis.domain.application.service.ChangeFieldTrainDateService;
 import team.returm.jobis.domain.application.service.CreateApplicationService;
 import team.returm.jobis.domain.application.service.DeleteApplicationService;
+import team.returm.jobis.domain.application.service.QueryPassedApplicationStudentsService;
 import team.returm.jobis.domain.application.service.QueryCompanyApplicationsService;
 import team.returm.jobis.domain.application.service.QueryEmploymentCountService;
 import team.returm.jobis.domain.application.service.QueryStudentApplicationsService;
@@ -47,6 +49,7 @@ public class ApplicationController {
     private final ChangeFieldTrainDateService changeFieldTrainDateService;
     private final RejectApplicationService rejectApplicationService;
     private final QueryEmploymentCountService queryEmploymentCountService;
+    private final QueryPassedApplicationStudentsService queryPassedApplicationStudentsService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -109,5 +112,12 @@ public class ApplicationController {
     @GetMapping("/employment/count")
     public QueryEmploymentCountResponse queryEmploymentCount() {
         return queryEmploymentCountService.execute();
+    }
+
+    @GetMapping("/pass/{company-id}")
+    public QueryPassedApplicationStudentsResponse queryFieldTrainApplication(
+            @PathVariable("company-id") Long companyId
+    ) {
+        return queryPassedApplicationStudentsService.execute(companyId);
     }
 }

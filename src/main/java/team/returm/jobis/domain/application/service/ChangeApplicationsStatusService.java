@@ -16,7 +16,7 @@ public class ChangeApplicationsStatusService {
     private final ApplicationRepository applicationRepository;
 
     public void execute(List<Long> applicationIds, ApplicationStatus status) {
-        List<Application> applications = applicationRepository.queryApplicationByIds(applicationIds);
+        List<Application> applications = applicationRepository.queryApplicationsByIds(applicationIds);
 
         if (applicationIds.size() != applications.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
