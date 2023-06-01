@@ -69,6 +69,10 @@ public class Application extends BaseTimeEntity {
     }
 
     public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
+        if (this.applicationStatus != ApplicationStatus.PASS) {
+            throw ApplicationStatusCannotChangeException.EXCEPTION;
+        }
+
         this.applicationStatus = ApplicationStatus.FIELD_TRAIN;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -90,12 +94,6 @@ public class Application extends BaseTimeEntity {
                 || this.applicationStatus == ApplicationStatus.APPROVED
                 || this.applicationStatus == ApplicationStatus.REJECTED) {
             throw ApplicationNotFoundException.EXCEPTION;
-        }
-    }
-
-    public void checkApplicationsStatus(ApplicationStatus status1, ApplicationStatus status2) {
-        if (status1 != status2)  {
-            throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
     }
 }

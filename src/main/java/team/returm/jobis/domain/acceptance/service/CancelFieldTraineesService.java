@@ -6,6 +6,7 @@ import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
+import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.returm.jobis.global.annotation.Service;
 
 import java.util.List;
@@ -23,16 +24,15 @@ public class CancelFieldTraineesService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
+        if (!applications.stream()
+                .allMatch(application -> application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN)
+        ) {
+            throw ApplicationStatusCannotChangeException.EXCEPTION;
+        }
+
         applicationRepository.changeApplicationStatus(
                 ApplicationStatus.PASS,
-                applications.stream()
-                        .map(application -> {
-                            application.checkApplicationsStatus(
-                                    application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN
-                            );
-
-                            return application;
-                        }).toList()
+                applications
         );
     }
 }

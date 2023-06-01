@@ -3,7 +3,6 @@ package team.returm.jobis.domain.acceptance.service;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
 import team.returm.jobis.domain.application.domain.Application;
-import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.global.annotation.Service;
@@ -23,15 +22,11 @@ public class RegisterFieldTraineeService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        List<Application> toFieldTrain = applications.stream()
-                .map(application ->  {
-                    application.checkApplicationsStatus(application.getApplicationStatus(), ApplicationStatus.PASS);
-
-                    return application.toFieldTrain(
-                            request.getStartDate(), request.getEndDate()
-                    );
-                }).toList();
-
-        applicationRepository.saveAllApplications(toFieldTrain);
+        applicationRepository.saveAllApplications(
+                applications.stream()
+                        .map(
+                                application -> application.toFieldTrain(request.getStartDate(), request.getEndDate())
+                        ).toList()
+        );
     }
 }
