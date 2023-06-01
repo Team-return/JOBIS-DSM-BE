@@ -1,32 +1,38 @@
 package team.returm.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
+import team.returm.jobis.domain.acceptance.presentation.dto.request.CancelFieldTraineesRequest;
 import team.returm.jobis.domain.application.domain.Application;
+import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
+import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.returm.jobis.global.annotation.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
-public class RegisterFieldTraineeService {
+@Service
+public class CancelFieldTraineesService {
 
     private final ApplicationRepository applicationRepository;
 
-    public void execute(RegisterFieldTraineeRequest request) {
+    public void execute(CancelFieldTraineesRequest request) {
         List<Application> applications = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
 
         if (request.getApplicationIds().size() != applications.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        applicationRepository.saveAllApplications(
-                applications.stream()
-                        .map(
-                                application -> application.toFieldTrain(request.getStartDate(), request.getEndDate())
-                        ).toList()
+        if (!applications.stream()
+                .allMatch(application -> application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN)
+        ) {
+            throw ApplicationStatusCannotChangeException.EXCEPTION;
+        }
+
+        applicationRepository.changeApplicationStatus(
+                ApplicationStatus.PASS,
+                applications
         );
     }
 }

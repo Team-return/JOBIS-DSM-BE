@@ -69,6 +69,10 @@ public class Application extends BaseTimeEntity {
     }
 
     public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
+        if (this.applicationStatus != ApplicationStatus.PASS) {
+            throw ApplicationStatusCannotChangeException.EXCEPTION;
+        }
+
         this.applicationStatus = ApplicationStatus.FIELD_TRAIN;
         this.startDate = startDate;
         this.endDate = endDate;

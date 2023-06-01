@@ -2,6 +2,7 @@ package team.returm.jobis.domain.acceptance.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateRequest;
+import team.returm.jobis.domain.acceptance.presentation.dto.request.CancelFieldTraineesRequest;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
 import team.returm.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
 import team.returm.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
 import team.returm.jobis.domain.acceptance.service.ChangeContractDateService;
+import team.returm.jobis.domain.acceptance.service.CancelFieldTraineesService;
 import team.returm.jobis.domain.acceptance.service.RegisterEmploymentContractService;
 import team.returm.jobis.domain.acceptance.service.RegisterFieldTraineeService;
 import team.returm.jobis.domain.acceptance.service.TeacherQueryFieldTraineesAndContractWorkersService;
@@ -30,6 +33,7 @@ public class AcceptanceController {
     private final ChangeContractDateService changeContractDateService;
     private final RegisterFieldTraineeService registerFieldTraineeService;
     private final RegisterEmploymentContractService registerEmploymentContractService;
+    private final CancelFieldTraineesService cancelFieldTraineesService;
 
     @GetMapping("/{company-id}")
     public TeacherQueryFieldTraineesAndContractWorkersResponse teacherQueryFieldTraineesAndContractWorkers(
@@ -39,12 +43,11 @@ public class AcceptanceController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/field-train/{application-id}")
+    @PatchMapping("/field-train")
     public void registerFieldTrainee(
-            @PathVariable("application-id") Long applicationId,
             @RequestBody @Valid RegisterFieldTraineeRequest request
     ) {
-        registerFieldTraineeService.execute(applicationId, request.getStartDate(), request.getEndDate());
+        registerFieldTraineeService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -57,5 +60,11 @@ public class AcceptanceController {
     @PostMapping("/employment")
     public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractRequest request) {
         registerEmploymentContractService.execute(request);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping
+    public void cancelFieldTrainees(@RequestBody @Valid CancelFieldTraineesRequest request) {
+        cancelFieldTraineesService.execute(request);
     }
 }
