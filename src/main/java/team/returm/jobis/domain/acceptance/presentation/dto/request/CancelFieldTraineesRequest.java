@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class DeleteFieldTraineesRequest {
+public class CancelFieldTraineesRequest {
 
     @ValidListElements
     private List<Long> applicationIds;
