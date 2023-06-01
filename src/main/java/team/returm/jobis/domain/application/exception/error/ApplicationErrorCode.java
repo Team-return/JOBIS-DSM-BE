@@ -9,7 +9,6 @@ import team.returm.jobis.global.error.ErrorProperty;
 @AllArgsConstructor
 public enum ApplicationErrorCode implements ErrorProperty {
 
-    APPLICATION_STATUS_CANNOT_CHANGE(HttpStatus.BAD_REQUEST, "Application Status Cannot be changed"),
     INVALID_DATE(HttpStatus.BAD_REQUEST, "Invalid Date"),
 
     INVALID_STUDENT(HttpStatus.UNAUTHORIZED, "Invalid Student"),
@@ -17,6 +16,7 @@ public enum ApplicationErrorCode implements ErrorProperty {
 
     FIELD_TRAIN_DATE_CANNOT_CHANGE(HttpStatus.FORBIDDEN, "Field Train Date Cannot Changed"),
     APPLICATION_CANNOT_DELETE(HttpStatus.FORBIDDEN, "Application Cannot Deleted"),
+    APPLICATION_STATUS_CANNOT_CHANGE(HttpStatus.FORBIDDEN, "Application Status Cannot be changed"),
 
     APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "Application Not Found"),
 
