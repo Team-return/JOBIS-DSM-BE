@@ -1,11 +1,11 @@
-package team.returm.jobis.infrastructure.feignClients;
+package team.returm.jobis.infrastructure.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.returm.jobis.infrastructure.feignClients.dto.BusinessNumberResponse;
-import team.returm.jobis.infrastructure.feignClients.exception.FeignBadRequestException;
-import team.returm.jobis.infrastructure.feignClients.exception.FeignServerErrorException;
-import team.returm.jobis.infrastructure.feignClients.exception.FeignUnauthorisedException;
+import team.returm.jobis.infrastructure.api.dto.BusinessNumberResponse;
+import team.returm.jobis.infrastructure.api.exception.FeignBadRequestException;
+import team.returm.jobis.infrastructure.api.exception.FeignServerErrorException;
+import team.returm.jobis.infrastructure.api.exception.FeignUnauthorisedException;
 
 @RequiredArgsConstructor
 @Component

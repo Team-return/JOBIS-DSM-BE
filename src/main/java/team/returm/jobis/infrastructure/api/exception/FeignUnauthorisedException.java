@@ -1,7 +1,7 @@
-package team.returm.jobis.infrastructure.feignClients.exception;
+package team.returm.jobis.infrastructure.api.exception;
 
 import team.returm.jobis.global.error.exception.JobisException;
-import team.returm.jobis.infrastructure.feignClients.exception.error.FeignErrorCode;
+import team.returm.jobis.infrastructure.api.exception.error.FeignErrorCode;
 
 public class FeignUnauthorisedException extends JobisException {
 

@@ -1,4 +1,4 @@
-package team.returm.jobis.infrastructure.feignClients.exception.error;
+package team.returm.jobis.infrastructure.api.exception.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

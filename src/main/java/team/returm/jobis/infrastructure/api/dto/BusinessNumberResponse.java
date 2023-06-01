@@ -1,8 +1,6 @@
-package team.returm.jobis.infrastructure.feignClients.dto;
+package team.returm.jobis.infrastructure.api.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

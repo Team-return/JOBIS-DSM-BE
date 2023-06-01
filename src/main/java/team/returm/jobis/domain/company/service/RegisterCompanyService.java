@@ -14,7 +14,7 @@ import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 import team.returm.jobis.global.security.jwt.TokenType;
-import team.returm.jobis.infrastructure.feignClients.FeignUtil;
+import team.returm.jobis.infrastructure.api.FeignUtil;
 
 @RequiredArgsConstructor
 @Service

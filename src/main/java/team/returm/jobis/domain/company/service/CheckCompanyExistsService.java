@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import team.returm.jobis.infrastructure.feignClients.FeignUtil;
+import team.returm.jobis.infrastructure.api.FeignUtil;
 
 @RequiredArgsConstructor
 @ReadOnlyService
