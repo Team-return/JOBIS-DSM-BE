@@ -43,12 +43,11 @@ public class AcceptanceController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/field-train/{application-id}")
+    @PatchMapping("/field-train")
     public void registerFieldTrainee(
-            @PathVariable("application-id") Long applicationId,
             @RequestBody @Valid RegisterFieldTraineeRequest request
     ) {
-        registerFieldTraineeService.execute(applicationId, request.getStartDate(), request.getEndDate());
+        registerFieldTraineeService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

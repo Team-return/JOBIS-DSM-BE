@@ -229,6 +229,10 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByIdAndApplicationStatusIn(applicationId, applicationStatuses);
     }
 
+    public void saveAllApplications(List<Application> applications) {
+        applicationJpaRepository.saveAll(applications);
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {

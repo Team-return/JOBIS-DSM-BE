@@ -18,7 +18,6 @@ public class DeleteFieldTraineesService {
     private final ApplicationRepository applicationRepository;
 
     public void execute(DeleteFieldTraineesRequest request) {
-
         List<Application> applications = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
 
         if (request.getApplicationIds().size() != applications.size()) {
