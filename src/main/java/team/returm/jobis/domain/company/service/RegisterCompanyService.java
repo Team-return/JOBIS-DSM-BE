@@ -6,8 +6,7 @@ import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.exception.CompanyAlreadyExistsException;
-import team.returm.jobis.domain.company.exception.CompanyNotFoundException;
-import team.returm.jobis.domain.company.facade.CompanyFacade;
+import team.returm.jobis.domain.company.exception.CompanyNotExistsException;
 import team.returm.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
@@ -15,20 +14,21 @@ import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 import team.returm.jobis.global.security.jwt.TokenType;
+import team.returm.jobis.infrastructure.feignClients.FeignUtil;
 
 @RequiredArgsConstructor
 @Service
 public class RegisterCompanyService {
 
-    private final CompanyFacade companyFacade;
+    private final FeignUtil feignUtil;
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final CodeFacade codeFacade;
 
     public TokenResponse execute(RegisterCompanyRequest request) {
-        if (!companyFacade.checkCompany(request.getBusinessNumber())) {
-            throw CompanyNotFoundException.EXCEPTION;
+        if(!feignUtil.checkCompanyExists(request.getBusinessNumber())) {
+            throw CompanyNotExistsException.EXCEPTION;
         }
 
         if (companyRepository.existsCompanyByBizNo(request.getBusinessNumber())) {
