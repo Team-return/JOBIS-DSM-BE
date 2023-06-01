@@ -1,11 +1,11 @@
-package team.returm.jobis.infrastructure.feignClients.dto;
+package team.returm.jobis.infrastructure.api.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Items {
+public class Item {
     private String company;
     private String bno;
 }

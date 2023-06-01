@@ -1,4 +1,4 @@
-package team.returm.jobis.infrastructure.feignClients;
+package team.returm.jobis.infrastructure.api;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

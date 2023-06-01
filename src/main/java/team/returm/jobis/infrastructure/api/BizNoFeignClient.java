@@ -1,9 +1,9 @@
-package team.returm.jobis.infrastructure.feignClients;
+package team.returm.jobis.infrastructure.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import team.returm.jobis.infrastructure.feignClients.dto.BusinessNumberResponse;
+import team.returm.jobis.infrastructure.api.dto.BusinessNumberResponse;
 
 @FeignClient(name = "BizNo", url = "https://bizno.net/api/fapi")
 public interface BizNoFeignClient {
