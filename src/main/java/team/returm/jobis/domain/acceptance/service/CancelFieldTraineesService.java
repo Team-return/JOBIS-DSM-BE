@@ -5,7 +5,6 @@ import team.returm.jobis.domain.acceptance.presentation.dto.request.CancelFieldT
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
-import team.returm.jobis.domain.application.exception.ApplicationCannotDeleteException;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.global.annotation.Service;
 
@@ -24,10 +23,16 @@ public class CancelFieldTraineesService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        if (!Application.checkApplicationsStatus(ApplicationStatus.FIELD_TRAIN, applications)) {
-            throw ApplicationCannotDeleteException.EXCEPTION;
-        }
+        applicationRepository.changeApplicationStatus(
+                ApplicationStatus.PASS,
+                applications.stream()
+                        .map(application -> {
+                            application.checkApplicationsStatus(
+                                    application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN
+                            );
 
-        applicationRepository.changeApplicationStatus(ApplicationStatus.PASS, applications);
+                            return application;
+                        }).toList()
+        );
     }
 }

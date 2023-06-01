@@ -93,15 +93,9 @@ public class Application extends BaseTimeEntity {
         }
     }
 
-    public static boolean checkApplicationsStatus(
-            ApplicationStatus applicationStatus,
-            List<Application> applications
-    ) {
-        if (applications.stream()
-                .allMatch(application -> application.getApplicationStatus() == applicationStatus)) {
-            return true;
-        } else {
-            return false;
+    public void checkApplicationsStatus(ApplicationStatus status1, ApplicationStatus status2) {
+        if (status1 != status2)  {
+            throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
     }
 }
