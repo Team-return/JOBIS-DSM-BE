@@ -24,8 +24,7 @@ public class CancelFieldTraineesService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        if (!applications.stream()
-                .allMatch(application -> application.getApplicationStatus() == ApplicationStatus.FIELD_TRAIN)) {
+        if (!Application.checkApplicationsStatus(ApplicationStatus.FIELD_TRAIN, applications)) {
             throw ApplicationCannotDeleteException.EXCEPTION;
         }
 

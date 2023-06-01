@@ -92,4 +92,16 @@ public class Application extends BaseTimeEntity {
             throw ApplicationNotFoundException.EXCEPTION;
         }
     }
+
+    public static boolean checkApplicationsStatus(
+            ApplicationStatus applicationStatus,
+            List<Application> applications
+    ) {
+        if (applications.stream()
+                .allMatch(application -> application.getApplicationStatus() == applicationStatus)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

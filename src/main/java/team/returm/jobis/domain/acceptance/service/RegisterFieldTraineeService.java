@@ -24,16 +24,15 @@ public class RegisterFieldTraineeService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        if (!applications.stream()
-                .allMatch(application -> application.getApplicationStatus() == ApplicationStatus.PASS)) {
+        if (!Application.checkApplicationsStatus(ApplicationStatus.PASS, applications)) {
             throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
 
-        List<Application> toFieldTrain = applications.stream()
+        List<Application> fieldTrainApplications = applications.stream()
                         .map(application -> application.toFieldTrain(
                                 request.getStartDate(), request.getEndDate())
                         ).toList();
 
-        applicationRepository.saveAllApplications(toFieldTrain);
+        applicationRepository.saveAllApplications(fieldTrainApplications);
     }
 }
