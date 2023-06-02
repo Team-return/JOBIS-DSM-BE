@@ -46,6 +46,7 @@ jobs:
             cd jobis
             docker pull ${{ secrets.DOCKER_IMAGE }}
             docker rm -f jobis-server
+            docker image prune -a -f
             docker run --name jobis-server -dp 8080:8080 --env-file .env ${{ secrets.DOCKER_IMAGE }}
             
             
