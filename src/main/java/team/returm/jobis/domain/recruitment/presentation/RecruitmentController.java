@@ -92,7 +92,7 @@ public class RecruitmentController {
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            @RequestParam(value = "code", required = false) List<Long> codeIds
+            @RequestParam(value = "code", required = false) List<Long> code
     ) {
         return studentQueryRecruitmentsService.execute(companyName, page - 1, codeIds);
     }
