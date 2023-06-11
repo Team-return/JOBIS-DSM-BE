@@ -57,17 +57,17 @@ public class RegisterCompanyRequest {
 
     @NotBlank
     @Size(max = 10)
-    private String manager1;
+    private String managerName;
 
     @NotBlank
     @Size(min = 10, max = 12)
-    private String phoneNumber1;
+    private String managerPhoneNo;
 
     @Size(max = 10)
-    private String manager2;
+    private String subManagerName;
 
     @Size(max = 12)
-    private String phoneNumber2;
+    private String subManagerPhoneNo;
 
     @Size(min = 10, max = 12)
     private String fax;

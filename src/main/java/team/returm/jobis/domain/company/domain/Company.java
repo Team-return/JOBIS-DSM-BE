@@ -38,7 +38,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Company {
-    
+
     @Id
     @Column(name = "company_id")
     private Long id;
