@@ -22,6 +22,10 @@ public class StringUtil {
                 .collect(Collectors.joining(","));
     }
 
+    public static String mergeString(String str1, String str2) {
+        return str1 + " " + str2;
+    }
+
     public static List<String> divideString(String content) {
         if (content == null || content.isEmpty()) {
             return List.of();

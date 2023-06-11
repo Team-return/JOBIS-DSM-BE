@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +34,6 @@ public class CompanyAttachment {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @Builder
     public CompanyAttachment(String attachmentUrl, Company company) {
         this.attachmentUrl = attachmentUrl;
         this.company = company;

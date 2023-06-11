@@ -3,6 +3,7 @@ package team.returm.jobis.domain.company.presentation.dto.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.returm.jobis.global.annotation.ValidListElements;
 import team.returm.jobis.global.util.RegexProperty;
 
 import javax.validation.constraints.Email;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -34,17 +36,24 @@ public class RegisterCompanyRequest {
 
     @NotBlank
     @Size(min = 5, max = 5)
-    private String zipCode1;
+    private String mainZipCode;
 
     @NotBlank
-    @Size(max = 100)
-    private String address1;
+    @Size(max = 50)
+    private String mainAddress;
+
+    @NotBlank
+    @Size(max = 50)
+    private String mainAddressDetail;
 
     @Size(max = 5)
-    private String zipCode2;
+    private String subZipCode;
 
-    @Size(max = 100)
-    private String address2;
+    @Size(max = 50)
+    private String subAddress;
+
+    @Size(max = 50)
+    private String subAddressDetail;
 
     @NotBlank
     @Size(max = 10)
@@ -93,4 +102,7 @@ public class RegisterCompanyRequest {
     @NotBlank
     @Size(min = 1, max = 20)
     private String serviceName;
+
+    @ValidListElements
+    private List<String> attachmentUrls;
 }

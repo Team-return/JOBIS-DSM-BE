@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.domain.CompanyAttachment;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.repository.vo.QQueryCompanyDetailsVO;
 import team.returm.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
@@ -36,6 +37,7 @@ import static team.returm.jobis.domain.recruitment.domain.QRecruitment.recruitme
 public class CompanyRepository {
 
     private final CompanyJpaRepository companyJpaRepository;
+    private final CompanyAttachmentJpaRepository companyAttachmentJpaRepository;
     private final JPAQueryFactory queryFactory;
 
     public List<StudentQueryCompaniesVO> queryCompanyVoList(CompanyFilter filter) {
@@ -185,12 +187,16 @@ public class CompanyRepository {
         return companyJpaRepository.existsByBizNo(bizNo);
     }
 
-    public void saveCompany(Company company) {
-        companyJpaRepository.save(company);
+    public Company saveCompany(Company company) {
+        return companyJpaRepository.save(company);
     }
 
     public void saveAllCompanies(List<Company> companies) {
         companyJpaRepository.saveAll(companies);
+    }
+
+    public void saveCompanyAttachments(List<CompanyAttachment> companyAttachments) {
+        companyAttachmentJpaRepository.saveAll(companyAttachments);
     }
 
     public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
