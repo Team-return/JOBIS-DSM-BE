@@ -33,6 +33,7 @@ import team.returm.jobis.domain.recruitment.service.TeacherChangeRecruitmentStat
 import team.returm.jobis.domain.recruitment.service.TeacherQueryRecruitmentsService;
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitAreaService;
 import team.returm.jobis.domain.recruitment.service.UpdateRecruitmentService;
+import team.returm.jobis.global.util.StringUtil;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -92,9 +93,10 @@ public class RecruitmentController {
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            @RequestParam(value = "code", required = false) List<Long> code
+            @RequestParam(value = "code", required = false) String code
     ) {
-        return studentQueryRecruitmentsService.execute(companyName, page - 1, code);
+        List<Long> codes = StringUtil.divideString(code).stream().map(Long::parseLong).toList();
+        return studentQueryRecruitmentsService.execute(companyName, page - 1, codes);
     }
 
     @GetMapping("/teacher")
