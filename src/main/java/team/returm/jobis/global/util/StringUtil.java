@@ -17,11 +17,6 @@ public class StringUtil {
         return request == null ? null : String.join(",", request.stream().map(Object::toString).toList());
     }
 
-    public static String getHiringProgress(List<ProgressType> request) {
-        return request.stream().map(Enum::toString)
-                .collect(Collectors.joining(","));
-    }
-
     public static String mergeString(String str1, String str2) {
         return str1 + " " + str2;
     }
