@@ -23,7 +23,10 @@ public class StringUtil {
     }
 
     public static List<String> divideString(String content) {
-        return content == null ? List.of() : List.of(content.split(","));
+        if (content == null || content.isBlank()) {
+            return List.of();
+        }
+        return List.of(content.split(","));
     }
 
     public static String generateRandomCode(int size) {
