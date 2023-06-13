@@ -211,8 +211,6 @@ public class ApplicationRepository {
                 .execute();
     }
 
-
-
     public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
         queryFactory
                 .update(application)

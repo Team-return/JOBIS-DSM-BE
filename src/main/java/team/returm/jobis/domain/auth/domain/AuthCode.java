@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
+import team.returm.jobis.domain.auth.exception.BadAuthCodeException;
 import team.returm.jobis.domain.auth.exception.UnverifiedEmailException;
 
 @Getter
@@ -33,6 +34,12 @@ public class AuthCode {
     public void checkIsVerified() {
         if (!this.isVerified) {
             throw UnverifiedEmailException.EXCEPTION;
+        }
+    }
+
+    public void verifyCode(String code) {
+        if (!this.code.equals(code)) {
+            throw BadAuthCodeException.EXCEPTION;
         }
     }
 }

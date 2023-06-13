@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.returm.jobis.domain.application.exception.ApplicationCannotDeleteException;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
+import team.returm.jobis.domain.application.exception.InvalidStudentException;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.entity.BaseTimeEntity;
@@ -69,9 +71,7 @@ public class Application extends BaseTimeEntity {
     }
 
     public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
-        if (this.applicationStatus != ApplicationStatus.PASS) {
-            throw ApplicationStatusCannotChangeException.EXCEPTION;
-        }
+        checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
 
         this.applicationStatus = ApplicationStatus.FIELD_TRAIN;
         this.startDate = startDate;
@@ -94,6 +94,22 @@ public class Application extends BaseTimeEntity {
                 || this.applicationStatus == ApplicationStatus.APPROVED
                 || this.applicationStatus == ApplicationStatus.REJECTED) {
             throw ApplicationNotFoundException.EXCEPTION;
+        }
+    }
+
+    public void checkApplicationStatus(ApplicationStatus status1, ApplicationStatus status2) {
+        if (status1 != status2) {
+            throw ApplicationStatusCannotChangeException.EXCEPTION;
+        }
+    }
+
+    public void checkIsDeleteable(Student student) {
+        if (!this.student.equals(student)) {
+            throw InvalidStudentException.EXCEPTION;
+        }
+
+        if (this.applicationStatus != ApplicationStatus.REQUESTED) {
+            throw ApplicationCannotDeleteException.EXCEPTION;
         }
     }
 }

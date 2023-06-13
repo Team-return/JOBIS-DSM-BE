@@ -6,7 +6,6 @@ import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationAlreadyExistsException;
-import team.returm.jobis.domain.application.exception.InvalidGradeException;
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
@@ -27,15 +26,13 @@ public class CreateApplicationService {
 
     public void execute(CreateApplicationRequest request, Long recruitmentId) {
         Student student = userFacade.getCurrentStudent();
+        student.check3rdGrade();
+
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         if (applicationRepository.existsApplicationByStudentAndRecruitmentId(student, recruitmentId)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
-        }
-
-        if (!student.getGrade().equals(3)) {
-            throw InvalidGradeException.EXCEPTION;
         }
 
         if (applicationRepository.existsApplicationByStudentAndApplicationStatus(student, ApplicationStatus.APPROVED)) {

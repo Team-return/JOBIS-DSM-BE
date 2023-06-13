@@ -15,7 +15,6 @@ public class ChangeContractDateService {
     private final AcceptanceRepository acceptanceRepository;
 
     public void execute(ChangeContractDateRequest request) {
-
         if (request.getContractDate().isBefore(LocalDate.now())) {
             throw InvalidDateException.EXCEPTION;
         }
