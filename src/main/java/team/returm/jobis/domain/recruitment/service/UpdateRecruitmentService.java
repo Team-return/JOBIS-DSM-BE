@@ -25,12 +25,11 @@ public class UpdateRecruitmentService {
             recruitment.checkCompany(user.getId());
         }
 
-        String requiredLicenses = StringUtil.joinStringList(request.getRequiredLicenses());
         String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
 
         recruitment.update(
                 request.getTrainPay(), request.getPay(), request.getWorkHours(), request.getSubmitDocument(),
-                request.getStartDate(), request.getEndDate(), request.getBenefits(), requiredLicenses,
+                request.getStartDate(), request.getEndDate(), request.getBenefits(), request.getRequiredLicenses(),
                 request.isMilitary(), request.getEtc(), request.getPreferentialTreatment(), hiringProgress,
                 request.getRequiredGrade()
         );

@@ -35,7 +35,7 @@ public class QueryRecruitmentDetailService {
                 .etc(recruitment.getEtc())
                 .submitDocument(recruitment.getSubmitDocument())
                 .requiredGrade(recruitment.getRequiredGrade())
-                .requiredLicenses(StringUtil.divideString(recruitment.getRequiredLicenses()))
+                .requiredLicenses(recruitment.getRequiredLicenses())
                 .startDate(recruitment.getRecruitDate().getStartDate())
                 .endDate(recruitment.getRecruitDate().getFinishDate())
                 .hiringProgress(StringUtil.divideString(recruitment.getHiringProgress()))

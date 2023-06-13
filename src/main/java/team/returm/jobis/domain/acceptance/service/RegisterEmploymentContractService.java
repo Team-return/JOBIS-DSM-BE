@@ -30,8 +30,6 @@ public class RegisterEmploymentContractService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        String codeKeywords = StringUtil.joinStringList(request.getCodeKeywords());
-
         List<Acceptance> acceptances = applications.stream()
                 .map(
                         application -> {
@@ -49,7 +47,7 @@ public class RegisterEmploymentContractService {
                                     ))
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
-                                    .tech(codeKeywords)
+                                    .tech(request.getCodeKeywords())
                                     .businessArea(application.getCompany().getBusinessArea())
                                     .build();
                         }

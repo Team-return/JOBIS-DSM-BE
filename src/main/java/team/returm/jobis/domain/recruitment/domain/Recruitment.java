@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import team.returm.jobis.global.converter.StringListConverter;
 import team.returm.jobis.domain.recruitment.domain.type.PayInfo;
 import team.returm.jobis.domain.recruitment.domain.type.RecruitDate;
 import team.returm.jobis.domain.recruitment.exception.CompanyMismatchException;
@@ -54,8 +55,9 @@ public class Recruitment extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(255)")
     private String preferentialTreatment;
 
+    @Convert(converter = StringListConverter.class)
     @Column(columnDefinition = "VARCHAR(200)")
-    private String requiredLicenses;
+    private List<String> requiredLicenses;
 
     @Column(columnDefinition = "TINYINT(100)")
     private Integer requiredGrade;
@@ -104,7 +106,7 @@ public class Recruitment extends BaseTimeEntity {
 
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, Company company, String benefits, String requiredLicenses,
+                       LocalDate startDate, LocalDate endDate, Company company, String benefits, boolean militarySupport, List<String> requiredLicenses,
                        boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade, Boolean personalContact) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
@@ -124,7 +126,7 @@ public class Recruitment extends BaseTimeEntity {
     }
 
     public void update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, String benefits, String requiredLicenses,
+                       LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
                        boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
     ) {
         this.workingHours = workingHours;

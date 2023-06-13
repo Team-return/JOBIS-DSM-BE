@@ -34,9 +34,7 @@ public class QueryMyRecruitmentService {
                 .areas(RecruitAreaResponse.of(recruitAreas))
                 .preferentialTreatment(recruitment.getPreferentialTreatment())
                 .requiredGrade(recruitment.getRequiredGrade())
-                .requiredLicenses(StringUtil.divideString(
-                        recruitment.getRequiredLicenses()
-                ))
+                .requiredLicenses(recruitment.getRequiredLicenses())
                 .workingHours(recruitment.getWorkingHours())
                 .trainingPay(recruitment.getPayInfo().getTrainingPay())
                 .pay(recruitment.getPayInfo().getPay())

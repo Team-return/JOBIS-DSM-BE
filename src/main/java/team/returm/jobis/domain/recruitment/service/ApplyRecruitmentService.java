@@ -32,7 +32,6 @@ public class ApplyRecruitmentService {
         Company company = userFacade.getCurrentCompany();
 
         String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
-        String requiredLicenses = StringUtil.joinStringList(request.getRequiredLicenses());
 
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
@@ -42,7 +41,7 @@ public class ApplyRecruitmentService {
                         .personalContact(request.isPersonalContact())
                         .workingHours(request.getWorkHours())
                         .preferentialTreatment(request.getPreferentialTreatment())
-                        .requiredLicenses(requiredLicenses)
+                        .requiredLicenses(request.getRequiredLicenses())
                         .status(RecruitStatus.REQUESTED)
                         .requiredGrade(request.getRequiredGrade())
                         .startDate(request.getStartDate())
