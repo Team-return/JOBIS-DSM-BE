@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import team.returm.jobis.domain.application.domain.Application;
+import team.returm.jobis.domain.application.exception.InvalidGradeException;
 import team.returm.jobis.domain.bookmark.domain.Bookmark;
 import team.returm.jobis.domain.student.domain.enums.Department;
 import team.returm.jobis.domain.student.domain.enums.Gender;
@@ -119,5 +120,11 @@ public class Student {
             case 4 -> Department.INFORMATION_SECURITY;
             default -> throw ClassRoomNotFoundException.EXCEPTION;
         };
+    }
+
+    public void checkGrade(Integer grade) {
+        if (this.grade != grade) {
+            throw InvalidGradeException.EXCEPTION;
+        }
     }
 }

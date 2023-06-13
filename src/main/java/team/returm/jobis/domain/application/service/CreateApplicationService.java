@@ -6,7 +6,6 @@ import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
 import team.returm.jobis.domain.application.exception.ApplicationAlreadyExistsException;
-import team.returm.jobis.domain.application.exception.InvalidGradeException;
 import team.returm.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
@@ -34,9 +33,7 @@ public class CreateApplicationService {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        if (!student.getGrade().equals(3)) {
-            throw InvalidGradeException.EXCEPTION;
-        }
+        student.checkGrade(3);
 
         if (applicationRepository.existsApplicationByStudentAndApplicationStatus(student, ApplicationStatus.APPROVED)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;

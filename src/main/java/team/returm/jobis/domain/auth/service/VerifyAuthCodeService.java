@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.auth.domain.AuthCode;
 import team.returm.jobis.domain.auth.domain.repository.AuthCodeRepository;
 import team.returm.jobis.domain.auth.exception.AuthCodeNotFoundException;
-import team.returm.jobis.domain.auth.exception.BadAuthCodeException;
 import team.returm.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor
@@ -16,10 +15,7 @@ public class VerifyAuthCodeService {
     public void execute(String email, String code) {
         AuthCode authCode = authCodeRepository.findById(email)
                 .orElseThrow(() -> AuthCodeNotFoundException.EXCEPTION);
-
-        if (!authCode.getCode().equals(code)) {
-            throw BadAuthCodeException.EXCEPTION;
-        }
+        authCode.verifyCode(code);
 
         authCodeRepository.save(
                 authCode.verify()
