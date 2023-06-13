@@ -8,7 +8,6 @@ import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.exception.ApplicationCannotDeleteException;
 import team.returm.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
-import team.returm.jobis.domain.application.exception.InvalidDateException;
 import team.returm.jobis.domain.application.exception.InvalidStudentException;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.student.domain.Student;
