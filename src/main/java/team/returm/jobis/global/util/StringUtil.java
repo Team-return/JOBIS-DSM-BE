@@ -23,7 +23,7 @@ public class StringUtil {
     }
 
     public static List<String> divideString(String content) {
-        if (content == null || content.isBlank()) {
+        if (content == null || content.isEmpty()) {
             return List.of();
         }
         return List.of(content.split(","));
