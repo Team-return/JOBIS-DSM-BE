@@ -72,7 +72,12 @@ public class RegisterCompanyService {
                         .foundedAt(request.getFoundedAt())
                         .build()
         );
-        saveCompanyAttachments(savedCompany, request.getAttachmentUrls());
+
+        companyRepository.saveAllCompanyAttachment(
+                request.getAttachmentUrls().stream()
+                        .map(attachment -> new CompanyAttachment(attachment, savedCompany))
+                        .toList()
+        );
 
 
 
@@ -86,13 +91,5 @@ public class RegisterCompanyService {
                 .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
                 .authority(Authority.COMPANY)
                 .build();
-    }
-
-    private void saveCompanyAttachments(Company company, List<String> urls) {
-        companyRepository.saveCompanyAttachments(
-                urls.stream()
-                        .map(attachment -> new CompanyAttachment(attachment, company))
-                        .toList()
-        );
     }
 }

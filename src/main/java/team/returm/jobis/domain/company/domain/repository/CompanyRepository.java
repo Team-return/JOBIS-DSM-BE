@@ -194,7 +194,7 @@ public class CompanyRepository {
         companyJpaRepository.saveAll(companies);
     }
 
-    public void saveCompanyAttachments(List<CompanyAttachment> companyAttachments) {
+    public void saveAllCompanyAttachment(List<CompanyAttachment> companyAttachments) {
         companyAttachmentJpaRepository.saveAll(companyAttachments);
     }
 
