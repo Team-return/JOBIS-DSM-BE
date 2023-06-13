@@ -26,14 +26,14 @@ public class CreateApplicationService {
 
     public void execute(CreateApplicationRequest request, Long recruitmentId) {
         Student student = userFacade.getCurrentStudent();
+        student.check3rdGrade();
+
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         if (applicationRepository.existsApplicationByStudentAndRecruitmentId(student, recruitmentId)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
-
-        student.checkGrade(3);
 
         if (applicationRepository.existsApplicationByStudentAndApplicationStatus(student, ApplicationStatus.APPROVED)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
