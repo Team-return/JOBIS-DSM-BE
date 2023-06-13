@@ -122,8 +122,8 @@ public class Student {
         };
     }
 
-    public void checkGrade(Integer grade) {
-        if (this.grade != grade) {
+    public void checkGrade(int grade) {
+        if (this.grade.equals(grade)) {
             throw InvalidGradeException.EXCEPTION;
         }
     }
