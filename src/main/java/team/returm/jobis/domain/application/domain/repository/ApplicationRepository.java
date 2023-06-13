@@ -13,9 +13,9 @@ import team.returm.jobis.domain.application.domain.repository.vo.QQueryApplicati
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryFieldTraineesVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryPassedApplicationStudentsVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QQueryTotalApplicationCountVO;
-import team.returm.jobis.domain.application.domain.repository.vo.QueryPassedApplicationStudentsVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryApplicationVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryFieldTraineesVO;
+import team.returm.jobis.domain.application.domain.repository.vo.QueryPassedApplicationStudentsVO;
 import team.returm.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
 import team.returm.jobis.domain.student.domain.QStudent;
 import team.returm.jobis.domain.student.domain.Student;

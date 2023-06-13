@@ -8,7 +8,6 @@ import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundExcepti
 import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryRecruitmentDetailResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.util.List;
 

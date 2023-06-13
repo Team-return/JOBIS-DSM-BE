@@ -12,7 +12,6 @@ import team.returm.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.time.Year;
 import java.util.List;

@@ -8,7 +8,6 @@ import team.returm.jobis.domain.user.domain.User;
 import team.returm.jobis.domain.user.domain.enums.Authority;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
-import team.returm.jobis.global.util.StringUtil;
 
 @RequiredArgsConstructor
 @Service

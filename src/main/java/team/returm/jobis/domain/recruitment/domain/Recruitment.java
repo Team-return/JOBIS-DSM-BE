@@ -11,10 +11,10 @@ import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.converter.HiringProgressConverter;
-import team.returm.jobis.global.converter.StringListConverter;
 import team.returm.jobis.domain.recruitment.domain.type.PayInfo;
 import team.returm.jobis.domain.recruitment.domain.type.RecruitDate;
 import team.returm.jobis.domain.recruitment.exception.CompanyMismatchException;
+import team.returm.jobis.global.converter.StringListConverter;
 import team.returm.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;
