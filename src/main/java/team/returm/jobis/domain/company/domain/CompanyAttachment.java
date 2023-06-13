@@ -1,7 +1,6 @@
 package team.returm.jobis.domain.company.domain;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -33,7 +32,6 @@ public class CompanyAttachment {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @Builder
     public CompanyAttachment(String attachmentUrl, Company company) {
         this.attachmentUrl = attachmentUrl;
         this.company = company;

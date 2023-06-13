@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.company.domain.CompanyAttachment;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.returm.jobis.domain.company.exception.CompanyNotExistsException;
@@ -14,7 +15,10 @@ import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 import team.returm.jobis.global.annotation.Service;
 import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 import team.returm.jobis.global.security.jwt.TokenType;
+import team.returm.jobis.global.util.StringUtil;
 import team.returm.jobis.infrastructure.api.FeignUtil;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -42,8 +46,7 @@ public class RegisterCompanyService {
                 .build();
 
         String businessAreaKeyword = codeFacade.findCodeById(request.getBusinessAreaCode()).getKeyword();
-
-        companyRepository.saveCompany(
+        Company savedCompany = companyRepository.saveCompany(
                 Company.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
@@ -53,14 +56,14 @@ public class RegisterCompanyService {
                         .serviceName(request.getServiceName())
                         .name(request.getName())
                         .take(request.getTake())
-                        .mainAddress(request.getAddress1())
-                        .mainZipCode(request.getZipCode1())
-                        .subAddress(request.getAddress2())
-                        .subZipCode(request.getZipCode2())
-                        .managerName(request.getManager1())
-                        .managerPhoneNo(request.getPhoneNumber1())
-                        .subManagerName(request.getManager2())
-                        .subManagerPhoneNo(request.getPhoneNumber2())
+                        .mainAddress(StringUtil.mergeString(request.getMainAddress(), request.getMainAddressDetail()))
+                        .mainZipCode(request.getMainZipCode())
+                        .subAddress(StringUtil.mergeString(request.getSubAddress(), request.getSubAddressDetail()))
+                        .subZipCode(request.getSubZipCode())
+                        .managerName(request.getManagerName())
+                        .managerPhoneNo(request.getManagerPhoneNo())
+                        .subManagerName(request.getSubManagerName())
+                        .subManagerPhoneNo(request.getSubManagerPhoneNo())
                         .workersCount(request.getWorkerNumber())
                         .email(request.getEmail())
                         .fax(request.getFax())
@@ -69,6 +72,13 @@ public class RegisterCompanyService {
                         .foundedAt(request.getFoundedAt())
                         .build()
         );
+
+        companyRepository.saveAllCompanyAttachment(
+                request.getAttachmentUrls().stream()
+                        .map(attachment -> new CompanyAttachment(attachment, savedCompany))
+                        .toList()
+        );
+
 
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
