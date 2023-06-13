@@ -40,9 +40,7 @@ public class QueryMyRecruitmentService {
                 .pay(recruitment.getPayInfo().getPay())
                 .benefits(recruitment.getBenefits())
                 .militarySupport(recruitment.getMilitarySupport())
-                .hiringProgress(StringUtil.divideString(
-                        recruitment.getHiringProgress()
-                ))
+                .hiringProgress(recruitment.getHiringProgress())
                 .startDate(recruitment.getRecruitDate().getStartDate())
                 .endDate(recruitment.getRecruitDate().getFinishDate())
                 .etc(recruitment.getEtc())

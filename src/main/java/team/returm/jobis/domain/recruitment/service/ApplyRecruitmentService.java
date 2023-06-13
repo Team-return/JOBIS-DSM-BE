@@ -31,8 +31,6 @@ public class ApplyRecruitmentService {
     public void execute(ApplyRecruitmentRequest request) {
         Company company = userFacade.getCurrentCompany();
 
-        String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
-
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
                         .company(company)
@@ -51,7 +49,7 @@ public class ApplyRecruitmentService {
                         .pay(request.getPay())
                         .benefits(request.getBenefits())
                         .etc(request.getEtc())
-                        .hiringProgress(hiringProgress)
+                        .hiringProgress(request.getHiringProgress())
                         .build()
         );
 

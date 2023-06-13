@@ -38,7 +38,7 @@ public class QueryRecruitmentDetailService {
                 .requiredLicenses(recruitment.getRequiredLicenses())
                 .startDate(recruitment.getRecruitDate().getStartDate())
                 .endDate(recruitment.getRecruitDate().getFinishDate())
-                .hiringProgress(StringUtil.divideString(recruitment.getHiringProgress()))
+                .hiringProgress(recruitment.getHiringProgress())
                 .workHours(recruitment.getWorkingHours())
                 .preferentialTreatment(recruitment.getPreferentialTreatment())
                 .military(recruitment.getMilitarySupport())
