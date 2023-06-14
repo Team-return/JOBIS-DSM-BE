@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
+import team.returm.jobis.domain.student.presentation.dto.request.UpdateStudentProfileRequest;
 import team.returm.jobis.domain.student.presentation.dto.response.StudentMyPageResponse;
 import team.returm.jobis.domain.student.service.StudentMyPageService;
 import team.returm.jobis.domain.student.service.StudentSignUpService;
 import team.returm.jobis.domain.student.service.UpdateStudentPasswordService;
+import team.returm.jobis.domain.student.service.UpdateStudentProfileService;
 import team.returm.jobis.domain.student.service.VerifyStudentService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 
@@ -30,6 +32,7 @@ public class StudentController {
     private final UpdateStudentPasswordService updateStudentPasswordService;
     private final StudentMyPageService studentMyPageService;
     private final VerifyStudentService verifyStudentService;
+    private final UpdateStudentProfileService updateStudentProfileService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -54,5 +57,10 @@ public class StudentController {
             @RequestParam("name") String name
     ) {
         verifyStudentService.execute(gcn, name);
+    }
+
+    @PatchMapping("/profile")
+    public void updateStudentProfile(@RequestBody @Valid UpdateStudentProfileRequest request) {
+        updateStudentProfileService.execute(request.getProfileImageUrl());
     }
 }
