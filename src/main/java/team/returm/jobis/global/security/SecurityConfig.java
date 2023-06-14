@@ -16,6 +16,7 @@ import team.returm.jobis.global.security.jwt.JwtTokenProvider;
 import static team.returm.jobis.domain.user.domain.enums.Authority.COMPANY;
 import static team.returm.jobis.domain.user.domain.enums.Authority.STUDENT;
 import static team.returm.jobis.domain.user.domain.enums.Authority.TEACHER;
+import static team.returm.jobis.domain.user.domain.enums.Authority.DEVELOPER;
 
 @EnableWebSecurity
 @Configuration
@@ -63,9 +64,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
 
                 //bookmarks
-                .antMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.DELETE, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/bookmarks").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.DELETE, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/bookmarks").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
                 //auth
                 .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
@@ -73,7 +74,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
 
                 //students
-                .antMatchers(HttpMethod.GET, "/students/my").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
@@ -90,8 +91,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/companies/student").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/companies/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
 
                 //users
