@@ -51,7 +51,7 @@ public class RecruitArea {
     private List<RecruitAreaCode> recruitAreaCodes = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String majorTask, String jobCodes, Recruitment recruitment) {
+    public RecruitArea(Integer hiredCount, String majorTask, List<String> jobCodes, Recruitment recruitment) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
         this.jobCodes = jobCodes;

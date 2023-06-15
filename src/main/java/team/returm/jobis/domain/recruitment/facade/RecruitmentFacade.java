@@ -40,7 +40,7 @@ public class RecruitmentFacade {
                         .majorTask(majorTask)
                         .hiredCount(hiredCount)
                         .recruitment(recruitment)
-                        .jobCodes(StringUtil.joinStringList(jobCodes))
+                        .jobCodes(jobCodes)
                         .build()
         );
 
