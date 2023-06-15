@@ -78,7 +78,7 @@ public class RecruitmentRepository {
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
                         containsCodes(filter.getCodes()),
-                        containsKeyword(filter.getKeyword())
+                        containsJobKeyword(filter.getJobKeyword())
                 )
                 .offset(filter.getOffset())
                 .limit(11)
@@ -214,7 +214,7 @@ public class RecruitmentRepository {
         return studentId == null ? bookmark.recruitment.eq(recruitment) : bookmark.student.id.eq(studentId).and(bookmark.recruitment.eq(recruitment));
     }
 
-    private BooleanExpression containsKeyword(String keyword) {
-        return keyword == null ? null : recruitArea.jobCodes.contains(keyword);
+    private BooleanExpression containsJobKeyword(String jobKeyword) {
+        return jobKeyword == null ? null : recruitArea.jobCodes.contains(jobKeyword);
     }
 }

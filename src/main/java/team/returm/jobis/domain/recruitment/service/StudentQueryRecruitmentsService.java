@@ -30,7 +30,7 @@ public class StudentQueryRecruitmentsService {
     ) {
         Long studentId = userFacade.getCurrentUserId();
 
-        String keyword = validJobCode(jobCode);
+        String jobKeyword = validJobCode(jobCode);
         List<Code> techCodes = codeFacade.queryCodesByIdIn(codeIds);
 
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
@@ -40,7 +40,7 @@ public class StudentQueryRecruitmentsService {
                 .page(page)
                 .codes(techCodes)
                 .studentId(studentId)
-                .keyword(keyword)
+                .jobKeyword(jobKeyword)
                 .build();
 
         List<StudentRecruitmentResponse> recruitments =
