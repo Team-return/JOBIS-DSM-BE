@@ -30,37 +30,19 @@ public class StudentQueryRecruitmentsService {
     ) {
         Long studentId = userFacade.getCurrentUserId();
 
+        String keyword = validJobCode(jobCode);
         List<Code> techCodes = codeFacade.queryCodesByIdIn(codeIds);
 
-        if (jobCode != null) {
-            String keyword = codeFacade.findCodeById(jobCode).getKeyword();
+        RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
+                .year(Year.now().getValue())
+                .status(RecruitStatus.RECRUITING)
+                .companyName(name)
+                .page(page)
+                .codes(techCodes)
+                .studentId(studentId)
+                .keyword(keyword)
+                .build();
 
-            RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
-                    .year(Year.now().getValue())
-                    .status(RecruitStatus.RECRUITING)
-                    .companyName(name)
-                    .page(page)
-                    .codes(techCodes)
-                    .studentId(studentId)
-                    .keyword(keyword)
-                    .build();
-
-            return getStudentRecruitmentsResponse(recruitmentFilter);
-        } else {
-            RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
-                    .year(Year.now().getValue())
-                    .status(RecruitStatus.RECRUITING)
-                    .companyName(name)
-                    .page(page)
-                    .codes(techCodes)
-                    .studentId(studentId)
-                    .build();
-
-            return getStudentRecruitmentsResponse(recruitmentFilter);
-        }
-    }
-
-    private StudentQueryRecruitmentsResponse getStudentRecruitmentsResponse(RecruitmentFilter recruitmentFilter) {
         List<StudentRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(recruitmentFilter).stream()
                         .map(
@@ -77,5 +59,13 @@ public class StudentQueryRecruitmentsService {
                         ).toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
+    }
+
+    private String validJobCode(Long jobCode) {
+        if (jobCode != null) {
+            return codeFacade.findCodeById(jobCode).getKeyword();
+        } else {
+            return null;
+        }
     }
 }
