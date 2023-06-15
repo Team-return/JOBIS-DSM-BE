@@ -51,16 +51,11 @@ public class CompanyRepository {
                         )
                 )
                 .from(company)
-                .leftJoin(company.recruitmentList, recruitment)
+                .leftJoin(recruitment)
                 .on(recentRecruitment(RecruitStatus.RECRUITING))
                 .where(containsName(filter.getName()))
                 .orderBy(company.name.desc())
-                .groupBy(
-                        company.id,
-                        company.name,
-                        company.companyLogoUrl,
-                        company.take
-                )
+                .groupBy(company.id)
                 .offset(filter.getOffset())
                 .limit(11)
                 .fetch();
