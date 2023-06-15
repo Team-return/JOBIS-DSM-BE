@@ -8,7 +8,6 @@ import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundExcepti
 import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryRecruitmentDetailResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.util.List;
 
@@ -35,10 +34,10 @@ public class QueryRecruitmentDetailService {
                 .etc(recruitment.getEtc())
                 .submitDocument(recruitment.getSubmitDocument())
                 .requiredGrade(recruitment.getRequiredGrade())
-                .requiredLicenses(StringUtil.divideString(recruitment.getRequiredLicenses()))
+                .requiredLicenses(recruitment.getRequiredLicenses())
                 .startDate(recruitment.getRecruitDate().getStartDate())
                 .endDate(recruitment.getRecruitDate().getFinishDate())
-                .hiringProgress(StringUtil.divideString(recruitment.getHiringProgress()))
+                .hiringProgress(recruitment.getHiringProgress())
                 .workHours(recruitment.getWorkingHours())
                 .preferentialTreatment(recruitment.getPreferentialTreatment())
                 .military(recruitment.getMilitarySupport())

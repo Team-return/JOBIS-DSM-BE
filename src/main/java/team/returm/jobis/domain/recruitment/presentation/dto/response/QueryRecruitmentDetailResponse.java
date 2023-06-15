@@ -2,6 +2,7 @@ package team.returm.jobis.domain.recruitment.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
+import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +20,7 @@ public class QueryRecruitmentDetailResponse {
     private final Integer workHours;
     private final List<String> requiredLicenses;
 
-    private final List<String> hiringProgress;
+    private final List<ProgressType> hiringProgress;
     private final Integer trainPay;
     private final Integer pay;
     private final String benefits;

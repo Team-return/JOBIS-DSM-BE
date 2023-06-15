@@ -8,7 +8,6 @@ import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryMyRec
 import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.util.List;
 
@@ -34,17 +33,13 @@ public class QueryMyRecruitmentService {
                 .areas(RecruitAreaResponse.of(recruitAreas))
                 .preferentialTreatment(recruitment.getPreferentialTreatment())
                 .requiredGrade(recruitment.getRequiredGrade())
-                .requiredLicenses(StringUtil.divideString(
-                        recruitment.getRequiredLicenses()
-                ))
+                .requiredLicenses(recruitment.getRequiredLicenses())
                 .workingHours(recruitment.getWorkingHours())
                 .trainingPay(recruitment.getPayInfo().getTrainingPay())
                 .pay(recruitment.getPayInfo().getPay())
                 .benefits(recruitment.getBenefits())
                 .militarySupport(recruitment.getMilitarySupport())
-                .hiringProgress(StringUtil.divideString(
-                        recruitment.getHiringProgress()
-                ))
+                .hiringProgress(recruitment.getHiringProgress())
                 .startDate(recruitment.getRecruitDate().getStartDate())
                 .endDate(recruitment.getRecruitDate().getFinishDate())
                 .etc(recruitment.getEtc())

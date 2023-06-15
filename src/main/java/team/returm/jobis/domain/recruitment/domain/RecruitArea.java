@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
+import team.returm.jobis.global.converter.StringListConverter;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,8 +39,9 @@ public class RecruitArea {
     private String majorTask;
 
     @NotNull
+    @Convert(converter = StringListConverter.class)
     @Column(columnDefinition = "VARCHAR(40)")
-    private String jobCodes;
+    private List<String> jobCodes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
@@ -48,7 +51,7 @@ public class RecruitArea {
     private List<RecruitAreaCode> recruitAreaCodes = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String majorTask, String jobCodes, Recruitment recruitment) {
+    public RecruitArea(Integer hiredCount, String majorTask, List<String> jobCodes, Recruitment recruitment) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
         this.jobCodes = jobCodes;

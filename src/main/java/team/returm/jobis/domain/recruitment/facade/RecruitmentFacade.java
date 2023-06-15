@@ -9,7 +9,6 @@ import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,7 @@ public class RecruitmentFacade {
                         .majorTask(majorTask)
                         .hiredCount(hiredCount)
                         .recruitment(recruitment)
-                        .jobCodes(StringUtil.joinStringList(jobCodes))
+                        .jobCodes(jobCodes)
                         .build()
         );
 

@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.global.converter.StringListConverter;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,8 +42,9 @@ public class Acceptance {
     private String businessArea;
 
     @NotNull
+    @Convert(converter = StringListConverter.class)
     @Column(columnDefinition = "VARCHAR(40)")
-    private String tech;
+    private List<String> tech;
 
     @NotNull
     @Column(columnDefinition = "CHAR(4)")
@@ -55,7 +59,7 @@ public class Acceptance {
     private Company company;
 
     @Builder
-    public Acceptance(Integer year, String studentName, String businessArea, String tech,
+    public Acceptance(Integer year, String studentName, String businessArea, List<String> tech,
                       String studentGcn, LocalDate contractDate, Company company) {
         this.year = year;
         this.studentName = studentName;

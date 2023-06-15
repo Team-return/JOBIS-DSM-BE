@@ -18,8 +18,6 @@ import team.returm.jobis.global.security.jwt.TokenType;
 import team.returm.jobis.global.util.StringUtil;
 import team.returm.jobis.infrastructure.api.FeignUtil;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
 public class RegisterCompanyService {

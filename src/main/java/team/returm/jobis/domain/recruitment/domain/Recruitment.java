@@ -8,13 +8,17 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.returm.jobis.domain.application.domain.Application;
 import team.returm.jobis.domain.company.domain.Company;
+import team.returm.jobis.domain.recruitment.domain.enums.ProgressType;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import team.returm.jobis.domain.recruitment.domain.repository.converter.HiringProgressConverter;
 import team.returm.jobis.domain.recruitment.domain.type.PayInfo;
 import team.returm.jobis.domain.recruitment.domain.type.RecruitDate;
 import team.returm.jobis.domain.recruitment.exception.CompanyMismatchException;
+import team.returm.jobis.global.converter.StringListConverter;
 import team.returm.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -54,8 +58,9 @@ public class Recruitment extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(255)")
     private String preferentialTreatment;
 
+    @Convert(converter = StringListConverter.class)
     @Column(columnDefinition = "VARCHAR(200)")
-    private String requiredLicenses;
+    private List<String> requiredLicenses;
 
     @Column(columnDefinition = "TINYINT(100)")
     private Integer requiredGrade;
@@ -72,8 +77,9 @@ public class Recruitment extends BaseTimeEntity {
     private Boolean militarySupport;
 
     @NotNull
+    @Convert(converter = HiringProgressConverter.class)
     @Column(columnDefinition = "VARCHAR(100)")
-    private String hiringProgress;
+    private List<ProgressType> hiringProgress;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(100)")
@@ -104,8 +110,8 @@ public class Recruitment extends BaseTimeEntity {
 
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, Company company, String benefits, String requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade, Boolean personalContact) {
+                       LocalDate startDate, LocalDate endDate, Company company, String benefits, boolean militarySupport, List<String> requiredLicenses,
+                       String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade, Boolean personalContact) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
@@ -124,8 +130,8 @@ public class Recruitment extends BaseTimeEntity {
     }
 
     public void update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, String benefits, String requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, String hiringProgress, Integer requiredGrade
+                       LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
+                       boolean militarySupport, String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade
     ) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;

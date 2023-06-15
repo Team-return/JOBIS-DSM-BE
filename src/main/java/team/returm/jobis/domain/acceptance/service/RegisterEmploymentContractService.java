@@ -11,7 +11,6 @@ import team.returm.jobis.domain.application.exception.ApplicationNotFoundExcepti
 import team.returm.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.global.annotation.Service;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -30,8 +29,6 @@ public class RegisterEmploymentContractService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        String codeKeywords = StringUtil.joinStringList(request.getCodeKeywords());
-
         List<Acceptance> acceptances = applications.stream()
                 .map(
                         application -> {
@@ -49,7 +46,7 @@ public class RegisterEmploymentContractService {
                                     ))
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
-                                    .tech(codeKeywords)
+                                    .tech(request.getCodeKeywords())
                                     .businessArea(application.getCompany().getBusinessArea())
                                     .build();
                         }

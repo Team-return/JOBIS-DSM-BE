@@ -12,7 +12,6 @@ import team.returm.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.Service;
-import team.returm.jobis.global.util.StringUtil;
 
 import java.time.Year;
 import java.util.List;
@@ -31,9 +30,6 @@ public class ApplyRecruitmentService {
     public void execute(ApplyRecruitmentRequest request) {
         Company company = userFacade.getCurrentCompany();
 
-        String hiringProgress = StringUtil.getHiringProgress(request.getHiringProgress());
-        String requiredLicenses = StringUtil.joinStringList(request.getRequiredLicenses());
-
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
                         .company(company)
@@ -42,7 +38,7 @@ public class ApplyRecruitmentService {
                         .personalContact(request.isPersonalContact())
                         .workingHours(request.getWorkHours())
                         .preferentialTreatment(request.getPreferentialTreatment())
-                        .requiredLicenses(requiredLicenses)
+                        .requiredLicenses(request.getRequiredLicenses())
                         .status(RecruitStatus.REQUESTED)
                         .requiredGrade(request.getRequiredGrade())
                         .startDate(request.getStartDate())
@@ -52,7 +48,7 @@ public class ApplyRecruitmentService {
                         .pay(request.getPay())
                         .benefits(request.getBenefits())
                         .etc(request.getEtc())
-                        .hiringProgress(hiringProgress)
+                        .hiringProgress(request.getHiringProgress())
                         .build()
         );
 
