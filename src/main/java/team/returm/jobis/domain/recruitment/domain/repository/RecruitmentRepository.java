@@ -76,8 +76,9 @@ public class RecruitmentRepository {
                         eqYear(filter.getYear()),
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
-                        containName(filter.getCompanyName()),
-                        containsKeywords(filter.getCodes())
+                        containsName(filter.getCompanyName()),
+                        containsCodes(filter.getCodes()),
+                        containsKeyword(filter.getKeyword())
                 )
                 .offset(filter.getOffset())
                 .limit(11)
@@ -95,7 +96,7 @@ public class RecruitmentRepository {
                         eqYear(filter.getYear()),
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
-                        containName(filter.getCompanyName())
+                        containsName(filter.getCompanyName())
                 ).fetchOne();
     }
 
@@ -199,17 +200,21 @@ public class RecruitmentRepository {
         return status == null ? null : recruitment.status.eq(status);
     }
 
-    private BooleanExpression containName(String name) {
+    private BooleanExpression containsName(String name) {
         if (name == null) return null;
 
         return company.name.contains(name);
     }
 
-    private BooleanExpression containsKeywords(List<Code> codes) {
+    private BooleanExpression containsCodes(List<Code> codes) {
         return codes == null ? null : recruitArea.recruitAreaCodes.any().code.in(codes);
     }
 
     private BooleanExpression eqStudentId(Long studentId) {
         return studentId == null ? bookmark.recruitment.eq(recruitment) : bookmark.student.id.eq(studentId).and(bookmark.recruitment.eq(recruitment));
+    }
+
+    private BooleanExpression containsKeyword(String keyword) {
+        return keyword == null ? null : recruitArea.jobCodes.contains(keyword);
     }
 }

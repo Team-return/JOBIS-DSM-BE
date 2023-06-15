@@ -22,19 +22,45 @@ public class StudentQueryRecruitmentsService {
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
 
-    public StudentQueryRecruitmentsResponse execute(String name, Integer page, List<Long> codeIds) {
+    public StudentQueryRecruitmentsResponse execute(
+            String name,
+            Integer page,
+            Long jobCode,
+            List<Long> codeIds
+    ) {
         Long studentId = userFacade.getCurrentUserId();
-        List<Code> codes = codeFacade.queryCodesByIdIn(codeIds);
 
-        RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
-                .year(Year.now().getValue())
-                .status(RecruitStatus.RECRUITING)
-                .companyName(name)
-                .page(page)
-                .codes(codes)
-                .studentId(studentId)
-                .build();
+        List<Code> techCodes = codeFacade.queryCodesByIdIn(codeIds);
 
+        if (jobCode != null) {
+            String keyword = codeFacade.findCodeById(jobCode).getKeyword();
+
+            RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
+                    .year(Year.now().getValue())
+                    .status(RecruitStatus.RECRUITING)
+                    .companyName(name)
+                    .page(page)
+                    .codes(techCodes)
+                    .studentId(studentId)
+                    .keyword(keyword)
+                    .build();
+
+            return getStudentRecruitmentsResponse(recruitmentFilter);
+        } else {
+            RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
+                    .year(Year.now().getValue())
+                    .status(RecruitStatus.RECRUITING)
+                    .companyName(name)
+                    .page(page)
+                    .codes(techCodes)
+                    .studentId(studentId)
+                    .build();
+
+            return getStudentRecruitmentsResponse(recruitmentFilter);
+        }
+    }
+
+    private StudentQueryRecruitmentsResponse getStudentRecruitmentsResponse(RecruitmentFilter recruitmentFilter) {
         List<StudentRecruitmentResponse> recruitments =
                 recruitmentRepository.queryRecruitmentsByConditions(recruitmentFilter).stream()
                         .map(

@@ -28,6 +28,8 @@ public class RecruitmentFilter {
 
     private final Long studentId;
 
+    private final String keyword;
+
     public Long getOffset() {
         return 11L * page;
     }

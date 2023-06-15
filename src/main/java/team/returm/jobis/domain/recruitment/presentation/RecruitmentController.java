@@ -93,15 +93,16 @@ public class RecruitmentController {
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-            @RequestParam(value = "code", required = false) String code
+            @RequestParam(value = "job_code", required = false) Long jobCode,
+            @RequestParam(value = "tech_code", required = false) String techCode
     ) {
-        List<Long> codes = StringUtil.divideString(code).stream().map(Long::parseLong).toList();
-        return studentQueryRecruitmentsService.execute(companyName, page - 1, codes);
+        List<Long> techCodes = StringUtil.divideString(techCode).stream().map(Long::parseLong).toList();
+        return studentQueryRecruitmentsService.execute(companyName, page - 1, jobCode, techCodes);
     }
 
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
-            @RequestParam(value = "company-name", required = false) String companyName,
+            @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
             @RequestParam(value = "status", required = false) RecruitStatus status,
