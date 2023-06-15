@@ -79,7 +79,7 @@ public class JwtTokenProvider {
     private UserDetails getUserDetails(String id, Authority authority) {
         return switch (authority) {
             case COMPANY -> companyDetailsService.loadUserByUsername(id);
-            case STUDENT -> studentDetailsService.loadUserByUsername(id);
+            case STUDENT, DEVELOPER -> studentDetailsService.loadUserByUsername(id);
             case TEACHER -> teacherDetailsService.loadUserByUsername(id);
         };
     }
