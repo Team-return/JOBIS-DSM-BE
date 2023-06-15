@@ -127,4 +127,8 @@ public class Student {
             throw InvalidGradeException.EXCEPTION;
         }
     }
+
+    public void changeStudentProfile(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 }
