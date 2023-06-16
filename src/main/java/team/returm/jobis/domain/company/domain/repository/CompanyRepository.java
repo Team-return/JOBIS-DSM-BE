@@ -46,12 +46,16 @@ public class CompanyRepository {
                                 company.id,
                                 company.name,
                                 company.companyLogoUrl,
-                                company.take
+                                company.take,
+                                recruitment.count()
                         )
                 )
                 .from(company)
+                .leftJoin(recruitment)
+                .on(recentRecruitment(RecruitStatus.RECRUITING))
                 .where(containsName(filter.getName()))
                 .orderBy(company.name.desc())
+                .groupBy(company.id)
                 .offset(filter.getOffset())
                 .limit(11)
                 .fetch();
@@ -232,7 +236,7 @@ public class CompanyRepository {
     }
 
     private BooleanExpression eqRecruitmentStatus(RecruitStatus status) {
-        return status == null ? null : recruitment.status.eq(RecruitStatus.RECRUITING);
+        return status == null ? null : recruitment.status.eq(status);
     }
 
 
