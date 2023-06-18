@@ -43,14 +43,13 @@ public class RegisterCompanyService {
                 .authority(Authority.COMPANY)
                 .build();
 
-        String businessAreaKeyword = codeFacade.findCodeById(request.getBusinessAreaCode()).getKeyword();
         Company savedCompany = companyRepository.saveCompany(
                 Company.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
-                        .businessArea(businessAreaKeyword)
+                        .businessArea(request.getBusinessAreaKeyword())
                         .serviceName(request.getServiceName())
                         .name(request.getName())
                         .take(request.getTake())

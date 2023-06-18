@@ -95,11 +95,12 @@ public class RegisterCompanyRequest {
     @NotBlank
     private String bizRegistrationUrl;
 
-    @NotNull
-    private Long businessAreaCode;
+    @NotBlank
+    @Size(max = 20)
+    private String businessAreaKeyword;
 
     @NotBlank
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     private String serviceName;
 
     private List<String> attachmentUrls;
