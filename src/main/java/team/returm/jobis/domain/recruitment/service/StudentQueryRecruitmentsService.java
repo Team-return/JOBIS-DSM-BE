@@ -22,17 +22,25 @@ public class StudentQueryRecruitmentsService {
     private final UserFacade userFacade;
     private final CodeFacade codeFacade;
 
-    public StudentQueryRecruitmentsResponse execute(String name, Integer page, List<Long> codeIds) {
+    public StudentQueryRecruitmentsResponse execute(
+            String name,
+            Integer page,
+            Long jobCode,
+            List<Long> codeIds
+    ) {
         Long studentId = userFacade.getCurrentUserId();
-        List<Code> codes = codeFacade.queryCodesByIdIn(codeIds);
+
+        String jobKeyword = validJobCode(jobCode);
+        List<Code> techCodes = codeFacade.queryCodesByIdIn(codeIds);
 
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
                 .year(Year.now().getValue())
                 .status(RecruitStatus.RECRUITING)
                 .companyName(name)
                 .page(page)
-                .codes(codes)
+                .codes(techCodes)
                 .studentId(studentId)
+                .jobKeyword(jobKeyword)
                 .build();
 
         List<StudentRecruitmentResponse> recruitments =
@@ -51,5 +59,13 @@ public class StudentQueryRecruitmentsService {
                         ).toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
+    }
+
+    private String validJobCode(Long jobCode) {
+        if (jobCode != null) {
+            return codeFacade.findCodeById(jobCode).getKeyword();
+        } else {
+            return null;
+        }
     }
 }
