@@ -128,10 +128,13 @@ public class RecruitmentRepository {
                 .fetchFirst();
     }
 
-    public List<Recruitment> queryRecruitmentsAfterRecruitDate() {
+    public List<Recruitment> queryApprovedRecruitmentsAfterRecruitDate() {
         return queryFactory
                 .selectFrom(recruitment)
-                .where(recruitment.recruitDate.startDate.before(LocalDate.now()))
+                .where(
+                        recruitment.recruitDate.startDate.before(LocalDate.now()),
+                        recruitment.status.ne(RecruitStatus.REQUESTED)
+                )
                 .fetch();
     }
 
