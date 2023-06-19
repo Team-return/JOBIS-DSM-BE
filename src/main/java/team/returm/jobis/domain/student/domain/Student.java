@@ -123,7 +123,7 @@ public class Student {
     }
 
     public void check3rdGrade() {
-        if (this.grade.equals(3)) {
+        if (!this.grade.equals(3)) {
             throw InvalidGradeException.EXCEPTION;
         }
     }
