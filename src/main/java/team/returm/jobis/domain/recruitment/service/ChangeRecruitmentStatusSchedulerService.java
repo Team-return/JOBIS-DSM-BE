@@ -16,7 +16,7 @@ public class ChangeRecruitmentStatusSchedulerService {
     private final RecruitmentRepository recruitmentRepository;
 
     public void execute() {
-        List<Recruitment> recruitments = recruitmentRepository.queryRecruitmentsAfterRecruitDate();
+        List<Recruitment> recruitments = recruitmentRepository.queryApprovedRecruitmentsAfterRecruitDate();
 
         recruitmentRepository.saveAllRecruitments(
                 recruitments.stream()
