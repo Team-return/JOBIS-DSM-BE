@@ -31,11 +31,10 @@ public class CreateApplicationService {
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        if (applicationRepository.existsApplicationByStudentAndRecruitmentId(student, recruitmentId)) {
-            throw ApplicationAlreadyExistsException.EXCEPTION;
-        }
-
-        if (applicationRepository.existsApplicationByStudentAndApplicationStatus(student, ApplicationStatus.APPROVED)) {
+        if (applicationRepository.existsApplicationByStudentIdAndApplicationStatusIn(
+                student.getId(), List.of(
+                        ApplicationStatus.APPROVED, ApplicationStatus.FIELD_TRAIN, ApplicationStatus.PASS)
+        )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
@@ -49,7 +48,7 @@ public class CreateApplicationService {
 
         List<ApplicationAttachment> applicationAttachmentList = request.getAttachmentUrl()
                 .stream()
-                .map(a -> new ApplicationAttachment(a, application))
+                .map(attachmentUrl -> new ApplicationAttachment(attachmentUrl, application))
                 .toList();
         applicationRepository.saveAllApplicationAttachment(applicationAttachmentList);
     }
