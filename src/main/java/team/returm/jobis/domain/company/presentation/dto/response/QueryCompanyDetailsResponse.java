@@ -30,4 +30,6 @@ public class QueryCompanyDetailsResponse {
     private final double take;
     private final Long recruitmentId;
     private final List<String> attachments;
+    private final String serviceName;
+    private final String businessArea;
 }
