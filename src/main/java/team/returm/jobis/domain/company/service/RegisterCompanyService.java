@@ -43,13 +43,14 @@ public class RegisterCompanyService {
                 .authority(Authority.COMPANY)
                 .build();
 
+        String businessAreaKeyword = codeFacade.findCodeById(request.getBusinessAreaCode()).getKeyword();
         Company savedCompany = companyRepository.saveCompany(
                 Company.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
-                        .businessArea(request.getBusinessAreaKeyword())
+                        .businessArea(businessAreaKeyword)
                         .serviceName(request.getServiceName())
                         .name(request.getName())
                         .take(request.getTake())
@@ -75,8 +76,6 @@ public class RegisterCompanyService {
                         .map(attachment -> new CompanyAttachment(attachment, savedCompany))
                         .toList()
         );
-
-
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());

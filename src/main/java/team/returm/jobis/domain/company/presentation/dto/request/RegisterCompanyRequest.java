@@ -95,9 +95,8 @@ public class RegisterCompanyRequest {
     @NotBlank
     private String bizRegistrationUrl;
 
-    @NotBlank
-    @Size(max = 20)
-    private String businessAreaKeyword;
+    @NotNull
+    private Long businessAreaCode;
 
     @NotBlank
     @Size(max = 20)
