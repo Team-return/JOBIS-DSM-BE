@@ -35,6 +35,9 @@ public class CompanyMyPageService {
                 .email(company.getEmail())
                 .companyIntroduce(company.getCompanyIntroduce())
                 .companyLogoUrl(company.getCompanyLogoUrl())
+                .serviceName(company.getServiceName())
+                .businessArea(company.getBusinessArea())
+                .bizRegistrationUrl(company.getBizRegistrationUrl())
                 .build();
     }
 }
