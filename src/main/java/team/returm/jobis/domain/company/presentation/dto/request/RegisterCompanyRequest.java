@@ -90,7 +90,6 @@ public class RegisterCompanyRequest {
     @NotNull
     private double take;
 
-    @NotBlank
     private String companyProfileUrl;
 
     @NotBlank
@@ -103,6 +102,5 @@ public class RegisterCompanyRequest {
     @Size(min = 1, max = 20)
     private String serviceName;
 
-    @ValidListElements
     private List<String> attachmentUrls;
 }
