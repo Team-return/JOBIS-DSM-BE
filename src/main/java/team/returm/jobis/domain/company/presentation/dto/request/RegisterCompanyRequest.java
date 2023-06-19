@@ -99,7 +99,7 @@ public class RegisterCompanyRequest {
     private Long businessAreaCode;
 
     @NotBlank
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     private String serviceName;
 
     private List<String> attachmentUrls;

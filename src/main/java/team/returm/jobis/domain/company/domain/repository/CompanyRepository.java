@@ -132,7 +132,9 @@ public class CompanyRepository {
                                 company.foundedAt,
                                 company.workersCount,
                                 company.take,
-                                recruitment.id
+                                recruitment.id,
+                                company.serviceName,
+                                company.businessArea
                         )
                 )
                 .from(company)

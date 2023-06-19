@@ -27,13 +27,16 @@ public class QueryCompanyDetailsVO {
     private final int workerNumber;
     private final double take;
     private final Long recruitmentId;
+    private final String serviceName;
+    private final String businessArea;
 
     @QueryProjection
     public QueryCompanyDetailsVO(String businessNumber, String companyName, String companyProfileUrl, String companyIntroduce,
                                  String zipCode1, String address1, String zipCode2, String address2,
                                  String manager1, String phoneNumber1, String manager2, String phoneNumber2,
                                  String fax, String email, String representativeName,
-                                 LocalDate foundedAt, int workerNumber, double take, Long recruitmentId) {
+                                 LocalDate foundedAt, int workerNumber, double take,
+                                 Long recruitmentId, String serviceName, String businessArea) {
         this.businessNumber = businessNumber;
         this.companyName = companyName;
         this.companyProfileUrl = companyProfileUrl;
@@ -53,5 +56,7 @@ public class QueryCompanyDetailsVO {
         this.workerNumber = workerNumber;
         this.take = take;
         this.recruitmentId = recruitmentId;
+        this.serviceName = serviceName;
+        this.businessArea = businessArea;
     }
 }

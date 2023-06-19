@@ -1,6 +1,7 @@
 package team.returm.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.code.facade.CodeFacade;
 import team.returm.jobis.domain.company.domain.enums.CompanyType;
 import team.returm.jobis.domain.company.domain.repository.CompanyRepository;
 import team.returm.jobis.domain.company.presentation.dto.CompanyFilter;
@@ -15,19 +16,21 @@ public class TeacherQueryCompaniesService {
 
     private final CompanyRepository companyRepository;
     private final ReviewRepository reviewRepository;
+    private final CodeFacade codeFacade;
 
     public TeacherQueryCompaniesResponse execute(
             CompanyType type,
             String companyName,
             String region,
-            String businessArea,
+            Long businessArea,
             Long page
     ) {
+        String businessAreaKeyword = codeFacade.findCodeById(businessArea).getKeyword();
         CompanyFilter filter = CompanyFilter.builder()
                 .type(type)
                 .name(companyName)
                 .region(region)
-                .businessArea(businessArea)
+                .businessArea(businessAreaKeyword)
                 .page(page)
                 .build();
 

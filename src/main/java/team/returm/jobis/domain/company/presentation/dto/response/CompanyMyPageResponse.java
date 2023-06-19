@@ -28,5 +28,7 @@ public class CompanyMyPageResponse {
     private final String email;
     private final String companyIntroduce;
     private final String companyLogoUrl;
-
+    private final String serviceName;
+    private final String businessArea;
+    private final String bizRegistrationUrl;
 }

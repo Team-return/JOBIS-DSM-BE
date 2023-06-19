@@ -40,6 +40,8 @@ public class QueryCompanyDetailsService {
                 .take(vo.getTake())
                 .recruitmentId(vo.getRecruitmentId())
                 .attachments(attachmentUrls)
+                .serviceName(vo.getServiceName())
+                .businessArea(vo.getBusinessArea())
                 .build();
     }
 }

@@ -77,8 +77,6 @@ public class RegisterCompanyService {
                         .toList()
         );
 
-
-
         String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
 
