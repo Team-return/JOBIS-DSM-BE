@@ -102,5 +102,6 @@ public class RegisterCompanyRequest {
     @Size(max = 20)
     private String serviceName;
 
+    @ValidListElements
     private List<String> attachmentUrls;
 }

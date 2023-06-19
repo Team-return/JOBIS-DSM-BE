@@ -55,7 +55,7 @@ public class Recruitment extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(10)")
     private RecruitStatus status;
 
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "VARCHAR(500)")
     private String preferentialTreatment;
 
     @Convert(converter = StringListConverter.class)
