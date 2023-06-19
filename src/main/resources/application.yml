@@ -23,8 +23,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 30MB
-      max-request-size: 30MB
+      max-file-size: 100MB
+      max-request-size: 100MB
 
   mail:
     host: smtp.gmail.com
