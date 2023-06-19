@@ -20,7 +20,7 @@ public class CompanyQueryApplicationsResponse {
         private final Long applicationId;
         private final String studentNumber;
         private final String studentName;
-        private final List<String> applicationAttachmentUrl;
+        private final List<AttachmentResponse> attachments;
         private final LocalDate createdAt;
     }
 }

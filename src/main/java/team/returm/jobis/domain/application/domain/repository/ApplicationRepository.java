@@ -65,7 +65,7 @@ public class ApplicationRepository {
                                                 student.number,
                                                 student.classRoom,
                                                 company.name,
-                                                list(applicationAttachment.attachmentUrl),
+                                                list(applicationAttachment),
                                                 application.createdAt,
                                                 application.applicationStatus
                                         )
@@ -218,13 +218,6 @@ public class ApplicationRepository {
                 .set(application.endDate, endDate)
                 .where(application.in(applications))
                 .execute();
-    }
-
-    public boolean existsApplicationByApplicationIdAndApplicationStatusIn(
-            Long applicationId,
-            List<ApplicationStatus> applicationStatuses
-    ) {
-        return applicationJpaRepository.existsByIdAndApplicationStatusIn(applicationId, applicationStatuses);
     }
 
     public void saveAllApplications(List<Application> applications) {

@@ -19,7 +19,7 @@ public class StudentQueryApplicationsResponse {
 
         private final Long applicationId;
         private final String company;
-        private final List<String> attachmentUrlList;
+        private final List<AttachmentResponse> attachments;
         private final ApplicationStatus applicationStatus;
     }
 }

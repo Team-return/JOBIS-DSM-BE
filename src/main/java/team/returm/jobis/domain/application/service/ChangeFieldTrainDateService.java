@@ -25,7 +25,7 @@ public class ChangeFieldTrainDateService {
 
         List<Application> applications = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
 
-        applications.stream()
+        applications
                 .forEach(application ->
                         application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN)
                 );

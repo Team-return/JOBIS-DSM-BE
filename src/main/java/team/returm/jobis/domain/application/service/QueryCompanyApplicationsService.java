@@ -3,6 +3,7 @@ package team.returm.jobis.domain.application.service;
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.returm.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse.CompanyQueryApplicationResponse;
 import team.returm.jobis.domain.company.domain.Company;
@@ -36,7 +37,10 @@ public class QueryCompanyApplicationsService {
                                         application.getClassNumber(),
                                         application.getNumber())
                                 )
-                                .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
+                                .attachments(
+                                        application.getApplicationAttachments().stream()
+                                        .map(AttachmentResponse::of).toList()
+                                )
                                 .createdAt(application.getCreatedAt().toLocalDate())
                                 .build()
                         ).toList()

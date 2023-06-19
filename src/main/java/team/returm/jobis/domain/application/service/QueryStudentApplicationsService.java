@@ -2,6 +2,7 @@ package team.returm.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.returm.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse.StudentQueryApplicationResponse;
 import team.returm.jobis.domain.student.domain.Student;
@@ -24,7 +25,10 @@ public class QueryStudentApplicationsService {
                         .map(application -> StudentQueryApplicationResponse.builder()
                                 .applicationId(application.getId())
                                 .company(application.getCompanyName())
-                                .attachmentUrlList(application.getApplicationAttachmentUrl())
+                                .attachments(
+                                        application.getApplicationAttachments().stream()
+                                                .map(AttachmentResponse::of).toList()
+                                )
                                 .applicationStatus(application.getApplicationStatus())
                                 .build()
                         ).toList()

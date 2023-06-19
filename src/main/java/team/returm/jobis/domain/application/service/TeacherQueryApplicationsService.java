@@ -1,8 +1,10 @@
 package team.returm.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
+import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.returm.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.returm.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
 import team.returm.jobis.domain.student.domain.Student;
@@ -18,6 +20,7 @@ public class TeacherQueryApplicationsService {
         int totalPageCount = (int) Math.ceil(
                 applicationRepository.getApplicationCountByCondition(applicationStatus, studentName).doubleValue() / 11
         );
+
         return new TeacherQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
                                 recruitmentId, null, applicationStatus, studentName).stream()
@@ -30,7 +33,11 @@ public class TeacherQueryApplicationsService {
                                         application.getNumber())
                                 )
                                 .companyName(application.getCompanyName())
-                                .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
+                                .attachments(
+                                        application.getApplicationAttachments().stream()
+                                                .map(AttachmentResponse::of)
+                                                .toList()
+                                )
                                 .createdAt(application.getCreatedAt().toLocalDate())
                                 .applicationStatus(application.getApplicationStatus())
                                 .build()

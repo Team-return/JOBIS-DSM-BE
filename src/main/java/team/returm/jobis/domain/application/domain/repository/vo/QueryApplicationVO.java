@@ -2,6 +2,7 @@ package team.returm.jobis.domain.application.domain.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
+import team.returm.jobis.domain.application.domain.ApplicationAttachment;
 import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 
 import java.time.LocalDateTime;
@@ -16,13 +17,13 @@ public class QueryApplicationVO {
     private final Integer number;
     private final Integer classNumber;
     private final String companyName;
-    private final List<String> applicationAttachmentUrl;
+    private final List<ApplicationAttachment> applicationAttachments;
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;
 
     @QueryProjection
     public QueryApplicationVO(Long id, String name, Integer grade, Integer number,
-                              Integer classNumber, String companyName, List<String> applicationAttachmentUrl,
+                              Integer classNumber, String companyName, List<ApplicationAttachment> applicationAttachments,
                               LocalDateTime createdAt, ApplicationStatus applicationStatus) {
         this.id = id;
         this.name = name;
@@ -30,7 +31,7 @@ public class QueryApplicationVO {
         this.number = number;
         this.classNumber = classNumber;
         this.companyName = companyName;
-        this.applicationAttachmentUrl = applicationAttachmentUrl;
+        this.applicationAttachments = applicationAttachments;
         this.createdAt = createdAt;
         this.applicationStatus = applicationStatus;
     }
