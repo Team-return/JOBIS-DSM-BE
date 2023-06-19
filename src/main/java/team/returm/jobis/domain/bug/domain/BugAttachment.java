@@ -1,5 +1,6 @@
 package team.returm.jobis.domain.bug.domain;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(BugAttachmentId.class)
 @Entity
 public class BugAttachment {
@@ -27,6 +28,6 @@ public class BugAttachment {
 
     @Id
     @NotNull
-    @Column(columnDefinition = "VARCHAR(300)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(300)")
     private String attachmentUrl;
 }
