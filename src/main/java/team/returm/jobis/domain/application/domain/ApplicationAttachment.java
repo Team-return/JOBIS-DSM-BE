@@ -35,9 +35,9 @@ public class ApplicationAttachment {
     private Application application;
 
     @Builder
-    public ApplicationAttachment(String attachmentUrl, AttachmentType attachmentType, Application application) {
+    public ApplicationAttachment(String attachmentUrl, AttachmentType type, Application application) {
         this.attachmentUrl = attachmentUrl;
-        this.attachmentType = attachmentType;
+        this.type = type;
         this.application = application;
     }
 }

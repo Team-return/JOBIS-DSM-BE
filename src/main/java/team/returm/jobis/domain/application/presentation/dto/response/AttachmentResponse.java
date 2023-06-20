@@ -16,7 +16,7 @@ public class AttachmentResponse {
     public static AttachmentResponse of(ApplicationAttachment applicationAttachment) {
         return new AttachmentResponse(
                 applicationAttachment.getAttachmentUrl(),
-                applicationAttachment.getAttachmentType()
+                applicationAttachment.getType()
         );
     }
 }
