@@ -59,7 +59,7 @@ public class S3Util {
                 throw InvalidExtensionException.EXCEPTION;
             }
             if (!(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals(".pptx")
-                    || extension.equals(".hwp") || extension.equals(".zip"))) {
+                    || extension.equals(".hwp") || extension.equals(".zip") || extension.equals(".hwpx"))) {
                 throw InvalidExtensionException.EXCEPTION;
             }
         }
