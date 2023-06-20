@@ -28,7 +28,7 @@ public class ApplicationAttachment {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(4)")
-    private AttachmentType attachmentType;
+    private AttachmentType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
