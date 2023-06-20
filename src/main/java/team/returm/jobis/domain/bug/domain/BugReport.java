@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +27,15 @@ public class BugReport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
     private String title;
 
+    @NotNull
     @Column(columnDefinition = "VARCHAR(400)")
     private String content;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(7)")
     private DevelopmentArea developmentArea;
