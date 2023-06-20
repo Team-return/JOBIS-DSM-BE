@@ -220,11 +220,11 @@ public class ApplicationRepository {
                 .execute();
     }
 
-    public boolean existsApplicationByApplicationIdAndApplicationStatusIn(
-            Long applicationId,
+    public boolean existsApplicationByStudentIdAndApplicationStatusIn(
+            Long studentId,
             List<ApplicationStatus> applicationStatuses
     ) {
-        return applicationJpaRepository.existsByIdAndApplicationStatusIn(applicationId, applicationStatuses);
+        return applicationJpaRepository.existsByStudentIdAndApplicationStatusIn(studentId, applicationStatuses);
     }
 
     public void saveAllApplications(List<Application> applications) {
