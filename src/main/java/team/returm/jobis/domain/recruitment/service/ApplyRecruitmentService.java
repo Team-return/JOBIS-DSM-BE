@@ -8,6 +8,7 @@ import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.returm.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.returm.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.returm.jobis.domain.user.facade.UserFacade;
@@ -29,6 +30,10 @@ public class ApplyRecruitmentService {
 
     public void execute(ApplyRecruitmentRequest request) {
         Company company = userFacade.getCurrentCompany();
+
+        if (recruitmentRepository.existsRecruitmentByCompanyAndStatusNot(company, RecruitStatus.DONE)) {
+            throw RecruitmentAlreadyExistsException.EXCEPTION;
+        }
 
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()

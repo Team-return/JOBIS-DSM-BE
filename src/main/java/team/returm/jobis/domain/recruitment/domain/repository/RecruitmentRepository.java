@@ -10,6 +10,7 @@ import team.returm.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.returm.jobis.domain.code.domain.Code;
 import team.returm.jobis.domain.code.domain.RecruitAreaCode;
 import team.returm.jobis.domain.code.domain.repository.RecruitAreaCodeJpaRepository;
+import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.RecruitArea;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.enums.RecruitStatus;
@@ -176,6 +177,10 @@ public class RecruitmentRepository {
 
     public List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds) {
         return recruitmentJpaRepository.findByIdIn(recruitmentIds);
+    }
+
+    public boolean existsRecruitmentByCompanyAndStatusNot(Company company, RecruitStatus status) {
+        return recruitmentJpaRepository.existsByCompanyAndStatusNot(company, status);
     }
 
     //===conditions===//
