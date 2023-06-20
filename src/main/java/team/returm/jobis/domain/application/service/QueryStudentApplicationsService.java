@@ -27,7 +27,8 @@ public class QueryStudentApplicationsService {
                                 .company(application.getCompanyName())
                                 .attachments(
                                         application.getApplicationAttachments().stream()
-                                                .map(AttachmentResponse::of).toList()
+                                                .map(AttachmentResponse::of)
+                                                .toList()
                                 )
                                 .applicationStatus(application.getApplicationStatus())
                                 .build()
