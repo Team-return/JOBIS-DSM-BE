@@ -13,8 +13,9 @@ public enum RecruitmentErrorCode implements ErrorProperty {
     COMPANY_MISMATCH(HttpStatus.FORBIDDEN, "Company Mismatch"),
 
     RECRUITMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "Recruitment Not Found"),
-    RECRUIT_AREA_NOT_FOUND(HttpStatus.NOT_FOUND, "Recruit Area Not Found");
+    RECRUIT_AREA_NOT_FOUND(HttpStatus.NOT_FOUND, "Recruit Area Not Found"),
 
+    RECRUITMENT_ALREADY_EXISTS(HttpStatus.CONFLICT, "Recruitment Already Exists");
 
     private final HttpStatus status;
     private final String message;
