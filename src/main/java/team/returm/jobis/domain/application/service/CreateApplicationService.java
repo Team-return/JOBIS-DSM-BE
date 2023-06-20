@@ -32,8 +32,12 @@ public class CreateApplicationService {
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         if (applicationRepository.existsApplicationByStudentIdAndApplicationStatusIn(
-                student.getId(), List.of(
-                        ApplicationStatus.APPROVED, ApplicationStatus.FIELD_TRAIN, ApplicationStatus.PASS)
+                student.getId(),
+                List.of(
+                        ApplicationStatus.APPROVED,
+                        ApplicationStatus.FIELD_TRAIN,
+                        ApplicationStatus.PASS
+                )
         )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
