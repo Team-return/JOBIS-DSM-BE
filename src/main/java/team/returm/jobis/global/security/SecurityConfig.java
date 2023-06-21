@@ -75,9 +75,11 @@ public class SecurityConfig {
                 //students
                 .antMatchers(HttpMethod.GET, "/students/my").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/profile").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/password").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.PATCH, "/students/password").hasAuthority(STUDENT.name())
 
                 //companies
                 .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
