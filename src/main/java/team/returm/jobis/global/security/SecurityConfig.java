@@ -36,6 +36,19 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
+                //applications
+                .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
+                .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
+                .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/applications/reject/{application-id}").hasAuthority(TEACHER.name())
+
                 //recruitments
                 .antMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
@@ -65,19 +78,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/students/password").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students/profile").hasAuthority(STUDENT.name())
-
-                //applications
-                .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
-                .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/reject/{application-id}").hasAuthority(TEACHER.name())
 
                 //companies
                 .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
