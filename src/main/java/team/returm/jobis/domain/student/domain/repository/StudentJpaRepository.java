@@ -6,5 +6,4 @@ import team.returm.jobis.domain.student.domain.Student;
 public interface StudentJpaRepository extends JpaRepository<Student, Long> {
     boolean existsByGradeAndClassRoomAndNumber(Integer grade, Integer classRoom, Integer number);
 
-    Long countByGrade(Integer grade);
 }

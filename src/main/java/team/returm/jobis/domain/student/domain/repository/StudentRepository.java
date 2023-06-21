@@ -16,7 +16,4 @@ public class StudentRepository {
         return studentJpaRepository.findById(studentId);
     }
 
-    public Long countStudentByGrade(Integer grade) {
-        return studentJpaRepository.countByGrade(grade);
-    }
 }
