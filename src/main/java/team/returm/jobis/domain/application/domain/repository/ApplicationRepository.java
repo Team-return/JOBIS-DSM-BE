@@ -133,7 +133,6 @@ public class ApplicationRepository {
         return queryFactory
                 .select(
                         new QQueryTotalApplicationCountVO(
-                                student.count(),
                                 passedStudent.countDistinct(),
                                 approvedStudent.countDistinct()
                         )
@@ -143,7 +142,6 @@ public class ApplicationRepository {
                 .on(approvedStudent.applications.any().applicationStatus.eq(ApplicationStatus.APPROVED))
                 .leftJoin(application.student, passedStudent)
                 .on(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS))
-                .leftJoin(application.student, student)
                 .fetchOne();
     }
 

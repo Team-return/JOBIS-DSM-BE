@@ -12,11 +12,11 @@ public class QueryEmploymentCountResponse {
     private final Long passedCount;
     private final Long approvedCount;
 
-    public static QueryEmploymentCountResponse of(QueryTotalApplicationCountVO counts) {
+    public static QueryEmploymentCountResponse of(Long totalStudentCount, Long passedCount, Long approvedCount) {
         return QueryEmploymentCountResponse.builder()
-                .totalStudentCount(counts.getTotalStudentCount())
-                .passedCount(counts.getPassedCount())
-                .approvedCount(counts.getApprovedCount())
+                .totalStudentCount(totalStudentCount)
+                .passedCount(passedCount)
+                .approvedCount(approvedCount)
                 .build();
     }
 }

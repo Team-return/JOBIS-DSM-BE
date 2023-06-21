@@ -7,14 +7,12 @@ import lombok.Getter;
 @Getter
 public class QueryTotalApplicationCountVO {
 
-    private final Long totalStudentCount;
     private final Long passedCount;
     private final Long approvedCount;
 
     @Builder
     @QueryProjection
-    public QueryTotalApplicationCountVO(Long totalStudentCount, Long passedCount, Long approvedCount) {
-        this.totalStudentCount = totalStudentCount;
+    public QueryTotalApplicationCountVO(Long passedCount, Long approvedCount) {
         this.passedCount = passedCount;
         this.approvedCount = approvedCount;
     }
