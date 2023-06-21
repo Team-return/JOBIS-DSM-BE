@@ -15,4 +15,5 @@ public class StudentRepository {
     public Optional<Student> queryStudentById(Long studentId) {
         return studentJpaRepository.findById(studentId);
     }
+
 }

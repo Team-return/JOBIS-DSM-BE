@@ -3,7 +3,6 @@ package team.returm.jobis.domain.company.presentation.dto.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.returm.jobis.global.annotation.ValidListElements;
 import team.returm.jobis.global.util.RegexProperty;
 
 import javax.validation.constraints.Email;
