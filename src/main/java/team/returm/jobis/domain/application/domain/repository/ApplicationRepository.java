@@ -142,7 +142,10 @@ public class ApplicationRepository {
                 .leftJoin(application.student, approvedStudent)
                 .on(approvedStudent.applications.any().applicationStatus.eq(ApplicationStatus.APPROVED))
                 .leftJoin(application.student, passedStudent)
-                .on(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS))
+                .on(
+                        passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS)
+                        .or(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                )
                 .rightJoin(application.student, student)
                 .fetchOne();
     }
