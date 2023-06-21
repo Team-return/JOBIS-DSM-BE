@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Code {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
