@@ -36,6 +36,19 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
+                //recruitments
+                .antMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
+                .antMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
+                .antMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                .antMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/student").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+
                 //bookmarks
                 .antMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.DELETE, "/bookmarks/{recruitment-id}").hasAuthority(STUDENT.name())
@@ -85,19 +98,6 @@ public class SecurityConfig {
                 //files
                 .antMatchers(HttpMethod.POST, "/files").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/files").permitAll()
-
-                //recruitments
-                .antMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/student").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
 
                 //code
                 .antMatchers(HttpMethod.GET, "/codes").permitAll()

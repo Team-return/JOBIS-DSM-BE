@@ -121,12 +121,12 @@ public class RecruitmentRepository {
                 );
     }
 
-    public Recruitment queryRecentRecruitmentByCompanyId(Long companyId) {
-        return queryFactory
+    public Optional<Recruitment> queryRecentRecruitmentByCompanyId(Long companyId) {
+        return Optional.ofNullable(queryFactory
                 .selectFrom(recruitment)
                 .where(recruitment.company.id.eq(companyId))
                 .orderBy(recruitment.createdAt.desc())
-                .fetchFirst();
+                .fetchFirst());
     }
 
     public List<Recruitment> queryApprovedRecruitmentsAfterRecruitDate() {

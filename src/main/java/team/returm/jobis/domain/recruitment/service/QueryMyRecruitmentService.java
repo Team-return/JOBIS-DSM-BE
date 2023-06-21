@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.returm.jobis.domain.recruitment.domain.repository.vo.RecruitAreaVO;
+import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.QueryMyRecruitmentResponse;
 import team.returm.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
 import team.returm.jobis.domain.user.facade.UserFacade;
@@ -21,8 +22,8 @@ public class QueryMyRecruitmentService {
     public QueryMyRecruitmentResponse execute() {
         Long currentUserId = userFacade.getCurrentUserId();
 
-        Recruitment recruitment =
-                recruitmentRepository.queryRecentRecruitmentByCompanyId(currentUserId);
+        Recruitment recruitment = recruitmentRepository.queryRecentRecruitmentByCompanyId(currentUserId)
+                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         List<RecruitAreaVO> recruitAreas =
                 recruitmentRepository.queryRecruitAreasByRecruitmentId(recruitment.getId());

@@ -25,12 +25,11 @@ public class TeacherQueryCompaniesService {
             Long businessArea,
             Long page
     ) {
-        String businessAreaKeyword = codeFacade.findCodeById(businessArea).getKeyword();
         CompanyFilter filter = CompanyFilter.builder()
                 .type(type)
                 .name(companyName)
                 .region(region)
-                .businessArea(businessAreaKeyword)
+                .businessArea(businessArea == null ? null : codeFacade.findCodeById(businessArea).getKeyword())
                 .page(page)
                 .build();
 

@@ -8,6 +8,7 @@ import team.returm.jobis.domain.application.presentation.dto.response.CompanyQue
 import team.returm.jobis.domain.company.domain.Company;
 import team.returm.jobis.domain.recruitment.domain.Recruitment;
 import team.returm.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.returm.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.returm.jobis.domain.student.domain.Student;
 import team.returm.jobis.domain.user.facade.UserFacade;
 import team.returm.jobis.global.annotation.ReadOnlyService;
@@ -22,7 +23,8 @@ public class QueryCompanyApplicationsService {
 
     public CompanyQueryApplicationsResponse execute() {
         Company company = userFacade.getCurrentCompany();
-        Recruitment recruitment = recruitmentRepository.queryRecentRecruitmentByCompanyId(company.getId());
+        Recruitment recruitment = recruitmentRepository.queryRecentRecruitmentByCompanyId(company.getId())
+                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         return new CompanyQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
