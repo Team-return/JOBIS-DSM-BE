@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.returm.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
+import team.returm.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
 import team.returm.jobis.domain.student.presentation.dto.request.UpdateStudentProfileRequest;
 import team.returm.jobis.domain.student.presentation.dto.response.StudentMyPageResponse;
@@ -19,6 +20,8 @@ import team.returm.jobis.domain.student.service.StudentSignUpService;
 import team.returm.jobis.domain.student.service.UpdateStudentPasswordService;
 import team.returm.jobis.domain.student.service.UpdateStudentProfileService;
 import team.returm.jobis.domain.student.service.VerifyStudentService;
+import team.returm.jobis.domain.student.service.UpdateStudentForgottenPasswordService;
+import team.returm.jobis.domain.student.service.CheckStudentPasswordService;
 import team.returm.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;
@@ -29,10 +32,12 @@ import javax.validation.Valid;
 public class StudentController {
 
     private final StudentSignUpService studentSignUpService;
-    private final UpdateStudentPasswordService updateStudentPasswordService;
+    private final UpdateStudentForgottenPasswordService updateStudentForgottenPasswordService;
     private final StudentMyPageService studentMyPageService;
     private final VerifyStudentService verifyStudentService;
     private final UpdateStudentProfileService updateStudentProfileService;
+    private final CheckStudentPasswordService checkStudentPasswordService;
+    private final UpdateStudentPasswordService updateStudentPasswordService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -41,9 +46,9 @@ public class StudentController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/password")
-    public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
-        updateStudentPasswordService.execute(request);
+    @PatchMapping("/forgotten_password")
+    public void updateForgottenPassword(@RequestBody @Valid UpdateForgottenPasswordRequest request) {
+        updateStudentForgottenPasswordService.execute(request);
     }
 
     @GetMapping("/my")
@@ -62,5 +67,16 @@ public class StudentController {
     @PatchMapping("/profile")
     public void updateStudentProfile(@RequestBody @Valid UpdateStudentProfileRequest request) {
         updateStudentProfileService.execute(request.getProfileImageUrl());
+    }
+
+    @GetMapping("/password")
+    public void checkStudentPassword(@RequestParam(value = "password") String password) {
+        checkStudentPasswordService.execute(password);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/password")
+    public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
+        updateStudentPasswordService.execute(request);
     }
 }

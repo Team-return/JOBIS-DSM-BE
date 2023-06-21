@@ -12,10 +12,10 @@ import javax.validation.constraints.Pattern;
 public class UpdatePasswordRequest {
 
     @NotBlank
-    @Pattern(regexp = RegexProperty.EMAIL)
-    private String email;
+    @Pattern(regexp = RegexProperty.PASSWORD)
+    private String currentPassword;
 
     @NotBlank
     @Pattern(regexp = RegexProperty.PASSWORD)
-    private String password;
+    private String newPassword;
 }
