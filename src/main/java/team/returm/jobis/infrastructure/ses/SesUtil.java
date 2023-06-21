@@ -19,10 +19,10 @@ public class SesUtil {
     private final TemplateEngine templateEngine;
     private final AwsSesProperties awsSesProperties;
 
-    public void sendMail(String authCode, String userName, String sendTo) {
+    public void sendMail(String authCode, String sendTo) {
         String emailTemplate = templateEngine.process(
                 "signup-template",
-                generateContext(authCode, userName)
+                generateContext(authCode)
         );
 
         Message message = new Message()
@@ -37,10 +37,9 @@ public class SesUtil {
         amazonSimpleEmailServiceAsync.sendEmailAsync(emailRequest);
     }
 
-    private Context generateContext(String authCode, String userName) {
+    private Context generateContext(String authCode) {
         Context context = new Context();
         context.setVariable("code", authCode);
-        context.setVariable("user", userName);
 
         return context;
     }

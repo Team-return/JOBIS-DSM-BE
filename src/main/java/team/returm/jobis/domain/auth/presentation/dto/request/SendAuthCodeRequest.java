@@ -19,7 +19,4 @@ public class SendAuthCodeRequest {
 
     @NotNull
     private AuthCodeType authCodeType;
-
-    @NotBlank
-    private String userName;
 }

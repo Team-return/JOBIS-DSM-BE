@@ -39,6 +39,6 @@ public class SendAuthCodeService {
                 .build();
         authCodeRepository.save(authCode);
 
-        sesUtil.sendMail(authCode.getCode(), request.getUserName(), authCode.getEmail());
+        sesUtil.sendMail(authCode.getCode(), authCode.getEmail());
     }
 }
