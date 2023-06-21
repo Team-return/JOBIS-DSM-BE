@@ -107,6 +107,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/acceptances/field-train/{application-id}").hasAnyAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/acceptances/contract-date").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/acceptances/employment").hasAnyAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/acceptances/field-train").hasAnyAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.DELETE, "/acceptances").hasAnyAuthority(TEACHER.name())
 
                 //review
