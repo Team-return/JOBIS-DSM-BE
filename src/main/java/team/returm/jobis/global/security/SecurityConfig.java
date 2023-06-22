@@ -37,6 +37,15 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
+                //students
+                .antMatchers(HttpMethod.GET, "/students/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.POST, "/students").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
+                .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/students/profile").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/students/password").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.PATCH, "/students/password").hasAuthority(STUDENT.name())
+
                 //applications
                 .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
                 .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAuthority(TEACHER.name())
@@ -72,15 +81,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
                 .antMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
-
-                //students
-                .antMatchers(HttpMethod.GET, "/students/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.POST, "/students").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
-                .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students/profile").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/students/password").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.PATCH, "/students/password").hasAuthority(STUDENT.name())
 
                 //companies
                 .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
