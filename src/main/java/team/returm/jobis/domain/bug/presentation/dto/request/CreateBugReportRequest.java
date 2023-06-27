@@ -25,6 +25,5 @@ public class CreateBugReportRequest {
     @NotNull
     private DevelopmentArea developmentArea;
 
-    @ValidListElements
     private List<String> attachmentUrls;
 }
