@@ -6,7 +6,7 @@ spring:
     password: ${DB_PASSWORD:11111111}
 
   jpa:
-    database-platform: team.returm.jobis.global.config.MysqlDialectConfig
+    database-platform: team.retum.jobis.global.config.MysqlDialectConfig
     hibernate:
       ddl-auto: validate
     properties.hibernate:
