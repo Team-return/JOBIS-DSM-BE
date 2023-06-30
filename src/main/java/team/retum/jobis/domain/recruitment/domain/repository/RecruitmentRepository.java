@@ -59,8 +59,8 @@ public class RecruitmentRepository {
                                 company.companyLogoUrl,
                                 Expressions.stringTemplate("group_concat({0})", recruitArea.jobCodes),
                                 recruitArea.hiredCount.sum(),
-                                requestedApplication.count(),
-                                approvedApplication.count(),
+                                requestedApplication.countDistinct(),
+                                approvedApplication.countDistinct(),
                                 bookmark.count()
                         )
                 )
