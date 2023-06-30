@@ -2,6 +2,7 @@ package team.retum.jobis.domain.application.domain.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
+import team.retum.jobis.domain.application.domain.ApplicationAttachment;
 import team.retum.jobis.domain.application.domain.enums.ApplicationStatus;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class QueryApplicationVO {
     private final Integer classNumber;
     private final String profileImageUrl;
     private final String companyName;
-    private final List<String> applicationAttachmentUrl;
+    private final List<ApplicationAttachment> applicationAttachments;
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;
 
@@ -33,7 +34,7 @@ public class QueryApplicationVO {
         this.classNumber = classNumber;
         this.profileImageUrl = profileImageUrl;
         this.companyName = companyName;
-        this.applicationAttachmentUrl = applicationAttachmentUrl;
+        this.applicationAttachments = applicationAttachments;
         this.createdAt = createdAt;
         this.applicationStatus = applicationStatus;
     }

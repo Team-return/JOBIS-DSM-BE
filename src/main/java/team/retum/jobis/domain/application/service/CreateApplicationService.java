@@ -26,7 +26,7 @@ public class CreateApplicationService {
 
     public void execute(CreateApplicationRequest request, Long recruitmentId) {
         Student student = userFacade.getCurrentStudent();
-        student.check3rdGrade();
+        student.checkIs3rdGrade();
 
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
@@ -51,10 +51,14 @@ public class CreateApplicationService {
                         .build()
         );
 
-        List<ApplicationAttachment> applicationAttachmentList = request.getAttachmentUrl()
+        List<ApplicationAttachment> applicationAttachmentList = request.getAttachments()
                 .stream()
-                .map(attachmentUrl -> new ApplicationAttachment(attachmentUrl, application))
-                .toList();
+                .map(attachment -> new ApplicationAttachment(
+                        attachment.getUrl(),
+                        attachment.getType(),
+                        application
+                )).toList();
+
         applicationRepository.saveAllApplicationAttachment(applicationAttachmentList);
     }
 }

@@ -65,7 +65,7 @@ public class ApplicationRepository {
                                                 student.classRoom,
                                                 student.profileImageUrl,
                                                 company.name,
-                                                list(applicationAttachment.attachmentUrl),
+                                                list(applicationAttachment),
                                                 application.createdAt,
                                                 application.applicationStatus
                                         )
