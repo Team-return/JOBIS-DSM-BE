@@ -14,6 +14,7 @@ import team.retum.jobis.domain.recruitment.domain.repository.converter.HiringPro
 import team.retum.jobis.domain.recruitment.domain.type.PayInfo;
 import team.retum.jobis.domain.recruitment.domain.type.RecruitDate;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
+import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
@@ -154,6 +155,12 @@ public class Recruitment extends BaseTimeEntity {
     public void checkCompany(Long companyId) {
         if (!this.company.getId().equals(companyId)) {
             throw CompanyMismatchException.EXCEPTION;
+        }
+    }
+
+    public void checkIsApplicatable() {
+        if (this.status != RecruitStatus.RECRUITING) {
+            throw InvalidRecruitmentStatusException.EXCEPTION;
         }
     }
 }
