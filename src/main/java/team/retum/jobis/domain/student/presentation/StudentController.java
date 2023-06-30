@@ -15,13 +15,13 @@ import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenP
 import team.retum.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateStudentProfileRequest;
 import team.retum.jobis.domain.student.presentation.dto.response.StudentMyPageResponse;
+import team.retum.jobis.domain.student.service.CheckStudentPasswordService;
 import team.retum.jobis.domain.student.service.StudentMyPageService;
 import team.retum.jobis.domain.student.service.StudentSignUpService;
+import team.retum.jobis.domain.student.service.UpdateStudentForgottenPasswordService;
 import team.retum.jobis.domain.student.service.UpdateStudentPasswordService;
 import team.retum.jobis.domain.student.service.UpdateStudentProfileService;
 import team.retum.jobis.domain.student.service.VerifyStudentService;
-import team.retum.jobis.domain.student.service.UpdateStudentForgottenPasswordService;
-import team.retum.jobis.domain.student.service.CheckStudentPasswordService;
 import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;

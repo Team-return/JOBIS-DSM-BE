@@ -23,7 +23,7 @@ public class FileUploadService {
         List<String> fileUrls = multipartFiles.stream()
                 .map(
                         multipartFile -> {
-                            if(multipartFile == null || multipartFile.getOriginalFilename() == null)
+                            if (multipartFile == null || multipartFile.getOriginalFilename() == null)
                                 throw FileNotFoundException.EXCEPTION;
                             s3Util.validateExtension(multipartFile.getOriginalFilename(), fileType);
                             String fileName = fileType + "/" + UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();

@@ -29,7 +29,7 @@ public class RegisterCompanyService {
     private final CodeFacade codeFacade;
 
     public TokenResponse execute(RegisterCompanyRequest request) {
-        if(!feignUtil.checkCompanyExists(request.getBusinessNumber())) {
+        if (!feignUtil.checkCompanyExists(request.getBusinessNumber())) {
             throw CompanyNotExistsException.EXCEPTION;
         }
 

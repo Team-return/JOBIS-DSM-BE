@@ -3,7 +3,6 @@ package team.retum.jobis.domain.bug.presentation.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.bug.domain.enums.DevelopmentArea;
-import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
