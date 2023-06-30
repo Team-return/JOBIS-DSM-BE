@@ -18,7 +18,6 @@ import team.retum.jobis.domain.application.domain.repository.vo.QueryFieldTraine
 import team.retum.jobis.domain.application.domain.repository.vo.QueryPassedApplicationStudentsVO;
 import team.retum.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
 import team.retum.jobis.domain.student.domain.QStudent;
-import team.retum.jobis.domain.student.domain.Student;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -155,22 +154,11 @@ public class ApplicationRepository {
     }
 
     public void deleteApplicationByIds(List<Long> applicationIds) {
-        queryFactory
-                .delete(application)
-                .where(application.id.in(applicationIds))
-                .execute();
+        applicationJpaRepository.deleteByIdIn(applicationIds);
     }
 
     public void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
         applicationAttachmentJpaRepository.saveAll(applicationAttachments);
-    }
-
-    public boolean existsApplicationByStudentAndRecruitmentId(Student student, Long recruitmentId) {
-        return applicationJpaRepository.existsByStudentAndRecruitmentId(student, recruitmentId);
-    }
-
-    public boolean existsApplicationByStudentAndApplicationStatus(Student student, ApplicationStatus applicationStatus) {
-        return applicationJpaRepository.existsByStudentAndApplicationStatus(student, applicationStatus);
     }
 
     public List<Application> queryApplicationsByIds(List<Long> applicationIds) {

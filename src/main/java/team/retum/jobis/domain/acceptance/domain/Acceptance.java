@@ -43,7 +43,7 @@ public class Acceptance {
 
     @NotNull
     @Convert(converter = StringListConverter.class)
-    @Column(columnDefinition = "VARCHAR(40)")
+    @Column(columnDefinition = "VARCHAR(500)")
     private List<String> tech;
 
     @NotNull

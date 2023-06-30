@@ -16,4 +16,6 @@ public interface ApplicationJpaRepository extends JpaRepository<Application, Lon
     List<Application> findAllByIdIn(List<Long> applicationIds);
 
     boolean existsByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);
+
+    void deleteByIdIn(List<Long> applicationIds);
 }
