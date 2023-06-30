@@ -10,13 +10,13 @@ import team.retum.jobis.global.error.ErrorProperty;
 public enum ApplicationErrorCode implements ErrorProperty {
 
     INVALID_DATE(HttpStatus.BAD_REQUEST, "Invalid Date"),
+    APPLICATION_STATUS_CANNOT_CHANGE(HttpStatus.BAD_REQUEST, "Application Status Cannot be changed"),
 
     INVALID_STUDENT(HttpStatus.UNAUTHORIZED, "Invalid Student"),
     INVALID_GRADE(HttpStatus.UNAUTHORIZED, "Invalid Grade"),
 
     FIELD_TRAIN_DATE_CANNOT_CHANGE(HttpStatus.FORBIDDEN, "Field Train Date Cannot Changed"),
     APPLICATION_CANNOT_DELETE(HttpStatus.FORBIDDEN, "Application Cannot Deleted"),
-    APPLICATION_STATUS_CANNOT_CHANGE(HttpStatus.FORBIDDEN, "Application Status Cannot be changed"),
 
     APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "Application Not Found"),
 
