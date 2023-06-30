@@ -9,6 +9,8 @@ import team.retum.jobis.global.error.ErrorProperty;
 @AllArgsConstructor
 public enum RecruitmentErrorCode implements ErrorProperty {
 
+    INVALID_RECRUITMENT_STATUS(HttpStatus.BAD_REQUEST, "Invalid Recruitment Status"),
+
     RECRUITMENT_CANNOT_DELETE(HttpStatus.FORBIDDEN, "Recruitment Cannot Deleted"),
     COMPANY_MISMATCH(HttpStatus.FORBIDDEN, "Company Mismatch"),
 

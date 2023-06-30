@@ -30,6 +30,7 @@ public class CreateApplicationService {
 
         Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        recruitment.checkIsApplicatable();
 
         if (applicationRepository.existsApplicationByStudentIdAndApplicationStatusIn(
                 student.getId(),
