@@ -63,6 +63,7 @@ public class ApplicationRepository {
                                                 student.grade,
                                                 student.number,
                                                 student.classRoom,
+                                                student.profileImageUrl,
                                                 company.name,
                                                 list(applicationAttachment.attachmentUrl),
                                                 application.createdAt,
