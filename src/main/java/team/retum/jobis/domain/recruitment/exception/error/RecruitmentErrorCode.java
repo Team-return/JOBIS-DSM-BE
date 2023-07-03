@@ -11,6 +11,7 @@ public enum RecruitmentErrorCode implements ErrorProperty {
 
     INVALID_RECRUITMENT_STATUS(HttpStatus.BAD_REQUEST, "Invalid Recruitment Status"),
 
+    RECRUIT_AREA_CANNOT_DELETE(HttpStatus.FORBIDDEN, "RecruitArea Cannot Delete"),
     RECRUITMENT_CANNOT_DELETE(HttpStatus.FORBIDDEN, "Recruitment Cannot Deleted"),
     COMPANY_MISMATCH(HttpStatus.FORBIDDEN, "Company Mismatch"),
 
