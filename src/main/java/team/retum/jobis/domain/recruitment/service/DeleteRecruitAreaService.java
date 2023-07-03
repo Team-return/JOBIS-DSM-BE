@@ -21,6 +21,9 @@ public class DeleteRecruitAreaService {
 
         RecruitArea recruitArea = recruitmentRepository.queryRecruitAreaById(recruitAreaId)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
+
+        recruitArea.getRecruitment().checkRecruitAreaCount();
+
         if (user.getAuthority() == Authority.COMPANY) {
             recruitArea.getRecruitment().checkCompany(user.getId());
         }

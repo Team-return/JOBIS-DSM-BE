@@ -15,6 +15,7 @@ import team.retum.jobis.domain.recruitment.domain.type.PayInfo;
 import team.retum.jobis.domain.recruitment.domain.type.RecruitDate;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
+import team.retum.jobis.domain.recruitment.service.RecruitAreaCannotDeleteException;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
@@ -161,6 +162,12 @@ public class Recruitment extends BaseTimeEntity {
     public void checkIsApplicatable() {
         if (this.status != RecruitStatus.RECRUITING) {
             throw InvalidRecruitmentStatusException.EXCEPTION;
+        }
+    }
+
+    public void checkRecruitAreaCount() {
+        if (this.recruitAreas.size() <= 1) {
+            throw RecruitAreaCannotDeleteException.EXCEPTION;
         }
     }
 }
