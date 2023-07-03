@@ -15,6 +15,7 @@ public class QueryApplicationVO {
     private final Integer grade;
     private final Integer number;
     private final Integer classNumber;
+    private final String profileImageUrl;
     private final String companyName;
     private final List<String> applicationAttachmentUrl;
     private final LocalDateTime createdAt;
@@ -22,13 +23,15 @@ public class QueryApplicationVO {
 
     @QueryProjection
     public QueryApplicationVO(Long id, String name, Integer grade, Integer number,
-                              Integer classNumber, String companyName, List<String> applicationAttachmentUrl,
-                              LocalDateTime createdAt, ApplicationStatus applicationStatus) {
+                              Integer classNumber, String profileImageUrl, String companyName,
+                              List<String> applicationAttachmentUrl, LocalDateTime createdAt,
+                              ApplicationStatus applicationStatus) {
         this.id = id;
         this.name = name;
         this.grade = grade;
         this.number = number;
         this.classNumber = classNumber;
+        this.profileImageUrl = profileImageUrl;
         this.companyName = companyName;
         this.applicationAttachmentUrl = applicationAttachmentUrl;
         this.createdAt = createdAt;

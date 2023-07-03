@@ -38,6 +38,7 @@ public class QueryCompanyApplicationsService {
                                         application.getClassNumber(),
                                         application.getNumber())
                                 )
+                                .profileImageUrl(application.getProfileImageUrl())
                                 .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
                                 .createdAt(application.getCreatedAt().toLocalDate())
                                 .build()
