@@ -2,6 +2,7 @@ package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.recruitment.domain.RecruitArea;
+import team.retum.jobis.domain.recruitment.domain.Recruitment;
 import team.retum.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.user.domain.User;
@@ -21,11 +22,14 @@ public class DeleteRecruitAreaService {
 
         RecruitArea recruitArea = recruitmentRepository.queryRecruitAreaById(recruitAreaId)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
+        Recruitment recruitment = recruitArea.getRecruitment();
 
-        recruitArea.getRecruitment().checkRecruitAreaCount();
+        if (recruitment.getRecruitAreas().size() <= 1) {
+            throw RecruitAreaCannotDeleteException.EXCEPTION;
+        }
 
         if (user.getAuthority() == Authority.COMPANY) {
-            recruitArea.getRecruitment().checkCompany(user.getId());
+            recruitment.checkCompany(user.getId());
         }
 
         recruitmentRepository.deleteRecruitAreaById(recruitArea.getId());
