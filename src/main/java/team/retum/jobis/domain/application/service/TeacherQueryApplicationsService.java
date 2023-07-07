@@ -3,6 +3,7 @@ package team.retum.jobis.domain.application.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.application.domain.enums.ApplicationStatus;
 import team.retum.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
 import team.retum.jobis.domain.student.domain.Student;
@@ -30,7 +31,10 @@ public class TeacherQueryApplicationsService {
                                         application.getNumber())
                                 )
                                 .companyName(application.getCompanyName())
-                                .applicationAttachmentUrl(application.getApplicationAttachmentUrl())
+                                .attachments(
+                                        application.getApplicationAttachments().stream()
+                                                .map(AttachmentResponse::of).toList()
+                                )
                                 .createdAt(application.getCreatedAt().toLocalDate())
                                 .applicationStatus(application.getApplicationStatus())
                                 .build()

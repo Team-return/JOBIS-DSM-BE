@@ -23,25 +23,21 @@ import java.util.List;
 @Entity
 public class BugReport {
 
+    @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
+    private final List<BugAttachment> bugAttachments = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
     private String title;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(400)")
     private String content;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(7)")
     private DevelopmentArea developmentArea;
-
-    @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
-    private final List<BugAttachment> bugAttachments  = new ArrayList<>();
 
     @Builder
     public BugReport(String title, String content, DevelopmentArea developmentArea) {

@@ -65,7 +65,7 @@ public class ApplicationRepository {
                                                 student.classRoom,
                                                 student.profileImageUrl,
                                                 company.name,
-                                                list(applicationAttachment.attachmentUrl),
+                                                list(applicationAttachment),
                                                 application.createdAt,
                                                 application.applicationStatus
                                         )
@@ -144,7 +144,7 @@ public class ApplicationRepository {
                 .leftJoin(application.student, passedStudent)
                 .on(
                         passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS)
-                        .or(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                                .or(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 )
                 .rightJoin(application.student, student)
                 .fetchOne();

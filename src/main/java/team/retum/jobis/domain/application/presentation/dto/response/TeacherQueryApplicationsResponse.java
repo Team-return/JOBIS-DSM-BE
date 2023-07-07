@@ -22,7 +22,7 @@ public class TeacherQueryApplicationsResponse {
         private final String studentName;
         private final String studentGcn;
         private final String companyName;
-        private final List<String> applicationAttachmentUrl;
+        private final List<AttachmentResponse> attachments;
         private final LocalDate createdAt;
         private final ApplicationStatus applicationStatus;
     }
