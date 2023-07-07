@@ -25,7 +25,7 @@ public class QueryApplicationVO {
     @QueryProjection
     public QueryApplicationVO(Long id, String name, Integer grade, Integer number,
                               Integer classNumber, String profileImageUrl, String companyName,
-                              List<String> applicationAttachmentUrl, LocalDateTime createdAt,
+                              List<ApplicationAttachment> applicationAttachments, LocalDateTime createdAt,
                               ApplicationStatus applicationStatus) {
         this.id = id;
         this.name = name;
