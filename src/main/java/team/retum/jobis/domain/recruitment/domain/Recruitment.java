@@ -164,10 +164,4 @@ public class Recruitment extends BaseTimeEntity {
             throw InvalidRecruitmentStatusException.EXCEPTION;
         }
     }
-
-    public void checkRecruitAreaCount() {
-        if (this.recruitAreas.size() <= 1) {
-            throw RecruitAreaCannotDeleteException.EXCEPTION;
-        }
-    }
 }
