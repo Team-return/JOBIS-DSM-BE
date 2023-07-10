@@ -43,7 +43,8 @@ public class BugRepository {
                                                 bugReport.title,
                                                 bugReport.content,
                                                 bugReport.developmentArea,
-                                                list(bugAttachment.attachmentUrl)
+                                                list(bugAttachment.attachmentUrl),
+                                                bugReport.createdAt
                                         )
                                 )
                 );
