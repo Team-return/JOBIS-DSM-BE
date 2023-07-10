@@ -17,7 +17,7 @@ public class QueryMyRecruitmentResponse {
     private final Integer requiredGrade;
     private final List<String> requiredLicenses;
     private final Integer workHours;
-    private final Integer trainingPay;
+    private final Integer trainPay;
     private final Integer pay;
     private final String benefits;
     private final boolean militarySupport;

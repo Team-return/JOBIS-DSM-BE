@@ -49,7 +49,7 @@ public class StudentQueryRecruitmentsService {
                                 recruitment -> StudentRecruitmentResponse.builder()
                                         .recruitId(recruitment.getRecruitmentId())
                                         .companyName(recruitment.getCompanyName())
-                                        .trainPay(recruitment.getTrainingPay())
+                                        .trainPay(recruitment.getTrainPay())
                                         .jobCodeList(recruitment.getRecruitAreaList())
                                         .military(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())

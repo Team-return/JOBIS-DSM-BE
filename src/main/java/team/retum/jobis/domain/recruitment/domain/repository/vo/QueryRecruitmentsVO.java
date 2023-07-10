@@ -14,7 +14,7 @@ public class QueryRecruitmentsVO {
     private final RecruitDate recruitDate;
     private final String companyName;
     private final CompanyType companyType;
-    private final Integer trainingPay;
+    private final Integer trainPay;
     private final boolean militarySupport;
     private final String companyLogoUrl;
     private final String recruitAreaList;
@@ -25,7 +25,7 @@ public class QueryRecruitmentsVO {
 
     @QueryProjection
     public QueryRecruitmentsVO(Long recruitmentId, RecruitStatus recruitStatus, RecruitDate recruitDate,
-                               String companyName, CompanyType companyType, Integer trainingPay, boolean militarySupport,
+                               String companyName, CompanyType companyType, Integer trainPay, boolean militarySupport,
                                String companyLogoUrl, String recruitAreaList, Integer totalHiring,
                                Long requestedApplicationCount, Long approvedApplicationCount, Long isBookmarked) {
         this.recruitmentId = recruitmentId;
@@ -33,7 +33,7 @@ public class QueryRecruitmentsVO {
         this.recruitDate = recruitDate;
         this.companyName = companyName;
         this.companyType = companyType;
-        this.trainingPay = trainingPay;
+        this.trainPay = trainPay;
         this.militarySupport = militarySupport;
         this.companyLogoUrl = companyLogoUrl;
         this.recruitAreaList = recruitAreaList;

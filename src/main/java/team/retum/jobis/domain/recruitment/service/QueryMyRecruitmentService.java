@@ -36,7 +36,7 @@ public class QueryMyRecruitmentService {
                 .requiredGrade(recruitment.getRequiredGrade())
                 .requiredLicenses(recruitment.getRequiredLicenses())
                 .workHours(recruitment.getWorkingHours())
-                .trainingPay(recruitment.getPayInfo().getTrainingPay())
+                .trainPay(recruitment.getPayInfo().getTrainPay())
                 .pay(recruitment.getPayInfo().getPay())
                 .benefits(recruitment.getBenefits())
                 .militarySupport(recruitment.getMilitarySupport())

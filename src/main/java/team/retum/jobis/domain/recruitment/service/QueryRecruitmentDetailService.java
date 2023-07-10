@@ -30,7 +30,7 @@ public class QueryRecruitmentDetailService {
                 .companyName(recruitment.getCompany().getName())
                 .areas(RecruitAreaResponse.of(recruitAreas))
                 .pay(recruitment.getPayInfo().getPay())
-                .trainPay(recruitment.getPayInfo().getTrainingPay())
+                .trainPay(recruitment.getPayInfo().getTrainPay())
                 .etc(recruitment.getEtc())
                 .submitDocument(recruitment.getSubmitDocument())
                 .requiredGrade(recruitment.getRequiredGrade())

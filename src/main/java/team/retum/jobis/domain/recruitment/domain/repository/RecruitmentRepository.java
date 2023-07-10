@@ -54,7 +54,7 @@ public class RecruitmentRepository {
                                 recruitment.recruitDate,
                                 company.name,
                                 company.type,
-                                recruitment.payInfo.trainingPay,
+                                recruitment.payInfo.trainPay,
                                 recruitment.militarySupport,
                                 company.companyLogoUrl,
                                 Expressions.stringTemplate("group_concat({0})", recruitArea.jobCodes),

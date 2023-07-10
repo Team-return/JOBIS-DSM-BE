@@ -17,7 +17,7 @@ public class PayInfo {
 
     @NotNull
     @Column(columnDefinition = "INT")
-    private Integer trainingPay;
+    private Integer trainPay;
 
     @Column(columnDefinition = "INT")
     private Integer pay;
