@@ -33,7 +33,9 @@ public class BugRepository {
         bugAttachmentRepository.saveAll(bugAttachment);
     }
 
-    public List<QueryBugReportVO> queryBugReports() {
+    public Optional<BugReport> queryBugReportById(Long id) {
+        return bugReportJpaRepository.findById(id);
+    }
 
     public List<QueryBugReportsVO> queryBugReportsByConditions(DevelopmentArea developmentArea) {
         return queryFactory
