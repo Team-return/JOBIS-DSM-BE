@@ -5,23 +5,20 @@ import lombok.Getter;
 import team.retum.jobis.domain.bug.domain.enums.DevelopmentArea;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
-public class QueryBugReportVO {
+public class QueryBugReportsVO {
 
+    private final Long id;
     private final String title;
-    private final String content;
     private final DevelopmentArea developmentArea;
-    private final List<String> attachments;
     private final LocalDateTime createdAt;
 
     @QueryProjection
-    public QueryBugReportVO(String title, String content, DevelopmentArea developmentArea, List<String> attachments, LocalDateTime createdAt) {
+    public QueryBugReportsVO(Long id, String title, DevelopmentArea developmentArea, LocalDateTime createdAt) {
+        this.id = id;
         this.title = title;
-        this.content = content;
         this.developmentArea = developmentArea;
-        this.attachments = attachments;
         this.createdAt = createdAt;
     }
 }
