@@ -15,7 +15,6 @@ import team.retum.jobis.domain.recruitment.domain.type.PayInfo;
 import team.retum.jobis.domain.recruitment.domain.type.RecruitDate;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
-import team.retum.jobis.domain.recruitment.service.RecruitAreaCannotDeleteException;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
