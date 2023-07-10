@@ -39,6 +39,7 @@ public class QueryCompanyApplicationsService {
                                         application.getClassNumber(),
                                         application.getNumber())
                                 )
+                                .profileImageUrl(application.getProfileImageUrl())
                                 .attachments(
                                         application.getApplicationAttachments().stream()
                                                 .map(AttachmentResponse::of).toList()
