@@ -13,6 +13,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .addMapping("/**")
                 .allowedOrigins(
                         "https://jobis-admin.team-return.com",
+                        "https://jobis-company.team-return.com",
                         "http://localhost:3000",
                         "http://lcoalhost:3001",
                         "http://localhost:4000"
