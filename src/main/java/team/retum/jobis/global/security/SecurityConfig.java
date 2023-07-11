@@ -37,6 +37,11 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
+                // bugs
+                .antMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/bugs/{bug-report-id}").hasAuthority(DEVELOPER.name())
+                .antMatchers(HttpMethod.POST, "/bugs").hasAuthority(STUDENT.name())
+
                 //students
                 .antMatchers(HttpMethod.GET, "/students/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
@@ -45,11 +50,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/students/profile").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.GET, "/students/password").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.PATCH, "/students/password").hasAuthority(STUDENT.name())
-
-                // bugs
-                .antMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/bugs/{bug-report-id}").hasAuthority(DEVELOPER.name())
-                .antMatchers(HttpMethod.POST, "/bugs").hasAuthority(STUDENT.name())
 
                 //applications
                 .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
