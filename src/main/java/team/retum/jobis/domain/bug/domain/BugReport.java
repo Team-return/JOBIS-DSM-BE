@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.bug.domain.enums.DevelopmentArea;
+import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class BugReport {
+public class BugReport extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
     private final List<BugAttachment> bugAttachments = new ArrayList<>();

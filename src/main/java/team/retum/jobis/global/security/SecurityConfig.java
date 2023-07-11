@@ -47,6 +47,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/students/password").hasAuthority(STUDENT.name())
 
                 // bugs
+                .antMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/bugs/{bug-report-id}").hasAuthority(DEVELOPER.name())
                 .antMatchers(HttpMethod.POST, "/bugs").hasAuthority(STUDENT.name())
 
                 //applications
