@@ -19,7 +19,7 @@ import static team.retum.jobis.domain.bug.domain.QBugReport.bugReport;
 
 @RequiredArgsConstructor
 @Repository
-public class BugRepository {
+public class BugReportRepository {
 
     private final BugReportJpaRepository bugReportJpaRepository;
     private final BugAttachmentRepository bugAttachmentRepository;

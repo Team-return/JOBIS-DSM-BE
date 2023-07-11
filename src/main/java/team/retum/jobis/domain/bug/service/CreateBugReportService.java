@@ -3,7 +3,7 @@ package team.retum.jobis.domain.bug.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.bug.domain.BugAttachment;
 import team.retum.jobis.domain.bug.domain.BugReport;
-import team.retum.jobis.domain.bug.domain.repository.BugRepository;
+import team.retum.jobis.domain.bug.domain.repository.BugReportRepository;
 import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportRequest;
 import team.retum.jobis.global.annotation.Service;
 
@@ -11,10 +11,10 @@ import team.retum.jobis.global.annotation.Service;
 @Service
 public class CreateBugReportService {
 
-    private final BugRepository bugRepository;
+    private final BugReportRepository bugReportRepository;
 
     public void execute(CreateBugReportRequest request) {
-        BugReport bugReport = bugRepository.saveBugReport(
+        BugReport bugReport = bugReportRepository.saveBugReport(
                 BugReport.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
@@ -22,7 +22,7 @@ public class CreateBugReportService {
                         .build()
         );
 
-        bugRepository.saveAllBugAttachment(
+        bugReportRepository.saveAllBugAttachment(
                 request.getAttachmentUrls().stream()
                         .map(attachmentUrl ->
                                 new BugAttachment(bugReport, attachmentUrl)
