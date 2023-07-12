@@ -59,6 +59,7 @@ public class BugReportRepository {
     //==conditions==//
 
     private BooleanExpression eqDevelopmentArea(DevelopmentArea developmentArea) {
-        return developmentArea == null ? null : bugReport.developmentArea.eq(developmentArea);
+        return developmentArea == null || developmentArea == DevelopmentArea.ALL
+                ? null : bugReport.developmentArea.eq(developmentArea);
     }
 }
