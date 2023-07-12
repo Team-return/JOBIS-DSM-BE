@@ -29,7 +29,7 @@ public class FileUploadService {
                             String fileName = fileType + "/" + UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
                             s3Util.upload(multipartFile, fileName);
 
-                            return s3Properties.getUrl() + fileName;
+                            return s3Properties.getUrl() + fileName.replace(" ", "+");
                         }
                 ).toList();
 
