@@ -6,7 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.auth.persistence.RefreshToken;
+import team.retum.jobis.domain.auth.persistence.RefreshTokenEntity;
 import team.retum.jobis.domain.auth.persistence.repository.RefreshTokenRepository;
 import com.example.jobisapplication.domain.auth.domain.Authority;
 
@@ -27,7 +27,7 @@ public class JwtTokenAdapter implements JwtPort {
     public String generateRefreshToken(Long userId, Authority authority) {
         String token = generateToken(userId.toString(), TokenType.REFRESH, jwtProperties.getRefreshExp(), authority);
         refreshTokenRepository.save(
-                RefreshToken.builder()
+                RefreshTokenEntity.builder()
                         .id(userId)
                         .token(token)
                         .authority(authority)

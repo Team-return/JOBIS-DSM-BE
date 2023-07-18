@@ -12,7 +12,7 @@ import com.example.jobisapplication.domain.auth.domain.Authority;
 @Getter
 @RedisHash
 @Builder
-public class RefreshToken {
+public class RefreshTokenEntity {
 
     @Id
     private Long id;

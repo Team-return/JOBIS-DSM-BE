@@ -12,7 +12,7 @@ import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
 @Getter
 @Builder
 @RedisHash
-public class AuthCode {
+public class AuthCodeEntity {
 
     @Id
     private String email;
@@ -26,7 +26,7 @@ public class AuthCode {
     @TimeToLive
     private final Integer ttl;
 
-    public AuthCode verify() {
+    public AuthCodeEntity verify() {
         this.isVerified = true;
         return this;
     }

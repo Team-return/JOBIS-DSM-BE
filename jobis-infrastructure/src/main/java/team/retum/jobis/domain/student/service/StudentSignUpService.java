@@ -2,7 +2,7 @@ package team.retum.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import team.retum.jobis.domain.auth.persistence.AuthCode;
+import team.retum.jobis.domain.auth.persistence.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
 import team.retum.jobis.domain.student.persistence.Student;
@@ -35,9 +35,9 @@ public class StudentSignUpService {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
 
-        AuthCode authCode = authCodeRepository.findById(request.getEmail())
+        AuthCodeEntity authCodeEntity = authCodeRepository.findById(request.getEmail())
                 .orElseThrow(() -> UnverifiedEmailException.EXCEPTION);
-        authCode.checkIsVerified();
+        authCodeEntity.checkIsVerified();
 
         if (studentJpaRepository.existsByGradeAndClassRoomAndNumber(
                 request.getGrade(), request.getClassRoom(), request.getNumber())

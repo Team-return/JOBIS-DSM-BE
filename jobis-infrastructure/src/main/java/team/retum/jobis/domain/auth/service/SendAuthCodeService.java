@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.auth.persistence.AuthCode;
+import team.retum.jobis.domain.auth.persistence.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.persistence.types.AuthCodeType;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
@@ -31,14 +31,14 @@ public class SendAuthCodeService {
             }
         }
 
-        AuthCode authCode = AuthCode.builder()
+        AuthCodeEntity authCodeEntity = AuthCodeEntity.builder()
                 .code(StringUtil.generateRandomCode(6))
                 .ttl(300)
                 .isVerified(false)
                 .email(request.getEmail())
                 .build();
-        authCodeRepository.save(authCode);
+        authCodeRepository.save(authCodeEntity);
 
-        sesUtil.sendMail(authCode.getCode(), authCode.getEmail());
+        sesUtil.sendMail(authCodeEntity.getCode(), authCodeEntity.getEmail());
     }
 }

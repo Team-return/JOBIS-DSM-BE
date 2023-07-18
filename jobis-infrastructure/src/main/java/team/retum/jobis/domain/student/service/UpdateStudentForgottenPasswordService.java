@@ -2,7 +2,7 @@ package team.retum.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import team.retum.jobis.domain.auth.persistence.AuthCode;
+import team.retum.jobis.domain.auth.persistence.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordRequest;
@@ -25,9 +25,9 @@ public class UpdateStudentForgottenPasswordService {
             throw UserNotFoundException.EXCEPTION;
         }
 
-        AuthCode authCode = authCodeRepository.findById(request.getEmail())
+        AuthCodeEntity authCodeEntity = authCodeRepository.findById(request.getEmail())
                 .orElseThrow(() -> UnverifiedEmailException.EXCEPTION);
-        authCode.checkIsVerified();
+        authCodeEntity.checkIsVerified();
 
         User user = userRepository.queryUserByAccountId(request.getEmail())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);

@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.auth.persistence.RefreshToken;
+import team.retum.jobis.domain.auth.persistence.RefreshTokenEntity;
 import team.retum.jobis.domain.auth.persistence.repository.RefreshTokenRepository;
 import team.retum.jobis.domain.auth.exception.RefreshTokenNotFoundException;
 import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
@@ -19,7 +19,7 @@ public class TokenReissueService {
 
     public TokenResponse execute(String refresh) {
 
-        RefreshToken token = refreshTokenRepository.findByToken(refresh)
+        RefreshTokenEntity token = refreshTokenRepository.findByToken(refresh)
                 .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION);
         String newAccess = jwtTokenAdapter.generateAccessToken(token.getId(), token.getAuthority());
         String newRefresh = jwtTokenAdapter.generateRefreshToken(token.getId(), token.getAuthority());
