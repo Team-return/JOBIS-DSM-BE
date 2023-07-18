@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.acceptance.persistence.Acceptance;
+import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
 import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
@@ -29,14 +29,14 @@ public class RegisterEmploymentContractService {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        List<Acceptance> acceptances = applications.stream()
+        List<AcceptanceEntity> acceptanceEntities = applications.stream()
                 .map(
                         application -> {
                             if (application.getStatus() != ApplicationStatus.FIELD_TRAIN) {
                                 throw ApplicationStatusCannotChangeException.EXCEPTION;
                             }
 
-                            return Acceptance.builder()
+                            return AcceptanceEntity.builder()
                                     .studentName(application.getStudentName())
                                     .company(application.getCompany())
                                     .studentGcn(Student.processGcn(
@@ -52,7 +52,7 @@ public class RegisterEmploymentContractService {
                         }
                 ).toList();
 
-        acceptanceRepository.saveAllAcceptance(acceptances);
+        acceptanceRepository.saveAllAcceptance(acceptanceEntities);
         applicationRepository.deleteApplicationByIds(
                 applications.stream().map(ApplicationDetailVO::getId).toList()
         );

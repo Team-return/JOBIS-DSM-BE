@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import team.retum.jobis.domain.acceptance.persistence.Acceptance;
+import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
 import team.retum.jobis.domain.company.persistence.enums.CompanyType;
 import team.retum.jobis.domain.company.persistence.type.Address;
 import team.retum.jobis.domain.company.persistence.type.Manager;
@@ -121,7 +121,7 @@ public class Company {
     private final List<CompanyAttachment> companyAttachments = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
-    private final List<Acceptance> acceptances = new ArrayList<>();
+    private final List<AcceptanceEntity> acceptanceEntities = new ArrayList<>();
 
     @Builder
     public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,

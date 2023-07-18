@@ -1,6 +1,5 @@
 package com.example.jobisapplication.domain.acceptance.dto;
 
-import com.example.jobisapplication.domain.auth.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

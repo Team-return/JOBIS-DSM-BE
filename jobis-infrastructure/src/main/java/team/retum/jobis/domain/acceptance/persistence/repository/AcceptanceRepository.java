@@ -3,7 +3,7 @@ package team.retum.jobis.domain.acceptance.persistence.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.acceptance.persistence.Acceptance;
+import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +17,7 @@ public class AcceptanceRepository {
     private final AcceptanceJpaRepository acceptanceJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<Acceptance> queryAcceptancesByCompanyIdAndYear(Long companyId, Integer year) {
+    public List<AcceptanceEntity> queryAcceptancesByCompanyIdAndYear(Long companyId, Integer year) {
         return acceptanceJpaRepository.findByCompanyIdAndYear(companyId, year);
     }
 
@@ -29,7 +29,7 @@ public class AcceptanceRepository {
                 .execute();
     }
 
-    public void saveAllAcceptance(List<Acceptance> acceptances) {
-        acceptanceJpaRepository.saveAll(acceptances);
+    public void saveAllAcceptance(List<AcceptanceEntity> acceptanceEntities) {
+        acceptanceJpaRepository.saveAll(acceptanceEntities);
     }
 }

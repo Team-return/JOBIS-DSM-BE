@@ -23,7 +23,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Acceptance {
+public class AcceptanceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,8 +59,8 @@ public class Acceptance {
     private Company company;
 
     @Builder
-    public Acceptance(Integer year, String studentName, String businessArea, List<String> tech,
-                      String studentGcn, LocalDate contractDate, Company company) {
+    public AcceptanceEntity(Integer year, String studentName, String businessArea, List<String> tech,
+                            String studentGcn, LocalDate contractDate, Company company) {
         this.year = year;
         this.studentName = studentName;
         this.businessArea = businessArea;

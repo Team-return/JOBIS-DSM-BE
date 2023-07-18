@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.acceptance.persistence.Acceptance;
+import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
 import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
 import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
 import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse.TeacherQueryContractWorkersResponse;
@@ -26,12 +26,12 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
         List<QueryFieldTraineesVO> queryFieldTraineesVOs =
                 applicationRepository.queryApplicationsFieldTraineesByCompanyId(companyId);
 
-        List<Acceptance> acceptances =
+        List<AcceptanceEntity> acceptanceEntities =
                 acceptanceRepository.queryAcceptancesByCompanyIdAndYear(companyId, Year.now().getValue());
 
         return new TeacherQueryFieldTraineesAndContractWorkersResponse(
                 buildFieldTrainees(queryFieldTraineesVOs),
-                buildContractWorkers(acceptances)
+                buildContractWorkers(acceptanceEntities)
         );
     }
 
@@ -57,9 +57,9 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
     }
 
     private List<TeacherQueryContractWorkersResponse> buildContractWorkers(
-            List<Acceptance> acceptances
+            List<AcceptanceEntity> acceptanceEntities
     ) {
-        return acceptances
+        return acceptanceEntities
                 .stream()
                 .map(
                         acceptance -> TeacherQueryContractWorkersResponse

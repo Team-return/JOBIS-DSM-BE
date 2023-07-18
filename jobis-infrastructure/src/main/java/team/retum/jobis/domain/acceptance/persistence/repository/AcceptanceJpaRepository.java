@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.acceptance.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import team.retum.jobis.domain.acceptance.persistence.Acceptance;
+import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
 
 import java.util.List;
 
-public interface AcceptanceJpaRepository extends JpaRepository<Acceptance, Long> {
-    List<Acceptance> findByCompanyIdAndYear(Long companyId, Integer year);
+public interface AcceptanceJpaRepository extends JpaRepository<AcceptanceEntity, Long> {
+    List<AcceptanceEntity> findByCompanyIdAndYear(Long companyId, Integer year);
 }
