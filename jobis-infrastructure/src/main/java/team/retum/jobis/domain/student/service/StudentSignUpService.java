@@ -11,7 +11,7 @@ import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentRep
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.retum.jobis.domain.user.persistence.User;
-import com.example.jobisapplication.domain.auth.Authority;
+import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.persistence.repository.UserRepository;
 import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
 import com.example.jobisapplication.common.annotation.Service;

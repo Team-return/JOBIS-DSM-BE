@@ -8,7 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import com.example.jobisapplication.domain.auth.Authority;
+import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.global.exception.ExpiredTokenException;
 import team.retum.jobis.global.exception.InvalidTokenException;
 import team.retum.jobis.global.security.auth.company.CompanyDetailsService;

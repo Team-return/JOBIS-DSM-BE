@@ -10,7 +10,7 @@ import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.retum.jobis.domain.user.persistence.User;
-import com.example.jobisapplication.domain.auth.Authority;
+import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
 import com.example.jobisapplication.common.annotation.Service;
 import team.retum.jobis.global.security.jwt.JwtTokenAdapter;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.example.jobisapplication.domain.auth.Authority;
+import com.example.jobisapplication.domain.auth.domain.Authority;
 
 import java.util.Collection;
 import java.util.Collections;

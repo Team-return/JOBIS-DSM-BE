@@ -1,4 +1,4 @@
-package com.example.jobisapplication.domain.auth;
+package com.example.jobisapplication.domain.auth.domain;
 
 public enum Authority {
     TEACHER,

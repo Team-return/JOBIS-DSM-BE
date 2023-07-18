@@ -12,12 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import team.retum.jobis.global.security.jwt.JwtParser;
-import team.retum.jobis.global.security.jwt.JwtTokenAdapter;
 
-import static com.example.jobisapplication.domain.auth.Authority.COMPANY;
-import static com.example.jobisapplication.domain.auth.Authority.DEVELOPER;
-import static com.example.jobisapplication.domain.auth.Authority.STUDENT;
-import static com.example.jobisapplication.domain.auth.Authority.TEACHER;
+import static com.example.jobisapplication.domain.auth.domain.Authority.COMPANY;
+import static com.example.jobisapplication.domain.auth.domain.Authority.DEVELOPER;
+import static com.example.jobisapplication.domain.auth.domain.Authority.STUDENT;
+import static com.example.jobisapplication.domain.auth.domain.Authority.TEACHER;
 
 @EnableWebSecurity
 @Configuration

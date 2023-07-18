@@ -10,7 +10,7 @@ import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundExceptio
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.retum.jobis.domain.user.persistence.User;
-import com.example.jobisapplication.domain.auth.Authority;
+import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 

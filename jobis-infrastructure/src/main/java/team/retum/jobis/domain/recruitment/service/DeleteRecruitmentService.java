@@ -7,7 +7,7 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRep
 import team.retum.jobis.domain.recruitment.exception.RecruitmentCannotDeleteException;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.user.persistence.User;
-import com.example.jobisapplication.domain.auth.Authority;
+import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 
