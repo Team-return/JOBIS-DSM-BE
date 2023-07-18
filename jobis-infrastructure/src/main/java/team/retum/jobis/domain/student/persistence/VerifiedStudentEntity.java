@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class VerifiedStudent {
+public class VerifiedStudentEntity {
 
     @Id
     @Column(columnDefinition = "CHAR(4)")

@@ -6,7 +6,7 @@ import team.retum.jobis.domain.application.persistence.repository.ApplicationRep
 import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class TeacherQueryApplicationsService {
                         .map(application -> TeacherQueryApplicationResponse.builder()
                                 .applicationId(application.getId())
                                 .studentName(application.getName())
-                                .studentGcn(Student.processGcn(
+                                .studentGcn(StudentEntity.processGcn(
                                         application.getGrade(),
                                         application.getClassNumber(),
                                         application.getNumber())

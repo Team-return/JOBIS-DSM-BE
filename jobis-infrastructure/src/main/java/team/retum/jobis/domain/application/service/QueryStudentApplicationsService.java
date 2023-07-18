@@ -5,7 +5,7 @@ import team.retum.jobis.domain.application.persistence.repository.ApplicationRep
 import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse.StudentQueryApplicationResponse;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
@@ -17,11 +17,11 @@ public class QueryStudentApplicationsService {
     private final UserFacade userFacade;
 
     public StudentQueryApplicationsResponse execute() {
-        Student student = userFacade.getCurrentStudent();
+        StudentEntity studentEntity = userFacade.getCurrentStudent();
 
         return new StudentQueryApplicationsResponse(
                 applicationRepository.queryApplicationByConditions(
-                                null, student.getId(), null, null).stream()
+                                null, studentEntity.getId(), null, null).stream()
                         .map(application -> StudentQueryApplicationResponse.builder()
                                 .applicationId(application.getId())
                                 .company(application.getCompanyName())

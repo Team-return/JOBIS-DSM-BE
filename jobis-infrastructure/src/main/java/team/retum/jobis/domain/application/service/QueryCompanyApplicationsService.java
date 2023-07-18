@@ -10,7 +10,7 @@ import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
@@ -34,7 +34,7 @@ public class QueryCompanyApplicationsService {
                         .map(application -> CompanyQueryApplicationResponse.builder()
                                 .applicationId(application.getId())
                                 .studentName(application.getName())
-                                .studentNumber(Student.processGcn(
+                                .studentNumber(StudentEntity.processGcn(
                                         application.getGrade(),
                                         application.getClassNumber(),
                                         application.getNumber())

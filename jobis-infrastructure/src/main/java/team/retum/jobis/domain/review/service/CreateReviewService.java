@@ -12,7 +12,7 @@ import team.retum.jobis.domain.review.persistence.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewRequest;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.user.facade.UserFacade;
@@ -47,10 +47,10 @@ public class CreateReviewService {
 
         codeFacade.queryCodesByIdIn(codeIds);
 
-        Student student = studentRepository.queryStudentById(userFacade.getCurrentUserId())
+        StudentEntity studentEntity = studentRepository.queryStudentById(userFacade.getCurrentUserId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        if (reviewRepository.existsByCompanyIdAndStudentName(request.getCompanyId(), student.getName())) {
+        if (reviewRepository.existsByCompanyIdAndStudentName(request.getCompanyId(), studentEntity.getName())) {
             throw ReviewAlreadyExistsException.EXCEPTION;
         }
 
@@ -58,7 +58,7 @@ public class CreateReviewService {
                 ReviewEntity.builder()
                         .companyId(request.getCompanyId())
                         .qnAElements(request.getQnaElementEntities())
-                        .studentName(student.getName())
+                        .studentName(studentEntity.getName())
                         .year(Year.now().getValue())
                         .build()
         );

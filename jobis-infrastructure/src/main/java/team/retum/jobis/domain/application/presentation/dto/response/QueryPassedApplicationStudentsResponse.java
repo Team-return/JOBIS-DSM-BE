@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryPassedApplicationStudentsVO;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class QueryPassedApplicationStudentsResponse {
         return QueryPassedApplicationStudentResponse.builder()
                 .applicationId(vo.getApplicationId())
                 .studentName(vo.getStudentName())
-                .studentGcn(Student.processGcn(
+                .studentGcn(StudentEntity.processGcn(
                         vo.getGrade(),
                         vo.getClassRoom(),
                         vo.getNumber()

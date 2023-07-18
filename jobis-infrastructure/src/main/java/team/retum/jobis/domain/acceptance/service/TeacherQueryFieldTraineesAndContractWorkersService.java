@@ -8,7 +8,7 @@ import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQuery
 import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse.TeacherQueryFieldTraineesResponse;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryFieldTraineesVO;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.time.Year;
@@ -43,7 +43,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersService {
                         .builder()
                         .applicationId(vo.getApplicationId())
                         .studentGcn(
-                                Student.processGcn(
+                                StudentEntity.processGcn(
                                         vo.getGrade(),
                                         vo.getClassRoom(),
                                         vo.getNumber()

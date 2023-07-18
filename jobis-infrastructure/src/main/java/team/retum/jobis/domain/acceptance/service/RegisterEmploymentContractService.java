@@ -9,7 +9,7 @@ import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import com.example.jobisapplication.common.annotation.Service;
 
 import java.time.LocalDate;
@@ -39,7 +39,7 @@ public class RegisterEmploymentContractService {
                             return AcceptanceEntity.builder()
                                     .studentName(application.getStudentName())
                                     .company(application.getCompanyEntity())
-                                    .studentGcn(Student.processGcn(
+                                    .studentGcn(StudentEntity.processGcn(
                                             application.getStudentGrade(),
                                             application.getStudentClassNumber(),
                                             application.getStudentNumber()

@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.student.persistence.enums;
+package com.example.jobisapplication.domain.student.domain;
 
 public enum Department {
 

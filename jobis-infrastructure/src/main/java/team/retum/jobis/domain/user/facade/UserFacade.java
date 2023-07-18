@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.user.persistence.User;
@@ -29,7 +29,7 @@ public class UserFacade {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
-    public Student getCurrentStudent() {
+    public StudentEntity getCurrentStudent() {
         return studentRepository.queryStudentById(
                 this.getCurrentUserId()
         ).orElseThrow(() -> StudentNotFoundException.EXCEPTION);

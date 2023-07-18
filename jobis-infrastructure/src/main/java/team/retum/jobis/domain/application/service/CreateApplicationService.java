@@ -10,7 +10,7 @@ import team.retum.jobis.domain.application.presentation.dto.request.CreateApplic
 import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 
@@ -25,15 +25,15 @@ public class CreateApplicationService {
     private final RecruitmentRepository recruitmentRepository;
 
     public void execute(CreateApplicationRequest request, Long recruitmentId) {
-        Student student = userFacade.getCurrentStudent();
-        student.checkIs3rdGrade();
+        StudentEntity studentEntity = userFacade.getCurrentStudent();
+        studentEntity.checkIs3rdGrade();
 
         RecruitmentEntity recruitmentEntity = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
         recruitmentEntity.checkIsApplicatable();
 
         if (applicationRepository.existsApplicationByStudentIdAndApplicationStatusIn(
-                student.getId(),
+                studentEntity.getId(),
                 List.of(
                         ApplicationStatus.APPROVED,
                         ApplicationStatus.FIELD_TRAIN,
@@ -45,7 +45,7 @@ public class CreateApplicationService {
 
         ApplicationEntity applicationEntity = applicationRepository.saveApplication(
                 ApplicationEntity.builder()
-                        .student(student)
+                        .student(studentEntity)
                         .recruitment(recruitmentEntity)
                         .applicationStatus(ApplicationStatus.REQUESTED)
                         .build()

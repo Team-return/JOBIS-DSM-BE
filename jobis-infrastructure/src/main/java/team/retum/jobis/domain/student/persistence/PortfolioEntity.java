@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Portfolio {
+public class PortfolioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +30,12 @@ public class Portfolio {
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
+    private StudentEntity studentEntity;
 
 
     @Builder
-    public Portfolio(String portfolioUrl, Student student) {
+    public PortfolioEntity(String portfolioUrl, StudentEntity studentEntity) {
         this.portfolioUrl = portfolioUrl;
-        this.student = student;
+        this.studentEntity = studentEntity;
     }
 }

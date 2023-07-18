@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.bookmark.persistence.repository.BookmarkRepository;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
 import team.retum.jobis.domain.bookmark.presentation.dto.response.QueryStudentBookmarksResponse;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 
@@ -18,8 +18,8 @@ public class QueryStudentBookmarksService {
     private final UserFacade userFacade;
 
     public QueryStudentBookmarksResponse execute() {
-        Student student = userFacade.getCurrentStudent();
-        List<QueryStudentBookmarksVO> bookmarks = bookmarkRepository.queryBookmarksByStudentId(student.getId());
+        StudentEntity studentEntity = userFacade.getCurrentStudent();
+        List<QueryStudentBookmarksVO> bookmarks = bookmarkRepository.queryBookmarksByStudentId(studentEntity.getId());
 
         return new QueryStudentBookmarksResponse(bookmarks);
     }

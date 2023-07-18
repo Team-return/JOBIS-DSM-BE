@@ -10,7 +10,7 @@ import team.retum.jobis.domain.application.exception.ApplicationNotFoundExceptio
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.application.exception.InvalidStudentException;
 import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;
@@ -40,7 +40,7 @@ public class ApplicationEntity extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
+    private StudentEntity studentEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id")
@@ -64,8 +64,8 @@ public class ApplicationEntity extends BaseTimeEntity {
     private List<ApplicationAttachmentEntity> applicationAttachmentEntities = new ArrayList<>();
 
     @Builder
-    public ApplicationEntity(Student student, RecruitmentEntity recruitmentEntity, ApplicationStatus applicationStatus) {
-        this.student = student;
+    public ApplicationEntity(StudentEntity studentEntity, RecruitmentEntity recruitmentEntity, ApplicationStatus applicationStatus) {
+        this.studentEntity = studentEntity;
         this.recruitmentEntity = recruitmentEntity;
         this.applicationStatus = applicationStatus;
     }
@@ -103,8 +103,8 @@ public class ApplicationEntity extends BaseTimeEntity {
         }
     }
 
-    public void checkIsDeleteable(Student student) {
-        if (!this.student.equals(student)) {
+    public void checkIsDeleteable(StudentEntity studentEntity) {
+        if (!this.studentEntity.equals(studentEntity)) {
             throw InvalidStudentException.EXCEPTION;
         }
 

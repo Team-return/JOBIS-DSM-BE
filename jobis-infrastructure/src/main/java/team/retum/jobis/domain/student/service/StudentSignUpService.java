@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import team.retum.jobis.domain.auth.persistence.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentRepository;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
@@ -51,8 +51,8 @@ public class StudentSignUpService {
                 .authority(Authority.STUDENT)
                 .build();
 
-        Student student = studentJpaRepository.save(
-                Student.builder()
+        StudentEntity studentEntity = studentJpaRepository.save(
+                StudentEntity.builder()
                         .user(user)
                         .classRoom(request.getClassRoom())
                         .number(request.getNumber())
@@ -60,7 +60,7 @@ public class StudentSignUpService {
                         .gender(request.getGender())
                         .grade(request.getGrade())
                         .department(
-                                Student.getDepartment(
+                                StudentEntity.getDepartment(
                                         request.getGrade(),
                                         request.getClassRoom()
                                 )
@@ -70,12 +70,12 @@ public class StudentSignUpService {
         );
 
         verifiedStudentRepository.deleteVerifiedStudentByGcnAndName(
-                Student.processGcn(
-                        student.getGrade(),
-                        student.getClassRoom(),
-                        student.getNumber()
+                StudentEntity.processGcn(
+                        studentEntity.getGrade(),
+                        studentEntity.getClassRoom(),
+                        studentEntity.getNumber()
                 ),
-                student.getName()
+                studentEntity.getName()
         );
 
         String accessToken = jwtTokenAdapter.generateAccessToken(user.getId(), user.getAuthority());

@@ -5,7 +5,7 @@ import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
 import team.retum.jobis.domain.bookmark.persistence.repository.BookmarkRepository;
 import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
-import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 
@@ -18,13 +18,13 @@ public class BookmarkService {
     private final UserFacade userFacade;
 
     public void execute(Long recruitmentId) {
-        Student student = userFacade.getCurrentStudent();
+        StudentEntity studentEntity = userFacade.getCurrentStudent();
         RecruitmentEntity recruitmentEntity = recruitmentFacade.queryRecruitmentById(recruitmentId);
 
-        bookmarkRepository.queryBookmarkByRecruitmentAndStudent(recruitmentEntity, student)
+        bookmarkRepository.queryBookmarkByRecruitmentAndStudent(recruitmentEntity, studentEntity)
                 .ifPresentOrElse(
                         bookmarkRepository::deleteBookmark,
-                        () -> bookmarkRepository.saveBookmark(new BookmarkEntity(recruitmentEntity, student))
+                        () -> bookmarkRepository.saveBookmark(new BookmarkEntity(recruitmentEntity, studentEntity))
                 );
     }
 }

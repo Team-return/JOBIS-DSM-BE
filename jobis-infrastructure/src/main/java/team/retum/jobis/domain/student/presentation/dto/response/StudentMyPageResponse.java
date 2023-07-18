@@ -2,8 +2,8 @@ package team.retum.jobis.domain.student.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.student.persistence.Student;
-import team.retum.jobis.domain.student.persistence.enums.Department;
+import team.retum.jobis.domain.student.persistence.StudentEntity;
+import com.example.jobisapplication.domain.student.domain.Department;
 
 @Getter
 @Builder
@@ -14,18 +14,18 @@ public class StudentMyPageResponse {
     private final Department department;
     private final String profileImageUrl;
 
-    public static StudentMyPageResponse of(Student student) {
+    public static StudentMyPageResponse of(StudentEntity studentEntity) {
         return StudentMyPageResponse.builder()
-                .studentName(student.getName())
+                .studentName(studentEntity.getName())
                 .studentGcn(
-                        Student.processGcn(
-                                student.getGrade(),
-                                student.getClassRoom(),
-                                student.getNumber()
+                        StudentEntity.processGcn(
+                                studentEntity.getGrade(),
+                                studentEntity.getClassRoom(),
+                                studentEntity.getNumber()
                         )
                 )
-                .department(student.getDepartment())
-                .profileImageUrl(student.getProfileImageUrl())
+                .department(studentEntity.getDepartment())
+                .profileImageUrl(studentEntity.getProfileImageUrl())
                 .build();
     }
 

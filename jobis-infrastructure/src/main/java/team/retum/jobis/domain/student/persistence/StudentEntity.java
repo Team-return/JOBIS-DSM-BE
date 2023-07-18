@@ -9,8 +9,8 @@ import org.hibernate.annotations.DynamicInsert;
 import team.retum.jobis.domain.application.persistence.ApplicationEntity;
 import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
-import team.retum.jobis.domain.student.persistence.enums.Department;
-import team.retum.jobis.domain.student.persistence.enums.Gender;
+import com.example.jobisapplication.domain.student.domain.Department;
+import com.example.jobisapplication.domain.student.domain.Gender;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
 import team.retum.jobis.domain.user.persistence.User;
 import team.retum.jobis.global.util.ImageProperty;
@@ -43,7 +43,7 @@ import java.util.List;
         }
 )
 @Entity
-public class Student {
+public class StudentEntity {
 
     @Id
     @Column(name = "student_id")
@@ -91,8 +91,8 @@ public class Student {
     private final List<BookmarkEntity> bookmarkEntities = new ArrayList<>();
 
     @Builder
-    public Student(User user, String name, Integer grade,
-                   Integer classRoom, Integer number, Gender gender, Department department, String profileImageUrl) {
+    public StudentEntity(User user, String name, Integer grade,
+                         Integer classRoom, Integer number, Gender gender, Department department, String profileImageUrl) {
         this.user = user;
         this.name = name;
         this.grade = grade;
