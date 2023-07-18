@@ -5,7 +5,7 @@ import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
-import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
+import com.example.jobisapplication.domain.application.exception.ApplicationAlreadyExistsException;
 import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;

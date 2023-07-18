@@ -1,7 +1,7 @@
-package team.retum.jobis.domain.application.exception;
+package com.example.jobisapplication.domain.application.exception;
 
-import team.retum.jobis.domain.application.exception.error.ApplicationErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
+import com.example.jobisapplication.domain.application.exception.error.ApplicationErrorCode;
 
 public class ApplicationStatusCannotChangeException extends JobisException {
     public static final JobisException EXCEPTION = new ApplicationStatusCannotChangeException();

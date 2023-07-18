@@ -1,6 +1,4 @@
-package team.retum.jobis.global.error;
-
-import org.springframework.http.HttpStatus;
+package com.example.jobisapplication.common.error;
 
 public interface ErrorProperty {
 

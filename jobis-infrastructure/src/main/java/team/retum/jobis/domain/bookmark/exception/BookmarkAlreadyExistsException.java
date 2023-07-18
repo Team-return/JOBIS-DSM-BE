@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.bookmark.exception;
 
 import team.retum.jobis.domain.bookmark.exception.error.BookmarkErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class BookmarkAlreadyExistsException extends JobisException {
 

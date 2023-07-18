@@ -1,6 +1,6 @@
-package team.retum.jobis.domain.application.exception;
+package com.example.jobisapplication.domain.application.exception;
 
-import team.retum.jobis.domain.application.exception.error.ApplicationErrorCode;
+import com.example.jobisapplication.domain.application.exception.error.ApplicationErrorCode;
 import team.retum.jobis.global.error.exception.JobisException;
 
 public class ApplicationNotFoundException extends JobisException {

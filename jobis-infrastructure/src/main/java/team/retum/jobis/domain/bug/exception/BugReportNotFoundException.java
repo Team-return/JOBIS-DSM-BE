@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.bug.exception;
 
 import team.retum.jobis.domain.bug.exception.error.BugErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class BugReportNotFoundException extends JobisException {
 

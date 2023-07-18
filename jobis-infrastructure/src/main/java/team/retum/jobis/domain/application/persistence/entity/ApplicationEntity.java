@@ -5,10 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.application.exception.ApplicationCannotDeleteException;
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
-import team.retum.jobis.domain.application.exception.InvalidStudentException;
+import com.example.jobisapplication.domain.application.exception.ApplicationCannotDeleteException;
+import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
+import com.example.jobisapplication.domain.application.exception.ApplicationStatusCannotChangeException;
+import com.example.jobisapplication.domain.application.exception.InvalidStudentException;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
@@ -72,46 +72,5 @@ public class ApplicationEntity extends BaseTimeEntity {
         this.applicationStatus = applicationStatus;
     }
 
-    public ApplicationEntity toFieldTrain(LocalDate startDate, LocalDate endDate) {
-        checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
 
-        this.applicationStatus = ApplicationStatus.FIELD_TRAIN;
-        this.startDate = startDate;
-        this.endDate = endDate;
-
-        return this;
-    }
-
-    public void rejectApplication(String reason) {
-        if (applicationStatus != ApplicationStatus.REQUESTED) {
-            throw ApplicationStatusCannotChangeException.EXCEPTION;
-        }
-
-        this.applicationStatus = ApplicationStatus.REJECTED;
-        this.rejectionReason = reason;
-    }
-
-    public void checkReviewAuthority() {
-        if (this.applicationStatus == ApplicationStatus.REQUESTED
-                || this.applicationStatus == ApplicationStatus.APPROVED
-                || this.applicationStatus == ApplicationStatus.REJECTED) {
-            throw ApplicationNotFoundException.EXCEPTION;
-        }
-    }
-
-    public void checkApplicationStatus(ApplicationStatus status1, ApplicationStatus status2) {
-        if (status1 != status2) {
-            throw ApplicationStatusCannotChangeException.EXCEPTION;
-        }
-    }
-
-    public void checkIsDeleteable(StudentEntity studentEntity) {
-        if (!this.studentEntity.equals(studentEntity)) {
-            throw InvalidStudentException.EXCEPTION;
-        }
-
-        if (this.applicationStatus != ApplicationStatus.REQUESTED) {
-            throw ApplicationCannotDeleteException.EXCEPTION;
-        }
-    }
 }

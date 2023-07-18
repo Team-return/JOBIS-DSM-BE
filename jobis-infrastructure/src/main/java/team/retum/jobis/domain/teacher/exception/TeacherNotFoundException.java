@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.teacher.exception;
 
 import team.retum.jobis.domain.teacher.exception.error.TeacherErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class TeacherNotFoundException extends JobisException {
     public static final JobisException EXCEPTION = new TeacherNotFoundException();

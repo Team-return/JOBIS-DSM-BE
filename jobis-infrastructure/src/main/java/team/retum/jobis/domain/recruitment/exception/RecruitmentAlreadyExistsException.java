@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.recruitment.exception;
 
 import team.retum.jobis.domain.recruitment.exception.error.RecruitmentErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class RecruitmentAlreadyExistsException extends JobisException {
 

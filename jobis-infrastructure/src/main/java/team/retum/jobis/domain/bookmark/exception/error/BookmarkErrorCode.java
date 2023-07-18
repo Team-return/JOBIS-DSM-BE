@@ -3,7 +3,7 @@ package team.retum.jobis.domain.bookmark.exception.error;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import team.retum.jobis.global.error.ErrorProperty;
+import com.example.jobisapplication.common.error.ErrorProperty;
 
 @Getter
 @AllArgsConstructor

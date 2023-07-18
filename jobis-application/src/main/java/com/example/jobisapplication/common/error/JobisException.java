@@ -1,8 +1,7 @@
-package team.retum.jobis.global.error.exception;
+package com.example.jobisapplication.common.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team.retum.jobis.global.error.ErrorProperty;
 
 @Getter
 @AllArgsConstructor

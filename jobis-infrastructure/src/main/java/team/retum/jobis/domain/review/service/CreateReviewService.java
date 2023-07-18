@@ -3,7 +3,7 @@ package team.retum.jobis.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
+import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;

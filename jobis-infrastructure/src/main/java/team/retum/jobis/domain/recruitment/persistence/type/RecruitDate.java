@@ -3,7 +3,7 @@ package team.retum.jobis.domain.recruitment.persistence.type;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.application.exception.InvalidDateException;
+import com.example.jobisapplication.domain.application.exception.InvalidDateException;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.exception;
 
 import team.retum.jobis.domain.review.exception.error.ReviewErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class ReviewAlreadyExistsException extends JobisException {
 

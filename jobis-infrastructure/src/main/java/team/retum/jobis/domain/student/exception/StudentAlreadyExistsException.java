@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.student.exception;
 
 import team.retum.jobis.domain.student.exception.error.StudentErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class StudentAlreadyExistsException extends JobisException {
 

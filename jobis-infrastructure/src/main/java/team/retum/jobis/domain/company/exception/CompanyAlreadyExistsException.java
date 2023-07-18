@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.company.exception;
 
 import team.retum.jobis.domain.company.exception.error.CompanyErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class CompanyAlreadyExistsException extends JobisException {
 

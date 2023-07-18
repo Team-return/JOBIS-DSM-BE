@@ -1,5 +1,6 @@
 package team.retum.jobis.global.error;
 
+import com.example.jobisapplication.common.error.ErrorProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 import team.retum.jobis.global.error.response.ErrorResponse;
 import team.retum.jobis.global.error.response.ValidationErrorResponse;
 

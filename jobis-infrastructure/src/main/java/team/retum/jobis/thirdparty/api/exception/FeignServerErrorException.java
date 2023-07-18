@@ -1,6 +1,6 @@
 package team.retum.jobis.thirdparty.api.exception;
 
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 import team.retum.jobis.thirdparty.api.exception.error.FeignErrorCode;
 
 public class FeignServerErrorException extends JobisException {

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
-import team.retum.jobis.domain.application.exception.InvalidGradeException;
+import com.example.jobisapplication.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
 import com.example.jobisapplication.domain.student.model.Department;
 import com.example.jobisapplication.domain.student.model.Gender;

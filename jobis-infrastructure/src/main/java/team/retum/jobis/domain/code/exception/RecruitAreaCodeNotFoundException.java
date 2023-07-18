@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.code.exception;
 
 import team.retum.jobis.domain.code.exception.error.CodeErrorCode;
-import team.retum.jobis.global.error.exception.JobisException;
+import com.example.jobisapplication.common.error.JobisException;
 
 public class RecruitAreaCodeNotFoundException extends JobisException {
 
