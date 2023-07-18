@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.file.presentation.dto.response;
+package com.example.jobisapplication.domain.file.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

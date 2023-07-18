@@ -1,34 +1,44 @@
 package team.retum.jobis.thirdparty.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.internal.Mimetypes;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.example.jobisapplication.domain.file.model.FileType;
+import com.example.jobisapplication.domain.file.spi.FilePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 import team.retum.jobis.domain.file.exception.FileNotFoundException;
 import team.retum.jobis.domain.file.exception.FileUploadFailedException;
 import team.retum.jobis.domain.file.exception.InvalidExtensionException;
-import team.retum.jobis.domain.file.presentation.type.FileType;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+
+import static com.example.jobisapplication.domain.file.model.FileType.EXTENSION_FILE;
+import static com.example.jobisapplication.domain.file.model.FileType.LOGO_IMAGE;
 
 @Component
 @RequiredArgsConstructor
-public class S3Util {
+public class S3Adapter implements FilePort {
 
     private final AmazonS3 amazonS3;
     private final S3Properties s3Properties;
 
+    @Override
     @Async("asyncTaskExecutor")
-    public void upload(MultipartFile multipartFile, String fileName) {
-        try(InputStream inputStream = multipartFile.getInputStream()) {
+    public void uploadFile(File file, String fileName, FileType fileType) {
+        validateExtension(file.getName(), fileType);
+
+        try {
+            InputStream inputStream = new FileInputStream(file);
             ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentType(multipartFile.getContentType());
-            objectMetadata.setContentLength(multipartFile.getSize());
+            objectMetadata.setContentType(Mimetypes.getInstance().getMimetype(fileName));
+            objectMetadata.setContentLength(file.length());
 
             amazonS3.putObject(
                     new PutObjectRequest(
@@ -51,17 +61,16 @@ public class S3Util {
         amazonS3.deleteObject(new DeleteObjectRequest(s3Properties.getBucket(), path));
     }
 
-    public void validateExtension(String fileName, FileType fileType) {
+    private void validateExtension(String fileName, FileType fileType) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
 
-        if (!(extension.equals(".jpg") || extension.equals(".png") || extension.equals(".svg") || extension.equals(".jpeg"))) {
-            if (fileType.equals(FileType.LOGO_IMAGE)) {
-                throw InvalidExtensionException.EXCEPTION;
-            }
-            if (!(extension.equals(".pdf") || extension.equals(".ppt") || extension.equals(".pptx")
-                    || extension.equals(".hwp") || extension.equals(".zip") || extension.equals(".hwpx"))) {
-                throw InvalidExtensionException.EXCEPTION;
-            }
+        boolean isValid = switch (fileType) {
+            case LOGO_IMAGE -> LOGO_IMAGE.validExtensions.contains(extension);
+            case EXTENSION_FILE -> EXTENSION_FILE.validExtensions.contains(extension);
+        };
+
+        if (!isValid) {
+            throw InvalidExtensionException.EXCEPTION;
         }
     }
 }

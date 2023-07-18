@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.file.presentation.dto.request;
+package com.example.jobisapplication.domain.file.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

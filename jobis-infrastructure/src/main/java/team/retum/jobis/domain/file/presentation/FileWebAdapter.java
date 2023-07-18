@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.file.presentation;
 
+import com.example.jobisapplication.domain.file.model.FileType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,18 +10,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import team.retum.jobis.domain.file.presentation.dto.response.FileUploadResponse;
+import com.example.jobisapplication.domain.file.dto.response.FileUploadResponse;
 import team.retum.jobis.domain.file.presentation.type.FileType;
 import team.retum.jobis.domain.file.service.DeleteFileService;
-import team.retum.jobis.domain.file.service.FileUploadService;
+import com.example.jobisapplication.domain.file.usecase.FileUploadUseCase;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/files")
 @RequiredArgsConstructor
-public class FileController {
-    private final FileUploadService fileUploadService;
+public class FileWebAdapter {
+
+    private final FileUploadUseCase fileUploadUseCase;
     private final DeleteFileService deleteFileService;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -29,7 +31,13 @@ public class FileController {
             @RequestParam("file") List<MultipartFile> multipartFiles,
             @RequestParam("type") FileType fileType
     ) {
-        return fileUploadService.execute(multipartFiles, fileType);
+        return fileUploadUseCase.execute(
+                multipartFiles.stream()
+                        .map(file -> {
+
+                        }),
+                fileType
+        )
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

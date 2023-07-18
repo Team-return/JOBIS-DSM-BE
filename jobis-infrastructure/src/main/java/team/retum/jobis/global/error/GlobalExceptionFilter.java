@@ -3,6 +3,7 @@ package team.retum.jobis.global.error;
 import com.example.jobisapplication.common.error.ErrorProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.example.jobisapplication.common.error.JobisException;
 import team.retum.jobis.global.error.response.ErrorResponse;

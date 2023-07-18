@@ -4,6 +4,7 @@ import team.retum.jobis.domain.auth.exception.error.AuthErrorCode;
 import com.example.jobisapplication.common.error.JobisException;
 
 public class RefreshTokenNotFoundException extends JobisException {
+
     public static final JobisException EXCEPTION = new RefreshTokenNotFoundException();
 
     private RefreshTokenNotFoundException() {

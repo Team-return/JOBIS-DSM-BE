@@ -1,9 +1,9 @@
 package com.example.jobisapplication.domain.application.exception.error;
 
 import com.example.jobisapplication.common.error.ErrorProperty;
+import com.example.jobisapplication.common.error.HttpStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
