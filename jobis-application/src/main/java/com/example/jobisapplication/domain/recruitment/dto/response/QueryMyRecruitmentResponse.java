@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Builder
 public class QueryMyRecruitmentResponse {
+
     private final Long recruitmentId;
     private final Integer recruitYear;
     private final List<RecruitAreaResponse> areas;

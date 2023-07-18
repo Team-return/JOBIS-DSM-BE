@@ -1,8 +1,8 @@
 package com.example.jobisapplication.domain.student.dto;
 
+import com.example.jobisapplication.domain.student.model.Student;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import com.example.jobisapplication.domain.student.model.Department;
 
 @Getter
@@ -14,18 +14,18 @@ public class StudentMyPageResponse {
     private final Department department;
     private final String profileImageUrl;
 
-    public static StudentMyPageResponse of(StudentEntity studentEntity) {
+    public static StudentMyPageResponse of(Student student) {
         return StudentMyPageResponse.builder()
-                .studentName(studentEntity.getName())
+                .studentName(student.getName())
                 .studentGcn(
-                        StudentEntity.processGcn(
-                                studentEntity.getGrade(),
-                                studentEntity.getClassRoom(),
-                                studentEntity.getNumber()
+                        Student.processGcn(
+                                student.getGrade(),
+                                student.getClassRoom(),
+                                student.getNumber()
                         )
                 )
-                .department(studentEntity.getDepartment())
-                .profileImageUrl(studentEntity.getProfileImageUrl())
+                .department(student.getDepartment())
+                .profileImageUrl(student.getProfileImageUrl())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package com.example.jobisapplication.domain.recruitment.dto.response;
 
+import com.example.jobisapplication.domain.code.model.Code;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
@@ -29,7 +30,7 @@ public class RecruitAreaResponse {
                                 .majorTask(recruitArea.getMajorTask())
                                 .hiring(recruitArea.getHiredCount())
                                 .tech(recruitArea.getTechCodeEntities().stream()
-                                        .map(CodeEntity::getKeyword)
+                                        .map(Code::getKeyword)
                                         .toList()
                                 )
                                 .job(recruitArea.getJobCodes())

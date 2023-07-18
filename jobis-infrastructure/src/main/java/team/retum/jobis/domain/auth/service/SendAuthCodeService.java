@@ -3,7 +3,7 @@ package team.retum.jobis.domain.auth.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.auth.persistence.entity.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
-import team.retum.jobis.domain.auth.persistence.types.AuthCodeType;
+import com.example.jobisapplication.domain.auth.model.AuthCodeType;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
 import com.example.jobisapplication.domain.student.exception.StudentAlreadyExistsException;
 import com.example.jobisapplication.domain.student.exception.StudentNotFoundException;

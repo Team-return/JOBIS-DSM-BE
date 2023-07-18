@@ -1,9 +1,9 @@
 package com.example.jobisapplication.domain.review.dto;
 
+import com.example.jobisapplication.domain.code.model.Code;
+import com.example.jobisapplication.domain.review.model.QnAElement;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
-import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 
 import java.util.List;
 
@@ -23,14 +23,14 @@ public class QueryReviewDetailResponse {
         private final String area;
 
         public static List<QnAResponse> of(
-                List<QnAElementEntity> qnAElementEntities,
-                List<CodeEntity> codeEntities
+                List<QnAElement> qnAElementEntities,
+                List<Code> codeEntities
         ) {
             return qnAElementEntities.stream()
                     .map(qnAElement -> {
                         String keyword = codeEntities.stream()
                                 .filter(code -> code.getId().equals(qnAElement.getCodeId()))
-                                .map(CodeEntity::getKeyword)
+                                .map(Code::getKeyword)
                                 .findFirst()
                                 .orElse("");
 
