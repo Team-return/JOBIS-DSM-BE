@@ -7,8 +7,8 @@ import team.retum.jobis.domain.application.exception.ApplicationNotFoundExceptio
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.review.persistence.QnAElement;
-import team.retum.jobis.domain.review.persistence.Review;
+import team.retum.jobis.domain.review.persistence.QnAElementEntity;
+import team.retum.jobis.domain.review.persistence.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewRequest;
@@ -41,8 +41,8 @@ public class CreateReviewService {
 
         applicationEntity.checkReviewAuthority();
 
-        List<Long> codeIds = request.getQnaElements().stream()
-                .map(QnAElement::getCodeId)
+        List<Long> codeIds = request.getQnaElementEntities().stream()
+                .map(QnAElementEntity::getCodeId)
                 .toList();
 
         codeFacade.queryCodesByIdIn(codeIds);
@@ -55,9 +55,9 @@ public class CreateReviewService {
         }
 
         reviewRepository.save(
-                Review.builder()
+                ReviewEntity.builder()
                         .companyId(request.getCompanyId())
-                        .qnAElements(request.getQnaElements())
+                        .qnAElements(request.getQnaElementEntities())
                         .studentName(student.getName())
                         .year(Year.now().getValue())
                         .build()

@@ -3,8 +3,8 @@ package team.retum.jobis.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.review.persistence.QnAElement;
-import team.retum.jobis.domain.review.persistence.Review;
+import team.retum.jobis.domain.review.persistence.QnAElementEntity;
+import team.retum.jobis.domain.review.persistence.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse;
@@ -22,20 +22,20 @@ public class QueryReviewDetailService {
 
     public QueryReviewDetailResponse execute(String reviewId) {
 
-        Review review = reviewRepository.findById(reviewId)
+        ReviewEntity reviewEntity = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
 
-        List<Long> codeIds = review.getQnAElements().stream()
-                .map(QnAElement::getCodeId)
+        List<Long> codeIds = reviewEntity.getQnAElementEntities().stream()
+                .map(QnAElementEntity::getCodeId)
                 .toList();
 
         List<CodeEntity> codeEntities = codeFacade.queryCodesByIdIn(codeIds);
 
         return QueryReviewDetailResponse.builder()
-                .year(review.getYear())
-                .writer(review.getStudentName())
+                .year(reviewEntity.getYear())
+                .writer(reviewEntity.getStudentName())
                 .qnaResponses(
-                        QnAResponse.of(review.getQnAElements(), codeEntities)
+                        QnAResponse.of(reviewEntity.getQnAElementEntities(), codeEntities)
                 )
                 .build();
     }

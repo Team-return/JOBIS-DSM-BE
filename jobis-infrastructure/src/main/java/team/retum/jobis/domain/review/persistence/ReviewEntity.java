@@ -13,21 +13,21 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document("reviews")
-public class Review {
+public class ReviewEntity {
 
     @Id
     private String id;
     private Long companyId;
-    private List<QnAElement> qnAElements;
+    private List<QnAElementEntity> qnAElementEntities;
     private String studentName;
     private Integer year;
     private LocalDate createdDate;
 
     @Builder
-    public Review(Long companyId, List<QnAElement> qnAElements,
-                  String studentName, Integer year) {
+    public ReviewEntity(Long companyId, List<QnAElementEntity> qnAElementEntities,
+                        String studentName, Integer year) {
         this.companyId = companyId;
-        this.qnAElements = qnAElements;
+        this.qnAElementEntities = qnAElementEntities;
         this.studentName = studentName;
         this.year = year;
         this.createdDate = LocalDate.now();

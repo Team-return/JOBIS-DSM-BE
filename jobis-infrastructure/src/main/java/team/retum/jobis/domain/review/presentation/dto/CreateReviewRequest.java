@@ -2,7 +2,7 @@ package team.retum.jobis.domain.review.presentation.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.review.persistence.QnAElement;
+import team.retum.jobis.domain.review.persistence.QnAElementEntity;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -17,7 +17,7 @@ public class CreateReviewRequest {
 
     @Valid
     @NotNull
-    private List<QnAElement> qnaElements;
+    private List<QnAElementEntity> qnaElementEntities;
 
     @NotNull
     private Long applicationId;

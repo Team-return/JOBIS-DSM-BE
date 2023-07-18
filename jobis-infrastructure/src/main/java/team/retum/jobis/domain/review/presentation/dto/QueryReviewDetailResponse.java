@@ -3,7 +3,7 @@ package team.retum.jobis.domain.review.presentation.dto;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
-import team.retum.jobis.domain.review.persistence.QnAElement;
+import team.retum.jobis.domain.review.persistence.QnAElementEntity;
 
 import java.util.List;
 
@@ -23,10 +23,10 @@ public class QueryReviewDetailResponse {
         private final String area;
 
         public static List<QnAResponse> of(
-                List<QnAElement> qnAElements,
+                List<QnAElementEntity> qnAElementEntities,
                 List<CodeEntity> codeEntities
         ) {
-            return qnAElements.stream()
+            return qnAElementEntities.stream()
                     .map(qnAElement -> {
                         String keyword = codeEntities.stream()
                                 .filter(code -> code.getId().equals(qnAElement.getCodeId()))

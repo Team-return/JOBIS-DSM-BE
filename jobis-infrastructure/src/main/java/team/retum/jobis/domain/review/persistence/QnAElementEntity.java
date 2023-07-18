@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class QnAElement {
+public class QnAElementEntity {
 
     @NotBlank
     private String question;

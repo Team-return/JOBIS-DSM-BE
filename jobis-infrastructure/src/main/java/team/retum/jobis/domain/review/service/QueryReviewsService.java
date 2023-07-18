@@ -3,7 +3,7 @@ package team.retum.jobis.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.review.persistence.Review;
+import team.retum.jobis.domain.review.persistence.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse.ReviewResponse;
@@ -23,10 +23,10 @@ public class QueryReviewsService {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        List<Review> reviews = reviewRepository.findAllByCompanyId(companyId);
+        List<ReviewEntity> reviewEntities = reviewRepository.findAllByCompanyId(companyId);
 
         return new QueryReviewsResponse(
-                reviews.stream()
+                reviewEntities.stream()
                         .map(review -> ReviewResponse.builder()
                                 .reviewId(review.getId())
                                 .year(review.getYear())

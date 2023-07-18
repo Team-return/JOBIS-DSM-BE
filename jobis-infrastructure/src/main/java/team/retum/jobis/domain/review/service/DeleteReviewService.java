@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.review.persistence.Review;
+import team.retum.jobis.domain.review.persistence.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
 import com.example.jobisapplication.common.annotation.Service;
@@ -14,9 +14,9 @@ public class DeleteReviewService {
 
     public void execute(String reviewId) {
 
-        Review review = reviewRepository.findById(reviewId)
+        ReviewEntity reviewEntity = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
 
-        reviewRepository.delete(review);
+        reviewRepository.delete(reviewEntity);
     }
 }
