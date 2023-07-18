@@ -3,7 +3,6 @@ package team.retum.jobis.domain.file.presentation;
 import com.example.jobisapplication.domain.file.model.FileType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,10 +10,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.jobisapplication.domain.file.dto.response.FileUploadResponse;
-import team.retum.jobis.domain.file.presentation.type.FileType;
-import team.retum.jobis.domain.file.service.DeleteFileService;
+import com.example.jobisapplication.domain.file.exception.FileNotFoundException;
+import com.example.jobisapplication.domain.file.exception.FileUploadFailedException;
 import com.example.jobisapplication.domain.file.usecase.FileUploadUseCase;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 @RestController
@@ -23,7 +26,6 @@ import java.util.List;
 public class FileWebAdapter {
 
     private final FileUploadUseCase fileUploadUseCase;
-    private final DeleteFileService deleteFileService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -33,18 +35,21 @@ public class FileWebAdapter {
     ) {
         return fileUploadUseCase.execute(
                 multipartFiles.stream()
-                        .map(file -> {
+                        .map(multipartFile -> {
+                            if (multipartFile == null || multipartFile.getOriginalFilename() == null) {
+                                throw FileNotFoundException.EXCEPTION;
+                            }
+                            File file = new File(multipartFile.getOriginalFilename());
 
-                        }),
+                            try (OutputStream outputStream = new FileOutputStream(file)) {
+                                outputStream.write(multipartFile.getBytes());
+                            } catch (IOException e) {
+                                throw FileUploadFailedException.EXCEPTION;
+                            }
+
+                            return file;
+                        }).toList(),
                 fileType
-        )
-    }
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping
-    public void deleteFile(
-            @RequestParam("path") String path
-    ) {
-        deleteFileService.execute(path);
+        );
     }
 }
