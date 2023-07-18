@@ -66,11 +66,14 @@ public class ApplicationEntity extends BaseTimeEntity {
     private List<ApplicationAttachmentEntity> applicationAttachmentEntities = new ArrayList<>();
 
     @Builder
-    public ApplicationEntity(StudentEntity studentEntity, RecruitmentEntity recruitmentEntity, ApplicationStatus applicationStatus) {
+    public ApplicationEntity(StudentEntity studentEntity, RecruitmentEntity recruitmentEntity,
+                             ApplicationStatus applicationStatus, String rejectionReason,
+                             LocalDate startDate, LocalDate endDate) {
         this.studentEntity = studentEntity;
         this.recruitmentEntity = recruitmentEntity;
         this.applicationStatus = applicationStatus;
+        this.rejectionReason = rejectionReason;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
-
-
 }

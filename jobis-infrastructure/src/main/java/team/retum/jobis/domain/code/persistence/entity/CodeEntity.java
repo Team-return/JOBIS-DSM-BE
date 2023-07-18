@@ -2,6 +2,7 @@ package team.retum.jobis.domain.code.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.example.jobisapplication.domain.code.model.CodeType;
@@ -21,7 +22,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_code")
 @Entity
@@ -47,4 +47,12 @@ public class CodeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_code_id")
     private CodeEntity parentCodeEntity;
+
+    @Builder
+    public CodeEntity(CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
+        this.codeType = codeType;
+        this.jobType = jobType;
+        this.keyword = keyword;
+        this.parentCodeEntity = parentCodeEntity;
+    }
 }

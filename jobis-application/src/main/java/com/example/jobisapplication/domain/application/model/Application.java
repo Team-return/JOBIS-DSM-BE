@@ -61,6 +61,7 @@ public class Application {
         }
     }
 
+
     public void checkIsDeletable(Student student) {
         if (!this.studentId.equals(student.getId())) {
             throw InvalidStudentException.EXCEPTION;
