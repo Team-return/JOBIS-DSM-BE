@@ -1,0 +1,46 @@
+dependencies {
+
+    implementation(project(":jobis-application"))
+
+    //persistence
+    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    //queryDSL
+    implementation 'com.querydsl:querydsl-jpa'
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:5.0.0:jpa")
+
+    //web
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //openfeign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
+    implementation "io.github.openfeign:feign-httpclient:11.9.1"
+
+    //aws
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'com.amazonaws:aws-java-sdk-ses:1.12.144'
+
+    //thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    //randomString
+    implementation 'org.ehcache:ehcache:3.9.2'
+
+    //config
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    //jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+}
+
+test.useJUnitPlatform()
+jar.enabled = false
