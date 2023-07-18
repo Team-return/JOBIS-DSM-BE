@@ -16,8 +16,8 @@ import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QRecruitAreaVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QueryRecruitAreaVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QueryRecruitmentsVO;
-import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
 import com.example.jobisapplication.domain.recruitment.dto.RecruitmentFilter;
 
 import java.time.LocalDate;
@@ -101,7 +101,7 @@ public class RecruitmentRepository {
                 ).fetchOne();
     }
 
-    public List<RecruitAreaVO> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
+    public List<QueryRecruitAreaVO> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
         return queryFactory
                 .selectFrom(recruitArea)
                 .join(recruitArea.recruitAreaCodes, recruitAreaCode)

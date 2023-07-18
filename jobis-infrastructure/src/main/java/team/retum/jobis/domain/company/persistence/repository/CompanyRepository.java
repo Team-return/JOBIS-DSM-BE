@@ -15,9 +15,9 @@ import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCo
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryEmployCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QueryCompanyDetailsVO;
-import team.retum.jobis.domain.company.persistence.repository.vo.StudentQueryCompaniesVO;
+import team.retum.jobis.domain.company.persistence.repository.vo.QueryStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryCompaniesVO;
-import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryEmployCompaniesVO;
+import team.retum.jobis.domain.company.persistence.repository.vo.QueryTeacherQueryEmployCompaniesVO;
 import com.example.jobisapplication.domain.company.dto.CompanyFilter;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 
@@ -39,7 +39,7 @@ public class CompanyRepository {
     private final CompanyAttachmentJpaRepository companyAttachmentJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public List<StudentQueryCompaniesVO> queryCompanyVoList(CompanyFilter filter) {
+    public List<QueryStudentQueryCompaniesVO> queryCompanyVoList(CompanyFilter filter) {
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
@@ -147,7 +147,7 @@ public class CompanyRepository {
                 .fetchOne();
     }
 
-    public List<TeacherQueryEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type, Integer year) {
+    public List<QueryTeacherQueryEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type, Integer year) {
         return queryFactory
                 .select(
                         new QTeacherQueryEmployCompaniesVO(

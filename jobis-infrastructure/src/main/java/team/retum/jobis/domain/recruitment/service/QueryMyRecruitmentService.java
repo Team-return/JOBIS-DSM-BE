@@ -3,7 +3,7 @@ package team.retum.jobis.domain.recruitment.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QueryRecruitAreaVO;
 import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
 import com.example.jobisapplication.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
 import com.example.jobisapplication.domain.recruitment.dto.response.RecruitAreaResponse;
@@ -25,7 +25,7 @@ public class QueryMyRecruitmentService {
         RecruitmentEntity recruitmentEntity = recruitmentRepository.queryRecentRecruitmentByCompanyId(currentUserId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        List<RecruitAreaVO> recruitAreas =
+        List<QueryRecruitAreaVO> recruitAreas =
                 recruitmentRepository.queryRecruitAreasByRecruitmentId(recruitmentEntity.getId());
 
         return QueryMyRecruitmentResponse.builder()

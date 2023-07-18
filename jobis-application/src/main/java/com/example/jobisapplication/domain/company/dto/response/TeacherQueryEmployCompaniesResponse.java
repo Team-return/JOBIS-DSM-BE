@@ -1,8 +1,8 @@
 package com.example.jobisapplication.domain.company.dto.response;
 
+import com.example.jobisapplication.domain.company.spi.vo.TeacherQueryEmployCompaniesVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryEmployCompaniesVO;
 
 import java.util.List;
 
