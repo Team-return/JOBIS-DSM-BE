@@ -1,11 +1,9 @@
 package com.example.jobisapplication.domain.code.dto.response;
 
 import com.example.jobisapplication.domain.code.model.Code;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import com.example.jobisapplication.domain.code.model.JobType;
 
 import java.util.List;

@@ -1,21 +1,16 @@
 package team.retum.jobis.domain.bookmark.persistence.repository.vo;
 
+import com.example.jobisapplication.domain.bookmark.spi.vo.StudentBookmarksVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class QueryStudentBookmarksVO {
-
-    private final String companyName;
-    private final Long recruitmentId;
-    private final LocalDateTime createdAt;
+public class QueryStudentBookmarksVO extends StudentBookmarksVO {
 
     @QueryProjection
     public QueryStudentBookmarksVO(String companyName, Long recruitmentId, LocalDateTime createdAt) {
-        this.companyName = companyName;
-        this.recruitmentId = recruitmentId;
-        this.createdAt = createdAt;
+        super(companyName, recruitmentId, createdAt);
     }
 }

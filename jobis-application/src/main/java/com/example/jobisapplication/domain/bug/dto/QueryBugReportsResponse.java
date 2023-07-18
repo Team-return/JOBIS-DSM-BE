@@ -1,8 +1,8 @@
 package com.example.jobisapplication.domain.bug.dto;
 
+import com.example.jobisapplication.domain.bug.spi.vo.BugReportsVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team.retum.jobis.domain.bug.persistence.repository.vo.QueryBugReportsVO;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 public class QueryBugReportsResponse {
 
-    private final List<QueryBugReportsVO> bugReports;
+    private final List<BugReportsVO> bugReports;
 }
