@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class QueryTotalApplicationCountVO extends TotalApplicationCountVO {
 
-
     @QueryProjection
     public QueryTotalApplicationCountVO(Long totalStudentCount, Long passedCount, Long approvedCount) {
         super(totalStudentCount, passedCount, approvedCount);

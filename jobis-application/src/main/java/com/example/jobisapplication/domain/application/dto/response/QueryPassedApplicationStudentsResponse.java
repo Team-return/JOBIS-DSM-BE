@@ -1,10 +1,10 @@
 package com.example.jobisapplication.domain.application.dto.response;
 
+import com.example.jobisapplication.domain.application.spi.vo.PassedApplicationStudentsVO;
+import com.example.jobisapplication.domain.student.model.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.application.persistence.repository.vo.QueryPassedApplicationStudentsVO;
-import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ public class QueryPassedApplicationStudentsResponse {
 
     private final List<QueryPassedApplicationStudentResponse> students;
 
-    public static QueryPassedApplicationStudentResponse of(QueryPassedApplicationStudentsVO vo) {
+    public static QueryPassedApplicationStudentResponse of(PassedApplicationStudentsVO vo) {
         return QueryPassedApplicationStudentResponse.builder()
                 .applicationId(vo.getApplicationId())
                 .studentName(vo.getStudentName())
-                .studentGcn(StudentEntity.processGcn(
+                .studentGcn(Student.processGcn(
                         vo.getGrade(),
                         vo.getClassRoom(),
                         vo.getNumber()
@@ -33,6 +33,5 @@ public class QueryPassedApplicationStudentsResponse {
         private final Long applicationId;
         private final String studentName;
         private final String studentGcn;
-
     }
 }

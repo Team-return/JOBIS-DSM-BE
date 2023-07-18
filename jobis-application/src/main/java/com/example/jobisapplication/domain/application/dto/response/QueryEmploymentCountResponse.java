@@ -1,8 +1,8 @@
 package com.example.jobisapplication.domain.application.dto.response;
 
+import com.example.jobisapplication.domain.application.spi.vo.TotalApplicationCountVO;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.application.persistence.repository.vo.QueryTotalApplicationCountVO;
 
 @Getter
 @Builder
@@ -12,7 +12,7 @@ public class QueryEmploymentCountResponse {
     private final Long passedCount;
     private final Long approvedCount;
 
-    public static QueryEmploymentCountResponse of(QueryTotalApplicationCountVO vo) {
+    public static QueryEmploymentCountResponse of(TotalApplicationCountVO vo) {
         return QueryEmploymentCountResponse.builder()
                 .totalStudentCount(vo.getTotalStudentCount())
                 .passedCount(vo.getPassedCount())
