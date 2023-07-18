@@ -8,7 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
-import team.retum.jobis.domain.company.persistence.enums.CompanyType;
+import com.example.jobisapplication.domain.company.domain.CompanyType;
 import team.retum.jobis.domain.company.persistence.type.Address;
 import team.retum.jobis.domain.company.persistence.type.Manager;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
@@ -37,7 +37,7 @@ import java.util.List;
 @DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Company {
+public class CompanyEntity {
 
     @Id
     @Column(name = "company_id")
@@ -118,16 +118,16 @@ public class Company {
     private final List<Recruitment> recruitmentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
-    private final List<CompanyAttachment> companyAttachments = new ArrayList<>();
+    private final List<CompanyAttachmentEntity> companyAttachmentEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
     private final List<AcceptanceEntity> acceptanceEntities = new ArrayList<>();
 
     @Builder
-    public Company(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
-                   String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
-                   String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                   String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
+    public CompanyEntity(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
+                         String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
+                         String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
+                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
         this.user = user;
         this.name = name;
         this.isMou = false;
@@ -161,12 +161,12 @@ public class Company {
         this.email = email;
     }
 
-    public Company changeCompanyType(CompanyType type) {
+    public CompanyEntity changeCompanyType(CompanyType type) {
         this.type = type;
         return this;
     }
 
-    public Company convertToMou() {
+    public CompanyEntity convertToMou() {
         this.isMou = !this.isMou;
         return this;
     }

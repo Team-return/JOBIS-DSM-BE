@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
@@ -29,15 +29,15 @@ public class ApplyRecruitmentService {
     private final UserFacade userFacade;
 
     public void execute(ApplyRecruitmentRequest request) {
-        Company company = userFacade.getCurrentCompany();
+        CompanyEntity companyEntity = userFacade.getCurrentCompany();
 
-        if (recruitmentRepository.existsRecruitmentByCompanyAndStatusNot(company, RecruitStatus.DONE)) {
+        if (recruitmentRepository.existsRecruitmentByCompanyAndStatusNot(companyEntity, RecruitStatus.DONE)) {
             throw RecruitmentAlreadyExistsException.EXCEPTION;
         }
 
         Recruitment recruitment = recruitmentRepository.saveRecruitment(
                 Recruitment.builder()
-                        .company(company)
+                        .company(companyEntity)
                         .recruitYear(Year.now().getValue())
                         .militarySupport(request.isMilitarySupport())
                         .personalContact(request.isPersonalContact())

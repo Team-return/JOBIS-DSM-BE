@@ -3,8 +3,8 @@ package team.retum.jobis.domain.company.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.company.persistence.Company;
-import team.retum.jobis.domain.company.persistence.CompanyAttachment;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
+import team.retum.jobis.domain.company.persistence.CompanyAttachmentEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
@@ -44,8 +44,8 @@ public class RegisterCompanyService {
                 .build();
 
         String businessAreaKeyword = codeFacade.findCodeById(request.getBusinessAreaCode()).getKeyword();
-        Company savedCompany = companyRepository.saveCompany(
-                Company.builder()
+        CompanyEntity savedCompanyEntity = companyRepository.saveCompany(
+                CompanyEntity.builder()
                         .user(user)
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
@@ -73,7 +73,7 @@ public class RegisterCompanyService {
 
         companyRepository.saveAllCompanyAttachment(
                 request.getAttachmentUrls().stream()
-                        .map(attachment -> new CompanyAttachment(attachment, savedCompany))
+                        .map(attachment -> new CompanyAttachmentEntity(attachment, savedCompanyEntity))
                         .toList()
         );
 

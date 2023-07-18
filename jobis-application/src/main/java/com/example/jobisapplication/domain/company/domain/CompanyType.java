@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.company.persistence.enums;
+package com.example.jobisapplication.domain.company.domain;
 
 public enum CompanyType {
     LEAD, //선도기업

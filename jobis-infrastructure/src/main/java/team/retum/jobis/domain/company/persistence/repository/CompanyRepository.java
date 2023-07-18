@@ -7,9 +7,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
-import team.retum.jobis.domain.company.persistence.Company;
-import team.retum.jobis.domain.company.persistence.CompanyAttachment;
-import team.retum.jobis.domain.company.persistence.enums.CompanyType;
+import team.retum.jobis.domain.company.persistence.CompanyAttachmentEntity;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
+import com.example.jobisapplication.domain.company.domain.CompanyType;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyDetailsVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
@@ -184,7 +184,7 @@ public class CompanyRepository {
                 .fetch();
     }
 
-    public Optional<Company> queryCompanyById(Long companyId) {
+    public Optional<CompanyEntity> queryCompanyById(Long companyId) {
         return companyJpaRepository.findById(companyId);
     }
 
@@ -192,19 +192,19 @@ public class CompanyRepository {
         return companyJpaRepository.existsByBizNo(bizNo);
     }
 
-    public Company saveCompany(Company company) {
-        return companyJpaRepository.save(company);
+    public CompanyEntity saveCompany(CompanyEntity companyEntity) {
+        return companyJpaRepository.save(companyEntity);
     }
 
-    public void saveAllCompanies(List<Company> companies) {
+    public void saveAllCompanies(List<CompanyEntity> companies) {
         companyJpaRepository.saveAll(companies);
     }
 
-    public void saveAllCompanyAttachment(List<CompanyAttachment> companyAttachments) {
-        companyAttachmentJpaRepository.saveAll(companyAttachments);
+    public void saveAllCompanyAttachment(List<CompanyAttachmentEntity> companyAttachmentEntities) {
+        companyAttachmentJpaRepository.saveAll(companyAttachmentEntities);
     }
 
-    public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
+    public List<CompanyEntity> queryCompaniesByIdIn(List<Long> companyIds) {
         return companyJpaRepository.findAllByIdIn(companyIds);
     }
 

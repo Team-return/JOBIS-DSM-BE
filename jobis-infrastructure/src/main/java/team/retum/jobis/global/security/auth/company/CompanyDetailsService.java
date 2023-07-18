@@ -5,9 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.global.exception.InvalidTokenException;
 
 @Component
@@ -17,10 +16,10 @@ public class CompanyDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String companyId) throws UsernameNotFoundException {
-        Company company = companyRepository.queryCompanyById(
+        CompanyEntity companyEntity = companyRepository.queryCompanyById(
                 Long.valueOf(companyId)
         ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
 
-        return new CompanyDetails(company.getId());
+        return new CompanyDetails(companyEntity.getId());
     }
 }

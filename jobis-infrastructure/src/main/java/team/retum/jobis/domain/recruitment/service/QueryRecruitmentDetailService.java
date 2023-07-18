@@ -25,9 +25,9 @@ public class QueryRecruitmentDetailService {
                 recruitmentRepository.queryRecruitAreasByRecruitmentId(recruitment.getId());
 
         return QueryRecruitmentDetailResponse.builder()
-                .companyId(recruitment.getCompany().getId())
-                .companyProfileUrl(recruitment.getCompany().getCompanyLogoUrl())
-                .companyName(recruitment.getCompany().getName())
+                .companyId(recruitment.getCompanyEntity().getId())
+                .companyProfileUrl(recruitment.getCompanyEntity().getCompanyLogoUrl())
+                .companyName(recruitment.getCompanyEntity().getName())
                 .areas(RecruitAreaResponse.of(recruitAreas))
                 .pay(recruitment.getPayInfo().getPay())
                 .trainPay(recruitment.getPayInfo().getTrainPay())

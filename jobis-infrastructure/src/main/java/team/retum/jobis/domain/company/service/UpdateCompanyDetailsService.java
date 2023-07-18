@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
@@ -12,9 +12,9 @@ public class UpdateCompanyDetailsService {
     private final UserFacade userFacade;
 
     public void execute(UpdateCompanyDetailsRequest request) {
-        Company company = userFacade.getCurrentCompany();
+        CompanyEntity companyEntity = userFacade.getCurrentCompany();
 
-        company.update(
+        companyEntity.update(
                 request.getAddress1(), request.getZipCode1(),
                 request.getAddress2(), request.getZipCode2(),
                 request.getTake(), request.getWorkerNumber(),

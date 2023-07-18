@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.global.converter.StringListConverter;
 
 import javax.persistence.Column;
@@ -56,17 +56,17 @@ public class AcceptanceEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+    private CompanyEntity companyEntity;
 
     @Builder
     public AcceptanceEntity(Integer year, String studentName, String businessArea, List<String> tech,
-                            String studentGcn, LocalDate contractDate, Company company) {
+                            String studentGcn, LocalDate contractDate, CompanyEntity companyEntity) {
         this.year = year;
         this.studentName = studentName;
         this.businessArea = businessArea;
         this.tech = tech;
         this.studentGcn = studentGcn;
         this.contractDate = contractDate;
-        this.company = company;
+        this.companyEntity = companyEntity;
     }
 }

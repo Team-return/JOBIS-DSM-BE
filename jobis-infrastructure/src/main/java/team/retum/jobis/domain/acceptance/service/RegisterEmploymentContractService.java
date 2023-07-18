@@ -38,7 +38,7 @@ public class RegisterEmploymentContractService {
 
                             return AcceptanceEntity.builder()
                                     .studentName(application.getStudentName())
-                                    .company(application.getCompany())
+                                    .company(application.getCompanyEntity())
                                     .studentGcn(Student.processGcn(
                                             application.getStudentGrade(),
                                             application.getStudentClassNumber(),
@@ -47,7 +47,7 @@ public class RegisterEmploymentContractService {
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
                                     .tech(request.getCodeKeywords())
-                                    .businessArea(application.getCompany().getBusinessArea())
+                                    .businessArea(application.getCompanyEntity().getBusinessArea())
                                     .build();
                         }
                 ).toList();

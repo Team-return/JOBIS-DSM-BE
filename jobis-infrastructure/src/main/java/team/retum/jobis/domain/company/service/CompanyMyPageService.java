@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
@@ -13,31 +13,31 @@ public class CompanyMyPageService {
     private final UserFacade userFacade;
 
     public CompanyMyPageResponse execute() {
-        Company company = userFacade.getCurrentCompany();
+        CompanyEntity companyEntity = userFacade.getCurrentCompany();
 
         return CompanyMyPageResponse.builder()
-                .name(company.getName())
-                .bizNo(company.getBizNo())
-                .type(company.getType())
-                .mainAddress(company.getAddress().getMainAddress())
-                .mainZipCode(company.getAddress().getMainZipCode())
-                .subAddress(company.getAddress().getSubAddress())
-                .subZipCode(company.getAddress().getSubZipCode())
-                .representative(company.getRepresentative())
-                .foundedAt(company.getFoundedAt())
-                .take(company.getTake())
-                .workersCount(company.getWorkersCount())
-                .managerName(company.getManager().getManagerName())
-                .managerPhoneNo(company.getManager().getManagerPhoneNo())
-                .subManagerName(company.getManager().getSubManagerName())
-                .subManagerPhoneNo(company.getManager().getSubManagerPhoneNo())
-                .fax(company.getFax())
-                .email(company.getEmail())
-                .companyIntroduce(company.getCompanyIntroduce())
-                .companyLogoUrl(company.getCompanyLogoUrl())
-                .serviceName(company.getServiceName())
-                .businessArea(company.getBusinessArea())
-                .bizRegistrationUrl(company.getBizRegistrationUrl())
+                .name(companyEntity.getName())
+                .bizNo(companyEntity.getBizNo())
+                .type(companyEntity.getType())
+                .mainAddress(companyEntity.getAddress().getMainAddress())
+                .mainZipCode(companyEntity.getAddress().getMainZipCode())
+                .subAddress(companyEntity.getAddress().getSubAddress())
+                .subZipCode(companyEntity.getAddress().getSubZipCode())
+                .representative(companyEntity.getRepresentative())
+                .foundedAt(companyEntity.getFoundedAt())
+                .take(companyEntity.getTake())
+                .workersCount(companyEntity.getWorkersCount())
+                .managerName(companyEntity.getManager().getManagerName())
+                .managerPhoneNo(companyEntity.getManager().getManagerPhoneNo())
+                .subManagerName(companyEntity.getManager().getSubManagerName())
+                .subManagerPhoneNo(companyEntity.getManager().getSubManagerPhoneNo())
+                .fax(companyEntity.getFax())
+                .email(companyEntity.getEmail())
+                .companyIntroduce(companyEntity.getCompanyIntroduce())
+                .companyLogoUrl(companyEntity.getCompanyLogoUrl())
+                .serviceName(companyEntity.getServiceName())
+                .businessArea(companyEntity.getBusinessArea())
+                .bizRegistrationUrl(companyEntity.getBizRegistrationUrl())
                 .build();
     }
 }

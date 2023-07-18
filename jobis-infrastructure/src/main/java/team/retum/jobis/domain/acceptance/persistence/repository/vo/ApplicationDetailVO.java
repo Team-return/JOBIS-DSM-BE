@@ -3,7 +3,7 @@ package team.retum.jobis.domain.acceptance.persistence.repository.vo;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 
 @Getter
 public class ApplicationDetailVO {
@@ -18,19 +18,19 @@ public class ApplicationDetailVO {
 
     private final int studentNumber;
 
-    private final Company company;
+    private final CompanyEntity companyEntity;
 
     private final ApplicationStatus status;
 
     @QueryProjection
     public ApplicationDetailVO(Long id, String studentName, int studentGrade, int studentClassNumber,
-                               int studentNumber, Company company, ApplicationStatus status) {
+                               int studentNumber, CompanyEntity companyEntity, ApplicationStatus status) {
         this.id = id;
         this.studentName = studentName;
         this.studentGrade = studentGrade;
         this.studentClassNumber = studentClassNumber;
         this.studentNumber = studentNumber;
-        this.company = company;
+        this.companyEntity = companyEntity;
         this.status = status;
     }
 }

@@ -10,7 +10,7 @@ import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.persistence.RecruitAreaCodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.RecruitAreaCodeJpaRepository;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
@@ -179,8 +179,8 @@ public class RecruitmentRepository {
         return recruitmentJpaRepository.findByIdIn(recruitmentIds);
     }
 
-    public boolean existsRecruitmentByCompanyAndStatusNot(Company company, RecruitStatus status) {
-        return recruitmentJpaRepository.existsByCompanyAndStatusNot(company, status);
+    public boolean existsRecruitmentByCompanyAndStatusNot(CompanyEntity companyEntity, RecruitStatus status) {
+        return recruitmentJpaRepository.existsByCompanyAndStatusNot(companyEntity, status);
     }
 
     //===conditions===//

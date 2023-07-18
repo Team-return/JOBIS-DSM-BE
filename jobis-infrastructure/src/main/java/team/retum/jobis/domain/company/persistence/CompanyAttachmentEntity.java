@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class CompanyAttachment {
+public class CompanyAttachmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,10 @@ public class CompanyAttachment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+    private CompanyEntity companyEntity;
 
-    public CompanyAttachment(String attachmentUrl, Company company) {
+    public CompanyAttachmentEntity(String attachmentUrl, CompanyEntity companyEntity) {
         this.attachmentUrl = attachmentUrl;
-        this.company = company;
+        this.companyEntity = companyEntity;
     }
 }

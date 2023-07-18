@@ -3,7 +3,7 @@ package team.retum.jobis.domain.company.presentation.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.company.persistence.enums.CompanyType;
+import com.example.jobisapplication.domain.company.domain.CompanyType;
 
 import java.util.List;
 

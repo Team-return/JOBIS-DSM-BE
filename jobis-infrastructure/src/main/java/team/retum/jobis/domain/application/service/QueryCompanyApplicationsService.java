@@ -6,7 +6,7 @@ import team.retum.jobis.domain.application.persistence.repository.ApplicationRep
 import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse.CompanyQueryApplicationResponse;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -23,8 +23,8 @@ public class QueryCompanyApplicationsService {
     private final UserFacade userFacade;
 
     public CompanyQueryApplicationsResponse execute() {
-        Company company = userFacade.getCurrentCompany();
-        Recruitment recruitment = recruitmentRepository.queryRecentRecruitmentByCompanyId(company.getId())
+        CompanyEntity companyEntity = userFacade.getCurrentCompany();
+        Recruitment recruitment = recruitmentRepository.queryRecentRecruitmentByCompanyId(companyEntity.getId())
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         return new CompanyQueryApplicationsResponse(

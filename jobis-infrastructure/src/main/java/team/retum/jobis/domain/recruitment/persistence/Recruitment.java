@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.application.persistence.ApplicationEntity;
-import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyEntity;
 import team.retum.jobis.domain.recruitment.persistence.enums.ProgressType;
 import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.converter.HiringProgressConverter;
@@ -101,7 +101,7 @@ public class Recruitment extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+    private CompanyEntity companyEntity;
 
     @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
     private final List<RecruitArea> recruitAreas = new ArrayList<>();
@@ -111,7 +111,7 @@ public class Recruitment extends BaseTimeEntity {
 
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, Company company, String benefits, boolean militarySupport, List<String> requiredLicenses,
+                       LocalDate startDate, LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport, List<String> requiredLicenses,
                        String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade, Boolean personalContact) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
@@ -124,7 +124,7 @@ public class Recruitment extends BaseTimeEntity {
         this.personalContact = personalContact;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.payInfo = new PayInfo(trainPay, pay);
-        this.company = company;
+        this.companyEntity = companyEntity;
         this.requiredLicenses = requiredLicenses;
         this.militarySupport = militarySupport;
         this.etc = etc;
@@ -153,7 +153,7 @@ public class Recruitment extends BaseTimeEntity {
     }
 
     public void checkCompany(Long companyId) {
-        if (!this.company.getId().equals(companyId)) {
+        if (!this.companyEntity.getId().equals(companyId)) {
             throw CompanyMismatchException.EXCEPTION;
         }
     }
