@@ -8,7 +8,7 @@ import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentRepository;
-import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
+import com.example.jobisapplication.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.auth.model.Authority;

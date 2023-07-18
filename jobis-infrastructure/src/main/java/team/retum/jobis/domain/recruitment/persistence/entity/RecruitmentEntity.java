@@ -13,8 +13,8 @@ import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.converter.HiringProgressConverter;
 import team.retum.jobis.domain.recruitment.persistence.type.PayInfo;
 import team.retum.jobis.domain.recruitment.persistence.type.RecruitDate;
-import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
-import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
+import com.example.jobisapplication.domain.recruitment.exception.CompanyMismatchException;
+import com.example.jobisapplication.domain.recruitment.exception.InvalidRecruitmentStatusException;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 

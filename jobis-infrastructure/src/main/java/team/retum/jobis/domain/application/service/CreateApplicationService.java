@@ -9,7 +9,7 @@ import com.example.jobisapplication.domain.application.exception.ApplicationAlre
 import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;

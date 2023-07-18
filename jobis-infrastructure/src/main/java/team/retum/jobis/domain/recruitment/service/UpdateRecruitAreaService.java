@@ -6,7 +6,7 @@ import com.example.jobisapplication.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
+import com.example.jobisapplication.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;

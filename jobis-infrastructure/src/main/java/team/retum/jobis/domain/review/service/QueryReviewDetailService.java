@@ -6,7 +6,7 @@ import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
-import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
+import com.example.jobisapplication.domain.review.exception.ReviewNotFoundException;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse.QnAResponse;
 import com.example.jobisapplication.common.annotation.Service;

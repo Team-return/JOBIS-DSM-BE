@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
+import com.example.jobisapplication.domain.code.exception.CodeNotFoundException;
 
 import java.util.List;
 

@@ -11,7 +11,7 @@ import com.example.jobisapplication.domain.application.exception.InvalidGradeExc
 import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
 import com.example.jobisapplication.domain.student.model.Department;
 import com.example.jobisapplication.domain.student.model.Gender;
-import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
+import com.example.jobisapplication.domain.student.exception.ClassRoomNotFoundException;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.util.ImageProperty;
 

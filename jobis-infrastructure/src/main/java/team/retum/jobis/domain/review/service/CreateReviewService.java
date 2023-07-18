@@ -6,15 +6,15 @@ import team.retum.jobis.domain.application.persistence.repository.ApplicationRep
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
+import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
-import team.retum.jobis.domain.review.exception.ReviewAlreadyExistsException;
+import com.example.jobisapplication.domain.review.exception.ReviewAlreadyExistsException;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewRequest;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
+import com.example.jobisapplication.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 

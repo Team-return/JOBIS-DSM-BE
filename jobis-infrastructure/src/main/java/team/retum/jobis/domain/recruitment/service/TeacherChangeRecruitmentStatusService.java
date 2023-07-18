@@ -3,7 +3,7 @@ package team.retum.jobis.domain.recruitment.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
 import com.example.jobisapplication.common.annotation.Service;
 

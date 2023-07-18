@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;

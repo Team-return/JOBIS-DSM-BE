@@ -8,7 +8,7 @@ import com.example.jobisapplication.domain.code.model.CodeType;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
 import com.example.jobisapplication.common.util.StringUtil;
 
 import java.util.List;

@@ -39,13 +39,11 @@ public class Application {
         if (applicationStatus != ApplicationStatus.REQUESTED) {
             throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
+        
         return this.toBuilder()
                 .applicationStatus(ApplicationStatus.REJECTED)
                 .rejectionReason(reason)
                 .build();
-
-        this.applicationStatus = ApplicationStatus.REJECTED;
-        this.rejectionReason = reason;
     }
 
     public void checkReviewAuthority() {

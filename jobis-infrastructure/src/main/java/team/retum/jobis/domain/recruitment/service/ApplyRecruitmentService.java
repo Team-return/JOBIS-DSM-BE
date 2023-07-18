@@ -8,7 +8,7 @@ import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
+import com.example.jobisapplication.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.user.facade.UserFacade;
