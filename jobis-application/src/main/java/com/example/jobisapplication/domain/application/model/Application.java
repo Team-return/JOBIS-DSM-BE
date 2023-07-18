@@ -5,6 +5,7 @@ import com.example.jobisapplication.domain.application.exception.ApplicationCann
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobisapplication.domain.application.exception.ApplicationStatusCannotChangeException;
 import com.example.jobisapplication.domain.application.exception.InvalidStudentException;
+import com.example.jobisapplication.domain.student.model.Student;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -39,7 +40,7 @@ public class Application {
         if (applicationStatus != ApplicationStatus.REQUESTED) {
             throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
-        
+
         return this.toBuilder()
                 .applicationStatus(ApplicationStatus.REJECTED)
                 .rejectionReason(reason)
@@ -60,8 +61,8 @@ public class Application {
         }
     }
 
-    public void checkIsDeleteable(StudentEntity studentEntity) {
-        if (!this.studentEntity.equals(studentEntity)) {
+    public void checkIsDeletable(Student student) {
+        if (!this.studentId.equals(student.getId())) {
             throw InvalidStudentException.EXCEPTION;
         }
 

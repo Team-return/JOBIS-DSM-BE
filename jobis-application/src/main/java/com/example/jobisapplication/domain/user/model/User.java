@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Aggregate
 public class User {
 
@@ -18,4 +18,9 @@ public class User {
 
     private final Authority authority;
 
+    public User updatePassword(String password) {
+        return this.toBuilder()
+                .password(password)
+                .build();
+    }
 }

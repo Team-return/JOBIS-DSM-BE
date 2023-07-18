@@ -150,26 +150,4 @@ public class CompanyEntity {
         this.companyLogoUrl = companyLogoUrl;
     }
 
-    public void update(String mainAddress, String mainZipCode, String subAddress, String subZipCode,
-                       double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
-                       String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email) {
-        this.address.update(mainAddress, mainZipCode, subAddress, subZipCode);
-        this.take = take;
-        this.workersCount = workersCount;
-        this.manager.update(managerName, managerPhoneNo, subManagerName, subManagerPhoneNo);
-        this.companyIntroduce = companyIntroduce;
-        this.companyLogoUrl = companyLogoUrl;
-        this.fax = fax;
-        this.email = email;
-    }
-
-    public CompanyEntity changeCompanyType(CompanyType type) {
-        this.type = type;
-        return this;
-    }
-
-    public CompanyEntity convertToMou() {
-        this.isMou = !this.isMou;
-        return this;
-    }
 }

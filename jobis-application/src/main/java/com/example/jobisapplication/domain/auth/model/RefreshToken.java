@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Aggregate
 public class RefreshToken {
 
@@ -17,4 +17,10 @@ public class RefreshToken {
 
     private final Long ttl;
 
+    public RefreshToken update(String token, Long ttl) {
+        return this.toBuilder()
+                .token(token)
+                .ttl(ttl)
+                .build();
+    }
 }

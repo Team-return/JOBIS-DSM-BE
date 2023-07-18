@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Aggregate
 public class Company {
 
@@ -39,5 +39,38 @@ public class Company {
     private final String bizRegistrationUrl;
     private final String businessArea;
     private final String serviceName;
+
+    public Company update(String mainAddress, String mainZipCode, String subAddress, String subZipCode,
+                       double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
+                       String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email) {
+        return this.toBuilder()
+                .mainAddress(mainAddress)
+                .mainZipCode(mainZipCode)
+                .subAddress(subAddress)
+                .subZipCode(subZipCode)
+                .take(take)
+                .workersCount(workersCount)
+                .managerName(managerName)
+                .managerPhoneNo(managerPhoneNo)
+                .subManagerName(subManagerName)
+                .subManagerPhoneNo(subManagerPhoneNo)
+                .companyIntroduce(companyIntroduce)
+                .companyLogoUrl(companyLogoUrl)
+                .fax(fax)
+                .email(email)
+                .build();
+    }
+
+    public Company changeCompanyType(CompanyType type) {
+        return this.toBuilder()
+                .type(type)
+                .build();
+    }
+
+    public Company convertToMou() {
+        return this.toBuilder()
+                .isMou(!this.isMou)
+                .build();
+    }
 
 }

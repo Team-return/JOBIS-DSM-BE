@@ -1,6 +1,8 @@
 package com.example.jobisapplication.domain.recruitment.model;
 
 import com.example.jobisapplication.common.annotation.Aggregate;
+import com.example.jobisapplication.domain.recruitment.exception.CompanyMismatchException;
+import com.example.jobisapplication.domain.recruitment.exception.InvalidRecruitmentStatusException;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Aggregate
 public class Recruitment {
 
@@ -38,7 +40,7 @@ public class Recruitment {
 
     private final LocalDate startDate;
 
-    private final LocalDate finishDate;
+    private final LocalDate endDate;
 
     private final Integer trainPay;
 
@@ -48,4 +50,42 @@ public class Recruitment {
 
     private final Long companyId;
 
+    public Recruitment update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
+                       LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
+                       boolean militarySupport, String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade
+    ) {
+        return this.toBuilder()
+                .workingHours(workingHours)
+                .hiringProgress(hiringProgress)
+                .submitDocument(submitDocument)
+                .requiredGrade(requiredGrade)
+                .benefits(benefits)
+                .preferentialTreatment(preferentialTreatment)
+                .startDate(startDate)
+                .endDate(endDate)
+                .trainPay(trainPay)
+                .pay(pay)
+                .requiredLicenses(requiredLicenses)
+                .militarySupport(militarySupport)
+                .etc(etc)
+                .build();
+    }
+
+    public Recruitment changeStatus(RecruitStatus status) {
+        return this.toBuilder()
+                .status(status)
+                .build();
+    }
+
+    public void checkCompany(Long companyId) {
+        if (!this.companyId.equals(companyId)) {
+            throw CompanyMismatchException.EXCEPTION;
+        }
+    }
+
+    public void checkIsApplicable() {
+        if (this.status != RecruitStatus.RECRUITING) {
+            throw InvalidRecruitmentStatusException.EXCEPTION;
+        }
+    }
 }

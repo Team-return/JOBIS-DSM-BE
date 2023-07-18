@@ -25,8 +25,4 @@ public class RefreshTokenEntity {
     @TimeToLive
     private Long ttl;
 
-    public void update(String token, Long ttl) {
-        this.token = token;
-        this.ttl = ttl;
-    }
 }

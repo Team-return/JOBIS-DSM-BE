@@ -6,8 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
-import team.retum.jobis.domain.auth.exception.BadAuthCodeException;
-import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
 
 @Getter
 @Builder
@@ -26,20 +24,5 @@ public class AuthCodeEntity {
     @TimeToLive
     private final Integer ttl;
 
-    public AuthCodeEntity verify() {
-        this.isVerified = true;
-        return this;
-    }
 
-    public void checkIsVerified() {
-        if (!this.isVerified) {
-            throw UnverifiedEmailException.EXCEPTION;
-        }
-    }
-
-    public void verifyCode(String code) {
-        if (!this.code.equals(code)) {
-            throw BadAuthCodeException.EXCEPTION;
-        }
-    }
 }

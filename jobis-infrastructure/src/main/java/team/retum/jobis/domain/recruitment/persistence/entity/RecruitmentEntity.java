@@ -131,38 +131,4 @@ public class RecruitmentEntity extends BaseTimeEntity {
         this.militarySupport = militarySupport;
         this.etc = etc;
     }
-
-    public void update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade
-    ) {
-        this.workingHours = workingHours;
-        this.hiringProgress = hiringProgress;
-        this.submitDocument = submitDocument;
-        this.requiredGrade = requiredGrade;
-        this.benefits = benefits;
-        this.preferentialTreatment = preferentialTreatment;
-        this.recruitDate = new RecruitDate(startDate, endDate);
-        this.payInfo = new PayInfo(trainPay, pay);
-        this.requiredLicenses = requiredLicenses;
-        this.militarySupport = militarySupport;
-        this.etc = etc;
-    }
-
-    public RecruitmentEntity changeStatus(RecruitStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    public void checkCompany(Long companyId) {
-        if (!this.companyEntity.getId().equals(companyId)) {
-            throw CompanyMismatchException.EXCEPTION;
-        }
-    }
-
-    public void checkIsApplicatable() {
-        if (this.status != RecruitStatus.RECRUITING) {
-            throw InvalidRecruitmentStatusException.EXCEPTION;
-        }
-    }
 }
