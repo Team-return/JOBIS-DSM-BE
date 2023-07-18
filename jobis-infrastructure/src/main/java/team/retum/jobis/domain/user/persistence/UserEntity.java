@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class User extends BaseTimeEntity {
+public class UserEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class User extends BaseTimeEntity {
     private Authority authority;
 
     @Builder
-    public User(String accountId, String password, Authority authority) {
+    public UserEntity(String accountId, String password, Authority authority) {
         this.accountId = accountId;
         this.password = password;
         this.authority = authority;

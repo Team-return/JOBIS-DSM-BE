@@ -2,7 +2,7 @@ package team.retum.jobis.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import team.retum.jobis.domain.user.exception.InvalidPasswordException;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import team.retum.jobis.domain.user.presentation.dto.request.LoginRequest;
@@ -21,21 +21,21 @@ public class LoginService {
 
     public TokenResponse execute(LoginRequest request) {
 
-        User user = userFacade.getUser(request.getAccountId());
+        UserEntity userEntity = userFacade.getUser(request.getAccountId());
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), userEntity.getPassword())) {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        String accessToken = jwtTokenAdapter.generateAccessToken(user.getId(), user.getAuthority());
-        String refreshToken = jwtTokenAdapter.generateRefreshToken(user.getId(), user.getAuthority());
+        String accessToken = jwtTokenAdapter.generateAccessToken(userEntity.getId(), userEntity.getAuthority());
+        String refreshToken = jwtTokenAdapter.generateRefreshToken(userEntity.getId(), userEntity.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .accessExpiresAt(jwtTokenAdapter.getExpiredAt(TokenType.ACCESS))
                 .refreshToken(refreshToken)
                 .refreshExpiresAt(jwtTokenAdapter.getExpiredAt(TokenType.REFRESH))
-                .authority(user.getAuthority())
+                .authority(userEntity.getAuthority())
                 .build();
     }
 }

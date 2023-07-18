@@ -12,7 +12,7 @@ import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
 import com.example.jobisapplication.domain.student.domain.Department;
 import com.example.jobisapplication.domain.student.domain.Gender;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import team.retum.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;
@@ -52,7 +52,7 @@ public class StudentEntity {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "student_id", nullable = false)
-    private User user;
+    private UserEntity userEntity;
 
     @NotNull
     @Column(length = 10)
@@ -91,9 +91,9 @@ public class StudentEntity {
     private final List<BookmarkEntity> bookmarkEntities = new ArrayList<>();
 
     @Builder
-    public StudentEntity(User user, String name, Integer grade,
+    public StudentEntity(UserEntity userEntity, String name, Integer grade,
                          Integer classRoom, Integer number, Gender gender, Department department, String profileImageUrl) {
-        this.user = user;
+        this.userEntity = userEntity;
         this.name = name;
         this.grade = grade;
         this.classRoom = classRoom;

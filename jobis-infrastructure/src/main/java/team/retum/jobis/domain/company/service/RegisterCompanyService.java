@@ -9,7 +9,7 @@ import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
 import com.example.jobisapplication.common.annotation.Service;
@@ -37,7 +37,7 @@ public class RegisterCompanyService {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        User user = User.builder()
+        UserEntity userEntity = UserEntity.builder()
                 .accountId(request.getBusinessNumber())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .authority(Authority.COMPANY)
@@ -46,7 +46,7 @@ public class RegisterCompanyService {
         String businessAreaKeyword = codeFacade.findCodeById(request.getBusinessAreaCode()).getKeyword();
         CompanyEntity savedCompanyEntity = companyRepository.saveCompany(
                 CompanyEntity.builder()
-                        .user(user)
+                        .user(userEntity)
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
@@ -77,8 +77,8 @@ public class RegisterCompanyService {
                         .toList()
         );
 
-        String accessToken = jwtTokenAdapter.generateAccessToken(user.getId(), user.getAuthority());
-        String refreshToken = jwtTokenAdapter.generateRefreshToken(user.getId(), user.getAuthority());
+        String accessToken = jwtTokenAdapter.generateAccessToken(userEntity.getId(), userEntity.getAuthority());
+        String refreshToken = jwtTokenAdapter.generateRefreshToken(userEntity.getId(), userEntity.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)

@@ -3,7 +3,7 @@ package team.retum.jobis.domain.teacher.persistence;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,5 +26,5 @@ public class TeacherEntity {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "teacher_id", nullable = false)
-    private User user;
+    private UserEntity userEntity;
 }

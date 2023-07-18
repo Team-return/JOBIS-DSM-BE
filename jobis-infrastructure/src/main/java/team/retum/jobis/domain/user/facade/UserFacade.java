@@ -9,7 +9,7 @@ import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.student.persistence.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 import team.retum.jobis.domain.user.persistence.repository.UserRepository;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
@@ -24,7 +24,7 @@ public class UserFacade {
     private final CompanyRepository companyRepository;
     private final UserJpaRepository userJpaRepository;
 
-    public User getUser(String accountId) {
+    public UserEntity getUser(String accountId) {
         return userRepository.queryUserByAccountId(accountId)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
@@ -41,7 +41,7 @@ public class UserFacade {
         ).orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }
 
-    public User getCurrentUser() {
+    public UserEntity getCurrentUser() {
         return userRepository.queryUserById(
                 this.getCurrentUserId()
         ).orElseThrow(() -> UserNotFoundException.EXCEPTION);

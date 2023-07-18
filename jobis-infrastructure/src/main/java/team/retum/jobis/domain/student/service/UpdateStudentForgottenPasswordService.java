@@ -6,7 +6,7 @@ import team.retum.jobis.domain.auth.persistence.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordRequest;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserRepository;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import com.example.jobisapplication.common.annotation.Service;
@@ -29,9 +29,9 @@ public class UpdateStudentForgottenPasswordService {
                 .orElseThrow(() -> UnverifiedEmailException.EXCEPTION);
         authCodeEntity.checkIsVerified();
 
-        User user = userRepository.queryUserByAccountId(request.getEmail())
+        UserEntity userEntity = userRepository.queryUserByAccountId(request.getEmail())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        user.updatePassword(passwordEncoder.encode(request.getPassword()));
+        userEntity.updatePassword(passwordEncoder.encode(request.getPassword()));
     }
 }

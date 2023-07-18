@@ -9,7 +9,7 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRep
 import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
@@ -28,13 +28,13 @@ public class UpdateRecruitAreaService {
     private final RecruitmentFacade recruitmentFacade;
 
     public void execute(RecruitAreaRequest request, Long recruitAreaId) {
-        User user = userFacade.getCurrentUser();
+        UserEntity userEntity = userFacade.getCurrentUser();
 
         RecruitAreaEntity recruitAreaEntity = recruitmentRepository.queryRecruitAreaById(recruitAreaId)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
 
-        if (user.getAuthority() == Authority.COMPANY) {
-            recruitAreaEntity.getRecruitmentEntity().checkCompany(user.getId());
+        if (userEntity.getAuthority() == Authority.COMPANY) {
+            recruitAreaEntity.getRecruitmentEntity().checkCompany(userEntity.getId());
         }
 
         recruitmentRepository.deleteRecruitAreaCodeByRecruitAreaId(recruitAreaEntity.getId());

@@ -12,7 +12,7 @@ import com.example.jobisapplication.domain.company.domain.CompanyType;
 import team.retum.jobis.domain.company.persistence.type.Address;
 import team.retum.jobis.domain.company.persistence.type.Manager;
 import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import team.retum.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;
@@ -46,7 +46,7 @@ public class CompanyEntity {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "company_id", nullable = false)
-    private User user;
+    private UserEntity userEntity;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(50)")
@@ -124,11 +124,11 @@ public class CompanyEntity {
     private final List<AcceptanceEntity> acceptanceEntities = new ArrayList<>();
 
     @Builder
-    public CompanyEntity(User user, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
+    public CompanyEntity(UserEntity userEntity, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
                          String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
-        this.user = user;
+        this.userEntity = userEntity;
         this.name = name;
         this.isMou = false;
         this.bizRegistrationUrl = bizRegistrationUrl;

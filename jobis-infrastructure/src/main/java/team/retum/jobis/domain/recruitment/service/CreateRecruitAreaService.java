@@ -7,7 +7,7 @@ import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
-import team.retum.jobis.domain.user.persistence.User;
+import team.retum.jobis.domain.user.persistence.UserEntity;
 import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
@@ -25,11 +25,11 @@ public class CreateRecruitAreaService {
     private final CodeFacade codeFacade;
 
     public void execute(RecruitAreaRequest request, Long recruitmentId) {
-        User user = userFacade.getCurrentUser();
+        UserEntity userEntity = userFacade.getCurrentUser();
 
         RecruitmentEntity recruitmentEntity = recruitmentFacade.queryRecruitmentById(recruitmentId);
-        if (user.getAuthority() == Authority.COMPANY) {
-            recruitmentEntity.checkCompany(user.getId());
+        if (userEntity.getAuthority() == Authority.COMPANY) {
+            recruitmentEntity.checkCompany(userEntity.getId());
         }
 
         Map<CodeType, List<CodeEntity>> codes = codeFacade
