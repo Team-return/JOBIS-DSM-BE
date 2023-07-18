@@ -3,7 +3,7 @@ package team.retum.jobis.domain.bookmark.persistence.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.bookmark.persistence.Bookmark;
+import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QQueryStudentBookmarksVO;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
@@ -24,16 +24,16 @@ public class BookmarkRepository {
     private final BookmarkJpaRepository bookmarkJpaRepository;
     private final JPAQueryFactory queryFactory;
 
-    public void saveBookmark(Bookmark bookmark) {
-        bookmarkJpaRepository.save(bookmark);
+    public void saveBookmark(BookmarkEntity bookmarkEntity) {
+        bookmarkJpaRepository.save(bookmarkEntity);
     }
 
-    public Optional<Bookmark> queryBookmarkByRecruitmentAndStudent(Recruitment recruitment, Student student) {
+    public Optional<BookmarkEntity> queryBookmarkByRecruitmentAndStudent(Recruitment recruitment, Student student) {
         return bookmarkJpaRepository.findByRecruitmentAndStudent(recruitment, student);
     }
 
-    public void deleteBookmark(Bookmark bookmark) {
-        bookmarkJpaRepository.delete(bookmark);
+    public void deleteBookmark(BookmarkEntity bookmarkEntity) {
+        bookmarkJpaRepository.delete(bookmarkEntity);
     }
 
     public boolean existsBookmarkByRecruitmentAndStudent(Recruitment recruitment, Student student) {

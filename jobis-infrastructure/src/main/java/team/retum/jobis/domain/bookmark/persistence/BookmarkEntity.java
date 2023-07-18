@@ -20,7 +20,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(BookmarkId.class)
 @Entity
-public class Bookmark extends BaseTimeEntity {
+public class BookmarkEntity extends BaseTimeEntity {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

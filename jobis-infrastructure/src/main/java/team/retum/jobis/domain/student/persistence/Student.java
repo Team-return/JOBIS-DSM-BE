@@ -8,7 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import team.retum.jobis.domain.application.persistence.ApplicationEntity;
 import team.retum.jobis.domain.application.exception.InvalidGradeException;
-import team.retum.jobis.domain.bookmark.persistence.Bookmark;
+import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
 import team.retum.jobis.domain.student.persistence.enums.Department;
 import team.retum.jobis.domain.student.persistence.enums.Gender;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
@@ -88,7 +88,7 @@ public class Student {
     private List<ApplicationEntity> applicationEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private final List<Bookmark> bookmarks = new ArrayList<>();
+    private final List<BookmarkEntity> bookmarkEntities = new ArrayList<>();
 
     @Builder
     public Student(User user, String name, Integer grade,
