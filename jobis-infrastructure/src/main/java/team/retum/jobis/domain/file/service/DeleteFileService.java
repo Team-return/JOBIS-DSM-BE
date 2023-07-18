@@ -2,7 +2,7 @@ package team.retum.jobis.domain.file.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import team.retum.jobis.infrastructure.s3.S3Util;
+import team.retum.jobis.thirdparty.s3.S3Util;
 
 @RequiredArgsConstructor
 @Service

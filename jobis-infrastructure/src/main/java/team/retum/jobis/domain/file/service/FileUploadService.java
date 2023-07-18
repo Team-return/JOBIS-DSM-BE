@@ -6,8 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import team.retum.jobis.domain.file.exception.FileNotFoundException;
 import team.retum.jobis.domain.file.presentation.dto.response.FileUploadResponse;
 import team.retum.jobis.domain.file.presentation.type.FileType;
-import team.retum.jobis.infrastructure.s3.S3Properties;
-import team.retum.jobis.infrastructure.s3.S3Util;
+import team.retum.jobis.thirdparty.s3.S3Properties;
+import team.retum.jobis.thirdparty.s3.S3Util;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.acceptance.domain.repository.AcceptanceRepository;
+import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateRequest;
 import team.retum.jobis.domain.application.exception.InvalidDateException;
 import team.retum.jobis.global.annotation.Service;

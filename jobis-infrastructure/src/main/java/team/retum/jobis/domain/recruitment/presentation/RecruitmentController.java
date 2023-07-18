@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;

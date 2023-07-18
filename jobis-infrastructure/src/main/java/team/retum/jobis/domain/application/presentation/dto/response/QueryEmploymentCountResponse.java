@@ -2,7 +2,7 @@ package team.retum.jobis.domain.application.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.application.domain.repository.vo.QueryTotalApplicationCountVO;
+import team.retum.jobis.domain.application.persistence.repository.vo.QueryTotalApplicationCountVO;
 
 @Getter
 @Builder

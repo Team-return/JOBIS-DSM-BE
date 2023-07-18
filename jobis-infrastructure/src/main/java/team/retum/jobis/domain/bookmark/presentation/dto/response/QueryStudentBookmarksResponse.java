@@ -2,7 +2,7 @@ package team.retum.jobis.domain.bookmark.presentation.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team.retum.jobis.domain.bookmark.domain.repository.vo.QueryStudentBookmarksVO;
+import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
 
 import java.util.List;
 

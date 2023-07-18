@@ -2,7 +2,7 @@ package team.retum.jobis.domain.student.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.student.domain.enums.Gender;
+import team.retum.jobis.domain.student.persistence.enums.Gender;
 import team.retum.jobis.global.util.RegexProperty;
 
 import javax.validation.constraints.NotBlank;

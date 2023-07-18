@@ -2,7 +2,7 @@ package team.retum.jobis.domain.application.presentation.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.application.domain.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

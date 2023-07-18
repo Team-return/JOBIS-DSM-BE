@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.bookmark.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.bookmark.domain.repository.BookmarkRepository;
-import team.retum.jobis.domain.bookmark.domain.repository.vo.QueryStudentBookmarksVO;
+import team.retum.jobis.domain.bookmark.persistence.repository.BookmarkRepository;
+import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
 import team.retum.jobis.domain.bookmark.presentation.dto.response.QueryStudentBookmarksResponse;
-import team.retum.jobis.domain.student.domain.Student;
-import team.retum.jobis.domain.user.facade.UserFacade;
+import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.persistence.facade.UserFacade;
 import team.retum.jobis.global.annotation.Service;
 
 import java.util.List;

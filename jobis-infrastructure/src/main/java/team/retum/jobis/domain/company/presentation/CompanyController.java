@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.company.domain.enums.CompanyType;
+import team.retum.jobis.domain.company.persistence.enums.CompanyType;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
@@ -32,7 +32,7 @@ import team.retum.jobis.domain.company.service.TeacherQueryEmployCompaniesServic
 import team.retum.jobis.domain.company.service.UpdateCompanyDetailsService;
 import team.retum.jobis.domain.company.service.UpdateCompanyTypeService;
 import team.retum.jobis.domain.company.service.UpdateConventionService;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import team.retum.jobis.domain.persistence.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 

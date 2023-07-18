@@ -1,17 +1,17 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.domain.Code;
-import team.retum.jobis.domain.code.domain.enums.CodeType;
+import team.retum.jobis.domain.code.persistence.Code;
+import team.retum.jobis.domain.code.persistence.enums.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.company.domain.Company;
-import team.retum.jobis.domain.recruitment.domain.Recruitment;
-import team.retum.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.retum.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
-import team.retum.jobis.domain.user.facade.UserFacade;
+import team.retum.jobis.domain.persistence.facade.UserFacade;
 import team.retum.jobis.global.annotation.Service;
 
 import java.time.Year;

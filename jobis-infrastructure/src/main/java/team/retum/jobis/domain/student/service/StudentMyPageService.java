@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.student.domain.Student;
+import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.domain.student.presentation.dto.response.StudentMyPageResponse;
-import team.retum.jobis.domain.user.facade.UserFacade;
+import team.retum.jobis.domain.persistence.facade.UserFacade;
 import team.retum.jobis.global.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor

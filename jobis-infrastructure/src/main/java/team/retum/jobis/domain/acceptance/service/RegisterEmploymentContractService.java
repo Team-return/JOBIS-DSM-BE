@@ -1,15 +1,15 @@
 package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.acceptance.domain.Acceptance;
-import team.retum.jobis.domain.acceptance.domain.repository.AcceptanceRepository;
-import team.retum.jobis.domain.acceptance.domain.repository.vo.ApplicationDetailVO;
+import team.retum.jobis.domain.acceptance.persistence.Acceptance;
+import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
+import team.retum.jobis.domain.acceptance.persistence.repository.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
-import team.retum.jobis.domain.application.domain.enums.ApplicationStatus;
-import team.retum.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
-import team.retum.jobis.domain.student.domain.Student;
+import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.global.annotation.Service;
 
 import java.time.LocalDate;

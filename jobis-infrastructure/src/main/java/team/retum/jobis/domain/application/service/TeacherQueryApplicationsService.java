@@ -1,12 +1,12 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.domain.enums.ApplicationStatus;
-import team.retum.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
-import team.retum.jobis.domain.student.domain.Student;
+import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.global.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor

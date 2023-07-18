@@ -3,8 +3,8 @@ package team.retum.jobis.domain.recruitment.presentation.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.company.domain.enums.CompanyType;
-import team.retum.jobis.domain.recruitment.domain.enums.RecruitStatus;
+import team.retum.jobis.domain.company.persistence.enums.CompanyType;
+import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
 
 import java.time.LocalDate;
 import java.util.List;

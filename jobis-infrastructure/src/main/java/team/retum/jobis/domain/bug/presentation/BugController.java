@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.bug.domain.enums.DevelopmentArea;
+import team.retum.jobis.domain.bug.persistence.enums.DevelopmentArea;
 import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportRequest;
 import team.retum.jobis.domain.bug.presentation.dto.response.QueryBugReportDetailsResponse;
 import team.retum.jobis.domain.bug.presentation.dto.response.QueryBugReportsResponse;

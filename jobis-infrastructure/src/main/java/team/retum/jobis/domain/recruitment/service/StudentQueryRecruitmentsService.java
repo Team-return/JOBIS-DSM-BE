@@ -1,14 +1,14 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.domain.Code;
+import team.retum.jobis.domain.code.persistence.Code;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.retum.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
-import team.retum.jobis.domain.user.facade.UserFacade;
+import team.retum.jobis.domain.persistence.facade.UserFacade;
 import team.retum.jobis.global.annotation.ReadOnlyService;
 
 import java.time.Year;

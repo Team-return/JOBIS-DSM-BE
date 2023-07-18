@@ -3,20 +3,20 @@ package team.retum.jobis.domain.company.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.company.domain.Company;
-import team.retum.jobis.domain.company.domain.CompanyAttachment;
-import team.retum.jobis.domain.company.domain.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.CompanyAttachment;
+import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
-import team.retum.jobis.domain.user.domain.User;
-import team.retum.jobis.domain.user.domain.enums.Authority;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import team.retum.jobis.domain.persistence.domain.User;
+import team.retum.jobis.domain.persistence.domain.enums.Authority;
+import team.retum.jobis.domain.persistence.presentation.dto.response.TokenResponse;
 import team.retum.jobis.global.annotation.Service;
 import team.retum.jobis.global.security.jwt.JwtTokenProvider;
 import team.retum.jobis.global.security.jwt.TokenType;
 import team.retum.jobis.global.util.StringUtil;
-import team.retum.jobis.infrastructure.api.FeignUtil;
+import team.retum.jobis.thirdparty.api.FeignUtil;
 
 @RequiredArgsConstructor
 @Service

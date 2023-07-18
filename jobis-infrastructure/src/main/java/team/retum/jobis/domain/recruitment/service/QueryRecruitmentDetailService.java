@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.domain.Recruitment;
-import team.retum.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.domain.repository.vo.RecruitAreaVO;
+import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;

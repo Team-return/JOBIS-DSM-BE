@@ -1,16 +1,16 @@
 package team.retum.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.auth.domain.AuthCode;
-import team.retum.jobis.domain.auth.domain.repository.AuthCodeRepository;
-import team.retum.jobis.domain.auth.domain.types.AuthCodeType;
+import team.retum.jobis.domain.auth.persistence.AuthCode;
+import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
+import team.retum.jobis.domain.auth.persistence.types.AuthCodeType;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.domain.user.domain.repository.UserRepository;
+import team.retum.jobis.domain.persistence.domain.repository.UserRepository;
 import team.retum.jobis.global.annotation.Service;
 import team.retum.jobis.global.util.StringUtil;
-import team.retum.jobis.infrastructure.ses.SesUtil;
+import team.retum.jobis.thirdparty.ses.SesUtil;
 
 @RequiredArgsConstructor
 @Service

@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.domain.Code;
+import team.retum.jobis.domain.code.persistence.Code;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.review.domain.QnAElement;
-import team.retum.jobis.domain.review.domain.Review;
-import team.retum.jobis.domain.review.domain.repository.ReviewRepository;
+import team.retum.jobis.domain.review.persistence.QnAElement;
+import team.retum.jobis.domain.review.persistence.Review;
+import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse.QnAResponse;

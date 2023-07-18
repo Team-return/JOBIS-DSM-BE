@@ -2,12 +2,12 @@ package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.company.domain.enums.CompanyType;
-import team.retum.jobis.domain.company.domain.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.enums.CompanyType;
+import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.presentation.dto.CompanyFilter;
 import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
-import team.retum.jobis.domain.review.domain.repository.ReviewRepository;
+import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.global.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor

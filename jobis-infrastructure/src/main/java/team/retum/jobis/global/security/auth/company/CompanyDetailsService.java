@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.company.domain.Company;
-import team.retum.jobis.domain.company.domain.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 
 @Component

@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.domain.enums.CompanyType;
-import team.retum.jobis.domain.company.domain.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.enums.CompanyType;
+import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.retum.jobis.global.annotation.ReadOnlyService;
 

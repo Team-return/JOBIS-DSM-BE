@@ -1,12 +1,12 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.domain.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
-import team.retum.jobis.domain.user.domain.User;
-import team.retum.jobis.domain.user.domain.enums.Authority;
-import team.retum.jobis.domain.user.facade.UserFacade;
+import team.retum.jobis.domain.persistence.domain.User;
+import team.retum.jobis.domain.persistence.domain.enums.Authority;
+import team.retum.jobis.domain.persistence.facade.UserFacade;
 import team.retum.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor

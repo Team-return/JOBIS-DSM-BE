@@ -2,13 +2,13 @@ package team.retum.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import team.retum.jobis.domain.auth.domain.AuthCode;
-import team.retum.jobis.domain.auth.domain.repository.AuthCodeRepository;
+import team.retum.jobis.domain.auth.persistence.AuthCode;
+import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordRequest;
-import team.retum.jobis.domain.user.domain.User;
-import team.retum.jobis.domain.user.domain.repository.UserRepository;
-import team.retum.jobis.domain.user.exception.UserNotFoundException;
+import team.retum.jobis.domain.persistence.domain.User;
+import team.retum.jobis.domain.persistence.domain.repository.UserRepository;
+import team.retum.jobis.domain.persistence.exception.UserNotFoundException;
 import team.retum.jobis.global.annotation.Service;
 
 @RequiredArgsConstructor

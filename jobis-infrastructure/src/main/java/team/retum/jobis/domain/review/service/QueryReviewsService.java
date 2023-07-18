@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.domain.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.review.domain.Review;
-import team.retum.jobis.domain.review.domain.repository.ReviewRepository;
+import team.retum.jobis.domain.review.persistence.Review;
+import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse.ReviewResponse;
 import team.retum.jobis.global.annotation.Service;

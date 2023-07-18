@@ -2,8 +2,8 @@ package team.retum.jobis.domain.student.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.student.domain.Student;
-import team.retum.jobis.domain.student.domain.enums.Department;
+import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.student.persistence.enums.Department;
 
 @Getter
 @Builder

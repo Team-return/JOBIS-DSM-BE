@@ -2,7 +2,7 @@ package team.retum.jobis.domain.auth.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.auth.domain.types.AuthCodeType;
+import team.retum.jobis.domain.auth.persistence.types.AuthCodeType;
 import team.retum.jobis.global.util.RegexProperty;
 
 import javax.validation.constraints.NotBlank;

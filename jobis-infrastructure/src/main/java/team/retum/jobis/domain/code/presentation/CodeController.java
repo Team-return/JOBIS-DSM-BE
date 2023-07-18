@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.code.domain.enums.CodeType;
+import team.retum.jobis.domain.code.persistence.enums.CodeType;
 import team.retum.jobis.domain.code.presentation.dto.response.CodesResponse;
 import team.retum.jobis.domain.code.service.QueryCodesService;
 

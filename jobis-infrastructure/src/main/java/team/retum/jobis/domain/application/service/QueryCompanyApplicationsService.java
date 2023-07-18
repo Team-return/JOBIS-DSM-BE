@@ -1,17 +1,17 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.domain.enums.ApplicationStatus;
-import team.retum.jobis.domain.application.domain.repository.ApplicationRepository;
+import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse.CompanyQueryApplicationResponse;
-import team.retum.jobis.domain.company.domain.Company;
-import team.retum.jobis.domain.recruitment.domain.Recruitment;
-import team.retum.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.retum.jobis.domain.company.persistence.Company;
+import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.domain.student.domain.Student;
-import team.retum.jobis.domain.user.facade.UserFacade;
+import team.retum.jobis.domain.student.persistence.Student;
+import team.retum.jobis.domain.persistence.facade.UserFacade;
 import team.retum.jobis.global.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor

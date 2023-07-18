@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.domain.Recruitment;
-import team.retum.jobis.domain.recruitment.domain.enums.RecruitStatus;
-import team.retum.jobis.domain.recruitment.domain.repository.RecruitmentRepository;
+import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.global.annotation.Service;
 
 import java.time.LocalDate;

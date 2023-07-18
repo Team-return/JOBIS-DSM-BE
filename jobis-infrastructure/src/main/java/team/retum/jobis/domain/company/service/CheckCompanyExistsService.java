@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.domain.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
 import team.retum.jobis.global.annotation.ReadOnlyService;
-import team.retum.jobis.infrastructure.api.FeignUtil;
+import team.retum.jobis.thirdparty.api.FeignUtil;
 
 @RequiredArgsConstructor
 @ReadOnlyService

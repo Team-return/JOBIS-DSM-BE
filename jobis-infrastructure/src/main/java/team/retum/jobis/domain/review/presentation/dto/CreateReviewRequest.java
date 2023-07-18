@@ -2,7 +2,7 @@ package team.retum.jobis.domain.review.presentation.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.review.domain.QnAElement;
+import team.retum.jobis.domain.review.persistence.QnAElement;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.bug.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.bug.domain.BugAttachment;
-import team.retum.jobis.domain.bug.domain.BugReport;
-import team.retum.jobis.domain.bug.domain.repository.BugReportRepository;
+import team.retum.jobis.domain.bug.persistence.BugAttachment;
+import team.retum.jobis.domain.bug.persistence.BugReport;
+import team.retum.jobis.domain.bug.persistence.repository.BugReportRepository;
 import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportRequest;
 import team.retum.jobis.global.annotation.Service;
 
