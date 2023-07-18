@@ -2,7 +2,7 @@ package team.retum.jobis.domain.code.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.code.persistence.Code;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 
@@ -14,19 +14,19 @@ public class CodeFacade {
 
     private final CodeJpaRepository codeJpaRepository;
 
-    public List<Code> queryCodesByIdIn(List<Long> requestCodes) {
+    public List<CodeEntity> queryCodesByIdIn(List<Long> requestCodes) {
         if (requestCodes == null || requestCodes.size() == 0) {
             return null;
         }
-        List<Code> codes = codeJpaRepository.findCodesByIdIn(requestCodes);
-        if (codes.size() != requestCodes.size()) {
+        List<CodeEntity> codeEntities = codeJpaRepository.findCodesByIdIn(requestCodes);
+        if (codeEntities.size() != requestCodes.size()) {
             throw CodeNotFoundException.EXCEPTION;
         }
 
-        return codes;
+        return codeEntities;
     }
 
-    public Code findCodeById(Long id) {
+    public CodeEntity findCodeById(Long id) {
         return codeJpaRepository.findById(id)
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
     }

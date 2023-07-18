@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.persistence.Code;
-import team.retum.jobis.domain.code.persistence.enums.CodeType;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
+import com.example.jobisapplication.domain.code.domain.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.Company;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
@@ -59,9 +59,9 @@ public class ApplyRecruitmentService {
 
         request.getAreas()
                 .forEach(area -> {
-                    Map<CodeType, List<Code>> codes = codeFacade
+                    Map<CodeType, List<CodeEntity>> codes = codeFacade
                             .queryCodesByIdIn(area.getCodes()).stream()
-                            .collect(Collectors.groupingBy(Code::getCodeType));
+                            .collect(Collectors.groupingBy(CodeEntity::getCodeType));
 
                     recruitmentFacade.createRecruitArea(
                             codes,

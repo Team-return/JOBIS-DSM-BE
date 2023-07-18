@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @IdClass(RecruitAreaCodeId.class)
-public class RecruitAreaCode {
+public class RecruitAreaCodeEntity {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,5 +29,5 @@ public class RecruitAreaCode {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code_id", nullable = false)
-    private Code code;
+    private CodeEntity codeEntity;
 }

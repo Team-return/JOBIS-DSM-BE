@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.code.persistence.RecruitAreaCode;
+import team.retum.jobis.domain.code.persistence.RecruitAreaCodeEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,7 +45,7 @@ public class RecruitArea {
     private Recruitment recruitment;
 
     @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
-    private List<RecruitAreaCode> recruitAreaCodes = new ArrayList<>();
+    private List<RecruitAreaCodeEntity> recruitAreaCodeEntities = new ArrayList<>();
 
     @Builder
     public RecruitArea(Integer hiredCount, String majorTask, String jobCodes, Recruitment recruitment) {

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.Code;
-import team.retum.jobis.domain.code.persistence.enums.JobType;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
+import com.example.jobisapplication.domain.code.domain.JobType;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ public class CodesResponse {
 
     private final List<CodeResponse> codes;
 
-    public static CodeResponse of(Code code) {
+    public static CodeResponse of(CodeEntity codeEntity) {
         return CodeResponse.builder()
-                .code(code.getId())
-                .keyword(code.getKeyword())
-                .jobType(code.getJobType())
+                .code(codeEntity.getId())
+                .keyword(codeEntity.getKeyword())
+                .jobType(codeEntity.getJobType())
                 .build();
     }
 

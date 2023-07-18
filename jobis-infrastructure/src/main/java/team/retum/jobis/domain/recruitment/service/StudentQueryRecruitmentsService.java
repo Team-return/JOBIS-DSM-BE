@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.persistence.Code;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
@@ -31,14 +31,14 @@ public class StudentQueryRecruitmentsService {
         Long studentId = userFacade.getCurrentUserId();
 
         String jobKeyword = validJobCode(jobCode);
-        List<Code> techCodes = codeFacade.queryCodesByIdIn(codeIds);
+        List<CodeEntity> techCodeEntities = codeFacade.queryCodesByIdIn(codeIds);
 
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
                 .year(Year.now().getValue())
                 .status(RecruitStatus.RECRUITING)
                 .companyName(name)
                 .page(page)
-                .codes(techCodes)
+                .codeEntities(techCodeEntities)
                 .studentId(studentId)
                 .jobKeyword(jobKeyword)
                 .build();

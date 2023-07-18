@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.presentation.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.Code;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class RecruitmentFilter {
 
     private final Integer page;
 
-    private final List<Code> codes;
+    private final List<CodeEntity> codeEntities;
 
     private final Long studentId;
 

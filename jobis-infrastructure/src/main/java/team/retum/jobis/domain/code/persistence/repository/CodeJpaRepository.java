@@ -2,19 +2,19 @@ package team.retum.jobis.domain.code.persistence.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import team.retum.jobis.domain.code.persistence.Code;
-import team.retum.jobis.domain.code.persistence.enums.CodeType;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
+import com.example.jobisapplication.domain.code.domain.CodeType;
 
 import java.util.List;
 
-public interface CodeJpaRepository extends CrudRepository<Code, Long> {
+public interface CodeJpaRepository extends CrudRepository<CodeEntity, Long> {
 
-    List<Code> findCodesByIdIn(List<Long> ids);
+    List<CodeEntity> findCodesByIdIn(List<Long> ids);
 
-    @Query("select c from Code c where c.codeType = 'JOB'")
-    List<Code> findJobCodes();
+    @Query("select c from CodeEntity c where c.codeType = 'JOB'")
+    List<CodeEntity> findJobCodes();
 
-    List<Code> findCodeByKeywordContainingAndCodeType(String keyword, CodeType codeType);
+    List<CodeEntity> findCodeByKeywordContainingAndCodeType(String keyword, CodeType codeType);
 
-    List<Code> findCodesByKeywordIn(List<String> keywords);
+    List<CodeEntity> findCodesByKeywordIn(List<String> keywords);
 }

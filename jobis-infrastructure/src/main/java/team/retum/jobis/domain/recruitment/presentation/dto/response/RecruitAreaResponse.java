@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.Code;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
 
 import java.util.List;
@@ -28,8 +28,8 @@ public class RecruitAreaResponse {
                                 .id(recruitArea.getId())
                                 .majorTask(recruitArea.getMajorTask())
                                 .hiring(recruitArea.getHiredCount())
-                                .tech(recruitArea.getTechCodes().stream()
-                                        .map(Code::getKeyword)
+                                .tech(recruitArea.getTechCodeEntities().stream()
+                                        .map(CodeEntity::getKeyword)
                                         .toList()
                                 )
                                 .job(recruitArea.getJobCodes())

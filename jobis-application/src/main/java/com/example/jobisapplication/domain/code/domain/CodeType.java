@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.code.persistence.enums;
+package com.example.jobisapplication.domain.code.domain;
 
 public enum CodeType {
     TECH,

@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.persistence.Code;
-import team.retum.jobis.domain.code.persistence.enums.CodeType;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
+import com.example.jobisapplication.domain.code.domain.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
@@ -39,9 +39,9 @@ public class UpdateRecruitAreaService {
 
         recruitmentRepository.deleteRecruitAreaCodeByRecruitAreaId(recruitArea.getId());
 
-        Map<CodeType, List<Code>> codes = codeFacade
+        Map<CodeType, List<CodeEntity>> codes = codeFacade
                 .queryCodesByIdIn(request.getCodes()).stream()
-                .collect(Collectors.groupingBy(Code::getCodeType));
+                .collect(Collectors.groupingBy(CodeEntity::getCodeType));
 
         recruitmentFacade.createRecruitArea(
                 codes,

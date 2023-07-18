@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.Code;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
 
 import java.util.List;
 
@@ -17,14 +17,14 @@ public class RecruitAreaVO {
 
     private final String jobCodes;
 
-    private final List<Code> techCodes;
+    private final List<CodeEntity> techCodeEntities;
 
     @QueryProjection
-    public RecruitAreaVO(Long id, Integer hiredCount, String majorTask, String jobCodes, List<Code> techCodes) {
+    public RecruitAreaVO(Long id, Integer hiredCount, String majorTask, String jobCodes, List<CodeEntity> techCodeEntities) {
         this.id = id;
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
         this.jobCodes = jobCodes;
-        this.techCodes = techCodes;
+        this.techCodeEntities = techCodeEntities;
     }
 }

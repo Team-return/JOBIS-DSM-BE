@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.code.persistence.enums.CodeType;
-import team.retum.jobis.domain.code.persistence.enums.JobType;
+import com.example.jobisapplication.domain.code.domain.CodeType;
+import com.example.jobisapplication.domain.code.domain.JobType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Code {
+public class CodeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,5 +44,5 @@ public class Code {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_code_id")
-    private Code parentCode;
+    private CodeEntity parentCodeEntity;
 }

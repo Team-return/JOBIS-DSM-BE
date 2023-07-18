@@ -4,8 +4,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.code.persistence.Code;
-import team.retum.jobis.domain.code.persistence.enums.CodeType;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
+import com.example.jobisapplication.domain.code.domain.CodeType;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CodeRepository {
     private final CodeJpaRepository codeJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType, Long parentCode) {
+    public List<CodeEntity> queryCodesByKeywordAndType(String keyword, CodeType codeType, Long parentCode) {
         return jpaQueryFactory
                 .selectFrom(code)
                 .where(
@@ -28,7 +28,7 @@ public class CodeRepository {
                 ).fetch();
     }
 
-    public List<Code> queryCodesByIdIn(List<Long> codeIds) {
+    public List<CodeEntity> queryCodesByIdIn(List<Long> codeIds) {
         return codeJpaRepository.findCodesByIdIn(codeIds);
     }
 

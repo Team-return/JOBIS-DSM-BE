@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.persistence.QApplication;
 import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
-import team.retum.jobis.domain.code.persistence.Code;
-import team.retum.jobis.domain.code.persistence.RecruitAreaCode;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
+import team.retum.jobis.domain.code.persistence.RecruitAreaCodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.RecruitAreaCodeJpaRepository;
 import team.retum.jobis.domain.company.persistence.Company;
 import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
@@ -78,7 +78,7 @@ public class RecruitmentRepository {
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
-                        containsCodes(filter.getCodes()),
+                        containsCodes(filter.getCodeEntities()),
                         containsJobKeyword(filter.getJobKeyword())
                 )
                 .offset(filter.getOffset())
@@ -159,8 +159,8 @@ public class RecruitmentRepository {
         return recruitmentJpaRepository.findById(recruitmentId);
     }
 
-    public void saveAllRecruitAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
-        recruitAreaCodeJpaRepository.saveAll(recruitAreaCodes);
+    public void saveAllRecruitAreaCodes(List<RecruitAreaCodeEntity> recruitAreaCodeEntities) {
+        recruitAreaCodeJpaRepository.saveAll(recruitAreaCodeEntities);
     }
 
     public void deleteRecruitment(Long recruitmentId) {
@@ -214,8 +214,8 @@ public class RecruitmentRepository {
         return company.name.contains(name);
     }
 
-    private BooleanExpression containsCodes(List<Code> codes) {
-        return codes == null ? null : recruitArea.recruitAreaCodes.any().code.in(codes);
+    private BooleanExpression containsCodes(List<CodeEntity> codeEntities) {
+        return codeEntities == null ? null : recruitArea.recruitAreaCodes.any().code.in(codeEntities);
     }
 
     private BooleanExpression eqStudentId(Long studentId) {

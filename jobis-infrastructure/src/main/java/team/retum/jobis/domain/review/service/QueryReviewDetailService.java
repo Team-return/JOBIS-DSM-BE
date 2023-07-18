@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.persistence.Code;
+import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.review.persistence.QnAElement;
 import team.retum.jobis.domain.review.persistence.Review;
@@ -29,13 +29,13 @@ public class QueryReviewDetailService {
                 .map(QnAElement::getCodeId)
                 .toList();
 
-        List<Code> codes = codeFacade.queryCodesByIdIn(codeIds);
+        List<CodeEntity> codeEntities = codeFacade.queryCodesByIdIn(codeIds);
 
         return QueryReviewDetailResponse.builder()
                 .year(review.getYear())
                 .writer(review.getStudentName())
                 .qnaResponses(
-                        QnAResponse.of(review.getQnAElements(), codes)
+                        QnAResponse.of(review.getQnAElements(), codeEntities)
                 )
                 .build();
     }
