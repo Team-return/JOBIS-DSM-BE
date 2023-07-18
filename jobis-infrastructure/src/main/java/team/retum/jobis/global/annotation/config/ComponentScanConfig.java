@@ -1,11 +1,11 @@
 package team.retum.jobis.global.annotation.config;
 
+import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
+import com.example.jobisapplication.common.annotation.UseCase;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import team.retum.jobis.global.annotation.ReadOnlyService;
-import team.retum.jobis.global.annotation.Service;
 
 @Configuration
 @ComponentScan(
@@ -14,8 +14,8 @@ import team.retum.jobis.global.annotation.Service;
                 @Filter(
                         type = FilterType.ANNOTATION,
                         classes = {
-                                Service.class,
-                                ReadOnlyService.class
+                                UseCase.class,
+                                ReadOnlyUseCase.class
                         }
                 )
         }

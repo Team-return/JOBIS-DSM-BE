@@ -8,7 +8,7 @@ import team.retum.jobis.domain.company.presentation.dto.CompanyFilter;
 import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
 @ReadOnlyService

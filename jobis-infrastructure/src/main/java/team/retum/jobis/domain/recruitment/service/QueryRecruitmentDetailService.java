@@ -7,7 +7,7 @@ import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitArea
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.util.List;
 

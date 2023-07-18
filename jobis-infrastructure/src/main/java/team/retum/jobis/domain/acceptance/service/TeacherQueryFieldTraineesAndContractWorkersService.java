@@ -9,7 +9,7 @@ import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQuery
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryFieldTraineesVO;
 import team.retum.jobis.domain.student.persistence.Student;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.time.Year;
 import java.util.List;

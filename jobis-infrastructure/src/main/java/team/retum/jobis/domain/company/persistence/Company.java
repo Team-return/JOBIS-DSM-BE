@@ -12,7 +12,7 @@ import team.retum.jobis.domain.company.persistence.enums.CompanyType;
 import team.retum.jobis.domain.company.persistence.type.Address;
 import team.retum.jobis.domain.company.persistence.type.Manager;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
-import team.retum.jobis.domain.persistence.domain.User;
+import team.retum.jobis.domain.user.persistence.User;
 import team.retum.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;

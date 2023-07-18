@@ -11,18 +11,19 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import team.retum.jobis.global.security.jwt.JwtTokenProvider;
+import team.retum.jobis.global.security.jwt.JwtParser;
+import team.retum.jobis.global.security.jwt.JwtTokenAdapter;
 
-import static team.retum.jobis.domain.persistence.domain.enums.Authority.COMPANY;
-import static team.retum.jobis.domain.persistence.domain.enums.Authority.DEVELOPER;
-import static team.retum.jobis.domain.persistence.domain.enums.Authority.STUDENT;
-import static team.retum.jobis.domain.persistence.domain.enums.Authority.TEACHER;
+import static com.example.jobisapplication.domain.auth.Authority.COMPANY;
+import static com.example.jobisapplication.domain.auth.Authority.DEVELOPER;
+import static com.example.jobisapplication.domain.auth.Authority.STUDENT;
+import static com.example.jobisapplication.domain.auth.Authority.TEACHER;
 
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtParser jwtParser;
     private final ObjectMapper objectMapper;
 
     @Bean
@@ -126,7 +127,7 @@ public class SecurityConfig {
 
                 .anyRequest().authenticated()
                 .and()
-                .apply(new FilterConfig(jwtTokenProvider, objectMapper));
+                .apply(new FilterConfig(jwtParser, objectMapper));
         return http.build();
     }
 

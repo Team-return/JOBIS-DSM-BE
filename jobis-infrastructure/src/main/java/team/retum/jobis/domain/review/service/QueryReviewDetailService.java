@@ -9,7 +9,7 @@ import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse.QnAResponse;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.util.List;
 

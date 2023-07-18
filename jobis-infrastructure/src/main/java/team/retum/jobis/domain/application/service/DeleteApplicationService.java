@@ -5,8 +5,8 @@ import team.retum.jobis.domain.application.persistence.Application;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.student.persistence.Student;
-import team.retum.jobis.domain.persistence.facade.UserFacade;
-import team.retum.jobis.global.annotation.Service;
+import team.retum.jobis.domain.user.facade.UserFacade;
+import com.example.jobisapplication.common.annotation.Service;
 
 @RequiredArgsConstructor
 @Service

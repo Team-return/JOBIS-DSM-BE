@@ -5,7 +5,7 @@ import team.retum.jobis.domain.company.persistence.Company;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouRequest;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.util.List;
 

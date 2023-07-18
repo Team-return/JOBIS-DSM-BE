@@ -15,7 +15,7 @@ import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest
 import team.retum.jobis.domain.auth.service.SendAuthCodeService;
 import team.retum.jobis.domain.auth.service.TokenReissueService;
 import team.retum.jobis.domain.auth.service.VerifyAuthCodeService;
-import team.retum.jobis.domain.persistence.presentation.dto.response.TokenResponse;
+import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 

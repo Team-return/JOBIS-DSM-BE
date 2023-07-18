@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
-import team.retum.jobis.domain.persistence.domain.User;
-import team.retum.jobis.domain.persistence.domain.enums.Authority;
-import team.retum.jobis.domain.persistence.facade.UserFacade;
-import team.retum.jobis.global.annotation.Service;
+import team.retum.jobis.domain.user.persistence.User;
+import com.example.jobisapplication.domain.auth.Authority;
+import team.retum.jobis.domain.user.facade.UserFacade;
+import com.example.jobisapplication.common.annotation.Service;
 
 @RequiredArgsConstructor
 @Service

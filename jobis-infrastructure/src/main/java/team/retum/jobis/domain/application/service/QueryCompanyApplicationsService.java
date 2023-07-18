@@ -11,8 +11,8 @@ import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.student.persistence.Student;
-import team.retum.jobis.domain.persistence.facade.UserFacade;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import team.retum.jobis.domain.user.facade.UserFacade;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
 @ReadOnlyService

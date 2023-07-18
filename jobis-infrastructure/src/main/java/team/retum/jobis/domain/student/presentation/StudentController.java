@@ -22,7 +22,7 @@ import team.retum.jobis.domain.student.service.UpdateStudentForgottenPasswordSer
 import team.retum.jobis.domain.student.service.UpdateStudentPasswordService;
 import team.retum.jobis.domain.student.service.UpdateStudentProfileService;
 import team.retum.jobis.domain.student.service.VerifyStudentService;
-import team.retum.jobis.domain.persistence.presentation.dto.response.TokenResponse;
+import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 

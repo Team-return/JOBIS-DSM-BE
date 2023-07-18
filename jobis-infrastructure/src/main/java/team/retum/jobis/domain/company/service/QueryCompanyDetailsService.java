@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.persistence.repository.vo.QueryCompanyDetailsVO;
 import team.retum.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.util.List;
 

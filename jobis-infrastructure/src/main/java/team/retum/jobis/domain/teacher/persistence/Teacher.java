@@ -3,7 +3,7 @@ package team.retum.jobis.domain.teacher.persistence;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.persistence.domain.User;
+import team.retum.jobis.domain.user.persistence.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

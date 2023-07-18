@@ -7,9 +7,9 @@ import team.retum.jobis.domain.auth.persistence.types.AuthCodeType;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.domain.persistence.domain.repository.UserRepository;
-import team.retum.jobis.global.annotation.Service;
-import team.retum.jobis.global.util.StringUtil;
+import team.retum.jobis.domain.user.persistence.repository.UserRepository;
+import com.example.jobisapplication.common.annotation.Service;
+import com.example.jobisapplication.common.util.StringUtil;
 import team.retum.jobis.thirdparty.ses.SesUtil;
 
 @RequiredArgsConstructor

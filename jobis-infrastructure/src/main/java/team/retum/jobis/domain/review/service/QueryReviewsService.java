@@ -7,7 +7,7 @@ import team.retum.jobis.domain.review.persistence.Review;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse.ReviewResponse;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.util.List;
 

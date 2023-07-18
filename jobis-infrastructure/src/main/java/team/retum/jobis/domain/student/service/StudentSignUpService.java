@@ -10,12 +10,12 @@ import team.retum.jobis.domain.student.persistence.repository.StudentJpaReposito
 import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentRepository;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
-import team.retum.jobis.domain.persistence.domain.User;
-import team.retum.jobis.domain.persistence.domain.enums.Authority;
-import team.retum.jobis.domain.persistence.domain.repository.UserRepository;
-import team.retum.jobis.domain.persistence.presentation.dto.response.TokenResponse;
-import team.retum.jobis.global.annotation.Service;
-import team.retum.jobis.global.security.jwt.JwtTokenProvider;
+import team.retum.jobis.domain.user.persistence.User;
+import com.example.jobisapplication.domain.auth.Authority;
+import team.retum.jobis.domain.user.persistence.repository.UserRepository;
+import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobisapplication.common.annotation.Service;
+import team.retum.jobis.global.security.jwt.JwtTokenAdapter;
 import team.retum.jobis.global.security.jwt.TokenType;
 
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class StudentSignUpService {
     private final AuthCodeRepository authCodeRepository;
     private final VerifiedStudentRepository verifiedStudentRepository;
     private final UserRepository userRepository;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenAdapter jwtTokenAdapter;
 
     public TokenResponse execute(StudentSignUpRequest request) {
 
@@ -78,14 +78,14 @@ public class StudentSignUpService {
                 student.getName()
         );
 
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getAuthority());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId(), user.getAuthority());
+        String accessToken = jwtTokenAdapter.generateAccessToken(user.getId(), user.getAuthority());
+        String refreshToken = jwtTokenAdapter.generateRefreshToken(user.getId(), user.getAuthority());
 
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .refreshExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.REFRESH))
-                .accessExpiresAt(jwtTokenProvider.getExpiredAt(TokenType.ACCESS))
+                .refreshExpiresAt(jwtTokenAdapter.getExpiredAt(TokenType.REFRESH))
+                .accessExpiresAt(jwtTokenAdapter.getExpiredAt(TokenType.ACCESS))
                 .authority(Authority.STUDENT)
                 .build();
     }

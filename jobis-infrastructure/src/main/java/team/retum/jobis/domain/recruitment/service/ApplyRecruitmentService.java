@@ -11,8 +11,8 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRep
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
-import team.retum.jobis.domain.persistence.facade.UserFacade;
-import team.retum.jobis.global.annotation.Service;
+import team.retum.jobis.domain.user.facade.UserFacade;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.time.Year;
 import java.util.List;

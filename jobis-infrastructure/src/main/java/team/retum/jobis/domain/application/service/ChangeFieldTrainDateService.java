@@ -6,7 +6,7 @@ import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.InvalidDateException;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateRequest;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.time.LocalDate;
 import java.util.List;

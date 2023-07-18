@@ -33,7 +33,7 @@ import team.retum.jobis.domain.recruitment.service.TeacherChangeRecruitmentStatu
 import team.retum.jobis.domain.recruitment.service.TeacherQueryRecruitmentsService;
 import team.retum.jobis.domain.recruitment.service.UpdateRecruitAreaService;
 import team.retum.jobis.domain.recruitment.service.UpdateRecruitmentService;
-import team.retum.jobis.global.util.StringUtil;
+import com.example.jobisapplication.common.util.StringUtil;
 
 import javax.validation.Valid;
 import java.time.LocalDate;

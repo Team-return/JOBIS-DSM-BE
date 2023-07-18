@@ -6,7 +6,7 @@ import team.retum.jobis.domain.bug.persistence.BugReport;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportRepository;
 import team.retum.jobis.domain.bug.exception.BugReportNotFoundException;
 import team.retum.jobis.domain.bug.presentation.dto.response.QueryBugReportDetailsResponse;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
 @ReadOnlyService

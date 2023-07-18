@@ -8,8 +8,8 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRep
 import team.retum.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
-import team.retum.jobis.domain.persistence.facade.UserFacade;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import team.retum.jobis.domain.user.facade.UserFacade;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.time.Year;
 import java.util.List;

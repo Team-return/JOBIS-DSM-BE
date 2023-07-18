@@ -32,9 +32,6 @@ dependencies {
     //thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    //randomString
-    implementation 'org.ehcache:ehcache:3.9.2'
-
     //config
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 

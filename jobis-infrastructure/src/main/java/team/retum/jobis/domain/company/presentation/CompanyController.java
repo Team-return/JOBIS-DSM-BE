@@ -32,7 +32,7 @@ import team.retum.jobis.domain.company.service.TeacherQueryEmployCompaniesServic
 import team.retum.jobis.domain.company.service.UpdateCompanyDetailsService;
 import team.retum.jobis.domain.company.service.UpdateCompanyTypeService;
 import team.retum.jobis.domain.company.service.UpdateConventionService;
-import team.retum.jobis.domain.persistence.presentation.dto.response.TokenResponse;
+import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 

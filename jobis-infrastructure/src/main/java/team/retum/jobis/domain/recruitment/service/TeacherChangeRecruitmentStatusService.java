@@ -5,7 +5,7 @@ import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.util.List;
 

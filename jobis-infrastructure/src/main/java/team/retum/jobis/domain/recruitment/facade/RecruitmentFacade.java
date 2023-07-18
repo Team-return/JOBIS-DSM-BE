@@ -9,7 +9,7 @@ import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
 import team.retum.jobis.domain.recruitment.persistence.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.global.util.StringUtil;
+import com.example.jobisapplication.common.util.StringUtil;
 
 import java.util.List;
 import java.util.Map;

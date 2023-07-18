@@ -15,8 +15,8 @@ import team.retum.jobis.domain.review.presentation.dto.CreateReviewRequest;
 import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.domain.persistence.facade.UserFacade;
-import team.retum.jobis.global.annotation.Service;
+import team.retum.jobis.domain.user.facade.UserFacade;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.time.Year;
 import java.util.List;

@@ -10,7 +10,7 @@ import team.retum.jobis.domain.application.persistence.repository.ApplicationRep
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.student.persistence.Student;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.time.LocalDate;
 import java.time.Year;

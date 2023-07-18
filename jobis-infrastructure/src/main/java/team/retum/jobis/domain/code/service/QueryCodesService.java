@@ -5,7 +5,7 @@ import team.retum.jobis.domain.code.persistence.enums.CodeType;
 import team.retum.jobis.domain.code.persistence.repository.CodeRepository;
 import team.retum.jobis.domain.code.presentation.dto.response.CodesResponse;
 import team.retum.jobis.domain.code.presentation.dto.response.CodesResponse.CodeResponse;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import team.retum.jobis.domain.bug.persistence.BugAttachment;
 import team.retum.jobis.domain.bug.persistence.BugReport;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportRepository;
 import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportRequest;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 @RequiredArgsConstructor
 @Service

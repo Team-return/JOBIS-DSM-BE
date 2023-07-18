@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.bug.persistence.enums.DevelopmentArea;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportRepository;
 import team.retum.jobis.domain.bug.presentation.dto.response.QueryBugReportsResponse;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
 @ReadOnlyService

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
+import team.retum.jobis.global.exception.InvalidTokenException;
 
 @Component
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class StudentDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String studentId) throws UsernameNotFoundException {
         Student student = studentRepository.queryStudentById(
                 Long.valueOf(studentId)
-        ).orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
 
         return new StudentDetails(student.getId());
     }

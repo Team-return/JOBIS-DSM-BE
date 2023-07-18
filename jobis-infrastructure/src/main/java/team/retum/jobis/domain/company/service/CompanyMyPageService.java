@@ -3,8 +3,8 @@ package team.retum.jobis.domain.company.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.Company;
 import team.retum.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
-import team.retum.jobis.domain.persistence.facade.UserFacade;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import team.retum.jobis.domain.user.facade.UserFacade;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
 @ReadOnlyService

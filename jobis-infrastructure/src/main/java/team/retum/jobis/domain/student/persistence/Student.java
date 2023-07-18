@@ -12,7 +12,7 @@ import team.retum.jobis.domain.bookmark.persistence.Bookmark;
 import team.retum.jobis.domain.student.persistence.enums.Department;
 import team.retum.jobis.domain.student.persistence.enums.Gender;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
-import team.retum.jobis.domain.persistence.domain.User;
+import team.retum.jobis.domain.user.persistence.User;
 import team.retum.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;

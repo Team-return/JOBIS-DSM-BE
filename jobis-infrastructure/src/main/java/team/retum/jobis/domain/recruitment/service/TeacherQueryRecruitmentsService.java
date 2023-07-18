@@ -6,7 +6,7 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRep
 import team.retum.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.time.LocalDate;
 import java.util.List;

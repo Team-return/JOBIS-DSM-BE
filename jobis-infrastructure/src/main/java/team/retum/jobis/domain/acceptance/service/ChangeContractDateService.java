@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateRequest;
 import team.retum.jobis.domain.application.exception.InvalidDateException;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.time.LocalDate;
 

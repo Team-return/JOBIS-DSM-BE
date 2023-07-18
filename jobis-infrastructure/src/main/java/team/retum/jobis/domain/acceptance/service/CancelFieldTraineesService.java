@@ -6,7 +6,7 @@ import team.retum.jobis.domain.application.persistence.Application;
 import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 import java.util.List;
 

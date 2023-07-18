@@ -7,7 +7,7 @@ import team.retum.jobis.domain.application.presentation.dto.response.AttachmentR
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
 import team.retum.jobis.domain.student.persistence.Student;
-import team.retum.jobis.global.annotation.ReadOnlyService;
+import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
 @ReadOnlyService

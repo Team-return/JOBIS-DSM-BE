@@ -3,7 +3,7 @@ package team.retum.jobis.domain.student.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentRepository;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.global.annotation.Service;
+import com.example.jobisapplication.common.annotation.Service;
 
 @RequiredArgsConstructor
 @Service

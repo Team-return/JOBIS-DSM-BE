@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
-import team.retum.jobis.domain.persistence.domain.enums.Authority;
+import com.example.jobisapplication.domain.auth.Authority;
 
 
 @Getter
