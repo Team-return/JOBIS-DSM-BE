@@ -5,8 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.user.exception.InvalidPasswordException;
 import team.retum.jobis.domain.user.facade.UserFacade;
-import team.retum.jobis.domain.user.presentation.dto.request.LoginRequest;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import team.retum.jobis.domain.user.presentation.dto.request.LoginWebRequest;
+import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 import com.example.jobisapplication.common.annotation.Service;
 import team.retum.jobis.global.security.jwt.JwtTokenAdapter;
 import team.retum.jobis.global.security.jwt.TokenType;
@@ -19,7 +19,7 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenAdapter jwtTokenAdapter;
 
-    public TokenResponse execute(LoginRequest request) {
+    public TokenResponse execute(LoginWebRequest request) {
 
         UserEntity userEntity = userFacade.getUser(request.getAccountId());
 

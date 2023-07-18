@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.acceptance.presentation.dto.request.CancelFieldTraineesRequest;
-import team.retum.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateRequest;
-import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
-import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
-import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
+import team.retum.jobis.domain.acceptance.presentation.dto.request.CancelFieldTraineesWebRequest;
+import team.retum.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateWebRequest;
+import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractWebRequest;
+import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeWebRequest;
+import com.example.jobisapplication.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
 import team.retum.jobis.domain.acceptance.service.CancelFieldTraineesService;
 import team.retum.jobis.domain.acceptance.service.ChangeContractDateService;
 import team.retum.jobis.domain.acceptance.service.RegisterEmploymentContractService;
@@ -45,26 +45,26 @@ public class AcceptanceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/field-train")
     public void registerFieldTrainee(
-            @RequestBody @Valid RegisterFieldTraineeRequest request
+            @RequestBody @Valid RegisterFieldTraineeWebRequest request
     ) {
         registerFieldTraineeService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/contract-date")
-    public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateRequest request) {
+    public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateWebRequest request) {
         changeContractDateService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
-    public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractRequest request) {
+    public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractWebRequest request) {
         registerEmploymentContractService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
-    public void cancelFieldTrainees(@RequestBody @Valid CancelFieldTraineesRequest request) {
+    public void cancelFieldTrainees(@RequestBody @Valid CancelFieldTraineesWebRequest request) {
         cancelFieldTraineesService.execute(request);
     }
 }

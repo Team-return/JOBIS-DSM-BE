@@ -3,9 +3,9 @@ package team.retum.jobis.domain.recruitment.service;
 import lombok.RequiredArgsConstructor;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
+import com.example.jobisapplication.domain.recruitment.dto.RecruitmentFilter;
+import com.example.jobisapplication.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
+import com.example.jobisapplication.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.time.LocalDate;

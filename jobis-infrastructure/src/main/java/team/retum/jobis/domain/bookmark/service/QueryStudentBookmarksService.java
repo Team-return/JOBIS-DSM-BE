@@ -3,7 +3,7 @@ package team.retum.jobis.domain.bookmark.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.bookmark.persistence.repository.BookmarkRepository;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
-import team.retum.jobis.domain.bookmark.presentation.dto.response.QueryStudentBookmarksResponse;
+import com.example.jobisapplication.domain.bookmark.dto.response.QueryStudentBookmarksResponse;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;

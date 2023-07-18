@@ -7,6 +7,9 @@ import team.retum.jobis.domain.auth.persistence.types.AuthCodeType;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
 import com.example.jobisapplication.domain.student.exception.StudentAlreadyExistsException;
 import com.example.jobisapplication.domain.student.exception.StudentNotFoundException;
+import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeWebRequest;
+import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.user.persistence.repository.UserRepository;
 import com.example.jobisapplication.common.annotation.Service;
 import com.example.jobisapplication.common.util.StringUtil;
@@ -20,7 +23,7 @@ public class SendAuthCodeService {
     private final UserRepository userRepository;
     private final SesUtil sesUtil;
 
-    public void execute(SendAuthCodeRequest request) {
+    public void execute(SendAuthCodeWebRequest request) {
         if (request.getAuthCodeType() == AuthCodeType.SIGN_UP) {
             if (userRepository.existsByAccountId(request.getEmail())) {
                 throw StudentAlreadyExistsException.EXCEPTION;

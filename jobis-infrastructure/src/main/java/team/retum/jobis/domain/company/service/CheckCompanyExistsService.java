@@ -2,7 +2,7 @@ package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
-import team.retum.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
+import com.example.jobisapplication.domain.company.dto.response.CheckCompanyExistsResponse;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 import team.retum.jobis.thirdparty.api.FeignClientAdapter;
 

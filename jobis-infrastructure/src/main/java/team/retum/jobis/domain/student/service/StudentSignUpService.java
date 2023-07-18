@@ -9,11 +9,11 @@ import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentRepository;
 import com.example.jobisapplication.domain.student.exception.StudentAlreadyExistsException;
-import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
+import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpWebRequest;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.auth.model.Authority;
 import team.retum.jobis.domain.user.persistence.repository.UserRepository;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 import com.example.jobisapplication.common.annotation.Service;
 import team.retum.jobis.global.security.jwt.JwtTokenAdapter;
 import team.retum.jobis.global.security.jwt.TokenType;
@@ -29,7 +29,7 @@ public class StudentSignUpService {
     private final UserRepository userRepository;
     private final JwtTokenAdapter jwtTokenAdapter;
 
-    public TokenResponse execute(StudentSignUpRequest request) {
+    public TokenResponse execute(StudentSignUpWebRequest request) {
 
         if (userRepository.existsByAccountId(request.getEmail())) {
             throw StudentAlreadyExistsException.EXCEPTION;

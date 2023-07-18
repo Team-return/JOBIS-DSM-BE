@@ -2,7 +2,7 @@ package team.retum.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
-import team.retum.jobis.domain.student.presentation.dto.response.StudentMyPageResponse;
+import com.example.jobisapplication.domain.student.dto.StudentMyPageResponse;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 

@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.acceptance.presentation.dto.request.CancelFieldTraineesRequest;
+import team.retum.jobis.domain.acceptance.presentation.dto.request.CancelFieldTraineesWebRequest;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
@@ -16,7 +16,7 @@ public class CancelFieldTraineesService {
 
     private final ApplicationRepository applicationRepository;
 
-    public void execute(CancelFieldTraineesRequest request) {
+    public void execute(CancelFieldTraineesWebRequest request) {
         List<ApplicationEntity> applicationEntities = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
 
         if (request.getApplicationIds().size() != applicationEntities.size()) {

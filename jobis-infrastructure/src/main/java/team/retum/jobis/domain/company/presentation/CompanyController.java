@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.jobisapplication.domain.company.model.CompanyType;
-import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
-import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
-import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
-import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouRequest;
-import team.retum.jobis.domain.company.presentation.dto.response.CheckCompanyExistsResponse;
-import team.retum.jobis.domain.company.presentation.dto.response.CompanyMyPageResponse;
-import team.retum.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
-import team.retum.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
-import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
-import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryEmployCompaniesResponse;
+import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyWebRequest;
+import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
+import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeWebRequest;
+import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouWebRequest;
+import com.example.jobisapplication.domain.company.dto.response.CheckCompanyExistsResponse;
+import com.example.jobisapplication.domain.company.dto.response.CompanyMyPageResponse;
+import com.example.jobisapplication.domain.company.dto.response.QueryCompanyDetailsResponse;
+import com.example.jobisapplication.domain.company.dto.response.StudentQueryCompaniesResponse;
+import com.example.jobisapplication.domain.company.dto.response.TeacherQueryCompaniesResponse;
+import com.example.jobisapplication.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.retum.jobis.domain.company.service.CheckCompanyExistsService;
 import team.retum.jobis.domain.company.service.CompanyMyPageService;
 import team.retum.jobis.domain.company.service.QueryCompanyDetailsService;
@@ -32,7 +32,7 @@ import team.retum.jobis.domain.company.service.TeacherQueryEmployCompaniesServic
 import team.retum.jobis.domain.company.service.UpdateCompanyDetailsService;
 import team.retum.jobis.domain.company.service.UpdateCompanyTypeService;
 import team.retum.jobis.domain.company.service.UpdateConventionService;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 
@@ -54,7 +54,7 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public TokenResponse register(@RequestBody @Valid RegisterCompanyRequest request) {
+    public TokenResponse register(@RequestBody @Valid RegisterCompanyWebRequest request) {
         return registerCompanyService.execute(request);
     }
 
@@ -65,7 +65,7 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
-    public void updateDetails(@RequestBody @Valid UpdateCompanyDetailsRequest request) {
+    public void updateDetails(@RequestBody @Valid UpdateCompanyDetailsWebRequest request) {
         updateCompanyDetailsService.execute(request);
     }
 
@@ -89,7 +89,7 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/type")
-    public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeRequest request) {
+    public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeWebRequest request) {
         updateCompanyTypeService.execute(request);
     }
 
@@ -115,7 +115,7 @@ public class CompanyController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/mou")
-    public void updateMou(@RequestBody @Valid UpdateMouRequest request) {
+    public void updateMou(@RequestBody @Valid UpdateMouWebRequest request) {
         updateConventionService.execute(request);
     }
 }

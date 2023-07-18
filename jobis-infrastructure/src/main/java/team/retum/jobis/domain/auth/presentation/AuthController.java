@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeRequest;
+import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeWebRequest;
 import team.retum.jobis.domain.auth.service.SendAuthCodeService;
 import team.retum.jobis.domain.auth.service.TokenReissueService;
 import team.retum.jobis.domain.auth.service.VerifyAuthCodeService;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 
@@ -30,7 +30,7 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")
-    public void sendSignUpCode(@RequestBody @Valid SendAuthCodeRequest request) {
+    public void sendSignUpCode(@RequestBody @Valid SendAuthCodeWebRequest request) {
         sendAuthCodeService.execute(request);
     }
 

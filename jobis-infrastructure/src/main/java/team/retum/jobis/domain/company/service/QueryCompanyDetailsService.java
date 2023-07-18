@@ -3,7 +3,7 @@ package team.retum.jobis.domain.company.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.persistence.repository.vo.QueryCompanyDetailsVO;
-import team.retum.jobis.domain.company.presentation.dto.response.QueryCompanyDetailsResponse;
+import com.example.jobisapplication.domain.company.dto.response.QueryCompanyDetailsResponse;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.util.List;

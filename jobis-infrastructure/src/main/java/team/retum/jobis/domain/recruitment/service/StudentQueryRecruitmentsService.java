@@ -5,9 +5,9 @@ import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
-import team.retum.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
+import com.example.jobisapplication.domain.recruitment.dto.RecruitmentFilter;
+import com.example.jobisapplication.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
+import com.example.jobisapplication.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 

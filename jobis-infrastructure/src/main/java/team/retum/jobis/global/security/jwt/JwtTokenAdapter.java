@@ -1,6 +1,6 @@
 package team.retum.jobis.global.security.jwt;
 
-import com.example.jobisapplication.domain.acceptance.dto.TokenResponse;
+import com.example.jobisapplication.domain.auth.dto.TokenResponse;
 import com.example.jobisapplication.domain.acceptance.spi.JwtPort;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

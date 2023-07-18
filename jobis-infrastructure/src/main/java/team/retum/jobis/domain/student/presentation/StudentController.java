@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
-import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordRequest;
-import team.retum.jobis.domain.student.presentation.dto.request.UpdatePasswordRequest;
-import team.retum.jobis.domain.student.presentation.dto.request.UpdateStudentProfileRequest;
-import team.retum.jobis.domain.student.presentation.dto.response.StudentMyPageResponse;
+import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpWebRequest;
+import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordWebRequest;
+import team.retum.jobis.domain.student.presentation.dto.request.UpdatePasswordWebRequest;
+import team.retum.jobis.domain.student.presentation.dto.request.UpdateStudentProfileWebRequest;
+import com.example.jobisapplication.domain.student.dto.StudentMyPageResponse;
 import team.retum.jobis.domain.student.service.CheckStudentPasswordService;
 import team.retum.jobis.domain.student.service.StudentMyPageService;
 import team.retum.jobis.domain.student.service.StudentSignUpService;
@@ -22,7 +22,7 @@ import team.retum.jobis.domain.student.service.UpdateStudentForgottenPasswordSer
 import team.retum.jobis.domain.student.service.UpdateStudentPasswordService;
 import team.retum.jobis.domain.student.service.UpdateStudentProfileService;
 import team.retum.jobis.domain.student.service.VerifyStudentService;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 
@@ -41,13 +41,13 @@ public class StudentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public TokenResponse signup(@RequestBody @Valid StudentSignUpRequest request) {
+    public TokenResponse signup(@RequestBody @Valid StudentSignUpWebRequest request) {
         return studentSignUpService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/forgotten_password")
-    public void updateForgottenPassword(@RequestBody @Valid UpdateForgottenPasswordRequest request) {
+    public void updateForgottenPassword(@RequestBody @Valid UpdateForgottenPasswordWebRequest request) {
         updateStudentForgottenPasswordService.execute(request);
     }
 
@@ -65,7 +65,7 @@ public class StudentController {
     }
 
     @PatchMapping("/profile")
-    public void updateStudentProfile(@RequestBody @Valid UpdateStudentProfileRequest request) {
+    public void updateStudentProfile(@RequestBody @Valid UpdateStudentProfileWebRequest request) {
         updateStudentProfileService.execute(request.getProfileImageUrl());
     }
 
@@ -76,7 +76,7 @@ public class StudentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/password")
-    public void updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
+    public void updatePassword(@RequestBody @Valid UpdatePasswordWebRequest request) {
         updateStudentPasswordService.execute(request);
     }
 }

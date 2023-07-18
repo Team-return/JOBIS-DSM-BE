@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import com.example.jobisapplication.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
-import team.retum.jobis.domain.company.presentation.dto.CompanyFilter;
-import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse;
-import team.retum.jobis.domain.company.presentation.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
+import com.example.jobisapplication.domain.company.dto.CompanyFilter;
+import com.example.jobisapplication.domain.company.dto.response.TeacherQueryCompaniesResponse;
+import com.example.jobisapplication.domain.company.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 

@@ -10,7 +10,7 @@ import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import com.example.jobisapplication.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentWebRequest;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 
@@ -28,7 +28,7 @@ public class ApplyRecruitmentService {
     private final CodeFacade codeFacade;
     private final UserFacade userFacade;
 
-    public void execute(ApplyRecruitmentRequest request) {
+    public void execute(ApplyRecruitmentWebRequest request) {
         CompanyEntity companyEntity = userFacade.getCurrentCompany();
 
         if (recruitmentRepository.existsRecruitmentByCompanyAndStatusNot(companyEntity, RecruitStatus.DONE)) {

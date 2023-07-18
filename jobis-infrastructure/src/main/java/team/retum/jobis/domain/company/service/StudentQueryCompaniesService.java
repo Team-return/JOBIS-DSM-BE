@@ -2,8 +2,8 @@ package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
-import team.retum.jobis.domain.company.presentation.dto.CompanyFilter;
-import team.retum.jobis.domain.company.presentation.dto.response.StudentQueryCompaniesResponse;
+import com.example.jobisapplication.domain.company.dto.CompanyFilter;
+import com.example.jobisapplication.domain.company.dto.response.StudentQueryCompaniesResponse;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor

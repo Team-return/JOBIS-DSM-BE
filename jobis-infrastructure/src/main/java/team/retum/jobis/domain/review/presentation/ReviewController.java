@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.review.presentation.dto.CreateReviewRequest;
-import team.retum.jobis.domain.review.presentation.dto.QueryReviewDetailResponse;
-import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse;
+import team.retum.jobis.domain.review.presentation.dto.CreateReviewWebRequest;
+import com.example.jobisapplication.domain.review.dto.QueryReviewDetailResponse;
+import com.example.jobisapplication.domain.review.dto.QueryReviewsResponse;
 import team.retum.jobis.domain.review.service.CreateReviewService;
 import team.retum.jobis.domain.review.service.DeleteReviewService;
 import team.retum.jobis.domain.review.service.QueryReviewDetailService;
@@ -48,7 +48,7 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createReview(
-            @RequestBody @Valid CreateReviewRequest request
+            @RequestBody @Valid CreateReviewWebRequest request
     ) {
         createReviewService.execute(request);
     }

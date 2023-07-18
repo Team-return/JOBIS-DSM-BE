@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusRequest;
-import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateRequest;
-import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
-import team.retum.jobis.domain.application.presentation.dto.request.RejectApplicationRequest;
-import team.retum.jobis.domain.application.presentation.dto.response.CompanyQueryApplicationsResponse;
-import team.retum.jobis.domain.application.presentation.dto.response.QueryEmploymentCountResponse;
-import team.retum.jobis.domain.application.presentation.dto.response.QueryPassedApplicationStudentsResponse;
-import team.retum.jobis.domain.application.presentation.dto.response.StudentQueryApplicationsResponse;
-import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
+import team.retum.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusWebRequest;
+import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateWebRequest;
+import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationWebRequest;
+import team.retum.jobis.domain.application.presentation.dto.request.RejectApplicationWebRequest;
+import com.example.jobisapplication.domain.application.dto.response.CompanyQueryApplicationsResponse;
+import com.example.jobisapplication.domain.application.dto.response.QueryEmploymentCountResponse;
+import com.example.jobisapplication.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
+import com.example.jobisapplication.domain.application.dto.response.StudentQueryApplicationsResponse;
+import com.example.jobisapplication.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.service.ChangeApplicationsStatusService;
 import team.retum.jobis.domain.application.service.ChangeFieldTrainDateService;
 import team.retum.jobis.domain.application.service.CreateApplicationService;
@@ -54,7 +54,7 @@ public class ApplicationController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
     public void createApplication(
-            @RequestBody @Valid CreateApplicationRequest request,
+            @RequestBody @Valid CreateApplicationWebRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createApplicationService.execute(request, recruitmentId);
@@ -87,7 +87,7 @@ public class ApplicationController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
-    public void changeApplicationsStatus(@RequestBody @Valid ChangeApplicationsStatusRequest request) {
+    public void changeApplicationsStatus(@RequestBody @Valid ChangeApplicationsStatusWebRequest request) {
         changeApplicationsStatusService.execute(
                 request.getApplicationIds(),
                 request.getStatus()
@@ -96,7 +96,7 @@ public class ApplicationController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/train-date")
-    public void changeFieldTrainDate(@RequestBody @Valid ChangeFieldTrainDateRequest request) {
+    public void changeFieldTrainDate(@RequestBody @Valid ChangeFieldTrainDateWebRequest request) {
         changeFieldTrainDateService.execute(request);
     }
 
@@ -104,7 +104,7 @@ public class ApplicationController {
     @PatchMapping("/reject/{application-id}")
     public void rejectApplication(
             @PathVariable("application-id") Long applicationId,
-            @Valid @RequestBody RejectApplicationRequest request
+            @Valid @RequestBody RejectApplicationWebRequest request
     ) {
         rejectApplicationService.execute(applicationId, request.getReason());
     }

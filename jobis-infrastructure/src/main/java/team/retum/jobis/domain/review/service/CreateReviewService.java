@@ -11,7 +11,7 @@ import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import com.example.jobisapplication.domain.review.exception.ReviewAlreadyExistsException;
-import team.retum.jobis.domain.review.presentation.dto.CreateReviewRequest;
+import team.retum.jobis.domain.review.presentation.dto.CreateReviewWebRequest;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
 import com.example.jobisapplication.domain.student.exception.StudentNotFoundException;
@@ -32,7 +32,7 @@ public class CreateReviewService {
     private final CompanyRepository companyRepository;
     private final CodeFacade codeFacade;
 
-    public void execute(CreateReviewRequest request) {
+    public void execute(CreateReviewWebRequest request) {
         if (!companyRepository.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
         }

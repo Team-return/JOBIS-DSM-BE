@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
+import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeWebRequest;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
@@ -15,7 +15,7 @@ public class RegisterFieldTraineeService {
 
     private final ApplicationRepository applicationRepository;
 
-    public void execute(RegisterFieldTraineeRequest request) {
+    public void execute(RegisterFieldTraineeWebRequest request) {
         List<ApplicationEntity> applicationEntities = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
 
         if (request.getApplicationIds().size() != applicationEntities.size()) {

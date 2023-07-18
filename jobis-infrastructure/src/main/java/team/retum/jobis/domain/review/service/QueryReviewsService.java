@@ -5,8 +5,8 @@ import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
-import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse;
-import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse.ReviewResponse;
+import com.example.jobisapplication.domain.review.dto.QueryReviewsResponse;
+import com.example.jobisapplication.domain.review.dto.QueryReviewsResponse.ReviewResponse;
 import com.example.jobisapplication.common.annotation.Service;
 
 import java.util.List;

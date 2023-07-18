@@ -3,6 +3,8 @@ package team.retum.jobis.domain.company.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
+import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeWebRequest;
 import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;
 import com.example.jobisapplication.common.annotation.Service;
@@ -15,7 +17,7 @@ public class UpdateCompanyTypeService {
 
     private final CompanyRepository companyRepository;
 
-    public void execute(UpdateCompanyTypeRequest request) {
+    public void execute(UpdateCompanyTypeWebRequest request) {
 
         List<CompanyEntity> companies = companyRepository.queryCompaniesByIdIn(request.getCompanyIds());
 

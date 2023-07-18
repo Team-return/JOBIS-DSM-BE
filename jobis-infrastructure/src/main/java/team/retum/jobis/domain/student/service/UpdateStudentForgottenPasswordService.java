@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import team.retum.jobis.domain.auth.persistence.entity.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
-import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordRequest;
+import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordWebRequest;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserRepository;
 import com.example.jobisapplication.domain.user.exception.UserNotFoundException;
@@ -19,7 +19,7 @@ public class UpdateStudentForgottenPasswordService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void execute(UpdateForgottenPasswordRequest request) {
+    public void execute(UpdateForgottenPasswordWebRequest request) {
 
         if (!userRepository.existsByAccountId(request.getEmail())) {
             throw UserNotFoundException.EXCEPTION;

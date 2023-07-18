@@ -18,7 +18,7 @@ import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecru
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QRecruitAreaVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QueryRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
-import team.retum.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
+import com.example.jobisapplication.domain.recruitment.dto.RecruitmentFilter;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -5,7 +5,7 @@ import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import com.example.jobisapplication.domain.application.exception.InvalidDateException;
-import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateRequest;
+import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateWebRequest;
 import com.example.jobisapplication.common.annotation.Service;
 
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ public class ChangeFieldTrainDateService {
 
     private final ApplicationRepository applicationRepository;
 
-    public void execute(ChangeFieldTrainDateRequest request) {
+    public void execute(ChangeFieldTrainDateWebRequest request) {
 
         if (request.getStartDate().isBefore(LocalDate.now())) {
             throw InvalidDateException.EXCEPTION;

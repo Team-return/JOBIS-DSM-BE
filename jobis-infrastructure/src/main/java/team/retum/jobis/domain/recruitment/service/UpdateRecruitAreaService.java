@@ -8,7 +8,7 @@ import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import com.example.jobisapplication.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaWebRequest;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.auth.model.Authority;
 import team.retum.jobis.domain.user.facade.UserFacade;
@@ -27,7 +27,7 @@ public class UpdateRecruitAreaService {
     private final CodeFacade codeFacade;
     private final RecruitmentFacade recruitmentFacade;
 
-    public void execute(RecruitAreaRequest request, Long recruitAreaId) {
+    public void execute(RecruitAreaWebRequest request, Long recruitAreaId) {
         UserEntity userEntity = userFacade.getCurrentUser();
 
         RecruitAreaEntity recruitAreaEntity = recruitmentRepository.queryRecruitAreaById(recruitAreaId)

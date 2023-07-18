@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.bug.persistence.entity.BugAttachmentEntity;
 import team.retum.jobis.domain.bug.persistence.entity.BugReportEntity;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportRepository;
-import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportRequest;
+import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportWebRequest;
 import com.example.jobisapplication.common.annotation.Service;
 
 @RequiredArgsConstructor
@@ -13,7 +13,7 @@ public class CreateBugReportService {
 
     private final BugReportRepository bugReportRepository;
 
-    public void execute(CreateBugReportRequest request) {
+    public void execute(CreateBugReportWebRequest request) {
         BugReportEntity bugReportEntity = bugReportRepository.saveBugReport(
                 BugReportEntity.builder()
                         .title(request.getTitle())

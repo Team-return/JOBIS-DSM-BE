@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentRequest;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.QueryMyRecruitmentResponse;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.QueryRecruitmentDetailResponse;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.TeacherQueryRecruitmentsResponse;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentWebRequest;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentWebRequest;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaWebRequest;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentWebRequest;
+import com.example.jobisapplication.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
+import com.example.jobisapplication.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
+import com.example.jobisapplication.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
+import com.example.jobisapplication.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.service.ApplyRecruitmentService;
 import team.retum.jobis.domain.recruitment.service.CreateRecruitAreaService;
 import team.retum.jobis.domain.recruitment.service.DeleteRecruitAreaService;
@@ -58,14 +58,14 @@ public class RecruitmentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentRequest request) {
+    public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentWebRequest request) {
         applyRecruitmentService.execute(request);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruitment-id}")
     public void updateRecruitment(
-            @RequestBody @Valid UpdateRecruitmentRequest request,
+            @RequestBody @Valid UpdateRecruitmentWebRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
         updateRecruitmentService.execute(request, recruitmentId);
@@ -74,7 +74,7 @@ public class RecruitmentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(
-            @RequestBody @Valid RecruitAreaRequest request,
+            @RequestBody @Valid RecruitAreaWebRequest request,
             @PathVariable("recruit-area-id") Long recruitAreaId
     ) {
         updateRecruitAreaService.execute(request, recruitAreaId);
@@ -83,7 +83,7 @@ public class RecruitmentController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}/area")
     public void createRecruitArea(
-            @RequestBody @Valid RecruitAreaRequest request,
+            @RequestBody @Valid RecruitAreaWebRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createRecruitAreaService.execute(request, recruitmentId);
@@ -114,7 +114,7 @@ public class RecruitmentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
-    public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentRequest request) {
+    public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentWebRequest request) {
         teacherChangeRecruitmentStatusService.execute(request);
 
     }

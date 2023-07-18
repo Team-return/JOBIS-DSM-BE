@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
-import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportRequest;
-import team.retum.jobis.domain.bug.presentation.dto.response.QueryBugReportDetailsResponse;
-import team.retum.jobis.domain.bug.presentation.dto.response.QueryBugReportsResponse;
+import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportWebRequest;
+import com.example.jobisapplication.domain.bug.dto.QueryBugReportDetailsResponse;
+import com.example.jobisapplication.domain.bug.dto.QueryBugReportsResponse;
 import team.retum.jobis.domain.bug.service.CreateBugReportService;
 import team.retum.jobis.domain.bug.service.QueryBugReportDetailsService;
 import team.retum.jobis.domain.bug.service.QueryBugReportsService;
@@ -31,7 +31,7 @@ public class BugController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createBugReport(@RequestBody @Valid CreateBugReportRequest request) {
+    public void createBugReport(@RequestBody @Valid CreateBugReportWebRequest request) {
         createBugReportService.execute(request);
     }
 

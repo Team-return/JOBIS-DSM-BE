@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
 import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.ApplicationDetailVO;
-import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
+import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractWebRequest;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
@@ -23,7 +23,7 @@ public class RegisterEmploymentContractService {
     private final AcceptanceRepository acceptanceRepository;
     private final ApplicationRepository applicationRepository;
 
-    public void execute(RegisterEmploymentContractRequest request) {
+    public void execute(RegisterEmploymentContractWebRequest request) {
         List<ApplicationDetailVO> applications = applicationRepository.queryApplicationDetailsByIds(request.getApplicationIds());
         if (applications.size() != request.getApplicationIds().size()) {
             throw ApplicationNotFoundException.EXCEPTION;

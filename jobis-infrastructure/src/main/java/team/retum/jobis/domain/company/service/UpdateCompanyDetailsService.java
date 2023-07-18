@@ -2,7 +2,7 @@ package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
-import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
+import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 
@@ -11,7 +11,7 @@ import com.example.jobisapplication.common.annotation.Service;
 public class UpdateCompanyDetailsService {
     private final UserFacade userFacade;
 
-    public void execute(UpdateCompanyDetailsRequest request) {
+    public void execute(UpdateCompanyDetailsWebRequest request) {
         CompanyEntity companyEntity = userFacade.getCurrentCompany();
 
         companyEntity.update(

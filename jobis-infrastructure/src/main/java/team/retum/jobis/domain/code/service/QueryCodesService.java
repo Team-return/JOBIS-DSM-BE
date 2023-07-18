@@ -3,8 +3,8 @@ package team.retum.jobis.domain.code.service;
 import lombok.RequiredArgsConstructor;
 import com.example.jobisapplication.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.repository.CodeRepository;
-import team.retum.jobis.domain.code.presentation.dto.response.CodesResponse;
-import team.retum.jobis.domain.code.presentation.dto.response.CodesResponse.CodeResponse;
+import com.example.jobisapplication.domain.code.dto.response.CodesResponse;
+import com.example.jobisapplication.domain.code.dto.response.CodesResponse.CodeResponse;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.util.List;

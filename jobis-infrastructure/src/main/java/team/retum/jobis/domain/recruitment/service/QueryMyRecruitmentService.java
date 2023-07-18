@@ -5,8 +5,8 @@ import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
 import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.QueryMyRecruitmentResponse;
-import team.retum.jobis.domain.recruitment.presentation.dto.response.RecruitAreaResponse;
+import com.example.jobisapplication.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
+import com.example.jobisapplication.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 

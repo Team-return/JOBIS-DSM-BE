@@ -3,7 +3,7 @@ package team.retum.jobis.domain.recruitment.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentRequest;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentWebRequest;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.auth.model.Authority;
 import team.retum.jobis.domain.user.facade.UserFacade;
@@ -16,7 +16,7 @@ public class UpdateRecruitmentService {
     private final RecruitmentFacade recruitmentFacade;
     private final UserFacade userFacade;
 
-    public void execute(UpdateRecruitmentRequest request, Long recruitmentId) {
+    public void execute(UpdateRecruitmentWebRequest request, Long recruitmentId) {
         UserEntity userEntity = userFacade.getCurrentUser();
 
         RecruitmentEntity recruitmentEntity = recruitmentFacade.queryRecruitmentById(recruitmentId);

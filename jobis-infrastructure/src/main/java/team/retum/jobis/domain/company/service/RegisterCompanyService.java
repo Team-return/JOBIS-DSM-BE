@@ -6,12 +6,15 @@ import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.entity.CompanyAttachmentEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
+import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
+import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
+import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyWebRequest;
 import com.example.jobisapplication.domain.company.exception.CompanyAlreadyExistsException;
 import com.example.jobisapplication.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.auth.model.Authority;
-import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;
+import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 import com.example.jobisapplication.common.annotation.Service;
 import team.retum.jobis.global.security.jwt.JwtTokenAdapter;
 import team.retum.jobis.global.security.jwt.TokenType;
@@ -28,7 +31,7 @@ public class RegisterCompanyService {
     private final JwtTokenAdapter jwtTokenAdapter;
     private final CodeFacade codeFacade;
 
-    public TokenResponse execute(RegisterCompanyRequest request) {
+    public TokenResponse execute(RegisterCompanyWebRequest request) {
         if (!feignClientAdapter.checkCompanyExists(request.getBusinessNumber())) {
             throw CompanyNotExistsException.EXCEPTION;
         }

@@ -3,9 +3,9 @@ package team.retum.jobis.domain.application.service;
 import lombok.RequiredArgsConstructor;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
-import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
-import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
-import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
+import com.example.jobisapplication.domain.application.dto.response.AttachmentResponse;
+import com.example.jobisapplication.domain.application.dto.response.TeacherQueryApplicationsResponse;
+import com.example.jobisapplication.domain.application.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 

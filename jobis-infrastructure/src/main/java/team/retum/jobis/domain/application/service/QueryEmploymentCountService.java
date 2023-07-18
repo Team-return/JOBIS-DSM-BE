@@ -3,7 +3,7 @@ package team.retum.jobis.domain.application.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryTotalApplicationCountVO;
-import team.retum.jobis.domain.application.presentation.dto.response.QueryEmploymentCountResponse;
+import com.example.jobisapplication.domain.application.dto.response.QueryEmploymentCountResponse;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor
