@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.bug.persistence;
+package team.retum.jobis.domain.bookmark.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
-public class BugAttachmentId implements Serializable {
-    private Long bugReport;
-    private String attachmentUrl;
+public class BookmarkId implements Serializable {
+    private Long recruitment;
+    private Long student;
 }

@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.user.persistence.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import team.retum.jobis.domain.user.persistence.UserEntity;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 
 import java.util.Optional;
 

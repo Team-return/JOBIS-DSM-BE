@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.InvalidDateException;

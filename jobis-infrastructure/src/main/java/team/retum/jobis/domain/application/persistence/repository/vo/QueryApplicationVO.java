@@ -2,7 +2,7 @@ package team.retum.jobis.domain.application.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import team.retum.jobis.domain.application.persistence.ApplicationAttachmentEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
 import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 
 import java.time.LocalDateTime;

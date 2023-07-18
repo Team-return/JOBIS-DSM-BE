@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.recruitment.persistence;
+package team.retum.jobis.domain.recruitment.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import team.retum.jobis.domain.application.persistence.ApplicationEntity;
-import team.retum.jobis.domain.company.persistence.CompanyEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import com.example.jobisapplication.domain.recruitment.domain.ProgressType;
 import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.converter.HiringProgressConverter;

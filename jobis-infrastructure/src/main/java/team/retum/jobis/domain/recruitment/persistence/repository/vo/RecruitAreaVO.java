@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 
 import java.util.List;
 

@@ -1,16 +1,16 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.ApplicationEntity;
-import team.retum.jobis.domain.application.persistence.ApplicationAttachmentEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
 import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;
 

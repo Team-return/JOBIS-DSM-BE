@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.student.persistence;
+package team.retum.jobis.domain.student.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -6,13 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import team.retum.jobis.domain.application.persistence.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.exception.InvalidGradeException;
-import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
+import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
 import com.example.jobisapplication.domain.student.domain.Department;
 import com.example.jobisapplication.domain.student.domain.Gender;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
-import team.retum.jobis.domain.user.persistence.UserEntity;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;

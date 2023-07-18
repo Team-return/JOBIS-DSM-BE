@@ -2,15 +2,15 @@ package team.retum.jobis.domain.student.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import team.retum.jobis.domain.auth.persistence.AuthCodeEntity;
+import team.retum.jobis.domain.auth.persistence.entity.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentRepository;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpRequest;
-import team.retum.jobis.domain.user.persistence.UserEntity;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.persistence.repository.UserRepository;
 import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;

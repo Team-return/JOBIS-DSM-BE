@@ -3,7 +3,7 @@ package team.retum.jobis.domain.acceptance.persistence.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
+import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
 
 import java.time.LocalDate;
 import java.util.List;

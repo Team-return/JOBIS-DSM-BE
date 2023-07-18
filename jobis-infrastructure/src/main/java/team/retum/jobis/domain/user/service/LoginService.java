@@ -2,7 +2,7 @@ package team.retum.jobis.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import team.retum.jobis.domain.user.persistence.UserEntity;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.exception.InvalidPasswordException;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import team.retum.jobis.domain.user.presentation.dto.request.LoginRequest;

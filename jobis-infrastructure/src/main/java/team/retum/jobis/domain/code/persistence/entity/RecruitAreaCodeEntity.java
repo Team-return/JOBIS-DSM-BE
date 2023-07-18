@@ -1,10 +1,10 @@
-package team.retum.jobis.domain.code.persistence;
+package team.retum.jobis.domain.code.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

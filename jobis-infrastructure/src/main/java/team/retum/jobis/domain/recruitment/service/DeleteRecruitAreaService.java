@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
-import team.retum.jobis.domain.user.persistence.UserEntity;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import com.example.jobisapplication.domain.auth.domain.Authority;
 import team.retum.jobis.domain.user.facade.UserFacade;
 import com.example.jobisapplication.common.annotation.Service;

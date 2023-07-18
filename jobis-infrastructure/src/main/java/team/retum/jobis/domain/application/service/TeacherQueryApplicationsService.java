@@ -6,7 +6,7 @@ import team.retum.jobis.domain.application.persistence.repository.ApplicationRep
 import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 @RequiredArgsConstructor

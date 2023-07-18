@@ -1,12 +1,12 @@
-package team.retum.jobis.domain.student.persistence;
+package team.retum.jobis.domain.company.persistence.entity;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,27 +17,25 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tbl_portfolio")
+@Table(name = "tbl_company_attachment")
 @Entity
-public class PortfolioEntity {
+public class CompanyAttachmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "portfolio_id")
+    @Column(name = "company_attachment_id")
     private Long id;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(300)")
-    private String portfolioUrl;
+    private String attachmentUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private StudentEntity studentEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private CompanyEntity companyEntity;
 
-
-    @Builder
-    public PortfolioEntity(String portfolioUrl, StudentEntity studentEntity) {
-        this.portfolioUrl = portfolioUrl;
-        this.studentEntity = studentEntity;
+    public CompanyAttachmentEntity(String attachmentUrl, CompanyEntity companyEntity) {
+        this.attachmentUrl = attachmentUrl;
+        this.companyEntity = companyEntity;
     }
 }

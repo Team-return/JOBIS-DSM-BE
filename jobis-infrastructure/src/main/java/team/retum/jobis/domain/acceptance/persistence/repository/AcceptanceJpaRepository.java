@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
+import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
 
 import java.util.List;
 

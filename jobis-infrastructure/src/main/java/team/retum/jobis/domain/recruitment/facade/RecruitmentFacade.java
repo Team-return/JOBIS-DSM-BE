@@ -2,11 +2,11 @@ package team.retum.jobis.domain.recruitment.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
-import team.retum.jobis.domain.code.persistence.RecruitAreaCodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
-import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import com.example.jobisapplication.common.util.StringUtil;

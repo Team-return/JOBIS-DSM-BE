@@ -1,11 +1,11 @@
-package team.retum.jobis.domain.bookmark.persistence;
+package team.retum.jobis.domain.bookmark.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Entity;

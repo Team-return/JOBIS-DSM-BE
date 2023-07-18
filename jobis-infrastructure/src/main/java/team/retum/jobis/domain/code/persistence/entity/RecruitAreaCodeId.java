@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.code.persistence;
+package team.retum.jobis.domain.code.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package team.retum.jobis.domain.student.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import com.example.jobisapplication.domain.student.domain.Department;
 
 @Getter

@@ -3,7 +3,7 @@ package team.retum.jobis.domain.teacher.persistence.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.teacher.persistence.TeacherEntity;
+import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
 
 import java.util.Optional;
 

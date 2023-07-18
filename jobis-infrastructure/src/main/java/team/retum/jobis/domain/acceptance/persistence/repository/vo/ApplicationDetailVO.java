@@ -3,7 +3,7 @@ package team.retum.jobis.domain.acceptance.persistence.repository.vo;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
-import team.retum.jobis.domain.company.persistence.CompanyEntity;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 
 @Getter
 public class ApplicationDetailVO {

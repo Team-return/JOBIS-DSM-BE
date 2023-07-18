@@ -4,7 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
 
 import java.util.List;

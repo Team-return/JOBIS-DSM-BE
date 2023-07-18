@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.persistence.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import team.retum.jobis.domain.review.persistence.ReviewEntity;
+import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 
 import java.util.List;
 

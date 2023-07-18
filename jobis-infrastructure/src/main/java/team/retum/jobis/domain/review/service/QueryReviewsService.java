@@ -3,7 +3,7 @@ package team.retum.jobis.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.review.persistence.ReviewEntity;
+import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse;
 import team.retum.jobis.domain.review.presentation.dto.QueryReviewsResponse.ReviewResponse;

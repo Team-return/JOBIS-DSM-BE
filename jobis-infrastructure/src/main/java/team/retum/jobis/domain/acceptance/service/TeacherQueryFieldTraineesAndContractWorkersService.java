@@ -1,14 +1,14 @@
 package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
+import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
 import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
 import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
 import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse.TeacherQueryContractWorkersResponse;
 import team.retum.jobis.domain.acceptance.presentation.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse.TeacherQueryFieldTraineesResponse;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryFieldTraineesVO;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import com.example.jobisapplication.common.annotation.ReadOnlyService;
 
 import java.time.Year;

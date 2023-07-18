@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.student.persistence.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import team.retum.jobis.domain.student.persistence.VerifiedStudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.VerifiedStudentEntity;
 
 import java.util.Optional;
 

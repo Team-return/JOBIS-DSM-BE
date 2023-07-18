@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.application.persistence;
+package team.retum.jobis.domain.application.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import team.retum.jobis.domain.application.exception.ApplicationCannotDeleteExce
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.application.exception.InvalidStudentException;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;

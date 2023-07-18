@@ -1,9 +1,9 @@
-package team.retum.jobis.domain.teacher.persistence;
+package team.retum.jobis.domain.teacher.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.user.persistence.UserEntity;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

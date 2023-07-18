@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.JobType;
 
 import java.util.List;

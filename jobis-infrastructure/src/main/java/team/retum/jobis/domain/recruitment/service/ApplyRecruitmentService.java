@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.company.persistence.CompanyEntity;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;

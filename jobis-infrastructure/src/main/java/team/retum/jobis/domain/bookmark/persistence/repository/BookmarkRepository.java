@@ -3,11 +3,11 @@ package team.retum.jobis.domain.bookmark.persistence.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
+import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QQueryStudentBookmarksVO;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 
 import java.util.List;
 import java.util.Optional;

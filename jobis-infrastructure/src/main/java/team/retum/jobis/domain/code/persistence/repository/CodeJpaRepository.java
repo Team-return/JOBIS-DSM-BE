@@ -2,7 +2,7 @@ package team.retum.jobis.domain.code.persistence.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
 
 import java.util.List;

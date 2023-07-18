@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.company.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.persistence.CompanyEntity;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;

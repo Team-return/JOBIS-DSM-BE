@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.auth.persistence.AuthCodeEntity;
+import team.retum.jobis.domain.auth.persistence.entity.AuthCodeEntity;
 import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
 import team.retum.jobis.domain.auth.exception.AuthCodeNotFoundException;
 import com.example.jobisapplication.common.annotation.Service;

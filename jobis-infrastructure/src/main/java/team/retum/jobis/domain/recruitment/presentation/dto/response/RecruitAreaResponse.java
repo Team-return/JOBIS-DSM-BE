@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
 
 import java.util.List;

@@ -2,8 +2,8 @@ package team.retum.jobis.domain.review.presentation.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.persistence.CodeEntity;
-import team.retum.jobis.domain.review.persistence.QnAElementEntity;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
+import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 
 import java.util.List;
 

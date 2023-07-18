@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.review.persistence.ReviewEntity;
+import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
 import com.example.jobisapplication.common.annotation.Service;

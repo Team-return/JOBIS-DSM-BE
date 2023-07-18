@@ -1,18 +1,18 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.review.persistence.QnAElementEntity;
-import team.retum.jobis.domain.review.persistence.ReviewEntity;
+import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
+import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import team.retum.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewRequest;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.user.facade.UserFacade;

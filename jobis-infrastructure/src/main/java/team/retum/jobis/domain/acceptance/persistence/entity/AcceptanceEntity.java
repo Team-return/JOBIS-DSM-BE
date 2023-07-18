@@ -1,10 +1,10 @@
-package team.retum.jobis.domain.acceptance.persistence;
+package team.retum.jobis.domain.acceptance.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.company.persistence.CompanyEntity;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.global.converter.StringListConverter;
 
 import javax.persistence.Column;

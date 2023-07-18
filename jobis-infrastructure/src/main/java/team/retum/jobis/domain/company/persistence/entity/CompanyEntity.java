@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.company.persistence;
+package team.retum.jobis.domain.company.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
+import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
 import com.example.jobisapplication.domain.company.domain.CompanyType;
 import team.retum.jobis.domain.company.persistence.type.Address;
 import team.retum.jobis.domain.company.persistence.type.Manager;
-import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
-import team.retum.jobis.domain.user.persistence.UserEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;

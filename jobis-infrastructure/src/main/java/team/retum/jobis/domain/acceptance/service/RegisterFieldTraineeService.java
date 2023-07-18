@@ -2,7 +2,7 @@ package team.retum.jobis.domain.acceptance.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeRequest;
-import team.retum.jobis.domain.application.persistence.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobisapplication.common.annotation.Service;

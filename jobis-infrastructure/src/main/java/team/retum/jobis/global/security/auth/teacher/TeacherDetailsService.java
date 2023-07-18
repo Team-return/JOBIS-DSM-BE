@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.teacher.persistence.TeacherEntity;
+import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
 import team.retum.jobis.domain.teacher.persistence.repository.TeacherRepository;
 import team.retum.jobis.global.exception.InvalidTokenException;
 

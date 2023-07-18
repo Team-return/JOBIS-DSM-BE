@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.company.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import team.retum.jobis.domain.company.persistence.CompanyEntity;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 
 import java.util.List;
 

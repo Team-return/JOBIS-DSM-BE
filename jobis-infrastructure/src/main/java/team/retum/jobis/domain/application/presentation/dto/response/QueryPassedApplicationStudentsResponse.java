@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryPassedApplicationStudentsVO;
-import team.retum.jobis.domain.student.persistence.StudentEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 
 import java.util.List;
 

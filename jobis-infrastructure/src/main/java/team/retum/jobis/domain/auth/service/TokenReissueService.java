@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.auth.persistence.RefreshTokenEntity;
+import team.retum.jobis.domain.auth.persistence.entity.RefreshTokenEntity;
 import team.retum.jobis.domain.auth.persistence.repository.RefreshTokenRepository;
 import team.retum.jobis.domain.auth.exception.RefreshTokenNotFoundException;
 import team.retum.jobis.domain.user.presentation.dto.response.TokenResponse;

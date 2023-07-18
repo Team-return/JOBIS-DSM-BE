@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.auth.persistence;
+package team.retum.jobis.domain.auth.persistence.entity;
 
 import lombok.Builder;
 import lombok.Getter;
