@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import com.example.jobisapplication.domain.recruitment.domain.ProgressType;
+import com.example.jobisapplication.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
 import java.util.List;

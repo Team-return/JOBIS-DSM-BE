@@ -8,7 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
-import com.example.jobisapplication.domain.company.domain.CompanyType;
+import com.example.jobisapplication.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.persistence.type.Address;
 import team.retum.jobis.domain.company.persistence.type.Manager;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;

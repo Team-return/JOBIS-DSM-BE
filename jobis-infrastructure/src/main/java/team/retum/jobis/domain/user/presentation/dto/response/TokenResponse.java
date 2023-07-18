@@ -2,7 +2,7 @@ package team.retum.jobis.domain.user.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import com.example.jobisapplication.domain.auth.domain.Authority;
+import com.example.jobisapplication.domain.auth.model.Authority;
 
 import java.time.LocalDateTime;
 

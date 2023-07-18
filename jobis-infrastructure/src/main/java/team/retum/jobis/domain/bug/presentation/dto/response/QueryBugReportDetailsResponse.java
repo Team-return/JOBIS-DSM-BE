@@ -2,7 +2,7 @@ package team.retum.jobis.domain.bug.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import com.example.jobisapplication.domain.bug.domain.DevelopmentArea;
+import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 
 import java.time.LocalDateTime;
 import java.util.List;

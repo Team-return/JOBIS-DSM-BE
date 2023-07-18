@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeEntity;
-import com.example.jobisapplication.domain.code.domain.CodeType;
+import com.example.jobisapplication.domain.code.model.CodeType;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;

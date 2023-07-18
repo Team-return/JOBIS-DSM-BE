@@ -2,7 +2,7 @@ package team.retum.jobis.domain.company.presentation.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import com.example.jobisapplication.domain.company.domain.CompanyType;
+import com.example.jobisapplication.domain.company.model.CompanyType;
 
 @Getter
 @Builder

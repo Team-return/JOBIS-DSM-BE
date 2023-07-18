@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.bug.persistence.entity.BugAttachmentEntity;
 import team.retum.jobis.domain.bug.persistence.entity.BugReportEntity;
-import com.example.jobisapplication.domain.bug.domain.DevelopmentArea;
+import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.domain.bug.persistence.repository.vo.QQueryBugReportsVO;
 import team.retum.jobis.domain.bug.persistence.repository.vo.QueryBugReportsVO;
 

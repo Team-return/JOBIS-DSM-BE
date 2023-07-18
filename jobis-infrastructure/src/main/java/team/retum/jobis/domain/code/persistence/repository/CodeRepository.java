@@ -5,7 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
-import com.example.jobisapplication.domain.code.domain.CodeType;
+import com.example.jobisapplication.domain.code.model.CodeType;
 
 import java.util.List;
 

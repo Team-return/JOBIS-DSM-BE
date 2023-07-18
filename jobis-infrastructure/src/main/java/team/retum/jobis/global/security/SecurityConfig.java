@@ -13,10 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import team.retum.jobis.global.security.jwt.JwtParser;
 
-import static com.example.jobisapplication.domain.auth.domain.Authority.COMPANY;
-import static com.example.jobisapplication.domain.auth.domain.Authority.DEVELOPER;
-import static com.example.jobisapplication.domain.auth.domain.Authority.STUDENT;
-import static com.example.jobisapplication.domain.auth.domain.Authority.TEACHER;
+import static com.example.jobisapplication.domain.auth.model.Authority.COMPANY;
+import static com.example.jobisapplication.domain.auth.model.Authority.DEVELOPER;
+import static com.example.jobisapplication.domain.auth.model.Authority.STUDENT;
+import static com.example.jobisapplication.domain.auth.model.Authority.TEACHER;
 
 @EnableWebSecurity
 @Configuration

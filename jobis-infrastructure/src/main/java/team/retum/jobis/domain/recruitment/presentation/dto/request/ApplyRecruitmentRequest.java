@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.recruitment.domain.ProgressType;
+import com.example.jobisapplication.domain.recruitment.model.ProgressType;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.Valid;

@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
-import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import com.example.jobisapplication.common.annotation.Service;
 

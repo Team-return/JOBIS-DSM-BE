@@ -6,10 +6,10 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
+import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.company.persistence.entity.CompanyAttachmentEntity;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
-import com.example.jobisapplication.domain.company.domain.CompanyType;
+import com.example.jobisapplication.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyDetailsVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
@@ -19,7 +19,7 @@ import team.retum.jobis.domain.company.persistence.repository.vo.StudentQueryCom
 import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryEmployCompaniesVO;
 import team.retum.jobis.domain.company.presentation.dto.CompanyFilter;
-import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 
 import java.util.List;
 import java.util.Optional;

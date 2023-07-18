@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.code.domain.CodeType;
-import com.example.jobisapplication.domain.code.domain.JobType;
+import com.example.jobisapplication.domain.code.model.CodeType;
+import com.example.jobisapplication.domain.code.model.JobType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

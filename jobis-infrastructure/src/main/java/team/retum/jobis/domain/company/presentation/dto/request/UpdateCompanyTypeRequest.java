@@ -2,7 +2,7 @@ package team.retum.jobis.domain.company.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.company.domain.CompanyType;
+import com.example.jobisapplication.domain.company.model.CompanyType;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

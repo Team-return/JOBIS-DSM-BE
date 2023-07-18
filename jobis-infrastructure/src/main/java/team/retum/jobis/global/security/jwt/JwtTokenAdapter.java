@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.auth.persistence.entity.RefreshTokenEntity;
 import team.retum.jobis.domain.auth.persistence.repository.RefreshTokenRepository;
-import com.example.jobisapplication.domain.auth.domain.Authority;
+import com.example.jobisapplication.domain.auth.model.Authority;
 
 import java.time.LocalDateTime;
 import java.util.Date;

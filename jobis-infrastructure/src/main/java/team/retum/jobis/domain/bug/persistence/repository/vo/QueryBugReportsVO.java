@@ -2,7 +2,7 @@ package team.retum.jobis.domain.bug.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import com.example.jobisapplication.domain.bug.domain.DevelopmentArea;
+import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 
 import java.time.LocalDateTime;
 

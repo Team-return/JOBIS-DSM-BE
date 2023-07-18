@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.auth.domain.Authority;
+import com.example.jobisapplication.domain.auth.model.Authority;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;

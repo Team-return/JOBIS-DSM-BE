@@ -8,7 +8,7 @@ import team.retum.jobis.domain.acceptance.persistence.repository.vo.ApplicationD
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.QApplicationDetailVO;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
-import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
+import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;

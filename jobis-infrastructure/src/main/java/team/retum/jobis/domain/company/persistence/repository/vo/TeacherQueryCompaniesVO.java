@@ -2,7 +2,7 @@ package team.retum.jobis.domain.company.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import com.example.jobisapplication.domain.company.domain.CompanyType;
+import com.example.jobisapplication.domain.company.model.CompanyType;
 
 @Getter
 public class TeacherQueryCompaniesVO {

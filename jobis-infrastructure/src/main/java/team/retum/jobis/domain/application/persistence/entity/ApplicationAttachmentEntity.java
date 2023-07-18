@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.application.domain.AttachmentType;
+import com.example.jobisapplication.domain.application.model.AttachmentType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

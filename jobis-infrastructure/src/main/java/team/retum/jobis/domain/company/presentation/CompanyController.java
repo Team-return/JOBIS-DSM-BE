@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.jobisapplication.domain.company.domain.CompanyType;
+import com.example.jobisapplication.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeRequest;

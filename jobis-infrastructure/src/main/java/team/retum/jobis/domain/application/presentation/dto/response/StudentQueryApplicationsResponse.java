@@ -3,7 +3,7 @@ package team.retum.jobis.domain.application.presentation.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
+import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 
 import java.util.List;
 
