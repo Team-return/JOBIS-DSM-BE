@@ -36,6 +36,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @Table(
+        name = "tbl_student",
         uniqueConstraints = {
                 @UniqueConstraint(
                         columnNames = {"grade", "classRoom", "number"}

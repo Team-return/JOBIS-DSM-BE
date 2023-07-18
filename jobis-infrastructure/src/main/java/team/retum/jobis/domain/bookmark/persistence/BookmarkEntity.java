@@ -14,11 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(BookmarkId.class)
+@Table(name = "tbl_bookmark")
 @Entity
 public class BookmarkEntity extends BaseTimeEntity {
 
