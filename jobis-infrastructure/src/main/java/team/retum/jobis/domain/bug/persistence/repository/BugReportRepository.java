@@ -4,9 +4,9 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.bug.persistence.BugAttachment;
-import team.retum.jobis.domain.bug.persistence.BugReport;
-import team.retum.jobis.domain.bug.persistence.enums.DevelopmentArea;
+import team.retum.jobis.domain.bug.persistence.BugAttachmentEntity;
+import team.retum.jobis.domain.bug.persistence.BugReportEntity;
+import com.example.jobisapplication.domain.bug.domain.DevelopmentArea;
 import team.retum.jobis.domain.bug.persistence.repository.vo.QQueryBugReportsVO;
 import team.retum.jobis.domain.bug.persistence.repository.vo.QueryBugReportsVO;
 
@@ -25,15 +25,15 @@ public class BugReportRepository {
     private final BugAttachmentRepository bugAttachmentRepository;
     private final JPAQueryFactory queryFactory;
 
-    public BugReport saveBugReport(BugReport bugReport) {
-        return bugReportJpaRepository.save(bugReport);
+    public BugReportEntity saveBugReport(BugReportEntity bugReportEntity) {
+        return bugReportJpaRepository.save(bugReportEntity);
     }
 
-    public void saveAllBugAttachment(List<BugAttachment> bugAttachment) {
-        bugAttachmentRepository.saveAll(bugAttachment);
+    public void saveAllBugAttachment(List<BugAttachmentEntity> bugAttachmentEntity) {
+        bugAttachmentRepository.saveAll(bugAttachmentEntity);
     }
 
-    public Optional<BugReport> queryBugReportById(Long id) {
+    public Optional<BugReportEntity> queryBugReportById(Long id) {
         return bugReportJpaRepository.findById(id);
     }
 

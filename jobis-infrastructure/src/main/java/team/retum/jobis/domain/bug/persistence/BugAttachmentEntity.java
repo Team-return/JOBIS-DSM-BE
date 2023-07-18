@@ -19,12 +19,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(BugAttachmentId.class)
 @Entity
-public class BugAttachment {
+public class BugAttachmentEntity {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bug_report_id", nullable = false)
-    private BugReport bugReport;
+    private BugReportEntity bugReportEntity;
 
     @Id
     @NotNull

@@ -2,7 +2,7 @@ package team.retum.jobis.domain.bug.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.bug.persistence.enums.DevelopmentArea;
+import com.example.jobisapplication.domain.bug.domain.DevelopmentArea;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

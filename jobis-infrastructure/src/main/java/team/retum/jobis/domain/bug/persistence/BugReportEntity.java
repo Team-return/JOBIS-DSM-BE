@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.bug.persistence.enums.DevelopmentArea;
+import com.example.jobisapplication.domain.bug.domain.DevelopmentArea;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;
@@ -22,10 +22,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class BugReport extends BaseTimeEntity {
+public class BugReportEntity extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
-    private final List<BugAttachment> bugAttachments = new ArrayList<>();
+    private final List<BugAttachmentEntity> bugAttachmentEntities = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,7 +41,7 @@ public class BugReport extends BaseTimeEntity {
     private DevelopmentArea developmentArea;
 
     @Builder
-    public BugReport(String title, String content, DevelopmentArea developmentArea) {
+    public BugReportEntity(String title, String content, DevelopmentArea developmentArea) {
         this.title = title;
         this.content = content;
         this.developmentArea = developmentArea;

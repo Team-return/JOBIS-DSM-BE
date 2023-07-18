@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.bug.persistence.enums;
+package com.example.jobisapplication.domain.bug.domain;
 
 public enum DevelopmentArea {
 

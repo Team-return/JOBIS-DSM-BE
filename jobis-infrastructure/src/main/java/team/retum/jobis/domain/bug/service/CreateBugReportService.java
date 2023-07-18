@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bug.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.bug.persistence.BugAttachment;
-import team.retum.jobis.domain.bug.persistence.BugReport;
+import team.retum.jobis.domain.bug.persistence.BugAttachmentEntity;
+import team.retum.jobis.domain.bug.persistence.BugReportEntity;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportRepository;
 import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportRequest;
 import com.example.jobisapplication.common.annotation.Service;
@@ -14,8 +14,8 @@ public class CreateBugReportService {
     private final BugReportRepository bugReportRepository;
 
     public void execute(CreateBugReportRequest request) {
-        BugReport bugReport = bugReportRepository.saveBugReport(
-                BugReport.builder()
+        BugReportEntity bugReportEntity = bugReportRepository.saveBugReport(
+                BugReportEntity.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
                         .developmentArea(request.getDevelopmentArea())
@@ -25,7 +25,7 @@ public class CreateBugReportService {
         bugReportRepository.saveAllBugAttachment(
                 request.getAttachmentUrls().stream()
                         .map(attachmentUrl ->
-                                new BugAttachment(bugReport, attachmentUrl)
+                                new BugAttachmentEntity(bugReportEntity, attachmentUrl)
                         ).toList()
         );
     }
