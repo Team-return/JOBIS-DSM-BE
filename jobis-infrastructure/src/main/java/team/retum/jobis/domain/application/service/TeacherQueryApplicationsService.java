@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.presentation.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.presentation.dto.response.TeacherQueryApplicationsResponse;
@@ -32,7 +32,7 @@ public class TeacherQueryApplicationsService {
                                 )
                                 .companyName(application.getCompanyName())
                                 .attachments(
-                                        application.getApplicationAttachments().stream()
+                                        application.getApplicationAttachmentEntities().stream()
                                                 .map(AttachmentResponse::of).toList()
                                 )
                                 .createdAt(application.getCreatedAt().toLocalDate())

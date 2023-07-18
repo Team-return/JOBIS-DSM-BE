@@ -2,8 +2,8 @@ package team.retum.jobis.domain.application.presentation.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team.retum.jobis.domain.application.persistence.ApplicationAttachment;
-import team.retum.jobis.domain.application.persistence.enums.AttachmentType;
+import team.retum.jobis.domain.application.persistence.ApplicationAttachmentEntity;
+import com.example.jobisapplication.domain.application.domain.AttachmentType;
 
 @Getter
 @AllArgsConstructor
@@ -12,10 +12,10 @@ public class AttachmentResponse {
 
     private AttachmentType type;
 
-    public static AttachmentResponse of(ApplicationAttachment applicationAttachment) {
+    public static AttachmentResponse of(ApplicationAttachmentEntity applicationAttachmentEntity) {
         return new AttachmentResponse(
-                applicationAttachment.getAttachmentUrl(),
-                applicationAttachment.getType()
+                applicationAttachmentEntity.getAttachmentUrl(),
+                applicationAttachmentEntity.getType()
         );
     }
 }

@@ -6,7 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.persistence.QApplication;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.code.persistence.Code;
 import team.retum.jobis.domain.code.persistence.RecruitAreaCode;
 import team.retum.jobis.domain.code.persistence.repository.RecruitAreaCodeJpaRepository;

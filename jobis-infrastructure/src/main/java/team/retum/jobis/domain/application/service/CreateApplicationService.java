@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.Application;
-import team.retum.jobis.domain.application.persistence.ApplicationAttachment;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.ApplicationAttachmentEntity;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
@@ -43,22 +43,22 @@ public class CreateApplicationService {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        Application application = applicationRepository.saveApplication(
-                Application.builder()
+        ApplicationEntity applicationEntity = applicationRepository.saveApplication(
+                ApplicationEntity.builder()
                         .student(student)
                         .recruitment(recruitment)
                         .applicationStatus(ApplicationStatus.REQUESTED)
                         .build()
         );
 
-        List<ApplicationAttachment> applicationAttachmentList = request.getAttachments()
+        List<ApplicationAttachmentEntity> applicationAttachmentEntityList = request.getAttachments()
                 .stream()
-                .map(attachment -> new ApplicationAttachment(
+                .map(attachment -> new ApplicationAttachmentEntity(
                         attachment.getUrl(),
                         attachment.getType(),
-                        application
+                        applicationEntity
                 )).toList();
 
-        applicationRepository.saveAllApplicationAttachment(applicationAttachmentList);
+        applicationRepository.saveAllApplicationAttachment(applicationAttachmentEntityList);
     }
 }

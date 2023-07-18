@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.Application;
+import team.retum.jobis.domain.application.persistence.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.code.facade.CodeFacade;
@@ -36,10 +36,10 @@ public class CreateReviewService {
         if (!companyRepository.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
-        Application application = applicationRepository.queryApplicationById(request.getApplicationId())
+        ApplicationEntity applicationEntity = applicationRepository.queryApplicationById(request.getApplicationId())
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
-        application.checkReviewAuthority();
+        applicationEntity.checkReviewAuthority();
 
         List<Long> codeIds = request.getQnaElements().stream()
                 .map(QnAElement::getCodeId)

@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.QApplicationDetailVO;
-import team.retum.jobis.domain.application.persistence.Application;
-import team.retum.jobis.domain.application.persistence.ApplicationAttachment;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.ApplicationAttachmentEntity;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;
@@ -150,19 +150,19 @@ public class ApplicationRepository {
                 .fetchOne();
     }
 
-    public Application saveApplication(Application application) {
-        return applicationJpaRepository.save(application);
+    public ApplicationEntity saveApplication(ApplicationEntity applicationEntity) {
+        return applicationJpaRepository.save(applicationEntity);
     }
 
     public void deleteApplicationByIds(List<Long> applicationIds) {
         applicationJpaRepository.deleteByIdIn(applicationIds);
     }
 
-    public void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
-        applicationAttachmentJpaRepository.saveAll(applicationAttachments);
+    public void saveAllApplicationAttachment(List<ApplicationAttachmentEntity> applicationAttachmentEntities) {
+        applicationAttachmentJpaRepository.saveAll(applicationAttachmentEntities);
     }
 
-    public List<Application> queryApplicationsByIds(List<Long> applicationIds) {
+    public List<ApplicationEntity> queryApplicationsByIds(List<Long> applicationIds) {
         return applicationJpaRepository.findAllByIdIn(applicationIds);
     }
 
@@ -187,28 +187,28 @@ public class ApplicationRepository {
                 .fetch();
     }
 
-    public Optional<Application> queryApplicationById(Long applicationId) {
+    public Optional<ApplicationEntity> queryApplicationById(Long applicationId) {
         return applicationJpaRepository.findById(applicationId);
     }
 
-    public void deleteApplication(Application application) {
-        applicationJpaRepository.delete(application);
+    public void deleteApplication(ApplicationEntity applicationEntity) {
+        applicationJpaRepository.delete(applicationEntity);
     }
 
-    public void changeApplicationStatus(ApplicationStatus status, List<Application> applications) {
+    public void changeApplicationStatus(ApplicationStatus status, List<ApplicationEntity> applicationEntities) {
         queryFactory
                 .update(application)
                 .set(application.applicationStatus, status)
-                .where(application.in(applications))
+                .where(application.in(applicationEntities))
                 .execute();
     }
 
-    public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Application> applications) {
+    public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<ApplicationEntity> applicationEntities) {
         queryFactory
                 .update(application)
                 .set(application.startDate, startDate)
                 .set(application.endDate, endDate)
-                .where(application.in(applications))
+                .where(application.in(applicationEntities))
                 .execute();
     }
 
@@ -219,8 +219,8 @@ public class ApplicationRepository {
         return applicationJpaRepository.existsByStudentIdAndApplicationStatusIn(studentId, applicationStatuses);
     }
 
-    public void saveAllApplications(List<Application> applications) {
-        applicationJpaRepository.saveAll(applications);
+    public void saveAllApplications(List<ApplicationEntity> applicationEntities) {
+        applicationJpaRepository.saveAll(applicationEntities);
     }
 
     //==conditions==//

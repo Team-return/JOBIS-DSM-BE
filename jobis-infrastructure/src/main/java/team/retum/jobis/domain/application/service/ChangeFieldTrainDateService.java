@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.Application;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.ApplicationEntity;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.InvalidDateException;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateRequest;
@@ -23,9 +23,9 @@ public class ChangeFieldTrainDateService {
             throw InvalidDateException.EXCEPTION;
         }
 
-        List<Application> applications = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
+        List<ApplicationEntity> applicationEntities = applicationRepository.queryApplicationsByIds(request.getApplicationIds());
 
-        applications
+        applicationEntities
                 .forEach(application ->
                         application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN)
                 );
@@ -33,7 +33,7 @@ public class ChangeFieldTrainDateService {
         applicationRepository.updateFieldTrainDate(
                 request.getStartDate(),
                 request.getEndDate(),
-                applications
+                applicationEntities
         );
     }
 }

@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.application.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.persistence.Application;
+import team.retum.jobis.domain.application.persistence.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.student.persistence.Student;
@@ -18,10 +18,10 @@ public class DeleteApplicationService {
     public void execute(Long applicationId) {
         Student student = userFacade.getCurrentStudent();
 
-        Application application = applicationRepository.queryApplicationById(applicationId)
+        ApplicationEntity applicationEntity = applicationRepository.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
-        application.checkIsDeleteable(student);
+        applicationEntity.checkIsDeleteable(student);
 
-        applicationRepository.deleteApplication(application);
+        applicationRepository.deleteApplication(applicationEntity);
     }
 }

@@ -2,8 +2,8 @@ package team.retum.jobis.domain.application.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import team.retum.jobis.domain.application.persistence.ApplicationAttachment;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.ApplicationAttachmentEntity;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,14 +18,14 @@ public class QueryApplicationVO {
     private final Integer classNumber;
     private final String profileImageUrl;
     private final String companyName;
-    private final List<ApplicationAttachment> applicationAttachments;
+    private final List<ApplicationAttachmentEntity> applicationAttachmentEntities;
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;
 
     @QueryProjection
     public QueryApplicationVO(Long id, String name, Integer grade, Integer number,
                               Integer classNumber, String profileImageUrl, String companyName,
-                              List<ApplicationAttachment> applicationAttachments, LocalDateTime createdAt,
+                              List<ApplicationAttachmentEntity> applicationAttachmentEntities, LocalDateTime createdAt,
                               ApplicationStatus applicationStatus) {
         this.id = id;
         this.name = name;
@@ -34,7 +34,7 @@ public class QueryApplicationVO {
         this.classNumber = classNumber;
         this.profileImageUrl = profileImageUrl;
         this.companyName = companyName;
-        this.applicationAttachments = applicationAttachments;
+        this.applicationAttachmentEntities = applicationAttachmentEntities;
         this.createdAt = createdAt;
         this.applicationStatus = applicationStatus;
     }

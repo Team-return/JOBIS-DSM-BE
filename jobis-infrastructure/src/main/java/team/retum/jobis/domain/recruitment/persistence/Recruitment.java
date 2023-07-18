@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import team.retum.jobis.domain.application.persistence.Application;
+import team.retum.jobis.domain.application.persistence.ApplicationEntity;
 import team.retum.jobis.domain.company.persistence.Company;
 import team.retum.jobis.domain.recruitment.persistence.enums.ProgressType;
 import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
@@ -107,7 +107,7 @@ public class Recruitment extends BaseTimeEntity {
     private final List<RecruitArea> recruitAreas = new ArrayList<>();
 
     @OneToMany(mappedBy = "recruitment")
-    private final List<Application> applications = new ArrayList<>();
+    private final List<ApplicationEntity> applicationEntities = new ArrayList<>();
 
     @Builder
     public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,

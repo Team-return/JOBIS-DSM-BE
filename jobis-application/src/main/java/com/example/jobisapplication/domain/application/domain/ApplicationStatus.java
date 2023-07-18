@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.application.persistence.enums;
+package com.example.jobisapplication.domain.application.domain;
 
 public enum ApplicationStatus {
 

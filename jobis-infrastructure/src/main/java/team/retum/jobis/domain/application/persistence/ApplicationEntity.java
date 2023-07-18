@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.exception.ApplicationCannotDeleteException;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
@@ -32,7 +32,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Application extends BaseTimeEntity {
+public class ApplicationEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,16 +61,16 @@ public class Application extends BaseTimeEntity {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "application", orphanRemoval = true)
-    private List<ApplicationAttachment> applicationAttachments = new ArrayList<>();
+    private List<ApplicationAttachmentEntity> applicationAttachmentEntities = new ArrayList<>();
 
     @Builder
-    public Application(Student student, Recruitment recruitment, ApplicationStatus applicationStatus) {
+    public ApplicationEntity(Student student, Recruitment recruitment, ApplicationStatus applicationStatus) {
         this.student = student;
         this.recruitment = recruitment;
         this.applicationStatus = applicationStatus;
     }
 
-    public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
+    public ApplicationEntity toFieldTrain(LocalDate startDate, LocalDate endDate) {
         checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
 
         this.applicationStatus = ApplicationStatus.FIELD_TRAIN;

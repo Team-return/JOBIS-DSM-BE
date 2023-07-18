@@ -2,7 +2,7 @@ package team.retum.jobis.domain.acceptance.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.company.persistence.Company;
 
 @Getter

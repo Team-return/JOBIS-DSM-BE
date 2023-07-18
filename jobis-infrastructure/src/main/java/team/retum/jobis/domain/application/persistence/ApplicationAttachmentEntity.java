@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.application.persistence.enums.AttachmentType;
+import com.example.jobisapplication.domain.application.domain.AttachmentType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class ApplicationAttachment {
+public class ApplicationAttachmentEntity {
 
     @Id
     @Column(columnDefinition = "VARCHAR(400)")
@@ -32,12 +32,12 @@ public class ApplicationAttachment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
-    private Application application;
+    private ApplicationEntity applicationEntity;
 
     @Builder
-    public ApplicationAttachment(String attachmentUrl, AttachmentType type, Application application) {
+    public ApplicationAttachmentEntity(String attachmentUrl, AttachmentType type, ApplicationEntity applicationEntity) {
         this.attachmentUrl = attachmentUrl;
         this.type = type;
-        this.application = application;
+        this.applicationEntity = applicationEntity;
     }
 }

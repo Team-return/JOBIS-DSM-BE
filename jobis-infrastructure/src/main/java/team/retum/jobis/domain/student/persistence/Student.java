@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import team.retum.jobis.domain.application.persistence.Application;
+import team.retum.jobis.domain.application.persistence.ApplicationEntity;
 import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.bookmark.persistence.Bookmark;
 import team.retum.jobis.domain.student.persistence.enums.Department;
@@ -85,7 +85,7 @@ public class Student {
     private String profileImageUrl;
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private List<Application> applications = new ArrayList<>();
+    private List<ApplicationEntity> applicationEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private final List<Bookmark> bookmarks = new ArrayList<>();

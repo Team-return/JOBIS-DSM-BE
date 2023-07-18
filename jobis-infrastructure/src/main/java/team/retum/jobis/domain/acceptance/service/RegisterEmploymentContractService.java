@@ -5,7 +5,7 @@ import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
 import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceRepository;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractRequest;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;

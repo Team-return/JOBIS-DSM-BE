@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.application.persistence.enums.ApplicationStatus;
+import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusRequest;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateRequest;
 import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;

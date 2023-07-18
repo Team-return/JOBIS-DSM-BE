@@ -2,7 +2,7 @@ package team.retum.jobis.domain.application.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.application.persistence.enums.AttachmentType;
+import com.example.jobisapplication.domain.application.domain.AttachmentType;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

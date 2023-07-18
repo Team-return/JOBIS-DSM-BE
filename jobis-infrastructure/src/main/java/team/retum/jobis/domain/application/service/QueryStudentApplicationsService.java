@@ -26,7 +26,7 @@ public class QueryStudentApplicationsService {
                                 .applicationId(application.getId())
                                 .company(application.getCompanyName())
                                 .attachments(
-                                        application.getApplicationAttachments().stream()
+                                        application.getApplicationAttachmentEntities().stream()
                                                 .map(AttachmentResponse::of)
                                                 .toList()
                                 )
