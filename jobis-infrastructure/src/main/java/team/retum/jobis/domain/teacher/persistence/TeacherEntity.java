@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Teacher {
+public class TeacherEntity {
 
     @Id
     @Column(name = "teacher_id")
