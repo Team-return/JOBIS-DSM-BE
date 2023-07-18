@@ -3,7 +3,7 @@ package team.retum.jobis.domain.recruitment.persistence.repository.vo;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import com.example.jobisapplication.domain.company.domain.CompanyType;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.type.RecruitDate;
 
 @Getter

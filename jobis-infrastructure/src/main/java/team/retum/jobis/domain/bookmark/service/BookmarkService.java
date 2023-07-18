@@ -3,7 +3,7 @@ package team.retum.jobis.domain.bookmark.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
 import team.retum.jobis.domain.bookmark.persistence.repository.BookmarkRepository;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.domain.user.facade.UserFacade;
@@ -19,12 +19,12 @@ public class BookmarkService {
 
     public void execute(Long recruitmentId) {
         Student student = userFacade.getCurrentStudent();
-        Recruitment recruitment = recruitmentFacade.queryRecruitmentById(recruitmentId);
+        RecruitmentEntity recruitmentEntity = recruitmentFacade.queryRecruitmentById(recruitmentId);
 
-        bookmarkRepository.queryBookmarkByRecruitmentAndStudent(recruitment, student)
+        bookmarkRepository.queryBookmarkByRecruitmentAndStudent(recruitmentEntity, student)
                 .ifPresentOrElse(
                         bookmarkRepository::deleteBookmark,
-                        () -> bookmarkRepository.saveBookmark(new BookmarkEntity(recruitment, student))
+                        () -> bookmarkRepository.saveBookmark(new BookmarkEntity(recruitmentEntity, student))
                 );
     }
 }

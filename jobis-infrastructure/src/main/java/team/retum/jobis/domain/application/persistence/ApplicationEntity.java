@@ -9,7 +9,7 @@ import team.retum.jobis.domain.application.exception.ApplicationCannotDeleteExce
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.application.exception.InvalidStudentException;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
@@ -44,7 +44,7 @@ public class ApplicationEntity extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id")
-    private Recruitment recruitment;
+    private RecruitmentEntity recruitmentEntity;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(11)")
@@ -64,9 +64,9 @@ public class ApplicationEntity extends BaseTimeEntity {
     private List<ApplicationAttachmentEntity> applicationAttachmentEntities = new ArrayList<>();
 
     @Builder
-    public ApplicationEntity(Student student, Recruitment recruitment, ApplicationStatus applicationStatus) {
+    public ApplicationEntity(Student student, RecruitmentEntity recruitmentEntity, ApplicationStatus applicationStatus) {
         this.student = student;
-        this.recruitment = recruitment;
+        this.recruitmentEntity = recruitmentEntity;
         this.applicationStatus = applicationStatus;
     }
 

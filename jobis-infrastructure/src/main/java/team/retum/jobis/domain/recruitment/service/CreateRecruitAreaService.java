@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaRequest;
 import team.retum.jobis.domain.user.persistence.User;
@@ -27,9 +27,9 @@ public class CreateRecruitAreaService {
     public void execute(RecruitAreaRequest request, Long recruitmentId) {
         User user = userFacade.getCurrentUser();
 
-        Recruitment recruitment = recruitmentFacade.queryRecruitmentById(recruitmentId);
+        RecruitmentEntity recruitmentEntity = recruitmentFacade.queryRecruitmentById(recruitmentId);
         if (user.getAuthority() == Authority.COMPANY) {
-            recruitment.checkCompany(user.getId());
+            recruitmentEntity.checkCompany(user.getId());
         }
 
         Map<CodeType, List<CodeEntity>> codes = codeFacade
@@ -38,7 +38,7 @@ public class CreateRecruitAreaService {
 
         recruitmentFacade.createRecruitArea(
                 codes,
-                recruitment,
+                recruitmentEntity,
                 request.getMajorTask(),
                 request.getHiring()
         );

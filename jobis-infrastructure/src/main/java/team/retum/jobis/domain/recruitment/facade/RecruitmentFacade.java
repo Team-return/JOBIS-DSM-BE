@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.persistence.RecruitAreaCodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
-import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import com.example.jobisapplication.common.util.StringUtil;
@@ -20,14 +20,14 @@ public class RecruitmentFacade {
 
     private final RecruitmentRepository recruitmentRepository;
 
-    public Recruitment queryRecruitmentById(Long id) {
+    public RecruitmentEntity queryRecruitmentById(Long id) {
         return recruitmentRepository.queryRecruitmentById(id)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
     }
 
     public void createRecruitArea(
             Map<CodeType, List<CodeEntity>> codes,
-            Recruitment recruitment,
+            RecruitmentEntity recruitmentEntity,
             String majorTask,
             int hiredCount
     ) {
@@ -35,18 +35,18 @@ public class RecruitmentFacade {
                 .map(CodeEntity::getKeyword)
                 .toList();
 
-        RecruitArea recruitArea = recruitmentRepository.saveRecruitArea(
-                RecruitArea.builder()
+        RecruitAreaEntity recruitAreaEntity = recruitmentRepository.saveRecruitArea(
+                RecruitAreaEntity.builder()
                         .majorTask(majorTask)
                         .hiredCount(hiredCount)
-                        .recruitment(recruitment)
+                        .recruitment(recruitmentEntity)
                         .jobCodes(StringUtil.joinStringList(jobCodes))
                         .build()
         );
 
         recruitmentRepository.saveAllRecruitAreaCodes(
                 codes.get(CodeType.TECH).stream()
-                        .map(code -> new RecruitAreaCodeEntity(recruitArea, code))
+                        .map(code -> new RecruitAreaCodeEntity(recruitAreaEntity, code))
                         .toList()
         );
     }

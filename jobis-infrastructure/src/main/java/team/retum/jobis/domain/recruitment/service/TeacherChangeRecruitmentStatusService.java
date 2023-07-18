@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentRequest;
@@ -15,14 +15,14 @@ public class TeacherChangeRecruitmentStatusService {
     private final RecruitmentRepository recruitmentRepository;
 
     public void execute(ChangeRecruitmentRequest request) {
-        List<Recruitment> recruitments = recruitmentRepository.queryRecruitmentsByIdIn(request.getRecruitmentIds());
+        List<RecruitmentEntity> recruitmentEntities = recruitmentRepository.queryRecruitmentsByIdIn(request.getRecruitmentIds());
 
-        if (recruitments.size() != request.getRecruitmentIds().size()) {
+        if (recruitmentEntities.size() != request.getRecruitmentIds().size()) {
             throw RecruitmentNotFoundException.EXCEPTION;
         }
 
         recruitmentRepository.saveAllRecruitments(
-                recruitments.stream()
+                recruitmentEntities.stream()
                         .map(recruitment -> recruitment.changeStatus(request.getStatus()))
                         .toList()
         );

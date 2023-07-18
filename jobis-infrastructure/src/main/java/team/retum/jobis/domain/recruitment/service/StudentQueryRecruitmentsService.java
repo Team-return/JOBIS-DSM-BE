@@ -3,7 +3,7 @@ package team.retum.jobis.domain.recruitment.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.presentation.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.presentation.dto.response.StudentQueryRecruitmentsResponse;

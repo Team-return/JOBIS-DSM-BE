@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.bookmark.persistence.BookmarkEntity;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QQueryStudentBookmarksVO;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.Student;
 
 import java.util.List;
@@ -28,16 +28,16 @@ public class BookmarkRepository {
         bookmarkJpaRepository.save(bookmarkEntity);
     }
 
-    public Optional<BookmarkEntity> queryBookmarkByRecruitmentAndStudent(Recruitment recruitment, Student student) {
-        return bookmarkJpaRepository.findByRecruitmentAndStudent(recruitment, student);
+    public Optional<BookmarkEntity> queryBookmarkByRecruitmentAndStudent(RecruitmentEntity recruitmentEntity, Student student) {
+        return bookmarkJpaRepository.findByRecruitmentAndStudent(recruitmentEntity, student);
     }
 
     public void deleteBookmark(BookmarkEntity bookmarkEntity) {
         bookmarkJpaRepository.delete(bookmarkEntity);
     }
 
-    public boolean existsBookmarkByRecruitmentAndStudent(Recruitment recruitment, Student student) {
-        return bookmarkJpaRepository.existsByRecruitmentAndStudent(recruitment, student);
+    public boolean existsBookmarkByRecruitmentAndStudent(RecruitmentEntity recruitmentEntity, Student student) {
+        return bookmarkJpaRepository.existsByRecruitmentAndStudent(recruitmentEntity, student);
     }
 
     public List<QueryStudentBookmarksVO> queryBookmarksByStudentId(Long studentId) {

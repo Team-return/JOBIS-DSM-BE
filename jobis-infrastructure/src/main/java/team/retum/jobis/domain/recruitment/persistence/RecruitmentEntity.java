@@ -8,8 +8,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.application.persistence.ApplicationEntity;
 import team.retum.jobis.domain.company.persistence.CompanyEntity;
-import team.retum.jobis.domain.recruitment.persistence.enums.ProgressType;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.domain.ProgressType;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.converter.HiringProgressConverter;
 import team.retum.jobis.domain.recruitment.persistence.type.PayInfo;
 import team.retum.jobis.domain.recruitment.persistence.type.RecruitDate;
@@ -41,7 +41,7 @@ import java.util.List;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Recruitment extends BaseTimeEntity {
+public class RecruitmentEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,15 +104,15 @@ public class Recruitment extends BaseTimeEntity {
     private CompanyEntity companyEntity;
 
     @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
-    private final List<RecruitArea> recruitAreas = new ArrayList<>();
+    private final List<RecruitAreaEntity> recruitAreaEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "recruitment")
     private final List<ApplicationEntity> applicationEntities = new ArrayList<>();
 
     @Builder
-    public Recruitment(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport, List<String> requiredLicenses,
-                       String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade, Boolean personalContact) {
+    public RecruitmentEntity(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
+                             LocalDate startDate, LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport, List<String> requiredLicenses,
+                             String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade, Boolean personalContact) {
         this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
@@ -147,7 +147,7 @@ public class Recruitment extends BaseTimeEntity {
         this.etc = etc;
     }
 
-    public Recruitment changeStatus(RecruitStatus status) {
+    public RecruitmentEntity changeStatus(RecruitStatus status) {
         this.status = status;
         return this;
     }

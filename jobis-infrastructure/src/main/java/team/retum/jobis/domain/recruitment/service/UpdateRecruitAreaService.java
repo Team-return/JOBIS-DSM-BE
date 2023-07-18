@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
+import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
@@ -30,14 +30,14 @@ public class UpdateRecruitAreaService {
     public void execute(RecruitAreaRequest request, Long recruitAreaId) {
         User user = userFacade.getCurrentUser();
 
-        RecruitArea recruitArea = recruitmentRepository.queryRecruitAreaById(recruitAreaId)
+        RecruitAreaEntity recruitAreaEntity = recruitmentRepository.queryRecruitAreaById(recruitAreaId)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
 
         if (user.getAuthority() == Authority.COMPANY) {
-            recruitArea.getRecruitment().checkCompany(user.getId());
+            recruitAreaEntity.getRecruitmentEntity().checkCompany(user.getId());
         }
 
-        recruitmentRepository.deleteRecruitAreaCodeByRecruitAreaId(recruitArea.getId());
+        recruitmentRepository.deleteRecruitAreaCodeByRecruitAreaId(recruitAreaEntity.getId());
 
         Map<CodeType, List<CodeEntity>> codes = codeFacade
                 .queryCodesByIdIn(request.getCodes()).stream()
@@ -45,7 +45,7 @@ public class UpdateRecruitAreaService {
 
         recruitmentFacade.createRecruitArea(
                 codes,
-                recruitArea.getRecruitment(),
+                recruitAreaEntity.getRecruitmentEntity(),
                 request.getMajorTask(),
                 request.getHiring()
         );

@@ -11,7 +11,7 @@ import team.retum.jobis.domain.acceptance.persistence.AcceptanceEntity;
 import com.example.jobisapplication.domain.company.domain.CompanyType;
 import team.retum.jobis.domain.company.persistence.type.Address;
 import team.retum.jobis.domain.company.persistence.type.Manager;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.user.persistence.User;
 import team.retum.jobis.global.util.ImageProperty;
 
@@ -115,7 +115,7 @@ public class CompanyEntity {
     private String serviceName;
 
     @OneToMany(mappedBy = "company")
-    private final List<Recruitment> recruitmentList = new ArrayList<>();
+    private final List<RecruitmentEntity> recruitmentEntityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
     private final List<CompanyAttachmentEntity> companyAttachmentEntities = new ArrayList<>();

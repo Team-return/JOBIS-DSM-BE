@@ -1,4 +1,4 @@
-package com.example.jobisapplication.domain.company.domain;L
+package com.example.jobisapplication.domain.company.domain;
 
 import com.example.jobisapplication.common.annotation.Aggregate;
 import lombok.Builder;

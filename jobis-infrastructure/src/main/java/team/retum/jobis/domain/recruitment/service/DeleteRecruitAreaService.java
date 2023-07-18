@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.user.persistence.User;
@@ -20,18 +20,18 @@ public class DeleteRecruitAreaService {
     public void execute(Long recruitAreaId) {
         User user = userFacade.getCurrentUser();
 
-        RecruitArea recruitArea = recruitmentRepository.queryRecruitAreaById(recruitAreaId)
+        RecruitAreaEntity recruitAreaEntity = recruitmentRepository.queryRecruitAreaById(recruitAreaId)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
-        Recruitment recruitment = recruitArea.getRecruitment();
+        RecruitmentEntity recruitmentEntity = recruitAreaEntity.getRecruitmentEntity();
 
-        if (recruitment.getRecruitAreas().size() <= 1) {
+        if (recruitmentEntity.getRecruitAreaEntities().size() <= 1) {
             throw RecruitAreaCannotDeleteException.EXCEPTION;
         }
 
         if (user.getAuthority() == Authority.COMPANY) {
-            recruitment.checkCompany(user.getId());
+            recruitmentEntity.checkCompany(user.getId());
         }
 
-        recruitmentRepository.deleteRecruitAreaById(recruitArea.getId());
+        recruitmentRepository.deleteRecruitAreaById(recruitAreaEntity.getId());
     }
 }

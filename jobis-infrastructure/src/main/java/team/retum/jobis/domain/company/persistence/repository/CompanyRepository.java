@@ -19,7 +19,7 @@ import team.retum.jobis.domain.company.persistence.repository.vo.StudentQueryCom
 import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryEmployCompaniesVO;
 import team.retum.jobis.domain.company.presentation.dto.CompanyFilter;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 
 import java.util.List;
 import java.util.Optional;

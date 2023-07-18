@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.Student;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
@@ -25,7 +25,7 @@ public class BookmarkEntity extends BaseTimeEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
-    private Recruitment recruitment;
+    private RecruitmentEntity recruitmentEntity;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

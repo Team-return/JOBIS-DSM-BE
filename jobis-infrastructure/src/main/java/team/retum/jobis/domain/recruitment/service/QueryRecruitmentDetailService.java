@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.RecruitAreaVO;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -18,30 +18,30 @@ public class QueryRecruitmentDetailService {
     private final RecruitmentRepository recruitmentRepository;
 
     public QueryRecruitmentDetailResponse execute(Long recruitId) {
-        Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitId)
+        RecruitmentEntity recruitmentEntity = recruitmentRepository.queryRecruitmentById(recruitId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         List<RecruitAreaVO> recruitAreas =
-                recruitmentRepository.queryRecruitAreasByRecruitmentId(recruitment.getId());
+                recruitmentRepository.queryRecruitAreasByRecruitmentId(recruitmentEntity.getId());
 
         return QueryRecruitmentDetailResponse.builder()
-                .companyId(recruitment.getCompanyEntity().getId())
-                .companyProfileUrl(recruitment.getCompanyEntity().getCompanyLogoUrl())
-                .companyName(recruitment.getCompanyEntity().getName())
+                .companyId(recruitmentEntity.getCompanyEntity().getId())
+                .companyProfileUrl(recruitmentEntity.getCompanyEntity().getCompanyLogoUrl())
+                .companyName(recruitmentEntity.getCompanyEntity().getName())
                 .areas(RecruitAreaResponse.of(recruitAreas))
-                .pay(recruitment.getPayInfo().getPay())
-                .trainPay(recruitment.getPayInfo().getTrainPay())
-                .etc(recruitment.getEtc())
-                .submitDocument(recruitment.getSubmitDocument())
-                .requiredGrade(recruitment.getRequiredGrade())
-                .requiredLicenses(recruitment.getRequiredLicenses())
-                .startDate(recruitment.getRecruitDate().getStartDate())
-                .endDate(recruitment.getRecruitDate().getFinishDate())
-                .hiringProgress(recruitment.getHiringProgress())
-                .workHours(recruitment.getWorkingHours())
-                .preferentialTreatment(recruitment.getPreferentialTreatment())
-                .military(recruitment.getMilitarySupport())
-                .benefits(recruitment.getBenefits())
+                .pay(recruitmentEntity.getPayInfo().getPay())
+                .trainPay(recruitmentEntity.getPayInfo().getTrainPay())
+                .etc(recruitmentEntity.getEtc())
+                .submitDocument(recruitmentEntity.getSubmitDocument())
+                .requiredGrade(recruitmentEntity.getRequiredGrade())
+                .requiredLicenses(recruitmentEntity.getRequiredLicenses())
+                .startDate(recruitmentEntity.getRecruitDate().getStartDate())
+                .endDate(recruitmentEntity.getRecruitDate().getFinishDate())
+                .hiringProgress(recruitmentEntity.getHiringProgress())
+                .workHours(recruitmentEntity.getWorkingHours())
+                .preferentialTreatment(recruitmentEntity.getPreferentialTreatment())
+                .military(recruitmentEntity.getMilitarySupport())
+                .benefits(recruitmentEntity.getBenefits())
                 .build();
     }
 }

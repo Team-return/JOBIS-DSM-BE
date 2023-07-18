@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.recruitment.persistence.enums;
+package com.example.jobisapplication.domain.recruitment.domain;
 
 public enum ProgressType {
     DOCUMENT,

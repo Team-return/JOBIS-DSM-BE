@@ -3,7 +3,7 @@ package team.retum.jobis.domain.recruitment.presentation.dto;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.code.persistence.CodeEntity;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 
 import java.time.LocalDate;
 import java.util.List;

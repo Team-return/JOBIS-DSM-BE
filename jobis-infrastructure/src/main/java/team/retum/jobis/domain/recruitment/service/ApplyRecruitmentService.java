@@ -5,8 +5,8 @@ import team.retum.jobis.domain.code.persistence.CodeEntity;
 import com.example.jobisapplication.domain.code.domain.CodeType;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.CompanyEntity;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.facade.RecruitmentFacade;
@@ -35,8 +35,8 @@ public class ApplyRecruitmentService {
             throw RecruitmentAlreadyExistsException.EXCEPTION;
         }
 
-        Recruitment recruitment = recruitmentRepository.saveRecruitment(
-                Recruitment.builder()
+        RecruitmentEntity recruitmentEntity = recruitmentRepository.saveRecruitment(
+                RecruitmentEntity.builder()
                         .company(companyEntity)
                         .recruitYear(Year.now().getValue())
                         .militarySupport(request.isMilitarySupport())
@@ -65,7 +65,7 @@ public class ApplyRecruitmentService {
 
                     recruitmentFacade.createRecruitArea(
                             codes,
-                            recruitment,
+                            recruitmentEntity,
                             area.getMajorTask(),
                             area.getHiring()
                     );

@@ -11,9 +11,9 @@ import team.retum.jobis.domain.code.persistence.CodeEntity;
 import team.retum.jobis.domain.code.persistence.RecruitAreaCodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.RecruitAreaCodeJpaRepository;
 import team.retum.jobis.domain.company.persistence.CompanyEntity;
-import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QRecruitAreaVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QueryRecruitmentsVO;
@@ -121,7 +121,7 @@ public class RecruitmentRepository {
                 );
     }
 
-    public Optional<Recruitment> queryRecentRecruitmentByCompanyId(Long companyId) {
+    public Optional<RecruitmentEntity> queryRecentRecruitmentByCompanyId(Long companyId) {
         return Optional.ofNullable(queryFactory
                 .selectFrom(recruitment)
                 .where(recruitment.company.id.eq(companyId))
@@ -129,7 +129,7 @@ public class RecruitmentRepository {
                 .fetchFirst());
     }
 
-    public List<Recruitment> queryApprovedRecruitmentsAfterRecruitDate() {
+    public List<RecruitmentEntity> queryApprovedRecruitmentsAfterRecruitDate() {
         return queryFactory
                 .selectFrom(recruitment)
                 .where(
@@ -139,7 +139,7 @@ public class RecruitmentRepository {
                 .fetch();
     }
 
-    public Optional<RecruitArea> queryRecruitAreaById(Long recruitAreaId) {
+    public Optional<RecruitAreaEntity> queryRecruitAreaById(Long recruitAreaId) {
         return recruitAreaJpaRepository.findById(recruitAreaId);
     }
 
@@ -151,11 +151,11 @@ public class RecruitmentRepository {
         recruitAreaJpaRepository.deleteById(recruitAreaId);
     }
 
-    public void saveAllRecruitments(List<Recruitment> recruitments) {
-        recruitmentJpaRepository.saveAll(recruitments);
+    public void saveAllRecruitments(List<RecruitmentEntity> recruitmentEntities) {
+        recruitmentJpaRepository.saveAll(recruitmentEntities);
     }
 
-    public Optional<Recruitment> queryRecruitmentById(Long recruitmentId) {
+    public Optional<RecruitmentEntity> queryRecruitmentById(Long recruitmentId) {
         return recruitmentJpaRepository.findById(recruitmentId);
     }
 
@@ -167,15 +167,15 @@ public class RecruitmentRepository {
         recruitmentJpaRepository.deleteById(recruitmentId);
     }
 
-    public Recruitment saveRecruitment(Recruitment recruitment) {
-        return recruitmentJpaRepository.save(recruitment);
+    public RecruitmentEntity saveRecruitment(RecruitmentEntity recruitmentEntity) {
+        return recruitmentJpaRepository.save(recruitmentEntity);
     }
 
-    public RecruitArea saveRecruitArea(RecruitArea recruitArea) {
-        return recruitAreaJpaRepository.save(recruitArea);
+    public RecruitAreaEntity saveRecruitArea(RecruitAreaEntity recruitAreaEntity) {
+        return recruitAreaJpaRepository.save(recruitAreaEntity);
     }
 
-    public List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds) {
+    public List<RecruitmentEntity> queryRecruitmentsByIdIn(List<Long> recruitmentIds) {
         return recruitmentJpaRepository.findByIdIn(recruitmentIds);
     }
 

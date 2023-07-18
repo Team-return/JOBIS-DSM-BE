@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
-import team.retum.jobis.domain.recruitment.persistence.enums.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
+import com.example.jobisapplication.domain.recruitment.domain.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import com.example.jobisapplication.common.annotation.Service;
 
@@ -16,10 +16,10 @@ public class ChangeRecruitmentStatusSchedulerService {
     private final RecruitmentRepository recruitmentRepository;
 
     public void execute() {
-        List<Recruitment> recruitments = recruitmentRepository.queryApprovedRecruitmentsAfterRecruitDate();
+        List<RecruitmentEntity> recruitmentEntities = recruitmentRepository.queryApprovedRecruitmentsAfterRecruitDate();
 
         recruitmentRepository.saveAllRecruitments(
-                recruitments.stream()
+                recruitmentEntities.stream()
                         .map(recruitment -> recruitment.changeStatus(RecruitStatus.RECRUITING))
                         .filter(
                                 recruitment ->

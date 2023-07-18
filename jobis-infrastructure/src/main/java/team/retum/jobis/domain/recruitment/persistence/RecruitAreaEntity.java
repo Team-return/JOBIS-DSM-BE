@@ -22,7 +22,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class RecruitArea {
+public class RecruitAreaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,16 +42,16 @@ public class RecruitArea {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
-    private Recruitment recruitment;
+    private RecruitmentEntity recruitmentEntity;
 
     @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
     private List<RecruitAreaCodeEntity> recruitAreaCodeEntities = new ArrayList<>();
 
     @Builder
-    public RecruitArea(Integer hiredCount, String majorTask, String jobCodes, Recruitment recruitment) {
+    public RecruitAreaEntity(Integer hiredCount, String majorTask, String jobCodes, RecruitmentEntity recruitmentEntity) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
         this.jobCodes = jobCodes;
-        this.recruitment = recruitment;
+        this.recruitmentEntity = recruitmentEntity;
     }
 }

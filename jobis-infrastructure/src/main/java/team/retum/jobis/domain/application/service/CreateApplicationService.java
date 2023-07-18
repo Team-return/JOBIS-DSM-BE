@@ -7,7 +7,7 @@ import com.example.jobisapplication.domain.application.domain.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
 import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationRequest;
-import team.retum.jobis.domain.recruitment.persistence.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.student.persistence.Student;
@@ -28,9 +28,9 @@ public class CreateApplicationService {
         Student student = userFacade.getCurrentStudent();
         student.checkIs3rdGrade();
 
-        Recruitment recruitment = recruitmentRepository.queryRecruitmentById(recruitmentId)
+        RecruitmentEntity recruitmentEntity = recruitmentRepository.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
-        recruitment.checkIsApplicatable();
+        recruitmentEntity.checkIsApplicatable();
 
         if (applicationRepository.existsApplicationByStudentIdAndApplicationStatusIn(
                 student.getId(),
@@ -46,7 +46,7 @@ public class CreateApplicationService {
         ApplicationEntity applicationEntity = applicationRepository.saveApplication(
                 ApplicationEntity.builder()
                         .student(student)
-                        .recruitment(recruitment)
+                        .recruitment(recruitmentEntity)
                         .applicationStatus(ApplicationStatus.REQUESTED)
                         .build()
         );

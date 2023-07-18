@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.recruitment.persistence.RecruitArea;
+import team.retum.jobis.domain.recruitment.persistence.RecruitAreaEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +24,7 @@ public class RecruitAreaCodeEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruit_area_id", nullable = false)
-    private RecruitArea recruitArea;
+    private RecruitAreaEntity recruitAreaEntity;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
