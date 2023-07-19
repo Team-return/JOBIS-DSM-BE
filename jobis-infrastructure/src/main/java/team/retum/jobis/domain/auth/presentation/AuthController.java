@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeWebRequest;
-import team.retum.jobis.domain.auth.service.SendAuthCodeService;
-import team.retum.jobis.domain.auth.service.TokenReissueService;
-import team.retum.jobis.domain.auth.service.VerifyAuthCodeService;
+import com.example.jobisapplication.domain.auth.usecase.SendAuthCodeService;
+import com.example.jobisapplication.domain.auth.usecase.TokenReissueService;
+import com.example.jobisapplication.domain.auth.usecase.VerifyAuthCodeService;
 import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 
 import javax.validation.Valid;

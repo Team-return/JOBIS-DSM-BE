@@ -11,6 +11,8 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpa
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Component
 public class BookmarkMapper {
@@ -33,5 +35,14 @@ public class BookmarkMapper {
                 .recruitmentId(entity.getRecruitmentEntity().getId())
                 .studentId(entity.getStudentEntity().getId())
                 .build();
+    }
+
+    public Optional<Bookmark> toOptionalDomain(Optional<BookmarkEntity> entity) {
+        return entity.map(
+                bookmarkEntity -> Bookmark.builder()
+                        .studentId(bookmarkEntity.getStudentEntity().getId())
+                        .recruitmentId(bookmarkEntity.getRecruitmentEntity().getId())
+                        .build()
+        );
     }
 }

@@ -22,16 +22,16 @@ import com.example.jobisapplication.domain.application.dto.response.QueryEmploym
 import com.example.jobisapplication.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
 import com.example.jobisapplication.domain.application.dto.response.StudentQueryApplicationsResponse;
 import com.example.jobisapplication.domain.application.dto.response.TeacherQueryApplicationsResponse;
-import team.retum.jobis.domain.application.service.ChangeApplicationsStatusService;
-import team.retum.jobis.domain.application.service.ChangeFieldTrainDateService;
-import team.retum.jobis.domain.application.service.CreateApplicationService;
-import team.retum.jobis.domain.application.service.DeleteApplicationService;
-import team.retum.jobis.domain.application.service.QueryCompanyApplicationsService;
-import team.retum.jobis.domain.application.service.QueryEmploymentCountService;
-import team.retum.jobis.domain.application.service.QueryPassedApplicationStudentsService;
-import team.retum.jobis.domain.application.service.QueryStudentApplicationsService;
-import team.retum.jobis.domain.application.service.RejectApplicationService;
-import team.retum.jobis.domain.application.service.TeacherQueryApplicationsService;
+import com.example.jobisapplication.domain.application.usecase.ChangeApplicationsStatusUseCase;
+import com.example.jobisapplication.domain.application.usecase.ChangeFieldTrainDateService;
+import com.example.jobisapplication.domain.application.usecase.CreateApplicationService;
+import com.example.jobisapplication.domain.application.usecase.DeleteApplicationService;
+import com.example.jobisapplication.domain.application.usecase.QueryCompanyApplicationsService;
+import com.example.jobisapplication.domain.application.usecase.QueryEmploymentCountService;
+import com.example.jobisapplication.domain.application.usecase.QueryPassedApplicationStudentsService;
+import com.example.jobisapplication.domain.application.usecase.QueryStudentApplicationsService;
+import com.example.jobisapplication.domain.application.usecase.RejectApplicationService;
+import com.example.jobisapplication.domain.application.usecase.TeacherQueryApplicationsService;
 
 import javax.validation.Valid;
 
@@ -45,7 +45,7 @@ public class ApplicationController {
     private final TeacherQueryApplicationsService queryApplicationListService;
     private final QueryCompanyApplicationsService queryCompanyApplicationsService;
     private final QueryStudentApplicationsService queryStudentApplicationsService;
-    private final ChangeApplicationsStatusService changeApplicationsStatusService;
+    private final ChangeApplicationsStatusUseCase changeApplicationsStatusUseCase;
     private final ChangeFieldTrainDateService changeFieldTrainDateService;
     private final RejectApplicationService rejectApplicationService;
     private final QueryEmploymentCountService queryEmploymentCountService;
@@ -88,7 +88,7 @@ public class ApplicationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
     public void changeApplicationsStatus(@RequestBody @Valid ChangeApplicationsStatusWebRequest request) {
-        changeApplicationsStatusService.execute(
+        changeApplicationsStatusUseCase.execute(
                 request.getApplicationIds(),
                 request.getStatus()
         );

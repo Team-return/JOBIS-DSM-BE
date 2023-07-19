@@ -46,6 +46,11 @@ public class JwtTokenAdapter implements JwtPort {
         };
     }
 
+    @Override
+    public Long getRefreshExp() {
+        return jwtProperties.getRefreshExp().longValue();
+    }
+
     private String generateToken(String id, TokenType type, Integer exp, Authority authority) {
         return Jwts.builder()
                 .setSubject(id)
@@ -62,11 +67,11 @@ public class JwtTokenAdapter implements JwtPort {
         String access = generateAccessToken(userId, authority);
         String refresh = generateRefreshToken(userId, authority);
 
-        return new TokenResponse(
-                access,
-                LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp()),
-                refresh,
-                LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp())
-        );
+        return TokenResponse.builder()
+                .accessToken(access)
+                .accessExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp()))
+                .refreshToken(refresh)
+                .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
+                .build();
     }
 }

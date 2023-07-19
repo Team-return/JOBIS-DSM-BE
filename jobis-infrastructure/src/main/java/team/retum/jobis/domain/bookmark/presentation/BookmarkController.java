@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.jobisapplication.domain.bookmark.dto.response.QueryStudentBookmarksResponse;
-import team.retum.jobis.domain.bookmark.service.BookmarkService;
-import team.retum.jobis.domain.bookmark.service.QueryStudentBookmarksService;
+import com.example.jobisapplication.domain.bookmark.usecase.BookmarkService;
+import com.example.jobisapplication.domain.bookmark.usecase.QueryStudentBookmarksService;
 
 @RequiredArgsConstructor
 @RequestMapping("/bookmarks")

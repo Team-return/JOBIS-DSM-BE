@@ -1,12 +1,12 @@
 package com.example.jobisapplication.domain.auth.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor
+@Builder
 public class TokenResponse {
     private final String accessToken;
     private final LocalDateTime accessExpiresAt;

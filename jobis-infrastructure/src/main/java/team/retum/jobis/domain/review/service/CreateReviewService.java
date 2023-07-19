@@ -2,7 +2,7 @@ package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
-import team.retum.jobis.domain.application.persistence.repository.ApplicationRepository;
+import team.retum.jobis.domain.application.persistence.repository.ApplicationPersistenceAdapter;
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.code.facade.CodeFacade;
 import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
@@ -27,7 +27,7 @@ public class CreateReviewService {
 
     private final UserFacade userFacade;
     private final StudentRepository studentRepository;
-    private final ApplicationRepository applicationRepository;
+    private final ApplicationPersistenceAdapter applicationPersistenceAdapter;
     private final ReviewRepository reviewRepository;
     private final CompanyRepository companyRepository;
     private final CodeFacade codeFacade;
@@ -36,7 +36,7 @@ public class CreateReviewService {
         if (!companyRepository.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
-        ApplicationEntity applicationEntity = applicationRepository.queryApplicationById(request.getApplicationId())
+        ApplicationEntity applicationEntity = applicationPersistenceAdapter.queryApplicationById(request.getApplicationId())
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         applicationEntity.checkReviewAuthority();

@@ -1,0 +1,37 @@
+package team.retum.jobis.domain.auth.persistence;
+
+import com.example.jobisapplication.domain.auth.exception.AuthCodeNotFoundException;
+import com.example.jobisapplication.domain.auth.model.AuthCode;
+import com.example.jobisapplication.domain.auth.spi.AuthCodePort;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.auth.persistence.mapper.AuthCodeMapper;
+import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
+
+@RequiredArgsConstructor
+@Component
+public class AuthCodePersistenceAdapter implements AuthCodePort {
+
+    private final AuthCodeRepository authCodeRepository;
+    private final AuthCodeMapper authCodeMapper;
+
+    @Override
+    public void saveAuthCode(AuthCode authCode) {
+        authCodeRepository.save(
+                authCodeMapper.toEntity(authCode)
+        );
+    }
+
+    @Override
+    public AuthCode queryAuthCodeByEmail(String email) {
+        return authCodeMapper.toDomain(
+                authCodeRepository.findById(email)
+                        .orElseThrow(() -> AuthCodeNotFoundException.EXCEPTION)
+        );
+    }
+
+    @Override
+    public boolean existsAuthCodeByEmailAndVerifiedIsTrue(String email) {
+        return authCodeRepository.existsByEmailAndVerifiedIsTrue(email);
+    }
+}

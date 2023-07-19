@@ -1,4 +1,4 @@
 package com.example.jobisapplication.domain.acceptance.spi;
 
-public interface AcceptancePort extends CommandAcceptancePort{
+public interface AcceptancePort extends CommandAcceptancePort, QueryAcceptancePort {
 }

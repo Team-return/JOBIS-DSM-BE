@@ -16,11 +16,11 @@ import team.retum.jobis.domain.acceptance.presentation.dto.request.ChangeContrac
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractWebRequest;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeWebRequest;
 import com.example.jobisapplication.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
-import team.retum.jobis.domain.acceptance.service.CancelFieldTraineesService;
-import team.retum.jobis.domain.acceptance.service.ChangeContractDateService;
-import team.retum.jobis.domain.acceptance.service.RegisterEmploymentContractService;
-import team.retum.jobis.domain.acceptance.service.RegisterFieldTraineeService;
-import team.retum.jobis.domain.acceptance.service.TeacherQueryFieldTraineesAndContractWorkersService;
+import com.example.jobisapplication.domain.acceptance.usecase.CancelFieldTraineesUseCase;
+import com.example.jobisapplication.domain.acceptance.usecase.ChangeContractDateService;
+import com.example.jobisapplication.domain.acceptance.usecase.RegisterEmploymentContractService;
+import com.example.jobisapplication.domain.acceptance.usecase.RegisterFieldTraineeService;
+import com.example.jobisapplication.domain.acceptance.usecase.TeacherQueryFieldTraineesAndContractWorkersService;
 
 import javax.validation.Valid;
 
@@ -33,7 +33,7 @@ public class AcceptanceController {
     private final ChangeContractDateService changeContractDateService;
     private final RegisterFieldTraineeService registerFieldTraineeService;
     private final RegisterEmploymentContractService registerEmploymentContractService;
-    private final CancelFieldTraineesService cancelFieldTraineesService;
+    private final CancelFieldTraineesUseCase cancelFieldTraineesUseCase;
 
     @GetMapping("/{company-id}")
     public TeacherQueryFieldTraineesAndContractWorkersResponse teacherQueryFieldTraineesAndContractWorkers(
@@ -65,6 +65,6 @@ public class AcceptanceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
     public void cancelFieldTrainees(@RequestBody @Valid CancelFieldTraineesWebRequest request) {
-        cancelFieldTraineesService.execute(request);
+        cancelFieldTraineesUseCase.execute(request);
     }
 }
