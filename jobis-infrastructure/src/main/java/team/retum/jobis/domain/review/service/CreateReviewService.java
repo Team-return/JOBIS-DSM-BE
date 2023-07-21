@@ -5,7 +5,7 @@ import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationPersistenceAdapter;
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.code.facade.CodeFacade;
-import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.CompanyPersistenceAdapter;
 import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
@@ -29,11 +29,11 @@ public class CreateReviewService {
     private final StudentRepository studentRepository;
     private final ApplicationPersistenceAdapter applicationPersistenceAdapter;
     private final ReviewRepository reviewRepository;
-    private final CompanyRepository companyRepository;
+    private final CompanyPersistenceAdapter companyPersistenceAdapter;
     private final CodeFacade codeFacade;
 
     public void execute(CreateReviewWebRequest request) {
-        if (!companyRepository.existsCompanyById(request.getCompanyId())) {
+        if (!companyPersistenceAdapter.existsCompanyById(request.getCompanyId())) {
             throw CompanyNotFoundException.EXCEPTION;
         }
         ApplicationEntity applicationEntity = applicationPersistenceAdapter.queryApplicationById(request.getApplicationId())

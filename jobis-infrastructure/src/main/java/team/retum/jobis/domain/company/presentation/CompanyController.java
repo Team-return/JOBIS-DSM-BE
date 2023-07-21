@@ -1,5 +1,10 @@
 package team.retum.jobis.domain.company.presentation;
 
+import com.example.jobisapplication.domain.auth.dto.TokenResponse;
+import com.example.jobisapplication.domain.company.dto.request.RegisterCompanyRequest;
+import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyDetailsRequest;
+import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyTypeRequest;
+import com.example.jobisapplication.domain.company.dto.request.UpdateMouRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +27,16 @@ import com.example.jobisapplication.domain.company.dto.response.QueryCompanyDeta
 import com.example.jobisapplication.domain.company.dto.response.StudentQueryCompaniesResponse;
 import com.example.jobisapplication.domain.company.dto.response.TeacherQueryCompaniesResponse;
 import com.example.jobisapplication.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
-import team.retum.jobis.domain.company.service.CheckCompanyExistsService;
-import team.retum.jobis.domain.company.service.CompanyMyPageService;
-import team.retum.jobis.domain.company.service.QueryCompanyDetailsService;
-import team.retum.jobis.domain.company.service.RegisterCompanyService;
-import team.retum.jobis.domain.company.service.StudentQueryCompaniesService;
-import team.retum.jobis.domain.company.service.TeacherQueryCompaniesService;
-import team.retum.jobis.domain.company.service.TeacherQueryEmployCompaniesService;
-import team.retum.jobis.domain.company.service.UpdateCompanyDetailsService;
-import team.retum.jobis.domain.company.service.UpdateCompanyTypeService;
-import team.retum.jobis.domain.company.service.UpdateConventionService;
-import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
+import com.example.jobisapplication.domain.company.usecase.CheckCompanyExistsUseCase;
+import com.example.jobisapplication.domain.company.usecase.CompanyMyPageUseCase;
+import com.example.jobisapplication.domain.company.usecase.QueryCompanyDetailsUseCase;
+import com.example.jobisapplication.domain.company.usecase.RegisterCompanyUseCase;
+import com.example.jobisapplication.domain.company.usecase.StudentQueryCompaniesUseCase;
+import com.example.jobisapplication.domain.company.usecase.TeacherQueryCompaniesUseCase;
+import com.example.jobisapplication.domain.company.usecase.TeacherQueryEmployCompaniesUseCase;
+import com.example.jobisapplication.domain.company.usecase.UpdateCompanyDetailsUseCase;
+import com.example.jobisapplication.domain.company.usecase.UpdateCompanyTypeUseCase;
+import com.example.jobisapplication.domain.company.usecase.UpdateConventionUseCase;
 
 import javax.validation.Valid;
 
@@ -41,32 +45,77 @@ import javax.validation.Valid;
 @RestController
 public class CompanyController {
 
-    private final RegisterCompanyService registerCompanyService;
-    private final CheckCompanyExistsService checkCompanyExistsService;
-    private final UpdateCompanyDetailsService updateCompanyDetailsService;
-    private final StudentQueryCompaniesService studentQueryCompaniesService;
-    private final QueryCompanyDetailsService queryCompanyDetailsService;
-    private final CompanyMyPageService companyMyPageService;
-    private final UpdateCompanyTypeService updateCompanyTypeService;
-    private final TeacherQueryEmployCompaniesService teacherQueryEmployCompaniesService;
-    private final TeacherQueryCompaniesService teacherQueryCompaniesService;
-    private final UpdateConventionService updateConventionService;
+    private final RegisterCompanyUseCase registerCompanyUseCase;
+    private final CheckCompanyExistsUseCase checkCompanyExistsUseCase;
+    private final UpdateCompanyDetailsUseCase updateCompanyDetailsUseCase;
+    private final StudentQueryCompaniesUseCase studentQueryCompaniesUseCase;
+    private final QueryCompanyDetailsUseCase queryCompanyDetailsUseCase;
+    private final CompanyMyPageUseCase companyMyPageUseCase;
+    private final UpdateCompanyTypeUseCase updateCompanyTypeUseCase;
+    private final TeacherQueryEmployCompaniesUseCase teacherQueryEmployCompaniesUseCase;
+    private final TeacherQueryCompaniesUseCase teacherQueryCompaniesUseCase;
+    private final UpdateConventionUseCase updateConventionUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public TokenResponse register(@RequestBody @Valid RegisterCompanyWebRequest request) {
-        return registerCompanyService.execute(request);
+        return registerCompanyUseCase.execute(
+                RegisterCompanyRequest.builder()
+                        .name(request.getName())
+                        .businessNumber(request.getBusinessNumber())
+                        .password(request.getPassword())
+                        .companyIntroduce(request.getCompanyIntroduce())
+                        .mainZipCode(request.getMainZipCode())
+                        .mainAddress(request.getMainAddress())
+                        .mainAddressDetail(request.getMainAddressDetail())
+                        .subZipCode(request.getSubZipCode())
+                        .subAddress(request.getSubAddress())
+                        .subAddressDetail(request.getSubAddressDetail())
+                        .managerName(request.getManagerName())
+                        .managerPhoneNo(request.getManagerPhoneNo())
+                        .subManagerName(request.getSubManagerName())
+                        .subManagerPhoneNo(request.getSubManagerPhoneNo())
+                        .fax(request.getFax())
+                        .email(request.getEmail())
+                        .representativeName(request.getRepresentativeName())
+                        .foundedAt(request.getFoundedAt())
+                        .workerNumber(request.getWorkerNumber())
+                        .take(request.getTake())
+                        .companyProfileUrl(request.getCompanyProfileUrl())
+                        .bizRegistrationUrl(request.getBizRegistrationUrl())
+                        .businessAreaCode(request.getBusinessAreaCode())
+                        .serviceName(request.getServiceName())
+                        .attachmentUrls(request.getAttachmentUrls())
+                        .build()
+        );
     }
 
     @GetMapping("/exists/{business-number}")
     public CheckCompanyExistsResponse companyExists(@PathVariable("business-number") String businessNumber) {
-        return checkCompanyExistsService.execute(businessNumber);
+        return checkCompanyExistsUseCase.execute(businessNumber);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
     public void updateDetails(@RequestBody @Valid UpdateCompanyDetailsWebRequest request) {
-        updateCompanyDetailsService.execute(request);
+        updateCompanyDetailsUseCase.execute(
+                UpdateCompanyDetailsRequest.builder()
+                        .companyIntroduce(request.getCompanyIntroduce())
+                        .zipCode1(request.getZipCode1())
+                        .address1(request.getAddress1())
+                        .zipCode2(request.getZipCode2())
+                        .address2(request.getAddress2())
+                        .manager1(request.getManager1())
+                        .phoneNumber1(request.getPhoneNumber1())
+                        .manager2(request.getManager2())
+                        .phoneNumber2(request.getPhoneNumber2())
+                        .fax(request.getFax())
+                        .email(request.getEmail())
+                        .workerNumber(request.getWorkerNumber())
+                        .take(request.getTake())
+                        .companyProfileUrl(request.getCompanyProfileUrl())
+                        .build()
+        );
     }
 
     @GetMapping("/student")
@@ -74,23 +123,25 @@ public class CompanyController {
             @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(value = "name", required = false) String name
     ) {
-        return studentQueryCompaniesService.execute(page - 1, name);
+        return studentQueryCompaniesUseCase.execute(page - 1, name);
     }
 
     @GetMapping("/{company-id}")
     public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
-        return queryCompanyDetailsService.execute(companyId);
+        return queryCompanyDetailsUseCase.execute(companyId);
     }
 
     @GetMapping("/my")
     public CompanyMyPageResponse queryMyPage() {
-        return companyMyPageService.execute();
+        return companyMyPageUseCase.execute();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/type")
     public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeWebRequest request) {
-        updateCompanyTypeService.execute(request);
+        updateCompanyTypeUseCase.execute(
+                new UpdateCompanyTypeRequest(request.getCompanyIds(), request.getCompanyType())
+        );
     }
 
     @GetMapping("/employment")
@@ -99,7 +150,7 @@ public class CompanyController {
             @RequestParam(value = "company_type", required = false) CompanyType type,
             @RequestParam(value = "year", required = false) Integer year
     ) {
-        return teacherQueryEmployCompaniesService.execute(companyName, type, year);
+        return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year);
     }
 
     @GetMapping("/teacher")
@@ -110,12 +161,14 @@ public class CompanyController {
             @RequestParam(value = "business_area", required = false) Long businessArea,
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return teacherQueryCompaniesService.execute(type, companyName, region, businessArea, page - 1);
+        return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/mou")
     public void updateMou(@RequestBody @Valid UpdateMouWebRequest request) {
-        updateConventionService.execute(request);
+        updateConventionUseCase.execute(
+                new UpdateMouRequest(request.getCompanyIds())
+        );
     }
 }

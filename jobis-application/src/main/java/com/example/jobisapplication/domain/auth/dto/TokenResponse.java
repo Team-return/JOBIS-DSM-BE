@@ -1,5 +1,6 @@
 package com.example.jobisapplication.domain.auth.dto;
 
+import com.example.jobisapplication.domain.auth.model.Authority;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,4 +13,5 @@ public class TokenResponse {
     private final LocalDateTime accessExpiresAt;
     private final String refreshToken;
     private final LocalDateTime refreshExpiresAt;
+    private final Authority authority;
 }

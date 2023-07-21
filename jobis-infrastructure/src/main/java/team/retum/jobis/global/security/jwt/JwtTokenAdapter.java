@@ -1,9 +1,7 @@
 package team.retum.jobis.global.security.jwt;
 
-import com.example.jobisapplication.domain.acceptance.dto.TokenResponse;
 import com.example.jobisapplication.domain.auth.spi.JwtPort;
 import com.example.jobisapplication.domain.auth.dto.TokenResponse;
-import com.example.jobisapplication.domain.acceptance.spi.JwtPort;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +70,7 @@ public class JwtTokenAdapter implements JwtPort {
                 .accessExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp()))
                 .refreshToken(refresh)
                 .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
+                .authority(authority)
                 .build();
     }
 }

@@ -1,34 +1,13 @@
 package team.retum.jobis.domain.company.persistence.repository.vo;
 
+import com.example.jobisapplication.domain.company.spi.vo.CompanyDetailsVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
-public class QueryCompanyDetailsVO {
-
-    private final String businessNumber;
-    private final String companyName;
-    private final String companyProfileUrl;
-    private final String companyIntroduce;
-    private final String zipCode1;
-    private final String address1;
-    private final String zipCode2;
-    private final String address2;
-    private final String manager1;
-    private final String phoneNumber1;
-    private final String manager2;
-    private final String phoneNumber2;
-    private final String fax;
-    private final String email;
-    private final String representativeName;
-    private final LocalDate foundedAt;
-    private final int workerNumber;
-    private final double take;
-    private final Long recruitmentId;
-    private final String serviceName;
-    private final String businessArea;
+public class QueryCompanyDetailsVO extends CompanyDetailsVO {
 
     @QueryProjection
     public QueryCompanyDetailsVO(String businessNumber, String companyName, String companyProfileUrl, String companyIntroduce,
@@ -37,26 +16,10 @@ public class QueryCompanyDetailsVO {
                                  String fax, String email, String representativeName,
                                  LocalDate foundedAt, int workerNumber, double take,
                                  Long recruitmentId, String serviceName, String businessArea) {
-        this.businessNumber = businessNumber;
-        this.companyName = companyName;
-        this.companyProfileUrl = companyProfileUrl;
-        this.companyIntroduce = companyIntroduce;
-        this.zipCode1 = zipCode1;
-        this.address1 = address1;
-        this.zipCode2 = zipCode2;
-        this.address2 = address2;
-        this.manager1 = manager1;
-        this.phoneNumber1 = phoneNumber1;
-        this.manager2 = manager2;
-        this.phoneNumber2 = phoneNumber2;
-        this.fax = fax;
-        this.email = email;
-        this.representativeName = representativeName;
-        this.foundedAt = foundedAt;
-        this.workerNumber = workerNumber;
-        this.take = take;
-        this.recruitmentId = recruitmentId;
-        this.serviceName = serviceName;
-        this.businessArea = businessArea;
+        super(businessNumber, companyName, companyProfileUrl, companyIntroduce,
+                zipCode1, address1, zipCode2, address2,
+                manager1, phoneNumber1, manager2, phoneNumber2,
+                fax, email, representativeName, foundedAt, workerNumber,
+                take, recruitmentId, serviceName, businessArea);
     }
 }

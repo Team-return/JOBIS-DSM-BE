@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.bug.presentation;
 
+import com.example.jobisapplication.domain.bug.dto.CreateBugReportRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,9 @@ import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportWebRequest;
 import com.example.jobisapplication.domain.bug.dto.QueryBugReportDetailsResponse;
 import com.example.jobisapplication.domain.bug.dto.QueryBugReportsResponse;
-import team.retum.jobis.domain.bug.service.CreateBugReportService;
-import team.retum.jobis.domain.bug.service.QueryBugReportDetailsService;
-import team.retum.jobis.domain.bug.service.QueryBugReportsService;
+import com.example.jobisapplication.domain.bug.usecase.CreateBugReportUseCase;
+import com.example.jobisapplication.domain.bug.usecase.QueryBugReportDetailsUseCase;
+import com.example.jobisapplication.domain.bug.usecase.QueryBugReportsUseCase;
 
 import javax.validation.Valid;
 
@@ -25,27 +26,34 @@ import javax.validation.Valid;
 @RestController
 public class BugController {
 
-    private final CreateBugReportService createBugReportService;
-    private final QueryBugReportsService queryBugReportsService;
-    private final QueryBugReportDetailsService queryBugReportDetailsService;
+    private final CreateBugReportUseCase createBugReportUseCase;
+    private final QueryBugReportsUseCase queryBugReportsUseCase;
+    private final QueryBugReportDetailsUseCase queryBugReportDetailsUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createBugReport(@RequestBody @Valid CreateBugReportWebRequest request) {
-        createBugReportService.execute(request);
+        createBugReportUseCase.execute(
+                CreateBugReportRequest.builder()
+                        .title(request.getTitle())
+                        .content(request.getContent())
+                        .developmentArea(request.getDevelopmentArea())
+                        .attachmentUrls(request.getAttachmentUrls())
+                        .build()
+        );
     }
 
     @GetMapping
     public QueryBugReportsResponse queryBugReports(
             @RequestParam(value = "development_area", required = false) DevelopmentArea developmentArea
     ) {
-        return queryBugReportsService.execute(developmentArea);
+        return queryBugReportsUseCase.execute(developmentArea);
     }
 
     @GetMapping("/{bug-report-id}")
     public QueryBugReportDetailsResponse queryBugReportDetails(
             @PathVariable("bug-report-id") Long bugReportId
     ) {
-        return queryBugReportDetailsService.execute(bugReportId);
+        return queryBugReportDetailsUseCase.execute(bugReportId);
     }
 }

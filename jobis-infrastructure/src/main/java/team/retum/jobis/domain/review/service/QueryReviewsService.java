@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.service;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.CompanyPersistenceAdapter;
 import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class QueryReviewsService {
 
-    private final CompanyRepository companyRepository;
+    private final CompanyPersistenceAdapter companyPersistenceAdapter;
     private final ReviewRepository reviewRepository;
 
     public QueryReviewsResponse execute(Long companyId) {
-        if (!companyRepository.existsCompanyById(companyId)) {
+        if (!companyPersistenceAdapter.existsCompanyById(companyId)) {
             throw CompanyNotFoundException.EXCEPTION;
         }
 

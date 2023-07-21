@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
-import team.retum.jobis.domain.company.persistence.repository.CompanyRepository;
+import team.retum.jobis.domain.company.persistence.CompanyPersistenceAdapter;
 import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentRepository;
@@ -21,7 +21,7 @@ public class UserFacade {
 
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
-    private final CompanyRepository companyRepository;
+    private final CompanyPersistenceAdapter companyPersistenceAdapter;
     private final UserJpaRepository userJpaRepository;
 
     public UserEntity getUser(String accountId) {
@@ -36,7 +36,7 @@ public class UserFacade {
     }
 
     public CompanyEntity getCurrentCompany() {
-        return companyRepository.queryCompanyById(
+        return companyPersistenceAdapter.queryCompanyById(
                 this.getCurrentUserId()
         ).orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
     }

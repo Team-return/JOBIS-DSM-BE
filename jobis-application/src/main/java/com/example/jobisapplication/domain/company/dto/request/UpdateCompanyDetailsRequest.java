@@ -1,8 +1,10 @@
 package com.example.jobisapplication.domain.company.dto.request;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class UpdateCompanyDetailsRequest {
 
     private String companyIntroduce;
