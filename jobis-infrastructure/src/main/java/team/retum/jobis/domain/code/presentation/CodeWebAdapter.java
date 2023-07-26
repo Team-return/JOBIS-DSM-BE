@@ -12,7 +12,7 @@ import com.example.jobisapplication.domain.code.usecase.QueryCodesService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/codes")
-public class CodeController {
+public class CodeWebAdapter {
 
     private final QueryCodesService codesService;
 

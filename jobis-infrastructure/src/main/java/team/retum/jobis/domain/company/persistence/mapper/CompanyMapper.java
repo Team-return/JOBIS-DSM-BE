@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.company.mapper;
+package team.retum.jobis.domain.company.persistence.mapper;
 
 import com.example.jobisapplication.domain.company.model.Company;
 import com.example.jobisapplication.domain.user.exception.UserNotFoundException;

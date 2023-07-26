@@ -15,7 +15,7 @@ import com.example.jobisapplication.domain.bookmark.usecase.QueryStudentBookmark
 @RequiredArgsConstructor
 @RequestMapping("/bookmarks")
 @RestController
-public class BookmarkController {
+public class BookmarkWebAdapter {
 
     private final BookmarkService bookmarkService;
     private final QueryStudentBookmarksService queryStudentBookmarksService;

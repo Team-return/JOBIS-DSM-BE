@@ -43,7 +43,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/companies")
 @RestController
-public class CompanyController {
+public class CompanyWebAdapter {
 
     private final RegisterCompanyUseCase registerCompanyUseCase;
     private final CheckCompanyExistsUseCase checkCompanyExistsUseCase;

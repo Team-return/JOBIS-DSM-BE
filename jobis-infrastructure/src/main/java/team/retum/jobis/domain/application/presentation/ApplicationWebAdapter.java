@@ -38,7 +38,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/applications")
 @RestController
-public class ApplicationController {
+public class ApplicationWebAdapter {
 
     private final CreateApplicationService createApplicationService;
     private final DeleteApplicationService deleteApplicationService;

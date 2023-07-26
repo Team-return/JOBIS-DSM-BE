@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 @RestController
-public class AuthController {
+public class AuthWebAdapter {
 
     private final SendAuthCodeService sendAuthCodeService;
     private final VerifyAuthCodeService verifyAuthCodeService;

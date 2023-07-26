@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentWebRequest;
-import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentWebRequest;
+import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentStatusWebRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaWebRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentWebRequest;
 import com.example.jobisapplication.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
 import com.example.jobisapplication.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import com.example.jobisapplication.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import com.example.jobisapplication.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
-import team.retum.jobis.domain.recruitment.service.ApplyRecruitmentService;
-import team.retum.jobis.domain.recruitment.service.CreateRecruitAreaService;
-import team.retum.jobis.domain.recruitment.service.DeleteRecruitAreaService;
-import team.retum.jobis.domain.recruitment.service.DeleteRecruitmentService;
-import team.retum.jobis.domain.recruitment.service.QueryMyRecruitmentService;
-import team.retum.jobis.domain.recruitment.service.QueryRecruitmentDetailService;
-import team.retum.jobis.domain.recruitment.service.StudentQueryRecruitmentsService;
-import team.retum.jobis.domain.recruitment.service.TeacherChangeRecruitmentStatusService;
-import team.retum.jobis.domain.recruitment.service.TeacherQueryRecruitmentsService;
-import team.retum.jobis.domain.recruitment.service.UpdateRecruitAreaService;
-import team.retum.jobis.domain.recruitment.service.UpdateRecruitmentService;
+import com.example.jobisapplication.domain.recruitment.usecase.ApplyRecruitmentUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.CreateRecruitAreaUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.DeleteRecruitAreaUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.DeleteRecruitmentUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.QueryMyRecruitmentUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.QueryRecruitmentDetailUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.StudentQueryRecruitmentsUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.TeacherChangeRecruitmentStatusUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.TeacherQueryRecruitmentsUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
+import com.example.jobisapplication.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import com.example.jobisapplication.common.util.StringUtil;
 
 import javax.validation.Valid;
@@ -42,51 +42,51 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recruitments")
-public class RecruitmentController {
+public class RecruitmentWebAdapter {
 
-    private final ApplyRecruitmentService applyRecruitmentService;
-    private final UpdateRecruitmentService updateRecruitmentService;
-    private final UpdateRecruitAreaService updateRecruitAreaService;
-    private final CreateRecruitAreaService createRecruitAreaService;
-    private final StudentQueryRecruitmentsService studentQueryRecruitmentsService;
-    private final TeacherQueryRecruitmentsService teacherQueryRecruitmentsService;
-    private final TeacherChangeRecruitmentStatusService teacherChangeRecruitmentStatusService;
-    private final QueryRecruitmentDetailService queryRecruitmentDetailService;
-    private final QueryMyRecruitmentService queryMyRecruitmentService;
-    private final DeleteRecruitmentService deleteRecruitmentService;
-    private final DeleteRecruitAreaService deleteRecruitAreaService;
+    private final ApplyRecruitmentUseCase applyRecruitmentUseCase;
+    private final UpdateRecruitmentUseCase updateRecruitmentService;
+    private final UpdateRecruitAreaUseCase updateRecruitAreaService;
+    private final CreateRecruitAreaUseCase createRecruitAreaUseCase;
+    private final StudentQueryRecruitmentsUseCase studentQueryRecruitmentsUseCase;
+    private final TeacherQueryRecruitmentsUseCase teacherQueryRecruitmentsUseCase;
+    private final TeacherChangeRecruitmentStatusUseCase teacherChangeRecruitmentStatusService;
+    private final QueryRecruitmentDetailUseCase queryRecruitmentDetailUseCase;
+    private final QueryMyRecruitmentUseCase queryMyRecruitmentUseCase;
+    private final DeleteRecruitmentUseCase deleteRecruitmentUseCase;
+    private final DeleteRecruitAreaUseCase deleteRecruitAreaUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentWebRequest request) {
-        applyRecruitmentService.execute(request);
+    public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentWebRequest webRequest) {
+        applyRecruitmentUseCase.execute(webRequest.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruitment-id}")
     public void updateRecruitment(
-            @RequestBody @Valid UpdateRecruitmentWebRequest request,
+            @RequestBody @Valid UpdateRecruitmentWebRequest webRequest,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        updateRecruitmentService.execute(request, recruitmentId);
+        updateRecruitmentService.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(
-            @RequestBody @Valid RecruitAreaWebRequest request,
+            @RequestBody @Valid RecruitAreaWebRequest webRequest,
             @PathVariable("recruit-area-id") Long recruitAreaId
     ) {
-        updateRecruitAreaService.execute(request, recruitAreaId);
+        updateRecruitAreaService.execute(webRequest.toDomainRequest(), recruitAreaId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}/area")
     public void createRecruitArea(
-            @RequestBody @Valid RecruitAreaWebRequest request,
+            @RequestBody @Valid RecruitAreaWebRequest webRequest,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        createRecruitAreaService.execute(request, recruitmentId);
+        createRecruitAreaUseCase.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
     @GetMapping("/student")
@@ -97,7 +97,7 @@ public class RecruitmentController {
             @RequestParam(value = "tech_code", required = false) String techCode
     ) {
         List<Long> techCodes = StringUtil.divideString(techCode).stream().map(Long::parseLong).toList();
-        return studentQueryRecruitmentsService.execute(companyName, page - 1, jobCode, techCodes);
+        return studentQueryRecruitmentsUseCase.execute(companyName, page - 1, jobCode, techCodes);
     }
 
     @GetMapping("/teacher")
@@ -109,13 +109,13 @@ public class RecruitmentController {
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ) {
-        return teacherQueryRecruitmentsService.execute(companyName, start, end, year, status, page - 1);
+        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
-    public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentWebRequest request) {
-        teacherChangeRecruitmentStatusService.execute(request);
+    public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentStatusWebRequest webRequest) {
+        teacherChangeRecruitmentStatusService.execute(webRequest.toDomainRequest());
 
     }
 
@@ -123,23 +123,23 @@ public class RecruitmentController {
     public QueryRecruitmentDetailResponse studentQueryRecruitmentDetail(
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        return queryRecruitmentDetailService.execute(recruitmentId);
+        return queryRecruitmentDetailUseCase.execute(recruitmentId);
     }
 
     @GetMapping("/my")
-    public QueryMyRecruitmentResponse queryMyRecruitment() {
-        return queryMyRecruitmentService.execute();
+    public QueryRecruitmentDetailResponse queryMyRecruitment() {
+        return queryMyRecruitmentUseCase.execute();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{recruitment-id}")
     public void deleteRecruitment(@PathVariable("recruitment-id") Long recruitmentId) {
-        deleteRecruitmentService.execute(recruitmentId);
+        deleteRecruitmentUseCase.execute(recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/area/{recruit-area-id}")
     public void deleteRecruitArea(@PathVariable("recruit-area-id") Long recruitAreaId) {
-        deleteRecruitAreaService.execute(recruitAreaId);
+        deleteRecruitAreaUseCase.execute(recruitAreaId);
     }
 }

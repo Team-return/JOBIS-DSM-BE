@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/bugs")
 @RestController
-public class BugController {
+public class BugWebAdapter {
 
     private final CreateBugReportUseCase createBugReportUseCase;
     private final QueryBugReportsUseCase queryBugReportsUseCase;

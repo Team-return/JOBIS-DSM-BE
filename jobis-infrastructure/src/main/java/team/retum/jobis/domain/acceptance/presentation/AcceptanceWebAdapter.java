@@ -27,7 +27,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/acceptances")
 @RestController
-public class AcceptanceController {
+public class AcceptanceWebAdapter {
 
     private final TeacherQueryFieldTraineesAndContractWorkersService teacherQueryFieldTraineesAndContractWorkersService;
     private final ChangeContractDateService changeContractDateService;

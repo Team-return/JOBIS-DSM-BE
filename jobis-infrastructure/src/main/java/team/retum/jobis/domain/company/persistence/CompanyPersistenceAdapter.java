@@ -20,8 +20,8 @@ import team.retum.jobis.domain.company.domain.repository.vo.QQueryCompanyDetails
 import team.retum.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.domain.repository.vo.QTeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.domain.repository.vo.QTeacherQueryEmployCompaniesVO;
-import team.retum.jobis.domain.company.mapper.CompanyAttachmentMapper;
-import team.retum.jobis.domain.company.mapper.CompanyMapper;
+import team.retum.jobis.domain.company.persistence.mapper.CompanyAttachmentMapper;
+import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
 import team.retum.jobis.domain.company.persistence.repository.CompanyAttachmentJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.vo.QueryCompanyDetailsVO;
