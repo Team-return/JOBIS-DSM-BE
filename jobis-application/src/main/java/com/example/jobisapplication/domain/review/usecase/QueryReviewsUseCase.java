@@ -1,29 +1,29 @@
-package team.retum.jobis.domain.review.service;
+package com.example.jobisapplication.domain.review.usecase;
 
+import com.example.jobisapplication.common.annotation.UseCase;
+import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
+import com.example.jobisapplication.domain.review.model.Review;
+import com.example.jobisapplication.domain.review.spi.QueryReviewPort;
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.company.persistence.CompanyPersistenceAdapter;
 import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
-import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 import com.example.jobisapplication.domain.review.dto.QueryReviewsResponse;
 import com.example.jobisapplication.domain.review.dto.QueryReviewsResponse.ReviewResponse;
-import com.example.jobisapplication.common.annotation.Service;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
-public class QueryReviewsService {
+@UseCase
+public class QueryReviewsUseCase {
 
-    private final CompanyPersistenceAdapter companyPersistenceAdapter;
-    private final ReviewRepository reviewRepository;
+    private final QueryCompanyPort queryCompanyPort;
+    private final QueryReviewPort queryReviewPort;
 
     public QueryReviewsResponse execute(Long companyId) {
-        if (!companyPersistenceAdapter.existsCompanyById(companyId)) {
+        if (!queryCompanyPort.existsCompanyById(companyId)) {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        List<ReviewEntity> reviewEntities = reviewRepository.findAllByCompanyId(companyId);
+        List<Review> reviewEntities = queryReviewPort.queryAllReviewsByCompanyId(companyId);
 
         return new QueryReviewsResponse(
                 reviewEntities.stream()
