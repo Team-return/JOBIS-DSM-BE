@@ -11,7 +11,7 @@ import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceJpaRe
 import java.time.LocalDate;
 import java.util.List;
 
-import static team.retum.jobis.domain.acceptance.persistence.QAcceptance.acceptance;
+import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
 
 @RequiredArgsConstructor
 @Repository
@@ -31,9 +31,9 @@ public class AcceptancePersistenceAdapter implements AcceptancePort {
     @Override
     public void updateContractDate(LocalDate contractDate, List<Long> acceptanceIds) {
         jpaQueryFactory
-                .update(acceptance)
-                .set(acceptance.contractDate, contractDate)
-                .where(acceptance.id.in(acceptanceIds))
+                .update(acceptanceEntity)
+                .set(acceptanceEntity.contractDate, contractDate)
+                .where(acceptanceEntity.id.in(acceptanceIds))
                 .execute();
     }
 

@@ -4,11 +4,15 @@ import com.example.jobisapplication.domain.application.exception.ApplicationNotF
 import com.example.jobisapplication.domain.application.model.Application;
 import com.example.jobisapplication.domain.application.model.ApplicationAttachment;
 import com.example.jobisapplication.domain.application.spi.ApplicationPort;
+import com.example.jobisapplication.domain.application.spi.vo.ApplicationDetailVO;
+import com.example.jobisapplication.domain.application.spi.vo.ApplicationVO;
+import com.example.jobisapplication.domain.application.spi.vo.FieldTraineesVO;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.acceptance.persistence.repository.vo.QApplicationDetailVO;
+import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryApplicationDetailVO;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.QueryApplicationDetailVO;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationAttachmentMapper;
@@ -23,7 +27,7 @@ import team.retum.jobis.domain.application.persistence.repository.vo.QueryApplic
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryPassedApplicationStudentsVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryTotalApplicationCountVO;
-import team.retum.jobis.domain.student.persistence.QStudent;
+import team.retum.jobis.domain.student.persistence.entity.QStudentEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,11 +35,11 @@ import java.util.List;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.jpa.JPAExpressions.select;
-import static team.retum.jobis.domain.application.persistence.QApplication.application;
-import static team.retum.jobis.domain.application.persistence.QApplicationAttachment.applicationAttachment;
-import static team.retum.jobis.domain.company.persistence.QCompany.company;
-import static team.retum.jobis.domain.recruitment.persistence.QRecruitment.recruitment;
-import static team.retum.jobis.domain.student.persistence.QStudent.student;
+import static team.retum.jobis.domain.application.persistence.entity.QApplicationAttachmentEntity.applicationAttachmentEntity;
+import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
+import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
+import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
+import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor
 @Repository
@@ -48,44 +52,46 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<QueryApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
+    public List<ApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
         return queryFactory
-                .selectFrom(application)
-                .join(application.student, student)
-                .join(application.recruitment, recruitment)
-                .leftJoin(application.applicationAttachments, applicationAttachment)
-                .leftJoin(recruitment.company, company)
+                .selectFrom(applicationEntity)
+                .join(applicationEntity.studentEntity, studentEntity)
+                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
+                .leftJoin(applicationEntity.applicationAttachmentEntities, applicationAttachmentEntity)
+                .leftJoin(recruitmentEntity.companyEntity, companyEntity)
                 .where(
                         eqRecruitmentId(recruitmentId),
                         eqStudentId(studentId),
                         eqApplicationStatus(applicationStatus),
                         containStudentName(studentName)
                 )
-                .orderBy(application.createdAt.desc())
+                .orderBy(applicationEntity.createdAt.desc())
                 .transform(
-                        groupBy(application.id)
+                        groupBy(applicationEntity.id)
                                 .list(
                                         new QQueryApplicationVO(
-                                                application.id,
-                                                student.name,
-                                                student.grade,
-                                                student.number,
-                                                student.classRoom,
-                                                student.profileImageUrl,
-                                                company.name,
-                                                list(applicationAttachment),
-                                                application.createdAt,
-                                                application.applicationStatus
+                                                applicationEntity.id,
+                                                studentEntity.name,
+                                                studentEntity.grade,
+                                                studentEntity.number,
+                                                studentEntity.classRoom,
+                                                studentEntity.profileImageUrl,
+                                                companyEntity.name,
+                                                list(applicationAttachmentEntity),
+                                                applicationEntity.createdAt,
+                                                applicationEntity.applicationStatus
                                         )
                                 )
-                );
+                ).stream()
+                .map(application -> (ApplicationVO) application)
+                .toList();
     }
 
     @Override
     public Long queryApplicationCountByCondition(ApplicationStatus applicationStatus, String studentName) {
         return queryFactory
-                .select(application.count())
-                .from(application)
+                .select(applicationEntity.count())
+                .from(applicationEntity)
                 .where(
                         eqApplicationStatus(applicationStatus),
                         containStudentName(studentName)
@@ -93,26 +99,28 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<QueryFieldTraineesVO> queryApplicationsFieldTraineesByCompanyId(Long companyId) {
+    public List<FieldTraineesVO> queryApplicationsFieldTraineesByCompanyId(Long companyId) {
         return queryFactory
                 .select(
                         new QQueryFieldTraineesVO(
-                                application.id,
-                                student.grade,
-                                student.classRoom,
-                                student.number,
-                                student.name,
-                                application.startDate,
-                                application.endDate
+                                applicationEntity.id,
+                                studentEntity.grade,
+                                studentEntity.classRoom,
+                                studentEntity.number,
+                                studentEntity.name,
+                                applicationEntity.startDate,
+                                applicationEntity.endDate
                         )
                 )
-                .from(application)
-                .join(application.student, student)
-                .on(application.student.id.eq(student.id))
-                .join(application.recruitment, recruitment)
+                .from(applicationEntity)
+                .join(applicationEntity.studentEntity, studentEntity)
+                .on(applicationEntity.studentEntity.id.eq(studentEntity.id))
+                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
                 .on(recentRecruitment(companyId))
-                .where(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
-                .fetch();
+                .where(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .fetch().stream()
+                .map(fieldTrainee -> (FieldTraineesVO) fieldTrainee)
+                .toList();
     }
 
     @Override
@@ -120,45 +128,45 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         return queryFactory
                 .select(
                         new QQueryPassedApplicationStudentsVO(
-                                application.id,
-                                student.name,
-                                student.grade,
-                                student.classRoom,
-                                student.number
+                                applicationEntity.id,
+                                studentEntity.name,
+                                studentEntity.grade,
+                                studentEntity.classRoom,
+                                studentEntity.number
                         )
                 )
-                .from(application)
-                .join(application.student, student)
-                .join(application.recruitment, recruitment)
-                .join(recruitment.company, company)
+                .from(applicationEntity)
+                .join(applicationEntity.studentEntity, studentEntity)
+                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
+                .join(recruitmentEntity.companyEntity, companyEntity)
                 .where(
-                        company.id.eq(companyId),
-                        application.applicationStatus.eq(ApplicationStatus.PASS)
+                        companyEntity.id.eq(companyId),
+                        applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)
                 )
                 .fetch();
     }
 
     @Override
     public QueryTotalApplicationCountVO queryTotalApplicationCount() {
-        QStudent approvedStudent = new QStudent("approvedStudent");
-        QStudent passedStudent = new QStudent("passedStudent");
+        QStudentEntity approvedStudent = new QStudentEntity("approvedStudent");
+        QStudentEntity passedStudent = new QStudentEntity("passedStudent");
         return queryFactory
                 .select(
                         new QQueryTotalApplicationCountVO(
-                                student.count(),
+                                studentEntity.count(),
                                 passedStudent.countDistinct(),
                                 approvedStudent.countDistinct()
                         )
                 )
-                .from(application)
-                .leftJoin(application.student, approvedStudent)
-                .on(approvedStudent.applications.any().applicationStatus.eq(ApplicationStatus.APPROVED))
-                .leftJoin(application.student, passedStudent)
+                .from(applicationEntity)
+                .leftJoin(applicationEntity.studentEntity, approvedStudent)
+                .on(approvedStudent.applicationEntities.any().applicationStatus.eq(ApplicationStatus.APPROVED))
+                .leftJoin(applicationEntity.studentEntity, passedStudent)
                 .on(
-                        passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS)
-                                .or(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                        passedStudent.applicationEntities.any().applicationStatus.eq(ApplicationStatus.PASS)
+                                .or(passedStudent.applicationEntities.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 )
-                .rightJoin(application.student, student)
+                .rightJoin(applicationEntity.studentEntity, studentEntity)
                 .fetchOne();
     }
 
@@ -191,24 +199,24 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<QueryApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
+    public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
         return queryFactory
                 .select(
-                        new QApplicationDetailVO(
-                                application.id,
-                                student.name,
-                                student.grade,
-                                student.classRoom,
-                                student.number,
-                                company,
-                                application.applicationStatus
+                        new QQueryApplicationDetailVO(
+                                applicationEntity.id,
+                                studentEntity.name,
+                                studentEntity.grade,
+                                studentEntity.classRoom,
+                                studentEntity.number,
+                                companyEntity,
+                                applicationEntity.applicationStatus
                         )
                 )
-                .from(application)
-                .join(application.student, student)
-                .join(application.recruitment, recruitment)
-                .join(recruitment.company, company)
-                .where(application.id.in(applicationIds))
+                .from(applicationEntity)
+                .join(applicationEntity.studentEntity, studentEntity)
+                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
+                .join(recruitmentEntity.companyEntity, companyEntity)
+                .where(applicationEntity.id.in(applicationIds))
                 .fetch();
     }
 
@@ -230,19 +238,19 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     @Override
     public void changeApplicationStatus(ApplicationStatus status, List<Long> applicationIds) {
         queryFactory
-                .update(application)
-                .set(application.applicationStatus, status)
-                .where(application.id.in(applicationIds))
+                .update(applicationEntity)
+                .set(applicationEntity.applicationStatus, status)
+                .where(applicationEntity.id.in(applicationIds))
                 .execute();
     }
 
     @Override
     public void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Long> applicationIds) {
         queryFactory
-                .update(application)
-                .set(application.startDate, startDate)
-                .set(application.endDate, endDate)
-                .where(application.id.in(applicationIds))
+                .update(applicationEntity)
+                .set(applicationEntity.startDate, startDate)
+                .set(applicationEntity.endDate, endDate)
+                .where(applicationEntity.id.in(applicationIds))
                 .execute();
     }
 
@@ -266,26 +274,26 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {
-        return recruitmentId == null ? null : recruitment.id.eq(recruitmentId);
+        return recruitmentId == null ? null : recruitmentEntity.id.eq(recruitmentId);
     }
 
     private BooleanExpression eqStudentId(Long studentId) {
-        return studentId == null ? null : student.id.eq(studentId);
+        return studentId == null ? null : studentEntity.id.eq(studentId);
     }
 
     private BooleanExpression eqApplicationStatus(ApplicationStatus status) {
-        return status == null ? null : application.applicationStatus.eq(status);
+        return status == null ? null : applicationEntity.applicationStatus.eq(status);
     }
 
     private BooleanExpression containStudentName(String studentName) {
-        return studentName == null ? null : student.name.contains(studentName);
+        return studentName == null ? null : studentEntity.name.contains(studentName);
     }
 
     private BooleanExpression recentRecruitment(Long companyId) {
-        return recruitment.createdAt.eq(
-                select(recruitment.createdAt.max())
-                        .from(recruitment)
-                        .where(recruitment.company.id.eq(companyId))
+        return recruitmentEntity.createdAt.eq(
+                select(recruitmentEntity.createdAt.max())
+                        .from(recruitmentEntity)
+                        .where(recruitmentEntity.companyEntity.id.eq(companyId))
         );
     }
 }

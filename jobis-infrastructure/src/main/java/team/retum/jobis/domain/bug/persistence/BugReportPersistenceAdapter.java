@@ -15,14 +15,12 @@ import team.retum.jobis.domain.bug.persistence.mapper.BugReportMapper;
 import team.retum.jobis.domain.bug.persistence.repository.BugAttachmentJpaRepository;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportJpaRepository;
 import team.retum.jobis.domain.bug.persistence.repository.vo.QQueryBugReportsVO;
-import team.retum.jobis.domain.bug.persistence.repository.vo.QueryBugReportsVO;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
-import static team.retum.jobis.domain.bug.persistence.entity.QBugAttachment.bugAttachment;
-import static team.retum.jobis.domain.bug.persistence.entity.QBugReport.bugReport;
+import static team.retum.jobis.domain.bug.persistence.entity.QBugAttachmentEntity.bugAttachmentEntity;
+import static team.retum.jobis.domain.bug.persistence.entity.QBugReportEntity.bugReportEntity;
 
 @RequiredArgsConstructor
 @Repository
@@ -65,27 +63,29 @@ public class BugReportPersistenceAdapter implements BugReportPort {
     @Override
     public List<BugReportsVO> queryBugReportsByDevelopmentArea(DevelopmentArea developmentArea) {
         return queryFactory
-                .selectFrom(bugReport)
-                .leftJoin(bugReport.bugAttachments, bugAttachment)
+                .selectFrom(bugReportEntity)
+                .leftJoin(bugReportEntity.bugAttachmentEntities, bugAttachmentEntity)
                 .where(eqDevelopmentArea(developmentArea))
-                .orderBy(bugReport.createdAt.desc())
+                .orderBy(bugReportEntity.createdAt.desc())
                 .transform(
-                        groupBy(bugReport.id)
+                        groupBy(bugReportEntity.id)
                                 .list(
                                         new QQueryBugReportsVO(
-                                                bugReport.id,
-                                                bugReport.title,
-                                                bugReport.developmentArea,
-                                                bugReport.createdAt
+                                                bugReportEntity.id,
+                                                bugReportEntity.title,
+                                                bugReportEntity.developmentArea,
+                                                bugReportEntity.createdAt
                                         )
                                 )
-                );
+                ).stream()
+                .map(bugReport -> (BugReportsVO) bugReport)
+                .toList();
     }
 
     //==conditions==//
 
     private BooleanExpression eqDevelopmentArea(DevelopmentArea developmentArea) {
         return developmentArea == null || developmentArea == DevelopmentArea.ALL
-                ? null : bugReport.developmentArea.eq(developmentArea);
+                ? null : bugReportEntity.developmentArea.eq(developmentArea);
     }
 }
