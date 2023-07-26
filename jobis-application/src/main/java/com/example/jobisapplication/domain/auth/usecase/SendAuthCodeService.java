@@ -5,6 +5,7 @@ import com.example.jobisapplication.common.spi.SesPort;
 import com.example.jobisapplication.domain.auth.dto.SendAuthCodeRequest;
 import com.example.jobisapplication.domain.auth.model.AuthCode;
 import com.example.jobisapplication.domain.auth.spi.CommandAuthCodePort;
+import com.example.jobisapplication.domain.user.spi.QueryUserPort;
 import lombok.RequiredArgsConstructor;
 import com.example.jobisapplication.domain.auth.model.AuthCodeType;
 import com.example.jobisapplication.domain.student.exception.StudentAlreadyExistsException;
@@ -16,16 +17,16 @@ import com.example.jobisapplication.common.util.StringUtil;
 public class SendAuthCodeService {
 
     private final CommandAuthCodePort commandAuthCodePort;
-    private final UserRepository userRepository;
+    private final QueryUserPort queryUserPort;
     private final SesPort sesPort;
 
     public void execute(SendAuthCodeRequest request) {
         if (request.getAuthCodeType() == AuthCodeType.SIGN_UP) {
-            if (userRepository.existsByAccountId(request.getEmail())) {
+            if (queryUserPort.existsUserByAccountId(request.getEmail())) {
                 throw StudentAlreadyExistsException.EXCEPTION;
             }
         } else {
-            if (!userRepository.existsByAccountId(request.getEmail())) {
+            if (!queryUserPort.existsUserByAccountId(request.getEmail())) {
                 throw StudentNotFoundException.EXCEPTION;
             }
         }

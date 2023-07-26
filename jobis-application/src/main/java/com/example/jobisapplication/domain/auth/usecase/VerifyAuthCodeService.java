@@ -1,17 +1,13 @@
 package com.example.jobisapplication.domain.auth.usecase;
 
+import com.example.jobisapplication.common.annotation.UseCase;
 import com.example.jobisapplication.domain.auth.model.AuthCode;
-import com.example.jobisapplication.domain.auth.spi.AuthCodePort;
 import com.example.jobisapplication.domain.auth.spi.CommandAuthCodePort;
 import com.example.jobisapplication.domain.auth.spi.QueryAuthCodePort;
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.auth.persistence.entity.AuthCodeEntity;
-import team.retum.jobis.domain.auth.persistence.repository.AuthCodeRepository;
-import team.retum.jobis.domain.auth.exception.AuthCodeNotFoundException;
-import com.example.jobisapplication.common.annotation.Service;
 
 @RequiredArgsConstructor
-@Service
+@UseCase
 public class VerifyAuthCodeService {
 
     private final CommandAuthCodePort commandAuthCodePort;

@@ -1,9 +1,12 @@
 package com.example.jobisapplication.domain.application.usecase;
 
 import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
+import com.example.jobisapplication.common.spi.SecurityPort;
 import com.example.jobisapplication.domain.application.spi.QueryApplicationPort;
 import com.example.jobisapplication.domain.company.model.Company;
+import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
 import com.example.jobisapplication.domain.recruitment.model.Recruitment;
+import com.example.jobisapplication.domain.recruitment.spi.QueryRecruitmentPort;
 import com.example.jobisapplication.domain.student.model.Student;
 import lombok.RequiredArgsConstructor;
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
@@ -17,12 +20,15 @@ import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotF
 public class QueryCompanyApplicationsService {
 
     private final QueryApplicationPort queryApplicationPort;
-    private final RecruitmentRepository recruitmentRepository;
-    private final UserFacade userFacade;
+    private final QueryRecruitmentPort queryRecruitmentPort;
+    private final SecurityPort securityPort;
+    private final QueryCompanyPort queryCompanyPort;
 
     public CompanyQueryApplicationsResponse execute() {
-        Company company = userFacade.getCurrentCompany();
-        Recruitment recruitment = recruitmentRepository.queryRecentRecruitmentByCompanyId(company.getId())
+        Long currentUserId = securityPort.getCurrentUserId();
+        Company company = queryCompanyPort.queryCompanyById(currentUserId);
+
+        Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(company.getId())
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         return new CompanyQueryApplicationsResponse(
