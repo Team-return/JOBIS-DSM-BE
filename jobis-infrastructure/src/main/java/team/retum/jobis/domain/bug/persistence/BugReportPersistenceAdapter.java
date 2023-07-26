@@ -16,6 +16,7 @@ import team.retum.jobis.domain.bug.persistence.repository.BugReportJpaRepository
 import team.retum.jobis.domain.bug.persistence.repository.vo.QQueryBugReportsVO;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static team.retum.jobis.domain.bug.persistence.entity.QBugAttachmentEntity.bugAttachmentEntity;
