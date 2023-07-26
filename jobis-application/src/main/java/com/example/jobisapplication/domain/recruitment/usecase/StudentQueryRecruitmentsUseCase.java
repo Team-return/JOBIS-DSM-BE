@@ -2,6 +2,7 @@ package com.example.jobisapplication.domain.recruitment.usecase;
 
 import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
 import com.example.jobisapplication.common.spi.SecurityPort;
+import com.example.jobisapplication.domain.code.exception.CodeNotFoundException;
 import com.example.jobisapplication.domain.code.model.Code;
 import com.example.jobisapplication.domain.code.spi.QueryCodePort;
 import com.example.jobisapplication.domain.recruitment.dto.RecruitmentFilter;
@@ -63,7 +64,9 @@ public class StudentQueryRecruitmentsUseCase {
 
     private String validJobCode(Long jobCode) {
         if (jobCode != null) {
-            return queryCodePort.queryCodeById(jobCode).getKeyword();
+            return queryCodePort.queryCodeById(jobCode)
+                    .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+                    .getKeyword();
         } else {
             return null;
         }

@@ -5,10 +5,11 @@ import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 import com.example.jobisapplication.domain.bug.spi.vo.BugReportsVO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface QueryBugReportPort {
 
-    BugReport queryBugReportById(Long id);
+    Optional<BugReport> queryBugReportById(Long id);
 
     List<BugReportsVO> queryBugReportsByDevelopmentArea(DevelopmentArea developmentArea);
 }

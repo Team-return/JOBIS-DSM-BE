@@ -4,7 +4,6 @@ import com.example.jobisapplication.domain.bug.model.BugReport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bug.persistence.entity.BugReportEntity;
-import team.retum.jobis.domain.bug.persistence.repository.BugReportJpaRepository;
 
 @RequiredArgsConstructor
 @Component

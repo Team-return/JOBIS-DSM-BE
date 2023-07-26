@@ -2,7 +2,6 @@ package team.retum.jobis.domain.company.persistence;
 
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import com.example.jobisapplication.domain.company.dto.CompanyFilter;
-import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import com.example.jobisapplication.domain.company.model.Company;
 import com.example.jobisapplication.domain.company.model.CompanyAttachment;
 import com.example.jobisapplication.domain.company.model.CompanyType;
@@ -16,24 +15,21 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.company.domain.repository.vo.QQueryCompanyDetailsVO;
-import team.retum.jobis.domain.company.domain.repository.vo.QStudentQueryCompaniesVO;
-import team.retum.jobis.domain.company.domain.repository.vo.QTeacherQueryCompaniesVO;
-import team.retum.jobis.domain.company.domain.repository.vo.QTeacherQueryEmployCompaniesVO;
 import team.retum.jobis.domain.company.persistence.mapper.CompanyAttachmentMapper;
 import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
 import team.retum.jobis.domain.company.persistence.repository.CompanyAttachmentJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
-import team.retum.jobis.domain.company.persistence.repository.vo.QueryCompanyDetailsVO;
+import team.retum.jobis.domain.company.persistence.repository.vo.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.jpa.JPAExpressions.select;
-import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptance.acceptance;
-import static team.retum.jobis.domain.application.persistence.entity.QApplication.application;
-import static team.retum.jobis.domain.company.persistence.entity.QCompany.company;
-import static team.retum.jobis.domain.company.persistence.entity.QCompanyAttachment.companyAttachment;
-import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitment.recruitment;
+import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
+import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
+import static team.retum.jobis.domain.company.persistence.entity.QCompanyAttachmentEntity.companyAttachmentEntity;
+import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
+import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
 
 @Repository
 @RequiredArgsConstructor
@@ -77,22 +73,23 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
-                                company.id,
-                                company.name,
-                                company.companyLogoUrl,
-                                company.take,
-                                recruitment.count()
+                                companyEntity.id,
+                                companyEntity.name,
+                                companyEntity.companyLogoUrl,
+                                companyEntity.take,
+                                recruitmentEntity.count()
                         )
                 )
-                .from(company)
-                .leftJoin(recruitment)
+                .from(companyEntity)
+                .leftJoin(recruitmentEntity)
                 .on(recentRecruitment(RecruitStatus.RECRUITING))
                 .where(containsName(filter.getName()))
-                .orderBy(company.name.desc())
-                .groupBy(company.id)
+                .orderBy(companyEntity.name.desc())
+                .groupBy(companyEntity.id)
                 .offset(filter.getOffset())
                 .limit(11)
-                .fetch();
+                .fetch().stream()
+                .map(studentQueryCompaniesVO -> (StudentCompaniesVO) studentQueryCompaniesVO).toList();
     }
 
     @Override
@@ -100,20 +97,20 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return queryFactory
                 .select(
                         new QTeacherQueryCompaniesVO(
-                                company.id,
-                                company.name,
-                                company.address.mainAddress,
-                                company.businessArea,
-                                company.workersCount,
-                                company.take,
-                                company.type,
-                                company.isMou,
-                                recruitment.personalContact,
-                                recruitment.recruitYear,
+                                companyEntity.id,
+                                companyEntity.name,
+                                companyEntity.address.mainAddress,
+                                companyEntity.businessArea,
+                                companyEntity.workersCount,
+                                companyEntity.take,
+                                companyEntity.type,
+                                companyEntity.isMou,
+                                recruitmentEntity.personalContact,
+                                recruitmentEntity.recruitYear,
                                 acceptancesCount()
                         )
-                ).from(company)
-                .leftJoin(recruitment)
+                ).from(companyEntity)
+                .leftJoin(recruitmentEntity)
                 .on(recentRecruitment(null))
                 .where(
                         eqCompanyType(filter.getType()),
@@ -121,17 +118,19 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         eqRegion(filter.getRegion()),
                         eqBusinessArea(filter.getBusinessArea())
                 )
-                .orderBy(company.name.desc())
+                .orderBy(companyEntity.name.desc())
                 .offset(filter.getOffset())
                 .limit(11)
-                .fetch();
+                .fetch().stream()
+                .map(teacherQueryCompaniesVO -> (TeacherCompaniesVO) teacherQueryCompaniesVO)
+                .toList();
     }
 
     @Override
     public Long getTotalCompanyCount(CompanyFilter filter) {
         return queryFactory
-                .select(company.count())
-                .from(company)
+                .select(companyEntity.count())
+                .from(companyEntity)
                 .where(
                         eqCompanyType(filter.getType()),
                         containsName(filter.getName()),
@@ -141,9 +140,9 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     public JPQLQuery<Long> acceptancesCount() {
-        return select(acceptance.count())
-                .from(acceptance)
-                .where(acceptance.company.eq(company));
+        return select(acceptanceEntity.count())
+                .from(acceptanceEntity)
+                .where(acceptanceEntity.companyEntity.eq(companyEntity));
     }
 
     @Override
@@ -151,36 +150,36 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return queryFactory
                 .select(
                         new QQueryCompanyDetailsVO(
-                                company.bizNo,
-                                company.name,
-                                company.companyLogoUrl,
-                                company.companyIntroduce,
-                                company.address.mainZipCode,
-                                company.address.mainAddress,
-                                company.address.subZipCode,
-                                company.address.subAddress,
-                                company.manager.managerName,
-                                company.manager.managerPhoneNo,
-                                company.manager.subManagerName,
-                                company.manager.subManagerPhoneNo,
-                                company.fax,
-                                company.email,
-                                company.representative,
-                                company.foundedAt,
-                                company.workersCount,
-                                company.take,
-                                recruitment.id,
-                                company.serviceName,
-                                company.businessArea
+                                companyEntity.bizNo,
+                                companyEntity.name,
+                                companyEntity.companyLogoUrl,
+                                companyEntity.companyIntroduce,
+                                companyEntity.address.mainZipCode,
+                                companyEntity.address.mainAddress,
+                                companyEntity.address.subZipCode,
+                                companyEntity.address.subAddress,
+                                companyEntity.manager.managerName,
+                                companyEntity.manager.managerPhoneNo,
+                                companyEntity.manager.subManagerName,
+                                companyEntity.manager.subManagerPhoneNo,
+                                companyEntity.fax,
+                                companyEntity.email,
+                                companyEntity.representative,
+                                companyEntity.foundedAt,
+                                companyEntity.workersCount,
+                                companyEntity.take,
+                                recruitmentEntity.id,
+                                companyEntity.serviceName,
+                                companyEntity.businessArea
                         )
                 )
-                .from(company)
-                .leftJoin(recruitment)
+                .from(companyEntity)
+                .leftJoin(recruitmentEntity)
                 .on(
-                        recruitment.company.id.eq(company.id),
+                        recruitmentEntity.companyEntity.id.eq(companyEntity.id),
                         recentRecruitment(RecruitStatus.RECRUITING)
                 )
-                .where(company.id.eq(companyId))
+                .where(companyEntity.id.eq(companyId))
                 .fetchOne();
     }
 
@@ -188,47 +187,47 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     public List<TeacherEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type, Integer year) {
         return queryFactory
                 .select(
-                        new QTeacherQueryEmployCompaniesVO(
-                                company.id,
-                                company.name,
-                                application.countDistinct(),
-                                acceptance.countDistinct()
+                        new QQueryTeacherEmployCompaniesVO(
+                                companyEntity.id,
+                                companyEntity.name,
+                                applicationEntity.countDistinct(),
+                                acceptanceEntity.countDistinct()
                         )
                 )
-                .from(company)
-                .leftJoin(company.acceptances, acceptance)
-                .leftJoin(company.recruitmentList, recruitment)
+                .from(companyEntity)
+                .leftJoin(companyEntity.acceptanceEntities, acceptanceEntity)
+                .leftJoin(companyEntity.recruitmentEntityList, recruitmentEntity)
                 .on(
-                        recruitment.company.id.eq(company.id),
+                        recruitmentEntity.companyEntity.id.eq(companyEntity.id),
                         recentRecruitment(null)
                 )
-                .leftJoin(recruitment.applications, application)
-                .on(application.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .leftJoin(recruitmentEntity.applicationEntities, applicationEntity)
+                .on(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 .where(
                         containsName(name),
                         eqCompanyType(type),
                         eqYear(year)
                 )
-                .orderBy(company.name.asc())
-                .groupBy(company.id, company.name)
-                .fetch();
+                .orderBy(companyEntity.name.asc())
+                .groupBy(companyEntity.id, companyEntity.name)
+                .fetch().stream()
+                .map(teacherEmployCompaniesVO -> (TeacherEmployCompaniesVO) teacherEmployCompaniesVO)
+                .toList();
     }
 
     @Override
     public List<String> queryCompanyAttachmentUrls(Long companyId) {
         return queryFactory
-                .select(companyAttachment.attachmentUrl)
-                .from(companyAttachment)
-                .where(companyAttachment.company.id.eq(companyId))
+                .select(companyAttachmentEntity.attachmentUrl)
+                .from(companyAttachmentEntity)
+                .where(companyAttachmentEntity.companyEntity.id.eq(companyId))
                 .fetch();
     }
 
     @Override
-    public Company queryCompanyById(Long companyId) {
-        return companyMapper.toDomain(
-                companyJpaRepository.findById(companyId)
-                        .orElseThrow(() -> CompanyNotFoundException.EXCEPTION)
-        );
+    public Optional<Company> queryCompanyById(Long companyId) {
+        return companyJpaRepository.findById(companyId)
+                .map(companyMapper::toDomain);
     }
 
     @Override
@@ -251,38 +250,38 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     //==conditions==//
 
     private BooleanExpression containsName(String name) {
-        return name == null ? null : company.name.contains(name);
+        return name == null ? null : companyEntity.name.contains(name);
     }
 
     private BooleanExpression eqCompanyType(CompanyType type) {
-        return type == null ? null : company.type.eq(type);
+        return type == null ? null : companyEntity.type.eq(type);
     }
 
     private BooleanExpression eqYear(Integer year) {
-        return year == null ? null : recruitment.recruitYear.eq(year);
+        return year == null ? null : recruitmentEntity.recruitYear.eq(year);
     }
 
     private BooleanExpression recentRecruitment(RecruitStatus status) {
-        return recruitment.createdAt.eq(
-                select(recruitment.createdAt.max())
-                        .from(recruitment)
+        return recruitmentEntity.createdAt.eq(
+                select(recruitmentEntity.createdAt.max())
+                        .from(recruitmentEntity)
                         .where(
-                                recruitment.company.id.eq(company.id),
+                                recruitmentEntity.companyEntity.id.eq(companyEntity.id),
                                 eqRecruitmentStatus(status)
                         )
         );
     }
 
     private BooleanExpression eqRecruitmentStatus(RecruitStatus status) {
-        return status == null ? null : recruitment.status.eq(status);
+        return status == null ? null : recruitmentEntity.status.eq(status);
     }
 
 
     private BooleanExpression eqRegion(String region) {
-        return region == null ? null : company.address.mainAddress.startsWith(region);
+        return region == null ? null : companyEntity.address.mainAddress.startsWith(region);
     }
 
     private BooleanExpression eqBusinessArea(String businessArea) {
-        return businessArea == null ? null : company.businessArea.eq(businessArea);
+        return businessArea == null ? null : companyEntity.businessArea.eq(businessArea);
     }
 }

@@ -1,15 +1,14 @@
 package team.retum.jobis.domain.bug.persistence;
 
-import com.example.jobisapplication.domain.bug.exception.BugReportNotFoundException;
 import com.example.jobisapplication.domain.bug.model.BugAttachment;
 import com.example.jobisapplication.domain.bug.model.BugReport;
+import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 import com.example.jobisapplication.domain.bug.spi.BugReportPort;
 import com.example.jobisapplication.domain.bug.spi.vo.BugReportsVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.domain.bug.persistence.mapper.BugAttachmentMapper;
 import team.retum.jobis.domain.bug.persistence.mapper.BugReportMapper;
 import team.retum.jobis.domain.bug.persistence.repository.BugAttachmentJpaRepository;
@@ -44,20 +43,18 @@ public class BugReportPersistenceAdapter implements BugReportPort {
     @Override
     public List<BugAttachment> saveAllBugAttachment(List<BugAttachment> bugAttachments) {
         return bugAttachmentJpaRepository.saveAll(
-                bugAttachments.stream()
-                        .map(bugAttachmentMapper::toEntity)
-                        .toList()
+                        bugAttachments.stream()
+                                .map(bugAttachmentMapper::toEntity)
+                                .toList()
                 ).stream()
                 .map(bugAttachmentMapper::toDomain)
                 .toList();
     }
 
     @Override
-    public BugReport queryBugReportById(Long id) {
-        return bugReportMapper.toDomain(
-                bugReportJpaRepository.findById(id)
-                        .orElseThrow(() -> BugReportNotFoundException.EXCEPTION)
-        );
+    public Optional<BugReport> queryBugReportById(Long id) {
+        return bugReportJpaRepository.findById(id)
+                .map(bugReportMapper::toDomain);
     }
 
     @Override

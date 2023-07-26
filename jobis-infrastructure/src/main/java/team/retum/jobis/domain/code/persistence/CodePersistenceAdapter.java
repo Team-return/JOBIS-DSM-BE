@@ -1,17 +1,17 @@
 package team.retum.jobis.domain.code.persistence;
 
-import com.example.jobisapplication.domain.code.exception.CodeNotFoundException;
 import com.example.jobisapplication.domain.code.model.Code;
+import com.example.jobisapplication.domain.code.model.CodeType;
 import com.example.jobisapplication.domain.code.spi.CodePort;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import com.example.jobisapplication.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.mapper.CodeMapper;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
 
@@ -26,9 +26,9 @@ public class CodePersistenceAdapter implements CodePort {
     @Override
     public List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType, Long parentCode) {
         return jpaQueryFactory
-                .selectFrom(code)
+                .selectFrom(codeEntity)
                 .where(
-                        code.codeType.eq(codeType),
+                        codeEntity.codeType.eq(codeType),
                         containsKeyword(keyword),
                         eqParentCode(parentCode)
                 ).fetch().stream()
@@ -37,20 +37,25 @@ public class CodePersistenceAdapter implements CodePort {
     }
 
     @Override
-    public Code queryCodeById(Long codeId) {
-        return codeMapper.toDomain(
-                codeJpaRepository.findById(codeId)
-                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
-        );
+    public Optional<Code> queryCodeById(Long codeId) {
+        return codeJpaRepository.findById(codeId)
+                .map(codeMapper::toDomain);
+    }
+
+    @Override
+    public List<Code> queryCodesByIdIn(List<Long> codes) {
+        return codeJpaRepository.findCodesByIdIn(codes).stream()
+                .map(codeMapper::toDomain)
+                .toList();
     }
 
     //==conditions==//
 
     private BooleanExpression containsKeyword(String keyword) {
-        return keyword == null ? null : code.keyword.contains(keyword);
+        return keyword == null ? null : codeEntity.keyword.contains(keyword);
     }
 
     private BooleanExpression eqParentCode(Long parentCode) {
-        return parentCode == null ? null : code.parentCode.id.eq(parentCode);
+        return parentCode == null ? null : codeEntity.parentCodeEntity.id.eq(parentCode);
     }
 }

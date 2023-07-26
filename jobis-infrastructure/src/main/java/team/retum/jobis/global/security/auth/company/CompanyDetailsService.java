@@ -1,5 +1,6 @@
 package team.retum.jobis.global.security.auth.company;
 
+import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import com.example.jobisapplication.domain.company.model.Company;
 import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class CompanyDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String companyId) throws UsernameNotFoundException {
         Company company = queryCompanyPort.queryCompanyById(
                 Long.valueOf(companyId)
-        );
+        ).orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return new CompanyDetails(company.getId());
     }

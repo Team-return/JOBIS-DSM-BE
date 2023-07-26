@@ -3,6 +3,7 @@ package com.example.jobisapplication.domain.company.usecase;
 import com.example.jobisapplication.common.annotation.UseCase;
 import com.example.jobisapplication.common.spi.SecurityPort;
 import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyDetailsRequest;
+import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import com.example.jobisapplication.domain.company.model.Company;
 import com.example.jobisapplication.domain.company.spi.CommandCompanyPort;
 import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
@@ -18,7 +19,8 @@ public class UpdateCompanyDetailsUseCase {
 
     public void execute(UpdateCompanyDetailsRequest request) {
         Long currentUserId = securityPort.getCurrentUserId();
-        Company company = queryCompanyPort.queryCompanyById(currentUserId);
+        Company company = queryCompanyPort.queryCompanyById(currentUserId)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         commandCompanyPort.saveCompany(
                 company.update(

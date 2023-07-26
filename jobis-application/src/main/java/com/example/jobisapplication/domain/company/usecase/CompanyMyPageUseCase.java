@@ -2,6 +2,7 @@ package com.example.jobisapplication.domain.company.usecase;
 
 import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
 import com.example.jobisapplication.common.spi.SecurityPort;
+import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import com.example.jobisapplication.domain.company.model.Company;
 import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,8 @@ public class CompanyMyPageUseCase {
 
     public CompanyMyPageResponse execute() {
         Long currentUserId = securityPort.getCurrentUserId();
-        Company company = queryCompanyPort.queryCompanyById(currentUserId);
+        Company company = queryCompanyPort.queryCompanyById(currentUserId)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return CompanyMyPageResponse.builder()
                 .name(company.getName())

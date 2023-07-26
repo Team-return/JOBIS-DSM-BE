@@ -4,6 +4,7 @@ import com.example.jobisapplication.common.annotation.UseCase;
 import com.example.jobisapplication.common.spi.SecurityPort;
 import com.example.jobisapplication.domain.application.model.Application;
 import com.example.jobisapplication.domain.application.spi.QueryApplicationPort;
+import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
 import com.example.jobisapplication.domain.company.model.Company;
 import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
 import com.example.jobisapplication.domain.review.dto.CreateReviewRequest;
@@ -30,7 +31,9 @@ public class CreateReviewUseCase {
     private final SecurityPort securityPort;
 
     public void execute(CreateReviewRequest request) {
-        Company company = queryCompanyPort.queryCompanyById(request.getCompanyId());
+        Company company = queryCompanyPort.queryCompanyById(request.getCompanyId())
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+
         Application application = queryApplicationPort.queryApplicationById(request.getApplicationId());
         application.checkReviewAuthority();
 

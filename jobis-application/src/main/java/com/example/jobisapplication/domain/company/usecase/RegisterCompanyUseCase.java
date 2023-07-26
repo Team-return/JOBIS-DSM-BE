@@ -7,6 +7,8 @@ import com.example.jobisapplication.common.util.StringUtil;
 import com.example.jobisapplication.domain.auth.dto.TokenResponse;
 import com.example.jobisapplication.domain.auth.model.Authority;
 import com.example.jobisapplication.domain.auth.spi.JwtPort;
+import com.example.jobisapplication.domain.code.exception.CodeNotFoundException;
+import com.example.jobisapplication.domain.code.model.Code;
 import com.example.jobisapplication.domain.code.spi.QueryCodePort;
 import com.example.jobisapplication.domain.company.dto.request.RegisterCompanyRequest;
 import com.example.jobisapplication.domain.company.exception.CompanyAlreadyExistsException;
@@ -44,14 +46,16 @@ public class RegisterCompanyUseCase {
                 .authority(Authority.COMPANY)
                 .build();
 
-        String businessAreaKeyword = queryCodePort.queryCodeById(request.getBusinessAreaCode()).getKeyword();
+        Code code = queryCodePort.queryCodeById(request.getBusinessAreaCode())
+                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+
         Company savedCompanyEntity = commandCompanyPort.saveCompany(
                 Company.builder()
                         .id(userEntity.getId())
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
-                        .businessArea(businessAreaKeyword)
+                        .businessArea(code.getKeyword())
                         .serviceName(request.getServiceName())
                         .name(request.getName())
                         .take(request.getTake())

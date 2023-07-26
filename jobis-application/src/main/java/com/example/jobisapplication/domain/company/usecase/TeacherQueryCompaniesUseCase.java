@@ -1,6 +1,7 @@
 package com.example.jobisapplication.domain.company.usecase;
 
 import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
+import com.example.jobisapplication.domain.code.exception.CodeNotFoundException;
 import com.example.jobisapplication.domain.code.spi.QueryCodePort;
 import com.example.jobisapplication.domain.company.dto.CompanyFilter;
 import com.example.jobisapplication.domain.company.dto.response.TeacherQueryCompaniesResponse;
@@ -29,7 +30,12 @@ public class TeacherQueryCompaniesUseCase {
                 .type(type)
                 .name(companyName)
                 .region(region)
-                .businessArea(businessArea == null ? null : queryCodePort.queryCodeById(businessArea).getKeyword())
+                .businessArea(
+                        businessArea == null ? null :
+                                queryCodePort.queryCodeById(businessArea)
+                                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+                                        .getKeyword()
+                )
                 .page(page)
                 .build();
 

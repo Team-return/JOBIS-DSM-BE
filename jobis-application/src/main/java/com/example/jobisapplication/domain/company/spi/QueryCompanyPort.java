@@ -9,6 +9,7 @@ import com.example.jobisapplication.domain.company.spi.vo.TeacherCompaniesVO;
 import com.example.jobisapplication.domain.company.spi.vo.TeacherEmployCompaniesVO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface QueryCompanyPort {
 
@@ -24,7 +25,7 @@ public interface QueryCompanyPort {
 
     List<String> queryCompanyAttachmentUrls(Long companyId);
 
-    Company queryCompanyById(Long companyId);
+    Optional<Company> queryCompanyById(Long companyId);
 
     List<Company> queryCompaniesByIdIn(List<Long> companyIds);
 
