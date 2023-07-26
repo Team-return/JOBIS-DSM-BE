@@ -1,27 +1,41 @@
 package team.retum.jobis.domain.user.persistence.repository;
 
+import com.example.jobisapplication.domain.user.model.User;
+import com.example.jobisapplication.domain.user.spi.UserPort;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
+import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
 
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository {
+public class UserRepository implements UserPort {
+
     private final UserJpaRepository userJpaRepository;
     private final JPAQueryFactory queryFactory;
+    private final UserMapper userMapper;
 
-    public Optional<UserEntity> queryUserByAccountId(String accountId) {
-        return userJpaRepository.findByAccountId(accountId);
+    @Override
+    public Optional<User> queryUserByAccountId(String accountId) {
+        return userJpaRepository.findByAccountId(accountId).map(userMapper::toDomain);
     }
 
-    public Optional<UserEntity> queryUserById(Long userId) {
-        return userJpaRepository.findById(userId);
+    @Override
+    public Optional<User> queryUserById(Long userId) {
+        return userJpaRepository.findById(userId).map(userMapper::toDomain);
     }
 
-    public boolean existsByAccountId(String accountId) {
+    @Override
+    public boolean existsUserByAccountId(String accountId) {
         return userJpaRepository.existsByAccountId(accountId);
+    }
+
+    @Override
+    public User saveUser(User user) {
+        return userMapper.toDomain(
+                userJpaRepository.save(userMapper.toEntity(user))
+        );
     }
 }

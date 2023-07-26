@@ -1,9 +1,9 @@
 package com.example.jobisapplication.domain.recruitment.exception.error;
 
+import com.example.jobisapplication.common.error.ErrorProperty;
 import com.example.jobisapplication.common.error.HttpStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import com.example.jobisapplication.common.error.ErrorProperty;
 
 @Getter
 @AllArgsConstructor

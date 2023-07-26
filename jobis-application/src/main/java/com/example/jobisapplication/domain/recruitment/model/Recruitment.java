@@ -51,8 +51,8 @@ public class Recruitment {
     private final Long companyId;
 
     public Recruitment update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
-                       LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
-                       boolean militarySupport, String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade
+                              LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
+                              boolean militarySupport, String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade
     ) {
         return this.toBuilder()
                 .workingHours(workingHours)

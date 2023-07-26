@@ -1,7 +1,7 @@
-package team.retum.jobis.domain.recruitment.service;
+package com.example.jobisapplication.domain.recruitment.exception;
 
-import com.example.jobisapplication.domain.recruitment.exception.error.RecruitmentErrorCode;
 import com.example.jobisapplication.common.error.JobisException;
+import com.example.jobisapplication.domain.recruitment.exception.error.RecruitmentErrorCode;
 
 public class RecruitAreaCannotDeleteException extends JobisException {
 

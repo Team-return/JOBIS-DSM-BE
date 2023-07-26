@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.auth.presentation;
 
+import com.example.jobisapplication.domain.auth.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,7 +16,6 @@ import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeWebRequ
 import com.example.jobisapplication.domain.auth.usecase.SendAuthCodeService;
 import com.example.jobisapplication.domain.auth.usecase.TokenReissueService;
 import com.example.jobisapplication.domain.auth.usecase.VerifyAuthCodeService;
-import com.example.jobisapplication.domain.user.dto.response.TokenResponse;
 
 import javax.validation.Valid;
 
