@@ -13,10 +13,10 @@ import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBo
 import java.util.List;
 import java.util.Optional;
 
-import static team.retum.jobis.domain.bookmark.persistence.QBookmark.bookmark;
-import static team.retum.jobis.domain.company.persistence.QCompany.company;
-import static team.retum.jobis.domain.recruitment.persistence.QRecruitment.recruitment;
-import static team.retum.jobis.domain.student.persistence.QStudent.student;
+import static team.retum.jobis.domain.bookmark.persistence.entity.QBookmarkEntity.bookmarkEntity;
+import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
+import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
+import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor
 @Component
@@ -37,7 +37,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     public Optional<Bookmark> queryBookmarkByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId) {
         return bookmarkMapper.toOptionalDomain(
                 bookmarkJpaRepository.findByRecruitmentEntityIdAndStudentEntityId(recruitmentId, studentId)
-        )
+        );
     }
 
     @Override

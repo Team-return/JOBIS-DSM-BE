@@ -10,4 +10,6 @@ public interface QueryCodePort {
     List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType, Long parentCode);
 
     Code queryCodeById(Long codeId);
+
+    List<Code> queryCodesByIdIn(List<Long> codes);
 }

@@ -13,7 +13,7 @@ import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 
 import java.util.List;
 
-import static team.retum.jobis.domain.code.domain.QCode.code;
+import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
 
 @RequiredArgsConstructor
 @Repository

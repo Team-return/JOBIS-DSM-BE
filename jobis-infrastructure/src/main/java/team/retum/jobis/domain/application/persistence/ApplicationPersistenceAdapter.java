@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.application.persistence.repository;
+package team.retum.jobis.domain.application.persistence;
 
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobisapplication.domain.application.model.Application;
@@ -13,6 +13,8 @@ import team.retum.jobis.domain.acceptance.persistence.repository.vo.QueryApplica
 import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationAttachmentMapper;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
+import team.retum.jobis.domain.application.persistence.repository.ApplicationAttachmentJpaRepository;
+import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;

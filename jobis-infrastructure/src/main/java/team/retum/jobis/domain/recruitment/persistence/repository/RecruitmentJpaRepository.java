@@ -6,9 +6,10 @@ import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RecruitmentJpaRepository extends JpaRepository<RecruitmentEntity, Long> {
     List<RecruitmentEntity> findByIdIn(List<Long> recruitmentIds);
 
-    boolean existsByCompanyAndStatusNot(CompanyEntity companyEntity, RecruitStatus status);
+    boolean existsByCompanyEntityIdAndStatusNot(Long companyId, RecruitStatus status);
 }

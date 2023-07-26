@@ -13,44 +13,44 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewWebRequest;
 import com.example.jobisapplication.domain.review.dto.QueryReviewDetailResponse;
 import com.example.jobisapplication.domain.review.dto.QueryReviewsResponse;
-import team.retum.jobis.domain.review.service.CreateReviewService;
-import team.retum.jobis.domain.review.service.DeleteReviewService;
-import team.retum.jobis.domain.review.service.QueryReviewDetailService;
-import team.retum.jobis.domain.review.service.QueryReviewsService;
+import com.example.jobisapplication.domain.review.usecase.CreateReviewUseCase;
+import com.example.jobisapplication.domain.review.usecase.DeleteReviewUseCase;
+import com.example.jobisapplication.domain.review.usecase.QueryReviewDetailUseCase;
+import com.example.jobisapplication.domain.review.usecase.QueryReviewsUseCase;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/reviews")
 @RestController
-public class ReviewController {
+public class ReviewPersistenceAdapter {
 
-    private final QueryReviewsService queryReviewsService;
-    private final QueryReviewDetailService queryReviewDetailService;
-    private final CreateReviewService createReviewService;
-    private final DeleteReviewService deleteReviewService;
+    private final QueryReviewsUseCase queryReviewsUseCase;
+    private final QueryReviewDetailUseCase queryReviewDetailUseCase;
+    private final CreateReviewUseCase createReviewUseCase;
+    private final DeleteReviewUseCase deleteReviewUseCase;
 
 
     @GetMapping("/{company-id}")
     public QueryReviewsResponse getReviews(
             @PathVariable(name = "company-id") Long companyId
     ) {
-        return queryReviewsService.execute(companyId);
+        return queryReviewsUseCase.execute(companyId);
     }
 
     @GetMapping("/details/{review-id}")
     public QueryReviewDetailResponse getReviewDetails(
             @PathVariable(name = "review-id") String reviewId
     ) {
-        return queryReviewDetailService.execute(reviewId);
+        return queryReviewDetailUseCase.execute(reviewId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createReview(
-            @RequestBody @Valid CreateReviewWebRequest request
+            @RequestBody @Valid CreateReviewWebRequest webRequest
     ) {
-        createReviewService.execute(request);
+        createReviewUseCase.execute(webRequest.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -58,7 +58,7 @@ public class ReviewController {
     public void deleteReview(
             @PathVariable(name = "review-id") String reviewId
     ) {
-        deleteReviewService.execute(reviewId);
+        deleteReviewUseCase.execute(reviewId);
     }
 }
 
