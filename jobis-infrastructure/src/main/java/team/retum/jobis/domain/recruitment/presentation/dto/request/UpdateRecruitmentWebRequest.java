@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
+import com.example.jobisapplication.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.example.jobisapplication.domain.recruitment.model.ProgressType;
@@ -32,4 +33,22 @@ public class UpdateRecruitmentWebRequest {
     @NotNull
     private LocalDate endDate;
     private String etc;
+
+    public UpdateRecruitmentRequest toDomainRequest() {
+        return UpdateRecruitmentRequest.builder()
+                .preferentialTreatment(this.preferentialTreatment)
+                .requiredGrade(this.requiredGrade)
+                .workHours(this.workHours)
+                .requiredLicenses(this.requiredLicenses)
+                .hiringProgress(this.hiringProgress)
+                .trainPay(this.trainPay)
+                .pay(this.pay)
+                .benefits(this.benefits)
+                .military(this.military)
+                .submitDocument(this.submitDocument)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .etc(this.etc)
+                .build();
+    }
 }

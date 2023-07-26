@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.review.persistence.entity;
 
+import com.example.jobisapplication.domain.review.model.QnAElement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,13 @@ public class QnAElementEntity {
 
     @NotNull
     private Long codeId;
+
+    public QnAElement toDomainRequest() {
+        return QnAElement.builder()
+                .codeId(this.codeId)
+                .answer(this.answer)
+                .question(this.question)
+                .build();
+    }
 
 }

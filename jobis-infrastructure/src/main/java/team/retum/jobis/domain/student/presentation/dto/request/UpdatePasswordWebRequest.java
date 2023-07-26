@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
+import com.example.jobisapplication.domain.student.dto.UpdatePasswordRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.global.util.RegexProperty;
@@ -18,4 +19,11 @@ public class UpdatePasswordWebRequest {
     @NotBlank
     @Pattern(regexp = RegexProperty.PASSWORD)
     private String newPassword;
+
+    public UpdatePasswordRequest toDomainRequest() {
+        return UpdatePasswordRequest.builder()
+                .currentPassword(this.currentPassword)
+                .newPassword(this.newPassword)
+                .build();
+    }
 }

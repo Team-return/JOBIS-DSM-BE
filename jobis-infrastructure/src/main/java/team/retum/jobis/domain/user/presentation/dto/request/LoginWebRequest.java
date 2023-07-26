@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.user.presentation.dto.request;
 
+import com.example.jobisapplication.domain.user.dto.LoginRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +15,11 @@ public class LoginWebRequest {
 
     @NotBlank
     private String password;
+
+    public LoginRequest toDomainRequest() {
+        return LoginRequest.builder()
+                .accountId(this.accountId)
+                .password(this.password)
+                .build();
+    }
 }

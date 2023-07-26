@@ -1,10 +1,10 @@
 package com.example.jobisapplication.domain.recruitment.dto.response;
 
+import com.example.jobisapplication.domain.company.model.CompanyType;
+import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import com.example.jobisapplication.domain.company.model.CompanyType;
-import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;
 import java.util.List;

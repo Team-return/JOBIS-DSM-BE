@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
+import com.example.jobisapplication.domain.student.dto.UpdateForgottenPasswordRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.global.util.RegexProperty;
@@ -18,4 +19,11 @@ public class UpdateForgottenPasswordWebRequest {
     @NotBlank
     @Pattern(regexp = RegexProperty.PASSWORD)
     private String password;
+
+    public UpdateForgottenPasswordRequest toDomainRequest() {
+        return UpdateForgottenPasswordRequest.builder()
+                .email(this.email)
+                .password(this.password)
+                .build();
+    }
 }

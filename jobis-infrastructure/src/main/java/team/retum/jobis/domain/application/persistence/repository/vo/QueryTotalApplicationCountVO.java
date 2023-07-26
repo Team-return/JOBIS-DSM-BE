@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 @Getter
-@SuperBuilder
 public class QueryTotalApplicationCountVO extends TotalApplicationCountVO {
 
     @QueryProjection

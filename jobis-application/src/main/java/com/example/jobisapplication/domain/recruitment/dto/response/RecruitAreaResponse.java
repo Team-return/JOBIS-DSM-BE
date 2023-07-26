@@ -2,13 +2,14 @@ package com.example.jobisapplication.domain.recruitment.dto.response;
 
 import com.example.jobisapplication.domain.code.model.Code;
 import com.example.jobisapplication.domain.recruitment.spi.vo.RecruitAreaVO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@Builder
+@AllArgsConstructor
 public class RecruitAreaResponse {
 
     private final Long id;
@@ -20,20 +21,4 @@ public class RecruitAreaResponse {
     private final int hiring;
 
     private final String majorTask;
-
-    public static List<RecruitAreaResponse> of(List<RecruitAreaVO> recruitAreas) {
-        return recruitAreas.stream()
-                .map(recruitArea ->
-                        RecruitAreaResponse.builder()
-                                .id(recruitArea.getId())
-                                .majorTask(recruitArea.getMajorTask())
-                                .hiring(recruitArea.getHiredCount())
-                                .tech(recruitArea.getTechCodes().stream()
-                                        .map(Code::getKeyword)
-                                        .toList()
-                                )
-                                .job(recruitArea.getJobCodes())
-                                .build()
-                ).toList();
-    }
 }

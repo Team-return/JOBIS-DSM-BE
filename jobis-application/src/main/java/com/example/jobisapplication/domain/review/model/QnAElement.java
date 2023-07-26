@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-@Aggregate
 public class QnAElement {
 
     private final String question;

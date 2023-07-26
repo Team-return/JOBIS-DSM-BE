@@ -1,8 +1,10 @@
 package com.example.jobisapplication.domain.recruitment.dto.response;
 
+import com.example.jobisapplication.domain.recruitment.model.ProgressType;
+import com.example.jobisapplication.domain.recruitment.spi.vo.RecruitAreaVO;
+import com.example.jobisapplication.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import lombok.Builder;
 import lombok.Getter;
-import com.example.jobisapplication.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,4 +31,27 @@ public class QueryRecruitmentDetailResponse {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String etc;
+
+    public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas) {
+        return QueryRecruitmentDetailResponse.builder()
+                .companyId(recruitmentDetail.getCompanyId())
+                .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
+                .companyName(recruitmentDetail.getCompanyName())
+                .areas(recruitAreas)
+                .preferentialTreatment(recruitmentDetail.getPreferentialTreatment())
+                .requiredGrade(recruitmentDetail.getRequiredGrade())
+                .workHours(recruitmentDetail.getWorkHours())
+                .requiredLicenses(recruitmentDetail.getRequiredLicenses())
+                .hiringProgress(recruitmentDetail.getHiringProgress())
+                .trainPay(recruitmentDetail.getTrainPay())
+                .pay(recruitmentDetail.getPay())
+                .benefits(recruitmentDetail.getBenefits())
+                .military(recruitmentDetail.getMilitary())
+                .submitDocument(recruitmentDetail.getSubmitDocument())
+                .startDate(recruitmentDetail.getStartDate())
+                .endDate(recruitmentDetail.getEndDate())
+                .etc(recruitmentDetail.getEtc())
+                .build();
+    }
+
 }

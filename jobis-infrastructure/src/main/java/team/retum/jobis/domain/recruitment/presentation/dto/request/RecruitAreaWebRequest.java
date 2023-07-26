@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
+import com.example.jobisapplication.domain.recruitment.dto.request.CreateRecruitAreaRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,9 +26,14 @@ public class RecruitAreaWebRequest {
     @NotBlank
     private String majorTask;
 
-    public List<Long> getCodes() {
-        return Stream.of(jobCodes, techCodes)
-                .flatMap(Collection::stream)
-                .toList();
+    public CreateRecruitAreaRequest toDomainRequest() {
+        return CreateRecruitAreaRequest.builder()
+                .hiring(this.hiring)
+                .jobCodes(this.jobCodes)
+                .techCodes(this.techCodes)
+                .majorTask(this.majorTask)
+                .build();
     }
+
+
 }

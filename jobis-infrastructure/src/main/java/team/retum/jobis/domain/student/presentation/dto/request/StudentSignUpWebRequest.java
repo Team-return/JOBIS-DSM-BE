@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
+import com.example.jobisapplication.domain.student.dto.StudentSignUpRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.example.jobisapplication.domain.student.model.Gender;
@@ -35,4 +36,17 @@ public class StudentSignUpWebRequest {
     private Gender gender;
 
     private String profileImageUrl;
+
+    public StudentSignUpRequest toDomainRequest() {
+        return StudentSignUpRequest.builder()
+                .email(this.email)
+                .password(this.password)
+                .grade(this.grade)
+                .name(this.name)
+                .classRoom(this.classRoom)
+                .number(this.number)
+                .gender(this.gender)
+                .profileImageUrl(this.profileImageUrl)
+                .build();
+    }
 }

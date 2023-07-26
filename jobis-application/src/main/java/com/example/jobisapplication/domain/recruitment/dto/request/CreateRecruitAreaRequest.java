@@ -1,5 +1,6 @@
 package com.example.jobisapplication.domain.recruitment.dto.request;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Collection;
@@ -7,7 +8,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Getter
-public class RecruitAreaRequest {
+@Builder
+public class CreateRecruitAreaRequest {
 
     private List<Long> jobCodes;
 
@@ -16,10 +18,4 @@ public class RecruitAreaRequest {
     private int hiring;
 
     private String majorTask;
-
-    public List<Long> getCodes() {
-        return Stream.of(jobCodes, techCodes)
-                .flatMap(Collection::stream)
-                .toList();
-    }
 }

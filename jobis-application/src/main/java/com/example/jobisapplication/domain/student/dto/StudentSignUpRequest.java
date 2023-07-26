@@ -1,11 +1,12 @@
 package com.example.jobisapplication.domain.student.dto;
 
 import com.example.jobisapplication.domain.student.model.Gender;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@Builder
 public class StudentSignUpRequest {
 
     private String email;
