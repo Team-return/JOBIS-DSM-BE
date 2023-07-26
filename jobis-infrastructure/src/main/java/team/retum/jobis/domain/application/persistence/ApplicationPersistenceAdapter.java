@@ -7,6 +7,7 @@ import com.example.jobisapplication.domain.application.spi.ApplicationPort;
 import com.example.jobisapplication.domain.application.spi.vo.ApplicationDetailVO;
 import com.example.jobisapplication.domain.application.spi.vo.ApplicationVO;
 import com.example.jobisapplication.domain.application.spi.vo.FieldTraineesVO;
+import com.example.jobisapplication.domain.application.spi.vo.PassedApplicationStudentsVO;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -124,7 +125,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<QueryPassedApplicationStudentsVO> queryPassedApplicationStudentsByCompanyId(Long companyId) {
+    public List<PassedApplicationStudentsVO> queryPassedApplicationStudentsByCompanyId(Long companyId) {
         return queryFactory
                 .select(
                         new QQueryPassedApplicationStudentsVO(
@@ -143,7 +144,9 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         companyEntity.id.eq(companyId),
                         applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)
                 )
-                .fetch();
+                .fetch().stream()
+                .map(student -> (PassedApplicationStudentsVO) student)
+                .toList();
     }
 
     @Override
