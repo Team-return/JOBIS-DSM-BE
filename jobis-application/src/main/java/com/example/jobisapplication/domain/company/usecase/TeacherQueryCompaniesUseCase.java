@@ -7,15 +7,15 @@ import com.example.jobisapplication.domain.company.dto.response.TeacherQueryComp
 import com.example.jobisapplication.domain.company.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import com.example.jobisapplication.domain.company.model.CompanyType;
 import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
+import com.example.jobisapplication.domain.review.spi.QueryReviewPort;
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.review.persistence.repository.ReviewRepository;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class TeacherQueryCompaniesUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
-    private final ReviewRepository reviewRepository;
+    private final QueryReviewPort queryReviewPort;
     private final QueryCodePort queryCodePort;
 
     public TeacherQueryCompaniesResponse execute(
@@ -52,7 +52,7 @@ public class TeacherQueryCompaniesUseCase {
                                 .recentRecruitYear(company.getRecentRecruitYear())
                                 .totalAcceptanceCount(company.getTotalAcceptanceCount())
                                 .reviewCount(
-                                        reviewRepository.countByCompanyId(company.getCompanyId())
+                                        queryReviewPort.queryReviewCountByCompanyId(company.getCompanyId())
                                 )
                                 .build()
                         ).toList(),

@@ -1,21 +1,21 @@
-package team.retum.jobis.domain.recruitment.service;
+package com.example.jobisapplication.domain.recruitment.usecase;
 
-import lombok.RequiredArgsConstructor;
-import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
-import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
+import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
 import com.example.jobisapplication.domain.recruitment.dto.RecruitmentFilter;
 import com.example.jobisapplication.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import com.example.jobisapplication.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
-import com.example.jobisapplication.common.annotation.ReadOnlyService;
+import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.spi.QueryRecruitmentPort;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
-@ReadOnlyService
-public class TeacherQueryRecruitmentsService {
+@ReadOnlyUseCase
+public class TeacherQueryRecruitmentsUseCase {
 
-    private final RecruitmentRepository recruitmentRepository;
+    private final QueryRecruitmentPort queryRecruitmentPort;
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Integer page) {
@@ -30,19 +30,19 @@ public class TeacherQueryRecruitmentsService {
                 .build();
 
         int totalPageCount = (int) Math.ceil(
-                recruitmentRepository.getRecruitmentCountByCondition(recruitmentFilter).doubleValue() / 11
+                queryRecruitmentPort.getRecruitmentCountByFilter(recruitmentFilter).doubleValue() / 11
         );
 
         List<TeacherRecruitmentResponse> recruitments =
-                recruitmentRepository.queryRecruitmentsByConditions(recruitmentFilter).stream()
+                queryRecruitmentPort.queryRecruitmentsByFilter(recruitmentFilter).stream()
                         .map(recruitment ->
                                 TeacherRecruitmentResponse.builder()
                                         .id(recruitment.getRecruitmentId())
                                         .recruitmentStatus(recruitment.getRecruitStatus())
                                         .companyName(recruitment.getCompanyName())
                                         .companyType(recruitment.getCompanyType())
-                                        .start(recruitment.getRecruitDate().getStartDate())
-                                        .end(recruitment.getRecruitDate().getFinishDate())
+                                        .start(recruitment.getStartDate())
+                                        .end(recruitment.getEndDate())
                                         .militarySupport(recruitment.isMilitarySupport())
                                         .applicationRequestedCount(recruitment.getRequestedApplicationCount())
                                         .applicationApprovedCount(recruitment.getApprovedApplicationCount())

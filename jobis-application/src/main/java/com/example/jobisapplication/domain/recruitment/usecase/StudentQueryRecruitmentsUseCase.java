@@ -1,26 +1,26 @@
-package team.retum.jobis.domain.recruitment.service;
+package com.example.jobisapplication.domain.recruitment.usecase;
 
-import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
-import team.retum.jobis.domain.code.facade.CodeFacade;
-import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
-import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentRepository;
+import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
+import com.example.jobisapplication.common.spi.SecurityPort;
+import com.example.jobisapplication.domain.code.model.Code;
+import com.example.jobisapplication.domain.code.spi.QueryCodePort;
 import com.example.jobisapplication.domain.recruitment.dto.RecruitmentFilter;
 import com.example.jobisapplication.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import com.example.jobisapplication.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
-import team.retum.jobis.domain.user.facade.UserFacade;
-import com.example.jobisapplication.common.annotation.ReadOnlyService;
+import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
+import com.example.jobisapplication.domain.recruitment.spi.QueryRecruitmentPort;
+import lombok.RequiredArgsConstructor;
 
 import java.time.Year;
 import java.util.List;
 
 @RequiredArgsConstructor
-@ReadOnlyService
-public class StudentQueryRecruitmentsService {
+@ReadOnlyUseCase
+public class StudentQueryRecruitmentsUseCase {
 
-    private final RecruitmentRepository recruitmentRepository;
-    private final UserFacade userFacade;
-    private final CodeFacade codeFacade;
+    private final QueryRecruitmentPort queryRecruitmentPort;
+    private final SecurityPort securityPort;
+    private final QueryCodePort queryCodePort;
 
     public StudentQueryRecruitmentsResponse execute(
             String name,
@@ -28,23 +28,23 @@ public class StudentQueryRecruitmentsService {
             Long jobCode,
             List<Long> codeIds
     ) {
-        Long studentId = userFacade.getCurrentUserId();
+        Long currentStudentId = securityPort.getCurrentUserId();
 
         String jobKeyword = validJobCode(jobCode);
-        List<CodeEntity> techCodeEntities = codeFacade.queryCodesByIdIn(codeIds);
+        List<Code> techCodes = queryCodePort.queryCodesByIdIn(codeIds);
 
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
                 .year(Year.now().getValue())
                 .status(RecruitStatus.RECRUITING)
                 .companyName(name)
                 .page(page)
-                .codeEntities(techCodeEntities)
-                .studentId(studentId)
+                .codeEntities(techCodes)
+                .studentId(currentStudentId)
                 .jobKeyword(jobKeyword)
                 .build();
 
         List<StudentRecruitmentResponse> recruitments =
-                recruitmentRepository.queryRecruitmentsByConditions(recruitmentFilter).stream()
+                queryRecruitmentPort.queryRecruitmentsByFilter(recruitmentFilter).stream()
                         .map(
                                 recruitment -> StudentRecruitmentResponse.builder()
                                         .recruitId(recruitment.getRecruitmentId())
@@ -63,7 +63,7 @@ public class StudentQueryRecruitmentsService {
 
     private String validJobCode(Long jobCode) {
         if (jobCode != null) {
-            return codeFacade.findCodeById(jobCode).getKeyword();
+            return queryCodePort.queryCodeById(jobCode).getKeyword();
         } else {
             return null;
         }
