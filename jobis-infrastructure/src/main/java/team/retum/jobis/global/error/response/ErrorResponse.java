@@ -1,16 +1,17 @@
 package team.retum.jobis.global.error.response;
 
+import com.example.jobisapplication.common.error.ErrorProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class ErrorResponse {
     private final Integer status;
     private final String message;
 
-    @Builder
-    public ErrorResponse(Integer status, String message) {
-        this.status = status;
-        this.message = message;
+    public static ErrorResponse of(ErrorProperty errorProperty) {
+        return new ErrorResponse(errorProperty.getStatus().getValue(), errorProperty.getMessage());
     }
 }
