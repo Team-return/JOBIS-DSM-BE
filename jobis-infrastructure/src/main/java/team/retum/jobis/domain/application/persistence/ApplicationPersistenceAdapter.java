@@ -3,19 +3,17 @@ package team.retum.jobis.domain.application.persistence;
 import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
 import com.example.jobisapplication.domain.application.model.Application;
 import com.example.jobisapplication.domain.application.model.ApplicationAttachment;
+import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import com.example.jobisapplication.domain.application.spi.ApplicationPort;
 import com.example.jobisapplication.domain.application.spi.vo.ApplicationDetailVO;
 import com.example.jobisapplication.domain.application.spi.vo.ApplicationVO;
 import com.example.jobisapplication.domain.application.spi.vo.FieldTraineesVO;
 import com.example.jobisapplication.domain.application.spi.vo.PassedApplicationStudentsVO;
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryApplicationDetailVO;
-import team.retum.jobis.domain.acceptance.persistence.repository.vo.QueryApplicationDetailVO;
-import com.example.jobisapplication.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationAttachmentMapper;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationAttachmentJpaRepository;
@@ -24,9 +22,6 @@ import team.retum.jobis.domain.application.persistence.repository.vo.QQueryAppli
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryTotalApplicationCountVO;
-import team.retum.jobis.domain.application.persistence.repository.vo.QueryApplicationVO;
-import team.retum.jobis.domain.application.persistence.repository.vo.QueryFieldTraineesVO;
-import team.retum.jobis.domain.application.persistence.repository.vo.QueryPassedApplicationStudentsVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryTotalApplicationCountVO;
 import team.retum.jobis.domain.student.persistence.entity.QStudentEntity;
 
@@ -84,7 +79,23 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                                         )
                                 )
                 ).stream()
-                .map(application -> (ApplicationVO) application)
+                .map(application -> ApplicationVO.builder()
+                        .id(application.getId())
+                        .name(application.getName())
+                        .grade(application.getGrade())
+                        .number(application.getNumber())
+                        .classNumber(application.getClassNumber())
+                        .profileImageUrl(application.getProfileImageUrl())
+                        .companyName(application.getCompanyName())
+                        .applicationAttachmentEntities(
+                                application.getApplicationAttachmentEntities().stream()
+                                        .map(applicationAttachmentMapper::toDomain)
+                                        .toList()
+                        )
+                        .createdAt(application.getCreatedAt())
+                        .applicationStatus(application.getApplicationStatus())
+                        .build()
+                )
                 .toList();
     }
 
