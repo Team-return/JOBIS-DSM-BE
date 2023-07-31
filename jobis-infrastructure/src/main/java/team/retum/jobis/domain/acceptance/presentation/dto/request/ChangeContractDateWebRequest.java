@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
+import com.example.jobisapplication.domain.acceptance.dto.request.ChangeContractDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,4 +18,10 @@ public class ChangeContractDateWebRequest {
     @NotNull
     private LocalDate contractDate;
 
+    public ChangeContractDateRequest toDomainRequest() {
+        return ChangeContractDateRequest.builder()
+                .acceptanceIds(this.acceptanceIds)
+                .contractDate(this.contractDate)
+                .build();
+    }
 }

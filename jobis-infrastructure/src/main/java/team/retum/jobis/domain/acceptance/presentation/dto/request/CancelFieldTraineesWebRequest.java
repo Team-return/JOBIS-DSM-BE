@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
+import com.example.jobisapplication.domain.acceptance.dto.request.CancelFieldTraineesRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.global.annotation.ValidListElements;
@@ -13,4 +14,9 @@ public class CancelFieldTraineesWebRequest {
     @ValidListElements
     private List<Long> applicationIds;
 
+    public CancelFieldTraineesRequest toDomainRequest() {
+        return CancelFieldTraineesRequest.builder()
+                .applicationIds(this.applicationIds)
+                .build();
+    }
 }

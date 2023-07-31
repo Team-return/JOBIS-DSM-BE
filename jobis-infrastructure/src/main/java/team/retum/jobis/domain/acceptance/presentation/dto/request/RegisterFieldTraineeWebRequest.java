@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
+import com.example.jobisapplication.domain.acceptance.dto.request.RegisterFieldTraineeRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.global.annotation.ValidListElements;
@@ -20,4 +21,12 @@ public class RegisterFieldTraineeWebRequest {
 
     @NotNull
     private LocalDate endDate;
+
+    public RegisterFieldTraineeRequest toDomainRequest() {
+        return RegisterFieldTraineeRequest.builder()
+                .applicationIds(this.applicationIds)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .build();
+    }
 }

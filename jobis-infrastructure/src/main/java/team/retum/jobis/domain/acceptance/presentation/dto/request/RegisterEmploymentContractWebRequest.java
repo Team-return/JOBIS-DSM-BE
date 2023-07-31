@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
+import com.example.jobisapplication.domain.acceptance.dto.request.RegisterEmploymentContractRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,4 +16,11 @@ public class RegisterEmploymentContractWebRequest {
 
     @NotNull
     private List<Long> applicationIds;
+
+    public RegisterEmploymentContractRequest toDomainRequest() {
+        return RegisterEmploymentContractRequest.builder()
+                .codeKeywords(this.codeKeywords)
+                .applicationIds(this.applicationIds)
+                .build();
+    }
 }

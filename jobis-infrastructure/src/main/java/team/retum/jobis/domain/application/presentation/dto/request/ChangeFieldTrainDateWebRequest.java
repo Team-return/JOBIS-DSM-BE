@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
+import com.example.jobisapplication.domain.application.dto.request.ChangeFieldTrainDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,4 +20,12 @@ public class ChangeFieldTrainDateWebRequest {
 
     @NotNull
     private LocalDate endDate;
+
+    public ChangeFieldTrainDateRequest toDomainRequest() {
+        return ChangeFieldTrainDateRequest.builder()
+                .applicationIds(this.applicationIds)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .build();
+    }
 }

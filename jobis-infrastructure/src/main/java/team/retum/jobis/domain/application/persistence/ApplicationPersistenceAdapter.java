@@ -232,7 +232,9 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .join(applicationEntity.recruitmentEntity, recruitmentEntity)
                 .join(recruitmentEntity.companyEntity, companyEntity)
                 .where(applicationEntity.id.in(applicationIds))
-                .fetch();
+                .fetch().stream()
+                .map(application -> (ApplicationDetailVO) application)
+                .toList();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class AuthWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")
     public void sendSignUpCode(@RequestBody @Valid SendAuthCodeWebRequest request) {
-        sendAuthCodeService.execute(request);
+        sendAuthCodeService.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

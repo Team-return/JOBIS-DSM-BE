@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.auth.presentation.dto.request;
 
+import com.example.jobisapplication.domain.auth.dto.SendAuthCodeRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.example.jobisapplication.domain.auth.model.AuthCodeType;
@@ -19,4 +20,12 @@ public class SendAuthCodeWebRequest {
 
     @NotNull
     private AuthCodeType authCodeType;
+
+    public SendAuthCodeRequest toDomainRequest() {
+        return SendAuthCodeRequest.builder()
+                .email(this.email)
+                .authCodeType(this.authCodeType)
+                .build();
+    }
+
 }

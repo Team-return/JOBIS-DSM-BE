@@ -47,24 +47,24 @@ public class AcceptanceWebAdapter {
     public void registerFieldTrainee(
             @RequestBody @Valid RegisterFieldTraineeWebRequest request
     ) {
-        registerFieldTraineeService.execute(request);
+        registerFieldTraineeService.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/contract-date")
     public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateWebRequest request) {
-        changeContractDateService.execute(request);
+        changeContractDateService.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
     public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractWebRequest request) {
-        registerEmploymentContractService.execute(request);
+        registerEmploymentContractService.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
     public void cancelFieldTrainees(@RequestBody @Valid CancelFieldTraineesWebRequest request) {
-        cancelFieldTraineesUseCase.execute(request);
+        cancelFieldTraineesUseCase.execute(request.toDomainRequest());
     }
 }

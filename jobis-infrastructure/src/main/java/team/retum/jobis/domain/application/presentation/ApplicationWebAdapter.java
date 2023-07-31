@@ -57,7 +57,7 @@ public class ApplicationWebAdapter {
             @RequestBody @Valid CreateApplicationWebRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        createApplicationService.execute(request, recruitmentId);
+        createApplicationService.execute(request.toDomainRequest(), recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -97,7 +97,7 @@ public class ApplicationWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/train-date")
     public void changeFieldTrainDate(@RequestBody @Valid ChangeFieldTrainDateWebRequest request) {
-        changeFieldTrainDateService.execute(request);
+        changeFieldTrainDateService.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
