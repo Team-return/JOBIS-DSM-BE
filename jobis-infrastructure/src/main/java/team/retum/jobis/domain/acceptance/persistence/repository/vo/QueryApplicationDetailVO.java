@@ -12,7 +12,7 @@ public class QueryApplicationDetailVO extends ApplicationDetailVO {
 
     @QueryProjection
     public QueryApplicationDetailVO(Long id, String studentName, int studentGrade, int studentClassNumber,
-                                    int studentNumber, Company company, ApplicationStatus status) {
-        super(id, studentName, studentGrade, studentClassNumber, studentNumber, company, status);
+                                    int studentNumber, Long companyId, String businessArea, ApplicationStatus status) {
+        super(id, studentName, studentGrade, studentClassNumber, studentNumber, companyId, businessArea, status);
     }
 }

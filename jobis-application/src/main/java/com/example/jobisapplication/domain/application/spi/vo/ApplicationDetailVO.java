@@ -19,7 +19,9 @@ public class ApplicationDetailVO {
 
     private final int studentNumber;
 
-    private final Company company;
+    private final Long companyId;
+
+    private final String businessArea;
 
     private final ApplicationStatus status;
 }

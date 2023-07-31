@@ -222,7 +222,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                                 studentEntity.grade,
                                 studentEntity.classRoom,
                                 studentEntity.number,
-                                companyEntity,
+                                companyEntity.id,
+                                companyEntity.businessArea,
                                 applicationEntity.applicationStatus
                         )
                 )

@@ -2,6 +2,7 @@ package team.retum.jobis.domain.bookmark.persistence;
 
 import com.example.jobisapplication.domain.bookmark.model.Bookmark;
 import com.example.jobisapplication.domain.bookmark.spi.BookmarkPort;
+import com.example.jobisapplication.domain.bookmark.spi.vo.StudentBookmarksVO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -53,21 +54,23 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     }
 
     @Override
-    public List<QueryStudentBookmarksVO> queryBookmarksByStudentId(Long studentId) {
+    public List<StudentBookmarksVO> queryBookmarksByStudentId(Long studentId) {
         return queryFactory
                 .select(
                         new QQueryStudentBookmarksVO(
-                                company.name,
-                                recruitment.id,
-                                bookmark.createdAt
+                                companyEntity.name,
+                                recruitmentEntity.id,
+                                bookmarkEntity.createdAt
                         )
                 )
-                .from(bookmark)
-                .join(bookmark.recruitment, recruitment)
-                .join(recruitment.company, company)
-                .join(bookmark.student, student)
-                .where(student.id.eq(studentId))
-                .orderBy(bookmark.createdAt.desc())
-                .fetch();
+                .from(bookmarkEntity)
+                .join(bookmarkEntity.recruitmentEntity, recruitmentEntity)
+                .join(recruitmentEntity.companyEntity, companyEntity)
+                .join(bookmarkEntity.studentEntity, studentEntity)
+                .where(studentEntity.id.eq(studentId))
+                .orderBy(bookmarkEntity.createdAt.desc())
+                .fetch().stream()
+                .map(bookmark -> (StudentBookmarksVO) bookmark)
+                .toList();
     }
 }
