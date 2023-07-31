@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/reviews")
 @RestController
-public class ReviewPersistenceAdapter {
+public class ReviewWebAdapter {
 
     private final QueryReviewsUseCase queryReviewsUseCase;
     private final QueryReviewDetailUseCase queryReviewDetailUseCase;
