@@ -1,42 +1,19 @@
 package team.retum.jobis.domain.company.presentation;
 
 import com.example.jobisapplication.domain.auth.dto.TokenResponse;
-import com.example.jobisapplication.domain.company.dto.request.RegisterCompanyRequest;
 import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyDetailsRequest;
 import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyTypeRequest;
 import com.example.jobisapplication.domain.company.dto.request.UpdateMouRequest;
+import com.example.jobisapplication.domain.company.dto.response.*;
+import com.example.jobisapplication.domain.company.model.CompanyType;
+import com.example.jobisapplication.domain.company.usecase.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.jobisapplication.domain.company.model.CompanyType;
+import org.springframework.web.bind.annotation.*;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouWebRequest;
-import com.example.jobisapplication.domain.company.dto.response.CheckCompanyExistsResponse;
-import com.example.jobisapplication.domain.company.dto.response.CompanyMyPageResponse;
-import com.example.jobisapplication.domain.company.dto.response.QueryCompanyDetailsResponse;
-import com.example.jobisapplication.domain.company.dto.response.StudentQueryCompaniesResponse;
-import com.example.jobisapplication.domain.company.dto.response.TeacherQueryCompaniesResponse;
-import com.example.jobisapplication.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
-import com.example.jobisapplication.domain.company.usecase.CheckCompanyExistsUseCase;
-import com.example.jobisapplication.domain.company.usecase.CompanyMyPageUseCase;
-import com.example.jobisapplication.domain.company.usecase.QueryCompanyDetailsUseCase;
-import com.example.jobisapplication.domain.company.usecase.RegisterCompanyUseCase;
-import com.example.jobisapplication.domain.company.usecase.StudentQueryCompaniesUseCase;
-import com.example.jobisapplication.domain.company.usecase.TeacherQueryCompaniesUseCase;
-import com.example.jobisapplication.domain.company.usecase.TeacherQueryEmployCompaniesUseCase;
-import com.example.jobisapplication.domain.company.usecase.UpdateCompanyDetailsUseCase;
-import com.example.jobisapplication.domain.company.usecase.UpdateCompanyTypeUseCase;
-import com.example.jobisapplication.domain.company.usecase.UpdateConventionUseCase;
 
 import javax.validation.Valid;
 
@@ -59,35 +36,7 @@ public class CompanyWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public TokenResponse register(@RequestBody @Valid RegisterCompanyWebRequest request) {
-        return registerCompanyUseCase.execute(
-                RegisterCompanyRequest.builder()
-                        .name(request.getName())
-                        .businessNumber(request.getBusinessNumber())
-                        .password(request.getPassword())
-                        .companyIntroduce(request.getCompanyIntroduce())
-                        .mainZipCode(request.getMainZipCode())
-                        .mainAddress(request.getMainAddress())
-                        .mainAddressDetail(request.getMainAddressDetail())
-                        .subZipCode(request.getSubZipCode())
-                        .subAddress(request.getSubAddress())
-                        .subAddressDetail(request.getSubAddressDetail())
-                        .managerName(request.getManagerName())
-                        .managerPhoneNo(request.getManagerPhoneNo())
-                        .subManagerName(request.getSubManagerName())
-                        .subManagerPhoneNo(request.getSubManagerPhoneNo())
-                        .fax(request.getFax())
-                        .email(request.getEmail())
-                        .representativeName(request.getRepresentativeName())
-                        .foundedAt(request.getFoundedAt())
-                        .workerNumber(request.getWorkerNumber())
-                        .take(request.getTake())
-                        .companyProfileUrl(request.getCompanyProfileUrl())
-                        .bizRegistrationUrl(request.getBizRegistrationUrl())
-                        .businessAreaCode(request.getBusinessAreaCode())
-                        .serviceName(request.getServiceName())
-                        .attachmentUrls(request.getAttachmentUrls())
-                        .build()
-        );
+        return registerCompanyUseCase.execute(request.toDomainRequest());
     }
 
     @GetMapping("/exists/{business-number}")
@@ -98,24 +47,7 @@ public class CompanyWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
     public void updateDetails(@RequestBody @Valid UpdateCompanyDetailsWebRequest request) {
-        updateCompanyDetailsUseCase.execute(
-                UpdateCompanyDetailsRequest.builder()
-                        .companyIntroduce(request.getCompanyIntroduce())
-                        .zipCode1(request.getZipCode1())
-                        .address1(request.getAddress1())
-                        .zipCode2(request.getZipCode2())
-                        .address2(request.getAddress2())
-                        .manager1(request.getManager1())
-                        .phoneNumber1(request.getPhoneNumber1())
-                        .manager2(request.getManager2())
-                        .phoneNumber2(request.getPhoneNumber2())
-                        .fax(request.getFax())
-                        .email(request.getEmail())
-                        .workerNumber(request.getWorkerNumber())
-                        .take(request.getTake())
-                        .companyProfileUrl(request.getCompanyProfileUrl())
-                        .build()
-        );
+        updateCompanyDetailsUseCase.execute(request.toDomainRequest());
     }
 
     @GetMapping("/student")
@@ -139,9 +71,7 @@ public class CompanyWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/type")
     public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeWebRequest request) {
-        updateCompanyTypeUseCase.execute(
-                new UpdateCompanyTypeRequest(request.getCompanyIds(), request.getCompanyType())
-        );
+        updateCompanyTypeUseCase.execute(request.toDomainRequest());
     }
 
     @GetMapping("/employment")
@@ -167,8 +97,6 @@ public class CompanyWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/mou")
     public void updateMou(@RequestBody @Valid UpdateMouWebRequest request) {
-        updateConventionUseCase.execute(
-                new UpdateMouRequest(request.getCompanyIds())
-        );
+        updateConventionUseCase.execute(request.toDomainRequest());
     }
 }

@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.bug.presentation.dto.request;
 
+import com.example.jobisapplication.domain.bug.dto.CreateBugReportRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
@@ -25,4 +26,13 @@ public class CreateBugReportWebRequest {
     private DevelopmentArea developmentArea;
 
     private List<String> attachmentUrls;
+
+    public CreateBugReportRequest toDomainRequest() {
+        return CreateBugReportRequest.builder()
+                .title(this.title)
+                .content(this.content)
+                .developmentArea(this.developmentArea)
+                .attachmentUrls(this.attachmentUrls)
+                .build();
+    }
 }

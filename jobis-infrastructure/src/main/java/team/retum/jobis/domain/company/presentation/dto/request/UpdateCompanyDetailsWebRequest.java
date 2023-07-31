@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
+import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyDetailsRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -60,4 +61,22 @@ public class UpdateCompanyDetailsWebRequest {
     @NotBlank(message = "company_profile_url은 null 또는 공백 포함 불가입니다.")
     private String companyProfileUrl;
 
+    public UpdateCompanyDetailsRequest toDomainRequest() {
+        UpdateCompanyDetailsRequest.builder()
+                .companyIntroduce(this.companyIntroduce)
+                .zipCode1(this.zipCode1)
+                .address1(this.address1)
+                .zipCode2(this.zipCode2)
+                .address2(this.address2)
+                .manager1(this.manager1)
+                .phoneNumber1(this.phoneNumber1)
+                .manager2(this.manager2)
+                .phoneNumber2(this.phoneNumber2)
+                .fax(this.fax)
+                .email(this.email)
+                .workerNumber(this.workerNumber)
+                .take(this.take)
+                .companyProfileUrl(this.companyProfileUrl)
+                .build();
+    }
 }

@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
+import com.example.jobisapplication.domain.company.dto.request.RegisterCompanyRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -102,4 +103,34 @@ public class RegisterCompanyWebRequest {
     private String serviceName;
 
     private List<String> attachmentUrls;
+
+    public RegisterCompanyRequest toDomainRequest() {
+        return RegisterCompanyRequest.builder()
+                .name(this.name)
+                .businessNumber(this.businessNumber)
+                .password(this.password)
+                .companyIntroduce(this.companyIntroduce)
+                .mainZipCode(this.mainZipCode)
+                .mainAddress(this.mainAddress)
+                .mainAddressDetail(this.mainAddressDetail)
+                .subZipCode(this.subZipCode)
+                .subAddress(this.subAddress)
+                .subAddressDetail(this.subAddressDetail)
+                .managerName(this.managerName)
+                .managerPhoneNo(this.managerPhoneNo)
+                .subManagerName(this.subManagerName)
+                .subManagerPhoneNo(this.subManagerPhoneNo)
+                .fax(this.fax)
+                .email(this.email)
+                .representativeName(this.representativeName)
+                .foundedAt(this.foundedAt)
+                .workerNumber(this.workerNumber)
+                .take(this.take)
+                .companyProfileUrl(this.companyProfileUrl)
+                .bizRegistrationUrl(this.bizRegistrationUrl)
+                .businessAreaCode(this.businessAreaCode)
+                .serviceName(this.serviceName)
+                .attachmentUrls(this.attachmentUrls)
+                .build();
+    }
 }
