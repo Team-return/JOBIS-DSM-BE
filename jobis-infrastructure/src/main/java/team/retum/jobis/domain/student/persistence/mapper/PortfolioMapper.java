@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.student.persistence.mapper;
 
-import com.example.jobisapplication.domain.student.exception.StudentNotFoundException;
-import com.example.jobisapplication.domain.student.model.Portfolio;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
+import team.retum.jobis.domain.student.model.Portfolio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.student.persistence.entity.PortfolioEntity;
@@ -28,7 +28,7 @@ public class PortfolioMapper {
         return Portfolio.builder()
                 .id(entity.getId())
                 .portfolioUrl(entity.getPortfolioUrl())
-                .studentId(entity.getStudentEntity().getId())
+                .studentId(entity.getStudent().getId())
                 .build();
     }
 }

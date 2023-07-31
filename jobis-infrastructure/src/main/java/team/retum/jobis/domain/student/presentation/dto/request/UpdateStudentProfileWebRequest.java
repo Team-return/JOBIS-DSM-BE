@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
-import com.example.jobisapplication.domain.student.dto.UpdateForgottenPasswordRequest;
-import com.example.jobisapplication.domain.student.dto.UpdateStudentProfileRequest;
+import team.retum.jobis.domain.student.dto.UpdateStudentProfileRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

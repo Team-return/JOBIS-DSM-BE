@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.user.persistence.mapper;
 
-import com.example.jobisapplication.domain.user.model.User;
+import team.retum.jobis.domain.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;

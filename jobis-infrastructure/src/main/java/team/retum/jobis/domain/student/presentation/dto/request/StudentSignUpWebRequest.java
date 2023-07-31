@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
-import com.example.jobisapplication.domain.student.dto.StudentSignUpRequest;
+import team.retum.jobis.domain.student.dto.StudentSignUpRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.student.model.Gender;
+import team.retum.jobis.domain.student.model.Gender;
 import team.retum.jobis.global.util.RegexProperty;
 
 import javax.validation.constraints.NotBlank;

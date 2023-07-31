@@ -15,12 +15,12 @@ import team.retum.jobis.domain.acceptance.presentation.dto.request.CancelFieldTr
 import team.retum.jobis.domain.acceptance.presentation.dto.request.ChangeContractDateWebRequest;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmploymentContractWebRequest;
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeWebRequest;
-import com.example.jobisapplication.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
-import com.example.jobisapplication.domain.acceptance.usecase.CancelFieldTraineesUseCase;
-import com.example.jobisapplication.domain.acceptance.usecase.ChangeContractDateService;
-import com.example.jobisapplication.domain.acceptance.usecase.RegisterEmploymentContractService;
-import com.example.jobisapplication.domain.acceptance.usecase.RegisterFieldTraineeService;
-import com.example.jobisapplication.domain.acceptance.usecase.TeacherQueryFieldTraineesAndContractWorkersService;
+import team.retum.jobis.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
+import team.retum.jobis.domain.acceptance.usecase.CancelFieldTraineesUseCase;
+import team.retum.jobis.domain.acceptance.usecase.ChangeContractDateService;
+import team.retum.jobis.domain.acceptance.usecase.RegisterEmploymentContractService;
+import team.retum.jobis.domain.acceptance.usecase.RegisterFieldTraineeService;
+import team.retum.jobis.domain.acceptance.usecase.TeacherQueryFieldTraineesAndContractWorkersService;
 
 import javax.validation.Valid;
 

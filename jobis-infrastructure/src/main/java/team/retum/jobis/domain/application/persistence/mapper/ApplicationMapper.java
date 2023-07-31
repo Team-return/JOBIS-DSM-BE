@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.application.persistence.mapper;
 
-import com.example.jobisapplication.domain.application.model.Application;
-import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
-import com.example.jobisapplication.domain.student.exception.StudentNotFoundException;
+import team.retum.jobis.domain.application.model.Application;
+import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
@@ -42,8 +42,8 @@ public class ApplicationMapper {
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
                 .rejectionReason(entity.getRejectionReason())
-                .studentId(entity.getStudentEntity().getId())
-                .recruitmentId(entity.getRecruitmentEntity().getId())
+                .studentId(entity.getStudent().getId())
+                .recruitmentId(entity.getRecruitment().getId())
                 .build();
     }
 }

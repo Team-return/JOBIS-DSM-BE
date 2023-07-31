@@ -1,8 +1,6 @@
 package team.retum.jobis.domain.recruitment.persistence.repository.vo;
 
-import com.example.jobisapplication.domain.code.model.Code;
-import com.example.jobisapplication.domain.recruitment.dto.response.RecruitAreaResponse;
-import com.example.jobisapplication.domain.recruitment.spi.vo.RecruitAreaVO;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;

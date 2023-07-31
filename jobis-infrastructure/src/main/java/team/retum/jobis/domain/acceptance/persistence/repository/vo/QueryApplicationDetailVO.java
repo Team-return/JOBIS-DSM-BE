@@ -1,11 +1,9 @@
 package team.retum.jobis.domain.acceptance.persistence.repository.vo;
 
-import com.example.jobisapplication.domain.application.spi.vo.ApplicationDetailVO;
-import com.example.jobisapplication.domain.company.model.Company;
+import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import com.example.jobisapplication.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 
 @Getter
 public class QueryApplicationDetailVO extends ApplicationDetailVO {

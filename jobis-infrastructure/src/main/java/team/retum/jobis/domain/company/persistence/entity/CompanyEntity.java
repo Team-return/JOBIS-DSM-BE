@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.persistence.entity;
 
+import team.retum.jobis.domain.company.model.CompanyType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +9,6 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
-import com.example.jobisapplication.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.persistence.entity.type.Address;
 import team.retum.jobis.domain.company.persistence.entity.type.Manager;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
@@ -41,89 +41,68 @@ import java.util.List;
 @Entity
 public class CompanyEntity {
 
+    @OneToMany(mappedBy = "company")
+    private final List<RecruitmentEntity> recruitments = new ArrayList<>();
+    @OneToMany(mappedBy = "company")
+    private final List<CompanyAttachmentEntity> companyAttachments = new ArrayList<>();
+    @OneToMany(mappedBy = "company")
+    private final List<AcceptanceEntity> acceptances = new ArrayList<>();
     @Id
     @Column(name = "company_id")
     private Long id;
-
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "company_id", nullable = false)
     private UserEntity userEntity;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(50)")
     private String name;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(10)")
     private String bizNo;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(13)")
     private CompanyType type;
-
     @NotNull
     @Column(columnDefinition = "BIT(1)")
     private Boolean isMou;
-
     @Embedded
     private Address address;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(10)")
     private String representative;
-
     @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate foundedAt;
-
     @NotNull
     @Column(columnDefinition = "DOUBLE")
     private double take;
-
     @NotNull
     @Column(columnDefinition = "SMALLINT")
     private int workersCount;
-
     @Embedded
     private Manager manager;
-
     @Column(columnDefinition = "VARCHAR(12)")
     private String fax;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(30)")
     private String email;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(4000)")
     private String companyIntroduce;
-
     @ColumnDefault(ImageProperty.DEFAULT_COMPANY_LOGO_IMAGE)
     @Column(columnDefinition = "VARCHAR(300)")
     private String companyLogoUrl;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(300)")
     private String bizRegistrationUrl;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
     private String businessArea;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
     private String serviceName;
-
-    @OneToMany(mappedBy = "company")
-    private final List<RecruitmentEntity> recruitmentEntityList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company")
-    private final List<CompanyAttachmentEntity> companyAttachmentEntities = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company")
-    private final List<AcceptanceEntity> acceptanceEntities = new ArrayList<>();
 
     @Builder
     public CompanyEntity(UserEntity userEntity, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,

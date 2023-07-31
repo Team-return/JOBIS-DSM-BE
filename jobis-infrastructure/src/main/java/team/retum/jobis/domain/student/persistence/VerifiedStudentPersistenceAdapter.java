@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.student.persistence;
 
-import com.example.jobisapplication.domain.student.spi.VerifiedStudentPort;
+import team.retum.jobis.domain.student.spi.VerifiedStudentPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.student.persistence.repository.VerifiedStudentJpaRepository;

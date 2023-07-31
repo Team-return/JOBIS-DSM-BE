@@ -1,13 +1,11 @@
 package team.retum.jobis.domain.company.persistence.mapper;
 
-import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
-import com.example.jobisapplication.domain.company.model.Company;
-import com.example.jobisapplication.domain.company.model.CompanyAttachment;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
+import team.retum.jobis.domain.company.model.CompanyAttachment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.persistence.entity.CompanyAttachmentEntity;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
-import team.retum.jobis.domain.company.persistence.repository.CompanyAttachmentJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 
 @RequiredArgsConstructor
@@ -26,7 +24,7 @@ public class CompanyAttachmentMapper {
     public CompanyAttachment toDomain(CompanyAttachmentEntity entity) {
         return CompanyAttachment.builder()
                 .id(entity.getId())
-                .companyId(entity.getCompanyEntity().getId())
+                .companyId(entity.getCompany().getId())
                 .attachmentUrl(entity.getAttachmentUrl())
                 .build();
     }

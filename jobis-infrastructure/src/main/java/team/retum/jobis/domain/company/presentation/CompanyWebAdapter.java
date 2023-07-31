@@ -1,12 +1,13 @@
 package team.retum.jobis.domain.company.presentation;
 
-import com.example.jobisapplication.domain.auth.dto.TokenResponse;
-import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyDetailsRequest;
-import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyTypeRequest;
-import com.example.jobisapplication.domain.company.dto.request.UpdateMouRequest;
-import com.example.jobisapplication.domain.company.dto.response.*;
-import com.example.jobisapplication.domain.company.model.CompanyType;
-import com.example.jobisapplication.domain.company.usecase.*;
+import team.retum.jobis.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
+import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
+import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
+import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
+import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
+import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
+import team.retum.jobis.domain.company.model.CompanyType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,16 @@ import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyW
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouWebRequest;
+import team.retum.jobis.domain.company.usecase.CheckCompanyExistsUseCase;
+import team.retum.jobis.domain.company.usecase.CompanyMyPageUseCase;
+import team.retum.jobis.domain.company.usecase.QueryCompanyDetailsUseCase;
+import team.retum.jobis.domain.company.usecase.RegisterCompanyUseCase;
+import team.retum.jobis.domain.company.usecase.StudentQueryCompaniesUseCase;
+import team.retum.jobis.domain.company.usecase.TeacherQueryCompaniesUseCase;
+import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCase;
+import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
+import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
+import team.retum.jobis.domain.company.usecase.UpdateConventionUseCase;
 
 import javax.validation.Valid;
 

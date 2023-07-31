@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.persistence;
 
-import com.example.jobisapplication.domain.acceptance.model.Acceptance;
-import com.example.jobisapplication.domain.acceptance.spi.AcceptancePort;
+import team.retum.jobis.domain.acceptance.model.Acceptance;
+import team.retum.jobis.domain.acceptance.spi.AcceptancePort;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

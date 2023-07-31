@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.company.persistence.repository.vo;
 
-import com.example.jobisapplication.domain.company.spi.vo.TeacherCompaniesVO;
+import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import com.example.jobisapplication.domain.company.model.CompanyType;
+import team.retum.jobis.domain.company.model.CompanyType;
 
 @Getter
 public class TeacherQueryCompaniesVO extends TeacherCompaniesVO {

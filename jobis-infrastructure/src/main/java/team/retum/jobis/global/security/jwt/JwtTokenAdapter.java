@@ -1,14 +1,14 @@
 package team.retum.jobis.global.security.jwt;
 
-import com.example.jobisapplication.domain.auth.spi.JwtPort;
-import com.example.jobisapplication.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.auth.spi.JwtPort;
+import team.retum.jobis.domain.auth.dto.TokenResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.auth.persistence.entity.RefreshTokenEntity;
 import team.retum.jobis.domain.auth.persistence.repository.RefreshTokenRepository;
-import com.example.jobisapplication.domain.auth.model.Authority;
+import team.retum.jobis.domain.auth.model.Authority;
 
 import java.time.LocalDateTime;
 import java.util.Date;

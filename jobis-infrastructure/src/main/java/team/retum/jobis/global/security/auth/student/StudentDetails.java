@@ -1,10 +1,10 @@
 package team.retum.jobis.global.security.auth.student;
 
+import team.retum.jobis.domain.auth.model.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.example.jobisapplication.domain.auth.model.Authority;
 
 import java.util.Collection;
 import java.util.Collections;

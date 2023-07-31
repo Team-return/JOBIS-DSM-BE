@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.company.persistence.mapper;
 
-import com.example.jobisapplication.domain.company.model.Company;
-import com.example.jobisapplication.domain.user.exception.UserNotFoundException;
+import team.retum.jobis.domain.company.model.Company;
+import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;

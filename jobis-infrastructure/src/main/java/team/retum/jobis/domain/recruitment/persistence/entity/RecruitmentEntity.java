@@ -8,13 +8,11 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
-import com.example.jobisapplication.domain.recruitment.model.ProgressType;
-import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.converter.HiringProgressConverter;
 import team.retum.jobis.domain.recruitment.persistence.type.PayInfo;
 import team.retum.jobis.domain.recruitment.persistence.type.RecruitDate;
-import com.example.jobisapplication.domain.recruitment.exception.CompanyMismatchException;
-import com.example.jobisapplication.domain.recruitment.exception.InvalidRecruitmentStatusException;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
@@ -103,13 +101,13 @@ public class RecruitmentEntity extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    private CompanyEntity companyEntity;
+    private CompanyEntity company;
 
     @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
-    private final List<RecruitAreaEntity> recruitAreaEntities = new ArrayList<>();
+    private final List<RecruitAreaEntity> recruitAreas = new ArrayList<>();
 
     @OneToMany(mappedBy = "recruitment")
-    private final List<ApplicationEntity> applicationEntities = new ArrayList<>();
+    private final List<ApplicationEntity> applications = new ArrayList<>();
 
     @Builder
     public RecruitmentEntity(int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,
@@ -126,7 +124,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
         this.personalContact = personalContact;
         this.recruitDate = new RecruitDate(startDate, endDate);
         this.payInfo = new PayInfo(trainPay, pay);
-        this.companyEntity = companyEntity;
+        this.company = companyEntity;
         this.requiredLicenses = requiredLicenses;
         this.militarySupport = militarySupport;
         this.etc = etc;

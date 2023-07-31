@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.auth.persistence;
 
-import com.example.jobisapplication.domain.auth.exception.AuthCodeNotFoundException;
-import com.example.jobisapplication.domain.auth.model.AuthCode;
-import com.example.jobisapplication.domain.auth.spi.AuthCodePort;
+import team.retum.jobis.domain.auth.exception.AuthCodeNotFoundException;
+import team.retum.jobis.domain.auth.model.AuthCode;
+import team.retum.jobis.domain.auth.spi.AuthCodePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.auth.persistence.mapper.AuthCodeMapper;

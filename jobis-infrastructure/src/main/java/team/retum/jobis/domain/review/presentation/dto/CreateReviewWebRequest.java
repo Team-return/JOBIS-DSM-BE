@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.review.presentation.dto;
 
-import com.example.jobisapplication.domain.review.dto.CreateReviewRequest;
+import team.retum.jobis.domain.review.dto.CreateReviewRequest;
 import lombok.Getter;
 import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 

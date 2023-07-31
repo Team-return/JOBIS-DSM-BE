@@ -1,6 +1,6 @@
 package team.retum.jobis.global.converter;
 
-import com.example.jobisapplication.common.util.StringUtil;
+import team.retum.jobis.common.util.StringUtil;
 
 import javax.persistence.AttributeConverter;
 import java.util.List;

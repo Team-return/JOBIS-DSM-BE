@@ -1,12 +1,11 @@
 package team.retum.jobis.domain.recruitment.persistence.mapper;
 
-import com.example.jobisapplication.domain.recruitment.exception.RecruitmentNotFoundException;
-import com.example.jobisapplication.domain.recruitment.model.RecruitArea;
+import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
-import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpaRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
 
 @RequiredArgsConstructor
@@ -30,7 +29,7 @@ public class RecruitAreaMapper {
     public RecruitArea toDomain(RecruitAreaEntity entity) {
         return RecruitArea.builder()
                 .id(entity.getId())
-                .recruitmentId(entity.getRecruitmentEntity().getId())
+                .recruitmentId(entity.getRecruitment().getId())
                 .majorTask(entity.getMajorTask())
                 .jobCodes(entity.getJobCodes())
                 .majorTask(entity.getMajorTask())

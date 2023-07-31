@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.student.persistence;
 
-import com.example.jobisapplication.domain.student.model.Student;
-import com.example.jobisapplication.domain.student.spi.StudentPort;
+import team.retum.jobis.domain.student.model.Student;
+import team.retum.jobis.domain.student.spi.StudentPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;

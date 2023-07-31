@@ -1,16 +1,12 @@
 package team.retum.jobis.global.security;
 
-import com.example.jobisapplication.common.spi.SecurityPort;
-import com.example.jobisapplication.domain.auth.model.Authority;
+import team.retum.jobis.common.spi.SecurityPort;
+import team.retum.jobis.domain.auth.model.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
-import team.retum.jobis.domain.user.persistence.repository.UserRepository;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
@@ -34,5 +30,10 @@ public class SecurityAdapter implements SecurityPort {
         Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
 
         return userJpaRepository.findById(currentUserId).get().getAuthority();
+    }
+
+    @Override
+    public boolean isPasswordMatch(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 }

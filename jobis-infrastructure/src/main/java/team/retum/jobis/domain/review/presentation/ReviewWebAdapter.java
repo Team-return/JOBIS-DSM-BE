@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewWebRequest;
-import com.example.jobisapplication.domain.review.dto.QueryReviewDetailResponse;
-import com.example.jobisapplication.domain.review.dto.QueryReviewsResponse;
-import com.example.jobisapplication.domain.review.usecase.CreateReviewUseCase;
-import com.example.jobisapplication.domain.review.usecase.DeleteReviewUseCase;
-import com.example.jobisapplication.domain.review.usecase.QueryReviewDetailUseCase;
-import com.example.jobisapplication.domain.review.usecase.QueryReviewsUseCase;
+import team.retum.jobis.domain.review.dto.QueryReviewDetailResponse;
+import team.retum.jobis.domain.review.dto.QueryReviewsResponse;
+import team.retum.jobis.domain.review.usecase.CreateReviewUseCase;
+import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
+import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
+import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 
 import javax.validation.Valid;
 

@@ -26,10 +26,10 @@ public class RecruitAreaCodeEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruit_area_id", nullable = false)
-    private RecruitAreaEntity recruitAreaEntity;
+    private RecruitAreaEntity recruitArea;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code_id", nullable = false)
-    private CodeEntity codeEntity;
+    private CodeEntity code;
 }

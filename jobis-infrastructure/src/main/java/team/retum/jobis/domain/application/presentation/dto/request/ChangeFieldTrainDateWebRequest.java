@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
-import com.example.jobisapplication.domain.application.dto.request.ChangeFieldTrainDateRequest;
+import team.retum.jobis.domain.application.dto.request.ChangeFieldTrainDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -32,10 +32,10 @@ public class CompanyAttachmentEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    private CompanyEntity companyEntity;
+    private CompanyEntity company;
 
     public CompanyAttachmentEntity(String attachmentUrl, CompanyEntity companyEntity) {
         this.attachmentUrl = attachmentUrl;
-        this.companyEntity = companyEntity;
+        this.company = companyEntity;
     }
 }

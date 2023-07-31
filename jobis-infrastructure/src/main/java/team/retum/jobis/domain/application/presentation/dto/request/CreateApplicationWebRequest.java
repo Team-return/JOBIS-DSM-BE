@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
-import com.example.jobisapplication.domain.application.dto.request.CreateApplicationRequest;
-import com.example.jobisapplication.domain.application.dto.request.CreateApplicationRequest.AttachmentRequest;
+import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest;
+import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest.AttachmentRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.application.model.AttachmentType;
+import team.retum.jobis.domain.application.model.AttachmentType;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

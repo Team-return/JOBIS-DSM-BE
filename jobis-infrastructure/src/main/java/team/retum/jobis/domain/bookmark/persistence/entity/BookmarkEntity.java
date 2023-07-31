@@ -27,10 +27,10 @@ public class BookmarkEntity extends BaseTimeEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
-    private RecruitmentEntity recruitmentEntity;
+    private RecruitmentEntity recruitment;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    private StudentEntity studentEntity;
+    private StudentEntity student;
 }

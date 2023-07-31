@@ -1,7 +1,7 @@
 package team.retum.jobis.global.annotation.config;
 
-import com.example.jobisapplication.common.annotation.ReadOnlyUseCase;
-import com.example.jobisapplication.common.annotation.UseCase;
+import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.annotation.UseCase;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;

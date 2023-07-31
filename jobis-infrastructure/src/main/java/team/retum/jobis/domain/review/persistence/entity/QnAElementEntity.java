@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.review.persistence.entity;
 
-import com.example.jobisapplication.domain.review.model.QnAElement;
+import team.retum.jobis.domain.review.model.QnAElement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

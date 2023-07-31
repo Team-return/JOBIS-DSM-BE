@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
-import com.example.jobisapplication.domain.company.dto.request.UpdateMouRequest;
+import team.retum.jobis.domain.company.dto.request.UpdateMouRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

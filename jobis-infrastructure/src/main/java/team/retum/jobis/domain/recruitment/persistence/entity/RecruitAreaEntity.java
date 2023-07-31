@@ -44,16 +44,16 @@ public class RecruitAreaEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
-    private RecruitmentEntity recruitmentEntity;
+    private RecruitmentEntity recruitment;
 
     @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
-    private List<RecruitAreaCodeEntity> recruitAreaCodeEntities = new ArrayList<>();
+    private List<RecruitAreaCodeEntity> recruitAreaCodes = new ArrayList<>();
 
     @Builder
     public RecruitAreaEntity(Integer hiredCount, String majorTask, String jobCodes, RecruitmentEntity recruitmentEntity) {
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
         this.jobCodes = jobCodes;
-        this.recruitmentEntity = recruitmentEntity;
+        this.recruitment = recruitmentEntity;
     }
 }

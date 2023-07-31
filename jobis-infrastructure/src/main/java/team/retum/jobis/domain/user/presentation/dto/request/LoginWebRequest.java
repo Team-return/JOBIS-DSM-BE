@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.user.presentation.dto.request;
 
-import com.example.jobisapplication.domain.user.dto.LoginRequest;
+import team.retum.jobis.domain.user.dto.LoginRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

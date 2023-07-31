@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.jobisapplication.domain.code.model.CodeType;
-import com.example.jobisapplication.domain.code.dto.response.CodesResponse;
-import com.example.jobisapplication.domain.code.usecase.QueryCodesService;
+import team.retum.jobis.domain.code.model.CodeType;
+import team.retum.jobis.domain.code.dto.response.CodesResponse;
+import team.retum.jobis.domain.code.usecase.QueryCodesService;
 
 @RestController
 @RequiredArgsConstructor

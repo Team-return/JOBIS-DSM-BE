@@ -1,5 +1,7 @@
 package team.retum.jobis.domain.student.persistence.entity;
 
+import team.retum.jobis.domain.student.model.Department;
+import team.retum.jobis.domain.student.model.Gender;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,11 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
-import com.example.jobisapplication.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
-import com.example.jobisapplication.domain.student.model.Department;
-import com.example.jobisapplication.domain.student.model.Gender;
-import com.example.jobisapplication.domain.student.exception.ClassRoomNotFoundException;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.util.ImageProperty;
 
@@ -86,10 +84,10 @@ public class StudentEntity {
     private String profileImageUrl;
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private List<ApplicationEntity> applicationEntities = new ArrayList<>();
+    private List<ApplicationEntity> applications = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private final List<BookmarkEntity> bookmarkEntities = new ArrayList<>();
+    private final List<BookmarkEntity> bookmarks = new ArrayList<>();
 
     @Builder
     public StudentEntity(UserEntity userEntity, String name, Integer grade,

@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.student.presentation;
 
-import com.example.jobisapplication.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.auth.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +15,14 @@ import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpWeb
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdatePasswordWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateStudentProfileWebRequest;
-import com.example.jobisapplication.domain.student.dto.StudentMyPageResponse;
-import com.example.jobisapplication.domain.student.usecase.CheckStudentPasswordUseCase;
-import com.example.jobisapplication.domain.student.usecase.StudentMyPageUseCase;
-import com.example.jobisapplication.domain.student.usecase.StudentSignUpUseCase;
-import com.example.jobisapplication.domain.student.usecase.UpdateStudentForgottenPasswordUseCase;
-import com.example.jobisapplication.domain.student.usecase.UpdateStudentPasswordUseCase;
-import com.example.jobisapplication.domain.student.usecase.UpdateStudentProfileUseCase;
-import com.example.jobisapplication.domain.student.usecase.VerifyStudentUseCase;
+import team.retum.jobis.domain.student.dto.StudentMyPageResponse;
+import team.retum.jobis.domain.student.usecase.CheckStudentPasswordUseCase;
+import team.retum.jobis.domain.student.usecase.StudentMyPageUseCase;
+import team.retum.jobis.domain.student.usecase.StudentSignUpUseCase;
+import team.retum.jobis.domain.student.usecase.UpdateStudentForgottenPasswordUseCase;
+import team.retum.jobis.domain.student.usecase.UpdateStudentPasswordUseCase;
+import team.retum.jobis.domain.student.usecase.UpdateStudentProfileUseCase;
+import team.retum.jobis.domain.student.usecase.VerifyStudentUseCase;
 
 import javax.validation.Valid;
 

@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.code.persistence;
 
-import com.example.jobisapplication.domain.code.model.Code;
-import com.example.jobisapplication.domain.code.model.CodeType;
-import com.example.jobisapplication.domain.code.spi.CodePort;
+import team.retum.jobis.domain.code.model.Code;
+import team.retum.jobis.domain.code.model.CodeType;
+import team.retum.jobis.domain.code.spi.CodePort;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +56,6 @@ public class CodePersistenceAdapter implements CodePort {
     }
 
     private BooleanExpression eqParentCode(Long parentCode) {
-        return parentCode == null ? null : codeEntity.parentCodeEntity.id.eq(parentCode);
+        return parentCode == null ? null : codeEntity.parentCode.id.eq(parentCode);
     }
 }

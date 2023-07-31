@@ -1,14 +1,14 @@
 package team.retum.jobis.domain.application.persistence;
 
-import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
-import com.example.jobisapplication.domain.application.model.Application;
-import com.example.jobisapplication.domain.application.model.ApplicationAttachment;
-import com.example.jobisapplication.domain.application.model.ApplicationStatus;
-import com.example.jobisapplication.domain.application.spi.ApplicationPort;
-import com.example.jobisapplication.domain.application.spi.vo.ApplicationDetailVO;
-import com.example.jobisapplication.domain.application.spi.vo.ApplicationVO;
-import com.example.jobisapplication.domain.application.spi.vo.FieldTraineesVO;
-import com.example.jobisapplication.domain.application.spi.vo.PassedApplicationStudentsVO;
+import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
+import team.retum.jobis.domain.application.model.Application;
+import team.retum.jobis.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.application.spi.ApplicationPort;
+import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
+import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
+import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
+import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -51,10 +51,10 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     public List<ApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
         return queryFactory
                 .selectFrom(applicationEntity)
-                .join(applicationEntity.studentEntity, studentEntity)
-                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
-                .leftJoin(applicationEntity.applicationAttachmentEntities, applicationAttachmentEntity)
-                .leftJoin(recruitmentEntity.companyEntity, companyEntity)
+                .join(applicationEntity.student, studentEntity)
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .leftJoin(applicationEntity.applicationAttachments, applicationAttachmentEntity)
+                .leftJoin(recruitmentEntity.company, companyEntity)
                 .where(
                         eqRecruitmentId(recruitmentId),
                         eqStudentId(studentId),
@@ -125,9 +125,9 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         )
                 )
                 .from(applicationEntity)
-                .join(applicationEntity.studentEntity, studentEntity)
-                .on(applicationEntity.studentEntity.id.eq(studentEntity.id))
-                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
+                .join(applicationEntity.student, studentEntity)
+                .on(applicationEntity.student.id.eq(studentEntity.id))
+                .join(applicationEntity.recruitment, recruitmentEntity)
                 .on(recentRecruitment(companyId))
                 .where(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 .fetch().stream()
@@ -148,9 +148,9 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         )
                 )
                 .from(applicationEntity)
-                .join(applicationEntity.studentEntity, studentEntity)
-                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
-                .join(recruitmentEntity.companyEntity, companyEntity)
+                .join(applicationEntity.student, studentEntity)
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .join(recruitmentEntity.company, companyEntity)
                 .where(
                         companyEntity.id.eq(companyId),
                         applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)
@@ -173,14 +173,14 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         )
                 )
                 .from(applicationEntity)
-                .leftJoin(applicationEntity.studentEntity, approvedStudent)
-                .on(approvedStudent.applicationEntities.any().applicationStatus.eq(ApplicationStatus.APPROVED))
-                .leftJoin(applicationEntity.studentEntity, passedStudent)
+                .leftJoin(applicationEntity.student, approvedStudent)
+                .on(approvedStudent.applications.any().applicationStatus.eq(ApplicationStatus.APPROVED))
+                .leftJoin(applicationEntity.student, passedStudent)
                 .on(
-                        passedStudent.applicationEntities.any().applicationStatus.eq(ApplicationStatus.PASS)
-                                .or(passedStudent.applicationEntities.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                        passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS)
+                                .or(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 )
-                .rightJoin(applicationEntity.studentEntity, studentEntity)
+                .rightJoin(applicationEntity.student, studentEntity)
                 .fetchOne();
     }
 
@@ -228,9 +228,9 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         )
                 )
                 .from(applicationEntity)
-                .join(applicationEntity.studentEntity, studentEntity)
-                .join(applicationEntity.recruitmentEntity, recruitmentEntity)
-                .join(recruitmentEntity.companyEntity, companyEntity)
+                .join(applicationEntity.student, studentEntity)
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .join(recruitmentEntity.company, companyEntity)
                 .where(applicationEntity.id.in(applicationIds))
                 .fetch().stream()
                 .map(application -> (ApplicationDetailVO) application)
@@ -310,7 +310,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         return recruitmentEntity.createdAt.eq(
                 select(recruitmentEntity.createdAt.max())
                         .from(recruitmentEntity)
-                        .where(recruitmentEntity.companyEntity.id.eq(companyId))
+                        .where(recruitmentEntity.company.id.eq(companyId))
         );
     }
 }

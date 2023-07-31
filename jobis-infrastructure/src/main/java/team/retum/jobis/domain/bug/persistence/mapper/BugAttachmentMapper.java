@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.bug.persistence.mapper;
 
-import com.example.jobisapplication.domain.bug.model.BugAttachment;
+import team.retum.jobis.domain.bug.model.BugAttachment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bug.persistence.entity.BugAttachmentEntity;
@@ -15,7 +15,7 @@ public class BugAttachmentMapper {
 
     public BugAttachment toDomain(BugAttachmentEntity entity) {
         return BugAttachment.builder()
-                .bugReportId(entity.getBugReportEntity().getId())
+                .bugReportId(entity.getBugReport().getId())
                 .attachmentUrl(entity.getAttachmentUrl())
                 .build();
     }

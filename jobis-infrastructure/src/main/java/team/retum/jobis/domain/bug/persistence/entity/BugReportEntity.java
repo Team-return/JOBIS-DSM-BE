@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.bug.persistence.entity;
 
+import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;
@@ -27,7 +27,7 @@ import java.util.List;
 public class BugReportEntity extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
-    private final List<BugAttachmentEntity> bugAttachmentEntities = new ArrayList<>();
+    private final List<BugAttachmentEntity> bugAttachments = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

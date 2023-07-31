@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.application.persistence.mapper;
 
-import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
-import com.example.jobisapplication.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
+import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
@@ -29,7 +29,7 @@ public class ApplicationAttachmentMapper {
         return ApplicationAttachment.builder()
                 .attachmentUrl(entity.getAttachmentUrl())
                 .type(entity.getType())
-                .applicationId(entity.getApplicationEntity().getId())
+                .applicationId(entity.getApplication().getId())
                 .build();
     }
 }

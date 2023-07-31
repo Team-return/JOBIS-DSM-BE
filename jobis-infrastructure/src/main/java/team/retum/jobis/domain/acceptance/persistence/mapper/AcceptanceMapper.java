@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.acceptance.persistence.mapper;
 
-import com.example.jobisapplication.domain.acceptance.model.Acceptance;
-import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
+import team.retum.jobis.domain.acceptance.model.Acceptance;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
@@ -37,7 +37,7 @@ public class AcceptanceMapper {
                 .studentName(entity.getStudentName())
                 .studentGcn(entity.getStudentGcn())
                 .id(entity.getId())
-                .companyId(entity.getCompanyEntity().getId())
+                .companyId(entity.getCompany().getId())
                 .build();
     }
 }

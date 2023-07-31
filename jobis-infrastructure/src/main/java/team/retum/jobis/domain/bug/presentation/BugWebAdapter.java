@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.bug.presentation;
 
-import com.example.jobisapplication.domain.bug.dto.QueryBugReportDetailsResponse;
-import com.example.jobisapplication.domain.bug.dto.QueryBugReportsResponse;
-import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
-import com.example.jobisapplication.domain.bug.usecase.CreateBugReportUseCase;
-import com.example.jobisapplication.domain.bug.usecase.QueryBugReportDetailsUseCase;
-import com.example.jobisapplication.domain.bug.usecase.QueryBugReportsUseCase;
+import team.retum.jobis.domain.bug.dto.QueryBugReportDetailsResponse;
+import team.retum.jobis.domain.bug.dto.QueryBugReportsResponse;
+import team.retum.jobis.domain.bug.model.DevelopmentArea;
+import team.retum.jobis.domain.bug.usecase.CreateBugReportUseCase;
+import team.retum.jobis.domain.bug.usecase.QueryBugReportDetailsUseCase;
+import team.retum.jobis.domain.bug.usecase.QueryBugReportsUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

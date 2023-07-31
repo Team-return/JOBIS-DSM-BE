@@ -1,6 +1,6 @@
 package team.retum.jobis.thirdparty.api;
 
-import com.example.jobisapplication.common.spi.FeignClientPort;
+import team.retum.jobis.common.spi.FeignClientPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.thirdparty.api.client.BizNoFeignClient;

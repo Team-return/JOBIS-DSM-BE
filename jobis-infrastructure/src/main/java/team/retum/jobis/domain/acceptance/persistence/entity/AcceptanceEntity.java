@@ -58,7 +58,7 @@ public class AcceptanceEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    private CompanyEntity companyEntity;
+    private CompanyEntity company;
 
     @Builder
     public AcceptanceEntity(Integer year, String studentName, String businessArea, List<String> tech,
@@ -69,6 +69,6 @@ public class AcceptanceEntity {
         this.tech = tech;
         this.studentGcn = studentGcn;
         this.contractDate = contractDate;
-        this.companyEntity = companyEntity;
+        this.company = companyEntity;
     }
 }

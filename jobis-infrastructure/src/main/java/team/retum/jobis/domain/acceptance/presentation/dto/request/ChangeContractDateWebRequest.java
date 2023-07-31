@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
-import com.example.jobisapplication.domain.acceptance.dto.request.ChangeContractDateRequest;
+import team.retum.jobis.domain.acceptance.dto.request.ChangeContractDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

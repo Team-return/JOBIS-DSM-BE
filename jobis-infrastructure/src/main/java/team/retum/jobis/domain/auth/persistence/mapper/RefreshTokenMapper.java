@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.auth.persistence.mapper;
 
-import com.example.jobisapplication.domain.auth.model.RefreshToken;
+import team.retum.jobis.domain.auth.model.RefreshToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.auth.persistence.entity.RefreshTokenEntity;

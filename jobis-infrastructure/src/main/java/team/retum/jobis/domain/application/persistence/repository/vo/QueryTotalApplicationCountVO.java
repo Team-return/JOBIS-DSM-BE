@@ -1,9 +1,8 @@
 package team.retum.jobis.domain.application.persistence.repository.vo;
 
-import com.example.jobisapplication.domain.application.spi.vo.TotalApplicationCountVO;
+import team.retum.jobis.domain.application.spi.vo.TotalApplicationCountVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 public class QueryTotalApplicationCountVO extends TotalApplicationCountVO {

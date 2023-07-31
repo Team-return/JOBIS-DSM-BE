@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.recruitment.persistence.repository.vo;
 
-import com.example.jobisapplication.domain.recruitment.model.ProgressType;
-import com.example.jobisapplication.domain.recruitment.spi.vo.RecruitmentDetailVO;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
+import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import com.querydsl.core.annotations.QueryProjection;
 
 import java.time.LocalDate;

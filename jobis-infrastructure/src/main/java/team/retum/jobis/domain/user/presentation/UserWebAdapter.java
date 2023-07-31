@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.user.presentation;
 
-import com.example.jobisapplication.domain.auth.dto.TokenResponse;
-import com.example.jobisapplication.domain.user.usecase.LoginUseCase;
+import team.retum.jobis.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.user.usecase.LoginUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

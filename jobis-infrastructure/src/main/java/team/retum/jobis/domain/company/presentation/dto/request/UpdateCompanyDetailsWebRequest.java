@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
-import com.example.jobisapplication.domain.company.dto.request.UpdateCompanyDetailsRequest;
+import team.retum.jobis.domain.company.dto.request.UpdateCompanyDetailsRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -62,7 +62,7 @@ public class UpdateCompanyDetailsWebRequest {
     private String companyProfileUrl;
 
     public UpdateCompanyDetailsRequest toDomainRequest() {
-        UpdateCompanyDetailsRequest.builder()
+        return UpdateCompanyDetailsRequest.builder()
                 .companyIntroduce(this.companyIntroduce)
                 .zipCode1(this.zipCode1)
                 .address1(this.address1)

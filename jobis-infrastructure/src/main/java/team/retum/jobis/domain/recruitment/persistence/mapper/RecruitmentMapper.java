@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.recruitment.persistence.mapper;
 
-import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
-import com.example.jobisapplication.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
+import team.retum.jobis.domain.recruitment.model.Recruitment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
@@ -42,7 +42,7 @@ public class RecruitmentMapper {
 
     public Recruitment toDomain(RecruitmentEntity entity) {
         return Recruitment.builder()
-                .companyId(entity.getCompanyEntity().getId())
+                .companyId(entity.getCompany().getId())
                 .etc(entity.getEtc())
                 .recruitYear(entity.getRecruitYear())
                 .benefits(entity.getBenefits())

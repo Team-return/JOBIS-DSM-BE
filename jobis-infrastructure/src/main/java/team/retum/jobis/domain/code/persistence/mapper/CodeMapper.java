@@ -1,8 +1,7 @@
 package team.retum.jobis.domain.code.persistence.mapper;
 
-import com.example.jobisapplication.domain.code.exception.CodeNotFoundException;
-import com.example.jobisapplication.domain.code.model.Code;
-import com.example.jobisapplication.domain.code.model.JobType;
+import team.retum.jobis.domain.code.exception.CodeNotFoundException;
+import team.retum.jobis.domain.code.model.Code;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
@@ -31,7 +30,7 @@ public class CodeMapper {
                 .id(entity.getId())
                 .codeType(entity.getCodeType())
                 .jobType(entity.getJobType())
-                .parentCodeId(entity.getParentCodeEntity().getId())
+                .parentCodeId(entity.getParentCode().getId())
                 .build();
     }
 }

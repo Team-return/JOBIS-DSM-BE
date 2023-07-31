@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
-import com.example.jobisapplication.domain.company.dto.request.RegisterCompanyRequest;
+import team.retum.jobis.domain.company.dto.request.RegisterCompanyRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

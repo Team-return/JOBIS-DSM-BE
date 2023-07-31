@@ -1,25 +1,25 @@
 package team.retum.jobis.global.security.auth.company;
 
-import com.example.jobisapplication.domain.company.exception.CompanyNotFoundException;
-import com.example.jobisapplication.domain.company.model.Company;
-import com.example.jobisapplication.domain.company.spi.QueryCompanyPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
+import team.retum.jobis.global.exception.InvalidTokenException;
 
 @Component
 @RequiredArgsConstructor
 public class CompanyDetailsService implements UserDetailsService {
 
-    private final QueryCompanyPort queryCompanyPort;
+    private final CompanyJpaRepository companyJpaRepository;
 
     @Override
     public UserDetails loadUserByUsername(String companyId) throws UsernameNotFoundException {
-        Company company = queryCompanyPort.queryCompanyById(
+        CompanyEntity company = companyJpaRepository.findById(
                 Long.valueOf(companyId)
-        ).orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
 
         return new CompanyDetails(company.getId());
     }

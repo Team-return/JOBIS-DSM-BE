@@ -1,9 +1,7 @@
 package team.retum.jobis.domain.student.persistence.mapper;
 
-import com.example.jobisapplication.domain.student.model.Department;
-import com.example.jobisapplication.domain.student.model.Student;
-import com.example.jobisapplication.domain.user.exception.UserNotFoundException;
-import com.example.jobisapplication.domain.user.model.User;
+import team.retum.jobis.domain.student.model.Student;
+import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;

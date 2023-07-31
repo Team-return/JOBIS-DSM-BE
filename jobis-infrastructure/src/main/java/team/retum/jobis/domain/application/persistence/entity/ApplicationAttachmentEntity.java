@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.application.persistence.entity;
 
+import team.retum.jobis.domain.application.model.AttachmentType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.application.model.AttachmentType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,12 +34,12 @@ public class ApplicationAttachmentEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
-    private ApplicationEntity applicationEntity;
+    private ApplicationEntity application;
 
     @Builder
     public ApplicationAttachmentEntity(String attachmentUrl, AttachmentType type, ApplicationEntity applicationEntity) {
         this.attachmentUrl = attachmentUrl;
         this.type = type;
-        this.applicationEntity = applicationEntity;
+        this.application = applicationEntity;
     }
 }

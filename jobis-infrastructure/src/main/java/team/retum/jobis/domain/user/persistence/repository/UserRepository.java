@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.user.persistence.repository;
 
-import com.example.jobisapplication.domain.user.model.User;
-import com.example.jobisapplication.domain.user.spi.UserPort;
+import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.spi.UserPort;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

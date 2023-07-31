@@ -32,12 +32,12 @@ public class PortfolioEntity {
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-    private StudentEntity studentEntity;
+    private StudentEntity student;
 
 
     @Builder
     public PortfolioEntity(String portfolioUrl, StudentEntity studentEntity) {
         this.portfolioUrl = portfolioUrl;
-        this.studentEntity = studentEntity;
+        this.student = studentEntity;
     }
 }

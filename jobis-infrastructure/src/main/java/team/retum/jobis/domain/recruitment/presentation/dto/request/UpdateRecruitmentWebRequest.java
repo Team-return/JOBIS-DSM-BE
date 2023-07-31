@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
-import com.example.jobisapplication.domain.recruitment.dto.request.UpdateRecruitmentRequest;
+import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.recruitment.model.ProgressType;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;

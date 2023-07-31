@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.recruitment.persistence.repository.converter;
 
-import com.example.jobisapplication.domain.recruitment.model.ProgressType;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import javax.persistence.AttributeConverter;
 import java.util.Arrays;

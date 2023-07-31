@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.bug.persistence;
 
-import com.example.jobisapplication.domain.bug.model.BugAttachment;
-import com.example.jobisapplication.domain.bug.model.BugReport;
-import com.example.jobisapplication.domain.bug.model.DevelopmentArea;
-import com.example.jobisapplication.domain.bug.spi.BugReportPort;
-import com.example.jobisapplication.domain.bug.spi.vo.BugReportsVO;
+import team.retum.jobis.domain.bug.model.BugAttachment;
+import team.retum.jobis.domain.bug.model.BugReport;
+import team.retum.jobis.domain.bug.model.DevelopmentArea;
+import team.retum.jobis.domain.bug.spi.BugReportPort;
+import team.retum.jobis.domain.bug.spi.vo.BugReportsVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -62,7 +62,7 @@ public class BugReportPersistenceAdapter implements BugReportPort {
     public List<BugReportsVO> queryBugReportsByDevelopmentArea(DevelopmentArea developmentArea) {
         return queryFactory
                 .selectFrom(bugReportEntity)
-                .leftJoin(bugReportEntity.bugAttachmentEntities, bugAttachmentEntity)
+                .leftJoin(bugReportEntity.bugAttachments, bugAttachmentEntity)
                 .where(eqDevelopmentArea(developmentArea))
                 .orderBy(bugReportEntity.createdAt.desc())
                 .transform(

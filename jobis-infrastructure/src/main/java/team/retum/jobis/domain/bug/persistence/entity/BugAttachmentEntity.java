@@ -26,7 +26,7 @@ public class BugAttachmentEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bug_report_id", nullable = false)
-    private BugReportEntity bugReportEntity;
+    private BugReportEntity bugReport;
 
     @Id
     @NotNull

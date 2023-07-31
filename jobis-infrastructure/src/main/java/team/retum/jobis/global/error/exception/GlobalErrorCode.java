@@ -1,9 +1,9 @@
 package team.retum.jobis.global.error.exception;
 
+import team.retum.jobis.common.error.ErrorProperty;
+import team.retum.jobis.common.error.HttpStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
-import com.example.jobisapplication.common.error.ErrorProperty;
 
 @Getter
 @AllArgsConstructor

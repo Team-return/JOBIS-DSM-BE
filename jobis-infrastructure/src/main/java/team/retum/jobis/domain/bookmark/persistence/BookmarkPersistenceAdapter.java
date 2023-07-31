@@ -1,15 +1,14 @@
 package team.retum.jobis.domain.bookmark.persistence;
 
-import com.example.jobisapplication.domain.bookmark.model.Bookmark;
-import com.example.jobisapplication.domain.bookmark.spi.BookmarkPort;
-import com.example.jobisapplication.domain.bookmark.spi.vo.StudentBookmarksVO;
+import team.retum.jobis.domain.bookmark.model.Bookmark;
+import team.retum.jobis.domain.bookmark.spi.BookmarkPort;
+import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bookmark.persistence.mapper.BookmarkMapper;
 import team.retum.jobis.domain.bookmark.persistence.repository.BookmarkJpaRepository;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QQueryStudentBookmarksVO;
-import team.retum.jobis.domain.bookmark.persistence.repository.vo.QueryStudentBookmarksVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +35,8 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
 
     @Override
     public Optional<Bookmark> queryBookmarkByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId) {
-        return bookmarkMapper.toOptionalDomain(
-                bookmarkJpaRepository.findByRecruitmentEntityIdAndStudentEntityId(recruitmentId, studentId)
-        );
+        return bookmarkJpaRepository.findByRecruitmentEntityIdAndStudentEntityId(recruitmentId, studentId)
+                .map(bookmarkMapper::toDomain);
     }
 
     @Override
@@ -64,9 +62,9 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
                         )
                 )
                 .from(bookmarkEntity)
-                .join(bookmarkEntity.recruitmentEntity, recruitmentEntity)
-                .join(recruitmentEntity.companyEntity, companyEntity)
-                .join(bookmarkEntity.studentEntity, studentEntity)
+                .join(bookmarkEntity.recruitment, recruitmentEntity)
+                .join(recruitmentEntity.company, companyEntity)
+                .join(bookmarkEntity.student, studentEntity)
                 .where(studentEntity.id.eq(studentId))
                 .orderBy(bookmarkEntity.createdAt.desc())
                 .fetch().stream()

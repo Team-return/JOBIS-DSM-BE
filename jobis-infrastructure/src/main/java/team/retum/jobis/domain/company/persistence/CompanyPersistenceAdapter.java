@@ -1,15 +1,15 @@
 package team.retum.jobis.domain.company.persistence;
 
-import com.example.jobisapplication.domain.application.model.ApplicationStatus;
-import com.example.jobisapplication.domain.company.dto.CompanyFilter;
-import com.example.jobisapplication.domain.company.model.Company;
-import com.example.jobisapplication.domain.company.model.CompanyAttachment;
-import com.example.jobisapplication.domain.company.model.CompanyType;
-import com.example.jobisapplication.domain.company.spi.CompanyPort;
-import com.example.jobisapplication.domain.company.spi.vo.StudentCompaniesVO;
-import com.example.jobisapplication.domain.company.spi.vo.TeacherCompaniesVO;
-import com.example.jobisapplication.domain.company.spi.vo.TeacherEmployCompaniesVO;
-import com.example.jobisapplication.domain.recruitment.model.RecruitStatus;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.model.Company;
+import team.retum.jobis.domain.company.model.CompanyAttachment;
+import team.retum.jobis.domain.company.model.CompanyType;
+import team.retum.jobis.domain.company.spi.CompanyPort;
+import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
+import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
+import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -142,7 +142,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     public JPQLQuery<Long> acceptancesCount() {
         return select(acceptanceEntity.count())
                 .from(acceptanceEntity)
-                .where(acceptanceEntity.companyEntity.eq(companyEntity));
+                .where(acceptanceEntity.company.eq(companyEntity));
     }
 
     @Override
@@ -176,7 +176,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .from(companyEntity)
                 .leftJoin(recruitmentEntity)
                 .on(
-                        recruitmentEntity.companyEntity.id.eq(companyEntity.id),
+                        recruitmentEntity.company.id.eq(companyEntity.id),
                         recentRecruitment(RecruitStatus.RECRUITING)
                 )
                 .where(companyEntity.id.eq(companyId))
@@ -195,13 +195,13 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         )
                 )
                 .from(companyEntity)
-                .leftJoin(companyEntity.acceptanceEntities, acceptanceEntity)
-                .leftJoin(companyEntity.recruitmentEntityList, recruitmentEntity)
+                .leftJoin(companyEntity.acceptances, acceptanceEntity)
+                .leftJoin(companyEntity.recruitments, recruitmentEntity)
                 .on(
-                        recruitmentEntity.companyEntity.id.eq(companyEntity.id),
+                        recruitmentEntity.company.id.eq(companyEntity.id),
                         recentRecruitment(null)
                 )
-                .leftJoin(recruitmentEntity.applicationEntities, applicationEntity)
+                .leftJoin(recruitmentEntity.applications, applicationEntity)
                 .on(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 .where(
                         containsName(name),
@@ -220,7 +220,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return queryFactory
                 .select(companyAttachmentEntity.attachmentUrl)
                 .from(companyAttachmentEntity)
-                .where(companyAttachmentEntity.companyEntity.id.eq(companyId))
+                .where(companyAttachmentEntity.company.id.eq(companyId))
                 .fetch();
     }
 
@@ -266,7 +266,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 select(recruitmentEntity.createdAt.max())
                         .from(recruitmentEntity)
                         .where(
-                                recruitmentEntity.companyEntity.id.eq(companyEntity.id),
+                                recruitmentEntity.company.id.eq(companyEntity.id),
                                 eqRecruitmentStatus(status)
                         )
         );

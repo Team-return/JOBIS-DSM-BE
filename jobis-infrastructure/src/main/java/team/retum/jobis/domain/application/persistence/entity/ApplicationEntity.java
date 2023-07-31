@@ -1,14 +1,10 @@
 package team.retum.jobis.domain.application.persistence.entity;
 
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.application.model.ApplicationStatus;
-import com.example.jobisapplication.domain.application.exception.ApplicationCannotDeleteException;
-import com.example.jobisapplication.domain.application.exception.ApplicationNotFoundException;
-import com.example.jobisapplication.domain.application.exception.ApplicationStatusCannotChangeException;
-import com.example.jobisapplication.domain.application.exception.InvalidStudentException;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
@@ -42,11 +38,11 @@ public class ApplicationEntity extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    private StudentEntity studentEntity;
+    private StudentEntity student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id")
-    private RecruitmentEntity recruitmentEntity;
+    private RecruitmentEntity recruitment;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(11)")
@@ -63,14 +59,14 @@ public class ApplicationEntity extends BaseTimeEntity {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "application", orphanRemoval = true)
-    private List<ApplicationAttachmentEntity> applicationAttachmentEntities = new ArrayList<>();
+    private List<ApplicationAttachmentEntity> applicationAttachments = new ArrayList<>();
 
     @Builder
     public ApplicationEntity(StudentEntity studentEntity, RecruitmentEntity recruitmentEntity,
                              ApplicationStatus applicationStatus, String rejectionReason,
                              LocalDate startDate, LocalDate endDate) {
-        this.studentEntity = studentEntity;
-        this.recruitmentEntity = recruitmentEntity;
+        this.student = studentEntity;
+        this.recruitment = recruitmentEntity;
         this.applicationStatus = applicationStatus;
         this.rejectionReason = rejectionReason;
         this.startDate = startDate;

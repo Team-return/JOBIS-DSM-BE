@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.auth.presentation.dto.request;
 
-import com.example.jobisapplication.domain.auth.dto.SendAuthCodeRequest;
+import team.retum.jobis.domain.auth.dto.SendAuthCodeRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.example.jobisapplication.domain.auth.model.AuthCodeType;
+import team.retum.jobis.domain.auth.model.AuthCodeType;
 import team.retum.jobis.global.util.RegexProperty;
 
 import javax.validation.constraints.NotBlank;
