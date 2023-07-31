@@ -9,10 +9,6 @@ import java.util.List;
 
 public interface ApplicationJpaRepository extends JpaRepository<ApplicationEntity, Long> {
 
-    boolean existsByStudentAndRecruitmentId(StudentEntity studentEntity, Long recruitmentId);
-
-    boolean existsByStudentAndApplicationStatus(StudentEntity studentEntity, ApplicationStatus applicationStatus);
-
     List<ApplicationEntity> findAllByIdIn(List<Long> applicationIds);
 
     boolean existsByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);

@@ -35,7 +35,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
 
     @Override
     public Optional<Bookmark> queryBookmarkByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId) {
-        return bookmarkJpaRepository.findByRecruitmentEntityIdAndStudentEntityId(recruitmentId, studentId)
+        return bookmarkJpaRepository.findByRecruitmentIdAndStudentId(recruitmentId, studentId)
                 .map(bookmarkMapper::toDomain);
     }
 
@@ -48,7 +48,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
 
     @Override
     public boolean existsBookmarkByRecruitmentAndStudent(Long recruitmentId, Long studentId) {
-        return bookmarkJpaRepository.existsByRecruitmentEntityIdAndStudentEntityId(recruitmentId, studentId);
+        return bookmarkJpaRepository.existsByRecruitmentIdAndStudentId(recruitmentId, studentId);
     }
 
     @Override

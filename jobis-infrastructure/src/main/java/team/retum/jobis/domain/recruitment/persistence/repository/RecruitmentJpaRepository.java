@@ -9,5 +9,5 @@ import java.util.List;
 public interface RecruitmentJpaRepository extends JpaRepository<RecruitmentEntity, Long> {
     List<RecruitmentEntity> findByIdIn(List<Long> recruitmentIds);
 
-    boolean existsByCompanyEntityIdAndStatusNot(Long companyId, RecruitStatus status);
+    boolean existsByCompanyIdAndStatusNot(Long companyId, RecruitStatus status);
 }

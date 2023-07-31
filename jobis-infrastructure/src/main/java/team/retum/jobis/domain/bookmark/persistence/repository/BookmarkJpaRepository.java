@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface BookmarkJpaRepository extends CrudRepository<BookmarkEntity, BookmarkId> {
 
-    Optional<BookmarkEntity> findByRecruitmentEntityIdAndStudentEntityId(Long recruitmentId, Long studentId);
+    Optional<BookmarkEntity> findByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId);
 
-    boolean existsByRecruitmentEntityIdAndStudentEntityId(Long recruitmentId, Long studentId);
+    boolean existsByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId);
 }
