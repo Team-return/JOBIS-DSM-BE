@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UpdateCompanyDetailsWebRequest {
 
-    @Size(max = 4000, message = "company_introduce는 4000자를 넘을 수 없습니다.")
+    @Size(max = 4000)
     private String companyIntroduce;
 
     @NotBlank
