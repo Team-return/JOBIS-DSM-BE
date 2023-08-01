@@ -24,6 +24,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
         } catch (JobisException e) {
             writeErrorResponse(response, e.getErrorProperty());
         } catch (Exception e) {
+            e.printStackTrace();
             writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
         }
     }

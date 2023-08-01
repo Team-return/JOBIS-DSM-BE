@@ -19,6 +19,7 @@ import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.user.model.User;
 import lombok.RequiredArgsConstructor;
+import team.retum.jobis.domain.user.spi.CommandUserPort;
 
 @RequiredArgsConstructor
 @UseCase
@@ -27,6 +28,7 @@ public class RegisterCompanyUseCase {
     private final FeignClientPort feignClientPort;
     private final QueryCompanyPort queryCompanyPort;
     private final CommandCompanyPort commandCompanyPort;
+    private final CommandUserPort commandUserPort;
     private final SecurityPort securityPort;
     private final QueryCodePort queryCodePort;
     private final JwtPort jwtPort;
@@ -40,11 +42,13 @@ public class RegisterCompanyUseCase {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        User userEntity = User.builder()
-                .accountId(request.getBusinessNumber())
-                .password(securityPort.encodePassword(request.getPassword()))
-                .authority(Authority.COMPANY)
-                .build();
+        User userEntity = commandUserPort.saveUser(
+                User.builder()
+                        .accountId(request.getBusinessNumber())
+                        .password(securityPort.encodePassword(request.getPassword()))
+                        .authority(Authority.COMPANY)
+                        .build()
+        );
 
         Code code = queryCodePort.queryCodeById(request.getBusinessAreaCode())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);

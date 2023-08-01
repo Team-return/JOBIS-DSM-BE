@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.recruitment.dto;
 
-import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.code.model.Code;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +24,7 @@ public class RecruitmentFilter {
 
     private final Integer page;
 
-    private final List<Code> codeEntities;
+    private final List<Long> codes;
 
     private final Long studentId;
 

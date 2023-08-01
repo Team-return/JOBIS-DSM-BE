@@ -50,7 +50,9 @@ public class RecruitAreaEntity {
     private List<RecruitAreaCodeEntity> recruitAreaCodes = new ArrayList<>();
 
     @Builder
-    public RecruitAreaEntity(Integer hiredCount, String majorTask, String jobCodes, RecruitmentEntity recruitmentEntity) {
+    public RecruitAreaEntity(Long id, Integer hiredCount, String majorTask,
+                             String jobCodes, RecruitmentEntity recruitmentEntity) {
+        this.id = id;
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
         this.jobCodes = jobCodes;

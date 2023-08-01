@@ -48,7 +48,8 @@ public class CodeEntity {
     private CodeEntity parentCode;
 
     @Builder
-    public CodeEntity(CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
+    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
+        this.id = id;
         this.codeType = codeType;
         this.jobType = jobType;
         this.keyword = keyword;

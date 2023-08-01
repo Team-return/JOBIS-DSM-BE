@@ -11,6 +11,7 @@ public class ReviewMapper {
 
     public ReviewEntity toEntity(Review domain) {
         return ReviewEntity.builder()
+                .id(domain.getId())
                 .year(domain.getYear())
                 .companyId(domain.getCompanyId())
                 .studentName(domain.getStudentName())

@@ -18,7 +18,7 @@ public class CompanyAttachmentMapper {
         CompanyEntity company = companyJpaRepository.findById(domain.getCompanyId())
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        return new CompanyAttachmentEntity(domain.getAttachmentUrl(), company);
+        return new CompanyAttachmentEntity(domain.getId(), domain.getAttachmentUrl(), company);
     }
 
     public CompanyAttachment toDomain(CompanyAttachmentEntity entity) {

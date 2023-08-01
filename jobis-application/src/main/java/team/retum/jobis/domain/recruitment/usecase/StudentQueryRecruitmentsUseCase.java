@@ -30,16 +30,14 @@ public class StudentQueryRecruitmentsUseCase {
             List<Long> codeIds
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
-
         String jobKeyword = validJobCode(jobCode);
-        List<Code> techCodes = queryCodePort.queryCodesByIdIn(codeIds);
 
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
                 .year(Year.now().getValue())
                 .status(RecruitStatus.RECRUITING)
                 .companyName(name)
                 .page(page)
-                .codeEntities(techCodes)
+                .codes(codeIds)
                 .studentId(currentStudentId)
                 .jobKeyword(jobKeyword)
                 .build();

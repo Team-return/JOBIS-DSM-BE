@@ -26,6 +26,7 @@ public class ApplicationMapper {
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         return ApplicationEntity.builder()
+                .id(domain.getId())
                 .applicationStatus(domain.getApplicationStatus())
                 .studentEntity(student)
                 .recruitmentEntity(recruitment)

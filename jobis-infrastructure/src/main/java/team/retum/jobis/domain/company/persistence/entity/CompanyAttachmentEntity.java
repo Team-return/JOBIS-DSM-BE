@@ -34,7 +34,8 @@ public class CompanyAttachmentEntity {
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
 
-    public CompanyAttachmentEntity(String attachmentUrl, CompanyEntity companyEntity) {
+    public CompanyAttachmentEntity(Long id, String attachmentUrl, CompanyEntity companyEntity) {
+        this.id = id;
         this.attachmentUrl = attachmentUrl;
         this.company = companyEntity;
     }

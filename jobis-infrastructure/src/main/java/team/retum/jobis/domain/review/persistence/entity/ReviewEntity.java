@@ -24,8 +24,9 @@ public class ReviewEntity {
     private LocalDate createdDate;
 
     @Builder
-    public ReviewEntity(Long companyId, List<QnAElementEntity> qnAElementEntities,
+    public ReviewEntity(String id, Long companyId, List<QnAElementEntity> qnAElementEntities,
                         String studentName, Integer year) {
+        this.id = id;
         this.companyId = companyId;
         this.qnAElements = qnAElementEntities;
         this.studentName = studentName;

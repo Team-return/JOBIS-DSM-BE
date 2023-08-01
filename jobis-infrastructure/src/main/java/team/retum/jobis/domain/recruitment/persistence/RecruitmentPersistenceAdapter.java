@@ -1,25 +1,20 @@
 package team.retum.jobis.domain.recruitment.persistence;
 
-import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.code.model.RecruitAreaCode;
-import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
-import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
-import team.retum.jobis.domain.recruitment.model.RecruitArea;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
-import team.retum.jobis.domain.recruitment.model.Recruitment;
-import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
-import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
-import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
-import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
-import team.retum.jobis.domain.code.persistence.mapper.CodeMapper;
+import team.retum.jobis.domain.code.model.RecruitAreaCode;
 import team.retum.jobis.domain.code.persistence.mapper.RecruitAreaCodeMapper;
 import team.retum.jobis.domain.code.persistence.repository.RecruitAreaCodeJpaRepository;
+import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
+import team.retum.jobis.domain.recruitment.model.RecruitArea;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
+import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitAreaMapper;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitmentMapper;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpaRepository;
@@ -27,6 +22,9 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpa
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitAreaVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentsVO;
+import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
+import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
+import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentVO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -49,7 +47,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private final RecruitmentJpaRepository recruitmentJpaRepository;
     private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
-    private final CodeMapper codeMapper;
     private final RecruitmentMapper recruitmentMapper;
     private final RecruitAreaMapper recruitAreaMapper;
     private final RecruitAreaCodeMapper recruitAreaCodeMapper;
@@ -80,7 +77,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 )
                 .from(recruitmentEntity)
                 .join(recruitmentEntity.recruitAreas, recruitAreaEntity)
-                .join(recruitmentEntity.company)
+                .join(recruitmentEntity.company, companyEntity)
                 .leftJoin(recruitmentEntity.applications, requestedApplication)
                 .on(requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED))
                 .leftJoin(recruitmentEntity.applications, approvedApplication)
@@ -92,8 +89,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
-                        containsCodes(filter.getCodeEntities().stream()
-                                .map(codeMapper::toEntity).toList()),
+                        containsCodes(filter.getCodes()),
                         containsJobKeyword(filter.getJobKeyword())
                 )
                 .offset(filter.getOffset())
@@ -295,8 +291,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return companyEntity.name.contains(name);
     }
 
-    private BooleanExpression containsCodes(List<CodeEntity> codes) {
-        return codes == null ? null : recruitAreaEntity.recruitAreaCodes.any().code.in(codes);
+    private BooleanExpression containsCodes(List<Long> codes) {
+        return codes.isEmpty() ? null : recruitAreaEntity.recruitAreaCodes.any().code.id.in(codes);
     }
 
     private BooleanExpression eqStudentId(Long studentId) {

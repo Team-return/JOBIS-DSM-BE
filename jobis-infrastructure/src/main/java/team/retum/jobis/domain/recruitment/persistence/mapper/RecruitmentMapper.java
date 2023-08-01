@@ -19,6 +19,7 @@ public class RecruitmentMapper {
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return RecruitmentEntity.builder()
+                .id(domain.getId())
                 .companyEntity(company)
                 .etc(domain.getEtc())
                 .recruitYear(domain.getRecruitYear())
@@ -42,6 +43,7 @@ public class RecruitmentMapper {
 
     public Recruitment toDomain(RecruitmentEntity entity) {
         return Recruitment.builder()
+                .id(entity.getId())
                 .companyId(entity.getCompany().getId())
                 .etc(entity.getEtc())
                 .recruitYear(entity.getRecruitYear())

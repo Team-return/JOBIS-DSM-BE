@@ -19,6 +19,7 @@ public class AcceptanceMapper {
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return AcceptanceEntity.builder()
+                .id(domain.getId())
                 .companyEntity(company)
                 .contractDate(domain.getContractDate())
                 .businessArea(domain.getBusinessArea())

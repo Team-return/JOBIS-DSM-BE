@@ -36,7 +36,8 @@ public class PortfolioEntity {
 
 
     @Builder
-    public PortfolioEntity(String portfolioUrl, StudentEntity studentEntity) {
+    public PortfolioEntity(Long id, String portfolioUrl, StudentEntity studentEntity) {
+        this.id = id;
         this.portfolioUrl = portfolioUrl;
         this.student = studentEntity;
     }

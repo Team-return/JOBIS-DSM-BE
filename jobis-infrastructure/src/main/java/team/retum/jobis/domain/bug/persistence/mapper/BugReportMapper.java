@@ -11,6 +11,7 @@ public class BugReportMapper {
 
     public BugReportEntity toEntity(BugReport domain) {
         return BugReportEntity.builder()
+                .id(domain.getId())
                 .content(domain.getContent())
                 .title(domain.getTitle())
                 .developmentArea(domain.getDevelopmentArea())

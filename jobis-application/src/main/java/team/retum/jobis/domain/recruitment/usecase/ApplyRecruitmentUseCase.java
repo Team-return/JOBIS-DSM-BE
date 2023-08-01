@@ -3,6 +3,7 @@ package team.retum.jobis.domain.recruitment.usecase;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.model.RecruitAreaCode;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
@@ -55,7 +56,10 @@ public class ApplyRecruitmentUseCase {
         request.getAreas()
                 .forEach(area -> {
                     String jobCodes =
-                            StringUtil.joinStringList(queryCodePort.queryCodesByIdIn(area.getJobCodes()));
+                            StringUtil.joinStringList(
+                                    queryCodePort.queryCodesByIdIn(area.getJobCodes()).stream()
+                                            .map(Code::getKeyword).toList()
+                            );
 
                     RecruitArea savedRecruitmentArea = commandRecruitmentPort.saveRecruitmentArea(
                             RecruitArea.builder()

@@ -14,10 +14,13 @@ public class CodeMapper {
     private final CodeJpaRepository codeJpaRepository;
 
     public CodeEntity toEntity(Code domain) {
-        CodeEntity code = codeJpaRepository.findById(domain.getParentCodeId())
+        CodeEntity code = domain.getParentCodeId() == null ?
+                null : codeJpaRepository.findById(domain.getParentCodeId())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
+        System.out.println(domain.getId());
         return CodeEntity.builder()
+                .id(domain.getId())
                 .codeType(domain.getCodeType())
                 .keyword(domain.getKeyword())
                 .jobType(domain.getJobType())
@@ -30,7 +33,8 @@ public class CodeMapper {
                 .id(entity.getId())
                 .codeType(entity.getCodeType())
                 .jobType(entity.getJobType())
-                .parentCodeId(entity.getParentCode().getId())
+                .keyword(entity.getKeyword())
+                .parentCodeId(entity.getParentCode() == null ? null : entity.getParentCode().getId())
                 .build();
     }
 }

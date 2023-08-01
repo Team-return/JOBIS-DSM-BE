@@ -19,6 +19,7 @@ public class RecruitAreaMapper {
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         return RecruitAreaEntity.builder()
+                .id(domain.getId())
                 .recruitmentEntity(recruitment)
                 .hiredCount(domain.getHiredCount())
                 .jobCodes(domain.getJobCodes())

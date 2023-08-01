@@ -26,24 +26,29 @@ import java.util.List;
 @Entity
 public class BugReportEntity extends BaseTimeEntity {
 
-    @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
-    private final List<BugAttachmentEntity> bugAttachments = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
     private String title;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(400)")
     private String content;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(7)")
     private DevelopmentArea developmentArea;
 
+    @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
+    private final List<BugAttachmentEntity> bugAttachments = new ArrayList<>();
+
     @Builder
-    public BugReportEntity(String title, String content, DevelopmentArea developmentArea) {
+    public BugReportEntity(Long id, String title, String content, DevelopmentArea developmentArea) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.developmentArea = developmentArea;

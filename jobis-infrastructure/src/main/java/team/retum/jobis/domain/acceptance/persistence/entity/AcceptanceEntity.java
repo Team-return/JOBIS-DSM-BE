@@ -61,8 +61,9 @@ public class AcceptanceEntity {
     private CompanyEntity company;
 
     @Builder
-    public AcceptanceEntity(Integer year, String studentName, String businessArea, List<String> tech,
+    public AcceptanceEntity(Long id, Integer year, String studentName, String businessArea, List<String> tech,
                             String studentGcn, LocalDate contractDate, CompanyEntity companyEntity) {
+        this.id = id;
         this.year = year;
         this.studentName = studentName;
         this.businessArea = businessArea;
