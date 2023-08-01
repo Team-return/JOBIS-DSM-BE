@@ -6,11 +6,12 @@ import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 import team.retum.jobis.global.error.GlobalExceptionFilter;
 import team.retum.jobis.global.security.jwt.JwtFilter;
 import team.retum.jobis.global.security.jwt.JwtParser;
-import team.retum.jobis.global.security.jwt.JwtTokenAdapter;
 
+@Component
 @RequiredArgsConstructor
 public class FilterConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
@@ -19,9 +20,7 @@ public class FilterConfig extends SecurityConfigurerAdapter<DefaultSecurityFilte
 
     @Override
     public void configure(HttpSecurity http) {
-        JwtFilter jwtTokenFilter = new JwtFilter(jwtParser);
-        GlobalExceptionFilter globalExceptionFilter = new GlobalExceptionFilter(objectMapper);
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(globalExceptionFilter, JwtFilter.class);
+        http.addFilterBefore(new JwtFilter(jwtParser), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new GlobalExceptionFilter(objectMapper), JwtFilter.class);
     }
 }

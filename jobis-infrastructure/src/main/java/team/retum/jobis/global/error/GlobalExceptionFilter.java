@@ -1,10 +1,10 @@
 package team.retum.jobis.global.error;
 
-import team.retum.jobis.common.error.ErrorProperty;
-import team.retum.jobis.common.error.JobisException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.OncePerRequestFilter;
+import team.retum.jobis.common.error.ErrorProperty;
+import team.retum.jobis.common.error.JobisException;
 import team.retum.jobis.global.error.exception.GlobalErrorCode;
 import team.retum.jobis.global.error.response.ErrorResponse;
 
@@ -24,8 +24,11 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
         } catch (JobisException e) {
             writeErrorResponse(response, e.getErrorProperty());
         } catch (Exception e) {
-            e.printStackTrace();
-            writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
+            if (e.getCause() instanceof JobisException) {
+                writeErrorResponse(response, ((JobisException) e.getCause()).getErrorProperty());
+            } else {
+                writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
+            }
         }
     }
 
