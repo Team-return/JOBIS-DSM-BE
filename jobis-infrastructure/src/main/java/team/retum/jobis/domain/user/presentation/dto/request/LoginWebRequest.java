@@ -1,15 +1,17 @@
 package team.retum.jobis.domain.user.presentation.dto.request;
 
-import team.retum.jobis.domain.user.dto.LoginRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.user.dto.LoginRequest;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
 public class LoginWebRequest {
 
+    @Size(max = 30)
     @NotBlank
     private String accountId;
 

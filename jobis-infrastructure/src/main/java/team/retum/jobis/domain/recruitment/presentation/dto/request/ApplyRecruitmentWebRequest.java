@@ -1,13 +1,14 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
-import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ApplyRecruitmentWebRequest {
     @ValidListElements
     private List<RecruitAreaWebRequest> areas;
 
+    @Size(max = 500)
     private String preferentialTreatment;
 
     private Integer requiredGrade;
@@ -26,7 +28,7 @@ public class ApplyRecruitmentWebRequest {
     @NotNull
     private int workHours;
 
-    private List<String> requiredLicenses;
+    private List<@NotNull String> requiredLicenses;
 
     @ValidListElements
     private List<ProgressType> hiringProgress;
@@ -36,6 +38,7 @@ public class ApplyRecruitmentWebRequest {
 
     private Integer pay;
 
+    @Size(max = 300)
     private String benefits;
 
     @NotNull
@@ -44,6 +47,7 @@ public class ApplyRecruitmentWebRequest {
     @NotNull
     private boolean personalContact;
 
+    @Size(max = 100)
     @NotNull
     private String submitDocument;
 
@@ -53,6 +57,7 @@ public class ApplyRecruitmentWebRequest {
     @NotNull
     private LocalDate endDate;
 
+    @Size(max = 350)
     private String etc;
 
     public ApplyRecruitmentRequest toDomainRequest() {

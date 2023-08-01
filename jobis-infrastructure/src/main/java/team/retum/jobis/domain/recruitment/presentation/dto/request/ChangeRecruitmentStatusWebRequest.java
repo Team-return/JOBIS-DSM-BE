@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
-import team.retum.jobis.domain.recruitment.dto.request.ChangeRecruitmentStatusRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.recruitment.dto.request.ChangeRecruitmentStatusRequest;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import javax.validation.constraints.NotNull;

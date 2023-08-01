@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
-import team.retum.jobis.domain.student.dto.UpdatePasswordRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.student.dto.UpdatePasswordRequest;
 import team.retum.jobis.global.util.RegexProperty;
 
 import javax.validation.constraints.NotBlank;

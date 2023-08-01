@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -13,14 +14,15 @@ import java.util.List;
 public class RecruitAreaWebRequest {
 
     @NotNull
-    private List<Long> jobCodes;
+    private List<@NotNull Long> jobCodes;
 
     @NotNull
-    private List<Long> techCodes;
+    private List<@NotNull Long> techCodes;
 
     @NotNull
     private int hiring;
 
+    @Size(max = 200)
     @NotBlank
     private String majorTask;
 

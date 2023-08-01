@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.student.presentation;
 
-import team.retum.jobis.domain.auth.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.retum.jobis.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.student.dto.StudentMyPageResponse;
 import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdatePasswordWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateStudentProfileWebRequest;
-import team.retum.jobis.domain.student.dto.StudentMyPageResponse;
 import team.retum.jobis.domain.student.usecase.CheckStudentPasswordUseCase;
 import team.retum.jobis.domain.student.usecase.StudentMyPageUseCase;
 import team.retum.jobis.domain.student.usecase.StudentSignUpUseCase;
