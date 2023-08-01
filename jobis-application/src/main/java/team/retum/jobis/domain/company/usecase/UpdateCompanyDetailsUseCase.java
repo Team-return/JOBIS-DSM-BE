@@ -24,11 +24,11 @@ public class UpdateCompanyDetailsUseCase {
 
         commandCompanyPort.saveCompany(
                 company.update(
-                        request.getAddress1(), request.getZipCode1(),
-                        request.getAddress2(), request.getZipCode2(),
+                        request.getMainAddress(), request.getMainZipCode(),
+                        request.getSubAddress(), request.getSubZipCode(),
                         request.getTake(), request.getWorkerNumber(),
-                        request.getManager1(), request.getPhoneNumber1(),
-                        request.getManager2(), request.getPhoneNumber2(),
+                        request.getManagerName(), request.getManagerPhoneNo(),
+                        request.getSubManagerName(), request.getSubManagerPhoneNo(),
                         request.getCompanyIntroduce(), request.getCompanyProfileUrl(),
                         request.getFax(), request.getEmail()
                 )

@@ -15,11 +15,11 @@ import java.util.List;
 public class CreateBugReportWebRequest {
 
     @NotBlank
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     private String title;
 
     @NotBlank
-    @Size(min = 1, max = 400)
+    @Size(max = 400)
     private String content;
 
     @NotNull

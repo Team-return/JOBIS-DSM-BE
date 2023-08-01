@@ -9,21 +9,21 @@ public class UpdateCompanyDetailsRequest {
 
     private String companyIntroduce;
 
-    private String zipCode1;
+    private String mainZipCode;
 
-    private String address1;
+    private String mainAddress;
 
-    private String zipCode2;
+    private String subZipCode;
 
-    private String address2;
+    private String subAddress;
 
-    private String manager1;
+    private String managerName;
 
-    private String phoneNumber1;
+    private String managerPhoneNo;
 
-    private String manager2;
+    private String subManagerName;
 
-    private String phoneNumber2;
+    private String subManagerPhoneNo;
 
     private String fax;
 

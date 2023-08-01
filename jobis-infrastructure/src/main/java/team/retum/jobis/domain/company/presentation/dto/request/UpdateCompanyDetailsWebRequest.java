@@ -16,62 +16,63 @@ public class UpdateCompanyDetailsWebRequest {
     @Size(max = 4000, message = "company_introduce는 4000자를 넘을 수 없습니다.")
     private String companyIntroduce;
 
-    @NotBlank(message = "zip_code1은 null 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 5, max = 5, message = "zip_code1은 5자여야 합니다.")
-    private String zipCode1;
+    @NotBlank
+    @Size(min = 5, max = 5)
+    private String mainZipCode;
 
-    @NotBlank(message = "address1은 null 또는 공백을 포함할 수 없습니다.")
-    @Size(max = 100, message = "address1은 100자를 넘을 수 없습니다.")
-    private String address1;
+    @NotBlank
+    @Size(max = 50)
+    private String mainAddress;
 
-    @Size(max = 5, message = "zip_code2는 5자여야 합니다.")
-    private String zipCode2;
+    @NotBlank
+    @Size(min = 5, max = 5)
+    private String subZipCode;
 
-    @Size(max = 100, message = "address2는 100자를 넘을 수 없습니다.")
-    private String address2;
+    @Size(max = 50)
+    private String subAddress;
 
-    @NotBlank(message = "manager1은 null 또는 공백을 포함할 수 없습니다.")
-    @Size(max = 10, message = "manager1은 10자를 넘을 수 없습니다.")
-    private String manager1;
+    @NotBlank
+    @Size(max = 10)
+    private String managerName;
 
-    @NotBlank(message = "phone_number1은 null 또는 공백을 포함할 수 없습니다.")
-    @Size(min = 10, max = 12, message = "phone_number1은 10자에서 11자여야 합니다.")
-    private String phoneNumber1;
+    @NotBlank
+    @Size(min = 10, max = 12)
+    private String managerPhoneNo;
 
-    @Size(max = 10, message = "manager2는 10자를 넘을 수 없습니다.")
-    private String manager2;
+    @Size(max = 10)
+    private String subManagerName;
 
-    @Size(max = 12, message = "phone_number2는 10자에서 12자여야 합니다.")
-    private String phoneNumber2;
+    @Size(max = 12)
+    private String subManagerPhoneNo;
 
-    @Size(min = 10, max = 12, message = "fax는 10자에서 12자여야 합니다.")
+    @NotBlank
+    @Size(min = 10, max = 12)
     private String fax;
 
     @Email
-    @NotNull
-    @Size(min = 1, max = 20, message = "email은 1자에서 20자여야 합니다.")
+    @Size(max = 30)
     private String email;
 
-    @NotNull(message = "worker_number는 null을 포함할 수 없습니다.")
+    @NotNull
     private int workerNumber;
 
-    @NotNull(message = "take는 null을 포함할 수 없습니다.")
+    @NotNull
     private double take;
 
-    @NotBlank(message = "company_profile_url은 null 또는 공백 포함 불가입니다.")
+    @NotBlank
     private String companyProfileUrl;
 
     public UpdateCompanyDetailsRequest toDomainRequest() {
         return UpdateCompanyDetailsRequest.builder()
                 .companyIntroduce(this.companyIntroduce)
-                .zipCode1(this.zipCode1)
-                .address1(this.address1)
-                .zipCode2(this.zipCode2)
-                .address2(this.address2)
-                .manager1(this.manager1)
-                .phoneNumber1(this.phoneNumber1)
-                .manager2(this.manager2)
-                .phoneNumber2(this.phoneNumber2)
+                .mainZipCode(this.mainZipCode)
+                .mainAddress(this.mainAddress)
+                .subZipCode(this.subZipCode)
+                .subAddress(this.subAddress)
+                .managerName(this.managerName)
+                .managerPhoneNo(this.managerPhoneNo)
+                .subManagerName(this.subManagerName)
+                .subManagerPhoneNo(this.subManagerPhoneNo)
                 .fax(this.fax)
                 .email(this.email)
                 .workerNumber(this.workerNumber)

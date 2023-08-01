@@ -25,12 +25,4 @@ public class Address {
 
     @Column(columnDefinition = "VARCHAR(5)")
     private String subZipCode;
-
-
-    public void update(String mainAddress, String mainZipCode, String subAddress, String subZipCode) {
-        this.mainAddress = mainAddress;
-        this.mainZipCode = mainZipCode;
-        this.subAddress = subAddress;
-        this.subZipCode = subZipCode;
-    }
 }

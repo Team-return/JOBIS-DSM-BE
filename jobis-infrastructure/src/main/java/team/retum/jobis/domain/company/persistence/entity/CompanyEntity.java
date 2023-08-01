@@ -128,5 +128,4 @@ public class CompanyEntity {
         this.companyIntroduce = companyIntroduce;
         this.companyLogoUrl = companyLogoUrl;
     }
-
 }

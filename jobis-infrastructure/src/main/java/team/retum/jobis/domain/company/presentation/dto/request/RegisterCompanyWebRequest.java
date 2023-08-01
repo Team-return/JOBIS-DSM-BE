@@ -20,6 +20,7 @@ import java.util.List;
 public class RegisterCompanyWebRequest {
 
     @NotBlank
+    @Size(max = 20)
     private String name;
 
     @NotBlank
@@ -46,7 +47,8 @@ public class RegisterCompanyWebRequest {
     @Size(max = 50)
     private String mainAddressDetail;
 
-    @Size(max = 5)
+    @NotBlank
+    @Size(min = 5, max = 5)
     private String subZipCode;
 
     @Size(max = 50)
@@ -69,15 +71,16 @@ public class RegisterCompanyWebRequest {
     @Size(max = 12)
     private String subManagerPhoneNo;
 
+    @NotBlank
     @Size(min = 10, max = 12)
     private String fax;
 
     @Email
-    @Size(min = 1, max = 30)
+    @Size(max = 30)
     private String email;
 
     @NotBlank
-    @Size(max = 40)
+    @Size(max = 10)
     private String representativeName;
 
     @NotNull
