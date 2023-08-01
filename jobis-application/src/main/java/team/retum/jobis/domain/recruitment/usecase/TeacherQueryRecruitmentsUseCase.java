@@ -25,6 +25,7 @@ public class TeacherQueryRecruitmentsUseCase {
                 .status(status)
                 .startDate(start)
                 .endDate(end)
+                .codes(List.of())
                 .year(year)
                 .page(page)
                 .build();

@@ -27,6 +27,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
             if (e.getCause() instanceof JobisException) {
                 writeErrorResponse(response, ((JobisException) e.getCause()).getErrorProperty());
             } else {
+                e.printStackTrace();
                 writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
             }
         }
