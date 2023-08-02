@@ -3,6 +3,7 @@ package team.retum.jobis.domain.acceptance.presentation.dto.request;
 import team.retum.jobis.domain.acceptance.dto.request.ChangeContractDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ChangeContractDateWebRequest {
 
-    @NotNull
+    @ValidListElements
     private List<Long> acceptanceIds;
 
     @NotNull

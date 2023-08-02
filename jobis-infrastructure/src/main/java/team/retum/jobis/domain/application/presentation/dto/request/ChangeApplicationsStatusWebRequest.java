@@ -3,6 +3,7 @@ package team.retum.jobis.domain.application.presentation.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ChangeApplicationsStatusWebRequest {
 
-    @NotNull
+    @ValidListElements
     private List<Long> applicationIds;
 
     @NotNull

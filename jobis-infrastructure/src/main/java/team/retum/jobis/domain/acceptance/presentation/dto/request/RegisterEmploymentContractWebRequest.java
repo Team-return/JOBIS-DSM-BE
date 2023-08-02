@@ -3,6 +3,7 @@ package team.retum.jobis.domain.acceptance.presentation.dto.request;
 import team.retum.jobis.domain.acceptance.dto.request.RegisterEmploymentContractRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -11,10 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 public class RegisterEmploymentContractWebRequest {
 
-    @NotNull
+    @ValidListElements
     private List<String> codeKeywords;
 
-    @NotNull
+    @ValidListElements
     private List<Long> applicationIds;
 
     public RegisterEmploymentContractRequest toDomainRequest() {

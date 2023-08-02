@@ -13,12 +13,16 @@ public class QueryApplicationsWebRequest {
 
     @NotNull
     private final Long recruitmentId;
+
     @NotNull
     private final Long studentId;
+
     @NotNull
     private final ApplicationStatus applicationStatus;
+
     @NotBlank
     private final String studentName;
+
     @NotNull
     private Long companyId;
 }

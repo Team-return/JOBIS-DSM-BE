@@ -5,6 +5,7 @@ import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest.
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.model.AttachmentType;
+import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateApplicationWebRequest {
 
-    @Valid
+    @ValidListElements
     private List<AttachmentWebRequest> attachments;
 
     @Getter

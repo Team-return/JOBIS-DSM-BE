@@ -3,6 +3,7 @@ package team.retum.jobis.domain.application.presentation.dto.request;
 import team.retum.jobis.domain.application.dto.request.ChangeFieldTrainDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ChangeFieldTrainDateWebRequest {
 
-    @NotNull
+    @ValidListElements
     private List<Long> applicationIds;
 
     @NotNull
