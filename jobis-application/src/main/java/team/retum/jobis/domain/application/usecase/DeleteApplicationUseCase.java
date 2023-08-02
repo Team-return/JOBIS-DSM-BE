@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class DeleteApplicationService {
+public class DeleteApplicationUseCase {
 
     private final CommandApplicationPort commandApplicationPort;
     private final QueryApplicationPort queryApplicationPort;

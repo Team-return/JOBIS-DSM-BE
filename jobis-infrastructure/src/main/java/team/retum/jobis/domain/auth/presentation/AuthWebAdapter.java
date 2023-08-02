@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeWebRequest;
-import team.retum.jobis.domain.auth.usecase.SendAuthCodeService;
-import team.retum.jobis.domain.auth.usecase.TokenReissueService;
-import team.retum.jobis.domain.auth.usecase.VerifyAuthCodeService;
+import team.retum.jobis.domain.auth.usecase.SendAuthCodeUseCase;
+import team.retum.jobis.domain.auth.usecase.TokenReissueUseCase;
+import team.retum.jobis.domain.auth.usecase.VerifyAuthCodeUseCase;
 
 import javax.validation.Valid;
 
@@ -24,14 +24,14 @@ import javax.validation.Valid;
 @RestController
 public class AuthWebAdapter {
 
-    private final SendAuthCodeService sendAuthCodeService;
-    private final VerifyAuthCodeService verifyAuthCodeService;
-    private final TokenReissueService tokenReissueService;
+    private final SendAuthCodeUseCase sendAuthCodeUseCase;
+    private final VerifyAuthCodeUseCase verifyAuthCodeUseCase;
+    private final TokenReissueUseCase tokenReissueUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")
     public void sendSignUpCode(@RequestBody @Valid SendAuthCodeWebRequest request) {
-        sendAuthCodeService.execute(request.toDomainRequest());
+        sendAuthCodeUseCase.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -40,11 +40,11 @@ public class AuthWebAdapter {
             @RequestParam("email") String email,
             @RequestParam("auth_code") String authCode
     ) {
-        verifyAuthCodeService.execute(email, authCode);
+        verifyAuthCodeUseCase.execute(email, authCode);
     }
 
     @PutMapping("/reissue")
     public TokenResponse reissue(@RequestHeader("X-Refresh-Token") String token) {
-        return tokenReissueService.execute(token);
+        return tokenReissueUseCase.execute(token);
     }
 }

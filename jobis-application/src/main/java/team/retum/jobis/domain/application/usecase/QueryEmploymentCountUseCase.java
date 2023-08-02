@@ -8,7 +8,7 @@ import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResp
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class QueryEmploymentCountService {
+public class QueryEmploymentCountUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
 

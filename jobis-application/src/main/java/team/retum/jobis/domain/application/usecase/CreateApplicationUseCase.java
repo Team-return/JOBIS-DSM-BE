@@ -21,7 +21,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
-public class CreateApplicationService {
+public class CreateApplicationUseCase {
 
     private final CommandApplicationPort commandApplicationPort;
     private final QueryApplicationPort queryApplicationPort;

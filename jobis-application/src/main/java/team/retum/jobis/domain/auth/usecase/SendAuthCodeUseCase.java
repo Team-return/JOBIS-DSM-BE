@@ -14,7 +14,7 @@ import team.retum.jobis.common.util.StringUtil;
 
 @RequiredArgsConstructor
 @UseCase
-public class SendAuthCodeService {
+public class SendAuthCodeUseCase {
 
     private final CommandAuthCodePort commandAuthCodePort;
     private final QueryUserPort queryUserPort;

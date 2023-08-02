@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class RejectApplicationService {
+public class RejectApplicationUseCase {
 
     private final QueryApplicationPort applicationPersistenceAdapter;
     private final CommandApplicationPort commandApplicationPort;

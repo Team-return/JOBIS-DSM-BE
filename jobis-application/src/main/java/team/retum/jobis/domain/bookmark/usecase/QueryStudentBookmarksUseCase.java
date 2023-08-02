@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class QueryStudentBookmarksService {
+public class QueryStudentBookmarksUseCase {
 
     private final QueryBookmarkPort queryBookmarkPort;
     private final SecurityPort securityPort;

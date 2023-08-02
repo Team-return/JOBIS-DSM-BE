@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class TokenReissueService {
+public class TokenReissueUseCase {
 
     private final QueryRefreshTokenPort queryRefreshTokenPort;
     private final JwtPort jwtPort;

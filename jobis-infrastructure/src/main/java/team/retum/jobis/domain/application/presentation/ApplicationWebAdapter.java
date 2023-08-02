@@ -23,15 +23,15 @@ import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationSt
 import team.retum.jobis.domain.application.dto.response.StudentQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.usecase.ChangeApplicationsStatusUseCase;
-import team.retum.jobis.domain.application.usecase.ChangeFieldTrainDateService;
-import team.retum.jobis.domain.application.usecase.CreateApplicationService;
-import team.retum.jobis.domain.application.usecase.DeleteApplicationService;
-import team.retum.jobis.domain.application.usecase.QueryCompanyApplicationsService;
-import team.retum.jobis.domain.application.usecase.QueryEmploymentCountService;
-import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsService;
-import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsService;
-import team.retum.jobis.domain.application.usecase.RejectApplicationService;
-import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsService;
+import team.retum.jobis.domain.application.usecase.ChangeFieldTrainDateUseCase;
+import team.retum.jobis.domain.application.usecase.CreateApplicationUseCase;
+import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
+import team.retum.jobis.domain.application.usecase.QueryCompanyApplicationsUseCase;
+import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
+import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
+import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
+import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
+import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
 import javax.validation.Valid;
 
@@ -40,16 +40,16 @@ import javax.validation.Valid;
 @RestController
 public class ApplicationWebAdapter {
 
-    private final CreateApplicationService createApplicationService;
-    private final DeleteApplicationService deleteApplicationService;
-    private final TeacherQueryApplicationsService queryApplicationListService;
-    private final QueryCompanyApplicationsService queryCompanyApplicationsService;
-    private final QueryStudentApplicationsService queryStudentApplicationsService;
+    private final CreateApplicationUseCase createApplicationUseCase;
+    private final DeleteApplicationUseCase deleteApplicationUseCase;
+    private final TeacherQueryApplicationsUseCase queryApplicationListService;
+    private final QueryCompanyApplicationsUseCase queryCompanyApplicationsUseCase;
+    private final QueryStudentApplicationsUseCase queryStudentApplicationsUseCase;
     private final ChangeApplicationsStatusUseCase changeApplicationsStatusUseCase;
-    private final ChangeFieldTrainDateService changeFieldTrainDateService;
-    private final RejectApplicationService rejectApplicationService;
-    private final QueryEmploymentCountService queryEmploymentCountService;
-    private final QueryPassedApplicationStudentsService queryPassedApplicationStudentsService;
+    private final ChangeFieldTrainDateUseCase changeFieldTrainDateUseCase;
+    private final RejectApplicationUseCase rejectApplicationUseCase;
+    private final QueryEmploymentCountUseCase queryEmploymentCountUseCase;
+    private final QueryPassedApplicationStudentsUseCase queryPassedApplicationStudentsUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -57,13 +57,13 @@ public class ApplicationWebAdapter {
             @RequestBody @Valid CreateApplicationWebRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        createApplicationService.execute(request.toDomainRequest(), recruitmentId);
+        createApplicationUseCase.execute(request.toDomainRequest(), recruitmentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{application-id}")
     public void deleteApplication(@PathVariable("application-id") Long applicationId) {
-        deleteApplicationService.execute(applicationId);
+        deleteApplicationUseCase.execute(applicationId);
     }
 
     @GetMapping
@@ -77,12 +77,12 @@ public class ApplicationWebAdapter {
 
     @GetMapping("/company")
     public CompanyQueryApplicationsResponse queryCompanyApplicationList() {
-        return queryCompanyApplicationsService.execute();
+        return queryCompanyApplicationsUseCase.execute();
     }
 
     @GetMapping("/students")
     public StudentQueryApplicationsResponse queryApplication() {
-        return queryStudentApplicationsService.execute();
+        return queryStudentApplicationsUseCase.execute();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -97,7 +97,7 @@ public class ApplicationWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/train-date")
     public void changeFieldTrainDate(@RequestBody @Valid ChangeFieldTrainDateWebRequest request) {
-        changeFieldTrainDateService.execute(request.toDomainRequest());
+        changeFieldTrainDateUseCase.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -106,18 +106,18 @@ public class ApplicationWebAdapter {
             @PathVariable("application-id") Long applicationId,
             @Valid @RequestBody RejectApplicationWebRequest request
     ) {
-        rejectApplicationService.execute(applicationId, request.getReason());
+        rejectApplicationUseCase.execute(applicationId, request.getReason());
     }
 
     @GetMapping("/employment/count")
     public QueryEmploymentCountResponse queryEmploymentCount() {
-        return queryEmploymentCountService.execute();
+        return queryEmploymentCountUseCase.execute();
     }
 
     @GetMapping("/pass/{company-id}")
     public QueryPassedApplicationStudentsResponse queryFieldTrainApplication(
             @PathVariable("company-id") Long companyId
     ) {
-        return queryPassedApplicationStudentsService.execute(companyId);
+        return queryPassedApplicationStudentsUseCase.execute(companyId);
     }
 }

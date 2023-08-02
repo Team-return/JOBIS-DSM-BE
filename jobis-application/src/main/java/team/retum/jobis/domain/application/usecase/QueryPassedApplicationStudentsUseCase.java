@@ -7,7 +7,7 @@ import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationSt
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class QueryPassedApplicationStudentsService {
+public class QueryPassedApplicationStudentsUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
 

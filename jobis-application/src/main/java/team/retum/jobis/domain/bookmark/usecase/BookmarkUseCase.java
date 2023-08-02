@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class BookmarkService {
+public class BookmarkUseCase {
 
     private final QueryBookmarkPort queryBookmarkPort;
     private final CommandBookmarkPort commandBookmarkPort;

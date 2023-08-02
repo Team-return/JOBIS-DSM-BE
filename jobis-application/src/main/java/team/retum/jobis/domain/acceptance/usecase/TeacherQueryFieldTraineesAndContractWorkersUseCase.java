@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class TeacherQueryFieldTraineesAndContractWorkersService {
+public class TeacherQueryFieldTraineesAndContractWorkersUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final QueryAcceptancePort queryAcceptancePort;

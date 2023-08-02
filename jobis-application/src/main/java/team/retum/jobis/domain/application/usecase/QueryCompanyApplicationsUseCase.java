@@ -18,7 +18,7 @@ import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundExceptio
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class QueryCompanyApplicationsService {
+public class QueryCompanyApplicationsUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final QueryRecruitmentPort queryRecruitmentPort;

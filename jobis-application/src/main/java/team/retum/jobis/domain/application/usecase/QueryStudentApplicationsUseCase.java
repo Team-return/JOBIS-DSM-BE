@@ -13,7 +13,7 @@ import team.retum.jobis.domain.application.dto.response.StudentQueryApplications
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class QueryStudentApplicationsService {
+public class QueryStudentApplicationsUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final SecurityPort securityPort;

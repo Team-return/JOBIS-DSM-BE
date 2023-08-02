@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
-public class RegisterFieldTraineeService {
+public class RegisterFieldTraineeUseCase {
 
     private final CommandApplicationPort commandApplicationPort;
     private final QueryApplicationPort queryApplicationPort;

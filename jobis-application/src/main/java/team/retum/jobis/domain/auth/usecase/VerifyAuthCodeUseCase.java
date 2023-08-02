@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class VerifyAuthCodeService {
+public class VerifyAuthCodeUseCase {
 
     private final CommandAuthCodePort commandAuthCodePort;
     private final QueryAuthCodePort queryAuthCodePort;

@@ -17,10 +17,10 @@ import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterEmplo
 import team.retum.jobis.domain.acceptance.presentation.dto.request.RegisterFieldTraineeWebRequest;
 import team.retum.jobis.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
 import team.retum.jobis.domain.acceptance.usecase.CancelFieldTraineesUseCase;
-import team.retum.jobis.domain.acceptance.usecase.ChangeContractDateService;
-import team.retum.jobis.domain.acceptance.usecase.RegisterEmploymentContractService;
-import team.retum.jobis.domain.acceptance.usecase.RegisterFieldTraineeService;
-import team.retum.jobis.domain.acceptance.usecase.TeacherQueryFieldTraineesAndContractWorkersService;
+import team.retum.jobis.domain.acceptance.usecase.ChangeContractDateUseCase;
+import team.retum.jobis.domain.acceptance.usecase.RegisterEmploymentContractUseCase;
+import team.retum.jobis.domain.acceptance.usecase.RegisterFieldTraineeUseCase;
+import team.retum.jobis.domain.acceptance.usecase.TeacherQueryFieldTraineesAndContractWorkersUseCase;
 
 import javax.validation.Valid;
 
@@ -29,17 +29,17 @@ import javax.validation.Valid;
 @RestController
 public class AcceptanceWebAdapter {
 
-    private final TeacherQueryFieldTraineesAndContractWorkersService teacherQueryFieldTraineesAndContractWorkersService;
-    private final ChangeContractDateService changeContractDateService;
-    private final RegisterFieldTraineeService registerFieldTraineeService;
-    private final RegisterEmploymentContractService registerEmploymentContractService;
+    private final TeacherQueryFieldTraineesAndContractWorkersUseCase teacherQueryFieldTraineesAndContractWorkersUseCase;
+    private final ChangeContractDateUseCase changeContractDateUseCase;
+    private final RegisterFieldTraineeUseCase registerFieldTraineeUseCase;
+    private final RegisterEmploymentContractUseCase registerEmploymentContractUseCase;
     private final CancelFieldTraineesUseCase cancelFieldTraineesUseCase;
 
     @GetMapping("/{company-id}")
     public TeacherQueryFieldTraineesAndContractWorkersResponse teacherQueryFieldTraineesAndContractWorkers(
             @PathVariable(name = "company-id") Long companyId
     ) {
-        return teacherQueryFieldTraineesAndContractWorkersService.execute(companyId);
+        return teacherQueryFieldTraineesAndContractWorkersUseCase.execute(companyId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -47,19 +47,19 @@ public class AcceptanceWebAdapter {
     public void registerFieldTrainee(
             @RequestBody @Valid RegisterFieldTraineeWebRequest request
     ) {
-        registerFieldTraineeService.execute(request.toDomainRequest());
+        registerFieldTraineeUseCase.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/contract-date")
     public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateWebRequest request) {
-        changeContractDateService.execute(request.toDomainRequest());
+        changeContractDateUseCase.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
     public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractWebRequest request) {
-        registerEmploymentContractService.execute(request.toDomainRequest());
+        registerEmploymentContractUseCase.execute(request.toDomainRequest());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

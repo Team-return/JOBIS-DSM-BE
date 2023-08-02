@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.bookmark.dto.response.QueryStudentBookmarksResponse;
-import team.retum.jobis.domain.bookmark.usecase.BookmarkService;
-import team.retum.jobis.domain.bookmark.usecase.QueryStudentBookmarksService;
+import team.retum.jobis.domain.bookmark.usecase.BookmarkUseCase;
+import team.retum.jobis.domain.bookmark.usecase.QueryStudentBookmarksUseCase;
 
 @RequiredArgsConstructor
 @RequestMapping("/bookmarks")
 @RestController
 public class BookmarkWebAdapter {
 
-    private final BookmarkService bookmarkService;
-    private final QueryStudentBookmarksService queryStudentBookmarksService;
+    private final BookmarkUseCase bookmarkUseCase;
+    private final QueryStudentBookmarksUseCase queryStudentBookmarksUseCase;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruitment-id}")
     public void bookmark(
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        bookmarkService.execute(recruitmentId);
+        bookmarkUseCase.execute(recruitmentId);
     }
 
     @GetMapping
     public QueryStudentBookmarksResponse queryStudentBookmarks() {
-        return queryStudentBookmarksService.execute();
+        return queryStudentBookmarksUseCase.execute();
     }
 }

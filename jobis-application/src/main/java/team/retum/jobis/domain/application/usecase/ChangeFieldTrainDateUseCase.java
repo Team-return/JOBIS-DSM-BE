@@ -14,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
-public class ChangeFieldTrainDateService {
+public class ChangeFieldTrainDateUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final CommandApplicationPort commandApplicationPort;

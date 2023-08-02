@@ -19,7 +19,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
-public class RegisterEmploymentContractService {
+public class RegisterEmploymentContractUseCase {
 
     private final CommandAcceptancePort commandAcceptancePort;
     private final QueryApplicationPort applicationRepository;

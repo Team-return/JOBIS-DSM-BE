@@ -11,7 +11,7 @@ import team.retum.jobis.domain.application.dto.response.TeacherQueryApplications
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class TeacherQueryApplicationsService {
+public class TeacherQueryApplicationsUseCase {
 
     private final QueryApplicationPort applicationPersistenceAdapter;
 

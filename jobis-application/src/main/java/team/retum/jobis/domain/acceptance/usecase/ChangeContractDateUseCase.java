@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @UseCase
-public class ChangeContractDateService {
+public class ChangeContractDateUseCase {
 
     private final CommandAcceptancePort commandAcceptancePort;
 
