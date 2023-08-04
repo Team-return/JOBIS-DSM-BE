@@ -93,7 +93,8 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .offset(filter.getOffset())
                 .limit(11)
                 .fetch().stream()
-                .map(studentQueryCompaniesVO -> (StudentCompaniesVO) studentQueryCompaniesVO).toList();
+                .map(StudentCompaniesVO.class::cast)
+                .toList();
     }
 
     @Override
@@ -126,7 +127,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .offset(filter.getOffset())
                 .limit(11)
                 .fetch().stream()
-                .map(teacherQueryCompaniesVO -> (TeacherCompaniesVO) teacherQueryCompaniesVO)
+                .map(TeacherCompaniesVO.class::cast)
                 .toList();
     }
 
@@ -215,7 +216,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .orderBy(companyEntity.name.asc())
                 .groupBy(companyEntity.id, companyEntity.name)
                 .fetch().stream()
-                .map(teacherEmployCompaniesVO -> (TeacherEmployCompaniesVO) teacherEmployCompaniesVO)
+                .map(TeacherEmployCompaniesVO.class::cast)
                 .toList();
     }
 

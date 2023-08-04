@@ -97,7 +97,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .orderBy(recruitmentEntity.createdAt.desc())
                 .groupBy(recruitmentEntity.id)
                 .fetch().stream()
-                .map(recruitment -> (RecruitmentVO) recruitment)
+                .map(RecruitmentVO.class::cast)
                 .toList();
     }
 
@@ -163,7 +163,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                         )
                                 )
                 ).stream()
-                .map(recruitArea -> (RecruitAreaResponse) recruitArea)
+                .map(RecruitAreaResponse.class::cast)
                 .toList();
     }
 

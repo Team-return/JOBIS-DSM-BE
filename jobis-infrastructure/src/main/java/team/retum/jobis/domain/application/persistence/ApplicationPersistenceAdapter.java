@@ -131,7 +131,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .on(recentRecruitment(companyId))
                 .where(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
                 .fetch().stream()
-                .map(fieldTrainee -> (FieldTraineesVO) fieldTrainee)
+                .map(FieldTraineesVO.class::cast)
                 .toList();
     }
 
@@ -156,7 +156,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)
                 )
                 .fetch().stream()
-                .map(student -> (PassedApplicationStudentsVO) student)
+                .map(PassedApplicationStudentsVO.class::cast)
                 .toList();
     }
 
@@ -233,7 +233,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .join(recruitmentEntity.company, companyEntity)
                 .where(applicationEntity.id.in(applicationIds))
                 .fetch().stream()
-                .map(application -> (ApplicationDetailVO) application)
+                .map(ApplicationDetailVO.class::cast)
                 .toList();
     }
 

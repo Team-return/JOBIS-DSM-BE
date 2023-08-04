@@ -68,7 +68,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
                 .where(studentEntity.id.eq(studentId))
                 .orderBy(bookmarkEntity.createdAt.desc())
                 .fetch().stream()
-                .map(bookmark -> (StudentBookmarksVO) bookmark)
+                .map(StudentBookmarksVO.class::cast)
                 .toList();
     }
 }

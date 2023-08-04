@@ -76,7 +76,7 @@ public class BugReportPersistenceAdapter implements BugReportPort {
                                         )
                                 )
                 ).stream()
-                .map(bugReport -> (BugReportsVO) bugReport)
+                .map(BugReportsVO.class::cast)
                 .toList();
     }
 
