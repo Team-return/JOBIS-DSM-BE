@@ -1,17 +1,17 @@
 package team.retum.jobis.domain.acceptance.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.acceptance.dto.request.RegisterEmploymentContractRequest;
 import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.spi.CommandAcceptancePort;
+import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
+import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.student.model.Student;
-import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 
 import java.time.LocalDate;
 import java.time.Year;

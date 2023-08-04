@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bug.dto;
 
-import team.retum.jobis.domain.bug.spi.vo.BugReportsVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.bug.spi.vo.BugReportsVO;
 
 import java.util.List;
 

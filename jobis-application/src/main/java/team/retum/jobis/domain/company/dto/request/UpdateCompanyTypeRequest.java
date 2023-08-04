@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.company.dto.request;
 
-import team.retum.jobis.domain.company.model.CompanyType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.company.model.CompanyType;
 
 import java.util.List;
 

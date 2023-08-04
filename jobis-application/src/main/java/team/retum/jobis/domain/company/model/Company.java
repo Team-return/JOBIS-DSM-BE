@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.company.model;
 
-import team.retum.jobis.common.annotation.Aggregate;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.common.annotation.Aggregate;
 
 import java.time.LocalDate;
 
@@ -41,8 +41,8 @@ public class Company {
     private final String serviceName;
 
     public Company update(String mainAddress, String mainZipCode, String subAddress, String subZipCode,
-                       double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
-                       String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email) {
+                          double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
+                          String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email) {
         return this.toBuilder()
                 .mainAddress(mainAddress)
                 .mainZipCode(mainZipCode)

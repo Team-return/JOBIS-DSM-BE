@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.application.dto.request;
 
-import team.retum.jobis.domain.application.model.AttachmentType;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.application.model.AttachmentType;
 
 import java.util.List;
 

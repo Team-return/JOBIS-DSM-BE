@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.recruitment.spi.vo;
 
-import team.retum.jobis.domain.company.model.CompanyType;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.company.model.CompanyType;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;
 

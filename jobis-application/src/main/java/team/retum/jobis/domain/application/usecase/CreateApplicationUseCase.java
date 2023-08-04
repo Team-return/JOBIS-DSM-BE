@@ -1,21 +1,21 @@
 package team.retum.jobis.domain.application.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest;
+import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
+import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.spi.QueryStudentPort;
-import lombok.RequiredArgsConstructor;
-import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class CreateApplicationUseCase {
     public void execute(CreateApplicationRequest request, Long recruitmentId) {
         Long currentUserId = securityPort.getCurrentUserId();
         Student student = queryStudentPort.queryStudentById(currentUserId)
-                        .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
         student.checkIs3rdGrade();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)

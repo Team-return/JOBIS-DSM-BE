@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.student.dto;
 
-import team.retum.jobis.domain.student.model.Gender;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.student.model.Gender;
 
 @Getter
 @Builder

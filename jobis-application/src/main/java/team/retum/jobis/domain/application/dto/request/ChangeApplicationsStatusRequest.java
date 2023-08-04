@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.application.dto.request;
 
-import team.retum.jobis.domain.application.model.ApplicationStatus;
 import lombok.Getter;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 
 import java.util.List;
 

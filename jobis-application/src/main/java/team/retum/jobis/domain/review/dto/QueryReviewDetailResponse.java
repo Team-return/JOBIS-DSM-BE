@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.review.dto;
 
-import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.review.model.QnAElement;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.code.model.Code;
+import team.retum.jobis.domain.review.model.QnAElement;
 
 import java.util.List;
 

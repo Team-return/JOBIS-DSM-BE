@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.application.spi.vo;
 
-import team.retum.jobis.domain.application.model.ApplicationAttachment;
-import team.retum.jobis.domain.application.model.ApplicationStatus;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.file.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.file.dto.response.FileUploadResponse;
 import team.retum.jobis.domain.file.model.FileType;
 import team.retum.jobis.domain.file.spi.FilePort;
-import lombok.RequiredArgsConstructor;
 
 import java.io.File;
 import java.util.List;

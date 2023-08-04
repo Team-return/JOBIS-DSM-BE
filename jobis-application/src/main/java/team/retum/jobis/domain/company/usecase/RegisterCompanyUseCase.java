@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.common.spi.SecurityPort;
@@ -18,7 +19,6 @@ import team.retum.jobis.domain.company.model.CompanyAttachment;
 import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.user.model.User;
-import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
 
 @RequiredArgsConstructor

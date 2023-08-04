@@ -1,16 +1,16 @@
 package team.retum.jobis.domain.auth.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SesPort;
+import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.auth.dto.SendAuthCodeRequest;
 import team.retum.jobis.domain.auth.model.AuthCode;
-import team.retum.jobis.domain.auth.spi.CommandAuthCodePort;
-import team.retum.jobis.domain.user.spi.QueryUserPort;
-import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.auth.model.AuthCodeType;
+import team.retum.jobis.domain.auth.spi.CommandAuthCodePort;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.user.spi.QueryUserPort;
 
 @RequiredArgsConstructor
 @UseCase

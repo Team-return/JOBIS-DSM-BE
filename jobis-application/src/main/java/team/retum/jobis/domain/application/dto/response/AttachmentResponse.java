@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.application.dto.response;
 
-import team.retum.jobis.domain.application.model.ApplicationAttachment;
-import team.retum.jobis.domain.application.model.AttachmentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.model.AttachmentType;
 
 @Getter
 @AllArgsConstructor

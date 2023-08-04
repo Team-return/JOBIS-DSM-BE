@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.user.model;
 
-import team.retum.jobis.common.annotation.Aggregate;
-import team.retum.jobis.domain.auth.model.Authority;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.common.annotation.Aggregate;
+import team.retum.jobis.domain.auth.model.Authority;
 
 @Getter
 @Builder(toBuilder = true)

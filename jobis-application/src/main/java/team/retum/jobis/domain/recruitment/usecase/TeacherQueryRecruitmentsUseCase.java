@@ -1,12 +1,12 @@
 package team.retum.jobis.domain.recruitment.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;

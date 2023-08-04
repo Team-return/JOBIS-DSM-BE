@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.code.dto.response;
 
-import team.retum.jobis.domain.code.model.Code;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.model.JobType;
 
 import java.util.List;

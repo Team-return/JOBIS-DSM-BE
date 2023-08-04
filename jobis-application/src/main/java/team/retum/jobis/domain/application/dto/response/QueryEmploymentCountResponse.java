@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.application.dto.response;
 
-import team.retum.jobis.domain.application.spi.vo.TotalApplicationCountVO;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.application.spi.vo.TotalApplicationCountVO;
 
 @Getter
 @Builder

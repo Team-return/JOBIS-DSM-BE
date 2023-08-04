@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.user.exception;
 
-import team.retum.jobis.domain.user.exception.error.UserErrorCode;
 import team.retum.jobis.common.error.JobisException;
+import team.retum.jobis.domain.user.exception.error.UserErrorCode;
 
 public class InvalidPasswordException extends JobisException {
 

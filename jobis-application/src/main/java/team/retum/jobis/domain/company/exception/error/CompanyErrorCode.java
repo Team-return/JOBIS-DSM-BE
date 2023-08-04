@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.company.exception.error;
 
-import team.retum.jobis.common.error.HttpStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import team.retum.jobis.common.error.ErrorProperty;
+import team.retum.jobis.common.error.HttpStatus;
 
 @Getter
 @AllArgsConstructor

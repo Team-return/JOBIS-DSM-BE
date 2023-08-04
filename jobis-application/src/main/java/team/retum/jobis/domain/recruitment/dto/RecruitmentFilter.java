@@ -2,7 +2,6 @@ package team.retum.jobis.domain.recruitment.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;

@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.auth.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.auth.model.AuthCode;
 import team.retum.jobis.domain.auth.spi.CommandAuthCodePort;
 import team.retum.jobis.domain.auth.spi.QueryAuthCodePort;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase

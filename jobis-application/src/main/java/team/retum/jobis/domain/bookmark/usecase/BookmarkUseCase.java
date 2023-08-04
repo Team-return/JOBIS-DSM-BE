@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.bookmark.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.bookmark.model.Bookmark;
@@ -11,7 +12,6 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.spi.QueryStudentPort;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase

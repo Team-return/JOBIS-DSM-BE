@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.spi.vo;
 
-import team.retum.jobis.domain.code.model.Code;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.code.model.Code;
 
 import java.util.List;
 

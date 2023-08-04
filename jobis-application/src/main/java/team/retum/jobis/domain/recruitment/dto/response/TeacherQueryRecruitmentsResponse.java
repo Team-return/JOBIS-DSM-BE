@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.recruitment.dto.response;
 
-import team.retum.jobis.domain.company.model.CompanyType;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.company.model.CompanyType;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;
 import java.util.List;

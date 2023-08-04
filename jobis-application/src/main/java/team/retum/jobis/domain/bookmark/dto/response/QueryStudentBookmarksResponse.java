@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bookmark.dto.response;
 
-import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 
 import java.util.List;
 

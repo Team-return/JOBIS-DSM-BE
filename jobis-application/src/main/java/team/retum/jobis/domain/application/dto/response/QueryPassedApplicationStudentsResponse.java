@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.application.dto.response;
 
-import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
-import team.retum.jobis.domain.student.model.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
+import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
 

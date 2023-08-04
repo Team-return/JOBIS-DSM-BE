@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.auth.dto;
 
-import team.retum.jobis.domain.auth.model.Authority;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.auth.model.Authority;
 
 import java.time.LocalDateTime;
 

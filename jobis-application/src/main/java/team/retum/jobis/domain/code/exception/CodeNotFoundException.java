@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.code.exception;
 
-import team.retum.jobis.domain.code.exception.error.CodeErrorCode;
 import team.retum.jobis.common.error.JobisException;
+import team.retum.jobis.domain.code.exception.error.CodeErrorCode;
 
 public class CodeNotFoundException extends JobisException {
 

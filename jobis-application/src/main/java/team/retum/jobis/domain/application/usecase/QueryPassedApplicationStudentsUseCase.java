@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.application.usecase;
 
-import team.retum.jobis.common.annotation.ReadOnlyUseCase;
-import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import lombok.RequiredArgsConstructor;
+import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
+import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase

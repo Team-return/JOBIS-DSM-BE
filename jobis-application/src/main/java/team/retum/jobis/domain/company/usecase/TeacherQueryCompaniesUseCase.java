@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
@@ -9,7 +10,6 @@ import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesRespons
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.review.spi.QueryReviewPort;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase

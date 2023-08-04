@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.recruitment.model;
 
+import lombok.Builder;
+import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
-import lombok.Builder;
-import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.List;

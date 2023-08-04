@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.review.model;
 
-import team.retum.jobis.common.annotation.Aggregate;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.common.annotation.Aggregate;
 
 import java.time.LocalDate;
 import java.util.List;

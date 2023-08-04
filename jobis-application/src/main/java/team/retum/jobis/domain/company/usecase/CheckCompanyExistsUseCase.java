@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.company.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase

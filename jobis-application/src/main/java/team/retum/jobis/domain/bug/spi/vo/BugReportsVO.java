@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bug.spi.vo;
 
-import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.bug.model.DevelopmentArea;
 
 import java.time.LocalDateTime;
 

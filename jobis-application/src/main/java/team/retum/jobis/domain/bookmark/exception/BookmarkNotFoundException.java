@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.bookmark.exception;
 
-import team.retum.jobis.domain.bookmark.exception.error.BookmarkErrorCode;
 import team.retum.jobis.common.error.JobisException;
+import team.retum.jobis.domain.bookmark.exception.error.BookmarkErrorCode;
 
 public class BookmarkNotFoundException extends JobisException {
 

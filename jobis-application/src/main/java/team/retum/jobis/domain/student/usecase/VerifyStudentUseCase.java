@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.student.usecase;
 
-import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.domain.student.spi.QueryVerifiedStudentPort;
 import lombok.RequiredArgsConstructor;
+import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
+import team.retum.jobis.domain.student.spi.QueryVerifiedStudentPort;
 
 @RequiredArgsConstructor
 @UseCase

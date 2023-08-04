@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.bug.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.bug.dto.QueryBugReportsResponse;
 import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.domain.bug.spi.QueryBugReportPort;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase

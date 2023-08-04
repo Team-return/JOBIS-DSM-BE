@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bug.dto;
 
-import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.bug.model.DevelopmentArea;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.bug.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.bug.dto.CreateBugReportRequest;
 import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
 import team.retum.jobis.domain.bug.spi.CommandBugReportPort;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase

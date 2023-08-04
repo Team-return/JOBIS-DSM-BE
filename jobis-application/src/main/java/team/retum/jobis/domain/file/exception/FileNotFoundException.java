@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.file.exception;
 
-import team.retum.jobis.domain.file.exception.error.FileErrorCode;
 import team.retum.jobis.common.error.JobisException;
+import team.retum.jobis.domain.file.exception.error.FileErrorCode;
 
 public class FileNotFoundException extends JobisException {
 

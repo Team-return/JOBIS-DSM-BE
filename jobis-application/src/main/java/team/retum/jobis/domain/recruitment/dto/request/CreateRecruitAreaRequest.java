@@ -3,9 +3,7 @@ package team.retum.jobis.domain.recruitment.dto.request;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Getter
 @Builder

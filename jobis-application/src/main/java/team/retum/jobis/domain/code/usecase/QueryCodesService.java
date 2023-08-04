@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.code.usecase;
 
+import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.code.dto.response.CodesResponse;
 import team.retum.jobis.domain.code.dto.response.CodesResponse.CodeResponse;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

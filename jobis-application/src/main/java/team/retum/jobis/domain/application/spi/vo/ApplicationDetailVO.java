@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.application.spi.vo;
 
-import team.retum.jobis.domain.application.model.ApplicationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 
 @Getter
 @AllArgsConstructor

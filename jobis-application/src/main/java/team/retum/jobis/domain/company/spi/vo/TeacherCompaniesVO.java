@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.company.spi.vo;
 
-import team.retum.jobis.domain.company.model.CompanyType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.domain.company.model.CompanyType;
 
 @Getter
 @AllArgsConstructor

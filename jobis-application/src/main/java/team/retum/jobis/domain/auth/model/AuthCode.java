@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.auth.model;
 
+import lombok.Builder;
+import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
 import team.retum.jobis.domain.auth.exception.BadAuthCodeException;
 import team.retum.jobis.domain.auth.exception.UnverifiedEmailException;
-import lombok.Builder;
-import lombok.Getter;
 
 @Getter
 @Builder(toBuilder = true)

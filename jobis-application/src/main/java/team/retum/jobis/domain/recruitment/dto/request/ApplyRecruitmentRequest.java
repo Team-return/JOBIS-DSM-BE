@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.dto.request;
 
-import team.retum.jobis.domain.recruitment.model.ProgressType;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
 import java.util.List;
