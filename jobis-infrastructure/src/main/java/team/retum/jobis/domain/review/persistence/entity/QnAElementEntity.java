@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.review.persistence.entity;
 
-import team.retum.jobis.domain.review.model.QnAElement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.review.model.QnAElement;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.recruitment.persistence.repository.vo;
 
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.Getter;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentVO;
-import com.querydsl.core.annotations.QueryProjection;
-import lombok.Getter;
 
 import java.time.LocalDate;
 

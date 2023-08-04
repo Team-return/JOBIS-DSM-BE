@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.review.persistence.mapper;
 
-import team.retum.jobis.domain.review.model.QnAElement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.review.model.QnAElement;
 import team.retum.jobis.domain.review.persistence.entity.QnAElementEntity;
 
 @RequiredArgsConstructor

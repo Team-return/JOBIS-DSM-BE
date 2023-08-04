@@ -1,5 +1,16 @@
 package team.retum.jobis.domain.company.presentation;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
@@ -8,9 +19,6 @@ import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesRespons
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeWebRequest;

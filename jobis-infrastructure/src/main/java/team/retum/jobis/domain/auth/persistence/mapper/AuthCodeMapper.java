@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.auth.persistence.mapper;
 
-import team.retum.jobis.domain.auth.model.AuthCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.auth.model.AuthCode;
 import team.retum.jobis.domain.auth.persistence.entity.AuthCodeEntity;
 
 @RequiredArgsConstructor

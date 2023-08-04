@@ -1,14 +1,14 @@
 package team.retum.jobis.domain.bookmark.persistence;
 
-import team.retum.jobis.domain.bookmark.model.Bookmark;
-import team.retum.jobis.domain.bookmark.spi.BookmarkPort;
-import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.bookmark.model.Bookmark;
 import team.retum.jobis.domain.bookmark.persistence.mapper.BookmarkMapper;
 import team.retum.jobis.domain.bookmark.persistence.repository.BookmarkJpaRepository;
 import team.retum.jobis.domain.bookmark.persistence.repository.vo.QQueryStudentBookmarksVO;
+import team.retum.jobis.domain.bookmark.spi.BookmarkPort;
+import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 
 import java.util.List;
 import java.util.Optional;

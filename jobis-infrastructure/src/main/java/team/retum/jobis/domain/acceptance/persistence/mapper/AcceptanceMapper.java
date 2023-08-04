@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.acceptance.persistence.mapper;
 
-import team.retum.jobis.domain.acceptance.model.Acceptance;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 

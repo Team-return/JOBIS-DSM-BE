@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.application.persistence.repository.vo;
 
-import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
+import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 
 import java.time.LocalDate;
 

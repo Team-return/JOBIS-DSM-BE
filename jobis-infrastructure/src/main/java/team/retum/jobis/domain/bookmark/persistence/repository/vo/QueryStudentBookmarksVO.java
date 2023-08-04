@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bookmark.persistence.repository.vo;
 
-import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
+import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 
 import java.time.LocalDateTime;
 

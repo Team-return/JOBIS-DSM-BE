@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bug.presentation.dto.request;
 
-import team.retum.jobis.domain.bug.dto.CreateBugReportRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.bug.dto.CreateBugReportRequest;
 import team.retum.jobis.domain.bug.model.DevelopmentArea;
 
 import javax.validation.constraints.NotBlank;

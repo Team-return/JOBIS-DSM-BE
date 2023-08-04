@@ -1,13 +1,13 @@
 package team.retum.jobis.domain.application.persistence.mapper;
 
-import team.retum.jobis.domain.application.model.Application;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
+import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 

@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
-import team.retum.jobis.domain.company.dto.request.UpdateCompanyTypeRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.company.dto.request.UpdateCompanyTypeRequest;
 import team.retum.jobis.domain.company.model.CompanyType;
 
 import javax.validation.constraints.NotNull;
@@ -19,6 +19,6 @@ public class UpdateCompanyTypeWebRequest {
     private CompanyType companyType;
 
     public UpdateCompanyTypeRequest toDomainRequest() {
-       return new UpdateCompanyTypeRequest(this.companyIds, this.companyType);
+        return new UpdateCompanyTypeRequest(this.companyIds, this.companyType);
     }
 }

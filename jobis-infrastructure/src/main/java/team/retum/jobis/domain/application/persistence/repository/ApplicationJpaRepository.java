@@ -1,9 +1,8 @@
 package team.retum.jobis.domain.application.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 
 import java.util.List;
 

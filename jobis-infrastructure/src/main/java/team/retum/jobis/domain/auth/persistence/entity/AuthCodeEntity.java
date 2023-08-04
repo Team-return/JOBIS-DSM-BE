@@ -12,17 +12,14 @@ import org.springframework.data.redis.core.index.Indexed;
 @RedisHash
 public class AuthCodeEntity {
 
-    @Id
-    private String email;
-
     @Indexed
     private final String code;
-
-    @Indexed
-    private boolean isVerified;
-
     @TimeToLive
     private final Integer ttl;
+    @Id
+    private String email;
+    @Indexed
+    private boolean isVerified;
 
 
 }

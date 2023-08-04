@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
-import team.retum.jobis.domain.company.dto.request.UpdateMouRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.company.dto.request.UpdateMouRequest;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

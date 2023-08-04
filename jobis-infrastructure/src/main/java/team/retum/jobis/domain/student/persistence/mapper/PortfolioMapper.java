@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.student.persistence.mapper;
 
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.domain.student.model.Portfolio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
+import team.retum.jobis.domain.student.model.Portfolio;
 import team.retum.jobis.domain.student.persistence.entity.PortfolioEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;

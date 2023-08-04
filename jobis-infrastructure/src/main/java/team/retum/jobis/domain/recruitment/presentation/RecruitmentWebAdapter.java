@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
+import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
+import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentWebRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentStatusWebRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaWebRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentWebRequest;
-import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
-import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
-import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.usecase.ApplyRecruitmentUseCase;
 import team.retum.jobis.domain.recruitment.usecase.CreateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitAreaUseCase;
@@ -32,7 +33,6 @@ import team.retum.jobis.domain.recruitment.usecase.TeacherChangeRecruitmentStatu
 import team.retum.jobis.domain.recruitment.usecase.TeacherQueryRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
-import team.retum.jobis.common.util.StringUtil;
 
 import javax.validation.Valid;
 import java.time.LocalDate;

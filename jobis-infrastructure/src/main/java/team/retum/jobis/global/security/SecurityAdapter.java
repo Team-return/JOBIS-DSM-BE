@@ -1,11 +1,11 @@
 package team.retum.jobis.global.security;
 
-import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.domain.auth.model.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.common.spi.SecurityPort;
+import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 import team.retum.jobis.global.exception.InvalidTokenException;

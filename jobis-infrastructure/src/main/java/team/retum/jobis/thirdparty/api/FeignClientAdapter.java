@@ -1,8 +1,8 @@
 package team.retum.jobis.thirdparty.api;
 
-import team.retum.jobis.common.spi.FeignClientPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.thirdparty.api.client.BizNoFeignClient;
 import team.retum.jobis.thirdparty.api.client.FeignProperty;
 import team.retum.jobis.thirdparty.api.client.dto.BusinessNumberResponse;

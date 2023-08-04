@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.application.persistence.entity;
 
-import team.retum.jobis.domain.application.model.AttachmentType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.application.model.AttachmentType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

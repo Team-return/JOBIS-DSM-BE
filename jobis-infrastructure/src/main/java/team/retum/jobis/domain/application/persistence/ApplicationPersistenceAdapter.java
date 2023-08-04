@@ -1,19 +1,14 @@
 package team.retum.jobis.domain.application.persistence;
 
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.domain.application.model.Application;
-import team.retum.jobis.domain.application.model.ApplicationAttachment;
-import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.application.spi.ApplicationPort;
-import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
-import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
-import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
-import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryApplicationDetailVO;
+import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
+import team.retum.jobis.domain.application.model.Application;
+import team.retum.jobis.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationAttachmentMapper;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationAttachmentJpaRepository;
@@ -23,6 +18,11 @@ import team.retum.jobis.domain.application.persistence.repository.vo.QQueryField
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryTotalApplicationCountVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QueryTotalApplicationCountVO;
+import team.retum.jobis.domain.application.spi.ApplicationPort;
+import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
+import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
+import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
+import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 import team.retum.jobis.domain.student.persistence.entity.QStudentEntity;
 
 import java.time.LocalDate;

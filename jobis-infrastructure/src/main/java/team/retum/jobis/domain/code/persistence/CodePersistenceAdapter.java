@@ -1,14 +1,14 @@
 package team.retum.jobis.domain.code.persistence;
 
-import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.code.model.CodeType;
-import team.retum.jobis.domain.code.spi.CodePort;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.code.model.Code;
+import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.mapper.CodeMapper;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
+import team.retum.jobis.domain.code.spi.CodePort;
 
 import java.util.List;
 import java.util.Optional;

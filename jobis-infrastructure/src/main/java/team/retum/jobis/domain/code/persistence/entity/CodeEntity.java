@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.code.persistence.entity;
 
-import team.retum.jobis.domain.code.model.CodeType;
-import team.retum.jobis.domain.code.model.JobType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.code.model.CodeType;
+import team.retum.jobis.domain.code.model.JobType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

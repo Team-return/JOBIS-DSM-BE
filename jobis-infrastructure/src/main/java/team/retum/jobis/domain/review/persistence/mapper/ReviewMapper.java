@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.review.persistence.mapper;
 
-import team.retum.jobis.domain.review.model.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 
 @RequiredArgsConstructor

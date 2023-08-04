@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.company.persistence.mapper;
 
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.company.model.CompanyAttachment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
+import team.retum.jobis.domain.company.model.CompanyAttachment;
 import team.retum.jobis.domain.company.persistence.entity.CompanyAttachmentEntity;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;

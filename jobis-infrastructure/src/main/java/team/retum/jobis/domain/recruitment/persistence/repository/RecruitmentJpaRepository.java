@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.recruitment.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 
 import java.util.List;
 

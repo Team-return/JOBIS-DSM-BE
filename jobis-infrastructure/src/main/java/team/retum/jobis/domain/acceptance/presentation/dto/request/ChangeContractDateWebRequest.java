@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
-import team.retum.jobis.domain.acceptance.dto.request.ChangeContractDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.acceptance.dto.request.ChangeContractDateRequest;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotNull;

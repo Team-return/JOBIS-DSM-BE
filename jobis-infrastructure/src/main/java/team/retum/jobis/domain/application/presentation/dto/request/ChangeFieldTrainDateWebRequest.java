@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
-import team.retum.jobis.domain.application.dto.request.ChangeFieldTrainDateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.application.dto.request.ChangeFieldTrainDateRequest;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotNull;

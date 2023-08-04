@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.bug.persistence.entity;
 
-import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import javax.persistence.Column;
@@ -44,7 +44,7 @@ public class BugReportEntity extends BaseTimeEntity {
     private DevelopmentArea developmentArea;
 
     @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
-    private final List<BugAttachmentEntity> bugAttachments = new ArrayList<>();
+    private List<BugAttachmentEntity> bugAttachments = new ArrayList<>();
 
     @Builder
     public BugReportEntity(Long id, String title, String content, DevelopmentArea developmentArea) {

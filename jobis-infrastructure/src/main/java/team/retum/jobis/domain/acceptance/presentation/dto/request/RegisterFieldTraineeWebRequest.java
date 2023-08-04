@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
-import team.retum.jobis.domain.acceptance.dto.request.RegisterFieldTraineeRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.acceptance.dto.request.RegisterFieldTraineeRequest;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import javax.validation.constraints.NotNull;

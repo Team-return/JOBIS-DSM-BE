@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.code.persistence.mapper;
 
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
-import team.retum.jobis.domain.code.model.Code;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.code.exception.CodeNotFoundException;
+import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 

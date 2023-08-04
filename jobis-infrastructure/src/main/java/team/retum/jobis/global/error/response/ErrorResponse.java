@@ -1,8 +1,8 @@
 package team.retum.jobis.global.error.response;
 
-import team.retum.jobis.common.error.ErrorProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team.retum.jobis.common.error.ErrorProperty;
 
 @Getter
 @AllArgsConstructor

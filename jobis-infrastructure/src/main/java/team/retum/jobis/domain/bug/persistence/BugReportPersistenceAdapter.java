@@ -1,19 +1,19 @@
 package team.retum.jobis.domain.bug.persistence;
 
-import team.retum.jobis.domain.bug.model.BugAttachment;
-import team.retum.jobis.domain.bug.model.BugReport;
-import team.retum.jobis.domain.bug.model.DevelopmentArea;
-import team.retum.jobis.domain.bug.spi.BugReportPort;
-import team.retum.jobis.domain.bug.spi.vo.BugReportsVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.bug.model.BugAttachment;
+import team.retum.jobis.domain.bug.model.BugReport;
+import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.domain.bug.persistence.mapper.BugAttachmentMapper;
 import team.retum.jobis.domain.bug.persistence.mapper.BugReportMapper;
 import team.retum.jobis.domain.bug.persistence.repository.BugAttachmentJpaRepository;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportJpaRepository;
 import team.retum.jobis.domain.bug.persistence.repository.vo.QQueryBugReportsVO;
+import team.retum.jobis.domain.bug.spi.BugReportPort;
+import team.retum.jobis.domain.bug.spi.vo.BugReportsVO;
 
 import java.util.List;
 import java.util.Optional;

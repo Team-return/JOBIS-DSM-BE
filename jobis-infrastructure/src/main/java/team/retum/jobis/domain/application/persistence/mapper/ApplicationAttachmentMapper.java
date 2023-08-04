@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.application.persistence.mapper;
 
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
+import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;

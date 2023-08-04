@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.application.persistence.entity;
 
-import team.retum.jobis.domain.application.model.ApplicationStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;

@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.acceptance.persistence.repository.vo;
 
-import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 
 @Getter
 public class QueryApplicationDetailVO extends ApplicationDetailVO {

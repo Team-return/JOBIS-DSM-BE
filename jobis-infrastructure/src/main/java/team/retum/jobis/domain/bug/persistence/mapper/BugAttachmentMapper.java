@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.bug.persistence.mapper;
 
-import team.retum.jobis.domain.bug.model.BugAttachment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.persistence.entity.BugAttachmentEntity;
 import team.retum.jobis.domain.bug.persistence.entity.BugReportEntity;
 import team.retum.jobis.domain.bug.persistence.repository.BugReportJpaRepository;

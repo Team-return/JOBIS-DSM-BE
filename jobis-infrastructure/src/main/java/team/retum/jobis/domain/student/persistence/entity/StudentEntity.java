@@ -1,7 +1,5 @@
 package team.retum.jobis.domain.student.persistence.entity;
 
-import team.retum.jobis.domain.student.model.Department;
-import team.retum.jobis.domain.student.model.Gender;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +8,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
+import team.retum.jobis.domain.student.model.Department;
+import team.retum.jobis.domain.student.model.Gender;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.util.ImageProperty;
 
@@ -84,10 +84,10 @@ public class StudentEntity {
     private String profileImageUrl;
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private List<ApplicationEntity> applications = new ArrayList<>();
+    private final List<ApplicationEntity> applications = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private final List<BookmarkEntity> bookmarks = new ArrayList<>();
+    private List<BookmarkEntity> bookmarks = new ArrayList<>();
 
     @Builder
     public StudentEntity(UserEntity userEntity, String name, Integer grade,

@@ -43,71 +43,54 @@ import java.util.List;
 @Entity
 public class RecruitmentEntity extends BaseTimeEntity {
 
+    @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
+    private final List<RecruitAreaEntity> recruitAreas = new ArrayList<>();
+    @OneToMany(mappedBy = "recruitment")
+    private final List<ApplicationEntity> applications = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull
     @Column(columnDefinition = "YEAR")
     private Integer recruitYear;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
     private RecruitStatus status;
-
     @Column(columnDefinition = "VARCHAR(500)")
     private String preferentialTreatment;
-
     @Convert(converter = StringListConverter.class)
     @Column(columnDefinition = "VARCHAR(200)")
     private List<String> requiredLicenses;
-
     @Column(columnDefinition = "TINYINT(100)")
     private Integer requiredGrade;
-
     @NotNull
     @Column(columnDefinition = "TINYINT(50)", nullable = false)
     private Integer workingHours;
-
     @Column(columnDefinition = "VARCHAR(300)")
     private String benefits;
-
     @NotNull
     @Column(columnDefinition = "BIT(1)")
     private Boolean militarySupport;
-
     @NotNull
     @Convert(converter = HiringProgressConverter.class)
     @Column(columnDefinition = "VARCHAR(100)")
     private List<ProgressType> hiringProgress;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(100)")
     private String submitDocument;
-
     @Column(columnDefinition = "VARCHAR(350)")
     private String etc;
-
     @Embedded
     private RecruitDate recruitDate;
-
     @Embedded
     private PayInfo payInfo;
-
     @NotNull
     @Column(columnDefinition = "BIT(1)")
     private Boolean personalContact;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
-
-    @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
-    private final List<RecruitAreaEntity> recruitAreas = new ArrayList<>();
-
-    @OneToMany(mappedBy = "recruitment")
-    private final List<ApplicationEntity> applications = new ArrayList<>();
 
     @Builder
     public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, Integer trainPay, Integer pay, int workingHours, String submitDocument,

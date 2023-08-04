@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.file.presentation;
 
-import team.retum.jobis.domain.file.model.FileType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import team.retum.jobis.domain.file.dto.response.FileUploadResponse;
 import team.retum.jobis.domain.file.exception.FileNotFoundException;
 import team.retum.jobis.domain.file.exception.FileUploadFailedException;
+import team.retum.jobis.domain.file.model.FileType;
 import team.retum.jobis.domain.file.usecase.FileUploadUseCase;
 
 import java.io.File;

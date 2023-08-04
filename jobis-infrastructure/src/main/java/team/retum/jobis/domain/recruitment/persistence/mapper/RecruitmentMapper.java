@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.recruitment.persistence.mapper;
 
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.recruitment.model.Recruitment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
+import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 
 @RequiredArgsConstructor
