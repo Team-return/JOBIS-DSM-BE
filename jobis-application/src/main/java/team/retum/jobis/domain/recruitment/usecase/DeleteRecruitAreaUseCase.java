@@ -26,7 +26,7 @@ public class DeleteRecruitAreaUseCase {
         if (currentUserAuthority == Authority.COMPANY) {
             Long currentUserId = securityPort.getCurrentUserId();
             queryRecruitmentPort.queryRecruitmentById(recruitArea.getRecruitmentId())
-                    .get().checkCompany(currentUserId);
+                    .ifPresent(recruitment -> recruitment.checkCompany(currentUserId));
         }
 
         Long recruitAreaCount =

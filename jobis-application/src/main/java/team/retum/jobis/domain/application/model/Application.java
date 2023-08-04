@@ -33,7 +33,10 @@ public class Application {
     public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
         checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
 
-        return this;
+        return this.toBuilder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
     }
 
     public Application rejectApplication(String reason) {

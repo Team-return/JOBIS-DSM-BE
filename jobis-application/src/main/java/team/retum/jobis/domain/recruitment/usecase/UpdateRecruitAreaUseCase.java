@@ -33,7 +33,7 @@ public class UpdateRecruitAreaUseCase {
         if (currentUserAuthority == Authority.COMPANY) {
             Long currentUserId = securityPort.getCurrentUserId();
             queryRecruitmentPort.queryRecruitmentById(recruitArea.getRecruitmentId())
-                    .get().checkCompany(currentUserId);
+                    .ifPresent(recruitment -> recruitment.checkCompany(currentUserId));
         }
 
         commandRecruitmentPort.deleteRecruitAreaById(recruitArea.getId());

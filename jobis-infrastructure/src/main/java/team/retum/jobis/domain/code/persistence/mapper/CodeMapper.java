@@ -18,7 +18,6 @@ public class CodeMapper {
                 null : codeJpaRepository.findById(domain.getParentCodeId())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
-        System.out.println(domain.getId());
         return CodeEntity.builder()
                 .id(domain.getId())
                 .codeType(domain.getCodeType())

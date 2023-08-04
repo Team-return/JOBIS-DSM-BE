@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
+import team.retum.jobis.global.exception.InvalidTokenException;
 
 @RequiredArgsConstructor
 @Component
@@ -29,7 +31,8 @@ public class SecurityAdapter implements SecurityPort {
     public Authority getCurrentUserAuthority() {
         Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        return userJpaRepository.findById(currentUserId).get().getAuthority();
+        return userJpaRepository.findById(currentUserId).map(UserEntity::getAuthority)
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
     }
 
     @Override
