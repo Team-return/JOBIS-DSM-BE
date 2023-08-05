@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" style="box-sizing: content-box">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" style="box-sizing: content-box">
+    <title>Document</title>
+</head>
+<body style="width: 600px">
+
+<div style="text-align: center" >
+    <img src="https://jobis-file.s3.ap-northeast-2.amazonaws.com/JOBIS2.png" style="margin: 28px 330px 19px 80px;
+            width: 190px;
+            height: 29px;"/>
+    <div style="width: 600px; border-bottom: 2px solid #135C9D;"></div>
+
+    <p style="margin: 28px 0 60px 80px;
+            text-align: start;
+            color: #444444;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;">
+        안녕하세요.<br/>
+        JOBIS서비스 이용을 위해 이메일 주소 인증을 요청하셨습니다. <br/>
+        아래 인증번호를 JOBIS서비스 인증번호란에 기재하시고 인증을 완료해 주시면, <br/>
+        서비스를 이용할 수 있습니다.
+    </p>
+
+    <p style="
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 54px;
+    margin-bottom: 1px;
+    ">
+        인증번호
+    </p>
+
+    <hr style="width: 194px; border: 1px solid #E5E5E5;">
+
+    <p th:text="${codeEntity}" style="font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    margin-left: 10px;
+    margin-bottom: 100px;
+    margin-top: 20px;
+    letter-spacing: 0.55em;
+    color: #7F7F7F;">
+        666666
+    </p>
+
+    <hr style="width: 516px;border: 1px solid #E5E5E5; margin: 0 42px 0 42px;">
+
+    <div style=" text-align: start; margin-left: 80px; margin-bottom: 25px; color: #7F7F7F;">
+        <p>https://jobis-student.team-return.com</p>
+        <span>전화번호 : 042-1234-5678 ( 산학협력부 )</span>
+        <span style="margin-left: 12px;">Fax : 042-234-5678</span>
+        <p>이메일 : team-return@team-return.com</p>
+    </div>
+
+    <div style="width: 600px; border-bottom: 2px solid #135C9D;"></div>
+
+</div>
+</body>
+</html>

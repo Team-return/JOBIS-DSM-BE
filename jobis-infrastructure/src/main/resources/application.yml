@@ -1,0 +1,79 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&rewriteBatchedStatements=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:11111111}
+
+  jpa:
+    database-platform: team.retum.jobis.global.config.MysqlDialectConfig
+    hibernate:
+      ddl-auto: update
+    properties.hibernate:
+      format_sql: true
+      show_sql: true
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_DB_HOST:localhost}:27017/${MONGO_DB_NAME:jobis}?authSorce=admin
+      username: ${MONGO_DB_USERNAME:root}
+      password: ${MONGO_DB_PASSWORD:qaz}
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            protocols: TLSv1.3
+          starttls:
+            enable: true
+            required: true
+
+redis:
+  port: ${REDIS_PORT:6379}
+  host: ${REDIS_HOST:localhost}
+  password: ${REDIS_PASSWORD:asdf}
+
+jwt:
+  header: ${JWT_HEADER:Authorization}
+  prefix : ${JWT_PREFIX:Bearer }
+  secret: ${JWT_SECRET:asdf}
+  access-exp: ${TOKEN_ACCESS_EXP:3600}
+  refresh-exp: ${TOKEN_REFRESH_EXP:1209600}
+
+openfeign:
+  access-key: ${API_ACCESS_KEY:asdf}
+
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_BUCKET:jobis}
+      url: ${S3_URL:asdf}
+    credentials:
+      access-key: ${AWS_ACCESS:asdf}
+      secret-key: ${AWS_SECRET:asdf}
+    ses:
+      source: ${EMAIL:team-return@team-return.com}
+    region:
+      static: ${S3_REGION:ap-northeast-2}
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
