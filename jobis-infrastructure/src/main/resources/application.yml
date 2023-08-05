@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
     properties.hibernate:
       format_sql: true
-      show_sql: true
+      show_sql: ${SHOW_SQL:true}
   jackson:
     property-naming-strategy: SNAKE_CASE
 
