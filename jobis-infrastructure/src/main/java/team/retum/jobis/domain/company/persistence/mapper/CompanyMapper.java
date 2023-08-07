@@ -19,6 +19,7 @@ public class CompanyMapper {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return CompanyEntity.builder()
+                .id(domain.getId())
                 .fax(domain.getFax())
                 .email(domain.getEmail())
                 .bizNo(domain.getBizNo())

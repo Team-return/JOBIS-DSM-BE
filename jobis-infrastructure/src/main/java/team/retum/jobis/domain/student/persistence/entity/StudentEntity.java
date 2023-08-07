@@ -90,8 +90,10 @@ public class StudentEntity {
     private List<BookmarkEntity> bookmarks = new ArrayList<>();
 
     @Builder
-    public StudentEntity(UserEntity userEntity, String name, Integer grade,
-                         Integer classRoom, Integer number, Gender gender, Department department, String profileImageUrl) {
+    public StudentEntity(Long id, UserEntity userEntity, String name, Integer grade,
+                         Integer classRoom, Integer number, Gender gender,
+                         Department department, String profileImageUrl) {
+        this.id = id;
         this.userEntity = userEntity;
         this.name = name;
         this.grade = grade;

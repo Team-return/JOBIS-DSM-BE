@@ -41,74 +41,96 @@ import java.util.List;
 @Entity
 public class CompanyEntity {
 
-    @OneToMany(mappedBy = "company")
-    private final List<RecruitmentEntity> recruitments = new ArrayList<>();
-    @OneToMany(mappedBy = "company")
-    private final List<CompanyAttachmentEntity> companyAttachments = new ArrayList<>();
-    @OneToMany(mappedBy = "company")
-    private final List<AcceptanceEntity> acceptances = new ArrayList<>();
     @Id
     @Column(name = "company_id")
     private Long id;
+
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "company_id", nullable = false)
     private UserEntity userEntity;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(50)")
     private String name;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(10)")
     private String bizNo;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(13)")
     private CompanyType type;
+
     @NotNull
     @Column(columnDefinition = "BIT(1)")
     private Boolean isMou;
+
     @Embedded
     private Address address;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(10)")
     private String representative;
+
     @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate foundedAt;
+
     @NotNull
     @Column(columnDefinition = "DOUBLE")
     private double take;
+
     @NotNull
     @Column(columnDefinition = "SMALLINT")
     private int workersCount;
+
     @Embedded
     private Manager manager;
+
     @Column(columnDefinition = "VARCHAR(12)")
     private String fax;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(30)")
     private String email;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(4000)")
     private String companyIntroduce;
+
     @ColumnDefault(ImageProperty.DEFAULT_COMPANY_LOGO_IMAGE)
     @Column(columnDefinition = "VARCHAR(300)")
     private String companyLogoUrl;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(300)")
     private String bizRegistrationUrl;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
     private String businessArea;
+
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
     private String serviceName;
 
+    @OneToMany(mappedBy = "company")
+    private final List<RecruitmentEntity> recruitments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company")
+    private final List<CompanyAttachmentEntity> companyAttachments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company")
+    private final List<AcceptanceEntity> acceptances = new ArrayList<>();
+
     @Builder
-    public CompanyEntity(UserEntity userEntity, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
+    public CompanyEntity(Long id, UserEntity userEntity, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
                          String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
+        this.id = id;
         this.userEntity = userEntity;
         this.name = name;
         this.isMou = false;
