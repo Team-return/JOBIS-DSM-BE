@@ -19,6 +19,7 @@ public class StudentMapper {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return StudentEntity.builder()
+                .id(domain.getId())
                 .name(domain.getName())
                 .grade(domain.getGrade())
                 .classRoom(domain.getClassRoom())
