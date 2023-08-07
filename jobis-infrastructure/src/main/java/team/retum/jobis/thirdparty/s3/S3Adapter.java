@@ -44,7 +44,7 @@ public class S3Adapter implements FilePort {
                             fileName,
                             inputStream,
                             objectMetadata
-                    ).withCannedAcl(CannedAccessControlList.PublicRead)
+                    )
             );
         } catch (Exception e) {
             e.printStackTrace();
