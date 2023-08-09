@@ -3,6 +3,7 @@ package team.retum.jobis.domain.review.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.review.spi.vo.ReviewsVO;
 
 import java.util.List;
 
@@ -10,14 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class QueryReviewsResponse {
 
-    private final List<ReviewResponse> reviews;
+    private final List<ReviewsVO> reviews;
 
-
-    @Getter
-    @Builder
-    public static class ReviewResponse {
-        private final String reviewId;
-        private final int year;
-        private final String writer;
-    }
 }
