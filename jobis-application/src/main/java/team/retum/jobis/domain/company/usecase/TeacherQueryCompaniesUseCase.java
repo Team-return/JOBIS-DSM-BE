@@ -9,7 +9,6 @@ import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesRespons
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
-import team.retum.jobis.domain.review.spi.QueryReviewPort;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase

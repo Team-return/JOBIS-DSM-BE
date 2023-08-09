@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.review.spi;
 
-import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.spi.vo.QnAsVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewsVO;

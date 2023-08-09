@@ -8,9 +8,6 @@ import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
