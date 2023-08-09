@@ -5,7 +5,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryApplicationDetailVO;
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -27,6 +26,7 @@ import team.retum.jobis.domain.student.persistence.entity.QStudentEntity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
@@ -238,11 +238,9 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public Application queryApplicationById(Long applicationId) {
-        return applicationMapper.toDomain(
-                applicationJpaRepository.findById(applicationId)
-                        .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION)
-        );
+    public Optional<Application> queryApplicationById(Long applicationId) {
+        return applicationJpaRepository.findById(applicationId)
+                .map(applicationMapper::toDomain);
     }
 
     @Override
