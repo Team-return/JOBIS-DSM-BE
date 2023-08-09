@@ -34,6 +34,7 @@ import static team.retum.jobis.domain.application.persistence.entity.QApplicatio
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyAttachmentEntity.companyAttachmentEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
 import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
+import static team.retum.jobis.domain.review.persistence.entity.QReviewEntity.reviewEntity;
 
 @Repository
 @RequiredArgsConstructor
@@ -112,7 +113,8 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                                 companyEntity.isMou,
                                 recruitmentEntity.personalContact,
                                 recruitmentEntity.recruitYear,
-                                acceptancesCount()
+                                acceptancesCount(),
+                                reviewCount()
                         )
                 ).from(companyEntity)
                 .leftJoin(recruitmentEntity)
@@ -131,6 +133,18 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .toList();
     }
 
+    private JPQLQuery<Long> acceptancesCount() {
+        return select(acceptanceEntity.count())
+                .from(acceptanceEntity)
+                .where(acceptanceEntity.company.eq(companyEntity));
+    }
+
+    private JPQLQuery<Long> reviewCount() {
+        return select(reviewEntity.count())
+                .from(reviewEntity)
+                .where(reviewEntity.company.eq(companyEntity));
+    }
+
     @Override
     public Long getTotalCompanyCount(CompanyFilter filter) {
         return queryFactory
@@ -142,12 +156,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         eqRegion(filter.getRegion()),
                         eqBusinessArea(filter.getBusinessArea())
                 ).fetchOne();
-    }
-
-    public JPQLQuery<Long> acceptancesCount() {
-        return select(acceptanceEntity.count())
-                .from(acceptanceEntity)
-                .where(acceptanceEntity.company.eq(companyEntity));
     }
 
     @Override

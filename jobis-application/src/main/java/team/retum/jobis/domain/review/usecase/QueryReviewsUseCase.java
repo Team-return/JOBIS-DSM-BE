@@ -5,11 +5,7 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.review.dto.QueryReviewsResponse;
-import team.retum.jobis.domain.review.dto.QueryReviewsResponse.ReviewResponse;
-import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.spi.QueryReviewPort;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
@@ -23,16 +19,6 @@ public class QueryReviewsUseCase {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        List<Review> reviewEntities = queryReviewPort.queryAllReviewsByCompanyId(companyId);
-
-        return new QueryReviewsResponse(
-                reviewEntities.stream()
-                        .map(review -> ReviewResponse.builder()
-                                .reviewId(review.getId())
-                                .year(review.getYear())
-                                .writer(review.getStudentName())
-                                .build())
-                        .toList()
-        );
+        return new QueryReviewsResponse(queryReviewPort.queryAllReviewsByCompanyId(companyId));
     }
 }

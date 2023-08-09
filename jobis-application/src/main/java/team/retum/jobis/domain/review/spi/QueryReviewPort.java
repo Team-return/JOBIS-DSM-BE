@@ -1,6 +1,9 @@
 package team.retum.jobis.domain.review.spi;
 
+import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
+import team.retum.jobis.domain.review.spi.vo.QnAsVO;
+import team.retum.jobis.domain.review.spi.vo.ReviewsVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +11,9 @@ import java.util.Optional;
 public interface QueryReviewPort {
     boolean existsByCompanyIdAndStudentName(Long companyId, String studentName);
 
-    Optional<Review> findReviewById(String reviewId);
+    Optional<Review> queryReviewById(Long reviewId);
 
-    List<Review> queryAllReviewsByCompanyId(Long companyId);
+    List<QnAsVO> queryAllQnAsByReviewId(Long reviewId);
 
-    Long queryReviewCountByCompanyId(Long companyId);
+    List<ReviewsVO> queryAllReviewsByCompanyId(Long companyId);
 }

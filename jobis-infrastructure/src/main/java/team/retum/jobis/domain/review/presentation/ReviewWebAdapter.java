@@ -40,7 +40,7 @@ public class ReviewWebAdapter {
 
     @GetMapping("/details/{review-id}")
     public QueryReviewDetailResponse getReviewDetails(
-            @PathVariable(name = "review-id") String reviewId
+            @PathVariable(name = "review-id") Long reviewId
     ) {
         return queryReviewDetailUseCase.execute(reviewId);
     }
@@ -56,7 +56,7 @@ public class ReviewWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{review-id}")
     public void deleteReview(
-            @PathVariable(name = "review-id") String reviewId
+            @PathVariable(name = "review-id") Long reviewId
     ) {
         deleteReviewUseCase.execute(reviewId);
     }

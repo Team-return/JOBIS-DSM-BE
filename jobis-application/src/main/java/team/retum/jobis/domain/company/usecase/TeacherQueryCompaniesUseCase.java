@@ -16,7 +16,6 @@ import team.retum.jobis.domain.review.spi.QueryReviewPort;
 public class TeacherQueryCompaniesUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
-    private final QueryReviewPort queryReviewPort;
     private final QueryCodePort queryCodePort;
 
     public TeacherQueryCompaniesResponse execute(
@@ -57,9 +56,7 @@ public class TeacherQueryCompaniesUseCase {
                                 .personalContact(company.getPersonalContact())
                                 .recentRecruitYear(company.getRecentRecruitYear())
                                 .totalAcceptanceCount(company.getTotalAcceptanceCount())
-                                .reviewCount(
-                                        queryReviewPort.queryReviewCountByCompanyId(company.getCompanyId())
-                                )
+                                .reviewCount(company.getReviewCount())
                                 .build()
                         ).toList(),
                 totalPageCount

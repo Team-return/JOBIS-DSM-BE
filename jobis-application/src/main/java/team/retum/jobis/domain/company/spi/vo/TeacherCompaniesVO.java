@@ -19,4 +19,5 @@ public class TeacherCompaniesVO {
     private final Boolean personalContact;
     private final Integer recentRecruitYear;
     private final Long totalAcceptanceCount;
+    private final Long reviewCount;
 }
