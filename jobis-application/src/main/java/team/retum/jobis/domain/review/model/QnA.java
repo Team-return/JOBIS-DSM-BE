@@ -5,11 +5,16 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class QnAElement {
+public class QnA {
+
+    private final Long id;
 
     private final String question;
 
     private final String answer;
 
+    private final Long reviewId;
+
     private final Long codeId;
+
 }
