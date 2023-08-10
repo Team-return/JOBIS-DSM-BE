@@ -9,8 +9,8 @@ import team.retum.jobis.domain.review.persistence.mapper.QnAMapper;
 import team.retum.jobis.domain.review.persistence.mapper.ReviewMapper;
 import team.retum.jobis.domain.review.persistence.repository.QnAJpaRepository;
 import team.retum.jobis.domain.review.persistence.repository.ReviewJpaRepository;
-import team.retum.jobis.domain.review.persistence.repository.vo.QQueryQnAsVO;
-import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewsVO;
+import team.retum.jobis.domain.review.persistence.repository.vo.QQueryQnAVO;
+import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewVO;
 import team.retum.jobis.domain.review.spi.ReviewPort;
 import team.retum.jobis.domain.review.spi.vo.QnAVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
@@ -72,7 +72,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     public List<QnAVO> queryAllQnAsByReviewId(Long reviewId) {
         return queryFactory
                 .select(
-                        new QQueryQnAsVO(
+                        new QQueryQnAVO(
                                 qnAEntity.question,
                                 qnAEntity.answer,
                                 codeEntity.keyword
@@ -90,7 +90,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     public List<ReviewVO> queryAllReviewsByCompanyId(Long companyId) {
         return queryFactory
                 .select(
-                        new QQueryReviewsVO(
+                        new QQueryReviewVO(
                                 reviewEntity.id,
                                 studentEntity.name,
                                 reviewEntity.createdAt

@@ -11,7 +11,7 @@ public class CreateReviewRequest {
 
     private Long companyId;
 
-    private List<QnAElement> qnAs;
+    private List<QnAElement> qnaElements;
 
     private Long applicationId;
 
