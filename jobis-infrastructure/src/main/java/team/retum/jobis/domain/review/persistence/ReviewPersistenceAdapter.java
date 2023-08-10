@@ -12,8 +12,8 @@ import team.retum.jobis.domain.review.persistence.repository.ReviewJpaRepository
 import team.retum.jobis.domain.review.persistence.repository.vo.QQueryQnAsVO;
 import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewsVO;
 import team.retum.jobis.domain.review.spi.ReviewPort;
-import team.retum.jobis.domain.review.spi.vo.QnAsVO;
-import team.retum.jobis.domain.review.spi.vo.ReviewsVO;
+import team.retum.jobis.domain.review.spi.vo.QnAVO;
+import team.retum.jobis.domain.review.spi.vo.ReviewVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +69,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public List<QnAsVO> queryAllQnAsByReviewId(Long reviewId) {
+    public List<QnAVO> queryAllQnAsByReviewId(Long reviewId) {
         return queryFactory
                 .select(
                         new QQueryQnAsVO(
@@ -82,12 +82,12 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 .join(qnAEntity.code, codeEntity)
                 .where(qnAEntity.review.id.eq(reviewId))
                 .fetch().stream()
-                .map(QnAsVO.class::cast)
+                .map(QnAVO.class::cast)
                 .toList();
     }
 
     @Override
-    public List<ReviewsVO> queryAllReviewsByCompanyId(Long companyId) {
+    public List<ReviewVO> queryAllReviewsByCompanyId(Long companyId) {
         return queryFactory
                 .select(
                         new QQueryReviewsVO(
@@ -101,7 +101,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 .join(reviewEntity.company, companyEntity)
                 .where(companyEntity.id.eq(companyId))
                 .fetch().stream()
-                .map(ReviewsVO.class::cast)
+                .map(ReviewVO.class::cast)
                 .toList();
     }
 }

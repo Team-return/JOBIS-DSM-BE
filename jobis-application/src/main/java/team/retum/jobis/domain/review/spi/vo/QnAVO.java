@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ReviewsVO {
-    private final Long reviewId;
-    private final String writer;
-    private final int year;
+public class QnAVO {
+    private final String question;
+    private final String answer;
+    private final String area;
 }

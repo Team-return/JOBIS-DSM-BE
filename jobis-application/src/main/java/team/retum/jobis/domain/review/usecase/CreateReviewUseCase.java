@@ -53,7 +53,7 @@ public class CreateReviewUseCase {
                         .build()
         );
 
-        List<QnA> qnAS = request.getQnAs().stream()
+        List<QnA> qnAs = request.getQnAs().stream()
                 .map(qnARequest -> QnA.builder()
                         .question(qnARequest.getQuestion())
                         .answer(qnARequest.getAnswer())
@@ -61,6 +61,6 @@ public class CreateReviewUseCase {
                         .codeId(qnARequest.getCodeId())
                         .build())
                 .toList();
-        commandReviewPort.saveAllQnAs(qnAS);
+        commandReviewPort.saveAllQnAs(qnAs);
     }
 }

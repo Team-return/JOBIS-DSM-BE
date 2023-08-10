@@ -2,15 +2,15 @@ package team.retum.jobis.domain.review.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import team.retum.jobis.domain.review.spi.vo.ReviewsVO;
+import team.retum.jobis.domain.review.spi.vo.ReviewVO;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class QueryReviewsVO extends ReviewsVO {
+public class QueryReviewVO extends ReviewVO {
 
     @QueryProjection
-    public QueryReviewsVO(Long reviewId, String writer, LocalDateTime createdAt) {
+    public QueryReviewVO(Long reviewId, String writer, LocalDateTime createdAt) {
         super(reviewId, writer, createdAt.getYear());
     }
 }
