@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.spi.JwtPort;
