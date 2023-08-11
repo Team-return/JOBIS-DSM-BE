@@ -24,8 +24,8 @@ public class UpdateCompanyDetailsUseCase {
 
         commandCompanyPort.saveCompany(
                 company.update(
-                        request.getMainAddress(), request.getMainZipCode(),
-                        request.getSubAddress(), request.getSubZipCode(),
+                        request.getMainAddress(), request.getMainZipCode(), request.getMainAddressDetail(),
+                        request.getSubAddress(), request.getSubZipCode(), request.getSubAddressDetail(),
                         request.getTake(), request.getWorkerNumber(),
                         request.getManagerName(), request.getManagerPhoneNo(),
                         request.getSubManagerName(), request.getSubManagerPhoneNo(),

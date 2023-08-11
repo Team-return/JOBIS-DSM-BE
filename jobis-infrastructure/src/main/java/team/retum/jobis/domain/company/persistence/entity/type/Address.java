@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.company.persistence.entity.type;
 
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
@@ -15,13 +15,22 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
-    @Column(nullable = false)
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(50)")
     private String mainAddress;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(50)")
+    private String mainAddressDetail;
 
     @Column(columnDefinition = "VARCHAR(5)", nullable = false)
     private String mainZipCode;
 
+    @Column(columnDefinition = "VARCHAR(50)")
     private String subAddress;
+
+    @Column(columnDefinition = "VARCHAR(50)")
+    private String subAddressDetail;
 
     @Column(columnDefinition = "VARCHAR(5)")
     private String subZipCode;

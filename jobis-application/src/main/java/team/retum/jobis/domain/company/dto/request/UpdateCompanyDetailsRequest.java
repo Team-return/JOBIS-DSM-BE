@@ -13,9 +13,13 @@ public class UpdateCompanyDetailsRequest {
 
     private String mainAddress;
 
+    private String mainAddressDetail;
+
     private String subZipCode;
 
     private String subAddress;
+
+    private String subAddressDetail;
 
     private String managerName;
 

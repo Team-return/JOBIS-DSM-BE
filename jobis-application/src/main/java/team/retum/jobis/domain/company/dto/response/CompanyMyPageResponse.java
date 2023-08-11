@@ -13,8 +13,10 @@ public class CompanyMyPageResponse {
     private final String bizNo;
     private final CompanyType type;
     private final String mainAddress;
+    private final String mainAddressDetail;
     private final String mainZipCode;
     private final String subAddress;
+    private final String subAddressDetail;
     private final String subZipCode;
     private final String representative;
     private final LocalDate foundedAt;

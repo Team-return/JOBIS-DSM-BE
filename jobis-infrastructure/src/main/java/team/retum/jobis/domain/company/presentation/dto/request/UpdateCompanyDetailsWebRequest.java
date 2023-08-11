@@ -25,11 +25,18 @@ public class UpdateCompanyDetailsWebRequest {
     private String mainAddress;
 
     @NotBlank
+    @Size(max = 50)
+    private String mainAddressDetail;
+
+    @NotBlank
     @Size(min = 5, max = 5)
     private String subZipCode;
 
     @Size(max = 50)
     private String subAddress;
+
+    @Size(max = 50)
+    private String subAddressDetail;
 
     @NotBlank
     @Size(max = 10)
@@ -67,8 +74,10 @@ public class UpdateCompanyDetailsWebRequest {
                 .companyIntroduce(this.companyIntroduce)
                 .mainZipCode(this.mainZipCode)
                 .mainAddress(this.mainAddress)
+                .mainAddressDetail(this.mainAddressDetail)
                 .subZipCode(this.subZipCode)
                 .subAddress(this.subAddress)
+                .subAddressDetail(this.subAddressDetail)
                 .managerName(this.managerName)
                 .managerPhoneNo(this.managerPhoneNo)
                 .subManagerName(this.subManagerName)
