@@ -12,9 +12,9 @@ public class TeacherQueryCompaniesVO extends TeacherCompaniesVO {
     public TeacherQueryCompaniesVO(Long companyId, String companyName, String mainAddress, String businessArea,
                                    Integer workersCount, double take, CompanyType companyType,
                                    Boolean convention, Boolean personalContact, Integer recentRecruitYear,
-                                   Long totalAcceptanceCount) {
+                                   Long totalAcceptanceCount, Long reviewCount) {
         super(companyId, companyName, mainAddress, businessArea,
                 workersCount, take, companyType, convention,
-                personalContact, recentRecruitYear, totalAcceptanceCount);
+                personalContact, recentRecruitYear, totalAcceptanceCount, reviewCount);
     }
 }

@@ -3,6 +3,7 @@ package team.retum.jobis.domain.application.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
+import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
@@ -24,7 +25,8 @@ public class DeleteApplicationUseCase {
         Student student = queryStudentPort.queryStudentById(currentUserId)
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        Application application = queryApplicationPort.queryApplicationById(applicationId);
+        Application application = queryApplicationPort.queryApplicationById(applicationId)
+                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
         application.checkIsDeletable(student);
 
         commandApplicationPort.deleteApplication(application);

@@ -9,14 +9,12 @@ import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesRespons
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
-import team.retum.jobis.domain.review.spi.QueryReviewPort;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class TeacherQueryCompaniesUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
-    private final QueryReviewPort queryReviewPort;
     private final QueryCodePort queryCodePort;
 
     public TeacherQueryCompaniesResponse execute(
@@ -57,9 +55,7 @@ public class TeacherQueryCompaniesUseCase {
                                 .personalContact(company.getPersonalContact())
                                 .recentRecruitYear(company.getRecentRecruitYear())
                                 .totalAcceptanceCount(company.getTotalAcceptanceCount())
-                                .reviewCount(
-                                        queryReviewPort.queryReviewCountByCompanyId(company.getCompanyId())
-                                )
+                                .reviewCount(company.getReviewCount())
                                 .build()
                         ).toList(),
                 totalPageCount

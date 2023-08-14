@@ -14,8 +14,8 @@ public class DeleteReviewUseCase {
     private final QueryReviewPort queryReviewPort;
     private final CommandReviewPort commandReviewPort;
 
-    public void execute(String reviewId) {
-        Review review = queryReviewPort.findReviewById(reviewId)
+    public void execute(Long reviewId) {
+        Review review = queryReviewPort.queryReviewById(reviewId)
                 .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
 
         commandReviewPort.deleteReview(review);

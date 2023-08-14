@@ -9,6 +9,7 @@ import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 import team.retum.jobis.domain.application.spi.vo.TotalApplicationCountVO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface QueryApplicationPort {
 
@@ -27,7 +28,7 @@ public interface QueryApplicationPort {
 
     List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds);
 
-    Application queryApplicationById(Long applicationId);
+    Optional<Application> queryApplicationById(Long applicationId);
 
     boolean existsApplicationByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);
 
