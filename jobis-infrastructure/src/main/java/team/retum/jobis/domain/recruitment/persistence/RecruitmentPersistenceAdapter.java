@@ -106,6 +106,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return queryFactory
                 .select(
                         new QQueryRecruitmentDetailVO(
+                                recruitmentEntity.id,
                                 companyEntity.id,
                                 companyEntity.companyLogoUrl,
                                 companyEntity.name,

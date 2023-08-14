@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RecruitmentDetailVO {
 
+    private final Long recruitmentId;
     private final Long companyId;
     private final String companyProfileUrl;
     private final String companyName;

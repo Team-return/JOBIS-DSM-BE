@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 public class QueryRecruitmentDetailResponse {
 
+    private final Long recruitmentId;
     private final Long companyId;
     private final String companyProfileUrl;
     private final String companyName;
@@ -33,6 +34,7 @@ public class QueryRecruitmentDetailResponse {
 
     public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas) {
         return QueryRecruitmentDetailResponse.builder()
+                .recruitmentId(recruitmentDetail.getRecruitmentId())
                 .companyId(recruitmentDetail.getCompanyId())
                 .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
                 .companyName(recruitmentDetail.getCompanyName())
