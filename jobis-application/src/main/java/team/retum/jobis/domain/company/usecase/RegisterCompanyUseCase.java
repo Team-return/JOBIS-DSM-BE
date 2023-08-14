@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.spi.JwtPort;
@@ -63,9 +62,11 @@ public class RegisterCompanyUseCase {
                         .serviceName(request.getServiceName())
                         .name(request.getName())
                         .take(request.getTake())
-                        .mainAddress(StringUtil.mergeString(request.getMainAddress(), request.getMainAddressDetail()))
+                        .mainAddress(request.getMainAddress())
+                        .mainAddressDetail(request.getMainAddressDetail())
                         .mainZipCode(request.getMainZipCode())
-                        .subAddress(StringUtil.mergeString(request.getSubAddress(), request.getSubAddressDetail()))
+                        .subAddress(request.getSubAddress())
+                        .subAddressDetail(request.getSubAddressDetail())
                         .subZipCode(request.getSubZipCode())
                         .managerName(request.getManagerName())
                         .managerPhoneNo(request.getManagerPhoneNo())

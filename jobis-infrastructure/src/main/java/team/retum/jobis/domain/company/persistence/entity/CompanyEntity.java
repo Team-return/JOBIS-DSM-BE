@@ -126,7 +126,8 @@ public class CompanyEntity {
     private final List<AcceptanceEntity> acceptances = new ArrayList<>();
 
     @Builder
-    public CompanyEntity(Long id, UserEntity userEntity, String name, String mainAddress, String mainZipCode, String subAddress, String subZipCode,
+    public CompanyEntity(Long id, UserEntity userEntity, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
+                         String subAddress, String subAddressDetail, String subZipCode,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
                          String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName) {
@@ -138,7 +139,7 @@ public class CompanyEntity {
         this.businessArea = businessArea;
         this.serviceName = serviceName;
         this.type = CompanyType.PARTICIPATING;
-        this.address = new Address(mainAddress, mainZipCode, subAddress, subZipCode);
+        this.address = new Address(mainAddress, mainAddressDetail, mainZipCode, subAddress, subAddressDetail, subZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;
         this.take = take;

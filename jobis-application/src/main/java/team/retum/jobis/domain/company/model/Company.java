@@ -18,8 +18,10 @@ public class Company {
     private final boolean isMou;
 
     private final String mainAddress;
+    private final String mainAddressDetail;
     private final String mainZipCode;
     private final String subAddress;
+    private final String subAddressDetail;
     private final String subZipCode;
 
     private final String representative;
@@ -40,13 +42,15 @@ public class Company {
     private final String businessArea;
     private final String serviceName;
 
-    public Company update(String mainAddress, String mainZipCode, String subAddress, String subZipCode,
+    public Company update(String mainAddress, String mainAddressDetail, String mainZipCode, String subAddress, String subAddressDetail,String subZipCode,
                           double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
                           String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email) {
         return this.toBuilder()
                 .mainAddress(mainAddress)
+                .mainAddressDetail(mainAddressDetail)
                 .mainZipCode(mainZipCode)
                 .subAddress(subAddress)
+                .subAddressDetail(subAddressDetail)
                 .subZipCode(subZipCode)
                 .take(take)
                 .workersCount(workersCount)
