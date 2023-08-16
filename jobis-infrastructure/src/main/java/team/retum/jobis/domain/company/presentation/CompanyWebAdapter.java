@@ -15,6 +15,7 @@ import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
 import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
+import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
@@ -26,6 +27,7 @@ import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouWebRequ
 import team.retum.jobis.domain.company.usecase.CheckCompanyExistsUseCase;
 import team.retum.jobis.domain.company.usecase.CompanyMyPageUseCase;
 import team.retum.jobis.domain.company.usecase.QueryCompanyDetailsUseCase;
+import team.retum.jobis.domain.company.usecase.QueryReviewAvailableCompaniesUseCase;
 import team.retum.jobis.domain.company.usecase.RegisterCompanyUseCase;
 import team.retum.jobis.domain.company.usecase.StudentQueryCompaniesUseCase;
 import team.retum.jobis.domain.company.usecase.TeacherQueryCompaniesUseCase;
@@ -51,6 +53,7 @@ public class CompanyWebAdapter {
     private final TeacherQueryEmployCompaniesUseCase teacherQueryEmployCompaniesUseCase;
     private final TeacherQueryCompaniesUseCase teacherQueryCompaniesUseCase;
     private final UpdateConventionUseCase updateConventionUseCase;
+    private final QueryReviewAvailableCompaniesUseCase queryReviewAvailableCompaniesUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -117,5 +120,10 @@ public class CompanyWebAdapter {
     @PatchMapping("/mou")
     public void updateMou(@RequestBody @Valid UpdateMouWebRequest request) {
         updateConventionUseCase.execute(request.toDomainRequest());
+    }
+
+    @GetMapping("/review")
+    public QueryReviewAvailableCompaniesResponse queryReviewAvailableCompanies() {
+        return queryReviewAvailableCompaniesUseCase.execute();
     }
 }
