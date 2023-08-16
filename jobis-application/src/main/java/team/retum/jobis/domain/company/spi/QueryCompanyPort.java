@@ -34,5 +34,5 @@ public interface QueryCompanyPort {
 
     boolean existsCompanyById(Long companyId);
 
-    List<CompanyResponse> queryReviewAvailableCompaniesByIds(Long studentId);
+    List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId);
 }

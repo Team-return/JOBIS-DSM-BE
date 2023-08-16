@@ -16,7 +16,7 @@ public class QueryReviewAvailableCompaniesUseCase {
     public QueryReviewAvailableCompaniesResponse execute() {
         Long currentUserId = securityPort.getCurrentUserId();
         return new QueryReviewAvailableCompaniesResponse(
-                queryCompanyPort.queryReviewAvailableCompaniesByIds(currentUserId)
+                queryCompanyPort.queryReviewAvailableCompaniesByStudentId(currentUserId)
         );
     }
 }

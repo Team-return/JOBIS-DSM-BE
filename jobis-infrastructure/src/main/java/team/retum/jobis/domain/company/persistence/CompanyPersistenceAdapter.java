@@ -32,6 +32,9 @@ import java.util.Optional;
 
 import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyAttachmentEntity.companyAttachmentEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
@@ -219,7 +222,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         recentRecruitment(null)
                 )
                 .leftJoin(recruitmentEntity.applications, applicationEntity)
-                .on(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .on(applicationEntity.applicationStatus.eq(FIELD_TRAIN))
                 .where(
                         containsName(name),
                         eqCompanyType(type),
@@ -264,8 +267,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return companyJpaRepository.existsById(companyId);
     }
 
-    @Override
-    public List<CompanyResponse> queryReviewAvailableCompaniesByIds(Long studentId) {
+    public List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId) {
         return queryFactory
                 .select(
                         new QQueryReviewAvailableCompanyVO(
@@ -274,28 +276,24 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         )
                 )
                 .from(companyEntity)
-                .where(
-                        companyEntity.id.in(
-                                select(recruitmentEntity.company.id)
-                                        .from(applicationEntity)
-                                        .where(
-                                                applicationEntity.student.id.eq(studentId),
-                                                applicationEntity.applicationStatus.in(
-                                                        List.of(
-                                                                ApplicationStatus.PASS,
-                                                                ApplicationStatus.FAILED,
-                                                                ApplicationStatus.FIELD_TRAIN
-                                                        )
-                                                )
-                                        )
-                                        .join(applicationEntity.recruitment, recruitmentEntity)
-                        ),
-                        companyEntity.id.notIn(
-                                select(reviewEntity.company.id)
-                                        .from(reviewEntity)
-                                        .where(reviewEntity.student.id.eq(studentId))
+                .join(applicationEntity)
+                .on(
+                        applicationEntity.student.id.eq(studentId),
+                        applicationEntity.applicationStatus.in(
+                                List.of(PASS, FAILED, FIELD_TRAIN)
                         )
                 )
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .leftJoin(reviewEntity)
+                .on(
+                        reviewEntity.student.id.eq(studentId),
+                        reviewEntity.company.id.eq(companyEntity.id)
+                )
+                .where(
+                        recruitmentEntity.company.id.eq(companyEntity.id),
+                        reviewEntity.isNull()
+                )
+                .groupBy(companyEntity.id)
                 .fetch().stream()
                 .map(CompanyResponse.class::cast)
                 .toList();
