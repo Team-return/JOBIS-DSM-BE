@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyAttachment;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -15,6 +16,7 @@ import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
 import team.retum.jobis.domain.company.persistence.repository.CompanyAttachmentJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyDetailsVO;
+import team.retum.jobis.domain.company.persistence.repository.vo.QQueryReviewAvailableCompanyVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryTeacherEmployCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
@@ -260,6 +262,43 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     @Override
     public boolean existsCompanyById(Long companyId) {
         return companyJpaRepository.existsById(companyId);
+    }
+
+    @Override
+    public List<CompanyResponse> queryReviewAvailableCompaniesByIds(Long studentId) {
+        return queryFactory
+                .select(
+                        new QQueryReviewAvailableCompanyVO(
+                                companyEntity.id,
+                                companyEntity.name
+                        )
+                )
+                .from(companyEntity)
+                .where(
+                        companyEntity.id.in(
+                                select(recruitmentEntity.company.id)
+                                        .from(applicationEntity)
+                                        .where(
+                                                applicationEntity.student.id.eq(studentId),
+                                                applicationEntity.applicationStatus.in(
+                                                        List.of(
+                                                                ApplicationStatus.PASS,
+                                                                ApplicationStatus.FAILED,
+                                                                ApplicationStatus.FIELD_TRAIN
+                                                        )
+                                                )
+                                        )
+                                        .join(applicationEntity.recruitment, recruitmentEntity)
+                        ),
+                        companyEntity.id.notIn(
+                                select(reviewEntity.company.id)
+                                        .from(reviewEntity)
+                                        .where(reviewEntity.student.id.eq(studentId))
+                        )
+                )
+                .fetch().stream()
+                .map(CompanyResponse.class::cast)
+                .toList();
     }
 
     //==conditions==//
