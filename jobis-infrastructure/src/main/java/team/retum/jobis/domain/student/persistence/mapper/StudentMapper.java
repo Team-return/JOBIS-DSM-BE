@@ -35,6 +35,7 @@ public class StudentMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .number(entity.getNumber())
+                .gender(entity.getGender())
                 .profileImageUrl(entity.getProfileImageUrl())
                 .classRoom(entity.getClassRoom())
                 .department(entity.getDepartment())
