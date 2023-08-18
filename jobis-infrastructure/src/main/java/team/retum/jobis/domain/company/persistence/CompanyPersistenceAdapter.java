@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyAttachment;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -15,6 +16,7 @@ import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
 import team.retum.jobis.domain.company.persistence.repository.CompanyAttachmentJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyDetailsVO;
+import team.retum.jobis.domain.company.persistence.repository.vo.QQueryReviewAvailableCompanyVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryTeacherEmployCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
@@ -30,6 +32,9 @@ import java.util.Optional;
 
 import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyAttachmentEntity.companyAttachmentEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
@@ -217,7 +222,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         recentRecruitment(null)
                 )
                 .leftJoin(recruitmentEntity.applications, applicationEntity)
-                .on(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .on(applicationEntity.applicationStatus.eq(FIELD_TRAIN))
                 .where(
                         containsName(name),
                         eqCompanyType(type),
@@ -260,6 +265,38 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     @Override
     public boolean existsCompanyById(Long companyId) {
         return companyJpaRepository.existsById(companyId);
+    }
+
+    public List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId) {
+        return queryFactory
+                .select(
+                        new QQueryReviewAvailableCompanyVO(
+                                companyEntity.id,
+                                companyEntity.name
+                        )
+                )
+                .from(companyEntity)
+                .join(applicationEntity)
+                .on(
+                        applicationEntity.student.id.eq(studentId),
+                        applicationEntity.applicationStatus.in(
+                                List.of(PASS, FAILED, FIELD_TRAIN)
+                        )
+                )
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .leftJoin(reviewEntity)
+                .on(
+                        reviewEntity.student.id.eq(studentId),
+                        reviewEntity.company.id.eq(companyEntity.id)
+                )
+                .where(
+                        recruitmentEntity.company.id.eq(companyEntity.id),
+                        reviewEntity.isNull()
+                )
+                .groupBy(companyEntity.id)
+                .fetch().stream()
+                .map(CompanyResponse.class::cast)
+                .toList();
     }
 
     //==conditions==//

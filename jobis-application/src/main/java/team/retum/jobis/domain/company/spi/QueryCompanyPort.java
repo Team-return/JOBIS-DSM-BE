@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.company.spi;
 
 import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
@@ -32,4 +33,6 @@ public interface QueryCompanyPort {
     boolean existsCompanyByBizNo(String bizNo);
 
     boolean existsCompanyById(Long companyId);
+
+    List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId);
 }
