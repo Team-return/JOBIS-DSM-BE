@@ -20,6 +20,8 @@ import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @UseCase
 public class RegisterCompanyUseCase {
@@ -41,7 +43,7 @@ public class RegisterCompanyUseCase {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        User userEntity = commandUserPort.saveUser(
+        User user = commandUserPort.saveUser(
                 User.builder()
                         .accountId(request.getBusinessNumber())
                         .password(securityPort.encodePassword(request.getPassword()))
@@ -52,9 +54,9 @@ public class RegisterCompanyUseCase {
         Code code = queryCodePort.queryCodeById(request.getBusinessAreaCode())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
-        Company savedCompanyEntity = commandCompanyPort.saveCompany(
+        Company savedCompany = commandCompanyPort.saveCompany(
                 Company.builder()
-                        .id(userEntity.getId())
+                        .id(user.getId())
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
@@ -81,15 +83,21 @@ public class RegisterCompanyUseCase {
                         .build()
         );
 
-        commandCompanyPort.saveAllCompanyAttachment(
-                request.getAttachmentUrls().stream()
-                        .map(attachment -> CompanyAttachment.builder()
-                                .companyId(savedCompanyEntity.getId())
-                                .attachmentUrl(attachment)
-                                .build())
-                        .toList()
-        );
+        if (request.getAttachmentUrls() != null) {
+            saveCompanyAttachments(request.getAttachmentUrls(), savedCompany.getId());
+        }
 
-        return jwtPort.generateTokens(userEntity.getId(), userEntity.getAuthority());
+        return jwtPort.generateTokens(user.getId(), user.getAuthority());
+    }
+
+    private void saveCompanyAttachments(List<String> attachmentUrls, Long companyId) {
+        List<CompanyAttachment> companyAttachments = attachmentUrls.stream()
+                .map(attachmentUrl -> CompanyAttachment.builder()
+                        .companyId(companyId)
+                        .attachmentUrl(attachmentUrl)
+                        .build()
+                ).toList();
+
+        commandCompanyPort.saveAllCompanyAttachment(companyAttachments);
     }
 }
