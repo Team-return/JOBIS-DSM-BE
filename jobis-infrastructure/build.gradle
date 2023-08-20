@@ -37,6 +37,9 @@ dependencies {
 
     //jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+    // firebase
+    implementation 'com.google.firebase:firebase-admin:9.2.0'
 }
 
 test.useJUnitPlatform()
