@@ -77,3 +77,6 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: error
+
+fcm:
+  path: ${FCM_PATH}
