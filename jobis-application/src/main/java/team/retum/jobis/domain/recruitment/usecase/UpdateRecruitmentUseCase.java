@@ -7,6 +7,7 @@ import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class UpdateRecruitmentUseCase {
 
     private final SecurityPort securityPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
+    private final CommandRecruitmentPort commandRecruitmentPort;
 
     public void execute(UpdateRecruitmentRequest request, Long recruitmentId) {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
@@ -27,11 +29,13 @@ public class UpdateRecruitmentUseCase {
         }
 
 
-        recruitment.update(
+        commandRecruitmentPort.saveRecruitment(
+                recruitment.update(
                 request.getTrainPay(), request.getPay(), request.getWorkHours(), request.getSubmitDocument(),
                 request.getStartDate(), request.getEndDate(), request.getBenefits(), request.getRequiredLicenses(),
                 request.isMilitary(), request.getEtc(), request.getPreferentialTreatment(), request.getHiringProgress(),
                 request.getRequiredGrade()
+                )
         );
     }
 }

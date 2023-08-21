@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
-public class UpdateConventionUseCase {
+public class UpdateMouUseCase {
 
     private final CommandCompanyPort commandCompanyPort;
     private final QueryCompanyPort queryCompanyPort;
