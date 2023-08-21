@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.annotation.Service;
 import team.retum.jobis.common.annotation.UseCase;
 
 @Configuration
@@ -15,7 +16,8 @@ import team.retum.jobis.common.annotation.UseCase;
                         type = FilterType.ANNOTATION,
                         classes = {
                                 UseCase.class,
-                                ReadOnlyUseCase.class
+                                ReadOnlyUseCase.class,
+                                Service.class
                         }
                 )
         }

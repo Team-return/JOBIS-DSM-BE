@@ -3,20 +3,15 @@ package team.retum.jobis.domain.recruitment.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.common.util.StringUtil;
-import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.code.model.RecruitAreaCode;
-import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
-import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.service.SaveRecruitmentAreaService;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 
 import java.time.Year;
-import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
@@ -24,8 +19,8 @@ public class ApplyRecruitmentUseCase {
 
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
-    private final QueryCodePort queryCodePort;
     private final SecurityPort securityPort;
+    private final SaveRecruitmentAreaService saveRecruitmentAreaService;
 
     public void execute(ApplyRecruitmentRequest request) {
         Long currentCompanyId = securityPort.getCurrentUserId();
@@ -53,32 +48,7 @@ public class ApplyRecruitmentUseCase {
                         .build()
         );
 
-        request.getAreas()
-                .forEach(area -> {
-                    String jobCodes =
-                            StringUtil.joinStringList(
-                                    queryCodePort.queryCodesByIdIn(area.getJobCodes()).stream()
-                                            .map(Code::getKeyword).toList()
-                            );
-
-                    RecruitArea savedRecruitmentArea = commandRecruitmentPort.saveRecruitmentArea(
-                            RecruitArea.builder()
-                                    .recruitmentId(recruitment.getId())
-                                    .jobCodes(jobCodes)
-                                    .hiredCount(area.getHiring())
-                                    .majorTask(area.getMajorTask())
-                                    .build()
-                    );
-
-                    List<RecruitAreaCode> recruitAreaCodes = area.getTechCodes().stream()
-                            .map(
-                                    code -> RecruitAreaCode.builder()
-                                            .recruitAreaId(savedRecruitmentArea.getId())
-                                            .codeId(code)
-                                            .build()
-                            ).toList();
-                    commandRecruitmentPort.saveAllRecruitmentAreaCodes(recruitAreaCodes);
-                });
+        request.getAreas().forEach(area -> saveRecruitmentAreaService.execute(area, recruitment.getId()));
     }
 
     private void checkRecruitmentExists(Long companyId) {
