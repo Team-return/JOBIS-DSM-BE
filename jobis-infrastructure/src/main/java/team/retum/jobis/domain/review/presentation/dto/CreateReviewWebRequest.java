@@ -21,9 +21,6 @@ public class CreateReviewWebRequest {
     @ValidListElements
     private List<@Valid QnAWebElement> qnaElements;
 
-    @NotNull
-    private Long applicationId;
-
     public CreateReviewRequest toDomainRequest() {
         return CreateReviewRequest.builder()
                 .companyId(this.companyId)
@@ -36,7 +33,6 @@ public class CreateReviewWebRequest {
                                         .build())
                                 .toList()
                 )
-                .applicationId(this.applicationId)
                 .build();
     }
 

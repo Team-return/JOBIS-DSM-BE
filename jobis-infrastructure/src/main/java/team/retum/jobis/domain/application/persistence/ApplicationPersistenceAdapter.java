@@ -31,6 +31,7 @@ import java.util.Optional;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.jpa.JPAExpressions.select;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.APPROVED;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationAttachmentEntity.applicationAttachmentEntity;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
@@ -174,7 +175,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 )
                 .from(applicationEntity)
                 .leftJoin(applicationEntity.student, approvedStudent)
-                .on(approvedStudent.applications.any().applicationStatus.eq(ApplicationStatus.APPROVED))
+                .on(approvedStudent.applications.any().applicationStatus.eq(APPROVED))
                 .leftJoin(applicationEntity.student, passedStudent)
                 .on(
                         passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS)
@@ -241,6 +242,18 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     public Optional<Application> queryApplicationById(Long applicationId) {
         return applicationJpaRepository.findById(applicationId)
                 .map(applicationMapper::toDomain);
+    }
+
+    @Override
+    public Optional<Application> queryApplicationByCompanyIdAndStudentId(Long companyId, Long studentId) {
+        return Optional.ofNullable(
+                queryFactory
+                        .selectFrom(applicationEntity)
+                        .join(companyEntity)
+                        .on(companyEntity.id.eq(companyId))
+                        .where(applicationEntity.student.id.eq(studentId))
+                        .fetchFirst()
+        ).map(applicationMapper::toDomain);
     }
 
     @Override

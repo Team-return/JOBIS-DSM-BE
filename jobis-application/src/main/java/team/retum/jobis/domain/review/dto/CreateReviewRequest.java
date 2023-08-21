@@ -13,8 +13,6 @@ public class CreateReviewRequest {
 
     private List<QnAElement> qnaElements;
 
-    private Long applicationId;
-
     @Getter
     @Builder
     public static class QnAElement {

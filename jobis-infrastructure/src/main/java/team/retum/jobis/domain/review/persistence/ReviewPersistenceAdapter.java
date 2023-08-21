@@ -58,8 +58,8 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public boolean existsByCompanyIdAndStudentName(Long companyId, String studentName) {
-        return reviewJpaRepository.existsByCompanyIdAndStudentName(companyId, studentName);
+    public boolean existsByCompanyIdAndStudentId(Long companyId, Long studentId) {
+        return reviewJpaRepository.existsByCompanyIdAndStudentId(companyId, studentId);
     }
 
     @Override

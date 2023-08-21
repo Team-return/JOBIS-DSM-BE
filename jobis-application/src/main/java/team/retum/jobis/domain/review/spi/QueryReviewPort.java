@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QueryReviewPort {
-    boolean existsByCompanyIdAndStudentName(Long companyId, String studentName);
+    boolean existsByCompanyIdAndStudentId(Long companyId, Long studentId);
 
     Optional<Review> queryReviewById(Long reviewId);
 
