@@ -34,7 +34,7 @@ import team.retum.jobis.domain.company.usecase.TeacherQueryCompaniesUseCase;
 import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
-import team.retum.jobis.domain.company.usecase.UpdateConventionUseCase;
+import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
 
 import javax.validation.Valid;
 
@@ -52,7 +52,7 @@ public class CompanyWebAdapter {
     private final UpdateCompanyTypeUseCase updateCompanyTypeUseCase;
     private final TeacherQueryEmployCompaniesUseCase teacherQueryEmployCompaniesUseCase;
     private final TeacherQueryCompaniesUseCase teacherQueryCompaniesUseCase;
-    private final UpdateConventionUseCase updateConventionUseCase;
+    private final UpdateMouUseCase updateMouUseCase;
     private final QueryReviewAvailableCompaniesUseCase queryReviewAvailableCompaniesUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -119,7 +119,7 @@ public class CompanyWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/mou")
     public void updateMou(@RequestBody @Valid UpdateMouWebRequest request) {
-        updateConventionUseCase.execute(request.toDomainRequest());
+        updateMouUseCase.execute(request.toDomainRequest());
     }
 
     @GetMapping("/review")
