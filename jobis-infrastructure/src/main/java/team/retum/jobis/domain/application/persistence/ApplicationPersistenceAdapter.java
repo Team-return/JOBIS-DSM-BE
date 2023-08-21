@@ -31,6 +31,7 @@ import java.util.Optional;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.jpa.JPAExpressions.select;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.*;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.APPROVED;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationAttachmentEntity.applicationAttachmentEntity;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
@@ -130,7 +131,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .on(applicationEntity.student.id.eq(studentEntity.id))
                 .join(applicationEntity.recruitment, recruitmentEntity)
                 .on(recentRecruitment(companyId))
-                .where(applicationEntity.applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                .where(applicationEntity.applicationStatus.eq(FIELD_TRAIN))
                 .fetch().stream()
                 .map(FieldTraineesVO.class::cast)
                 .toList();
@@ -154,7 +155,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .join(recruitmentEntity.company, companyEntity)
                 .where(
                         companyEntity.id.eq(companyId),
-                        applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)
+                        applicationEntity.applicationStatus.eq(PASS)
                 )
                 .fetch().stream()
                 .map(PassedApplicationStudentsVO.class::cast)
@@ -178,8 +179,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .on(approvedStudent.applications.any().applicationStatus.eq(APPROVED))
                 .leftJoin(applicationEntity.student, passedStudent)
                 .on(
-                        passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.PASS)
-                                .or(passedStudent.applications.any().applicationStatus.eq(ApplicationStatus.FIELD_TRAIN))
+                        passedStudent.applications.any().applicationStatus.eq(PASS)
+                                .or(passedStudent.applications.any().applicationStatus.eq(FIELD_TRAIN))
                 )
                 .rightJoin(applicationEntity.student, studentEntity)
                 .fetchOne();
