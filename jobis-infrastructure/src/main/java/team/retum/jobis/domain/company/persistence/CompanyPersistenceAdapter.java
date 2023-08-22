@@ -267,6 +267,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return companyJpaRepository.existsById(companyId);
     }
 
+    @Override
     public List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId) {
         return queryFactory
                 .select(
