@@ -6,5 +6,5 @@ import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 
 public interface ReviewJpaRepository extends CrudRepository<ReviewEntity, Long> {
 
-    boolean existsByCompanyIdAndStudentName(Long companyId, String studentName);
+    boolean existsByCompanyIdAndStudentId(Long companyId, Long studentId);
 }

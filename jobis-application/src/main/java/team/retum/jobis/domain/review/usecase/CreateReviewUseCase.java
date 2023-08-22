@@ -38,11 +38,11 @@ public class CreateReviewUseCase {
         Student student = queryStudentPort.queryStudentById(securityPort.getCurrentUserId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        if (queryReviewPort.existsByCompanyIdAndStudentName(company.getId(), student.getName())) {
+        if (queryReviewPort.existsByCompanyIdAndStudentId(company.getId(), student.getId())) {
             throw ReviewAlreadyExistsException.EXCEPTION;
         }
 
-        queryApplicationPort.queryApplicationById(request.getApplicationId())
+        queryApplicationPort.queryApplicationByCompanyIdAndStudentId(company.getId(), student.getId())
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION)
                 .checkReviewAuthority();
 
