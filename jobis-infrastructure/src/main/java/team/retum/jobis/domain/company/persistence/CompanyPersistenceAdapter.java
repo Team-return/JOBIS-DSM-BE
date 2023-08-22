@@ -5,7 +5,6 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
