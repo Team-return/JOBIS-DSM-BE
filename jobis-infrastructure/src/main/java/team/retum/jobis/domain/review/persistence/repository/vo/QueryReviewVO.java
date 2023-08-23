@@ -11,6 +11,6 @@ public class QueryReviewVO extends ReviewVO {
 
     @QueryProjection
     public QueryReviewVO(Long reviewId, String writer, LocalDateTime createdAt) {
-        super(reviewId, writer, createdAt.getYear());
+        super(reviewId, writer, createdAt);
     }
 }
