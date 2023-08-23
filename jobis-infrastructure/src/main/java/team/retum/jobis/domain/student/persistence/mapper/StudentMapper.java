@@ -22,6 +22,7 @@ public class StudentMapper {
                 .id(domain.getId())
                 .name(domain.getName())
                 .grade(domain.getGrade())
+                .gender(domain.getGender())
                 .classRoom(domain.getClassRoom())
                 .department(domain.getDepartment())
                 .profileImageUrl(domain.getProfileImageUrl())

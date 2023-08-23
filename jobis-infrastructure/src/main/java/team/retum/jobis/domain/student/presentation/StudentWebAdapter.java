@@ -64,6 +64,7 @@ public class StudentWebAdapter {
         verifyStudentUseCase.execute(gcn, name);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/profile")
     public void updateStudentProfile(@RequestBody @Valid UpdateStudentProfileWebRequest request) {
         updateStudentProfileUseCase.execute(request.getProfileImageUrl());
