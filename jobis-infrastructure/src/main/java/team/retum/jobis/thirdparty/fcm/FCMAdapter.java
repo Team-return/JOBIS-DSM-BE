@@ -7,6 +7,7 @@ import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
+import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class FCMAdapter implements NotificationPort {
 
             FirebaseMessaging.getInstance().sendEachForMulticast(message);
         } catch (FirebaseMessagingException e) {
-            throw new RuntimeException(e);
+            throw FailedSendingMessagesException.EXCEPTION;
         }
     }
 }

@@ -10,6 +10,7 @@ import team.retum.jobis.common.error.HttpStatus;
 public enum GlobalErrorCode implements ErrorProperty {
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error"),
+    FAILED_SENDING_MESSAGE(HttpStatus.INTERNAL_SERVER_ERROR, "Failed Sending Message"),
 
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "Token Expired"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid Token"),

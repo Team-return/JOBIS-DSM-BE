@@ -4,7 +4,7 @@ import team.retum.jobis.domain.notification.model.Notification;
 
 import java.util.List;
 
-public interface NotificationEventPort {
+public interface PublishNotificationEventPort {
 
     void publishSingleNotificationEvent(Notification notification, String token);
 

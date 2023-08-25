@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.notification.persistence.entity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_notification")
 @Entity
 public class NotificationEntity extends BaseTimeEntity {
