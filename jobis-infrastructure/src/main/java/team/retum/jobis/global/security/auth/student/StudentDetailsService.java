@@ -8,18 +8,21 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.global.exception.InvalidTokenException;
+import team.retum.jobis.global.security.auth.ThreadLocalService;
 
 @Component
 @RequiredArgsConstructor
 public class StudentDetailsService implements UserDetailsService {
 
     private final StudentJpaRepository studentJpaRepository;
+    private final ThreadLocalService<StudentEntity> studentThreadLocalService;
 
     @Override
     public UserDetails loadUserByUsername(String studentId) throws UsernameNotFoundException {
         StudentEntity studentEntity = studentJpaRepository.findById(
                 Long.valueOf(studentId)
         ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
+        studentThreadLocalService.setUser(studentEntity);
 
         return new StudentDetails(studentEntity.getId());
     }
