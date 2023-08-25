@@ -1,17 +1,18 @@
-package team.retum.jobis.domain.user.persistence.repository;
+package team.retum.jobis.domain.user.persistence;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
+import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 import team.retum.jobis.domain.user.spi.UserPort;
 
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository implements UserPort {
+public class UserPersistenceAdapter implements UserPort {
 
     private final UserJpaRepository userJpaRepository;
     private final JPAQueryFactory queryFactory;

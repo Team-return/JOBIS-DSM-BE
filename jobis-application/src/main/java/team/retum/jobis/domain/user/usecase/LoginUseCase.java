@@ -20,7 +20,6 @@ public class LoginUseCase {
     private final JwtPort jwtPort;
 
     public TokenResponse execute(LoginRequest request) {
-
         User user = queryUserPort.queryUserByAccountId(request.getAccountId())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
