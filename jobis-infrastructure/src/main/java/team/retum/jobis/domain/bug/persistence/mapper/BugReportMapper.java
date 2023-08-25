@@ -2,6 +2,7 @@ package team.retum.jobis.domain.bug.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
 import team.retum.jobis.domain.bug.persistence.entity.BugReportEntity;
 
@@ -24,6 +25,15 @@ public class BugReportMapper {
                 .content(entity.getContent())
                 .title(entity.getTitle())
                 .developmentArea(entity.getDevelopmentArea())
+                .bugAttachments(
+                        entity.getBugAttachments().stream()
+                                .map(
+                                        bugAttachmentEntity -> BugAttachment.builder()
+                                                .bugReportId(bugAttachmentEntity.getBugReport().getId())
+                                                .attachmentUrl(bugAttachmentEntity.getAttachmentUrl())
+                                                .build()
+                                ).toList()
+                )
                 .build();
     }
 }
