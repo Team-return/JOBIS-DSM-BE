@@ -16,6 +16,7 @@ public class BugReportMapper {
                 .content(domain.getContent())
                 .title(domain.getTitle())
                 .developmentArea(domain.getDevelopmentArea())
+
                 .build();
     }
 
@@ -34,6 +35,7 @@ public class BugReportMapper {
                                                 .build()
                                 ).toList()
                 )
+                .createdAt(entity.getCreatedAt())
                 .build();
     }
 }
