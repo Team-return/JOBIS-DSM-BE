@@ -35,7 +35,7 @@ public class UserEntity extends BaseTimeEntity {
     @Column(columnDefinition = "CHAR(60)")
     private String password;
 
-    @Column(columnDefinition = "VARCHAR(7)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(9)", nullable = false)
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
