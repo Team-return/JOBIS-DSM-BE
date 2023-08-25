@@ -106,6 +106,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         return queryFactory
                 .select(applicationEntity.count())
                 .from(applicationEntity)
+                .join(applicationEntity.student, studentEntity)
                 .where(
                         eqApplicationStatus(applicationStatus),
                         containStudentName(studentName)
