@@ -54,6 +54,7 @@ public class CompanyMapper {
                 .fax(entity.getFax())
                 .email(entity.getEmail())
                 .bizNo(entity.getBizNo())
+                .isMou(entity.getIsMou())
                 .companyIntroduce(entity.getCompanyIntroduce())
                 .businessArea(entity.getBusinessArea())
                 .companyLogoUrl(entity.getCompanyLogoUrl())
