@@ -60,10 +60,10 @@ public class NotificationEntity extends BaseTimeEntity {
 
     @NotNull
     @Column(columnDefinition = "TINYINT(1)")
-    private Boolean isNew;
+    private boolean isNew;
 
     @Builder
-    public NotificationEntity(Long id, String title, String content, UserEntity userEntity, Long detailId, Topic topic, Authority authority, Boolean isNew) {
+    public NotificationEntity(Long id, String title, String content, UserEntity userEntity, Long detailId, Topic topic, Authority authority, boolean isNew) {
         this.id = id;
         this.title = title;
         this.content = content;
