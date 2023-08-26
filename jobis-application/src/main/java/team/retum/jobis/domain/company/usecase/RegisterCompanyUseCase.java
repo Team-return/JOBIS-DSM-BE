@@ -77,6 +77,7 @@ public class RegisterCompanyUseCase {
                         .workersCount(request.getWorkerNumber())
                         .email(request.getEmail())
                         .fax(request.getFax())
+                        .isMou(false)
                         .bizNo(request.getBusinessNumber())
                         .representative(request.getRepresentativeName())
                         .foundedAt(request.getFoundedAt())
