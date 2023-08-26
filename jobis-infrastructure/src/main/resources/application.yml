@@ -41,6 +41,17 @@ spring:
             enable: true
             required: true
 
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+
 redis:
   port: ${REDIS_PORT:6379}
   host: ${REDIS_HOST:localhost}

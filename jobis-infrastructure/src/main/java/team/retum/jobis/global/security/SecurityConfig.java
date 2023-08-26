@@ -40,6 +40,9 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
+                // actuator
+                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+
                 // bugs
                 .antMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
                 .antMatchers(HttpMethod.GET, "/bugs/{bug-report-id}").hasAuthority(DEVELOPER.name())
