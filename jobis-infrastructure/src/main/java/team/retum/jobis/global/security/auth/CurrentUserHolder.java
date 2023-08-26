@@ -7,7 +7,7 @@ import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
 
 @Component
-public class ThreadLocalService<T> {
+public class CurrentUserHolder<T> {
 
     private final ThreadLocal<T> userThreadLocal = new ThreadLocal<>();
 

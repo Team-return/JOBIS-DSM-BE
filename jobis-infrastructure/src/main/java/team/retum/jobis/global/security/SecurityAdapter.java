@@ -18,14 +18,14 @@ import team.retum.jobis.domain.teacher.persistence.mapper.TeacherMapper;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
-import team.retum.jobis.global.security.auth.ThreadLocalService;
+import team.retum.jobis.global.security.auth.CurrentUserHolder;
 
 @RequiredArgsConstructor
 @Component
 public class SecurityAdapter implements SecurityPort {
 
     private final PasswordEncoder passwordEncoder;
-    private final ThreadLocalService<?> threadLocalService;
+    private final CurrentUserHolder<?> currentUserHolder;
     private final CompanyMapper companyMapper;
     private final StudentMapper studentMapper;
     private final TeacherMapper teacherMapper;
@@ -44,7 +44,7 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Authority getCurrentUserAuthority() {
-        return threadLocalService.getAuthority();
+        return currentUserHolder.getAuthority();
     }
 
     @Override
@@ -54,17 +54,17 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Company getCurrentCompany() {
-        return companyMapper.toDomain((CompanyEntity) threadLocalService.getUser());
+        return companyMapper.toDomain((CompanyEntity) currentUserHolder.getUser());
     }
 
     @Override
     public Student getCurrentStudent() {
-        return studentMapper.toDomain((StudentEntity) threadLocalService.getUser());
+        return studentMapper.toDomain((StudentEntity) currentUserHolder.getUser());
     }
 
     @Override
     public Teacher getCurrentTeacher() {
-        return teacherMapper.toDomain((TeacherEntity) threadLocalService.getUser());
+        return teacherMapper.toDomain((TeacherEntity) currentUserHolder.getUser());
     }
 
     @Override
