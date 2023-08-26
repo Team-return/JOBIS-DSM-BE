@@ -19,7 +19,6 @@ public class RegisterFieldTraineeUseCase {
 
     public void execute(RegisterFieldTraineeRequest request) {
         List<Application> applications = queryApplicationPort.queryApplicationsByIds(request.getApplicationIds());
-
         if (request.getApplicationIds().size() != applications.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }

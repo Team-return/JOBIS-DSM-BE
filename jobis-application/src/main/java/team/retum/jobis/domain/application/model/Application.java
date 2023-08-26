@@ -34,6 +34,7 @@ public class Application {
         checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
 
         return this.toBuilder()
+                .applicationStatus(ApplicationStatus.FIELD_TRAIN)
                 .startDate(startDate)
                 .endDate(endDate)
                 .build();

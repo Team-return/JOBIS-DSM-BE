@@ -14,9 +14,7 @@ import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.spi.CommandReviewPort;
 import team.retum.jobis.domain.review.spi.QueryReviewPort;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.Student;
-import team.retum.jobis.domain.student.spi.QueryStudentPort;
 
 import java.util.List;
 
@@ -26,7 +24,6 @@ public class CreateReviewUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
     private final QueryApplicationPort queryApplicationPort;
-    private final QueryStudentPort queryStudentPort;
     private final CommandReviewPort commandReviewPort;
     private final QueryReviewPort queryReviewPort;
     private final SecurityPort securityPort;
@@ -35,8 +32,7 @@ public class CreateReviewUseCase {
         Company company = queryCompanyPort.queryCompanyById(request.getCompanyId())
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        Student student = queryStudentPort.queryStudentById(securityPort.getCurrentUserId())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        Student student = securityPort.getCurrentStudent();
 
         if (queryReviewPort.existsByCompanyIdAndStudentId(company.getId(), student.getId())) {
             throw ReviewAlreadyExistsException.EXCEPTION;

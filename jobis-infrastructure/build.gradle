@@ -40,6 +40,9 @@ dependencies {
 
     // firebase
     implementation 'com.google.firebase:firebase-admin:9.2.0'
+
+    // aop
+    implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.3'
 }
 
 test.useJUnitPlatform()

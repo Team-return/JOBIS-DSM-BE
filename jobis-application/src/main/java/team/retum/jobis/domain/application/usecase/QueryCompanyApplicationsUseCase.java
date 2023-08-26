@@ -8,9 +8,7 @@ import team.retum.jobis.domain.application.dto.response.CompanyQueryApplications
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse.CompanyQueryApplicationResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
-import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
@@ -23,12 +21,9 @@ public class QueryCompanyApplicationsUseCase {
     private final QueryApplicationPort queryApplicationPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
-    private final QueryCompanyPort queryCompanyPort;
 
     public CompanyQueryApplicationsResponse execute() {
-        Long currentUserId = securityPort.getCurrentUserId();
-        Company company = queryCompanyPort.queryCompanyById(currentUserId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        Company company = securityPort.getCurrentCompany();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(company.getId())
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);

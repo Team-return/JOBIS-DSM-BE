@@ -12,13 +12,10 @@ import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 @ReadOnlyUseCase
 public class CompanyMyPageUseCase {
 
-    private final QueryCompanyPort queryCompanyPort;
     private final SecurityPort securityPort;
 
     public CompanyMyPageResponse execute() {
-        Long currentUserId = securityPort.getCurrentUserId();
-        Company company = queryCompanyPort.queryCompanyById(currentUserId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        Company company = securityPort.getCurrentCompany();
 
         return CompanyMyPageResponse.builder()
                 .name(company.getName())

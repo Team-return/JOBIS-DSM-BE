@@ -6,15 +6,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.model.Authority;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
+import team.retum.jobis.domain.company.model.Company;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
+import team.retum.jobis.domain.student.model.Student;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
+import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
+import team.retum.jobis.domain.teacher.model.Teacher;
+import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
+import team.retum.jobis.domain.teacher.persistence.mapper.TeacherMapper;
+import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
-import team.retum.jobis.global.exception.InvalidTokenException;
+import team.retum.jobis.global.security.auth.CurrentUserHolder;
 
 @RequiredArgsConstructor
 @Component
 public class SecurityAdapter implements SecurityPort {
 
     private final PasswordEncoder passwordEncoder;
+    private final CurrentUserHolder<?> currentUserHolder;
+    private final CompanyMapper companyMapper;
+    private final StudentMapper studentMapper;
+    private final TeacherMapper teacherMapper;
+    private final UserMapper userMapper;
     private final UserJpaRepository userJpaRepository;
 
     @Override
@@ -29,14 +44,33 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Authority getCurrentUserAuthority() {
-        Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
-
-        return userJpaRepository.findById(currentUserId).map(UserEntity::getAuthority)
-                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
+        return currentUserHolder.getAuthority();
     }
 
     @Override
     public boolean isPasswordMatch(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    @Override
+    public Company getCurrentCompany() {
+        return companyMapper.toDomain((CompanyEntity) currentUserHolder.getUser());
+    }
+
+    @Override
+    public Student getCurrentStudent() {
+        return studentMapper.toDomain((StudentEntity) currentUserHolder.getUser());
+    }
+
+    @Override
+    public Teacher getCurrentTeacher() {
+        return teacherMapper.toDomain((TeacherEntity) currentUserHolder.getUser());
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
+        return userJpaRepository.findById(currentUserId)
+                .map(userMapper::toDomain).get();
     }
 }

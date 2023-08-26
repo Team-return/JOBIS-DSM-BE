@@ -13,9 +13,7 @@ import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.Student;
-import team.retum.jobis.domain.student.spi.QueryStudentPort;
 
 import java.util.List;
 
@@ -27,12 +25,9 @@ public class CreateApplicationUseCase {
     private final QueryApplicationPort queryApplicationPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
-    private final QueryStudentPort queryStudentPort;
 
     public void execute(CreateApplicationRequest request, Long recruitmentId) {
-        Long currentUserId = securityPort.getCurrentUserId();
-        Student student = queryStudentPort.queryStudentById(currentUserId)
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        Student student = securityPort.getCurrentStudent();
         student.checkIs3rdGrade();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)

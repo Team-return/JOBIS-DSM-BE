@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.teacher.persistence.entity;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
@@ -16,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_teacher")
 @Entity

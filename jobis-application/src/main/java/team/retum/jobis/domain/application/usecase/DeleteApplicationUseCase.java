@@ -7,9 +7,7 @@ import team.retum.jobis.domain.application.exception.ApplicationNotFoundExceptio
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.Student;
-import team.retum.jobis.domain.student.spi.QueryStudentPort;
 
 @RequiredArgsConstructor
 @UseCase
@@ -18,12 +16,9 @@ public class DeleteApplicationUseCase {
     private final CommandApplicationPort commandApplicationPort;
     private final QueryApplicationPort queryApplicationPort;
     private final SecurityPort securityPort;
-    private final QueryStudentPort queryStudentPort;
 
     public void execute(Long applicationId) {
-        Long currentUserId = securityPort.getCurrentUserId();
-        Student student = queryStudentPort.queryStudentById(currentUserId)
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        Student student = securityPort.getCurrentStudent();
 
         Application application = queryApplicationPort.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
