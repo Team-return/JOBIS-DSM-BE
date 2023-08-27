@@ -39,7 +39,7 @@ public class NotificationMapper {
                 .detailId(notificationEntity.getDetailId())
                 .topic(notificationEntity.getTopic())
                 .authority(notificationEntity.getAuthority())
-                .isNew(notificationEntity.getIsNew())
+                .isNew(notificationEntity.isNew())
                 .build();
     }
 }
