@@ -5,16 +5,15 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.common.spi.FCMPort;
 import team.retum.jobis.domain.notification.model.Notification;
-import team.retum.jobis.domain.notification.spi.NotificationPort;
 import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
 import java.util.List;
 
 @Component
-public class FCMAdapter implements NotificationPort {
+public class FCMUtil {
 
-    @Override
     public void sendMessage(Notification notification, String token) {
         Message message = Message.builder()
                 .setToken(token)
@@ -31,7 +30,6 @@ public class FCMAdapter implements NotificationPort {
         FirebaseMessaging.getInstance().sendAsync(message);
     }
 
-    @Override
     public void sendMessages(Notification notification, List<String> tokens) {
         try {
             MulticastMessage message = MulticastMessage.builder()
