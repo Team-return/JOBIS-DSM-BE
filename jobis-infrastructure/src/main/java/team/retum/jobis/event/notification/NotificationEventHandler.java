@@ -3,7 +3,6 @@ package team.retum.jobis.event.notification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
-import team.retum.jobis.domain.notification.spi.NotificationPort;
 import team.retum.jobis.event.notification.model.GroupNotificationEvent;
 import team.retum.jobis.event.notification.model.NotificationEvent;
 import team.retum.jobis.event.notification.model.SingleNotificationEvent;
