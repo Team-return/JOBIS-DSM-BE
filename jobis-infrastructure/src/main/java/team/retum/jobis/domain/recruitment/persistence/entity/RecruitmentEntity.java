@@ -74,7 +74,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private Boolean militarySupport;
     @NotNull
     @Convert(converter = HiringProgressConverter.class)
-    @Column(columnDefinition = "VARCHAR(100)")
+    @Column(columnDefinition = "VARCHAR(300)")
     private List<ProgressType> hiringProgress;
     @NotNull
     @Column(columnDefinition = "VARCHAR(100)")
