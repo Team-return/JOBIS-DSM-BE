@@ -5,7 +5,6 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.common.spi.FCMPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
