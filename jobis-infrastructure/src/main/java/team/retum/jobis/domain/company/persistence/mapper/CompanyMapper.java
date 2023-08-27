@@ -42,6 +42,7 @@ public class CompanyMapper {
                 .representative(domain.getRepresentative())
                 .serviceName(domain.getServiceName())
                 .take(domain.getTake())
+                .isMou(domain.isMou())
                 .workersCount(domain.getWorkersCount())
                 .userEntity(user)
                 .build();
@@ -53,6 +54,7 @@ public class CompanyMapper {
                 .fax(entity.getFax())
                 .email(entity.getEmail())
                 .bizNo(entity.getBizNo())
+                .isMou(entity.getIsMou())
                 .companyIntroduce(entity.getCompanyIntroduce())
                 .businessArea(entity.getBusinessArea())
                 .companyLogoUrl(entity.getCompanyLogoUrl())

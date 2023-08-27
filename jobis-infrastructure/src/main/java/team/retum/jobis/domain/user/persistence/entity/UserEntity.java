@@ -40,7 +40,8 @@ public class UserEntity extends BaseTimeEntity {
     private Authority authority;
 
     @Builder
-    public UserEntity(String accountId, String password, Authority authority) {
+    public UserEntity(Long id, String accountId, String password, Authority authority) {
+        this.id = id;
         this.accountId = accountId;
         this.password = password;
         this.authority = authority;

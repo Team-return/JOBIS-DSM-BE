@@ -11,6 +11,7 @@ public class UserMapper {
 
     public UserEntity toEntity(User domain) {
         return UserEntity.builder()
+                .id(domain.getId())
                 .authority(domain.getAuthority())
                 .accountId(domain.getAccountId())
                 .password(domain.getPassword())
