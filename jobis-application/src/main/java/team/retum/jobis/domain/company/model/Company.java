@@ -44,7 +44,7 @@ public class Company {
 
     public Company update(String mainAddress, String mainAddressDetail, String mainZipCode, String subAddress, String subAddressDetail,String subZipCode,
                           double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
-                          String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email) {
+                          String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email, String serviceName) {
         return this.toBuilder()
                 .mainAddress(mainAddress)
                 .mainAddressDetail(mainAddressDetail)
@@ -62,6 +62,7 @@ public class Company {
                 .companyLogoUrl(companyLogoUrl)
                 .fax(fax)
                 .email(email)
+                .serviceName(serviceName)
                 .build();
     }
 

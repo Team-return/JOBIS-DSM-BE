@@ -25,7 +25,7 @@ public class UpdateCompanyDetailsUseCase {
                         request.getManagerName(), request.getManagerPhoneNo(),
                         request.getSubManagerName(), request.getSubManagerPhoneNo(),
                         request.getCompanyIntroduce(), request.getCompanyProfileUrl(),
-                        request.getFax(), request.getEmail()
+                        request.getFax(), request.getEmail(), request.getServiceName()
                 )
         );
     }
