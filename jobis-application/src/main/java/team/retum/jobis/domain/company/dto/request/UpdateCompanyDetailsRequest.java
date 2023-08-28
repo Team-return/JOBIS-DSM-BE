@@ -38,4 +38,6 @@ public class UpdateCompanyDetailsRequest {
     private double take;
 
     private String companyProfileUrl;
+
+    private String serviceName;
 }

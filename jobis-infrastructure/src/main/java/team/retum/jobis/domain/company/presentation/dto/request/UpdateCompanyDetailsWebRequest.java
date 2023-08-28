@@ -69,6 +69,9 @@ public class UpdateCompanyDetailsWebRequest {
     @NotBlank
     private String companyProfileUrl;
 
+    @NotBlank
+    private String serviceName;
+
     public UpdateCompanyDetailsRequest toDomainRequest() {
         return UpdateCompanyDetailsRequest.builder()
                 .companyIntroduce(this.companyIntroduce)
@@ -87,6 +90,7 @@ public class UpdateCompanyDetailsWebRequest {
                 .workerNumber(this.workerNumber)
                 .take(this.take)
                 .companyProfileUrl(this.companyProfileUrl)
+                .serviceName(this.serviceName)
                 .build();
     }
 }
