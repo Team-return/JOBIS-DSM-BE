@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Builder
 public class CompanyMyPageResponse {
+    private final Long companyId;
     private final String name;
     private final String bizNo;
     private final CompanyType type;

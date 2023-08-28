@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
-import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
@@ -18,6 +16,7 @@ public class CompanyMyPageUseCase {
         Company company = securityPort.getCurrentCompany();
 
         return CompanyMyPageResponse.builder()
+                .companyId(company.getId())
                 .name(company.getName())
                 .bizNo(company.getBizNo())
                 .type(company.getType())
