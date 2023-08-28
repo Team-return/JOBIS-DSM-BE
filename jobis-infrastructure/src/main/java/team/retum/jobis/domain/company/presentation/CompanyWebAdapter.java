@@ -67,7 +67,7 @@ public class CompanyWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping
+    @PatchMapping("/{company-id}")
     public void updateDetails(
             @RequestBody @Valid UpdateCompanyDetailsWebRequest request,
             @PathVariable("company-id") Long companyId
