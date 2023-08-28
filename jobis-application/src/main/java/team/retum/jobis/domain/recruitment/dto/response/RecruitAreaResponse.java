@@ -11,7 +11,7 @@ public class RecruitAreaResponse {
 
     private final Long id;
 
-    private final String job;
+    private final List<String> job;
 
     private final List<String> tech;
 

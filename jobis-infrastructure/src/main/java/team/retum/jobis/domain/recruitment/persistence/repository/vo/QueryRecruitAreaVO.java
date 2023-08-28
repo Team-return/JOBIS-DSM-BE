@@ -14,7 +14,7 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
     public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask, String jobCodes, List<CodeEntity> techCode) {
         super(
                 id,
-                jobCodes,
+                List.of(jobCodes.split(",")),
                 techCode.stream()
                         .map(CodeEntity::getKeyword)
                         .toList(),
