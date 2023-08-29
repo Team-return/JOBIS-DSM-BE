@@ -22,7 +22,7 @@ public class CompanyMyPageUseCase {
                 .bizNo(company.getBizNo())
                 .type(company.getType())
                 .mainAddress(company.getMainAddress())
-                .mainAddressDetail(company.getSubAddressDetail())
+                .mainAddressDetail(company.getMainAddressDetail())
                 .mainZipCode(company.getMainZipCode())
                 .subAddress(company.getSubAddress())
                 .subAddressDetail(company.getSubAddressDetail())

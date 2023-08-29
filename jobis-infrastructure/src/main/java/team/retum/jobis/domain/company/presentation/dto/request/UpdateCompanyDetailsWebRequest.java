@@ -28,8 +28,7 @@ public class UpdateCompanyDetailsWebRequest {
     @Size(max = 50)
     private String mainAddressDetail;
 
-    @NotBlank
-    @Size(min = 5, max = 5)
+    @Size(max = 5)
     private String subZipCode;
 
     @Size(max = 50)
@@ -52,8 +51,7 @@ public class UpdateCompanyDetailsWebRequest {
     @Size(max = 12)
     private String subManagerPhoneNo;
 
-    @NotBlank
-    @Size(min = 10, max = 12)
+    @Size(max = 12)
     private String fax;
 
     @Email
