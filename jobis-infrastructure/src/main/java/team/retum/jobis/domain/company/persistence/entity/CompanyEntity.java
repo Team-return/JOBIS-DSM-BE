@@ -130,7 +130,7 @@ public class CompanyEntity {
                          String subAddress, String subAddressDetail, String subZipCode,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, boolean isMou) {
+                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type, boolean isMou) {
         this.id = id;
         this.userEntity = userEntity;
         this.name = name;
@@ -138,7 +138,7 @@ public class CompanyEntity {
         this.bizRegistrationUrl = bizRegistrationUrl;
         this.businessArea = businessArea;
         this.serviceName = serviceName;
-        this.type = CompanyType.PARTICIPATING;
+        this.type = type;
         this.address = new Address(mainAddress, mainAddressDetail, mainZipCode, subAddress, subAddressDetail, subZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;

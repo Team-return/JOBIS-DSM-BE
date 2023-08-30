@@ -15,6 +15,7 @@ import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyAttachment;
+import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.user.model.User;
@@ -63,6 +64,7 @@ public class RegisterCompanyUseCase {
                         .businessArea(code.getKeyword())
                         .serviceName(request.getServiceName())
                         .name(request.getName())
+                        .type(CompanyType.PARTICIPATING)
                         .take(request.getTake())
                         .mainAddress(request.getMainAddress())
                         .mainAddressDetail(request.getMainAddressDetail())
