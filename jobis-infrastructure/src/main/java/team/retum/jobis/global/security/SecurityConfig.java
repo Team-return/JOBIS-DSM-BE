@@ -93,7 +93,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/companies/mou").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.PATCH, "/companies").hasAuthority(COMPANY.name())
+                .antMatchers(HttpMethod.PATCH, "/companies/{company-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name(), DEVELOPER.name())

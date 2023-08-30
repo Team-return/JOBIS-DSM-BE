@@ -3,6 +3,7 @@ package team.retum.jobis.domain.company.model;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
+import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 
 import java.time.LocalDate;
 
@@ -78,4 +79,9 @@ public class Company {
                 .build();
     }
 
+    public void verifySameCompany(Company currentCompany) {
+        if (!this.equals(currentCompany)) {
+            throw CompanyMismatchException.EXCEPTION;
+        }
+    }
 }
