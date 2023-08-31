@@ -16,6 +16,7 @@ public class BugReport {
     private final String title;
     private final String content;
     private final DevelopmentArea developmentArea;
+    private final Long studentId;
     private final List<BugAttachment> bugAttachments;
     private final LocalDateTime createdAt;
 }
