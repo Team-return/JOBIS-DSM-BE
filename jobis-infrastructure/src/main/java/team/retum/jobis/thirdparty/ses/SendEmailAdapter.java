@@ -10,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import team.retum.jobis.common.spi.SesPort;
+import team.retum.jobis.common.spi.SendEmailPort;
 
 @RequiredArgsConstructor
 @Component
-public class SesAdapter implements SesPort {
+public class SendEmailAdapter implements SendEmailPort {
 
     private final AmazonSimpleEmailServiceAsync amazonSimpleEmailServiceAsync;
     private final TemplateEngine templateEngine;

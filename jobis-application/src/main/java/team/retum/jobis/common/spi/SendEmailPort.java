@@ -1,6 +1,6 @@
 package team.retum.jobis.common.spi;
 
-public interface SesPort {
+public interface SendEmailPort {
 
     void sendMail(String authCode, String sendTo);
 }
