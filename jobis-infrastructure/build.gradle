@@ -43,6 +43,9 @@ dependencies {
 
     // aop
     implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.3'
+
+    // slack
+    implementation 'net.gpedro.integrations.slack:slack-webhook:1.4.0'
 }
 
 test.useJUnitPlatform()
