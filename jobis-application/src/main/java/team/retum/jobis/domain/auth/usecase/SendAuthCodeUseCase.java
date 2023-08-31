@@ -18,7 +18,7 @@ public class SendAuthCodeUseCase {
 
     private final CommandAuthCodePort commandAuthCodePort;
     private final QueryUserPort queryUserPort;
-    private final SendEmailPort sesPort;
+    private final SendEmailPort sendEmailPort;
 
     public void execute(SendAuthCodeRequest request) {
         if (request.getAuthCodeType() == AuthCodeType.SIGN_UP) {
@@ -39,6 +39,6 @@ public class SendAuthCodeUseCase {
                 .build();
         commandAuthCodePort.saveAuthCode(authCode);
 
-        sesPort.sendMail(authCode.getCode(), authCode.getEmail());
+        sendEmailPort.sendMail(authCode.getCode(), authCode.getEmail());
     }
 }

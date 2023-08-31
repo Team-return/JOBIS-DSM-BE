@@ -38,7 +38,7 @@ public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
     private static final String USER_AGENT = "Request User-Agent";
     private static final String BUG_TEXT = "버그 제보가 도착했습니다.";
     private static final String EXCEPTION_TEXT = "서버 에러 발생 😱😱😱";
-    
+
     private final SlackApi slackApi;
 
     @Async
@@ -47,9 +47,7 @@ public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
         List<SlackAttachment> slackAttachments = createBugReportSlackAttachments(bugReport, bugAttachments, writer);
 
         for (SlackAttachment slackAttachment : slackAttachments) {
-            SlackMessage slackMessage = new SlackMessage();
-            slackMessage.setText(BUG_TEXT);
-            slackMessage.setAttachments(Collections.singletonList(slackAttachment));
+            SlackMessage slackMessage = createSlackMessage(BUG_TEXT, slackAttachment);
 
             slackApi.call(slackMessage);
         }
@@ -61,18 +59,17 @@ public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
         for (BugAttachment bugAttachment : bugAttachments) {
             SlackAttachment slackAttachment = new SlackAttachment();
 
+            List<SlackField> slackFields = List.of(
+                    createSlackField(BUG_REPORT_TITLE, bugReport.getTitle()),
+                    createSlackField(CONTENT, bugReport.getContent()),
+                    createSlackField(DEVELOPMENT_AREA, bugReport.getDevelopmentArea().toString()),
+                    createSlackField(WRITER, writer)
+            );
+
             slackAttachment.setFallback(FALLBACK);
             slackAttachment.setColor(COLOR);
             slackAttachment.setImageUrl(bugAttachment.getAttachmentUrl());
-
-            slackAttachment.setFields(
-                    List.of(
-                            createSlackField(BUG_REPORT_TITLE, bugReport.getTitle()),
-                            createSlackField(CONTENT, bugReport.getContent()),
-                            createSlackField(DEVELOPMENT_AREA, bugReport.getDevelopmentArea().toString()),
-                            createSlackField(WRITER, writer)
-                    )
-            );
+            slackAttachment.setFields(slackFields);
 
             slackAttachments.add(slackAttachment);
         }
@@ -85,26 +82,31 @@ public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
     public void sendExceptionInfo(HttpServletRequest request, Exception e) {
         SlackAttachment slackAttachment = new SlackAttachment();
 
+        List<SlackField> slackFields = List.of(
+                createSlackField(URL, request.getRequestURL().toString()),
+                createSlackField(METHOD, request.getMethod()),
+                createSlackField(CURRENT_TIME, new Date().toString()),
+                createSlackField(IP, request.getRemoteAddr()),
+                createSlackField(USER_AGENT, request.getHeader(USER_AGENT.substring(8)))
+        );
+
         slackAttachment.setFallback(FALLBACK);
         slackAttachment.setColor(COLOR);
         slackAttachment.setTitle(EXCEPTION_TITLE);
         slackAttachment.setTitleLink(request.getContextPath());
         slackAttachment.setText(stackTraceToString(e));
-        slackAttachment.setFields(
-                List.of(
-                        createSlackField(URL, request.getRequestURL().toString()),
-                        createSlackField(METHOD, request.getMethod()),
-                        createSlackField(CURRENT_TIME, new Date().toString()),
-                        createSlackField(IP, request.getRemoteAddr()),
-                        createSlackField(USER_AGENT, request.getHeader(USER_AGENT.substring(8)))
-                )
-        );
+        slackAttachment.setFields(slackFields);
 
-        SlackMessage slackMessage = new SlackMessage();
-        slackMessage.setText(EXCEPTION_TEXT);
-        slackMessage.setAttachments(Collections.singletonList(slackAttachment));
+        SlackMessage slackMessage = createSlackMessage(EXCEPTION_TEXT, slackAttachment);
 
         slackApi.call(slackMessage);
+    }
+
+    private SlackMessage createSlackMessage(String text, SlackAttachment slackAttachment) {
+        SlackMessage slackMessage = new SlackMessage();
+        slackMessage.setText(text);
+        slackMessage.setAttachments(Collections.singletonList(slackAttachment));
+        return slackMessage;
     }
 
     private SlackField createSlackField(String title, String value) {
