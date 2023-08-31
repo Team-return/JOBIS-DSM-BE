@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import team.retum.jobis.common.spi.PublishExceptionPort;
 import team.retum.jobis.global.security.jwt.JwtParser;
 
 import static team.retum.jobis.domain.auth.model.Authority.COMPANY;
@@ -22,8 +23,10 @@ import static team.retum.jobis.domain.auth.model.Authority.TEACHER;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final JwtParser jwtParser;
     private final ObjectMapper objectMapper;
+    private final PublishExceptionPort publishExceptionPort;
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -127,7 +130,7 @@ public class SecurityConfig {
 
                 .anyRequest().authenticated()
                 .and()
-                .apply(new FilterConfig(jwtParser, objectMapper));
+                .apply(new FilterConfig(jwtParser, objectMapper, publishExceptionPort));
         return http.build();
     }
 
