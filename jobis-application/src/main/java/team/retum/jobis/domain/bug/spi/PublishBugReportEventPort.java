@@ -5,7 +5,7 @@ import team.retum.jobis.domain.bug.model.BugReport;
 
 import java.util.List;
 
-public interface PublishBugReportPort {
+public interface PublishBugReportEventPort {
 
     void publishBugReport(BugReport bugReport, List<BugAttachment> bugAttachments, String writer);
 }

@@ -7,7 +7,7 @@ import team.retum.jobis.domain.bug.dto.CreateBugReportRequest;
 import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
 import team.retum.jobis.domain.bug.spi.CommandBugReportPort;
-import team.retum.jobis.domain.bug.spi.PublishBugReportPort;
+import team.retum.jobis.domain.bug.spi.PublishBugReportEventPort;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class CreateBugReportUseCase {
 
     private final CommandBugReportPort commandBugReportPort;
-    private final PublishBugReportPort publishBugReportPort;
+    private final PublishBugReportEventPort publishBugReportEventPort;
     private final SecurityPort securityPort;
 
     public void execute(CreateBugReportRequest request) {
@@ -39,6 +39,6 @@ public class CreateBugReportUseCase {
                         ).toList()
         );
 
-        publishBugReportPort.publishBugReport(bugReport, bugAttachments, securityPort.getCurrentStudent().getName());
+        publishBugReportEventPort.publishBugReport(bugReport, bugAttachments, securityPort.getCurrentStudent().getName());
     }
 }

@@ -1,16 +1,14 @@
-package team.retum.jobis.thirdparty.slack;
+package team.retum.jobis.thirdparty.webhook.slack;
 
 import lombok.RequiredArgsConstructor;
 import net.gpedro.integrations.slack.SlackApi;
 import net.gpedro.integrations.slack.SlackAttachment;
 import net.gpedro.integrations.slack.SlackField;
 import net.gpedro.integrations.slack.SlackMessage;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.common.spi.SendExceptionInfoPort;
 import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
-import team.retum.jobis.domain.bug.spi.SendBugReportPort;
+import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
@@ -22,7 +20,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
+public class SlackAdapter implements WebhookUtil {
 
     private static final String FALLBACK = "Ok";
     private static final String COLOR = "danger";
@@ -41,7 +39,6 @@ public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
 
     private final SlackApi slackApi;
 
-    @Async
     @Override
     public void sendBugReport(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
         List<SlackAttachment> slackAttachments = createBugReportSlackAttachments(bugReport, bugAttachments, writer);
@@ -53,42 +50,11 @@ public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
         }
     }
 
-    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
-        List<SlackAttachment> slackAttachments = new ArrayList<>();
-
-        for (BugAttachment bugAttachment : bugAttachments) {
-            SlackAttachment slackAttachment = new SlackAttachment();
-
-            List<SlackField> slackFields = List.of(
-                    createSlackField(BUG_REPORT_TITLE, bugReport.getTitle()),
-                    createSlackField(CONTENT, bugReport.getContent()),
-                    createSlackField(DEVELOPMENT_AREA, bugReport.getDevelopmentArea().toString()),
-                    createSlackField(WRITER, writer)
-            );
-
-            slackAttachment.setFallback(FALLBACK);
-            slackAttachment.setColor(COLOR);
-            slackAttachment.setImageUrl(bugAttachment.getAttachmentUrl());
-            slackAttachment.setFields(slackFields);
-
-            slackAttachments.add(slackAttachment);
-        }
-
-        return slackAttachments;
-    }
-
-    @Async
     @Override
     public void sendExceptionInfo(HttpServletRequest request, Exception e) {
         SlackAttachment slackAttachment = new SlackAttachment();
 
-        List<SlackField> slackFields = List.of(
-                createSlackField(URL, request.getRequestURL().toString()),
-                createSlackField(METHOD, request.getMethod()),
-                createSlackField(CURRENT_TIME, new Date().toString()),
-                createSlackField(IP, request.getRemoteAddr()),
-                createSlackField(USER_AGENT, request.getHeader(USER_AGENT.substring(8)))
-        );
+        List<SlackField> slackFields = createExceptionInfoSlackFields(request);
 
         slackAttachment.setFallback(FALLBACK);
         slackAttachment.setColor(COLOR);
@@ -102,17 +68,55 @@ public class SlackAdapter implements SendBugReportPort, SendExceptionInfoPort {
         slackApi.call(slackMessage);
     }
 
-    private SlackMessage createSlackMessage(String text, SlackAttachment slackAttachment) {
-        SlackMessage slackMessage = new SlackMessage();
-        slackMessage.setText(text);
-        slackMessage.setAttachments(Collections.singletonList(slackAttachment));
-        return slackMessage;
+    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
+        List<SlackAttachment> slackAttachments = new ArrayList<>();
+
+        for (BugAttachment bugAttachment : bugAttachments) {
+            SlackAttachment slackAttachment = new SlackAttachment();
+
+            List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
+
+            slackAttachment.setFallback(FALLBACK);
+            slackAttachment.setColor(COLOR);
+            slackAttachment.setImageUrl(bugAttachment.getAttachmentUrl());
+            slackAttachment.setFields(slackFields);
+
+            slackAttachments.add(slackAttachment);
+        }
+
+        return slackAttachments;
+    }
+
+    private List<SlackField> createBugReportSlackFields(BugReport bugReport, String writer) {
+        return List.of(
+                createSlackField(BUG_REPORT_TITLE, bugReport.getTitle()),
+                createSlackField(CONTENT, bugReport.getContent()),
+                createSlackField(DEVELOPMENT_AREA, bugReport.getDevelopmentArea().toString()),
+                createSlackField(WRITER, writer)
+        );
+    }
+
+    private List<SlackField> createExceptionInfoSlackFields(HttpServletRequest request) {
+        return List.of(
+                createSlackField(URL, request.getRequestURL().toString()),
+                createSlackField(METHOD, request.getMethod()),
+                createSlackField(CURRENT_TIME, new Date().toString()),
+                createSlackField(IP, request.getRemoteAddr()),
+                createSlackField(USER_AGENT, request.getHeader(USER_AGENT.substring(8)))
+        );
     }
 
     private SlackField createSlackField(String title, String value) {
         return new SlackField()
                 .setTitle(title)
                 .setValue(value);
+    }
+
+    private SlackMessage createSlackMessage(String text, SlackAttachment slackAttachment) {
+        SlackMessage slackMessage = new SlackMessage();
+        slackMessage.setText(text);
+        slackMessage.setAttachments(Collections.singletonList(slackAttachment));
+        return slackMessage;
     }
 
     private String stackTraceToString(Exception e) {

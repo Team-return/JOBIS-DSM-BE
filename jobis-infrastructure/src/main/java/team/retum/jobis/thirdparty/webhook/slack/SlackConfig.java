@@ -1,4 +1,4 @@
-package team.retum.jobis.thirdparty.slack;
+package team.retum.jobis.thirdparty.webhook.slack;
 
 import net.gpedro.integrations.slack.SlackApi;
 import org.springframework.beans.factory.annotation.Value;

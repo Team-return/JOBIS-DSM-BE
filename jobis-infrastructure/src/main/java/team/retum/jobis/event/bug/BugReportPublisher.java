@@ -5,14 +5,14 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
-import team.retum.jobis.domain.bug.spi.PublishBugReportPort;
+import team.retum.jobis.domain.bug.spi.PublishBugReportEventPort;
 import team.retum.jobis.event.bug.model.BugReportEvent;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class BugReportPublisher implements PublishBugReportPort {
+public class BugReportPublisher implements PublishBugReportEventPort {
 
     private final ApplicationEventPublisher eventPublisher;
 

@@ -4,18 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.common.spi.SendExceptionInfoPort;
 import team.retum.jobis.event.exception.model.ExceptionEvent;
+import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
 @RequiredArgsConstructor
 @Component
 public class ExceptionEventHandler {
 
-    private final SendExceptionInfoPort sendExceptionInfoPort;
+    private final WebhookUtil webhookUtil;
 
-    @Async
+    @Async("asyncTaskExecutor")
     @EventListener
     public void onExceptionEvent(ExceptionEvent event) {
-        sendExceptionInfoPort.sendExceptionInfo(event.getRequest(), event.getE());
+        webhookUtil.sendExceptionInfo(event.getRequest(), event.getE());
     }
 }
