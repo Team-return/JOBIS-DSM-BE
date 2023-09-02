@@ -49,7 +49,7 @@ public class StudentEntity {
     private Long id;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "student_id", nullable = false)
     private UserEntity userEntity;
 
