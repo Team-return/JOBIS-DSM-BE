@@ -43,15 +43,13 @@ public class SlackAdapter implements WebhookUtil {
     public void sendBugReport(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
         List<SlackAttachment> slackAttachments = createBugReportSlackAttachments(bugReport, bugAttachments, writer);
 
-        for (SlackAttachment slackAttachment : slackAttachments) {
-            SlackMessage slackMessage = createSlackMessage(BUG_TEXT, slackAttachment);
+        SlackMessage slackMessage = createSlackMessage(BUG_TEXT, slackAttachments);
 
-            slackApi.call(slackMessage);
-        }
+        slackApi.call(slackMessage);
     }
 
     @Override
-    public void sendExceptionInfo(HttpServletRequest request, Exception e) {
+    public void sendExceptionInfo(HttpServletRequest request, Exception exception) {
         SlackAttachment slackAttachment = new SlackAttachment();
 
         List<SlackField> slackFields = createExceptionInfoSlackFields(request);
@@ -60,10 +58,10 @@ public class SlackAdapter implements WebhookUtil {
         slackAttachment.setColor(COLOR);
         slackAttachment.setTitle(EXCEPTION_TITLE);
         slackAttachment.setTitleLink(request.getContextPath());
-        slackAttachment.setText(stackTraceToString(e));
+        slackAttachment.setText(stackTraceToString(exception));
         slackAttachment.setFields(slackFields);
 
-        SlackMessage slackMessage = createSlackMessage(EXCEPTION_TEXT, slackAttachment);
+        SlackMessage slackMessage = createSlackMessage(EXCEPTION_TEXT, Collections.singletonList(slackAttachment));
 
         slackApi.call(slackMessage);
     }
@@ -112,17 +110,17 @@ public class SlackAdapter implements WebhookUtil {
                 .setValue(value);
     }
 
-    private SlackMessage createSlackMessage(String text, SlackAttachment slackAttachment) {
+    private SlackMessage createSlackMessage(String text, List<SlackAttachment> slackAttachments) {
         SlackMessage slackMessage = new SlackMessage();
         slackMessage.setText(text);
-        slackMessage.setAttachments(Collections.singletonList(slackAttachment));
+        slackMessage.setAttachments(slackAttachments);
         return slackMessage;
     }
 
-    private String stackTraceToString(Exception e) {
+    private String stackTraceToString(Exception exception) {
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
-        e.printStackTrace(printWriter);
+        exception.printStackTrace(printWriter);
 
         return stringWriter.toString();
     }

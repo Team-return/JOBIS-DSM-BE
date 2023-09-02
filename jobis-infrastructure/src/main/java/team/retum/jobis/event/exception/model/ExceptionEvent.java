@@ -10,5 +10,5 @@ import javax.servlet.http.HttpServletRequest;
 public class ExceptionEvent {
 
     private final HttpServletRequest request;
-    private final Exception e;
+    private final Exception exception;
 }

@@ -16,6 +16,6 @@ public class ExceptionEventHandler {
     @Async("asyncTaskExecutor")
     @EventListener
     public void onExceptionEvent(ExceptionEvent event) {
-        webhookUtil.sendExceptionInfo(event.getRequest(), event.getE());
+        webhookUtil.sendExceptionInfo(event.getRequest(), event.getException());
     }
 }

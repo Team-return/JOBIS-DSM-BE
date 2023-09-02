@@ -10,5 +10,5 @@ public interface WebhookUtil {
 
     void sendBugReport(BugReport bugReport, List<BugAttachment> bugAttachments, String writer);
 
-    void sendExceptionInfo(HttpServletRequest request, Exception e);
+    void sendExceptionInfo(HttpServletRequest request, Exception exception);
 }

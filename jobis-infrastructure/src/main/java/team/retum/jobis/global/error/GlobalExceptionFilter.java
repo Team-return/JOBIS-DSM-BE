@@ -34,7 +34,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
                 e.printStackTrace();
                 eventPublisher.publishEvent(ExceptionEvent.builder()
                         .request(request)
-                        .e(e)
+                        .exception(e)
                         .build());
                 writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
             }
