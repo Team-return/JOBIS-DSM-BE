@@ -5,15 +5,14 @@ import net.gpedro.integrations.slack.SlackApi;
 import net.gpedro.integrations.slack.SlackAttachment;
 import net.gpedro.integrations.slack.SlackField;
 import net.gpedro.integrations.slack.SlackMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -37,11 +36,20 @@ public class SlackAdapter implements WebhookUtil {
     private static final String BUG_TEXT = "버그 제보가 도착했습니다.";
     private static final String EXCEPTION_TEXT = "서버 에러 발생 😱😱😱";
 
+    @Value("${cloud.aws.s3.url}")
+    private String url;
+
     private final SlackApi slackApi;
 
     @Override
-    public void sendBugReport(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
-        List<SlackAttachment> slackAttachments = createBugReportSlackAttachments(bugReport, bugAttachments, writer);
+    public void sendBugReport(BugReport bugReport, String writer) {
+        List<SlackAttachment> slackAttachments;
+
+        if (bugReport.getBugAttachments().isEmpty()) {
+            slackAttachments = createBugReportSlackAttachments(bugReport, writer);
+        } else {
+            slackAttachments = createBugReportSlackAttachmentsWithImage(bugReport, writer);
+        }
 
         SlackMessage slackMessage = createSlackMessage(BUG_TEXT, slackAttachments);
 
@@ -50,37 +58,41 @@ public class SlackAdapter implements WebhookUtil {
 
     @Override
     public void sendExceptionInfo(HttpServletRequest request, Exception exception) {
-        SlackAttachment slackAttachment = new SlackAttachment();
-
-        List<SlackField> slackFields = createExceptionInfoSlackFields(request);
-
-        slackAttachment.setFallback(FALLBACK);
-        slackAttachment.setColor(COLOR);
-        slackAttachment.setTitle(EXCEPTION_TITLE);
-        slackAttachment.setTitleLink(request.getContextPath());
-        slackAttachment.setText(stackTraceToString(exception));
-        slackAttachment.setFields(slackFields);
+        SlackAttachment slackAttachment = createExceptionSlackAttachment(request, exception);
 
         SlackMessage slackMessage = createSlackMessage(EXCEPTION_TEXT, Collections.singletonList(slackAttachment));
 
         slackApi.call(slackMessage);
     }
 
-    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
-        List<SlackAttachment> slackAttachments = new ArrayList<>();
+    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
+        SlackAttachment slackAttachment = new SlackAttachment();
 
-        for (BugAttachment bugAttachment : bugAttachments) {
-            SlackAttachment slackAttachment = new SlackAttachment();
+        List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
 
-            List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
+        slackAttachment.setFallback(FALLBACK);
+        slackAttachment.setColor(COLOR);
+        slackAttachment.setFields(slackFields);
 
-            slackAttachment.setFallback(FALLBACK);
-            slackAttachment.setColor(COLOR);
-            slackAttachment.setImageUrl(bugAttachment.getAttachmentUrl());
-            slackAttachment.setFields(slackFields);
+        return Collections.singletonList(slackAttachment);
+    }
 
-            slackAttachments.add(slackAttachment);
-        }
+    private List<SlackAttachment> createBugReportSlackAttachmentsWithImage(BugReport bugReport, String writer) {
+        List<SlackAttachment> slackAttachments = bugReport.getBugAttachments().stream()
+                .map(bugAttachment -> {
+                    SlackAttachment slackAttachment = new SlackAttachment();
+
+                    List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
+
+                    slackAttachment.setFallback(FALLBACK);
+                    slackAttachment.setColor(COLOR);
+                    slackAttachment.setFields(slackFields);
+
+                    slackAttachment.setImageUrl(url + bugAttachment.getAttachmentUrl());
+
+                    return slackAttachment;
+                })
+                .toList();
 
         return slackAttachments;
     }
@@ -94,14 +106,24 @@ public class SlackAdapter implements WebhookUtil {
         );
     }
 
-    private List<SlackField> createExceptionInfoSlackFields(HttpServletRequest request) {
-        return List.of(
+    private SlackAttachment createExceptionSlackAttachment(HttpServletRequest request, Exception exception) {
+        SlackAttachment slackAttachment = new SlackAttachment();
+
+        List<SlackField> slackFields = List.of(
                 createSlackField(URL, request.getRequestURL().toString()),
                 createSlackField(METHOD, request.getMethod()),
                 createSlackField(CURRENT_TIME, new Date().toString()),
                 createSlackField(IP, request.getRemoteAddr()),
                 createSlackField(USER_AGENT, request.getHeader(USER_AGENT.substring(8)))
         );
+
+        slackAttachment.setFallback(FALLBACK);
+        slackAttachment.setColor(COLOR);
+        slackAttachment.setTitle(EXCEPTION_TITLE);
+        slackAttachment.setTitleLink(request.getContextPath());
+        slackAttachment.setText(stackTraceToString(exception));
+        slackAttachment.setFields(slackFields);
+        return slackAttachment;
     }
 
     private SlackField createSlackField(String title, String value) {
