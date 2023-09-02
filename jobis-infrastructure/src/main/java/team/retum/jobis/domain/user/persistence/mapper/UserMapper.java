@@ -14,6 +14,7 @@ public class UserMapper {
                 .id(domain.getId())
                 .authority(domain.getAuthority())
                 .accountId(domain.getAccountId())
+                .deviceToken(domain.getDeviceToken())
                 .password(domain.getPassword())
                 .build();
     }
@@ -23,6 +24,7 @@ public class UserMapper {
                 .id(entity.getId())
                 .authority(entity.getAuthority())
                 .accountId(entity.getAccountId())
+                .deviceToken(entity.getDeviceToken())
                 .password(entity.getPassword())
                 .build();
     }

@@ -16,6 +16,8 @@ public class User {
 
     private final String password;
 
+    private final String deviceToken;
+
     private final Authority authority;
 
     public User updatePassword(String password) {

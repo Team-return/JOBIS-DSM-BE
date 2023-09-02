@@ -34,15 +34,19 @@ public class UserEntity extends BaseTimeEntity {
     @Column(columnDefinition = "CHAR(60)")
     private String password;
 
+    @Column(columnDefinition = "CHAR(256)")
+    private String deviceToken;
+
     @Column(columnDefinition = "VARCHAR(9)", nullable = false)
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
     @Builder
-    public UserEntity(Long id, String accountId, String password, Authority authority) {
+    public UserEntity(Long id, String accountId, String password, String deviceToken, Authority authority) {
         this.id = id;
         this.accountId = accountId;
         this.password = password;
+        this.deviceToken = deviceToken;
         this.authority = authority;
     }
 
