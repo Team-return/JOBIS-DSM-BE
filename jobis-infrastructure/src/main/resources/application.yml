@@ -80,3 +80,7 @@ logging:
 
 fcm:
   path: ${FCM_PATH}
+
+slack:
+  url: ${SLACK_URL}
+  token: ${SLACK_TOKEN}

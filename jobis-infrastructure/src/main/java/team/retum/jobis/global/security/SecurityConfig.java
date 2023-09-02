@@ -2,6 +2,7 @@ package team.retum.jobis.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,8 +23,10 @@ import static team.retum.jobis.domain.auth.model.Authority.TEACHER;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final JwtParser jwtParser;
     private final ObjectMapper objectMapper;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -127,7 +130,7 @@ public class SecurityConfig {
 
                 .anyRequest().authenticated()
                 .and()
-                .apply(new FilterConfig(jwtParser, objectMapper));
+                .apply(new FilterConfig(jwtParser, objectMapper, eventPublisher));
         return http.build();
     }
 

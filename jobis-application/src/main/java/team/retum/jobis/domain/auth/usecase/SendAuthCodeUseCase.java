@@ -2,7 +2,7 @@ package team.retum.jobis.domain.auth.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.common.spi.SesPort;
+import team.retum.jobis.common.spi.SendEmailPort;
 import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.auth.dto.SendAuthCodeRequest;
 import team.retum.jobis.domain.auth.model.AuthCode;
@@ -18,7 +18,7 @@ public class SendAuthCodeUseCase {
 
     private final CommandAuthCodePort commandAuthCodePort;
     private final QueryUserPort queryUserPort;
-    private final SesPort sesPort;
+    private final SendEmailPort sendEmailPort;
 
     public void execute(SendAuthCodeRequest request) {
         if (request.getAuthCodeType() == AuthCodeType.SIGN_UP) {
@@ -39,6 +39,6 @@ public class SendAuthCodeUseCase {
                 .build();
         commandAuthCodePort.saveAuthCode(authCode);
 
-        sesPort.sendMail(authCode.getCode(), authCode.getEmail());
+        sendEmailPort.sendMail(authCode.getCode(), authCode.getEmail());
     }
 }
