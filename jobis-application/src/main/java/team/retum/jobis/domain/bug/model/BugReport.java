@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Aggregate
 public class BugReport {
 
@@ -19,4 +19,10 @@ public class BugReport {
     private final Long studentId;
     private final List<BugAttachment> bugAttachments;
     private final LocalDateTime createdAt;
+
+    public BugReport addAllBugAttachments(List<BugAttachment> bugAttachments) {
+        return this.toBuilder()
+                .bugAttachments(bugAttachments)
+                .build();
+    }
 }

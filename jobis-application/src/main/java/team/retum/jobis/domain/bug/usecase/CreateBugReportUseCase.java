@@ -20,7 +20,14 @@ public class CreateBugReportUseCase {
     private final SecurityPort securityPort;
 
     public void execute(CreateBugReportRequest request) {
-        BugReport bugReport = commandBugReportPort.saveBugReport(
+        BugReport savedBugReport = saveBugReport(request);
+        String writer = securityPort.getCurrentStudent().getName();
+
+        publishBugReportEventPort.publishBugReport(savedBugReport, writer);
+    }
+
+    private BugReport saveBugReport(CreateBugReportRequest request) {
+        BugReport savedBugReport = commandBugReportPort.saveBugReport(
                 BugReport.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
@@ -29,16 +36,20 @@ public class CreateBugReportUseCase {
                         .build()
         );
 
-        List<BugAttachment> bugAttachments = commandBugReportPort.saveAllBugAttachment(
-                request.getAttachmentUrls().stream()
-                        .map(attachmentUrl ->
-                                BugAttachment.builder()
-                                        .bugReportId(bugReport.getId())
-                                        .attachmentUrl(attachmentUrl)
-                                        .build()
-                        ).toList()
-        );
+        if (request.getAttachmentUrls() != null) {
+            List<BugAttachment> savedAllBugAttachment = commandBugReportPort.saveAllBugAttachment(
+                    request.getAttachmentUrls().stream()
+                            .map(attachmentUrl ->
+                                    BugAttachment.builder()
+                                            .bugReportId(savedBugReport.getId())
+                                            .attachmentUrl(attachmentUrl)
+                                            .build()
+                            ).toList()
+            );
 
-        publishBugReportEventPort.publishBugReport(bugReport, bugAttachments, securityPort.getCurrentStudent().getName());
+            return savedBugReport.addAllBugAttachments(savedAllBugAttachment);
+        }
+
+        return savedBugReport;
     }
 }
