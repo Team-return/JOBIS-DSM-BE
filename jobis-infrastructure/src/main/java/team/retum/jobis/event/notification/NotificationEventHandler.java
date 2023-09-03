@@ -8,7 +8,6 @@ import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
-import team.retum.jobis.domain.notification.spi.NotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.event.notification.model.GroupNotificationEvent;
 import team.retum.jobis.event.notification.model.NotificationEvent;
@@ -17,7 +16,6 @@ import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Component

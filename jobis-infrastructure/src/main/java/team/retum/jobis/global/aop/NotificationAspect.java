@@ -6,22 +6,17 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.annotation.NotificationPublish;
 import team.retum.jobis.common.spi.PublishNotificationEventPort;
-import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
-import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.bookmark.model.Bookmark;
 import team.retum.jobis.domain.bookmark.spi.QueryBookmarkPort;
-import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 

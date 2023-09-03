@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.spi.PublishNotificationEventPort;
-import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.event.notification.model.GroupNotificationEvent;
