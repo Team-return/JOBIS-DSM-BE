@@ -12,6 +12,8 @@ import java.util.Optional;
 
 public interface QueryApplicationPort {
 
+    List<Application> queryApplicationsByRecruitmentId(Long recruitmentId);
+
     List<ApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName);
 
     Long queryApplicationCountByCondition(ApplicationStatus applicationStatus, String studentName);

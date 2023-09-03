@@ -224,6 +224,16 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
+    public List<Application> queryApplicationsByRecruitmentId(Long recruitmentId) {
+        return queryFactory
+                .selectFrom(applicationEntity)
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .where(recruitmentEntity.id.eq(recruitmentId))
+                .fetch().stream().map(applicationMapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public void deleteApplication(Application application) {
         applicationJpaRepository.delete(
                 applicationMapper.toEntity(application)

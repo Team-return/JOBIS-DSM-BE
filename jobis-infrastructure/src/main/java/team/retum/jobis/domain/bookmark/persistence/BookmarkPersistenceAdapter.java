@@ -40,6 +40,12 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     }
 
     @Override
+    public List<Bookmark> queryBookmarksByRecruitmentId(Long recruitmentId) {
+        return bookmarkJpaRepository.findAllByRecruitmentId(recruitmentId)
+                .stream().map(bookmarkMapper::toDomain).toList();
+    }
+
+    @Override
     public void deleteBookmark(Bookmark bookmark) {
         bookmarkJpaRepository.delete(
                 bookmarkMapper.toEntity(bookmark)

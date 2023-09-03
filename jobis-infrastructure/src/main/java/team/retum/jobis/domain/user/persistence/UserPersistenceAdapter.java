@@ -8,6 +8,7 @@ import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 import team.retum.jobis.domain.user.spi.UserPort;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,6 +27,11 @@ public class UserPersistenceAdapter implements UserPort {
     @Override
     public Optional<User> queryUserById(Long userId) {
         return userJpaRepository.findById(userId).map(userMapper::toDomain);
+    }
+
+    @Override
+    public List<User> queryUsersByIdIn(List<Long> userIds) {
+        return userJpaRepository.findAllByIdIn(userIds).stream().map(userMapper::toDomain).toList();
     }
 
     @Override

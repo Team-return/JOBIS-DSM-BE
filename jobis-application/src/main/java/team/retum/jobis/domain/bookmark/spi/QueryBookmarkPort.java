@@ -13,4 +13,6 @@ public interface QueryBookmarkPort {
     Optional<Bookmark> queryBookmarkByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId);
 
     List<StudentBookmarksVO> queryBookmarksByStudentId(Long studentId);
+
+    List<Bookmark> queryBookmarksByRecruitmentId(Long recruitmentId);
 }
