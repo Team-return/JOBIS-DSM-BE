@@ -3,11 +3,12 @@ package team.retum.jobis.thirdparty.webhook.slack;
 import lombok.RequiredArgsConstructor;
 import net.gpedro.integrations.slack.SlackApi;
 import net.gpedro.integrations.slack.SlackAttachment;
+import net.gpedro.integrations.slack.SlackException;
 import net.gpedro.integrations.slack.SlackField;
 import net.gpedro.integrations.slack.SlackMessage;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bug.model.BugReport;
+import team.retum.jobis.thirdparty.s3.S3Properties;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +37,7 @@ public class SlackAdapter implements WebhookUtil {
     private static final String BUG_TEXT = "버그 제보가 도착했습니다.";
     private static final String EXCEPTION_TEXT = "서버 에러 발생 😱😱😱";
 
-    @Value("${cloud.aws.s3.url}")
-    private String url;
+    private final S3Properties s3Properties;
 
     private final SlackApi slackApi;
 
@@ -51,18 +51,14 @@ public class SlackAdapter implements WebhookUtil {
             slackAttachments = createBugReportSlackAttachmentsWithImage(bugReport, writer);
         }
 
-        SlackMessage slackMessage = createSlackMessage(BUG_TEXT, slackAttachments);
-
-        slackApi.call(slackMessage);
+        sendSlackMessage(BUG_TEXT, slackAttachments);
     }
 
     @Override
     public void sendExceptionInfo(HttpServletRequest request, Exception exception) {
         SlackAttachment slackAttachment = createExceptionSlackAttachment(request, exception);
 
-        SlackMessage slackMessage = createSlackMessage(EXCEPTION_TEXT, Collections.singletonList(slackAttachment));
-
-        slackApi.call(slackMessage);
+        sendSlackMessage(EXCEPTION_TEXT, Collections.singletonList(slackAttachment));
     }
 
     private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
@@ -78,7 +74,7 @@ public class SlackAdapter implements WebhookUtil {
     }
 
     private List<SlackAttachment> createBugReportSlackAttachmentsWithImage(BugReport bugReport, String writer) {
-        List<SlackAttachment> slackAttachments = bugReport.getBugAttachments().stream()
+        return bugReport.getBugAttachments().stream()
                 .map(bugAttachment -> {
                     SlackAttachment slackAttachment = new SlackAttachment();
 
@@ -87,14 +83,11 @@ public class SlackAdapter implements WebhookUtil {
                     slackAttachment.setFallback(FALLBACK);
                     slackAttachment.setColor(COLOR);
                     slackAttachment.setFields(slackFields);
-
-                    slackAttachment.setImageUrl(url + bugAttachment.getAttachmentUrl());
+                    slackAttachment.setImageUrl(s3Properties.getUrl() + bugAttachment.getAttachmentUrl());
 
                     return slackAttachment;
                 })
                 .toList();
-
-        return slackAttachments;
     }
 
     private List<SlackField> createBugReportSlackFields(BugReport bugReport, String writer) {
@@ -132,11 +125,16 @@ public class SlackAdapter implements WebhookUtil {
                 .setValue(value);
     }
 
-    private SlackMessage createSlackMessage(String text, List<SlackAttachment> slackAttachments) {
+    private void sendSlackMessage(String text, List<SlackAttachment> slackAttachments) {
         SlackMessage slackMessage = new SlackMessage();
         slackMessage.setText(text);
         slackMessage.setAttachments(slackAttachments);
-        return slackMessage;
+
+        try {
+            slackApi.call(slackMessage);
+        } catch (SlackException e) {
+            e.printStackTrace();
+        }
     }
 
     private String stackTraceToString(Exception exception) {
