@@ -50,29 +50,27 @@ public class FCMUtil {
         FirebaseMessaging.getInstance().sendAsync(message);
     }
 
-    public void sendMessage(Notification notification, String token) {
+    public void sendMessage(String title, String content, String token) {
         Message message = Message.builder()
                 .setToken(token)
                 .setNotification(
                         com.google.firebase.messaging.Notification.builder()
-                                .setTitle(notification.getTitle())
-                                .setBody(notification.getContent())
+                                .setTitle(title)
+                                .setBody(content)
                                 .build()
                 )
-                .putData("detail_id", notification.getDetailId().toString())
-                .putData("topic", notification.getTopic().toString())
                 .build();
 
         FirebaseMessaging.getInstance().sendAsync(message);
     }
 
-    public void sendMessages(Notification notification, List<String> tokens) {
+    public void sendMessages(String title, String content, List<String> tokens) {
         try {
             MulticastMessage message = MulticastMessage.builder()
                     .addAllTokens(tokens)
                     .setNotification(com.google.firebase.messaging.Notification.builder()
-                            .setTitle(notification.getTitle())
-                            .setBody(notification.getContent())
+                            .setTitle(title)
+                            .setBody(content)
                             .build()
                     )
                     .build();
