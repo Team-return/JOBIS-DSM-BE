@@ -34,7 +34,7 @@ public class UserEntity extends BaseTimeEntity {
     @Column(columnDefinition = "CHAR(60)")
     private String password;
 
-    @Column(columnDefinition = "CHAR(256)")
+    @Column(columnDefinition = "CHAR(255)")
     private String deviceToken;
 
     @Column(columnDefinition = "VARCHAR(9)", nullable = false)
