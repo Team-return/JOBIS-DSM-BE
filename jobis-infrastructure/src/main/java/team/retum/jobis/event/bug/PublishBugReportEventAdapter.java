@@ -9,7 +9,7 @@ import team.retum.jobis.event.bug.model.BugReportEvent;
 
 @RequiredArgsConstructor
 @Component
-public class BugReportPublisher implements PublishBugReportEventPort {
+public class PublishBugReportEventAdapter implements PublishBugReportEventPort {
 
     private final ApplicationEventPublisher eventPublisher;
 
