@@ -1,7 +1,9 @@
 package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
+import team.retum.jobis.common.annotation.NotificationPublish;
 import team.retum.jobis.common.annotation.UseCase;
+import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
@@ -17,7 +19,8 @@ public class ChangeRecruitmentStatusSchedulerUseCase {
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
 
-    public void execute() {
+    @NotificationPublish(topic = Topic.RECRUITMENT_DONE)
+    public List<Recruitment> execute() {
         List<Recruitment> recruitments = queryRecruitmentPort.queryAllRecruitments();
 
         commandRecruitmentPort.saveAllRecruitments(
@@ -28,5 +31,7 @@ public class ChangeRecruitmentStatusSchedulerUseCase {
                         .map(recruitment -> recruitment.changeStatus(RecruitStatus.DONE))
                         .toList()
         );
+
+        return recruitments;
     }
 }
