@@ -34,9 +34,14 @@ public class CreateApplicationUseCase {
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
         recruitment.checkIsApplicable();
 
-        if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
+        if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusInAndRecruitmentId(
                 student.getId(),
-                List.of(ApplicationStatus.values())
+                List.of(
+                        ApplicationStatus.APPROVED,
+                        ApplicationStatus.FIELD_TRAIN,
+                        ApplicationStatus.PASS
+                ),
+                recruitment.getId()
         )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
