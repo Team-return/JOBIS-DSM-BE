@@ -229,7 +229,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 )
                 .orderBy(companyEntity.name.asc())
                 .offset(filter.getOffset())
-                .limit(filter.getLimit())
+                .limit(13)
                 .groupBy(companyEntity.id, companyEntity.name)
                 .fetch().stream()
                 .map(TeacherEmployCompaniesVO.class::cast)
