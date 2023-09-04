@@ -32,4 +32,8 @@ public class RecruitmentFilter {
     public Long getOffset() {
         return 11L * page;
     }
+
+    public int getLimit() {
+        return 11;
+    }
 }

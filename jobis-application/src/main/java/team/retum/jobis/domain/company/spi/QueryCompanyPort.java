@@ -3,7 +3,6 @@ package team.retum.jobis.domain.company.spi;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
-import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
@@ -14,7 +13,7 @@ import java.util.Optional;
 
 public interface QueryCompanyPort {
 
-    List<StudentCompaniesVO> queryCompanyVoList(CompanyFilter filter);
+    List<StudentCompaniesVO> queryCompanyVOs(CompanyFilter filter);
 
     List<TeacherCompaniesVO> queryCompaniesByConditions(CompanyFilter filter);
 
@@ -22,7 +21,7 @@ public interface QueryCompanyPort {
 
     CompanyDetailsVO queryCompanyDetails(Long companyId);
 
-    List<TeacherEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type, Integer year);
+    List<TeacherEmployCompaniesVO> queryEmployCompanies(CompanyFilter filter);
 
     List<String> queryCompanyAttachmentUrls(Long companyId);
 

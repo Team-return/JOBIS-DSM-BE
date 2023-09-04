@@ -103,9 +103,10 @@ public class CompanyWebAdapter {
     public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "company_type", required = false) CompanyType type,
-            @RequestParam(value = "year", required = false) Integer year
+            @RequestParam(value = "year", required = false) Integer year,
+            @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year);
+        return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
     }
 
     @GetMapping("/teacher")

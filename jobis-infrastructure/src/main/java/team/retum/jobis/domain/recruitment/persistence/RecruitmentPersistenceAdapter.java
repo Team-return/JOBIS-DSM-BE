@@ -93,7 +93,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         containsJobKeyword(filter.getJobKeyword())
                 )
                 .offset(filter.getOffset())
-                .limit(11)
+                .limit(filter.getLimit())
                 .orderBy(recruitmentEntity.createdAt.desc())
                 .groupBy(recruitmentEntity.id)
                 .fetch().stream()
