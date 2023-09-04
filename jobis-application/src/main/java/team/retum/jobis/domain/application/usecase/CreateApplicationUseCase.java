@@ -36,11 +36,7 @@ public class CreateApplicationUseCase {
 
         if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
                 student.getId(),
-                List.of(
-                        ApplicationStatus.APPROVED,
-                        ApplicationStatus.FIELD_TRAIN,
-                        ApplicationStatus.PASS
-                )
+                List.of(ApplicationStatus.values())
         )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
