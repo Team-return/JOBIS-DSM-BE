@@ -113,7 +113,7 @@ public class CompanyEntity {
     private String businessArea;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(20)")
+    @Column(columnDefinition = "VARCHAR(40)")
     private String serviceName;
 
     @OneToMany(mappedBy = "company")
