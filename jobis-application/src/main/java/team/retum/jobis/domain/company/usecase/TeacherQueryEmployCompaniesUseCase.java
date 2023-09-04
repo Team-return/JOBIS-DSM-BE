@@ -30,7 +30,7 @@ public class TeacherQueryEmployCompaniesUseCase {
                 .build();
 
         int totalPageCount = (int) Math.ceil(
-                queryCompanyPort.getTotalCompanyCount(filter).doubleValue() / 11
+                queryCompanyPort.getTotalCompanyCount(filter).doubleValue() / 13
         );
 
         List<TeacherEmployCompaniesVO> companies = queryCompanyPort.queryEmployCompanies(filter);
