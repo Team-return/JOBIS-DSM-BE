@@ -78,7 +78,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<StudentCompaniesVO> queryCompanyVoList(CompanyFilter filter) {
+    public List<StudentCompaniesVO> queryCompanyVOs(CompanyFilter filter) {
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
@@ -96,7 +96,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .orderBy(companyEntity.name.desc())
                 .groupBy(companyEntity.id)
                 .offset(filter.getOffset())
-                .limit(11)
+                .limit(filter.getLimit())
                 .fetch().stream()
                 .map(StudentCompaniesVO.class::cast)
                 .toList();
@@ -129,9 +129,9 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         eqRegion(filter.getRegion()),
                         eqBusinessArea(filter.getBusinessArea())
                 )
-                .orderBy(companyEntity.name.desc())
                 .offset(filter.getOffset())
-                .limit(11)
+                .limit(filter.getLimit())
+                .orderBy(companyEntity.name.desc())
                 .fetch().stream()
                 .map(TeacherCompaniesVO.class::cast)
                 .toList();
@@ -203,7 +203,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<TeacherEmployCompaniesVO> queryEmployCompanies(String name, CompanyType type, Integer year) {
+    public List<TeacherEmployCompaniesVO> queryEmployCompanies(CompanyFilter filter) {
         return queryFactory
                 .select(
                         new QQueryTeacherEmployCompaniesVO(
@@ -223,11 +223,13 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .leftJoin(recruitmentEntity.applications, applicationEntity)
                 .on(applicationEntity.applicationStatus.eq(FIELD_TRAIN))
                 .where(
-                        containsName(name),
-                        eqCompanyType(type),
-                        eqYear(year)
+                        containsName(filter.getName()),
+                        eqCompanyType(filter.getType()),
+                        eqYear(filter.getYear())
                 )
                 .orderBy(companyEntity.name.asc())
+                .offset(filter.getOffset())
+                .limit(filter.getLimit())
                 .groupBy(companyEntity.id, companyEntity.name)
                 .fetch().stream()
                 .map(TeacherEmployCompaniesVO.class::cast)

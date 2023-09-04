@@ -19,7 +19,7 @@ public class StudentQueryCompaniesUseCase {
                 .build();
 
         return new StudentQueryCompaniesResponse(
-                queryCompanyPort.queryCompanyVoList(filter)
+                queryCompanyPort.queryCompanyVOs(filter)
         );
     }
 }
