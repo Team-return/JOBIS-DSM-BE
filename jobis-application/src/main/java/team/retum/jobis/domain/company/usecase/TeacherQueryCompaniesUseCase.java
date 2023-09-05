@@ -2,7 +2,7 @@ package team.retum.jobis.domain.company.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
-import team.retum.jobis.common.util.PageUtil;
+import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
@@ -38,7 +38,7 @@ public class TeacherQueryCompaniesUseCase {
                 .page(page)
                 .build();
 
-        int totalPageCount = PageUtil.getTotalPageCount(
+        int totalPageCount = NumberUtil.getTotalPageCount(
                 queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
         );
 
