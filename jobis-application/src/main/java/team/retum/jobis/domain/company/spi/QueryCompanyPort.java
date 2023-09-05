@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface QueryCompanyPort {
 
-    List<StudentCompaniesVO> queryCompanyVOs(CompanyFilter filter);
+    List<StudentCompaniesVO> queryStudentCompanies(CompanyFilter filter);
 
     List<TeacherCompaniesVO> queryCompaniesByConditions(CompanyFilter filter);
 

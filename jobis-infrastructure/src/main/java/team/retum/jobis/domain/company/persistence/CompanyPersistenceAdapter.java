@@ -78,7 +78,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<StudentCompaniesVO> queryCompanyVOs(CompanyFilter filter) {
+    public List<StudentCompaniesVO> queryStudentCompanies(CompanyFilter filter) {
         return queryFactory
                 .select(
                         new QStudentQueryCompaniesVO(
