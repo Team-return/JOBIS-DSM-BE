@@ -24,7 +24,7 @@ public class StudentQueryRecruitmentsUseCase {
 
     public StudentQueryRecruitmentsResponse execute(
             String name,
-            Integer page,
+            Long page,
             Long jobCode,
             List<Long> codeIds
     ) {

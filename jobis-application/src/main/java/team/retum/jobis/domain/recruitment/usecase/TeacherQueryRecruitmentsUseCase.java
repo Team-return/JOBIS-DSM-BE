@@ -18,7 +18,7 @@ public class TeacherQueryRecruitmentsUseCase {
     private final QueryRecruitmentPort queryRecruitmentPort;
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status, Integer page) {
+                                                    Integer year, RecruitStatus status, Long page) {
 
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
                 .companyName(companyName)
