@@ -14,12 +14,9 @@ public class CompanyFilter {
     private final String businessArea;
     private final Integer year;
     private final Long page;
+    private int limit = 11;
 
     public Long getOffset() {
-        return page * 11;
-    }
-
-    public int getLimit() {
-        return 11;
+        return page * limit;
     }
 }

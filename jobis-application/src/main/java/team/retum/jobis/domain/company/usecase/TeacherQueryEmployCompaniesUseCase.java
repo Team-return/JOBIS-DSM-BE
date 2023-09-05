@@ -27,10 +27,11 @@ public class TeacherQueryEmployCompaniesUseCase {
                 .type(type)
                 .year(year)
                 .page(page)
+                .limit(13)
                 .build();
 
         int totalPageCount = (int) Math.ceil(
-                queryCompanyPort.getTotalCompanyCount(filter).doubleValue() / 13
+                queryCompanyPort.getTotalCompanyCount(filter).doubleValue() / filter.getLimit()
         );
 
         List<TeacherEmployCompaniesVO> companies = queryCompanyPort.queryEmployCompanies(filter);
