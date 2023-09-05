@@ -2,6 +2,7 @@ package team.retum.jobis.domain.company.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.util.PageUtil;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -30,8 +31,8 @@ public class TeacherQueryEmployCompaniesUseCase {
                 .limit(13)
                 .build();
 
-        int totalPageCount = (int) Math.ceil(
-                queryCompanyPort.getTotalCompanyCount(filter).doubleValue() / filter.getLimit()
+        int totalPageCount = PageUtil.getTotalPageCount(
+                queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
         );
 
         List<TeacherEmployCompaniesVO> companies = queryCompanyPort.queryEmployCompanies(filter);
