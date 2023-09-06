@@ -22,7 +22,7 @@ public class RecruitAreaWebRequest {
     @NotNull
     private int hiring;
 
-    @Size(max = 500)
+    @Size(max = 1000)
     @NotBlank
     private String majorTask;
 
