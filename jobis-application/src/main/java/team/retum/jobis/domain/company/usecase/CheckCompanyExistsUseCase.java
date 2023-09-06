@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
+import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
 @RequiredArgsConstructor
@@ -14,6 +15,10 @@ public class CheckCompanyExistsUseCase {
     private final QueryCompanyPort queryCompanyPort;
 
     public CheckCompanyExistsResponse execute(String businessNumber) {
+        if (!feignClientPort.checkCompanyExistsByBizNo(businessNumber)) {
+            throw CompanyNotExistsException.EXCEPTION;
+        }
+        
         String companyName = feignClientPort.getCompanyNameByBizNo(businessNumber);
         boolean exists = queryCompanyPort.existsCompanyByBizNo(businessNumber);
 
