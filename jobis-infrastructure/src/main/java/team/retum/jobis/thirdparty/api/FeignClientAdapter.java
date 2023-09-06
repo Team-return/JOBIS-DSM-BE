@@ -3,6 +3,7 @@ package team.retum.jobis.thirdparty.api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.spi.FeignClientPort;
+import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.thirdparty.api.client.BizNoFeignClient;
 import team.retum.jobis.thirdparty.api.client.FeignProperty;
 import team.retum.jobis.thirdparty.api.client.dto.BusinessNumberResponse;
@@ -21,7 +22,7 @@ public class FeignClientAdapter implements FeignClientPort {
     public String getCompanyNameByBizNo(String businessNumber) {
         BusinessNumberResponse response = callApi(businessNumber);
         if (response.getTotalCount() == 0) {
-            return "존재하지 않는 기업";
+            throw CompanyNotExistsException.EXCEPTION;
         }
         return response.getItems().get(0).getCompany();
     }
