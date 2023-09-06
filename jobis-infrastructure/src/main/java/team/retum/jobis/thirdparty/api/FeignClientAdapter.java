@@ -19,7 +19,11 @@ public class FeignClientAdapter implements FeignClientPort {
 
     @Override
     public String getCompanyNameByBizNo(String businessNumber) {
-        return callApi(businessNumber).getItems().get(0).getCompany();
+        BusinessNumberResponse response = callApi(businessNumber);
+        if (response.getTotalCount() == 0) {
+            return "존재하지 않는 기업";
+        }
+        return response.getItems().get(0).getCompany();
     }
 
     @Override

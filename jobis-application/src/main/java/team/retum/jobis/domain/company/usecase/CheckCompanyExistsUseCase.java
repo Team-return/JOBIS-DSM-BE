@@ -15,10 +15,6 @@ public class CheckCompanyExistsUseCase {
     private final QueryCompanyPort queryCompanyPort;
 
     public CheckCompanyExistsResponse execute(String businessNumber) {
-        if (!feignClientPort.checkCompanyExistsByBizNo(businessNumber)) {
-            throw CompanyNotExistsException.EXCEPTION;
-        }
-        
         String companyName = feignClientPort.getCompanyNameByBizNo(businessNumber);
         boolean exists = queryCompanyPort.existsCompanyByBizNo(businessNumber);
 
