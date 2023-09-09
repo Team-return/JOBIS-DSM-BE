@@ -286,13 +286,12 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public boolean existsApplicationByStudentIdAndApplicationStatusInAndRecruitmentId(
+    public boolean existsApplicationByStudentIdAndApplicationStatusIn(
             Long studentId,
-            List<ApplicationStatus> applicationStatuses,
-            Long recruitmentId
+            List<ApplicationStatus> applicationStatuses
     ) {
-        return applicationJpaRepository.existsByStudentIdAndApplicationStatusInAndRecruitmentId(
-                studentId, applicationStatuses, recruitmentId
+        return applicationJpaRepository.existsByStudentIdAndApplicationStatusIn(
+                studentId, applicationStatuses
         );
     }
 
