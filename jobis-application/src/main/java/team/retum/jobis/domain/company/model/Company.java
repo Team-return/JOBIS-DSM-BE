@@ -80,7 +80,7 @@ public class Company {
     }
 
     public void verifySameCompany(Company currentCompany) {
-        if (!this.equals(currentCompany)) {
+        if (!this.getId().equals(currentCompany.getId())) {
             throw CompanyMismatchException.EXCEPTION;
         }
     }

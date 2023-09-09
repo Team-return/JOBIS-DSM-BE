@@ -22,7 +22,7 @@ public class RecruitAreaWebRequest {
     @NotNull
     private int hiring;
 
-    @Size(max = 500)
+    @Size(max = 1200)
     @NotBlank
     private String majorTask;
 
@@ -34,6 +34,4 @@ public class RecruitAreaWebRequest {
                 .majorTask(this.majorTask)
                 .build();
     }
-
-
 }
