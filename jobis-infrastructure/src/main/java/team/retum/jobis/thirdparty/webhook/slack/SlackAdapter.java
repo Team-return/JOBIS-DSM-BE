@@ -28,7 +28,7 @@ public class SlackAdapter implements WebhookUtil {
     private static final String BUG_REPORT_TITLE = "버그 제목";
     private static final String CONTENT = "버그 내용";
     private static final String DEVELOPMENT_AREA = "버그가 발생한 분야";
-    private static final String WRITER = "버그 신고한 유저";
+    private static final String WRITER = "버그를 제보한 사용자";
     private static final String EXCEPTION_TITLE = "예외 발생";
     private static final String CURRENT_TIME = "Request Time";
     private static final String BUG_TEXT = "버그 제보가 도착했습니다.";
@@ -45,42 +45,51 @@ public class SlackAdapter implements WebhookUtil {
         sendSlackMessage(BUG_TEXT, slackAttachments);
     }
 
-    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
-        List<BugAttachment> bugAttachments = bugReport.getBugAttachments();
-        if (bugAttachments.isEmpty()) {
-            SlackAttachment slackAttachment = new SlackAttachment();
-
-            List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
-            slackAttachment.setFallback(FALLBACK);
-            slackAttachment.setColor(COLOR);
-            slackAttachment.setFields(slackFields);
-
-            return Collections.singletonList(slackAttachment);
-        } else {
-            return bugAttachments.stream()
-                    .map(bugAttachment -> {
-                        SlackAttachment slackAttachment = new SlackAttachment();
-
-                        boolean isFirst = bugAttachments.get(0) == bugAttachment;
-                        if (isFirst) {
-                            List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
-                            slackAttachment.setFields(slackFields);
-                        }
-                        slackAttachment.setFallback(FALLBACK);
-                        slackAttachment.setColor(COLOR);
-                        slackAttachment.setImageUrl(s3Properties.getUrl() + bugAttachment.getAttachmentUrl());
-
-                        return slackAttachment;
-                    })
-                    .toList();
-        }
-    }
-
     @Override
     public void sendExceptionInfo(HttpServletRequest request, Exception exception) {
         SlackAttachment slackAttachment = createExceptionSlackAttachment(request, exception);
 
         sendSlackMessage(EXCEPTION_TEXT, Collections.singletonList(slackAttachment));
+    }
+
+    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
+        List<BugAttachment> bugAttachments = bugReport.getBugAttachments();
+        if (bugAttachments.isEmpty()) {
+            return Collections.singletonList(
+                    createBugReportSlackAttachment(bugReport, writer, null, true)
+            );
+        } else {
+            return bugAttachments.stream()
+                    .map(bugAttachment -> {
+                        boolean isFirst = bugAttachments.get(0) == bugAttachment;
+                        return createBugReportSlackAttachment(
+                                bugReport, writer, bugAttachment.getAttachmentUrl(), isFirst
+                        );
+                    })
+                    .toList();
+        }
+    }
+
+    private SlackAttachment createBugReportSlackAttachment(
+            BugReport bugReport,
+            String writer,
+            String attachmentUrl,
+            boolean isFirst
+    ) {
+        SlackAttachment slackAttachment = new SlackAttachment();
+        slackAttachment.setFallback(FALLBACK);
+        slackAttachment.setColor(COLOR);
+
+        if (isFirst) {
+            List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
+            slackAttachment.setFields(slackFields);
+        }
+
+        if (attachmentUrl != null) {
+            slackAttachment.setImageUrl(s3Properties.getUrl() + attachmentUrl);
+        }
+
+        return slackAttachment;
     }
 
     private List<SlackField> createBugReportSlackFields(BugReport bugReport, String writer) {
