@@ -7,6 +7,7 @@ import net.gpedro.integrations.slack.SlackException;
 import net.gpedro.integrations.slack.SlackField;
 import net.gpedro.integrations.slack.SlackMessage;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
 import team.retum.jobis.thirdparty.s3.S3Properties;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
@@ -45,26 +46,28 @@ public class SlackAdapter implements WebhookUtil {
     }
 
     private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
-        if (bugReport.getBugAttachments().isEmpty()) {
+        List<BugAttachment> bugAttachments = bugReport.getBugAttachments();
+        if (bugAttachments.isEmpty()) {
             SlackAttachment slackAttachment = new SlackAttachment();
 
             List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
-
             slackAttachment.setFallback(FALLBACK);
             slackAttachment.setColor(COLOR);
             slackAttachment.setFields(slackFields);
 
             return Collections.singletonList(slackAttachment);
         } else {
-            return bugReport.getBugAttachments().stream()
+            return bugAttachments.stream()
                     .map(bugAttachment -> {
                         SlackAttachment slackAttachment = new SlackAttachment();
 
-                        List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
-
+                        boolean isFirst = bugAttachments.get(0) == bugAttachment;
+                        if (isFirst) {
+                            List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
+                            slackAttachment.setFields(slackFields);
+                        }
                         slackAttachment.setFallback(FALLBACK);
                         slackAttachment.setColor(COLOR);
-                        slackAttachment.setFields(slackFields);
                         slackAttachment.setImageUrl(s3Properties.getUrl() + bugAttachment.getAttachmentUrl());
 
                         return slackAttachment;
