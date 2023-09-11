@@ -91,7 +91,7 @@ public class RecruitmentWebAdapter {
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
-            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(value = "job_code", required = false) Long jobCode,
             @RequestParam(value = "tech_code", required = false) String techCode
     ) {
@@ -106,7 +106,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
             @RequestParam(value = "status", required = false) RecruitStatus status,
             @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "page", defaultValue = "1") Integer page
+            @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1);
     }

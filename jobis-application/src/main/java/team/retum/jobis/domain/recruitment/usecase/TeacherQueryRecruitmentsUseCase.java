@@ -2,6 +2,7 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
@@ -18,9 +19,8 @@ public class TeacherQueryRecruitmentsUseCase {
     private final QueryRecruitmentPort queryRecruitmentPort;
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status, Integer page) {
-
-        RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
+                                                    Integer year, RecruitStatus status, Long page) {
+        RecruitmentFilter filter = RecruitmentFilter.builder()
                 .companyName(companyName)
                 .status(status)
                 .startDate(start)
@@ -30,12 +30,12 @@ public class TeacherQueryRecruitmentsUseCase {
                 .page(page)
                 .build();
 
-        int totalPageCount = (int) Math.ceil(
-                queryRecruitmentPort.getRecruitmentCountByFilter(recruitmentFilter).doubleValue() / 11
+        int totalPageCount = NumberUtil.getTotalPageCount(
+                queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
         );
 
         List<TeacherRecruitmentResponse> recruitments =
-                queryRecruitmentPort.queryRecruitmentsByFilter(recruitmentFilter).stream()
+                queryRecruitmentPort.queryRecruitmentsByFilter(filter).stream()
                         .map(recruitment ->
                                 TeacherRecruitmentResponse.builder()
                                         .id(recruitment.getRecruitmentId())

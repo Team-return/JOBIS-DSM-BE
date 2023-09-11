@@ -21,15 +21,16 @@ public class RecruitmentFilter {
 
     private final String companyName;
 
-    private final Integer page;
+    private final Long page;
 
     private final List<Long> codes;
 
     private final Long studentId;
 
     private final String jobKeyword;
+    private int limit = 11;
 
     public Long getOffset() {
-        return 11L * page;
+        return page * limit;
     }
 }

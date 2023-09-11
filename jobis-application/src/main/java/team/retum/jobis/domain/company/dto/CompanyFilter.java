@@ -8,13 +8,15 @@ import team.retum.jobis.domain.company.model.CompanyType;
 @Builder
 public class CompanyFilter {
 
-    private CompanyType type;
-    private String name;
-    private String region;
-    private String businessArea;
-    private Long page;
+    private final CompanyType type;
+    private final String name;
+    private final String region;
+    private final String businessArea;
+    private final Integer year;
+    private final Long page;
+    private int limit = 11;
 
     public Long getOffset() {
-        return page * 11;
+        return page * limit;
     }
 }

@@ -2,6 +2,7 @@ package team.retum.jobis.domain.application.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.application.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
@@ -16,9 +17,10 @@ public class TeacherQueryApplicationsUseCase {
     private final QueryApplicationPort applicationPersistenceAdapter;
 
     public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId) {
-        int totalPageCount = (int) Math.ceil(
-                applicationPersistenceAdapter.queryApplicationCountByCondition(applicationStatus, studentName).doubleValue() / 11
+        int totalPageCount = NumberUtil.getTotalPageCount(
+                applicationPersistenceAdapter.queryApplicationCountByCondition(applicationStatus, studentName), 11
         );
+
         return new TeacherQueryApplicationsResponse(
                 applicationPersistenceAdapter.queryApplicationByConditions(
                                 recruitmentId, null, applicationStatus, studentName).stream()
@@ -38,7 +40,8 @@ public class TeacherQueryApplicationsUseCase {
                                 .createdAt(application.getCreatedAt().toLocalDate())
                                 .applicationStatus(application.getApplicationStatus())
                                 .build()
-                        ).toList(), totalPageCount
+                        ).toList(),
+                totalPageCount
         );
     }
 }
