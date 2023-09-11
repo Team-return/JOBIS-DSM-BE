@@ -28,6 +28,8 @@ public class RecruitmentFilter {
     private final Long studentId;
 
     private final String jobKeyword;
+
+    @Builder.Default
     private int limit = 11;
 
     public Long getOffset() {
