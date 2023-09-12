@@ -9,16 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.file.exception.FileUploadFailedException;
-import team.retum.jobis.domain.file.exception.InvalidExtensionException;
 import team.retum.jobis.domain.file.model.FileType;
 import team.retum.jobis.domain.file.spi.FilePort;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-
-import static team.retum.jobis.domain.file.model.FileType.EXTENSION_FILE;
-import static team.retum.jobis.domain.file.model.FileType.LOGO_IMAGE;
 
 @Component
 @RequiredArgsConstructor
@@ -30,8 +26,6 @@ public class S3Adapter implements FilePort {
     @Override
     @Async("asyncTaskExecutor")
     public void uploadFile(File file, String fileName, FileType fileType) {
-        validateExtension(file.getName(), fileType);
-
         try {
             InputStream inputStream = new FileInputStream(file);
             ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -49,19 +43,6 @@ public class S3Adapter implements FilePort {
         } catch (Exception e) {
             e.printStackTrace();
             throw FileUploadFailedException.EXCEPTION;
-        }
-    }
-
-    private void validateExtension(String fileName, FileType fileType) {
-        String extension = fileName.substring(fileName.lastIndexOf("."));
-
-        boolean isValid = switch (fileType) {
-            case LOGO_IMAGE -> LOGO_IMAGE.validExtensions.contains(extension);
-            case EXTENSION_FILE -> EXTENSION_FILE.validExtensions.contains(extension);
-        };
-
-        if (!isValid) {
-            throw InvalidExtensionException.EXCEPTION;
         }
     }
 }
