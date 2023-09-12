@@ -100,7 +100,7 @@ public class RegisterCompanyWebRequest {
     private Long businessAreaCode;
 
     @NotBlank
-    @Size(max = 40)
+    @Size(max = 80)
     private String serviceName;
 
     private List<String> attachmentUrls;
