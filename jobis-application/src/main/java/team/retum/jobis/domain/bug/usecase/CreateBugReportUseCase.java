@@ -37,7 +37,7 @@ public class CreateBugReportUseCase {
         );
 
         if (request.getAttachmentUrls() != null) {
-            List<BugAttachment> savedAllBugAttachment = commandBugReportPort.saveAllBugAttachment(
+            List<BugAttachment> savedBugAttachments = commandBugReportPort.saveAllBugAttachment(
                     request.getAttachmentUrls().stream()
                             .map(attachmentUrl ->
                                     BugAttachment.builder()
@@ -47,7 +47,7 @@ public class CreateBugReportUseCase {
                             ).toList()
             );
 
-            return savedBugReport.addAllBugAttachments(savedAllBugAttachment);
+            return savedBugReport.addAllBugAttachments(savedBugAttachments);
         }
 
         return savedBugReport;
