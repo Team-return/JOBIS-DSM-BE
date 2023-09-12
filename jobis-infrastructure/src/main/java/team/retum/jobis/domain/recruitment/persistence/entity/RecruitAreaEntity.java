@@ -35,7 +35,7 @@ public class RecruitAreaEntity {
     private Integer hiredCount;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(1300)")
+    @Column(columnDefinition = "VARCHAR(3500)")
     private String majorTask;
 
     @NotNull
