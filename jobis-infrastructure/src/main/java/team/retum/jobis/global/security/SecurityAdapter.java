@@ -25,7 +25,6 @@ import team.retum.jobis.global.security.auth.CurrentUserHolder;
 public class SecurityAdapter implements SecurityPort {
 
     private final PasswordEncoder passwordEncoder;
-    private final CurrentUserHolder<?> currentUserHolder;
     private final CompanyMapper companyMapper;
     private final StudentMapper studentMapper;
     private final TeacherMapper teacherMapper;
@@ -44,7 +43,7 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Authority getCurrentUserAuthority() {
-        return currentUserHolder.getAuthority();
+        return CurrentUserHolder.getCurrentUserAuthority();
     }
 
     @Override
@@ -54,17 +53,17 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Company getCurrentCompany() {
-        return companyMapper.toDomain((CompanyEntity) currentUserHolder.getUser());
+        return companyMapper.toDomain((CompanyEntity) CurrentUserHolder.getUser());
     }
 
     @Override
     public Student getCurrentStudent() {
-        return studentMapper.toDomain((StudentEntity) currentUserHolder.getUser());
+        return studentMapper.toDomain((StudentEntity) CurrentUserHolder.getUser());
     }
 
     @Override
     public Teacher getCurrentTeacher() {
-        return teacherMapper.toDomain((TeacherEntity) currentUserHolder.getUser());
+        return teacherMapper.toDomain((TeacherEntity) CurrentUserHolder.getUser());
     }
 
     @Override

@@ -9,6 +9,7 @@ import team.retum.jobis.common.error.JobisException;
 import team.retum.jobis.event.exception.model.ExceptionEvent;
 import team.retum.jobis.global.error.exception.GlobalErrorCode;
 import team.retum.jobis.global.error.response.ErrorResponse;
+import team.retum.jobis.global.security.auth.CurrentUserHolder;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,8 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
                         .build());
                 writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
             }
+        } finally {
+            CurrentUserHolder.clear();
         }
     }
 
