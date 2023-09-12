@@ -15,14 +15,13 @@ import team.retum.jobis.global.security.auth.CurrentUserHolder;
 public class StudentDetailsService implements UserDetailsService {
 
     private final StudentJpaRepository studentJpaRepository;
-    private final CurrentUserHolder<StudentEntity> studentCurrentUserHolder;
 
     @Override
     public UserDetails loadUserByUsername(String studentId) throws UsernameNotFoundException {
         StudentEntity studentEntity = studentJpaRepository.findById(
                 Long.valueOf(studentId)
         ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
-        studentCurrentUserHolder.setUser(studentEntity);
+        CurrentUserHolder.setUser(studentEntity);
 
         return new StudentDetails(studentEntity.getId());
     }

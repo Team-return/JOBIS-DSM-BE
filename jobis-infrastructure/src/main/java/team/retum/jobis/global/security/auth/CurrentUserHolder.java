@@ -1,38 +1,36 @@
 package team.retum.jobis.global.security.auth;
 
-import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
 
-@Component
-public class CurrentUserHolder<T> {
+public class CurrentUserHolder {
 
-    private final ThreadLocal<T> userThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<Object> currentUser = new ThreadLocal<>();
 
-    public Object getUser() {
-        return userThreadLocal.get();
+    public static Object getUser() {
+        return currentUser.get();
     }
 
-    public void setUser(T t) {
-        userThreadLocal.set(t);
+    public static void setUser(Object obj) {
+        currentUser.set(obj);
     }
 
-    public Authority getAuthority() {
-        Object currentUser = userThreadLocal.get();
-        if (currentUser instanceof StudentEntity) {
+    public static Authority getCurrentUserAuthority() {
+        Object user = currentUser.get();
+        if (user instanceof StudentEntity) {
             return Authority.STUDENT;
-        } else if (currentUser instanceof CompanyEntity) {
+        } else if (user instanceof CompanyEntity) {
             return Authority.COMPANY;
-        } else if (currentUser instanceof TeacherEntity) {
+        } else if (user instanceof TeacherEntity) {
             return Authority.TEACHER;
         } else {
             return null;
         }
     }
 
-    public void remove() {
-        userThreadLocal.remove();
+    public static void clear() {
+        currentUser.remove();
     }
 }
