@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -32,4 +33,5 @@ public class CompanyDetailsVO {
     private final Long recruitmentId;
     private final String serviceName;
     private final String businessArea;
+    private final List<String> attachmentUrls;
 }

@@ -6,6 +6,7 @@ import team.retum.jobis.common.annotation.Aggregate;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Builder(toBuilder = true)
@@ -42,6 +43,7 @@ public class Company {
     private final String bizRegistrationUrl;
     private final String businessArea;
     private final String serviceName;
+    private final List<String> attachmentUrls;
 
     public Company update(String mainAddress, String mainAddressDetail, String mainZipCode, String subAddress, String subAddressDetail,String subZipCode,
                           double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,

@@ -23,8 +23,6 @@ public interface QueryCompanyPort {
 
     List<TeacherEmployCompaniesVO> queryEmployCompanies(CompanyFilter filter);
 
-    List<String> queryCompanyAttachmentUrls(Long companyId);
-
     Optional<Company> queryCompanyById(Long companyId);
 
     List<Company> queryCompaniesByIdIn(List<Long> companyIds);
