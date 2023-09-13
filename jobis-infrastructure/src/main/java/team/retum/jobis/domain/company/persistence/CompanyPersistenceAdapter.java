@@ -8,11 +8,8 @@ import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
-import team.retum.jobis.domain.company.model.CompanyAttachment;
 import team.retum.jobis.domain.company.model.CompanyType;
-import team.retum.jobis.domain.company.persistence.mapper.CompanyAttachmentMapper;
 import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
-import team.retum.jobis.domain.company.persistence.repository.CompanyAttachmentJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyDetailsVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryReviewAvailableCompanyVO;
@@ -35,7 +32,6 @@ import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
-import static team.retum.jobis.domain.company.persistence.entity.QCompanyAttachmentEntity.companyAttachmentEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
 import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
 import static team.retum.jobis.domain.review.persistence.entity.QReviewEntity.reviewEntity;
@@ -46,8 +42,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
 
     private final CompanyJpaRepository companyJpaRepository;
     private final CompanyMapper companyMapper;
-    private final CompanyAttachmentJpaRepository companyAttachmentJpaRepository;
-    private final CompanyAttachmentMapper companyAttachmentMapper;
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -64,15 +58,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         companyJpaRepository.saveAll(
                 companies.stream()
                         .map(companyMapper::toEntity)
-                        .toList()
-        );
-    }
-
-    @Override
-    public void saveAllCompanyAttachment(List<CompanyAttachment> companyAttachments) {
-        companyAttachmentJpaRepository.saveAll(
-                companyAttachments.stream()
-                        .map(companyAttachmentMapper::toEntity)
                         .toList()
         );
     }
@@ -189,7 +174,8 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                                 companyEntity.take,
                                 recruitmentEntity.id,
                                 companyEntity.serviceName,
-                                companyEntity.businessArea
+                                companyEntity.businessArea,
+                                companyEntity.attachmentUrls
                         )
                 )
                 .from(companyEntity)
@@ -234,15 +220,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .fetch().stream()
                 .map(TeacherEmployCompaniesVO.class::cast)
                 .toList();
-    }
-
-    @Override
-    public List<String> queryCompanyAttachmentUrls(Long companyId) {
-        return queryFactory
-                .select(companyAttachmentEntity.attachmentUrl)
-                .from(companyAttachmentEntity)
-                .where(companyAttachmentEntity.company.id.eq(companyId))
-                .fetch();
     }
 
     @Override

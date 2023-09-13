@@ -13,10 +13,12 @@ import team.retum.jobis.domain.company.persistence.entity.type.Address;
 import team.retum.jobis.domain.company.persistence.entity.type.Manager;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
+import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.util.ImageProperty;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -116,18 +118,19 @@ public class CompanyEntity {
     @Column(columnDefinition = "VARCHAR(40)")
     private String serviceName;
 
-    @OneToMany(mappedBy = "company")
-    private final List<RecruitmentEntity> recruitments = new ArrayList<>();
+    @Convert(converter = StringListConverter.class)
+    @Column(columnDefinition = "VARCHAR(1000)")
+    private List<String> attachmentUrls;
 
     @OneToMany(mappedBy = "company")
-    private final List<CompanyAttachmentEntity> companyAttachments = new ArrayList<>();
+    private final List<RecruitmentEntity> recruitments = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
     private final List<AcceptanceEntity> acceptances = new ArrayList<>();
 
     @Builder
     public CompanyEntity(Long id, UserEntity userEntity, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
-                         String subAddress, String subAddressDetail, String subZipCode,
+                         String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
                          String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type, boolean isMou) {
@@ -150,5 +153,6 @@ public class CompanyEntity {
         this.bizNo = bizNo;
         this.companyIntroduce = companyIntroduce;
         this.companyLogoUrl = companyLogoUrl;
+        this.attachmentUrls = attachmentUrls;
     }
 }
