@@ -5,6 +5,7 @@ import lombok.Getter;
 import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 public class QueryCompanyDetailsVO extends CompanyDetailsVO {
@@ -16,11 +17,11 @@ public class QueryCompanyDetailsVO extends CompanyDetailsVO {
                                  String managerName, String managerPhoneNo, String subManagerName, String subManagerPhoneNo,
                                  String fax, String email, String representativeName,
                                  LocalDate foundedAt, int workerNumber, double take,
-                                 Long recruitmentId, String serviceName, String businessArea) {
+                                 Long recruitmentId, String serviceName, String businessArea, List<String> attachmentsUrl) {
         super(businessNumber, companyName, companyProfileUrl, companyIntroduce,
                 mainZipCode, mainAddress, mainAddressDetail, subZipCode, subAddress, subAddressDetail,
                 managerName, managerPhoneNo, subManagerName, subManagerPhoneNo,
                 fax, email, representativeName, foundedAt, workerNumber,
-                take, recruitmentId, serviceName, businessArea);
+                take, recruitmentId, serviceName, businessArea, attachmentsUrl);
     }
 }
