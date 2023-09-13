@@ -9,7 +9,9 @@ import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,7 +21,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -58,13 +60,15 @@ public class ApplicationEntity extends BaseTimeEntity {
     @Column(columnDefinition = "DATE")
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "application", orphanRemoval = true)
-    private List<ApplicationAttachmentEntity> applicationAttachments = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "tbl_appliation_attachment", joinColumns = @JoinColumn(name = "application_id"))
+    @OrderColumn(name = "attachment_id")
+    private List<ApplicationAttachmentEntity> attachments = new ArrayList<>();
 
     @Builder
     public ApplicationEntity(Long id, StudentEntity studentEntity, RecruitmentEntity recruitmentEntity,
                              ApplicationStatus applicationStatus, String rejectionReason,
-                             LocalDate startDate, LocalDate endDate) {
+                             LocalDate startDate, LocalDate endDate, List<ApplicationAttachmentEntity> attachments) {
         this.id = id;
         this.student = studentEntity;
         this.recruitment = recruitmentEntity;
@@ -72,5 +76,6 @@ public class ApplicationEntity extends BaseTimeEntity {
         this.rejectionReason = rejectionReason;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.attachments = attachments;
     }
 }
