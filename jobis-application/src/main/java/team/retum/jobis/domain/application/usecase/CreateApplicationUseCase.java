@@ -45,24 +45,18 @@ public class CreateApplicationUseCase {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        Application application = commandApplicationPort.saveApplication(
+        List<ApplicationAttachment> attachments = request.getAttachments()
+                .stream()
+                .map(attachment -> new ApplicationAttachment(attachment.getUrl(), attachment.getType()))
+                .toList();
+
+        commandApplicationPort.saveApplication(
                 Application.builder()
                         .studentId(student.getId())
                         .recruitmentId(recruitment.getId())
                         .applicationStatus(ApplicationStatus.REQUESTED)
+                        .attachments(attachments)
                         .build()
         );
-
-        List<ApplicationAttachment> applicationAttachments = request.getAttachments()
-                .stream()
-                .map(attachment ->
-                        ApplicationAttachment.builder()
-                                .attachmentUrl(attachment.getUrl())
-                                .type(attachment.getType())
-                                .applicationId(application.getId())
-                                .build()
-                ).toList();
-
-        commandApplicationPort.saveAllApplicationAttachment(applicationAttachments);
     }
 }
