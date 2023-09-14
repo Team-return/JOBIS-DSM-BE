@@ -32,7 +32,6 @@ public class ApplicationMapper {
         List<ApplicationAttachmentEntity> attachments = domain.getAttachments().stream()
                 .map(attachment -> new ApplicationAttachmentEntity(attachment.getAttachmentUrl(), attachment.getType()))
                 .toList();
-        System.out.println(attachments);
 
         return ApplicationEntity.builder()
                 .id(domain.getId())
