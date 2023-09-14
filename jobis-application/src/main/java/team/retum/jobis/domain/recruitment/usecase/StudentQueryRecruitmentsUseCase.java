@@ -36,6 +36,7 @@ public class StudentQueryRecruitmentsUseCase {
                 .status(RecruitStatus.RECRUITING)
                 .companyName(name)
                 .page(page)
+                .limit(12)
                 .codes(codeIds)
                 .studentId(currentStudentId)
                 .jobKeyword(jobKeyword)
