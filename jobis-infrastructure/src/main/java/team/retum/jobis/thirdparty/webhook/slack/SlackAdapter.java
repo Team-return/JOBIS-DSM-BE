@@ -3,17 +3,18 @@ package team.retum.jobis.thirdparty.webhook.slack;
 import lombok.RequiredArgsConstructor;
 import net.gpedro.integrations.slack.SlackApi;
 import net.gpedro.integrations.slack.SlackAttachment;
+import net.gpedro.integrations.slack.SlackException;
 import net.gpedro.integrations.slack.SlackField;
 import net.gpedro.integrations.slack.SlackMessage;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
+import team.retum.jobis.thirdparty.s3.S3Properties;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -27,62 +28,68 @@ public class SlackAdapter implements WebhookUtil {
     private static final String BUG_REPORT_TITLE = "버그 제목";
     private static final String CONTENT = "버그 내용";
     private static final String DEVELOPMENT_AREA = "버그가 발생한 분야";
-    private static final String WRITER = "버그 신고한 유저";
+    private static final String WRITER = "버그를 제보한 사용자";
     private static final String EXCEPTION_TITLE = "예외 발생";
-    private static final String URL = "Request URL";
-    private static final String METHOD = "Request Method";
     private static final String CURRENT_TIME = "Request Time";
-    private static final String IP = "Request IP";
-    private static final String USER_AGENT = "Request User-Agent";
     private static final String BUG_TEXT = "버그 제보가 도착했습니다.";
     private static final String EXCEPTION_TEXT = "서버 에러 발생 😱😱😱";
+
+    private final S3Properties s3Properties;
 
     private final SlackApi slackApi;
 
     @Override
-    public void sendBugReport(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
-        List<SlackAttachment> slackAttachments = createBugReportSlackAttachments(bugReport, bugAttachments, writer);
+    public void sendBugReport(BugReport bugReport, String writer) {
+        List<SlackAttachment> slackAttachments = createBugReportSlackAttachments(bugReport, writer);
 
-        SlackMessage slackMessage = createSlackMessage(BUG_TEXT, slackAttachments);
-
-        slackApi.call(slackMessage);
+        sendSlackMessage(BUG_TEXT, slackAttachments);
     }
 
     @Override
     public void sendExceptionInfo(HttpServletRequest request, Exception exception) {
-        SlackAttachment slackAttachment = new SlackAttachment();
+        SlackAttachment slackAttachment = createExceptionSlackAttachment(request, exception);
 
-        List<SlackField> slackFields = createExceptionInfoSlackFields(request);
-
-        slackAttachment.setFallback(FALLBACK);
-        slackAttachment.setColor(COLOR);
-        slackAttachment.setTitle(EXCEPTION_TITLE);
-        slackAttachment.setTitleLink(request.getContextPath());
-        slackAttachment.setText(stackTraceToString(exception));
-        slackAttachment.setFields(slackFields);
-
-        SlackMessage slackMessage = createSlackMessage(EXCEPTION_TEXT, Collections.singletonList(slackAttachment));
-
-        slackApi.call(slackMessage);
+        sendSlackMessage(EXCEPTION_TEXT, Collections.singletonList(slackAttachment));
     }
 
-    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, List<BugAttachment> bugAttachments, String writer) {
-        List<SlackAttachment> slackAttachments = new ArrayList<>();
+    private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
+        List<BugAttachment> bugAttachments = bugReport.getBugAttachments();
+        if (bugAttachments.isEmpty()) {
+            return Collections.singletonList(
+                    createBugReportSlackAttachment(bugReport, writer, null, true)
+            );
+        } else {
+            return bugAttachments.stream()
+                    .map(bugAttachment -> {
+                        boolean isFirst = bugAttachments.get(0) == bugAttachment;
+                        return createBugReportSlackAttachment(
+                                bugReport, writer, bugAttachment.getAttachmentUrl(), isFirst
+                        );
+                    })
+                    .toList();
+        }
+    }
 
-        for (BugAttachment bugAttachment : bugAttachments) {
-            SlackAttachment slackAttachment = new SlackAttachment();
+    private SlackAttachment createBugReportSlackAttachment(
+            BugReport bugReport,
+            String writer,
+            String attachmentUrl,
+            boolean isFirst
+    ) {
+        SlackAttachment slackAttachment = new SlackAttachment();
+        slackAttachment.setFallback(FALLBACK);
+        slackAttachment.setColor(COLOR);
 
+        if (isFirst) {
             List<SlackField> slackFields = createBugReportSlackFields(bugReport, writer);
-
-            slackAttachment.setFallback(FALLBACK);
-            slackAttachment.setColor(COLOR);
-            slackAttachment.setImageUrl(bugAttachment.getAttachmentUrl());
             slackAttachment.setFields(slackFields);
-
-            slackAttachments.add(slackAttachment);
         }
 
-        return slackAttachments;
+        if (attachmentUrl != null) {
+            slackAttachment.setImageUrl(s3Properties.getUrl() + attachmentUrl);
+        }
+
+        return slackAttachment;
     }
 
     private List<SlackField> createBugReportSlackFields(BugReport bugReport, String writer) {
@@ -94,14 +101,18 @@ public class SlackAdapter implements WebhookUtil {
         );
     }
 
-    private List<SlackField> createExceptionInfoSlackFields(HttpServletRequest request) {
-        return List.of(
-                createSlackField(URL, request.getRequestURL().toString()),
-                createSlackField(METHOD, request.getMethod()),
-                createSlackField(CURRENT_TIME, new Date().toString()),
-                createSlackField(IP, request.getRemoteAddr()),
-                createSlackField(USER_AGENT, request.getHeader(USER_AGENT.substring(8)))
-        );
+    private SlackAttachment createExceptionSlackAttachment(HttpServletRequest request, Exception exception) {
+        SlackAttachment slackAttachment = new SlackAttachment();
+
+        List<SlackField> slackFields = List.of(createSlackField(CURRENT_TIME, new Date().toString()));
+
+        slackAttachment.setFallback(FALLBACK);
+        slackAttachment.setColor(COLOR);
+        slackAttachment.setTitle(EXCEPTION_TITLE);
+        slackAttachment.setTitleLink(request.getContextPath());
+        slackAttachment.setText(stackTraceToString(exception));
+        slackAttachment.setFields(slackFields);
+        return slackAttachment;
     }
 
     private SlackField createSlackField(String title, String value) {
@@ -110,11 +121,16 @@ public class SlackAdapter implements WebhookUtil {
                 .setValue(value);
     }
 
-    private SlackMessage createSlackMessage(String text, List<SlackAttachment> slackAttachments) {
+    private void sendSlackMessage(String text, List<SlackAttachment> slackAttachments) {
         SlackMessage slackMessage = new SlackMessage();
         slackMessage.setText(text);
         slackMessage.setAttachments(slackAttachments);
-        return slackMessage;
+
+        try {
+            slackApi.call(slackMessage);
+        } catch (SlackException e) {
+            e.printStackTrace();
+        }
     }
 
     private String stackTraceToString(Exception exception) {
