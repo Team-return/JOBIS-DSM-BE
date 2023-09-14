@@ -67,7 +67,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @NotNull
     @Column(columnDefinition = "TINYINT(50)", nullable = false)
     private Integer workingHours;
-    @Column(columnDefinition = "VARCHAR(500)")
+    @Column(columnDefinition = "VARCHAR(550)")
     private String benefits;
     @NotNull
     @Column(columnDefinition = "BIT(1)")

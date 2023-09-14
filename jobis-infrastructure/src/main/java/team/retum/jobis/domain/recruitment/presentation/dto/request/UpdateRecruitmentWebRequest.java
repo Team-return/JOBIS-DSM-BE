@@ -32,7 +32,7 @@ public class UpdateRecruitmentWebRequest {
 
     private Integer pay;
 
-    @Size(max = 300)
+    @Size(max = 550)
     private String benefits;
 
     @NotNull

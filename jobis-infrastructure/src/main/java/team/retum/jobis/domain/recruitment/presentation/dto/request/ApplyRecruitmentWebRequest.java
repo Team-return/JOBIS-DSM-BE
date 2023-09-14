@@ -38,7 +38,7 @@ public class ApplyRecruitmentWebRequest {
 
     private Integer pay;
 
-    @Size(max = 500)
+    @Size(max = 550)
     private String benefits;
 
     @NotNull
