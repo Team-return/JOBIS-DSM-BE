@@ -53,7 +53,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .join(applicationEntity.student, studentEntity)
                 .join(applicationEntity.recruitment, recruitmentEntity)
                 .leftJoin(recruitmentEntity.company, companyEntity)
-                .join(applicationEntity.attachments, applicationAttachmentEntity)
+                .leftJoin(applicationEntity.attachments, applicationAttachmentEntity)
                 .where(
                         eqRecruitmentId(recruitmentId),
                         eqStudentId(studentId),
