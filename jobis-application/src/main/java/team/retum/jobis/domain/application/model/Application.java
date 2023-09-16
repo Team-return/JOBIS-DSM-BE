@@ -10,6 +10,7 @@ import team.retum.jobis.domain.application.exception.InvalidStudentException;
 import team.retum.jobis.domain.student.model.Student;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Builder(toBuilder = true)
@@ -29,6 +30,8 @@ public class Application {
     private final LocalDate startDate;
 
     private final LocalDate endDate;
+
+    private final List<ApplicationAttachment> attachments;
 
     public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
         checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);

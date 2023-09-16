@@ -14,14 +14,11 @@ import team.retum.jobis.domain.company.dto.request.RegisterCompanyRequest;
 import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.model.Company;
-import team.retum.jobis.domain.company.model.CompanyAttachment;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase
@@ -55,7 +52,7 @@ public class RegisterCompanyUseCase {
         Code code = queryCodePort.queryCodeById(request.getBusinessAreaCode())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
-        Company savedCompany = commandCompanyPort.saveCompany(
+        commandCompanyPort.saveCompany(
                 Company.builder()
                         .id(user.getId())
                         .companyIntroduce(request.getCompanyIntroduce())
@@ -83,24 +80,10 @@ public class RegisterCompanyUseCase {
                         .bizNo(request.getBusinessNumber())
                         .representative(request.getRepresentativeName())
                         .foundedAt(request.getFoundedAt())
+                        .attachmentUrls(request.getAttachmentUrls())
                         .build()
         );
 
-        if (request.getAttachmentUrls() != null) {
-            saveCompanyAttachments(request.getAttachmentUrls(), savedCompany.getId());
-        }
-
         return jwtPort.generateTokens(user.getId(), user.getAuthority());
-    }
-
-    private void saveCompanyAttachments(List<String> attachmentUrls, Long companyId) {
-        List<CompanyAttachment> companyAttachments = attachmentUrls.stream()
-                .map(attachmentUrl -> CompanyAttachment.builder()
-                        .companyId(companyId)
-                        .attachmentUrl(attachmentUrl)
-                        .build()
-                ).toList();
-
-        commandCompanyPort.saveAllCompanyAttachment(companyAttachments);
     }
 }

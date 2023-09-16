@@ -8,9 +8,7 @@ import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryApplic
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.application.persistence.mapper.ApplicationAttachmentMapper;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
-import team.retum.jobis.domain.application.persistence.repository.ApplicationAttachmentJpaRepository;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
@@ -45,9 +43,7 @@ import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.
 public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     private final ApplicationJpaRepository applicationJpaRepository;
-    private final ApplicationAttachmentJpaRepository applicationAttachmentJpaRepository;
     private final ApplicationMapper applicationMapper;
-    private final ApplicationAttachmentMapper applicationAttachmentMapper;
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -56,8 +52,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .selectFrom(applicationEntity)
                 .join(applicationEntity.student, studentEntity)
                 .join(applicationEntity.recruitment, recruitmentEntity)
-                .leftJoin(applicationEntity.applicationAttachments, applicationAttachmentEntity)
                 .leftJoin(recruitmentEntity.company, companyEntity)
+                .join(applicationEntity.attachments, applicationAttachmentEntity)
                 .where(
                         eqRecruitmentId(recruitmentId),
                         eqStudentId(studentId),
@@ -81,22 +77,22 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                                                 applicationEntity.applicationStatus
                                         )
                                 )
-                ).stream()
+                )
+                .stream()
                 .map(application -> ApplicationVO.builder()
                         .id(application.getId())
-                        .name(application.getName())
                         .grade(application.getGrade())
                         .number(application.getNumber())
                         .classNumber(application.getClassNumber())
                         .profileImageUrl(application.getProfileImageUrl())
                         .companyName(application.getCompanyName())
-                        .applicationAttachmentEntities(
-                                application.getApplicationAttachmentEntities().stream()
-                                        .map(applicationAttachmentMapper::toDomain)
-                                        .toList()
-                        )
                         .createdAt(application.getCreatedAt())
                         .applicationStatus(application.getApplicationStatus())
+                        .applicationAttachmentEntities(
+                                application.getApplicationAttachmentEntities().stream()
+                                        .map(attachment -> new ApplicationAttachment(attachment.getAttachmentUrl(), attachment.getType()))
+                                        .toList()
+                        )
                         .build()
                 )
                 .toList();
@@ -201,15 +197,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments) {
-        applicationAttachmentJpaRepository.saveAll(
-                applicationAttachments.stream()
-                        .map(applicationAttachmentMapper::toEntity)
-                        .toList()
-        );
-    }
-
-    @Override
     public List<Application> queryApplicationsByIds(List<Long> applicationIds) {
         return applicationJpaRepository.findAllByIdIn(applicationIds).stream()
                 .map(applicationMapper::toDomain)
@@ -243,7 +230,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     @Override
     public Optional<Application> queryApplicationById(Long applicationId) {
-        return applicationJpaRepository.findById(applicationId)
+        return applicationJpaRepository.findByIdFetch(applicationId)
                 .map(applicationMapper::toDomain);
     }
 

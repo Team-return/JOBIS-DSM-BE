@@ -11,15 +11,9 @@ spring:
       ddl-auto: update
     properties.hibernate:
       format_sql: true
-      show_sql: ${SHOW_SQL:true}
+      show_sql: true
   jackson:
     property-naming-strategy: SNAKE_CASE
-
-  data:
-    mongodb:
-      uri: mongodb://${MONGO_DB_HOST:localhost}:27017/${MONGO_DB_NAME:jobis}?authSorce=admin
-      username: ${MONGO_DB_USERNAME:root}
-      password: ${MONGO_DB_PASSWORD:qaz}
 
   servlet:
     multipart:

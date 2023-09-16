@@ -45,6 +45,7 @@ public class CompanyMapper {
                 .take(domain.getTake())
                 .isMou(domain.isMou())
                 .workersCount(domain.getWorkersCount())
+                .attachmentUrls(domain.getAttachmentUrls())
                 .userEntity(user)
                 .build();
     }
@@ -77,6 +78,7 @@ public class CompanyMapper {
                 .serviceName(entity.getServiceName())
                 .take(entity.getTake())
                 .workersCount(entity.getWorkersCount())
+                .attachmentUrls(entity.getAttachmentUrls())
                 .build();
     }
 }

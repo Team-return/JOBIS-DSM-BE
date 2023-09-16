@@ -6,8 +6,6 @@ import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class QueryCompanyDetailsUseCase {
@@ -16,7 +14,6 @@ public class QueryCompanyDetailsUseCase {
 
     public QueryCompanyDetailsResponse execute(Long companyId) {
         CompanyDetailsVO vo = queryCompanyPort.queryCompanyDetails(companyId);
-        List<String> attachmentUrls = queryCompanyPort.queryCompanyAttachmentUrls(companyId);
 
         return QueryCompanyDetailsResponse
                 .builder()
@@ -41,7 +38,7 @@ public class QueryCompanyDetailsUseCase {
                 .workerNumber(vo.getWorkerNumber())
                 .take(vo.getTake())
                 .recruitmentId(vo.getRecruitmentId())
-                .attachments(attachmentUrls)
+                .attachments(vo.getAttachmentUrls())
                 .serviceName(vo.getServiceName())
                 .businessArea(vo.getBusinessArea())
                 .build();

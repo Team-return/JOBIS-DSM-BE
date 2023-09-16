@@ -13,8 +13,6 @@ public interface CommandApplicationPort {
 
     void deleteApplicationByIds(List<Long> applicationIds);
 
-    void saveAllApplicationAttachment(List<ApplicationAttachment> applicationAttachments);
-
     void deleteApplication(Application application);
 
     void changeApplicationStatus(ApplicationStatus status, List<Long> applicationIds);
