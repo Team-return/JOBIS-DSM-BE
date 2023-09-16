@@ -16,6 +16,7 @@ public class StudentQueryCompaniesUseCase {
         CompanyFilter filter = CompanyFilter.builder()
                 .name(name)
                 .page(page)
+                .limit(12)
                 .build();
 
         return new StudentQueryCompaniesResponse(
