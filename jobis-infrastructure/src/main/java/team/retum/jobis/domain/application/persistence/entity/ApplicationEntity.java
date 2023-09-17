@@ -61,8 +61,7 @@ public class ApplicationEntity extends BaseTimeEntity {
     private LocalDate endDate;
 
     @ElementCollection
-    @CollectionTable(name = "tbl_appliation_attachment", joinColumns = @JoinColumn(name = "application_id"))
-    @OrderColumn(name = "attachment_id")
+    @CollectionTable(name = "tbl_application_attachment", joinColumns = @JoinColumn(name = "application_id"))
     private List<ApplicationAttachmentEntity> attachments = new ArrayList<>();
 
     @Builder
