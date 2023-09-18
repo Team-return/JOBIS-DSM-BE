@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.application.spi;
 
 import team.retum.jobis.domain.application.model.Application;
-import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 
 import java.time.LocalDate;

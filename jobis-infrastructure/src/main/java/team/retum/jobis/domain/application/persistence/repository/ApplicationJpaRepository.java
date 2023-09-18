@@ -13,8 +13,6 @@ public interface ApplicationJpaRepository extends JpaRepository<ApplicationEntit
     @Query("select a from ApplicationEntity a join fetch a.attachments where a.id in(?1)")
     List<ApplicationEntity> findAllByIdIn(List<Long> applicationIds);
 
-    boolean existsByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);
-
     void deleteByIdIn(List<Long> applicationIds);
 
     @Query("select a from ApplicationEntity a join fetch a.attachments where a.id=?1")

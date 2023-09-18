@@ -81,6 +81,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .stream()
                 .map(application -> ApplicationVO.builder()
                         .id(application.getId())
+                        .name(application.getName())
                         .grade(application.getGrade())
                         .number(application.getNumber())
                         .classNumber(application.getClassNumber())
@@ -277,9 +278,25 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             Long studentId,
             List<ApplicationStatus> applicationStatuses
     ) {
-        return applicationJpaRepository.existsByStudentIdAndApplicationStatusIn(
-                studentId, applicationStatuses
-        );
+        return queryFactory
+                .selectOne()
+                .from(applicationEntity)
+                .where(
+                        applicationEntity.student.id.eq(studentId),
+                        applicationEntity.applicationStatus.in(applicationStatuses)
+                ).fetchFirst() != null;
+    }
+
+    @Override
+    public boolean existsApplicationByStudentIdAndRecruitmentId(Long studentId, Long recruitmentId) {
+        return queryFactory
+                .selectOne()
+                .from(applicationEntity)
+                .where(
+                        applicationEntity.student.id.eq(studentId),
+                        applicationEntity.recruitment.id.eq(recruitmentId)
+                )
+                .fetchFirst() != null;
     }
 
     @Override

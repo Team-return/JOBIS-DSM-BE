@@ -35,13 +35,12 @@ public class CreateApplicationUseCase {
         recruitment.checkIsApplicable();
 
         if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
-                student.getId(),
-                List.of(
-                        ApplicationStatus.APPROVED,
-                        ApplicationStatus.FIELD_TRAIN,
-                        ApplicationStatus.PASS
-                )
+                student.getId(), ApplicationStatus.DUPLICATE_CHECK
         )) {
+            throw ApplicationAlreadyExistsException.EXCEPTION;
+        }
+
+        if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(student.getId(), recruitment.getId())) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
