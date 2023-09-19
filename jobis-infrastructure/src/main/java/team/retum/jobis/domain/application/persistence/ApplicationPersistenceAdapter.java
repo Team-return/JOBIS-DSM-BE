@@ -295,8 +295,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .where(
                         applicationEntity.student.id.eq(studentId),
                         applicationEntity.recruitment.id.eq(recruitmentId)
-                )
-                .fetchFirst() != null;
+                ).fetchFirst() != null;
     }
 
     @Override
