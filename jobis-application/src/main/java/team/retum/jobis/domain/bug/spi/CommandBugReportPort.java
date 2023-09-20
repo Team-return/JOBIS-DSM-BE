@@ -8,6 +8,4 @@ import java.util.List;
 public interface CommandBugReportPort {
 
     BugReport saveBugReport(BugReport bugReport);
-
-    List<BugAttachment> saveAllBugAttachment(List<BugAttachment> bugAttachments);
 }

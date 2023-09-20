@@ -53,7 +53,7 @@ public class SlackAdapter implements WebhookUtil {
     }
 
     private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
-        List<BugAttachment> bugAttachments = bugReport.getBugAttachments();
+        List<BugAttachment> bugAttachments = bugReport.getAttachments();
         if (bugAttachments.isEmpty()) {
             return Collections.singletonList(
                     createBugReportSlackAttachment(bugReport, writer, null, true)

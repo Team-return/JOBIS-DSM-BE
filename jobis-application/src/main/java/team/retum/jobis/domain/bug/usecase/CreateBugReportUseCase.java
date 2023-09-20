@@ -20,36 +20,21 @@ public class CreateBugReportUseCase {
     private final SecurityPort securityPort;
 
     public void execute(CreateBugReportRequest request) {
-        BugReport savedBugReport = saveBugReport(request);
-        String writer = securityPort.getCurrentStudent().getName();
+        List<BugAttachment> attachments = request.getAttachmentUrls().stream()
+                .map(BugAttachment::of)
+                .toList();
 
-        publishBugReportEventPort.publishBugReport(savedBugReport, writer);
-    }
-
-    private BugReport saveBugReport(CreateBugReportRequest request) {
         BugReport savedBugReport = commandBugReportPort.saveBugReport(
                 BugReport.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
                         .developmentArea(request.getDevelopmentArea())
                         .studentId(securityPort.getCurrentUserId())
+                        .attachments(attachments)
                         .build()
         );
 
-        if (request.getAttachmentUrls() != null) {
-            List<BugAttachment> savedBugAttachments = commandBugReportPort.saveAllBugAttachment(
-                    request.getAttachmentUrls().stream()
-                            .map(attachmentUrl ->
-                                    BugAttachment.builder()
-                                            .bugReportId(savedBugReport.getId())
-                                            .attachmentUrl(attachmentUrl)
-                                            .build()
-                            ).toList()
-            );
-
-            return savedBugReport.addAllBugAttachments(savedBugAttachments);
-        }
-
-        return savedBugReport;
+        String writer = securityPort.getCurrentStudent().getName();
+        publishBugReportEventPort.publishBugReport(savedBugReport, writer);
     }
 }
