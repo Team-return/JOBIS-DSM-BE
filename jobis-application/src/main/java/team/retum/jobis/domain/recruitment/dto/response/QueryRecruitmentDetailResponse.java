@@ -18,12 +18,10 @@ public class QueryRecruitmentDetailResponse {
     private final String companyProfileUrl;
     private final String companyName;
     private final List<RecruitAreaResponse> areas;
-    private final String preferentialTreatment;
     private final Integer requiredGrade;
     private final LocalTime startTime;
     private final LocalTime endTime;
     private final List<String> requiredLicenses;
-
     private final List<ProgressType> hiringProgress;
     private final Integer trainPay;
     private final Integer pay;
