@@ -31,6 +31,8 @@ public class SlackAdapter implements WebhookUtil {
     private static final String DEVELOPMENT_AREA = "버그가 발생한 분야";
     private static final String WRITER = "버그를 제보한 사용자";
     private static final String EXCEPTION_TITLE = "예외 발생";
+    private static final String REQUEST_URI = "Request URI";
+    private static final String METHOD = "Request Method";
     private static final String CURRENT_TIME = "Request Time";
     private static final String BUG_TEXT = "버그 제보가 도착했습니다.";
     private static final String EXCEPTION_TEXT = "서버 에러 발생 😱😱😱";
@@ -105,7 +107,11 @@ public class SlackAdapter implements WebhookUtil {
     private SlackAttachment createExceptionSlackAttachment(HttpServletRequest request, Exception exception) {
         SlackAttachment slackAttachment = new SlackAttachment();
 
-        List<SlackField> slackFields = List.of(createSlackField(CURRENT_TIME, new Date().toString()));
+        List<SlackField> slackFields = List.of(
+                createSlackField(REQUEST_URI, request.getRequestURI()),
+                createSlackField(METHOD, request.getMethod()),
+                createSlackField(CURRENT_TIME, new Date().toString())
+        );
 
         slackAttachment.setFallback(FALLBACK);
         slackAttachment.setColor(COLOR);
