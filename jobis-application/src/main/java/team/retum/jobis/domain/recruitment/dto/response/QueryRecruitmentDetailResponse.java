@@ -6,6 +6,7 @@ import team.retum.jobis.domain.recruitment.model.ProgressType;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,8 @@ public class QueryRecruitmentDetailResponse {
     private final List<RecruitAreaResponse> areas;
     private final String preferentialTreatment;
     private final Integer requiredGrade;
-    private final Integer workHours;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
     private final List<String> requiredLicenses;
 
     private final List<ProgressType> hiringProgress;
@@ -39,9 +41,9 @@ public class QueryRecruitmentDetailResponse {
                 .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
                 .companyName(recruitmentDetail.getCompanyName())
                 .areas(recruitAreas)
-                .preferentialTreatment(recruitmentDetail.getPreferentialTreatment())
                 .requiredGrade(recruitmentDetail.getRequiredGrade())
-                .workHours(recruitmentDetail.getWorkHours())
+                .startTime(recruitmentDetail.getStartTime())
+                .endTime(recruitmentDetail.getEndTime())
                 .requiredLicenses(recruitmentDetail.getRequiredLicenses())
                 .hiringProgress(recruitmentDetail.getHiringProgress())
                 .trainPay(recruitmentDetail.getTrainPay())
@@ -54,5 +56,4 @@ public class QueryRecruitmentDetailResponse {
                 .etc(recruitmentDetail.getEtc())
                 .build();
     }
-
 }

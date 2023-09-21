@@ -18,4 +18,6 @@ public class RecruitAreaResponse {
     private final int hiring;
 
     private final String majorTask;
+
+    private final String preferentialTreatment;
 }

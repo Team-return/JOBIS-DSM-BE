@@ -5,6 +5,7 @@ import lombok.Getter;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -15,11 +16,10 @@ public class RecruitmentDetailVO {
     private final Long companyId;
     private final String companyProfileUrl;
     private final String companyName;
-    private final String preferentialTreatment;
     private final Integer requiredGrade;
-    private final Integer workHours;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
     private final List<String> requiredLicenses;
-
     private final List<ProgressType> hiringProgress;
     private final Integer trainPay;
     private final Integer pay;
