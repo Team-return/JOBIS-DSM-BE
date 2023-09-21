@@ -17,6 +17,8 @@ public class RecruitArea {
 
     private final String jobCodes;
 
+    private final String preferentialTreatment;
+
     private final Long recruitmentId;
 
 }

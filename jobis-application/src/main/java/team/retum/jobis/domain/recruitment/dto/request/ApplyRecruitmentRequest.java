@@ -5,6 +5,7 @@ import lombok.Getter;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -13,11 +14,11 @@ public class ApplyRecruitmentRequest {
 
     private List<CreateRecruitAreaRequest> areas;
 
-    private String preferentialTreatment;
-
     private Integer requiredGrade;
 
-    private int workHours;
+    private LocalTime startTime;
+
+    private LocalTime endTime;
 
     private List<String> requiredLicenses;
 

@@ -31,10 +31,10 @@ public class UpdateRecruitmentUseCase {
 
         commandRecruitmentPort.saveRecruitment(
                 recruitment.update(
-                request.getTrainPay(), request.getPay(), request.getWorkHours(), request.getSubmitDocument(),
-                request.getStartDate(), request.getEndDate(), request.getBenefits(), request.getRequiredLicenses(),
-                request.isMilitary(), request.getEtc(), request.getPreferentialTreatment(), request.getHiringProgress(),
-                request.getRequiredGrade()
+                        request.getTrainPay(), request.getPay(), request.getStartTime(), request.getEndTime(),
+                        request.getSubmitDocument(), request.getStartDate(), request.getEndDate(), request.getBenefits(),
+                        request.getRequiredLicenses(), request.isMilitary(), request.getEtc(), request.getHiringProgress(),
+                        request.getRequiredGrade()
                 )
         );
     }

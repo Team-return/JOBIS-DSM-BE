@@ -7,6 +7,7 @@ import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -20,13 +21,13 @@ public class Recruitment {
 
     private final RecruitStatus status;
 
-    private final String preferentialTreatment;
-
     private final List<String> requiredLicenses;
 
     private final Integer requiredGrade;
 
-    private final Integer workingHours;
+    private final LocalTime startTime;
+
+    private final LocalTime endTime;
 
     private final String benefits;
 
@@ -50,17 +51,17 @@ public class Recruitment {
 
     private final Long companyId;
 
-    public Recruitment update(Integer trainPay, Integer pay, int workingHours, String submitDocument,
+    public Recruitment update(Integer trainPay, Integer pay, LocalTime startTime, LocalTime endTime, String submitDocument,
                               LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
-                              boolean militarySupport, String etc, String preferentialTreatment, List<ProgressType> hiringProgress, Integer requiredGrade
+                              boolean militarySupport, String etc, List<ProgressType> hiringProgress, Integer requiredGrade
     ) {
         return this.toBuilder()
-                .workingHours(workingHours)
+                .startTime(startTime)
+                .endTime(endTime)
                 .hiringProgress(hiringProgress)
                 .submitDocument(submitDocument)
                 .requiredGrade(requiredGrade)
                 .benefits(benefits)
-                .preferentialTreatment(preferentialTreatment)
                 .startDate(startDate)
                 .endDate(endDate)
                 .trainPay(trainPay)
