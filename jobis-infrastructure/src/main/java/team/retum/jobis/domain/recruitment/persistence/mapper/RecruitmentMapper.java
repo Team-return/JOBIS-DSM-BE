@@ -33,11 +33,11 @@ public class RecruitmentMapper {
                 .requiredGrade(domain.getRequiredGrade())
                 .requiredLicenses(domain.getRequiredLicenses())
                 .pay(domain.getPay())
-                .preferentialTreatment(domain.getPreferentialTreatment())
                 .submitDocument(domain.getSubmitDocument())
                 .trainPay(domain.getTrainPay())
                 .submitDocument(domain.getSubmitDocument())
-                .workingHours(domain.getWorkingHours())
+                .startTime(domain.getStartTime())
+                .endTime(domain.getEndTime())
                 .build();
     }
 
@@ -57,11 +57,11 @@ public class RecruitmentMapper {
                 .requiredGrade(entity.getRequiredGrade())
                 .requiredLicenses(entity.getRequiredLicenses())
                 .pay(entity.getPayInfo().getPay())
-                .preferentialTreatment(entity.getPreferentialTreatment())
                 .submitDocument(entity.getSubmitDocument())
                 .trainPay(entity.getPayInfo().getTrainPay())
                 .submitDocument(entity.getSubmitDocument())
-                .workingHours(entity.getWorkingHours())
+                .startTime(entity.getWorkingHour().getStartTime())
+                .endTime(entity.getWorkingHour().getEndTime())
                 .build();
     }
 }

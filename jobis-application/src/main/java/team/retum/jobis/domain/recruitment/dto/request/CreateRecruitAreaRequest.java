@@ -16,4 +16,6 @@ public class CreateRecruitAreaRequest {
     private int hiring;
 
     private String majorTask;
+
+    private String preferentialTreatment;
 }

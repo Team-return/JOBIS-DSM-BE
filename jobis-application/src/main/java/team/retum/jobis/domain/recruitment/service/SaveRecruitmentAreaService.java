@@ -29,6 +29,7 @@ public class SaveRecruitmentAreaService {
                         .hiredCount(request.getHiring())
                         .jobCodes(recruitJobs)
                         .majorTask(request.getMajorTask())
+                        .preferentialTreatment(request.getPreferentialTreatment())
                         .build()
         );
 

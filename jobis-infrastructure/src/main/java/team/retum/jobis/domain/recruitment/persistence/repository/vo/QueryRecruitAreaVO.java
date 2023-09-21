@@ -11,7 +11,8 @@ import java.util.List;
 public class QueryRecruitAreaVO extends RecruitAreaResponse {
 
     @QueryProjection
-    public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask, String jobCodes, List<CodeEntity> techCode) {
+    public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask,
+                              String jobCodes, String preferentialTreatment, List<CodeEntity> techCode) {
         super(
                 id,
                 List.of(jobCodes.split(",")),
@@ -19,7 +20,8 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
                         .map(CodeEntity::getKeyword)
                         .toList(),
                 hiredCount,
-                majorTask
+                majorTask,
+                preferentialTreatment
         );
     }
 }

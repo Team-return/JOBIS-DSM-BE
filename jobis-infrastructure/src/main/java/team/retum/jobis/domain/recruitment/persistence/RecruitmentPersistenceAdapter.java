@@ -110,9 +110,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 companyEntity.id,
                                 companyEntity.companyLogoUrl,
                                 companyEntity.name,
-                                recruitmentEntity.preferentialTreatment,
                                 recruitmentEntity.requiredGrade,
-                                recruitmentEntity.workingHours,
+                                recruitmentEntity.workingHour.startTime,
+                                recruitmentEntity.workingHour.endTime,
                                 recruitmentEntity.requiredLicenses,
                                 recruitmentEntity.hiringProgress,
                                 recruitmentEntity.payInfo.trainPay,
@@ -160,6 +160,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                                 recruitAreaEntity.hiredCount,
                                                 recruitAreaEntity.majorTask,
                                                 recruitAreaEntity.jobCodes,
+                                                recruitAreaEntity.preferentialTreatment,
                                                 list(codeEntity)
                                         )
                                 )
