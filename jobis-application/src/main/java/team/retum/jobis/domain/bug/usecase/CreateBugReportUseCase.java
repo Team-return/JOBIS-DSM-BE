@@ -20,9 +20,12 @@ public class CreateBugReportUseCase {
     private final SecurityPort securityPort;
 
     public void execute(CreateBugReportRequest request) {
-        List<BugAttachment> attachments = request.getAttachmentUrls().stream()
-                .map(BugAttachment::of)
-                .toList();
+        List<BugAttachment> attachments = List.of();
+        if (request.getAttachmentUrls() != null) {
+            attachments = request.getAttachmentUrls().stream()
+                    .map(BugAttachment::of)
+                    .toList();
+        }
 
         BugReport savedBugReport = commandBugReportPort.saveBugReport(
                 BugReport.builder()
