@@ -23,7 +23,7 @@ public class QueryBugReportDetailsUseCase {
                 .content(bugReport.getContent())
                 .developmentArea(bugReport.getDevelopmentArea())
                 .attachments(
-                        bugReport.getBugAttachments().stream()
+                        bugReport.getAttachments().stream()
                                 .map(BugAttachment::getAttachmentUrl)
                                 .toList())
                 .createdAt(bugReport.getCreatedAt())

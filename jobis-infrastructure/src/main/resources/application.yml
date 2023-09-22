@@ -12,6 +12,8 @@ spring:
     properties.hibernate:
       format_sql: true
       show_sql: ${SHOW_SQL:true}
+      jdbc:
+        batch_size: 200
   jackson:
     property-naming-strategy: SNAKE_CASE
 

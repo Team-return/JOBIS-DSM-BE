@@ -17,12 +17,6 @@ public class BugReport {
     private final String content;
     private final DevelopmentArea developmentArea;
     private final Long studentId;
-    private final List<BugAttachment> bugAttachments;
+    private final List<BugAttachment> attachments;
     private final LocalDateTime createdAt;
-
-    public BugReport addAllBugAttachments(List<BugAttachment> bugAttachments) {
-        return this.toBuilder()
-                .bugAttachments(bugAttachments)
-                .build();
-    }
 }

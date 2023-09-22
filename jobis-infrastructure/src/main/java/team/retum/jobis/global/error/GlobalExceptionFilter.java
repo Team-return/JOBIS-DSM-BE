@@ -2,6 +2,7 @@ package team.retum.jobis.global.error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import team.retum.jobis.common.error.ErrorProperty;
@@ -10,12 +11,14 @@ import team.retum.jobis.event.exception.model.ExceptionEvent;
 import team.retum.jobis.global.error.exception.GlobalErrorCode;
 import team.retum.jobis.global.error.response.ErrorResponse;
 import team.retum.jobis.global.security.auth.CurrentUserHolder;
+import team.retum.jobis.global.util.LogUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class GlobalExceptionFilter extends OncePerRequestFilter {
 
@@ -32,11 +35,8 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
             if (e.getCause() instanceof JobisException jobisException) {
                 writeErrorResponse(response, jobisException.getErrorProperty());
             } else {
-                e.printStackTrace();
-                eventPublisher.publishEvent(ExceptionEvent.builder()
-                        .request(request)
-                        .exception(e)
-                        .build());
+                log.error(LogUtil.stackTraceToString(e));
+                eventPublisher.publishEvent(ExceptionEvent.builder().request(request).exception(e).build());
                 writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
             }
         } finally {
@@ -49,8 +49,6 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         ErrorResponse errorResponse = ErrorResponse.of(errorProperty);
-        response.getWriter().write(
-                objectMapper.writeValueAsString(errorResponse)
-        );
+        response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
     }
 }

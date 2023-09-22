@@ -8,7 +8,9 @@ import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,7 +20,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -51,15 +52,18 @@ public class BugReportEntity extends BaseTimeEntity {
     @JoinColumn(name = "student_id", nullable = false)
     private StudentEntity student;
 
-    @OneToMany(mappedBy = "bugReport", orphanRemoval = true)
-    private List<BugAttachmentEntity> bugAttachments = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "tbl_bug_attachment", joinColumns = @JoinColumn(name = "bug_report_id"))
+    private List<BugAttachmentEntity> attachments = new ArrayList<>();
 
     @Builder
-    public BugReportEntity(Long id, String title, String content, DevelopmentArea developmentArea, StudentEntity student) {
+    public BugReportEntity(Long id, String title, String content, List<BugAttachmentEntity> attachments,
+                           DevelopmentArea developmentArea, StudentEntity student) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.developmentArea = developmentArea;
+        this.attachments = attachments;
         this.student = student;
     }
 }

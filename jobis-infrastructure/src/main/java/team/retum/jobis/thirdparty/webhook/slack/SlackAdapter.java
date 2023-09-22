@@ -1,6 +1,7 @@
 package team.retum.jobis.thirdparty.webhook.slack;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.gpedro.integrations.slack.SlackApi;
 import net.gpedro.integrations.slack.SlackAttachment;
 import net.gpedro.integrations.slack.SlackException;
@@ -9,17 +10,17 @@ import net.gpedro.integrations.slack.SlackMessage;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
+import team.retum.jobis.global.util.LogUtil;
 import team.retum.jobis.thirdparty.s3.S3Properties;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 @Component
 public class SlackAdapter implements WebhookUtil {
 
@@ -53,7 +54,7 @@ public class SlackAdapter implements WebhookUtil {
     }
 
     private List<SlackAttachment> createBugReportSlackAttachments(BugReport bugReport, String writer) {
-        List<BugAttachment> bugAttachments = bugReport.getBugAttachments();
+        List<BugAttachment> bugAttachments = bugReport.getAttachments();
         if (bugAttachments.isEmpty()) {
             return Collections.singletonList(
                     createBugReportSlackAttachment(bugReport, writer, null, true)
@@ -110,7 +111,7 @@ public class SlackAdapter implements WebhookUtil {
         slackAttachment.setColor(COLOR);
         slackAttachment.setTitle(EXCEPTION_TITLE);
         slackAttachment.setTitleLink(request.getContextPath());
-        slackAttachment.setText(stackTraceToString(exception));
+        slackAttachment.setText(LogUtil.stackTraceToString(exception));
         slackAttachment.setFields(slackFields);
         return slackAttachment;
     }
@@ -129,15 +130,7 @@ public class SlackAdapter implements WebhookUtil {
         try {
             slackApi.call(slackMessage);
         } catch (SlackException e) {
-            e.printStackTrace();
+            log.error(LogUtil.stackTraceToString(e));
         }
-    }
-
-    private String stackTraceToString(Exception exception) {
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(stringWriter);
-        exception.printStackTrace(printWriter);
-
-        return stringWriter.toString();
     }
 }
