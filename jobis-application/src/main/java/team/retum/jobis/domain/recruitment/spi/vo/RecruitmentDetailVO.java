@@ -22,7 +22,7 @@ public class RecruitmentDetailVO {
     private final List<String> requiredLicenses;
     private final List<ProgressType> hiringProgress;
     private final Integer trainPay;
-    private final Integer pay;
+    private final String pay;
     private final String benefits;
     private final Boolean military;
     private final String submitDocument;

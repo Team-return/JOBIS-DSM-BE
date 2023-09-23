@@ -109,7 +109,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private final List<ApplicationEntity> applications = new ArrayList<>();
 
     @Builder
-    public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, Integer trainPay, Integer pay,
+    public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, Integer trainPay, String pay,
                              LocalTime startTime, LocalTime endTime, String submitDocument, LocalDate startDate,
                              LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport,
                              List<String> requiredLicenses, String etc, List<ProgressType> hiringProgress,

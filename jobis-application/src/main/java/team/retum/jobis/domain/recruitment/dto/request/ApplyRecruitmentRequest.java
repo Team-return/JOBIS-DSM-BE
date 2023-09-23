@@ -26,7 +26,7 @@ public class ApplyRecruitmentRequest {
 
     private int trainPay;
 
-    private Integer pay;
+    private String pay;
 
     private String benefits;
 

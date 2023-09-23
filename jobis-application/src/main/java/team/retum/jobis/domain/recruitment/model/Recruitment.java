@@ -45,13 +45,13 @@ public class Recruitment {
 
     private final Integer trainPay;
 
-    private final Integer pay;
+    private final String pay;
 
     private final boolean personalContract;
 
     private final Long companyId;
 
-    public Recruitment update(Integer trainPay, Integer pay, LocalTime startTime, LocalTime endTime, String submitDocument,
+    public Recruitment update(Integer trainPay, String pay, LocalTime startTime, LocalTime endTime, String submitDocument,
                               LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
                               boolean militarySupport, String etc, List<ProgressType> hiringProgress, Integer requiredGrade
     ) {
