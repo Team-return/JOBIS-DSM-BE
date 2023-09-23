@@ -19,6 +19,6 @@ public class PayInfo {
     @Column(columnDefinition = "INT")
     private Integer trainPay;
 
-    @Column(columnDefinition = "INT")
-    private Integer pay;
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String pay;
 }
