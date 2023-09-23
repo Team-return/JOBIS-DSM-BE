@@ -21,7 +21,7 @@ public class QueryMyRecruitmentResponse {
     private final LocalTime startTime;
     private final LocalTime endTime;
     private final Integer trainPay;
-    private final Integer pay;
+    private final String pay;
     private final String benefits;
     private final boolean militarySupport;
     private final List<ProgressType> hiringProgress;

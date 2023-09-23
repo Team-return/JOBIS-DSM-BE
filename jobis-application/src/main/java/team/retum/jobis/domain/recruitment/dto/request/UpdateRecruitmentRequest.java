@@ -24,7 +24,7 @@ public class UpdateRecruitmentRequest {
 
     private Integer trainPay;
 
-    private Integer pay;
+    private String pay;
 
     private String benefits;
 
