@@ -15,8 +15,6 @@ public class TeacherQueryRecruitmentsResponse {
 
     private final List<TeacherRecruitmentResponse> recruitments;
 
-    private final int totalPageCount;
-
     @Getter
     @Builder
     public static class TeacherRecruitmentResponse {

@@ -30,10 +30,6 @@ public class TeacherQueryRecruitmentsUseCase {
                 .page(page)
                 .build();
 
-        int totalPageCount = NumberUtil.getTotalPageCount(
-                queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
-        );
-
         List<TeacherRecruitmentResponse> recruitments =
                 queryRecruitmentPort.queryRecruitmentsByFilter(filter).stream()
                         .map(recruitment ->
@@ -52,6 +48,6 @@ public class TeacherQueryRecruitmentsUseCase {
                                         .build()
                         ).toList();
 
-        return new TeacherQueryRecruitmentsResponse(recruitments, totalPageCount);
+        return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 }
