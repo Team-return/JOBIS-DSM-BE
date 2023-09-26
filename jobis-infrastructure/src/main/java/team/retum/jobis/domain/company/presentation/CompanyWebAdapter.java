@@ -89,6 +89,14 @@ public class CompanyWebAdapter {
         return studentQueryCompaniesUseCase.execute(page - 1, name);
     }
 
+    @GetMapping("student/count")
+    public StudentQueryCompanyCountResponse studentQueryCompanyCount(
+            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        return studentQueryCompanyCountUseCase.execute(page - 1, name);
+    }
+
     @GetMapping("/{company-id}")
     public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
         return queryCompanyDetailsUseCase.execute(companyId);
