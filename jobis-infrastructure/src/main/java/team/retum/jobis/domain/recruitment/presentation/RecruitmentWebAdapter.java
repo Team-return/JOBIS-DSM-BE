@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
-import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentCountResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
-import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentCountResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentWebRequest;
@@ -30,10 +29,8 @@ import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitmentUseCase;
 import team.retum.jobis.domain.recruitment.usecase.QueryMyRecruitmentUseCase;
 import team.retum.jobis.domain.recruitment.usecase.QueryRecruitmentDetailUseCase;
-import team.retum.jobis.domain.recruitment.usecase.StudentQueryRecruitmentCountUseCase;
 import team.retum.jobis.domain.recruitment.usecase.StudentQueryRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.TeacherChangeRecruitmentStatusUseCase;
-import team.retum.jobis.domain.recruitment.usecase.TeacherQueryRecruitmentCountUseCase;
 import team.retum.jobis.domain.recruitment.usecase.TeacherQueryRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
@@ -52,9 +49,7 @@ public class RecruitmentWebAdapter {
     private final UpdateRecruitAreaUseCase updateRecruitAreaService;
     private final CreateRecruitAreaUseCase createRecruitAreaUseCase;
     private final StudentQueryRecruitmentsUseCase studentQueryRecruitmentsUseCase;
-    private final StudentQueryRecruitmentCountUseCase studentQueryRecruitmentCountUseCase;
     private final TeacherQueryRecruitmentsUseCase teacherQueryRecruitmentsUseCase;
-    private final TeacherQueryRecruitmentCountUseCase teacherQueryRecruitmentCountUseCase;
     private final TeacherChangeRecruitmentStatusUseCase teacherChangeRecruitmentStatusService;
     private final QueryRecruitmentDetailUseCase queryRecruitmentDetailUseCase;
     private final QueryMyRecruitmentUseCase queryMyRecruitmentUseCase;
@@ -106,14 +101,14 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/student/count")
-    public StudentQueryRecruitmentCountResponse studentQueryRecruitmentCount(
+    public TotalPageCountResponse studentQueryRecruitmentCount(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(value = "job_code", required = false) Long jobCode,
             @RequestParam(value = "tech_code", required = false) String techCode
     ) {
         List<Long> techCodes = StringUtil.divideString(techCode).stream().map(Long::parseLong).toList();
-        return studentQueryRecruitmentCountUseCase.execute(companyName, page, jobCode, techCodes);
+        return studentQueryRecruitmentsUseCase.getCount(companyName, page, jobCode, techCodes);
     }
 
     @GetMapping("/teacher")
@@ -129,7 +124,7 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/teacher/count")
-    public TeacherQueryRecruitmentCountResponse queryRecruitmentCount(
+    public TotalPageCountResponse queryRecruitmentCount(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
@@ -137,7 +132,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return teacherQueryRecruitmentCountUseCase.execute(companyName, start, end, year, status, page);
+        return teacherQueryRecruitmentsUseCase.getCount(companyName, start, end, year, status, page);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

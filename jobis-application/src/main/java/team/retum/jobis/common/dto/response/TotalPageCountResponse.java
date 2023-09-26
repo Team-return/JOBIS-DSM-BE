@@ -1,11 +1,11 @@
-package team.retum.jobis.domain.company.dto.response;
+package team.retum.jobis.common.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class TeacherQueryCompanyCountResponse {
+public class TotalPageCountResponse {
 
     private final int totalPageCount;
 }

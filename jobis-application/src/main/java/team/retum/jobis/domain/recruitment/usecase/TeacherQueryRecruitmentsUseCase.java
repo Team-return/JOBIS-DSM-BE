@@ -2,6 +2,7 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
@@ -49,5 +50,24 @@ public class TeacherQueryRecruitmentsUseCase {
                         ).toList();
 
         return new TeacherQueryRecruitmentsResponse(recruitments);
+    }
+
+    public TotalPageCountResponse getCount(String companyName, LocalDate start, LocalDate end,
+                                          Integer year, RecruitStatus status, Long page) {
+        RecruitmentFilter filter = RecruitmentFilter.builder()
+                .companyName(companyName)
+                .status(status)
+                .startDate(start)
+                .endDate(end)
+                .codes(List.of())
+                .year(year)
+                .page(page)
+                .build();
+
+        int totalPageCount = NumberUtil.getTotalPageCount(
+                queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
+        );
+
+        return new TotalPageCountResponse(totalPageCount);
     }
 }
