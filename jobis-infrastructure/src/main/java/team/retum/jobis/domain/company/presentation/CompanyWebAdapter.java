@@ -17,7 +17,9 @@ import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
 import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
+import team.retum.jobis.domain.company.dto.response.StudentQueryCompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
+import team.retum.jobis.domain.company.dto.response.TeacherQueryCompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyWebRequest;
@@ -30,7 +32,9 @@ import team.retum.jobis.domain.company.usecase.QueryCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.QueryReviewAvailableCompaniesUseCase;
 import team.retum.jobis.domain.company.usecase.RegisterCompanyUseCase;
 import team.retum.jobis.domain.company.usecase.StudentQueryCompaniesUseCase;
+import team.retum.jobis.domain.company.usecase.StudentQueryCompanyCountUseCase;
 import team.retum.jobis.domain.company.usecase.TeacherQueryCompaniesUseCase;
+import team.retum.jobis.domain.company.usecase.TeacherQueryCompanyCountUseCase;
 import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
@@ -47,11 +51,13 @@ public class CompanyWebAdapter {
     private final CheckCompanyExistsUseCase checkCompanyExistsUseCase;
     private final UpdateCompanyDetailsUseCase updateCompanyDetailsUseCase;
     private final StudentQueryCompaniesUseCase studentQueryCompaniesUseCase;
+    private final StudentQueryCompanyCountUseCase studentQueryCompanyCountUseCase;
     private final QueryCompanyDetailsUseCase queryCompanyDetailsUseCase;
     private final CompanyMyPageUseCase companyMyPageUseCase;
     private final UpdateCompanyTypeUseCase updateCompanyTypeUseCase;
     private final TeacherQueryEmployCompaniesUseCase teacherQueryEmployCompaniesUseCase;
     private final TeacherQueryCompaniesUseCase teacherQueryCompaniesUseCase;
+    private final TeacherQueryCompanyCountUseCase teacherQueryCompanyCountUseCase;
     private final UpdateMouUseCase updateMouUseCase;
     private final QueryReviewAvailableCompaniesUseCase queryReviewAvailableCompaniesUseCase;
 
@@ -118,6 +124,17 @@ public class CompanyWebAdapter {
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page - 1);
+    }
+
+    @GetMapping("/teacher/count")
+    public TeacherQueryCompanyCountResponse queryCompanyCount(
+            @RequestParam(value = "type", required = false) CompanyType type,
+            @RequestParam(value = "name", required = false) String companyName,
+            @RequestParam(value = "region", required = false) String region,
+            @RequestParam(value = "business_area", required = false) Long businessArea,
+            @RequestParam(value = "page", defaultValue = "1") Long page
+    ) {
+        return teacherQueryCompanyCountUseCase.execute(type, companyName, region, businessArea, page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

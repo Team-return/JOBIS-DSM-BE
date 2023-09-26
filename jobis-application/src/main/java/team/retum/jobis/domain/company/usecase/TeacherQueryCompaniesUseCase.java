@@ -38,10 +38,6 @@ public class TeacherQueryCompaniesUseCase {
                 .page(page)
                 .build();
 
-        int totalPageCount = NumberUtil.getTotalPageCount(
-                queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
-        );
-
         return new TeacherQueryCompaniesResponse(
                 queryCompanyPort.queryCompaniesByConditions(filter).stream()
                         .map(company -> TeacherQueryCompanyResponse.builder()
@@ -58,8 +54,7 @@ public class TeacherQueryCompaniesUseCase {
                                 .totalAcceptanceCount(company.getTotalAcceptanceCount())
                                 .reviewCount(company.getReviewCount())
                                 .build()
-                        ).toList(),
-                totalPageCount
+                        ).toList()
         );
     }
 
