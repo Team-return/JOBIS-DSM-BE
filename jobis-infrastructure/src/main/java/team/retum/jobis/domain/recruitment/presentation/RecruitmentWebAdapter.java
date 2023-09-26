@@ -108,7 +108,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "tech_code", required = false) String techCode
     ) {
         List<Long> techCodes = StringUtil.divideString(techCode).stream().map(Long::parseLong).toList();
-        return studentQueryRecruitmentsUseCase.getCount(companyName, page, jobCode, techCodes);
+        return studentQueryRecruitmentsUseCase.getTotalPageCount(companyName, page, jobCode, techCodes);
     }
 
     @GetMapping("/teacher")
@@ -132,7 +132,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return teacherQueryRecruitmentsUseCase.getCount(companyName, start, end, year, status, page);
+        return teacherQueryRecruitmentsUseCase.getTotalPageCount(companyName, start, end, year, status, page);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -89,7 +89,7 @@ public class CompanyWebAdapter {
             @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(value = "name", required = false) String name
     ) {
-        return studentQueryCompaniesUseCase.getCount(page - 1, name);
+        return studentQueryCompaniesUseCase.getTotalPageCount(page - 1, name);
     }
 
     @GetMapping("/{company-id}")
@@ -137,7 +137,7 @@ public class CompanyWebAdapter {
             @RequestParam(value = "business_area", required = false) Long businessArea,
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
-        return teacherQueryCompaniesUseCase.getCount(type, companyName, region, businessArea, page - 1);
+        return teacherQueryCompaniesUseCase.getTotalPageCount(type, companyName, region, businessArea, page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

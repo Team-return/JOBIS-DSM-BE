@@ -26,7 +26,7 @@ public class StudentQueryCompaniesUseCase {
         );
     }
 
-    public TotalPageCountResponse getCount(Long page, String name) {
+    public TotalPageCountResponse getTotalPageCount(Long page, String name) {
         CompanyFilter filter = CompanyFilter.builder()
                 .name(name)
                 .page(page)

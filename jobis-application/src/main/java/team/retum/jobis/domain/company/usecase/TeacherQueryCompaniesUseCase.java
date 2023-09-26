@@ -59,7 +59,7 @@ public class TeacherQueryCompaniesUseCase {
         );
     }
 
-    public TotalPageCountResponse getCount(CompanyType type, String companyName, String region, Long businessArea, Long page) {
+    public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea, Long page) {
         CompanyFilter filter = CompanyFilter.builder()
                 .type(type)
                 .name(companyName)

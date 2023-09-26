@@ -62,7 +62,7 @@ public class StudentQueryRecruitmentsUseCase {
         return new StudentQueryRecruitmentsResponse(recruitments);
     }
 
-    public TotalPageCountResponse getCount(String name, Long page, Long jobCode, List<Long> codeIds) {
+    public TotalPageCountResponse getTotalPageCount(String name, Long page, Long jobCode, List<Long> codeIds) {
         Long currentStudentId = securityPort.getCurrentUserId();
         String jobKeyword = validJobCode(jobCode);
 

@@ -52,7 +52,7 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
-    public TotalPageCountResponse getCount(String companyName, LocalDate start, LocalDate end,
+    public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,
                                           Integer year, RecruitStatus status, Long page) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
                 .companyName(companyName)
