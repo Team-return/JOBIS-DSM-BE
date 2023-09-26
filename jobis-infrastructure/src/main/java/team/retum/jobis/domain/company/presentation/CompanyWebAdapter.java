@@ -17,6 +17,7 @@ import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
 import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
+import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -83,6 +84,14 @@ public class CompanyWebAdapter {
         return studentQueryCompaniesUseCase.execute(page - 1, name);
     }
 
+    @GetMapping("/student/count")
+    public TotalPageCountResponse studentQueryCompanyCount(
+            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        return studentQueryCompaniesUseCase.getTotalPageCount(page - 1, name);
+    }
+
     @GetMapping("/{company-id}")
     public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
         return queryCompanyDetailsUseCase.execute(companyId);
@@ -118,6 +127,17 @@ public class CompanyWebAdapter {
             @RequestParam(value = "page", defaultValue = "1") Long page
     ) {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page - 1);
+    }
+
+    @GetMapping("/teacher/count")
+    public TotalPageCountResponse queryCompanyCount(
+            @RequestParam(value = "type", required = false) CompanyType type,
+            @RequestParam(value = "name", required = false) String companyName,
+            @RequestParam(value = "region", required = false) String region,
+            @RequestParam(value = "business_area", required = false) Long businessArea,
+            @RequestParam(value = "page", defaultValue = "1") Long page
+    ) {
+        return teacherQueryCompaniesUseCase.getTotalPageCount(type, companyName, region, businessArea, page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

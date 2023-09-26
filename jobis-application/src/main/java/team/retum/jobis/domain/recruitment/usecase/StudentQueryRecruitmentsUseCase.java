@@ -2,7 +2,9 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
+import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
@@ -58,6 +60,28 @@ public class StudentQueryRecruitmentsUseCase {
                         ).toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
+    }
+
+    public TotalPageCountResponse getTotalPageCount(String name, Long page, Long jobCode, List<Long> codeIds) {
+        Long currentStudentId = securityPort.getCurrentUserId();
+        String jobKeyword = validJobCode(jobCode);
+
+        RecruitmentFilter filter = RecruitmentFilter.builder()
+                .year(Year.now().getValue())
+                .status(RecruitStatus.RECRUITING)
+                .companyName(name)
+                .page(page)
+                .limit(12)
+                .codes(codeIds)
+                .studentId(currentStudentId)
+                .jobKeyword(jobKeyword)
+                .build();
+
+        int totalPageCount = NumberUtil.getTotalPageCount(
+                queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
+        );
+
+        return new TotalPageCountResponse(totalPageCount);
     }
 
     private String validJobCode(Long jobCode) {

@@ -76,9 +76,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/student").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/recruitments/teacher/count").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                 .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
@@ -95,6 +97,7 @@ public class SecurityConfig {
 
                 //companies
                 .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/companies/teacher/count").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/companies/type").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/companies/mou").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/companies").permitAll()
@@ -104,8 +107,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.GET, "/companies/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/companies/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
                 //users
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
