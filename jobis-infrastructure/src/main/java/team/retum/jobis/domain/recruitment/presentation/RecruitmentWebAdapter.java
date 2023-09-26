@@ -105,6 +105,17 @@ public class RecruitmentWebAdapter {
         return studentQueryRecruitmentsUseCase.execute(companyName, page - 1, jobCode, techCodes);
     }
 
+    @GetMapping("/student/count")
+    public StudentQueryRecruitmentCountResponse studentQueryRecruitmentCount(
+            @RequestParam(value = "name", required = false) String companyName,
+            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
+            @RequestParam(value = "job_code", required = false) Long jobCode,
+            @RequestParam(value = "tech_code", required = false) String techCode
+    ) {
+        List<Long> techCodes = StringUtil.divideString(techCode).stream().map(Long::parseLong).toList();
+        return studentQueryRecruitmentCountUseCase.execute(companyName, page, jobCode, techCodes);
+    }
+
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
             @RequestParam(value = "company_name", required = false) String companyName,
