@@ -1,0 +1,58 @@
+name: prod-cd
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew --build-cache build
+
+      - name: Login to ECR
+        id: ecr
+        uses: elgohr/ecr-login-action@master
+        with:
+          access_key: ${{ secrets.AWS_ACCESS }}
+          secret_access_key: ${{ secrets.AWS_SECRET }}
+          region: ${{ secrets.AWS_REGION }}
+
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: ${{ secrets.ECR_REPOSITORY }}
+          username: ${{ steps.ecr.outputs.username }}
+          password: ${{ steps.ecr.outputs.password }}
+          registry: ${{ steps.ecr.outputs.registry }}
+
+      - name: Connect EC2 & Deploy Docker Image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          port: ${{ secrets.EC2_PORT }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd jobis
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
+            docker pull ${{ secrets.ECR_REPOSITORY }}
+            docker rm -f jobis-server
+            docker image prune -a -f
+            docker run --name jobis-server -dp 8080:8080 --env-file .env ${{ secrets.ECR_REPOSITORY }}
+            
+            
+      
