@@ -36,7 +36,7 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          name: ${{ secrets.ECR_DEV_REPOSITORY }}
+          name: ${{ secrets.ECR_REPOSITORY }}
           username: ${{ steps.ecr.outputs.username }}
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
@@ -44,17 +44,14 @@ jobs:
       - name: Connect EC2 & Deploy Docker Image
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_DEV_HOST }}
+          host: ${{ secrets.EC2_HOST }}
           port: ${{ secrets.EC2_PORT }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd jobis
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_DEV_REPOSITORY }}
-            docker pull ${{ secrets.ECR_DEV_REPOSITORY }}
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
+            docker pull ${{ secrets.ECR_REPOSITORY }}
             docker rm -f jobis-server
             docker image prune -a -f
-            docker run --name jobis-server -dp 8080:8080 --env-file .env ${{ secrets.ECR_DEV_REPOSITORY }}
-            
-            
-      
+            docker run --name jobis-server -dp 8080:8080 --env-file .env ${{ secrets.ECR_REPOSITORY }}
