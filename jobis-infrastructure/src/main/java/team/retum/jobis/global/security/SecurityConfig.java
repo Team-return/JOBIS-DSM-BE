@@ -58,14 +58,14 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/students/password").hasAuthority(STUDENT.name())
 
                 //applications
+                .antMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
                 .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
                 .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/applications/{company-id}").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/applications/{recruitment-id}").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/applications/reject/{application-id}").hasAuthority(TEACHER.name())
@@ -109,6 +109,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/companies/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.GET, "/companies/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/companies/employment/count").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
                 //users

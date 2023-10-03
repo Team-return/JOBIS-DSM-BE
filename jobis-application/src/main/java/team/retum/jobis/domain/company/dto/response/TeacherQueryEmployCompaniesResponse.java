@@ -11,5 +11,4 @@ import java.util.List;
 public class TeacherQueryEmployCompaniesResponse {
 
     private final List<TeacherEmployCompaniesVO> companies;
-    private final int totalPageCount;
 }

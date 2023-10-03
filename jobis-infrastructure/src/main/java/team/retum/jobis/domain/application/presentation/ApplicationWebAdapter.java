@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
@@ -73,6 +74,14 @@ public class ApplicationWebAdapter {
             @RequestParam(value = "recruitment_id", required = false) Long recruitmentId
     ) {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
+    }
+
+    @GetMapping("/count")
+    public TotalPageCountResponse queryApplicationCount(
+            @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
+            @RequestParam(value = "student_name", required = false) String studentName
+    ) {
+        return queryApplicationListService.getTotalPageCount(applicationStatus, studentName);
     }
 
     @GetMapping("/company")
