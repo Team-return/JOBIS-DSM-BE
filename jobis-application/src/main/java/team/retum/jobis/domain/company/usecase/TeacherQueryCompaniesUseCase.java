@@ -59,7 +59,7 @@ public class TeacherQueryCompaniesUseCase {
         );
     }
 
-    public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea, Long page) {
+    public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea) {
         CompanyFilter filter = CompanyFilter.builder()
                 .type(type)
                 .name(companyName)
@@ -70,7 +70,6 @@ public class TeacherQueryCompaniesUseCase {
                                         .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
                                         .getKeyword()
                 )
-                .page(page)
                 .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
