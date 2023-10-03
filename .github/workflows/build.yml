@@ -1,7 +1,15 @@
 name: SonarCI
+
 on:
+  push:
+    branches:
+      - main
+      - develop
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    branches:
+      - develop
+      - main
+
 jobs:
   build:
     name: Build and analyze
