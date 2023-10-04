@@ -86,10 +86,9 @@ public class CompanyWebAdapter {
 
     @GetMapping("/student/count")
     public TotalPageCountResponse studentQueryCompanyCount(
-            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(value = "name", required = false) String name
     ) {
-        return studentQueryCompaniesUseCase.getTotalPageCount(page - 1, name);
+        return studentQueryCompaniesUseCase.getTotalPageCount(name);
     }
 
     @GetMapping("/{company-id}")
@@ -118,6 +117,15 @@ public class CompanyWebAdapter {
         return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
     }
 
+    @GetMapping("/employment/count")
+    public TotalPageCountResponse queryEmployCompaniesCount(
+            @RequestParam(value = "company_name", required = false) String companyName,
+            @RequestParam(value = "company_type", required = false) CompanyType type,
+            @RequestParam(value = "year", required = false) Integer year
+    ) {
+        return teacherQueryEmployCompaniesUseCase.getTotalPageCount(companyName, type, year);
+    }
+
     @GetMapping("/teacher")
     public TeacherQueryCompaniesResponse queryCompanies(
             @RequestParam(value = "type", required = false) CompanyType type,
@@ -134,10 +142,9 @@ public class CompanyWebAdapter {
             @RequestParam(value = "type", required = false) CompanyType type,
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "region", required = false) String region,
-            @RequestParam(value = "business_area", required = false) Long businessArea,
-            @RequestParam(value = "page", defaultValue = "1") Long page
+            @RequestParam(value = "business_area", required = false) Long businessArea
     ) {
-        return teacherQueryCompaniesUseCase.getTotalPageCount(type, companyName, region, businessArea, page - 1);
+        return teacherQueryCompaniesUseCase.getTotalPageCount(type, companyName, region, businessArea);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
