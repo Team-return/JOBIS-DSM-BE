@@ -182,6 +182,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                                 .or(passedStudent.applications.any().applicationStatus.eq(FIELD_TRAIN))
                 )
                 .rightJoin(applicationEntity.student, studentEntity)
+                .on(studentEntity.grade.eq(3))
                 .fetchOne();
     }
 
