@@ -7,6 +7,7 @@ import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
+import team.retum.jobis.domain.student.model.Gender;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +32,5 @@ public interface QueryCompanyPort {
 
     boolean existsCompanyById(Long companyId);
 
-    List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId);
+    List<CompanyResponse> queryReviewAvailableCompaniesByStudentInfo(Long studentId, String studentName);
 }

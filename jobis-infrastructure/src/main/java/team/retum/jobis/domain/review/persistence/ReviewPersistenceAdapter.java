@@ -58,8 +58,8 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public boolean existsByCompanyIdAndStudentId(Long companyId, Long studentId) {
-        return reviewJpaRepository.existsByCompanyIdAndStudentId(companyId, studentId);
+    public boolean existsByCompanyIdAndStudentName(Long companyId, String studentName) {
+        return reviewJpaRepository.existsByCompanyIdAndStudentName(companyId, studentName);
     }
 
     @Override
@@ -92,12 +92,11 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 .select(
                         new QQueryReviewVO(
                                 reviewEntity.id,
-                                studentEntity.name,
+                                reviewEntity.studentName,
                                 reviewEntity.createdAt
                         )
                 )
                 .from(reviewEntity)
-                .join(reviewEntity.student, studentEntity)
                 .join(reviewEntity.company, companyEntity)
                 .where(companyEntity.id.eq(companyId))
                 .fetch().stream()

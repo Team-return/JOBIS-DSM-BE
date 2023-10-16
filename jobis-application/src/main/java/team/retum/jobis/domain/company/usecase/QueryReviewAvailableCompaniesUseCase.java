@@ -5,6 +5,7 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
+import team.retum.jobis.domain.student.model.Student;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
@@ -14,9 +15,11 @@ public class QueryReviewAvailableCompaniesUseCase {
     private final SecurityPort securityPort;
 
     public QueryReviewAvailableCompaniesResponse execute() {
-        Long currentUserId = securityPort.getCurrentUserId();
+        Student currentStudent = securityPort.getCurrentStudent();
         return new QueryReviewAvailableCompaniesResponse(
-                queryCompanyPort.queryReviewAvailableCompaniesByStudentId(currentUserId)
+                queryCompanyPort.queryReviewAvailableCompaniesByStudentInfo(
+                        currentStudent.getId(), currentStudent.getName()
+                )
         );
     }
 }

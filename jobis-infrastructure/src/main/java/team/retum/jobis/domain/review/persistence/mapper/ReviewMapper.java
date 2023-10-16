@@ -7,26 +7,22 @@ import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
-import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
-import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
 @RequiredArgsConstructor
 @Component
 public class ReviewMapper {
 
     private final CompanyJpaRepository companyJpaRepository;
-    private final StudentJpaRepository studentJpaRepository;
 
     public ReviewEntity toEntity(Review domain) {
         CompanyEntity companyEntity = companyJpaRepository.findById(domain.getCompanyId())
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-        StudentEntity studentEntity = studentJpaRepository.findById(domain.getStudentId())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
         return ReviewEntity.builder()
                 .id(domain.getId())
                 .companyEntity(companyEntity)
-                .studentEntity(studentEntity)
+                .studentName(domain.getStudentName())
+                .studentGender(domain.getStudentGender())
+                .studentDepartment(domain.getStudentDepartment())
                 .build();
     }
 
@@ -34,7 +30,9 @@ public class ReviewMapper {
         return Review.builder()
                 .id(entity.getId())
                 .companyId(entity.getCompany().getId())
-                .studentId(entity.getStudent().getId())
+                .studentName(entity.getStudentName())
+                .studentGender(entity.getStudentGender())
+                .studentDepartment(entity.getStudentDepartment())
                 .createdAt(entity.getCreatedAt())
                 .build();
     }

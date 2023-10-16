@@ -22,6 +22,7 @@ import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
+import team.retum.jobis.domain.student.model.Gender;
 
 import java.util.List;
 import java.util.Optional;
@@ -246,7 +247,10 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId) {
+    public List<CompanyResponse> queryReviewAvailableCompaniesByStudentInfo(
+            Long studentId,
+            String studentName
+    ) {
         return queryFactory
                 .select(
                         new QQueryReviewAvailableCompanyVO(
@@ -265,7 +269,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .join(applicationEntity.recruitment, recruitmentEntity)
                 .leftJoin(reviewEntity)
                 .on(
-                        reviewEntity.student.id.eq(studentId),
+                        reviewEntity.studentName.eq(studentName),
                         reviewEntity.company.id.eq(companyEntity.id)
                 )
                 .where(

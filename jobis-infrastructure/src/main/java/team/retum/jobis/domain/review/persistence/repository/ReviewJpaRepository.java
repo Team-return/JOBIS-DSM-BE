@@ -3,8 +3,7 @@ package team.retum.jobis.domain.review.persistence.repository;
 import org.springframework.data.repository.CrudRepository;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
 
-
 public interface ReviewJpaRepository extends CrudRepository<ReviewEntity, Long> {
 
-    boolean existsByCompanyIdAndStudentId(Long companyId, Long studentId);
+    boolean existsByCompanyIdAndStudentName(Long companyId, String studentName);
 }

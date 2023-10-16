@@ -34,7 +34,7 @@ public class CreateReviewUseCase {
 
         Student student = securityPort.getCurrentStudent();
 
-        if (queryReviewPort.existsByCompanyIdAndStudentId(company.getId(), student.getId())) {
+        if (queryReviewPort.existsByCompanyIdAndStudentName(company.getId(), student.getName())) {
             throw ReviewAlreadyExistsException.EXCEPTION;
         }
 
@@ -45,7 +45,9 @@ public class CreateReviewUseCase {
         Review review = commandReviewPort.saveReview(
                 Review.builder()
                         .companyId(company.getId())
-                        .studentId(student.getId())
+                        .studentName(student.getName())
+                        .studentGender(student.getGender())
+                        .studentDepartment(student.getDepartment())
                         .build()
         );
 

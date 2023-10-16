@@ -3,6 +3,8 @@ package team.retum.jobis.domain.review.model;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
+import team.retum.jobis.domain.student.model.Department;
+import team.retum.jobis.domain.student.model.Gender;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +18,11 @@ public class Review {
 
     private final Long companyId;
 
-    private final Long studentId;
+    private final String studentName;
+
+    private final Gender studentGender;
+
+    private final Department studentDepartment;
 
     private final List<QnA> qnAS;
 
