@@ -3,6 +3,7 @@ package team.retum.jobis.domain.recruitment.presentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -36,10 +37,12 @@ import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@Validated
 @RequiredArgsConstructor
 @RequestMapping("/recruitments")
 public class RecruitmentWebAdapter {
@@ -92,7 +95,7 @@ public class RecruitmentWebAdapter {
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
-            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
             @RequestParam(value = "job_code", required = false) Long jobCode,
             @RequestParam(value = "tech_code", required = false) String techCode
     ) {
@@ -117,7 +120,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
             @RequestParam(value = "status", required = false) RecruitStatus status,
             @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "page", defaultValue = "1") Long page
+            @RequestParam(value = "page", defaultValue = "1") @Positive Long page
     ) {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1);
     }

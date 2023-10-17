@@ -2,6 +2,7 @@ package team.retum.jobis.domain.company.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +39,10 @@ import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @RequiredArgsConstructor
+@Validated
 @RequestMapping("/companies")
 @RestController
 public class CompanyWebAdapter {
@@ -78,7 +81,7 @@ public class CompanyWebAdapter {
 
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
-            @RequestParam(value = "page", required = false, defaultValue = "1") Long page,
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
             @RequestParam(value = "name", required = false) String name
     ) {
         return studentQueryCompaniesUseCase.execute(page - 1, name);
@@ -112,7 +115,7 @@ public class CompanyWebAdapter {
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "company_type", required = false) CompanyType type,
             @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "page", defaultValue = "1") Long page
+            @RequestParam(value = "page", defaultValue = "1") @Positive Long page
     ) {
         return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
     }
@@ -132,7 +135,7 @@ public class CompanyWebAdapter {
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "region", required = false) String region,
             @RequestParam(value = "business_area", required = false) Long businessArea,
-            @RequestParam(value = "page", defaultValue = "1") Long page
+            @RequestParam(value = "page", defaultValue = "1") @Positive Long page
     ) {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page - 1);
     }
