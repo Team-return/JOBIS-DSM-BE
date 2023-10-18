@@ -141,7 +141,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         eqYear(filter.getYear()),
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
-                        containsName(filter.getCompanyName())
+                        containsName(filter.getCompanyName()),
+                        containsCodes(filter.getCodes()),
+                        containsJobKeyword(filter.getJobKeyword())
                 ).fetchOne();
     }
 
