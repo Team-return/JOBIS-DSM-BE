@@ -45,7 +45,7 @@ public class Company {
     private final String serviceName;
     private final List<String> attachmentUrls;
 
-    public Company update(String mainAddress, String mainAddressDetail, String mainZipCode, String subAddress, String subAddressDetail,String subZipCode,
+    public Company update(String mainAddress, String mainAddressDetail, String mainZipCode, String subAddress, String subAddressDetail, String subZipCode,
                           double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
                           String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email, String serviceName) {
         return this.toBuilder()

@@ -53,7 +53,7 @@ public class TeacherQueryRecruitmentsUseCase {
     }
 
     public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,
-                                          Integer year, RecruitStatus status) {
+                                                    Integer year, RecruitStatus status) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
                 .companyName(companyName)
                 .status(status)
