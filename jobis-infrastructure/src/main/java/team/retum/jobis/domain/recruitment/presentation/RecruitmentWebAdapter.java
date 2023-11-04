@@ -144,7 +144,7 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/{recruitment-id}")
-    public QueryRecruitmentDetailResponse studentQueryRecruitmentDetail(
+    public QueryRecruitmentDetailResponse queryRecruitmentDetail(
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
         return queryRecruitmentDetailUseCase.execute(recruitmentId);

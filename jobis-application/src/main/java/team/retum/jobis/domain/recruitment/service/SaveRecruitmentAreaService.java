@@ -20,14 +20,13 @@ public class SaveRecruitmentAreaService {
     private final QueryCodePort queryCodePort;
 
     public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
-        List<Code> jobCodes = queryCodePort.queryCodesByIdIn(request.getJobCodes());
-        String recruitJobs = StringUtil.joinStringList(jobCodes.stream().map(Code::getKeyword).toList());
+        List<String> jobCodes = request.getJobCodes().stream().map(Object::toString).toList();
 
         RecruitArea savedRecruitArea = commandRecruitmentPort.saveRecruitmentArea(
                 RecruitArea.builder()
                         .recruitmentId(recruitmentId)
                         .hiredCount(request.getHiring())
-                        .jobCodes(recruitJobs)
+                        .jobCodes(jobCodes)
                         .majorTask(request.getMajorTask())
                         .preferentialTreatment(request.getPreferentialTreatment())
                         .build()

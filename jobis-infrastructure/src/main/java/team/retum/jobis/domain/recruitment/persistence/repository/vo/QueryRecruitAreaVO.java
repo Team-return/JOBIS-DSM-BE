@@ -12,10 +12,10 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
 
     @QueryProjection
     public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask,
-                              String jobCodes, String preferentialTreatment, List<CodeEntity> techCode) {
+                              List<String> jobCodes, String preferentialTreatment, List<CodeEntity> techCode) {
         super(
                 id,
-                List.of(jobCodes.split(",")),
+                jobCodes,
                 techCode.stream()
                         .map(CodeEntity::getKeyword)
                         .toList(),
