@@ -6,6 +6,7 @@ import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class RecruitmentVO {
     private final Integer trainPay;
     private final boolean militarySupport;
     private final String companyLogoUrl;
-    private final String recruitAreaList;
+    private final String jobCodes;
     private final Integer totalHiring;
     private final Long requestedApplicationCount;
     private final Long approvedApplicationCount;

@@ -45,7 +45,7 @@ public class TeacherQueryRecruitmentsUseCase {
                                         .applicationRequestedCount(recruitment.getRequestedApplicationCount())
                                         .applicationApprovedCount(recruitment.getApprovedApplicationCount())
                                         .recruitmentCount(recruitment.getTotalHiring())
-                                        .recruitmentJob(recruitment.getRecruitAreaList())
+                                        .recruitmentJob(recruitment.getJobCodes())
                                         .build()
                         ).toList();
 

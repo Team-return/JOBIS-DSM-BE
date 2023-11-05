@@ -41,7 +41,7 @@ public class StudentQueryRecruitmentsUseCase {
                 .limit(12)
                 .codes(codeIds)
                 .studentId(currentStudentId)
-                .jobKeyword(jobKeyword)
+                .jobCode(jobCode)
                 .build();
 
         List<StudentRecruitmentResponse> recruitments =
@@ -73,7 +73,7 @@ public class StudentQueryRecruitmentsUseCase {
                 .limit(12)
                 .codes(codeIds)
                 .studentId(currentStudentId)
-                .jobKeyword(jobKeyword)
+                .jobCode(jobCode)
                 .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
