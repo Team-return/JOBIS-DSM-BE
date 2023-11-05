@@ -5,7 +5,9 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
+import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.code.exception.CodeNotFoundException;
+import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
@@ -31,8 +33,6 @@ public class StudentQueryRecruitmentsUseCase {
             List<Long> codeIds
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
-        String jobKeyword = validJobCode(jobCode);
-
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
                 .year(Year.now().getValue())
                 .status(RecruitStatus.RECRUITING)
@@ -51,7 +51,7 @@ public class StudentQueryRecruitmentsUseCase {
                                         .recruitId(recruitment.getRecruitmentId())
                                         .companyName(recruitment.getCompanyName())
                                         .trainPay(recruitment.getTrainPay())
-                                        .jobCodeList(recruitment.getRecruitAreaList())
+                                        .jobCodeList(getJobKeywords(recruitment.getJobCodes()))
                                         .military(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())
                                         .totalHiring(recruitment.getTotalHiring())
@@ -64,7 +64,6 @@ public class StudentQueryRecruitmentsUseCase {
 
     public TotalPageCountResponse getTotalPageCount(String name, Long jobCode, List<Long> codeIds) {
         Long currentStudentId = securityPort.getCurrentUserId();
-        String jobKeyword = validJobCode(jobCode);
 
         RecruitmentFilter filter = RecruitmentFilter.builder()
                 .year(Year.now().getValue())
@@ -83,13 +82,12 @@ public class StudentQueryRecruitmentsUseCase {
         return new TotalPageCountResponse(totalPageCount);
     }
 
-    private String validJobCode(Long jobCode) {
-        if (jobCode != null) {
-            return queryCodePort.queryCodeById(jobCode)
-                    .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
-                    .getKeyword();
-        } else {
-            return null;
-        }
+    private String getJobKeywords(String jobCodes) {
+        return StringUtil.joinStringList(
+                queryCodePort.queryCodesByIdIn(
+                        StringUtil.divideString(jobCodes, ",").stream().map(Long::parseLong).toList()
+                ).stream().map(Code::getKeyword).toList(),
+                "/"
+        );
     }
 }
