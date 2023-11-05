@@ -2,8 +2,6 @@ package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.Service;
-import team.retum.jobis.common.util.StringUtil;
-import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.model.RecruitAreaCode;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.recruitment.dto.request.CreateRecruitAreaRequest;

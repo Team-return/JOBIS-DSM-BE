@@ -6,7 +6,6 @@ import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
