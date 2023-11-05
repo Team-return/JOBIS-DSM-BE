@@ -99,7 +99,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "job_code", required = false) Long jobCode,
             @RequestParam(value = "tech_code", required = false) String techCode
     ) {
-        List<Long> techCodes = StringUtil.divideString(techCode).stream().map(Long::parseLong).toList();
+        List<Long> techCodes = StringUtil.divideString(techCode, ",").stream().map(Long::parseLong).toList();
         return studentQueryRecruitmentsUseCase.execute(companyName, page - 1, jobCode, techCodes);
     }
 
@@ -109,7 +109,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "job_code", required = false) Long jobCode,
             @RequestParam(value = "tech_code", required = false) String techCode
     ) {
-        List<Long> techCodes = StringUtil.divideString(techCode).stream().map(Long::parseLong).toList();
+        List<Long> techCodes = StringUtil.divideString(techCode, ",").stream().map(Long::parseLong).toList();
         return studentQueryRecruitmentsUseCase.getTotalPageCount(companyName, jobCode, techCodes);
     }
 
