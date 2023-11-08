@@ -16,8 +16,7 @@ public class RecruitAreaWebRequest {
     @NotNull
     private List<@NotNull Long> jobCodes;
 
-    @NotNull
-    private List<@NotNull Long> techCodes;
+    private List<Long> techCodes;
 
     @NotNull
     private int hiring;
