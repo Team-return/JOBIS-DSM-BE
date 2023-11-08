@@ -15,7 +15,6 @@ import java.util.List;
 public class SaveRecruitmentAreaService {
 
     private final CommandRecruitmentPort commandRecruitmentPort;
-    private final QueryCodePort queryCodePort;
 
     public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
         List<String> jobCodes = request.getJobCodes().stream().map(Object::toString).toList();
