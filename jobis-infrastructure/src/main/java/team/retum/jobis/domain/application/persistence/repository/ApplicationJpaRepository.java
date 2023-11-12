@@ -9,8 +9,7 @@ import java.util.Optional;
 
 public interface ApplicationJpaRepository extends JpaRepository<ApplicationEntity, Long> {
 
-    @Query("select a from ApplicationEntity a join fetch a.attachments where a.id in(?1)")
-    List<ApplicationEntity> findAllByIdIn(List<Long> applicationIds);
+    List<ApplicationEntity> findByIdIn(List<Long> applicationIds);
 
     void deleteByIdIn(List<Long> applicationIds);
 

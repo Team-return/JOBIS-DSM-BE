@@ -50,6 +50,7 @@ public class TeacherQueryRecruitmentsUseCase {
                                         .applicationApprovedCount(recruitment.getApprovedApplicationCount())
                                         .recruitmentCount(recruitment.getTotalHiring())
                                         .recruitmentJob(getJobKeywords(recruitment.getJobCodes()))
+                                        .companyId(recruitment.getCompanyId())
                                         .build()
                         ).toList();
 

@@ -25,5 +25,6 @@ public class RecruitmentVO {
     private final Long requestedApplicationCount;
     private final Long approvedApplicationCount;
     private final Long isBookmarked;
+    private final Long companyId;
 
 }
