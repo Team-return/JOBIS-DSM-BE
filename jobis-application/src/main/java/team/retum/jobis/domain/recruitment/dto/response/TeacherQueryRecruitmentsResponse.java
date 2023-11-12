@@ -29,5 +29,6 @@ public class TeacherQueryRecruitmentsResponse {
         private LocalDate start;
         private LocalDate end;
         private Boolean militarySupport;
+        private Long companyId;
     }
 }

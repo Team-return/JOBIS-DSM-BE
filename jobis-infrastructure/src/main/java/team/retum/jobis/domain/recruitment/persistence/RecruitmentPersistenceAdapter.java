@@ -72,7 +72,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 recruitAreaEntity.hiredCount.sum(),
                                 requestedApplication.countDistinct(),
                                 approvedApplication.countDistinct(),
-                                bookmarkEntity.count()
+                                bookmarkEntity.count(),
+                                companyEntity.id
                         )
                 )
                 .from(recruitmentEntity)

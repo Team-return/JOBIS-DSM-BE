@@ -16,9 +16,9 @@ public class QueryRecruitmentsVO extends RecruitmentVO {
                                LocalDate endDate, String companyName, CompanyType companyType,
                                Integer trainPay, boolean militarySupport, String companyLogoUrl,
                                String jobCodes, Integer totalHiring, Long requestedApplicationCount,
-                               Long approvedApplicationCount, Long isBookmarked) {
+                               Long approvedApplicationCount, Long isBookmarked, Long companyId) {
         super(recruitmentId, recruitStatus, startDate, endDate, companyName,
                 companyType, trainPay, militarySupport, companyLogoUrl, jobCodes,
-                totalHiring, requestedApplicationCount, approvedApplicationCount, isBookmarked);
+                totalHiring, requestedApplicationCount, approvedApplicationCount, isBookmarked, companyId);
     }
 }
