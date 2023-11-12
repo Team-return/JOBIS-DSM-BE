@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ChangeApplicationsStatusWebRequest {
 
-    @ValidListElements
-    private List<Long> applicationIds;
+    @NotNull
+    private List<@NotNull Long> applicationIds;
 
     @NotNull
     private ApplicationStatus status;

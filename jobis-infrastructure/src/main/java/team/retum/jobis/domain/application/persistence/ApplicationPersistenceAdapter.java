@@ -200,7 +200,10 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     @Override
     public List<Application> queryApplicationsByIds(List<Long> applicationIds) {
-        return applicationJpaRepository.findAllByIdIn(applicationIds).stream()
+        return queryFactory
+                .selectFrom(applicationEntity)
+                .where(applicationEntity.id.in(applicationIds))
+                .fetch().stream()
                 .map(applicationMapper::toDomain)
                 .toList();
     }
