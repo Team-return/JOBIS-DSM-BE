@@ -8,17 +8,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class PayInfo {
+public class WorkingHour {
 
     @NotNull
-    @Column(columnDefinition = "INT")
-    private Integer trainPay;
+    @Column(columnDefinition = "TIME")
+    private LocalTime startTime;
 
-    @Column(columnDefinition = "VARCHAR(20)")
-    private String pay;
+    @NotNull
+    @Column(columnDefinition = "TIME")
+    private LocalTime endTime;
 }

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
-import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
 @RequiredArgsConstructor

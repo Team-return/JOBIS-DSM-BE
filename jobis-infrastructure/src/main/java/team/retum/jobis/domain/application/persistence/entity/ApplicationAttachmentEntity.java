@@ -2,7 +2,6 @@ package team.retum.jobis.domain.application.persistence.entity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.model.AttachmentType;

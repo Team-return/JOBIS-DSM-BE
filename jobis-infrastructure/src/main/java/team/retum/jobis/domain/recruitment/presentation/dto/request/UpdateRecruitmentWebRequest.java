@@ -8,19 +8,20 @@ import team.retum.jobis.domain.recruitment.model.ProgressType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 public class UpdateRecruitmentWebRequest {
 
-    @Size(max = 500)
-    private String preferentialTreatment;
-
     private Integer requiredGrade;
 
     @NotNull
-    private int workHours;
+    private LocalTime startTime;
+
+    @NotNull
+    private LocalTime endTime;
 
     private List<String> requiredLicenses;
 
@@ -30,7 +31,7 @@ public class UpdateRecruitmentWebRequest {
     @NotNull
     private int trainPay;
 
-    private Integer pay;
+    private String pay;
 
     @Size(max = 550)
     private String benefits;
@@ -53,9 +54,9 @@ public class UpdateRecruitmentWebRequest {
 
     public UpdateRecruitmentRequest toDomainRequest() {
         return UpdateRecruitmentRequest.builder()
-                .preferentialTreatment(this.preferentialTreatment)
                 .requiredGrade(this.requiredGrade)
-                .workHours(this.workHours)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
                 .requiredLicenses(this.requiredLicenses)
                 .hiringProgress(this.hiringProgress)
                 .trainPay(this.trainPay)

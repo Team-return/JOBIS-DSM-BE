@@ -16,8 +16,7 @@ public class RecruitAreaWebRequest {
     @NotNull
     private List<@NotNull Long> jobCodes;
 
-    @NotNull
-    private List<@NotNull Long> techCodes;
+    private List<Long> techCodes;
 
     @NotNull
     private int hiring;
@@ -26,12 +25,16 @@ public class RecruitAreaWebRequest {
     @NotBlank
     private String majorTask;
 
+    @Size(max = 500)
+    private String preferentialTreatment;
+
     public CreateRecruitAreaRequest toDomainRequest() {
         return CreateRecruitAreaRequest.builder()
                 .hiring(this.hiring)
                 .jobCodes(this.jobCodes)
                 .techCodes(this.techCodes)
                 .majorTask(this.majorTask)
+                .preferentialTreatment(preferentialTreatment)
                 .build();
     }
 }

@@ -27,7 +27,7 @@ public class RecruitmentFilter {
 
     private final Long studentId;
 
-    private final String jobKeyword;
+    private final Long jobCode;
 
     @Builder.Default
     private int limit = 11;

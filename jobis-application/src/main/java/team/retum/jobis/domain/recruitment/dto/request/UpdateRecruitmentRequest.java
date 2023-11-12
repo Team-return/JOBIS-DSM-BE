@@ -5,17 +5,18 @@ import lombok.Getter;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
 @Builder
 public class UpdateRecruitmentRequest {
 
-    private String preferentialTreatment;
-
     private Integer requiredGrade;
 
-    private Integer workHours;
+    private LocalTime startTime;
+
+    private LocalTime endTime;
 
     private List<String> requiredLicenses;
 
@@ -23,7 +24,7 @@ public class UpdateRecruitmentRequest {
 
     private Integer trainPay;
 
-    private Integer pay;
+    private String pay;
 
     private String benefits;
 

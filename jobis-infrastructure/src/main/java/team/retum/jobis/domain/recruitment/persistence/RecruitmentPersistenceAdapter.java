@@ -90,7 +90,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
                         containsCodes(filter.getCodes()),
-                        containsJobKeyword(filter.getJobKeyword())
+                        containsJobCode(filter.getJobCode())
                 )
                 .offset(filter.getOffset())
                 .limit(filter.getLimit())
@@ -110,9 +110,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 companyEntity.id,
                                 companyEntity.companyLogoUrl,
                                 companyEntity.name,
-                                recruitmentEntity.preferentialTreatment,
                                 recruitmentEntity.requiredGrade,
-                                recruitmentEntity.workingHours,
+                                recruitmentEntity.workingHour.startTime,
+                                recruitmentEntity.workingHour.endTime,
                                 recruitmentEntity.requiredLicenses,
                                 recruitmentEntity.hiringProgress,
                                 recruitmentEntity.payInfo.trainPay,
@@ -141,7 +141,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         eqYear(filter.getYear()),
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
-                        containsName(filter.getCompanyName())
+                        containsName(filter.getCompanyName()),
+                        containsCodes(filter.getCodes()),
+                        containsJobCode(filter.getJobCode())
                 ).fetchOne();
     }
 
@@ -160,6 +162,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                                 recruitAreaEntity.hiredCount,
                                                 recruitAreaEntity.majorTask,
                                                 recruitAreaEntity.jobCodes,
+                                                recruitAreaEntity.preferentialTreatment,
                                                 list(codeEntity)
                                         )
                                 )
@@ -300,7 +303,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return studentId == null ? bookmarkEntity.recruitment.eq(recruitmentEntity) : bookmarkEntity.student.id.eq(studentId).and(bookmarkEntity.recruitment.eq(recruitmentEntity));
     }
 
-    private BooleanExpression containsJobKeyword(String jobKeyword) {
-        return jobKeyword == null ? null : recruitAreaEntity.jobCodes.contains(jobKeyword);
+    private BooleanExpression containsJobCode(Long jobCode) {
+        return jobCode == null ? null : Expressions.stringTemplate("cast({0} as string)", recruitAreaEntity.jobCodes).contains(jobCode.toString());
     }
 }
