@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.model.JobType;
 
@@ -47,12 +48,17 @@ public class CodeEntity {
     @JoinColumn(name = "parent_code_id")
     private CodeEntity parentCode;
 
+    @NotNull
+    @Column(columnDefinition = "BIT(1)")
+    private Boolean isUsed;
+
     @Builder
-    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
+    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity, Boolean isUsed) {
         this.id = id;
         this.codeType = codeType;
         this.jobType = jobType;
         this.keyword = keyword;
         this.parentCode = parentCodeEntity;
+        this.isUsed = isUsed;
     }
 }
