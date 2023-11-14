@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.model.JobType;
 
@@ -50,10 +49,10 @@ public class CodeEntity {
 
     @NotNull
     @Column(columnDefinition = "BIT(1)")
-    private Boolean isUsed;
+    private boolean isUsed;
 
     @Builder
-    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity, Boolean isUsed) {
+    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity, boolean isUsed) {
         this.id = id;
         this.codeType = codeType;
         this.jobType = jobType;
