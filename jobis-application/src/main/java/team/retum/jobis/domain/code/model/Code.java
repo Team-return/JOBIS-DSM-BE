@@ -18,6 +18,4 @@ public class Code {
     private final String keyword;
 
     private final Long parentCodeId;
-
-    private final boolean isUsed;
 }
