@@ -19,5 +19,5 @@ public class Code {
 
     private final Long parentCodeId;
 
-    private final Boolean isUsed;
+    private final boolean isUsed;
 }
