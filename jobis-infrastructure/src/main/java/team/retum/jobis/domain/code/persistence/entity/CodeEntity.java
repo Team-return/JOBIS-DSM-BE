@@ -47,12 +47,17 @@ public class CodeEntity {
     @JoinColumn(name = "parent_code_id")
     private CodeEntity parentCode;
 
+    @NotNull
+    @Column(columnDefinition = "BIT(1)")
+    private boolean isUsed;
+
     @Builder
-    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
+    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity, boolean isUsed) {
         this.id = id;
         this.codeType = codeType;
         this.jobType = jobType;
         this.keyword = keyword;
         this.parentCode = parentCodeEntity;
+        this.isUsed = isUsed;
     }
 }
