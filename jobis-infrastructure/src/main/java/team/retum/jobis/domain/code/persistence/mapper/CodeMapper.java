@@ -24,7 +24,6 @@ public class CodeMapper {
                 .keyword(domain.getKeyword())
                 .jobType(domain.getJobType())
                 .parentCodeEntity(code)
-                .isUsed(domain.isUsed())
                 .build();
     }
 
@@ -35,7 +34,6 @@ public class CodeMapper {
                 .jobType(entity.getJobType())
                 .keyword(entity.getKeyword())
                 .parentCodeId(entity.getParentCode() == null ? null : entity.getParentCode().getId())
-                .isUsed(entity.isUsed())
                 .build();
     }
 }
