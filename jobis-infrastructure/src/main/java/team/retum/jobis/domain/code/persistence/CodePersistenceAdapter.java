@@ -29,7 +29,6 @@ public class CodePersistenceAdapter implements CodePort {
                 .selectFrom(codeEntity)
                 .where(
                         codeEntity.codeType.eq(codeType),
-                        codeEntity.isUsed.eq(true),
                         containsKeyword(keyword),
                         eqParentCode(parentCode)
                 ).fetch().stream()
