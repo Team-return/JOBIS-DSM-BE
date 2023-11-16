@@ -74,7 +74,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
 
     @NotNull
     @Column(columnDefinition = "BIT(1)")
-    private Boolean militarySupport;
+    private boolean militarySupport;
 
     @NotNull
     @Convert(converter = HiringProgressConverter.class)
@@ -95,8 +95,12 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private PayInfo payInfo;
 
     @NotNull
-    @Column(columnDefinition = "BIT(1)")
-    private Boolean personalContact;
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean personalContact;
+
+    @NotNull
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean winterIntern;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -113,7 +117,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
                              LocalTime startTime, LocalTime endTime, String submitDocument, LocalDate startDate,
                              LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport,
                              List<String> requiredLicenses, String etc, List<ProgressType> hiringProgress,
-                             Integer requiredGrade, Boolean personalContact) {
+                             Integer requiredGrade, boolean personalContact, boolean winterIntern) {
         this.id = id;
         this.workingHour = new WorkingHour(startTime, endTime);
         this.hiringProgress = hiringProgress;
@@ -128,6 +132,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
         this.company = companyEntity;
         this.requiredLicenses = requiredLicenses;
         this.militarySupport = militarySupport;
+        this.winterIntern = winterIntern;
         this.etc = etc;
     }
 }

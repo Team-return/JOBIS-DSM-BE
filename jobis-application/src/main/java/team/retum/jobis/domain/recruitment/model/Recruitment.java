@@ -3,6 +3,7 @@ package team.retum.jobis.domain.recruitment.model;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
+import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
 
@@ -49,6 +50,8 @@ public class Recruitment {
 
     private final boolean personalContract;
 
+    private final boolean winterIntern;
+
     private final Long companyId;
 
     public Recruitment update(Integer trainPay, String pay, LocalTime startTime, LocalTime endTime, String submitDocument,
@@ -84,9 +87,13 @@ public class Recruitment {
         }
     }
 
-    public void checkIsApplicable() {
+    public void checkIsApplicable(Integer studentGrade) {
         if (this.status != RecruitStatus.RECRUITING) {
             throw InvalidRecruitmentStatusException.EXCEPTION;
+        }
+
+        if (studentGrade == 1 || (!this.winterIntern && studentGrade == 2)) {
+            throw InvalidGradeException.EXCEPTION;
         }
     }
 }

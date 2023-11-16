@@ -46,12 +46,6 @@ public class Student {
         };
     }
 
-    public void checkIs3rdGrade() {
-        if (!this.grade.equals(3)) {
-            throw InvalidGradeException.EXCEPTION;
-        }
-    }
-
     public Student changeStudentProfile(String profileImageUrl) {
         return this.toBuilder()
                 .profileImageUrl(profileImageUrl)
