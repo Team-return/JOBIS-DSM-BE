@@ -38,6 +38,7 @@ public class RecruitmentMapper {
                 .submitDocument(domain.getSubmitDocument())
                 .startTime(domain.getStartTime())
                 .endTime(domain.getEndTime())
+                .winterIntern(domain.isWinterIntern())
                 .build();
     }
 
@@ -62,6 +63,7 @@ public class RecruitmentMapper {
                 .submitDocument(entity.getSubmitDocument())
                 .startTime(entity.getWorkingHour().getStartTime())
                 .endTime(entity.getWorkingHour().getEndTime())
+                .winterIntern(entity.getWinterIntern())
                 .build();
     }
 }

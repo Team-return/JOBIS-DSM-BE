@@ -49,6 +49,8 @@ public class Recruitment {
 
     private final boolean personalContract;
 
+    private final boolean winterIntern;
+
     private final Long companyId;
 
     public Recruitment update(Integer trainPay, String pay, LocalTime startTime, LocalTime endTime, String submitDocument,
