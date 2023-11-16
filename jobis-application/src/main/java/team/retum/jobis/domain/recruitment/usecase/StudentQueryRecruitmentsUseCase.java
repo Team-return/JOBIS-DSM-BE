@@ -5,9 +5,7 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
-import team.retum.jobis.common.util.StringUtil;
-import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.code.spi.QueryCodePort;
+import team.retum.jobis.domain.code.service.GetKeywordsService;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
@@ -23,7 +21,7 @@ public class StudentQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
-    private final QueryCodePort queryCodePort;
+    private final GetKeywordsService getKeywordsService;
 
     public StudentQueryRecruitmentsResponse execute(
             String name,
@@ -50,7 +48,7 @@ public class StudentQueryRecruitmentsUseCase {
                                         .recruitId(recruitment.getRecruitmentId())
                                         .companyName(recruitment.getCompanyName())
                                         .trainPay(recruitment.getTrainPay())
-                                        .jobCodeList(getJobKeywords(recruitment.getJobCodes()))
+                                        .jobCodeList(getKeywordsService.getKeywordsAsList(recruitment.getJobCodes()))
                                         .military(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())
                                         .totalHiring(recruitment.getTotalHiring())
@@ -79,14 +77,5 @@ public class StudentQueryRecruitmentsUseCase {
         );
 
         return new TotalPageCountResponse(totalPageCount);
-    }
-
-    private String getJobKeywords(String jobCodes) {
-        return StringUtil.joinStringList(
-                queryCodePort.queryCodesByIdIn(
-                        StringUtil.divideString(jobCodes, ",").stream().map(Long::parseLong).toList()
-                ).stream().map(Code::getKeyword).toList(),
-                "/"
-        );
     }
 }
