@@ -14,7 +14,7 @@ public class GetKeywordsService {
 
     private final QueryCodePort queryCodePort;
 
-    public String getKeywordsAsList(String jobCodes) {
+    public String getKeywordsAsJoinedString(String jobCodes) {
         return StringUtil.joinStringList(
                 queryCodePort.queryCodesByIdIn(
                         StringUtil.divideString(jobCodes, ",").stream().map(Long::parseLong).toList()
