@@ -73,7 +73,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private String benefits;
 
     @NotNull
-    @Column(columnDefinition = "BIT(1)")
+    @Column(columnDefinition = "TINYINT(1)")
     private boolean militarySupport;
 
     @NotNull
