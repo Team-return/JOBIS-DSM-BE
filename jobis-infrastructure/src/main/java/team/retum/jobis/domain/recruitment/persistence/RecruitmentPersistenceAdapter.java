@@ -91,7 +91,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
                         containsCodes(filter.getCodes()),
-                        containsJobCode(filter.getJobCode())
+                        containsJobCode(filter.getJobCode()),
+                        eqWinterIntern(filter.getWinterIntern())
                 )
                 .offset(filter.getOffset())
                 .limit(filter.getLimit())
@@ -145,7 +146,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
                         containsCodes(filter.getCodes()),
-                        containsJobCode(filter.getJobCode())
+                        containsJobCode(filter.getJobCode()),
+                        eqWinterIntern(filter.getWinterIntern())
                 ).fetchOne();
     }
 
@@ -308,4 +310,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private BooleanExpression containsJobCode(Long jobCode) {
         return jobCode == null ? null : Expressions.stringTemplate("cast({0} as string)", recruitAreaEntity.jobCodes).contains(jobCode.toString());
     }
+
+    private BooleanExpression eqWinterIntern(Boolean winterIntern) {
+        return winterIntern == null ? null : recruitmentEntity.winterIntern.eq(winterIntern);
+    }
+
 }
