@@ -6,6 +6,8 @@ import team.retum.jobis.common.annotation.Aggregate;
 import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
 
+import java.time.Year;
+
 @Getter
 @Builder(toBuilder = true)
 @Aggregate
@@ -26,6 +28,8 @@ public class Student {
     private final Department department;
 
     private final String profileImageUrl;
+
+    private final Year entranceYear;
 
     public static String processGcn(int grade, int classNumber, int number) {
         return String.valueOf(grade) +

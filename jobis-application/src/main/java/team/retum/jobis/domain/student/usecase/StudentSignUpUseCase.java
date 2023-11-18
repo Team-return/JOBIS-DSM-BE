@@ -18,6 +18,9 @@ import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
+import java.time.Period;
+import java.time.Year;
+
 @RequiredArgsConstructor
 @UseCase
 public class StudentSignUpUseCase {
@@ -68,6 +71,7 @@ public class StudentSignUpUseCase {
                                 )
                         )
                         .profileImageUrl(request.getProfileImageUrl())
+                        .entranceYear(getEntranceYear(request.getGrade()))
                         .build()
         );
 
@@ -81,5 +85,20 @@ public class StudentSignUpUseCase {
         );
 
         return jwtPort.generateTokens(userEntity.getId(), userEntity.getAuthority());
+    }
+
+    private Year getEntranceYear(Integer grade) {
+        Year year = Year.now();
+        switch (grade) {
+            case 2 -> {
+                return year.minus(Period.ofYears(1));
+            }
+            case 3 -> {
+                return year.minus(Period.ofYears(2));
+            }
+            default -> {
+                return year;
+            }
+        }
     }
 }
