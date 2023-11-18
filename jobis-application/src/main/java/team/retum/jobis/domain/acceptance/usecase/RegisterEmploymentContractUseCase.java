@@ -50,12 +50,14 @@ public class RegisterEmploymentContractUseCase {
                                     .year(Year.now().getValue())
                                     .tech(request.getCodeKeywords())
                                     .businessArea(application.getBusinessArea())
+                                    .applicationId(application.getId())
                                     .build();
                         }
                 ).toList();
 
         commandAcceptancePort.saveAllAcceptance(acceptances);
-        commandApplicationPort.deleteApplicationByIds(
+        commandApplicationPort.changeApplicationStatus(
+                ApplicationStatus.ACCEPTANCE,
                 applications.stream().map(ApplicationDetailVO::getId).toList()
         );
     }

@@ -8,7 +8,8 @@ public enum ApplicationStatus {
     APPROVED, // 승인
     FAILED, // 탈락
     PASS, // 통과
-    FIELD_TRAIN, // 현장실습,
+    FIELD_TRAIN, // 현장실습
+    ACCEPTANCE, // 근로계약
     REJECTED; // 거부
 
     public static final List<ApplicationStatus> DUPLICATE_CHECK = List.of(APPROVED, PASS, FIELD_TRAIN);
