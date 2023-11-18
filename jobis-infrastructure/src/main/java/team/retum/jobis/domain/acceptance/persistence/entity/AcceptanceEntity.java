@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.converter.StringListConverter;
 
 import javax.persistence.Column;
@@ -62,12 +62,12 @@ public class AcceptanceEntity {
     private CompanyEntity company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_id", nullable = false)
-    private ApplicationEntity application;
+    @JoinColumn(name = "student_id", nullable = false)
+    private StudentEntity student;
 
     @Builder
     public AcceptanceEntity(Long id, Integer year, String studentName, String businessArea, List<String> tech,
-                            String studentGcn, LocalDate contractDate, CompanyEntity companyEntity, ApplicationEntity application) {
+                            String studentGcn, LocalDate contractDate, CompanyEntity companyEntity, StudentEntity student) {
         this.id = id;
         this.year = year;
         this.studentName = studentName;
@@ -76,6 +76,6 @@ public class AcceptanceEntity {
         this.studentGcn = studentGcn;
         this.contractDate = contractDate;
         this.company = companyEntity;
-        this.application = application;
+        this.student = student;
     }
 }

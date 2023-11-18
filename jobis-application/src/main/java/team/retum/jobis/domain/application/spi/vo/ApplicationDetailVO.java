@@ -10,13 +10,7 @@ public class ApplicationDetailVO {
 
     private final Long id;
 
-    private final String studentName;
-
-    private final int studentGrade;
-
-    private final int studentClassNumber;
-
-    private final int studentNumber;
+    private final Long studentId;
 
     private final Long companyId;
 

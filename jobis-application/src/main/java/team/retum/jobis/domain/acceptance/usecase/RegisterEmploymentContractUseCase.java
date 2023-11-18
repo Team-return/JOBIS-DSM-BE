@@ -39,18 +39,12 @@ public class RegisterEmploymentContractUseCase {
                             }
 
                             return Acceptance.builder()
-                                    .studentName(application.getStudentName())
-                                    .companyId(application.getId())
-                                    .studentGcn(Student.processGcn(
-                                            application.getStudentGrade(),
-                                            application.getStudentClassNumber(),
-                                            application.getStudentNumber()
-                                    ))
+                                    .companyId(application.getCompanyId())
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
                                     .tech(request.getCodeKeywords())
                                     .businessArea(application.getBusinessArea())
-                                    .applicationId(application.getId())
+                                    .studentId(application.getStudentId())
                                     .build();
                         }
                 ).toList();

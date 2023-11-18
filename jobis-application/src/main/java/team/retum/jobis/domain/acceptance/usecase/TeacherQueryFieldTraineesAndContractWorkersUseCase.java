@@ -7,6 +7,7 @@ import team.retum.jobis.domain.acceptance.dto.response.TeacherQueryFieldTrainees
 import team.retum.jobis.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse.TeacherQueryFieldTraineesResponse;
 import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.spi.QueryAcceptancePort;
+import team.retum.jobis.domain.acceptance.spi.vo.AcceptanceVO;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.student.model.Student;
@@ -22,54 +23,54 @@ public class TeacherQueryFieldTraineesAndContractWorkersUseCase {
     private final QueryAcceptancePort queryAcceptancePort;
 
     public TeacherQueryFieldTraineesAndContractWorkersResponse execute(Long companyId) {
-
-        List<FieldTraineesVO> queryFieldTraineesVOs =
-                queryApplicationPort.queryApplicationsFieldTraineesByCompanyId(companyId);
-
-        List<Acceptance> acceptanceEntities =
-                queryAcceptancePort.queryAcceptancesByCompanyIdAndYear(companyId, Year.now().getValue());
+        List<FieldTraineesVO> fieldTrainees = queryApplicationPort.queryApplicationsFieldTraineesByCompanyId(companyId);
+        List<AcceptanceVO> acceptances = queryAcceptancePort.queryAcceptancesByCompanyIdAndYear(companyId, Year.now().getValue());
 
         return new TeacherQueryFieldTraineesAndContractWorkersResponse(
-                buildFieldTrainees(queryFieldTraineesVOs),
-                buildContractWorkers(acceptanceEntities)
+                buildFieldTrainees(fieldTrainees),
+                buildContractWorkers(acceptances)
         );
     }
 
     private List<TeacherQueryFieldTraineesResponse> buildFieldTrainees(
-            List<FieldTraineesVO> queryFieldTraineesVOs
+            List<FieldTraineesVO> fieldTrainees
     ) {
-        return queryFieldTraineesVOs.stream()
-                .map(vo -> TeacherQueryFieldTraineesResponse
+        return fieldTrainees.stream()
+                .map(
+                        fieldTrainee -> TeacherQueryFieldTraineesResponse
                         .builder()
-                        .applicationId(vo.getApplicationId())
+                        .applicationId(fieldTrainee.getApplicationId())
                         .studentGcn(
                                 Student.processGcn(
-                                        vo.getGrade(),
-                                        vo.getClassRoom(),
-                                        vo.getNumber()
+                                        fieldTrainee.getGrade(),
+                                        fieldTrainee.getClassRoom(),
+                                        fieldTrainee.getNumber()
                                 )
                         )
-                        .studentName(vo.getStudentName())
-                        .startDate(vo.getStartDate())
-                        .endDate(vo.getEndDate())
-                        .build())
-                .toList();
+                        .studentName(fieldTrainee.getStudentName())
+                        .startDate(fieldTrainee.getStartDate())
+                        .endDate(fieldTrainee.getEndDate())
+                        .build()
+                ).toList();
     }
 
     private List<TeacherQueryContractWorkersResponse> buildContractWorkers(
-            List<Acceptance> acceptanceEntities
+            List<AcceptanceVO> acceptances
     ) {
-        return acceptanceEntities
-                .stream()
+        return acceptances.stream()
                 .map(
                         acceptance -> TeacherQueryContractWorkersResponse
                                 .builder()
-                                .acceptanceId(acceptance.getId())
-                                .studentGcn(acceptance.getStudentGcn())
+                                .acceptanceId(acceptance.getAcceptanceId())
+                                .studentGcn(
+                                        Student.processGcn(
+                                        acceptance.getGrade(),
+                                        acceptance.getClassRoom(),
+                                        acceptance.getNumber()
+                                ))
                                 .studentName(acceptance.getStudentName())
                                 .contractDate(acceptance.getContractDate())
                                 .build()
-                )
-                .toList();
+                ).toList();
     }
 }

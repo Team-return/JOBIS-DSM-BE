@@ -10,18 +10,20 @@ import team.retum.jobis.domain.application.persistence.repository.ApplicationJpa
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
+import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
 @RequiredArgsConstructor
 @Component
 public class AcceptanceMapper {
 
     private final CompanyJpaRepository companyJpaRepository;
-    private final ApplicationJpaRepository applicationJpaRepository;
+    private final StudentJpaRepository studentJpaRepository;
 
     public AcceptanceEntity toEntity(Acceptance domain) {
         CompanyEntity company = companyJpaRepository.findById(domain.getCompanyId())
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-        ApplicationEntity application = applicationJpaRepository.findById(domain.getApplicationId())
+        StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         return AcceptanceEntity.builder()
@@ -30,10 +32,8 @@ public class AcceptanceMapper {
                 .contractDate(domain.getContractDate())
                 .businessArea(domain.getBusinessArea())
                 .year(domain.getYear())
-                .studentName(domain.getStudentName())
-                .studentGcn(domain.getStudentGcn())
                 .tech(domain.getTech())
-                .application(application)
+                .student(student)
                 .build();
     }
 
@@ -42,11 +42,9 @@ public class AcceptanceMapper {
                 .contractDate(entity.getContractDate())
                 .businessArea(entity.getBusinessArea())
                 .tech(entity.getTech())
-                .studentName(entity.getStudentName())
-                .studentGcn(entity.getStudentGcn())
                 .id(entity.getId())
                 .companyId(entity.getCompany().getId())
-                .applicationId(entity.getApplication().getId())
+                .studentId(entity.getStudent().getId())
                 .build();
     }
 }
