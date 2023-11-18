@@ -58,6 +58,9 @@ public class ApplyRecruitmentWebRequest {
     @NotNull
     private LocalDate endDate;
 
+    @NotNull
+    private boolean winterIntern;
+
     @Size(max = 350)
     private String etc;
 
@@ -80,6 +83,7 @@ public class ApplyRecruitmentWebRequest {
                 .submitDocument(this.submitDocument)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
+                .winterIntern(this.winterIntern)
                 .etc(this.etc)
                 .build();
     }
