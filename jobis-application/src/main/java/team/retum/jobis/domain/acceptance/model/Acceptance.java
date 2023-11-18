@@ -27,4 +27,6 @@ public class Acceptance {
     private final LocalDate contractDate;
 
     private final Long companyId;
+
+    private final Long applicationId;
 }
