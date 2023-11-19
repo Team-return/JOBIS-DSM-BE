@@ -18,9 +18,6 @@ import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
-import java.time.Period;
-import java.time.Year;
-
 @RequiredArgsConstructor
 @UseCase
 public class StudentSignUpUseCase {

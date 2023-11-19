@@ -3,7 +3,6 @@ package team.retum.jobis.domain.student.model;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
-import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
 
 import java.time.Period;

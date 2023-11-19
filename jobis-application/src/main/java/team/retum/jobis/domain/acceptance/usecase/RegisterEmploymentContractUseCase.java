@@ -11,7 +11,6 @@ import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
-import team.retum.jobis.domain.student.model.Student;
 
 import java.time.LocalDate;
 import java.time.Year;

@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.acceptance.spi;
 
-import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.spi.vo.AcceptanceVO;
 
 import java.util.List;

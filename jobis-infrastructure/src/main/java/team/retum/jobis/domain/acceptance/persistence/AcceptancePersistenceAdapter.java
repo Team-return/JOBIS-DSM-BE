@@ -9,13 +9,11 @@ import team.retum.jobis.domain.acceptance.persistence.repository.AcceptanceJpaRe
 import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryAcceptanceVO;
 import team.retum.jobis.domain.acceptance.spi.AcceptancePort;
 import team.retum.jobis.domain.acceptance.spi.vo.AcceptanceVO;
-import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
-import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor

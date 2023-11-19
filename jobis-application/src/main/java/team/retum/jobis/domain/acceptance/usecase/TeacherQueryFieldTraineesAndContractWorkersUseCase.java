@@ -5,7 +5,6 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse;
 import team.retum.jobis.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse.TeacherQueryContractWorkersResponse;
 import team.retum.jobis.domain.acceptance.dto.response.TeacherQueryFieldTraineesAndContractWorkersResponse.TeacherQueryFieldTraineesResponse;
-import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.spi.QueryAcceptancePort;
 import team.retum.jobis.domain.acceptance.spi.vo.AcceptanceVO;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
@@ -38,19 +37,19 @@ public class TeacherQueryFieldTraineesAndContractWorkersUseCase {
         return fieldTrainees.stream()
                 .map(
                         fieldTrainee -> TeacherQueryFieldTraineesResponse
-                        .builder()
-                        .applicationId(fieldTrainee.getApplicationId())
-                        .studentGcn(
-                                Student.processGcn(
-                                        fieldTrainee.getGrade(),
-                                        fieldTrainee.getClassRoom(),
-                                        fieldTrainee.getNumber()
+                                .builder()
+                                .applicationId(fieldTrainee.getApplicationId())
+                                .studentGcn(
+                                        Student.processGcn(
+                                                fieldTrainee.getGrade(),
+                                                fieldTrainee.getClassRoom(),
+                                                fieldTrainee.getNumber()
+                                        )
                                 )
-                        )
-                        .studentName(fieldTrainee.getStudentName())
-                        .startDate(fieldTrainee.getStartDate())
-                        .endDate(fieldTrainee.getEndDate())
-                        .build()
+                                .studentName(fieldTrainee.getStudentName())
+                                .startDate(fieldTrainee.getStartDate())
+                                .endDate(fieldTrainee.getEndDate())
+                                .build()
                 ).toList();
     }
 
@@ -64,10 +63,10 @@ public class TeacherQueryFieldTraineesAndContractWorkersUseCase {
                                 .acceptanceId(acceptance.getAcceptanceId())
                                 .studentGcn(
                                         Student.processGcn(
-                                        acceptance.getGrade(),
-                                        acceptance.getClassRoom(),
-                                        acceptance.getNumber()
-                                ))
+                                                acceptance.getGrade(),
+                                                acceptance.getClassRoom(),
+                                                acceptance.getNumber()
+                                        ))
                                 .studentName(acceptance.getStudentName())
                                 .contractDate(acceptance.getContractDate())
                                 .build()
