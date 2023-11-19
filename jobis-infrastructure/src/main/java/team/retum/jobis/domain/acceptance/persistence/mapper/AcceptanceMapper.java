@@ -8,6 +8,7 @@ import team.retum.jobis.domain.application.exception.ApplicationNotFoundExceptio
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
@@ -22,7 +23,7 @@ public class AcceptanceMapper {
         CompanyEntity company = companyJpaRepository.findById(domain.getCompanyId())
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
         StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         return AcceptanceEntity.builder()
                 .id(domain.getId())
