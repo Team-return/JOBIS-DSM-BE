@@ -11,7 +11,6 @@ import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
-import team.retum.jobis.domain.student.model.Student;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -39,23 +38,19 @@ public class RegisterEmploymentContractUseCase {
                             }
 
                             return Acceptance.builder()
-                                    .studentName(application.getStudentName())
-                                    .companyId(application.getId())
-                                    .studentGcn(Student.processGcn(
-                                            application.getStudentGrade(),
-                                            application.getStudentClassNumber(),
-                                            application.getStudentNumber()
-                                    ))
+                                    .companyId(application.getCompanyId())
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
                                     .tech(request.getCodeKeywords())
                                     .businessArea(application.getBusinessArea())
+                                    .studentId(application.getStudentId())
                                     .build();
                         }
                 ).toList();
 
         commandAcceptancePort.saveAllAcceptance(acceptances);
-        commandApplicationPort.deleteApplicationByIds(
+        commandApplicationPort.changeApplicationStatus(
+                ApplicationStatus.ACCEPTANCE,
                 applications.stream().map(ApplicationDetailVO::getId).toList()
         );
     }

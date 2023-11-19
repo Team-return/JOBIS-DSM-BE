@@ -4,12 +4,12 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryApplicationDetailVO;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
+import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationDetailVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;
@@ -211,10 +211,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .select(
                         new QQueryApplicationDetailVO(
                                 applicationEntity.id,
-                                studentEntity.name,
-                                studentEntity.grade,
-                                studentEntity.classRoom,
-                                studentEntity.number,
+                                studentEntity.id,
                                 companyEntity.id,
                                 companyEntity.businessArea,
                                 applicationEntity.applicationStatus

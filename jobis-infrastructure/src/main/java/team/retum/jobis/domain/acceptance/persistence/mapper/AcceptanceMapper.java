@@ -7,16 +7,22 @@ import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
+import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
 @RequiredArgsConstructor
 @Component
 public class AcceptanceMapper {
 
     private final CompanyJpaRepository companyJpaRepository;
+    private final StudentJpaRepository studentJpaRepository;
 
     public AcceptanceEntity toEntity(Acceptance domain) {
         CompanyEntity company = companyJpaRepository.findById(domain.getCompanyId())
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         return AcceptanceEntity.builder()
                 .id(domain.getId())
@@ -24,9 +30,8 @@ public class AcceptanceMapper {
                 .contractDate(domain.getContractDate())
                 .businessArea(domain.getBusinessArea())
                 .year(domain.getYear())
-                .studentName(domain.getStudentName())
-                .studentGcn(domain.getStudentGcn())
                 .tech(domain.getTech())
+                .student(student)
                 .build();
     }
 
@@ -35,10 +40,9 @@ public class AcceptanceMapper {
                 .contractDate(entity.getContractDate())
                 .businessArea(entity.getBusinessArea())
                 .tech(entity.getTech())
-                .studentName(entity.getStudentName())
-                .studentGcn(entity.getStudentGcn())
                 .id(entity.getId())
                 .companyId(entity.getCompany().getId())
+                .studentId(entity.getStudent().getId())
                 .build();
     }
 }

@@ -27,6 +27,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,10 @@ public class StudentEntity {
     @Column(columnDefinition = "VARCHAR(300)", nullable = false)
     private String profileImageUrl;
 
+    @NotNull
+    @Column(columnDefinition = "YEAR")
+    private Year entranceYear;
+
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private final List<ApplicationEntity> applications = new ArrayList<>();
 
@@ -92,7 +97,7 @@ public class StudentEntity {
     @Builder
     public StudentEntity(Long id, UserEntity userEntity, String name, Integer grade,
                          Integer classRoom, Integer number, Gender gender,
-                         Department department, String profileImageUrl) {
+                         Department department, String profileImageUrl, Year entranceYear) {
         this.id = id;
         this.userEntity = userEntity;
         this.name = name;
@@ -102,5 +107,6 @@ public class StudentEntity {
         this.gender = gender;
         this.department = department;
         this.profileImageUrl = profileImageUrl;
+        this.entranceYear = entranceYear;
     }
 }
