@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeEntity;
-import team.retum.jobis.global.converter.StringListConverter;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,11 +38,6 @@ public class RecruitAreaEntity {
     @Column(columnDefinition = "VARCHAR(3500)")
     private String majorTask;
 
-    @NotNull
-    @Convert(converter = StringListConverter.class)
-    @Column(columnDefinition = "VARCHAR(40)")
-    private List<String> jobCodes;
-
     @Column(columnDefinition = "VARCHAR(500)")
     private String preferentialTreatment;
 
@@ -57,11 +50,10 @@ public class RecruitAreaEntity {
 
     @Builder
     public RecruitAreaEntity(Long id, Integer hiredCount, String majorTask, String preferentialTreatment,
-                             List<String> jobCodes, RecruitmentEntity recruitmentEntity) {
+                             RecruitmentEntity recruitmentEntity) {
         this.id = id;
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
-        this.jobCodes = jobCodes;
         this.preferentialTreatment = preferentialTreatment;
         this.recruitment = recruitmentEntity;
     }

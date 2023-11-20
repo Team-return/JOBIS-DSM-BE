@@ -17,8 +17,6 @@ public class RecruitArea {
 
     private final String majorTask;
 
-    private final List<String> jobCodes;
-
     private final String preferentialTreatment;
 
     private final Long recruitmentId;

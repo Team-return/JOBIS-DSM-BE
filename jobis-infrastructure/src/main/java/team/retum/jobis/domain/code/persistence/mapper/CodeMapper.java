@@ -29,11 +29,11 @@ public class CodeMapper {
 
     public Code toDomain(CodeEntity entity) {
         return Code.builder()
-                .id(entity.getId())
-                .codeType(entity.getCodeType())
+                .id(entity.getCode())
+                .codeType(entity.getType())
                 .jobType(entity.getJobType())
                 .keyword(entity.getKeyword())
-                .parentCodeId(entity.getParentCode() == null ? null : entity.getParentCode().getId())
+                .parentCodeId(entity.getParentCode() == null ? null : entity.getParentCode().getCode())
                 .build();
     }
 }

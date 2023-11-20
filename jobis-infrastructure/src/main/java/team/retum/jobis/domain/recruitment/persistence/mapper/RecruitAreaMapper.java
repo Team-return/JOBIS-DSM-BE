@@ -22,7 +22,6 @@ public class RecruitAreaMapper {
                 .id(domain.getId())
                 .recruitmentEntity(recruitment)
                 .hiredCount(domain.getHiredCount())
-                .jobCodes(domain.getJobCodes())
                 .majorTask(domain.getMajorTask())
                 .preferentialTreatment(domain.getPreferentialTreatment())
                 .build();
@@ -32,8 +31,6 @@ public class RecruitAreaMapper {
         return RecruitArea.builder()
                 .id(entity.getId())
                 .recruitmentId(entity.getRecruitment().getId())
-                .majorTask(entity.getMajorTask())
-                .jobCodes(entity.getJobCodes())
                 .majorTask(entity.getMajorTask())
                 .preferentialTreatment(entity.getPreferentialTreatment())
                 .build();
