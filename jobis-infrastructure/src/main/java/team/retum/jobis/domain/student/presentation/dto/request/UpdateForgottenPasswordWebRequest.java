@@ -18,7 +18,6 @@ public class UpdateForgottenPasswordWebRequest {
     @Pattern(regexp = RegexProperty.EMAIL)
     private String email;
 
-    @NotBlank
     @Pattern(regexp = RegexProperty.PASSWORD)
     private String password;
 
