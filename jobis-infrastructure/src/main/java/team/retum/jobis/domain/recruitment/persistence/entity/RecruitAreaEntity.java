@@ -45,9 +45,6 @@ public class RecruitAreaEntity {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private RecruitmentEntity recruitment;
 
-    @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
-    private List<RecruitAreaCodeEntity> recruitAreaCodes = new ArrayList<>();
-
     @Builder
     public RecruitAreaEntity(Long id, Integer hiredCount, String majorTask, String preferentialTreatment,
                              RecruitmentEntity recruitmentEntity) {

@@ -91,9 +91,13 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 )
                 .from(recruitmentEntity)
                 .join(recruitmentEntity.company, companyEntity)
-                .join(recruitmentEntity.recruitAreas, recruitAreaEntity)
-                .join(recruitAreaEntity.recruitAreaCodes, recruitAreaCodeEntity)
-                .on(recruitAreaCodeEntity.type.eq(JOB))
+                .join(recruitAreaEntity)
+                .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                .join(recruitAreaCodeEntity)
+                .on(
+                        recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                        recruitAreaCodeEntity.type.eq(JOB)
+                )
                 .join(recruitAreaCodeEntity.code, codeEntity)
                 .leftJoin(requestedApplication)
                 .on(
@@ -157,11 +161,14 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return queryFactory
                 .select(recruitmentEntity.count())
                 .from(recruitmentEntity)
-                .join(recruitmentEntity.recruitAreas, recruitAreaEntity)
-                .join(recruitAreaEntity.recruitAreaCodes, recruitAreaCodeEntity)
-                .on(recruitAreaCodeEntity.type.eq(JOB))
+                .join(recruitAreaEntity)
+                .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                .join(recruitAreaCodeEntity)
+                .on(
+                        recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                        recruitAreaCodeEntity.type.eq(JOB)
+                )
                 .join(recruitAreaCodeEntity.code, codeEntity)
-                .on(codeEntity.type.eq(JOB))
                 .where(
                         eqYear(filter.getYear()),
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
@@ -178,7 +185,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     public List<RecruitAreaResponse> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
         return queryFactory
                 .selectFrom(recruitAreaEntity)
-                .join(recruitAreaEntity.recruitAreaCodes, recruitAreaCodeEntity)
+                .join(recruitAreaCodeEntity)
+                .on(recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id))
                 .join(recruitAreaCodeEntity.code, codeEntity)
                 .where(recruitAreaEntity.recruitment.id.eq(recruitmentId))
                 .transform(
@@ -322,7 +330,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     private BooleanExpression containsCodes(List<Long> codes) {
-        return codes.isEmpty() ? null : recruitAreaEntity.recruitAreaCodes.any().code.code.in(codes);
+        return codes.isEmpty() ? null : recruitAreaCodeEntity.code.code.in(codes);
     }
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
         return winterIntern == null ? null : recruitmentEntity.winterIntern.eq(winterIntern);

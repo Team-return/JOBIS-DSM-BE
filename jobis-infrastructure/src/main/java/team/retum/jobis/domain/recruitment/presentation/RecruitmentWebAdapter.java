@@ -101,14 +101,13 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "job_code", required = false) String jobCode
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        List<String> parsed = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode != null)
-            parsed.add(jobCode);
+        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
+        if (jobCode != null) codes.add(jobCode);
 
         return studentQueryRecruitmentsUseCase.execute(
                 companyName,
                 page - 1,
-                parsed.stream()
+                codes.stream()
                         .map(Long::parseLong)
                         .toList()
         );
@@ -121,13 +120,12 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "job_code", required = false) String jobCode
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        List<String> parsed = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode != null)
-            parsed.add(jobCode);
+        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
+        if (jobCode != null) codes.add(jobCode);
 
         return studentQueryRecruitmentsUseCase.getTotalPageCount(
                 companyName,
-                parsed.stream()
+                codes.stream()
                         .map(Long::parseLong)
                         .toList()
         );

@@ -122,12 +122,6 @@ public class CompanyEntity {
     @Column(columnDefinition = "VARCHAR(1000)")
     private List<String> attachmentUrls;
 
-    @OneToMany(mappedBy = "company")
-    private final List<RecruitmentEntity> recruitments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company")
-    private final List<AcceptanceEntity> acceptances = new ArrayList<>();
-
     @Builder
     public CompanyEntity(Long id, UserEntity userEntity, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
                          String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,

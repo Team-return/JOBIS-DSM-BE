@@ -175,11 +175,14 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 )
                 .from(applicationEntity)
                 .leftJoin(applicationEntity.student, approvedStudent)
-                .on(approvedStudent.applications.any().applicationStatus.eq(APPROVED))
+                .on(
+                        applicationEntity.applicationStatus.eq(APPROVED),
+                        applicationEntity.student.id.eq(approvedStudent.id)
+                )
                 .leftJoin(applicationEntity.student, passedStudent)
                 .on(
-                        passedStudent.applications.any().applicationStatus.eq(PASS)
-                                .or(passedStudent.applications.any().applicationStatus.eq(FIELD_TRAIN))
+                        applicationEntity.applicationStatus.in(PASS, FIELD_TRAIN),
+                        applicationEntity.student.id.eq(passedStudent.id)
                 )
                 .rightJoin(applicationEntity.student, studentEntity)
                 .on(studentEntity.grade.eq(3))

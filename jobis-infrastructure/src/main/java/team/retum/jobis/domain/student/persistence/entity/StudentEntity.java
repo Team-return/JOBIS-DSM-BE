@@ -87,12 +87,6 @@ public class StudentEntity {
     @Column(columnDefinition = "YEAR")
     private Integer entranceYear;
 
-    @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private final List<ApplicationEntity> applications = new ArrayList<>();
-
-    @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private List<BookmarkEntity> bookmarks = new ArrayList<>();
-
     @Builder
     public StudentEntity(Long id, UserEntity userEntity, String name, Integer grade,
                          Integer classRoom, Integer number, Gender gender,

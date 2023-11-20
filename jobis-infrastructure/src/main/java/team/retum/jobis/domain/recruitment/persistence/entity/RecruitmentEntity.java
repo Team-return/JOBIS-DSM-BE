@@ -106,12 +106,6 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
 
-    @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
-    private final List<RecruitAreaEntity> recruitAreas = new ArrayList<>();
-
-    @OneToMany(mappedBy = "recruitment")
-    private final List<ApplicationEntity> applications = new ArrayList<>();
-
     @Builder
     public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, Integer trainPay, String pay,
                              LocalTime startTime, LocalTime endTime, String submitDocument, LocalDate startDate,
