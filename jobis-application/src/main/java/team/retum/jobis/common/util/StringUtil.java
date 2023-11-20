@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -13,15 +15,14 @@ public class StringUtil {
         return request == null ? null : String.join(key, request.stream().map(Object::toString).toList());
     }
 
-    public static String mergeString(String str1, String str2) {
-        return str1 + " " + str2;
-    }
-
     public static List<String> divideString(String content, String key) {
         if (content == null || content.isEmpty()) {
             return List.of();
         }
-        return List.of(content.split(key));
+
+        List<String> dividedList = Arrays.asList(content.split(key));
+
+        return new ArrayList<>(dividedList);
     }
 
     public static String generateRandomCode(int size) {
