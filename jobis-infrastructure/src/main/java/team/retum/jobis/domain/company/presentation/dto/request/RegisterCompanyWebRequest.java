@@ -27,8 +27,7 @@ public class RegisterCompanyWebRequest {
     @Size(min = 10, max = 10)
     private String businessNumber;
 
-    @NotNull
-    @Pattern(regexp = RegexProperty.COMPANY_PASSWORD)
+    @Pattern(regexp = RegexProperty.PASSWORD)
     private String password;
 
     @NotEmpty
