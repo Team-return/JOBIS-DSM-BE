@@ -2,11 +2,13 @@ package team.retum.jobis.domain.recruitment.service;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.Service;
+import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.model.RecruitAreaCode;
 import team.retum.jobis.domain.recruitment.dto.request.CreateRecruitAreaRequest;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,25 +18,34 @@ public class SaveRecruitmentAreaService {
     private final CommandRecruitmentPort commandRecruitmentPort;
 
     public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
-        List<String> jobCodes = request.getJobCodes().stream().map(Object::toString).toList();
-
         RecruitArea savedRecruitArea = commandRecruitmentPort.saveRecruitmentArea(
                 RecruitArea.builder()
                         .recruitmentId(recruitmentId)
                         .hiredCount(request.getHiring())
-                        .jobCodes(jobCodes)
                         .majorTask(request.getMajorTask())
                         .preferentialTreatment(request.getPreferentialTreatment())
                         .build()
         );
 
-        List<RecruitAreaCode> recruitAreaCodes = request.getTechCodes().stream()
+        List<RecruitAreaCode> recruitAreaCodes = new ArrayList<>();
+        recruitAreaCodes.addAll(request.getTechCodes().stream()
                 .map(
                         code -> RecruitAreaCode.builder()
                                 .recruitAreaId(savedRecruitArea.getId())
-                                .codeId(code)
+                                .code(code)
+                                .type(CodeType.TECH)
                                 .build()
-                ).toList();
+                ).toList()
+        );
+        recruitAreaCodes.addAll(request.getJobCodes().stream()
+                .map(
+                        code -> RecruitAreaCode.builder()
+                                .recruitAreaId(savedRecruitArea.getId())
+                                .code(code)
+                                .type(CodeType.JOB)
+                                .build()
+                ).toList()
+        );
 
         commandRecruitmentPort.saveAllRecruitmentAreaCodes(recruitAreaCodes);
     }

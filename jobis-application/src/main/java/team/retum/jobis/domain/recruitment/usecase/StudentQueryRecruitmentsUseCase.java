@@ -5,7 +5,6 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
-import team.retum.jobis.domain.code.service.GetKeywordsService;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
@@ -21,12 +20,10 @@ public class StudentQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
-    private final GetKeywordsService getKeywordsService;
 
     public StudentQueryRecruitmentsResponse execute(
             String name,
             Long page,
-            Long jobCode,
             List<Long> codeIds,
             Boolean winterIntern
     ) {
@@ -39,7 +36,6 @@ public class StudentQueryRecruitmentsUseCase {
                 .limit(12)
                 .codes(codeIds)
                 .studentId(currentStudentId)
-                .jobCode(jobCode)
                 .winterIntern(winterIntern)
                 .build();
 
@@ -50,11 +46,11 @@ public class StudentQueryRecruitmentsUseCase {
                                         .recruitId(recruitment.getRecruitmentId())
                                         .companyName(recruitment.getCompanyName())
                                         .trainPay(recruitment.getTrainPay())
-                                        .jobCodeList(getKeywordsService.getKeywordsAsJoinedString(recruitment.getJobCodes()))
+                                        .jobCodeList(recruitment.getJobCodes())
                                         .military(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())
                                         .totalHiring(recruitment.getTotalHiring())
-                                        .isBookmarked(recruitment.getIsBookmarked() != 0)
+                                        .isBookmarked(recruitment.getIsBookmarked())
                                         .build()
                         ).toList();
 
@@ -71,7 +67,6 @@ public class StudentQueryRecruitmentsUseCase {
                 .limit(12)
                 .codes(codeIds)
                 .studentId(currentStudentId)
-                .jobCode(jobCode)
                 .winterIntern(winterIntern)
                 .build();
 

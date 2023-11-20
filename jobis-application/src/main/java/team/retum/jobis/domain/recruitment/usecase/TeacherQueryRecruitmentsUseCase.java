@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
-import team.retum.jobis.domain.code.service.GetKeywordsService;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
@@ -19,7 +18,6 @@ import java.util.List;
 public class TeacherQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
-    private final GetKeywordsService getKeywordsService;
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Long page, Boolean winterIntern) {
@@ -48,7 +46,7 @@ public class TeacherQueryRecruitmentsUseCase {
                                         .applicationRequestedCount(recruitment.getRequestedApplicationCount())
                                         .applicationApprovedCount(recruitment.getApprovedApplicationCount())
                                         .recruitmentCount(recruitment.getTotalHiring())
-                                        .recruitmentJob(getKeywordsService.getKeywordsAsJoinedString(recruitment.getJobCodes()))
+                                        .recruitmentJob(recruitment.getJobCodes())
                                         .companyId(recruitment.getCompanyId())
                                         .build()
                         ).toList();

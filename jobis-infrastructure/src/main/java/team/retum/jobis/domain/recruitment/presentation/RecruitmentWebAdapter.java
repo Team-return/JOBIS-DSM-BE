@@ -96,23 +96,37 @@ public class RecruitmentWebAdapter {
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
+<<<<<<< develop
             @RequestParam(value = "job_code", required = false) Long jobCode,
             @RequestParam(value = "tech_code", required = false) String techCode,
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         List<Long> techCodes = StringUtil.divideString(techCode, ",").stream().map(Long::parseLong).toList();
         return studentQueryRecruitmentsUseCase.execute(companyName, page - 1, jobCode, techCodes, winterIntern);
+=======
+            @RequestParam(value = "codes", required = false) String codes
+    ) {
+        List<Long> parsed = StringUtil.divideString(codes, ",").stream().map(Long::parseLong).toList();
+        return studentQueryRecruitmentsUseCase.execute(companyName, page - 1, parsed);
+>>>>>>> ⚒️ :: (#448) 구조변경에 따른 코드 변경
     }
 
     @GetMapping("/student/count")
     public TotalPageCountResponse studentQueryRecruitmentCount(
             @RequestParam(value = "name", required = false) String companyName,
+<<<<<<< develop
             @RequestParam(value = "job_code", required = false) Long jobCode,
             @RequestParam(value = "tech_code", required = false) String techCode,
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         List<Long> techCodes = StringUtil.divideString(techCode, ",").stream().map(Long::parseLong).toList();
         return studentQueryRecruitmentsUseCase.getTotalPageCount(companyName, jobCode, techCodes, winterIntern);
+=======
+            @RequestParam(value = "codes", required = false) String codes
+    ) {
+        List<Long> parsed = StringUtil.divideString(codes, ",").stream().map(Long::parseLong).toList();
+        return studentQueryRecruitmentsUseCase.getTotalPageCount(companyName, parsed);
+>>>>>>> ⚒️ :: (#448) 구조변경에 따른 코드 변경
     }
 
     @GetMapping("/teacher")

@@ -3,6 +3,7 @@ package team.retum.jobis.domain.code.service;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.Service;
 import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 
@@ -27,5 +28,11 @@ public class GetKeywordsService {
         return queryCodePort.queryCodesByIdIn(
                 jobCodes.stream().map(Long::parseLong).toList()
         ).stream().map(Code::getKeyword).toList();
+    }
+
+    public String getCodeKeyword(Long code) {
+        return queryCodePort.queryCodeById(code)
+                .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+                .getKeyword();
     }
 }
