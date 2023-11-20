@@ -86,7 +86,7 @@ public class StudentEntity {
 
     @NotNull
     @Column(columnDefinition = "YEAR")
-    private Year entranceYear;
+    private Integer entranceYear;
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
     private final List<ApplicationEntity> applications = new ArrayList<>();
@@ -97,7 +97,7 @@ public class StudentEntity {
     @Builder
     public StudentEntity(Long id, UserEntity userEntity, String name, Integer grade,
                          Integer classRoom, Integer number, Gender gender,
-                         Department department, String profileImageUrl, Year entranceYear) {
+                         Department department, String profileImageUrl, Integer entranceYear) {
         this.id = id;
         this.userEntity = userEntity;
         this.name = name;

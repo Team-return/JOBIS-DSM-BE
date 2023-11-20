@@ -28,11 +28,11 @@ public class Student {
 
     private final String profileImageUrl;
 
-    private final Year entranceYear;
+    private final Integer entranceYear;
 
     @Builder(toBuilder = true)
     public Student(Long id, String name, Integer grade, Integer classRoom, Integer number, Gender gender,
-                   Department department, String profileImageUrl, Year entranceYear) {
+                   Department department, String profileImageUrl, Integer entranceYear) {
         this.id = id;
         this.name = name;
         this.grade = grade;
@@ -69,18 +69,12 @@ public class Student {
                 .build();
     }
 
-    private Year getEntranceYear(Integer grade) {
-        Year year = Year.now();
-        switch (grade) {
-            case 2 -> {
-                return year.minus(Period.ofYears(1));
-            }
-            case 3 -> {
-                return year.minus(Period.ofYears(2));
-            }
-            default -> {
-                return year;
-            }
-        }
+    private Integer getEntranceYear(Integer grade) {
+        int year = Year.now().getValue();
+        return switch (grade) {
+            case 2 -> year - 1;
+            case 3 -> year - 2;
+            default -> year;
+        };
     }
 }
