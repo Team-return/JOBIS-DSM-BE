@@ -26,9 +26,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotNull;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 

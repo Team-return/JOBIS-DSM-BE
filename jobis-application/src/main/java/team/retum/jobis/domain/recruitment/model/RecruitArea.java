@@ -4,8 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
 
-import java.util.List;
-
 @Getter
 @Builder
 @Aggregate
