@@ -29,6 +29,8 @@ public class RecruitmentFilter {
 
     private final Long jobCode;
 
+    private final Boolean winterIntern;
+
     @Builder.Default
     private int limit = 11;
 

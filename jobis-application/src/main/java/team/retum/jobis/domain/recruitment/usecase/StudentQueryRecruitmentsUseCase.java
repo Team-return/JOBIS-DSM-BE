@@ -27,7 +27,8 @@ public class StudentQueryRecruitmentsUseCase {
             String name,
             Long page,
             Long jobCode,
-            List<Long> codeIds
+            List<Long> codeIds,
+            Boolean winterIntern
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
@@ -39,6 +40,7 @@ public class StudentQueryRecruitmentsUseCase {
                 .codes(codeIds)
                 .studentId(currentStudentId)
                 .jobCode(jobCode)
+                .winterIntern(winterIntern)
                 .build();
 
         List<StudentRecruitmentResponse> recruitments =
@@ -59,7 +61,7 @@ public class StudentQueryRecruitmentsUseCase {
         return new StudentQueryRecruitmentsResponse(recruitments);
     }
 
-    public TotalPageCountResponse getTotalPageCount(String name, Long jobCode, List<Long> codeIds) {
+    public TotalPageCountResponse getTotalPageCount(String name, Long jobCode, List<Long> codeIds, Boolean winterIntern) {
         Long currentStudentId = securityPort.getCurrentUserId();
 
         RecruitmentFilter filter = RecruitmentFilter.builder()
@@ -70,6 +72,7 @@ public class StudentQueryRecruitmentsUseCase {
                 .codes(codeIds)
                 .studentId(currentStudentId)
                 .jobCode(jobCode)
+                .winterIntern(winterIntern)
                 .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(

@@ -22,7 +22,7 @@ public class TeacherQueryRecruitmentsUseCase {
     private final GetKeywordsService getKeywordsService;
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status, Long page) {
+                                                    Integer year, RecruitStatus status, Long page, Boolean winterIntern) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
                 .companyName(companyName)
                 .status(status)
@@ -31,6 +31,7 @@ public class TeacherQueryRecruitmentsUseCase {
                 .codes(List.of())
                 .year(year)
                 .page(page)
+                .winterIntern(winterIntern)
                 .build();
 
         List<TeacherRecruitmentResponse> recruitments =
@@ -56,7 +57,7 @@ public class TeacherQueryRecruitmentsUseCase {
     }
 
     public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status) {
+                                                    Integer year, RecruitStatus status, Boolean winterIntern) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
                 .companyName(companyName)
                 .status(status)
@@ -64,6 +65,7 @@ public class TeacherQueryRecruitmentsUseCase {
                 .endDate(end)
                 .codes(List.of())
                 .year(year)
+                .winterIntern(winterIntern)
                 .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
