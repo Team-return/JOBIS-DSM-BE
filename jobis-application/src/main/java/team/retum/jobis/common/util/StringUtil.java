@@ -16,7 +16,7 @@ public class StringUtil {
     }
 
     public static List<String> divideString(String content, String key) {
-        if (content == null || content.isEmpty()) {
+        if (content == null || content.isEmpty() || content.isBlank()) {
             return List.of();
         }
 
