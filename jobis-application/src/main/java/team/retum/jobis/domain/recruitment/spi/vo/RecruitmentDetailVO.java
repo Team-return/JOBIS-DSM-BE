@@ -29,5 +29,5 @@ public class RecruitmentDetailVO {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String etc;
-    private final String bizNo;
+    private final String companyBizNo;
 }

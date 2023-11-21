@@ -31,7 +31,7 @@ public class QueryMyRecruitmentResponse {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String etc;
-    private final String bizNo;
+    private final String companyBizNo;
 
     public static QueryMyRecruitmentResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas) {
         return QueryMyRecruitmentResponse.builder()
@@ -53,7 +53,7 @@ public class QueryMyRecruitmentResponse {
                 .startDate(recruitmentDetail.getStartDate())
                 .endDate(recruitmentDetail.getEndDate())
                 .etc(recruitmentDetail.getEtc())
-                .bizNo(recruitmentDetail.getBizNo())
+                .companyBizNo(recruitmentDetail.getCompanyBizNo())
                 .build();
     }
 }
