@@ -36,6 +36,7 @@ import team.retum.jobis.domain.recruitment.usecase.TeacherChangeRecruitmentStatu
 import team.retum.jobis.domain.recruitment.usecase.TeacherQueryRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
+import team.retum.jobis.global.exception.BadRequestException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -102,15 +103,10 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "job_code", required = false) String jobCode,
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode.length() == 2) codes.add(jobCode);
-
         return studentQueryRecruitmentsUseCase.execute(
                 companyName,
                 page - 1,
-                codes.stream()
-                        .map(Long::parseLong)
-                        .toList(),
+                this.parseCodes(jobCode, techCodes),
                 winterIntern
         );
     }
@@ -122,14 +118,9 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "job_code", required = false) String jobCode,
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode.length() == 2) codes.add(jobCode);
-
         return studentQueryRecruitmentsUseCase.getTotalPageCount(
                 companyName,
-                codes.stream()
-                        .map(Long::parseLong)
-                        .toList(),
+                this.parseCodes(jobCode, techCodes),
                 winterIntern
         );
     }
@@ -188,5 +179,18 @@ public class RecruitmentWebAdapter {
     @DeleteMapping("/area/{recruit-area-id}")
     public void deleteRecruitArea(@PathVariable("recruit-area-id") Long recruitAreaId) {
         deleteRecruitAreaUseCase.execute(recruitAreaId);
+    }
+
+    private List<Long> parseCodes(String jobCode, String techCodes) {
+        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
+        if (jobCode != null) codes.add(jobCode);
+
+        try {
+            return codes.stream()
+                    .map(Long::parseLong)
+                    .toList();
+        } catch (Exception e) {
+            throw new BadRequestException();
+        }
     }
 }

@@ -15,7 +15,9 @@ public enum GlobalErrorCode implements ErrorProperty {
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "Token Expired"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid Token"),
 
-    MAIL_SEND_FAIL(HttpStatus.NOT_FOUND, "Mail Send Fail");
+    MAIL_SEND_FAIL(HttpStatus.NOT_FOUND, "Mail Send Fail"),
+
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "Bad Request");
 
     private final HttpStatus status;
     private final String message;
