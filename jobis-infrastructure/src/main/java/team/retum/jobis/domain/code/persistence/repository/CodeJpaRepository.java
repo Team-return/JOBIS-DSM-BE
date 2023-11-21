@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CodeJpaRepository extends CrudRepository<CodeEntity, Long> {
 
-    List<CodeEntity> findCodesByCodeIn(List<Long> ids);
+    List<CodeEntity> findCodesByCodeIn(List<Long> codes);
 }
