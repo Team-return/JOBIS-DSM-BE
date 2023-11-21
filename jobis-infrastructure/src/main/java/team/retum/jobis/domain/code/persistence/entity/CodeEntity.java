@@ -40,7 +40,7 @@ public class CodeEntity {
     private JobType jobType;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(21)")
+    @Column(columnDefinition = "VARCHAR(30)")
     private String keyword;
 
     @ManyToOne(fetch = FetchType.LAZY)
