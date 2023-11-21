@@ -147,7 +147,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 recruitmentEntity.submitDocument,
                                 recruitmentEntity.recruitDate.startDate,
                                 recruitmentEntity.recruitDate.finishDate,
-                                recruitmentEntity.etc
+                                recruitmentEntity.etc,
+                                companyEntity.bizNo
                         )
                 )
                 .from(recruitmentEntity)
