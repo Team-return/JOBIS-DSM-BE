@@ -11,6 +11,8 @@ public class RecruitAreaCode {
 
     private final Long recruitAreaId;
 
-    private final Long codeId;
+    private final Long code;
+
+    private final CodeType type;
 
 }

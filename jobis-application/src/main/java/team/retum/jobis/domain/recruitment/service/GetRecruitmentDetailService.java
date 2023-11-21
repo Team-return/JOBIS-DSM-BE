@@ -17,18 +17,13 @@ import java.util.List;
 public class GetRecruitmentDetailService {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
-    private final GetKeywordsService getKeywordsService;
 
-    public QueryRecruitmentDetailResponse execute(Long recruitId) {
-
-        Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(recruitId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
-
+    public QueryRecruitmentDetailResponse execute(Recruitment recruitment) {
         RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.queryRecruitmentDetailById(recruitment.getId());
         List<RecruitAreaResponse> recruitAreaResponses = queryRecruitmentPort.queryRecruitAreasByRecruitmentId(recruitment.getId())
                 .stream().map(recruitAreaResponse -> RecruitAreaResponse.builder()
                         .id(recruitAreaResponse.getId())
-                        .job(getKeywordsService.getKeywordsAsList(recruitAreaResponse.getJob()))
+                        .job(recruitAreaResponse.getJob())
                         .tech(recruitAreaResponse.getTech())
                         .hiring(recruitAreaResponse.getHiring())
                         .majorTask(recruitAreaResponse.getMajorTask())

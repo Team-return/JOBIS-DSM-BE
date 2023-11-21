@@ -38,7 +38,7 @@ public class QnAMapper {
                 .answer(entity.getAnswer())
                 .question(entity.getQuestion())
                 .reviewId(entity.getReview().getId())
-                .codeId(entity.getCode().getId())
+                .codeId(entity.getCode().getCode())
                 .build();
     }
 }

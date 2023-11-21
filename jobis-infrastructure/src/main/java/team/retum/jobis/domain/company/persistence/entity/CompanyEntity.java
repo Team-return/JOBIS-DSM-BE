@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.persistence.entity.type.Address;
 import team.retum.jobis.domain.company.persistence.entity.type.Manager;
-import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.util.ImageProperty;
@@ -27,12 +25,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -121,12 +117,6 @@ public class CompanyEntity {
     @Convert(converter = StringListConverter.class)
     @Column(columnDefinition = "VARCHAR(1000)")
     private List<String> attachmentUrls;
-
-    @OneToMany(mappedBy = "company")
-    private final List<RecruitmentEntity> recruitments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company")
-    private final List<AcceptanceEntity> acceptances = new ArrayList<>();
 
     @Builder
     public CompanyEntity(Long id, UserEntity userEntity, String name, String mainAddress, String mainAddressDetail, String mainZipCode,

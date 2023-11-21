@@ -24,7 +24,7 @@ public class RecruitmentVO {
     private final Integer totalHiring;
     private final Long requestedApplicationCount;
     private final Long approvedApplicationCount;
-    private final Long isBookmarked;
+    private final Boolean isBookmarked;
     private final Long companyId;
 
 }

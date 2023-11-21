@@ -6,6 +6,7 @@ import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.RecruitAreaCode;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeId;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
@@ -22,16 +23,22 @@ public class RecruitAreaCodeMapper {
         RecruitAreaEntity recruitArea = recruitAreaJpaRepository.findById(domain.getRecruitAreaId())
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
 
-        CodeEntity code = codeJpaRepository.findById(domain.getCodeId())
+        CodeEntity code = codeJpaRepository.findById(domain.getCode())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
-        return new RecruitAreaCodeEntity(recruitArea, code);
+        return new RecruitAreaCodeEntity(
+                new RecruitAreaCodeId(domain.getRecruitAreaId(), domain.getCode()),
+                recruitArea,
+                code,
+                domain.getType()
+        );
     }
 
     public RecruitAreaCode toDomain(RecruitAreaCodeEntity entity) {
         return RecruitAreaCode.builder()
                 .recruitAreaId(entity.getRecruitArea().getId())
-                .codeId(entity.getCode().getId())
+                .code(entity.getCode().getCode())
+                .type(entity.getType())
                 .build();
     }
 }
