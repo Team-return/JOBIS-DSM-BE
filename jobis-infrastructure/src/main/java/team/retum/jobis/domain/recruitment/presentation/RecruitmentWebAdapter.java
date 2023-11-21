@@ -102,7 +102,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode != null) codes.add(jobCode);
+        if (jobCode.length() == 2) codes.add(jobCode);
 
         return studentQueryRecruitmentsUseCase.execute(
                 companyName,
@@ -122,7 +122,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode != null) codes.add(jobCode);
+        if (jobCode.length() == 2) codes.add(jobCode);
 
         return studentQueryRecruitmentsUseCase.getTotalPageCount(
                 companyName,
