@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
-import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
