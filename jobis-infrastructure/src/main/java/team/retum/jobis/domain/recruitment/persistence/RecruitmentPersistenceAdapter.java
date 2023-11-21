@@ -177,7 +177,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         containsCodes(filter.getCodes()),
                         eqWinterIntern(filter.getWinterIntern())
                 )
-                .groupBy(recruitmentEntity.id)
                 .fetchOne();
     }
 
