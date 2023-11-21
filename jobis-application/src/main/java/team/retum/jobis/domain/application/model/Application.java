@@ -44,10 +44,6 @@ public class Application {
     }
 
     public Application rejectApplication(String reason) {
-        if (applicationStatus != ApplicationStatus.REQUESTED) {
-            throw ApplicationStatusCannotChangeException.EXCEPTION;
-        }
-
         return this.toBuilder()
                 .applicationStatus(ApplicationStatus.REJECTED)
                 .rejectionReason(reason)
