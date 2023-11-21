@@ -98,7 +98,7 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
             @RequestParam(value = "tech_code", required = false) String techCodes,
-            @RequestParam(value = "job_code", required = false) String jobCode
+            @RequestParam(value = "job_code", required = false) String jobCode,
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
@@ -109,7 +109,8 @@ public class RecruitmentWebAdapter {
                 page - 1,
                 codes.stream()
                         .map(Long::parseLong)
-                        .toList()
+                        .toList(),
+                winterIntern
         );
     }
 
@@ -117,7 +118,7 @@ public class RecruitmentWebAdapter {
     public TotalPageCountResponse studentQueryRecruitmentCount(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "tech_code", required = false) String techCodes,
-            @RequestParam(value = "job_code", required = false) String jobCode
+            @RequestParam(value = "job_code", required = false) String jobCode,
             @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
@@ -127,7 +128,8 @@ public class RecruitmentWebAdapter {
                 companyName,
                 codes.stream()
                         .map(Long::parseLong)
-                        .toList()
+                        .toList(),
+                winterIntern
         );
     }
 

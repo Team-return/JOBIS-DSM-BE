@@ -57,7 +57,7 @@ public class StudentQueryRecruitmentsUseCase {
         return new StudentQueryRecruitmentsResponse(recruitments);
     }
 
-    public TotalPageCountResponse getTotalPageCount(String name, Long jobCode, List<Long> codeIds, Boolean winterIntern) {
+    public TotalPageCountResponse getTotalPageCount(String name, List<Long> codeIds, Boolean winterIntern) {
         Long currentStudentId = securityPort.getCurrentUserId();
 
         RecruitmentFilter filter = RecruitmentFilter.builder()
