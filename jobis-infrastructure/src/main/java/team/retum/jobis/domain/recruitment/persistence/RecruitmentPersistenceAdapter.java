@@ -80,11 +80,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 filter.getStudentId() != null ?
                                         ExpressionUtils.as(
                                                 select(bookmarkEntity.count().gt(0))
-                                                .from(bookmarkEntity)
-                                                .where(
-                                                        bookmarkEntity.student.id.eq(filter.getStudentId()),
-                                                        bookmarkEntity.recruitment.id.eq(recruitmentEntity.id)
-                                                ), "isBookmarked")
+                                                        .from(bookmarkEntity)
+                                                        .where(
+                                                                bookmarkEntity.student.id.eq(filter.getStudentId()),
+                                                                bookmarkEntity.recruitment.id.eq(recruitmentEntity.id)
+                                                        ), "isBookmarked")
                                         : Expressions.asBoolean(false),
                                 companyEntity.id
                         )
@@ -331,8 +331,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     private BooleanExpression containsCodes(List<Long> codes) {
-        return codes.isEmpty() ? null : recruitAreaCodeEntity.code.code.in(codes);
+        return codes.isEmpty() ? null : recruitAreaEntity.recruitAreaCodes.any().code.code.in(codes);
     }
+
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
         return winterIntern == null ? null : recruitmentEntity.winterIntern.eq(winterIntern);
     }
