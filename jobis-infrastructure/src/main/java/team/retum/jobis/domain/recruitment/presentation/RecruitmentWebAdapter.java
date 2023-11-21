@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
@@ -173,7 +174,7 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/my")
-    public QueryRecruitmentDetailResponse queryMyRecruitment() {
+    public QueryMyRecruitmentResponse queryMyRecruitment() {
         return queryMyRecruitmentUseCase.execute();
     }
 
