@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
-import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
 import team.retum.jobis.domain.student.model.Department;
 import team.retum.jobis.domain.student.model.Gender;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
@@ -22,13 +20,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
