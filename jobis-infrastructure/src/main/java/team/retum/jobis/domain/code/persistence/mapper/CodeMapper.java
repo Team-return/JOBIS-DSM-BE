@@ -19,7 +19,7 @@ public class CodeMapper {
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         return CodeEntity.builder()
-                .id(domain.getId())
+                .code(domain.getId())
                 .codeType(domain.getCodeType())
                 .keyword(domain.getKeyword())
                 .jobType(domain.getJobType())

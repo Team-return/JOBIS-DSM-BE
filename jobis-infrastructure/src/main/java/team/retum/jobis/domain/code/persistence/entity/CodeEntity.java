@@ -49,7 +49,7 @@ public class CodeEntity {
 
     @Builder
     public CodeEntity(Long code, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
-        this.code = id;
+        this.code = code;
         this.type = codeType;
         this.jobType = jobType;
         this.keyword = keyword;
