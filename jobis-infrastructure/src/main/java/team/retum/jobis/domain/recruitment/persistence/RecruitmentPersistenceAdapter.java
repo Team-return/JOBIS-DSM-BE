@@ -169,6 +169,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         recruitAreaCodeEntity.type.eq(JOB)
                 )
                 .join(recruitAreaCodeEntity.code, codeEntity)
+                .join(recruitmentEntity.company, companyEntity)
                 .where(
                         eqYear(filter.getYear()),
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
