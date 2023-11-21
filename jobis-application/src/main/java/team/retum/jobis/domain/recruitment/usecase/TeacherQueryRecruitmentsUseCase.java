@@ -4,9 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
-import team.retum.jobis.common.util.StringUtil;
-import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
@@ -21,10 +18,9 @@ import java.util.List;
 public class TeacherQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
-    private final QueryCodePort queryCodePort;
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status, Long page) {
+                                                    Integer year, RecruitStatus status, Long page, Boolean winterIntern) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
                 .companyName(companyName)
                 .status(status)
@@ -33,6 +29,7 @@ public class TeacherQueryRecruitmentsUseCase {
                 .codes(List.of())
                 .year(year)
                 .page(page)
+                .winterIntern(winterIntern)
                 .build();
 
         List<TeacherRecruitmentResponse> recruitments =
@@ -49,7 +46,7 @@ public class TeacherQueryRecruitmentsUseCase {
                                         .applicationRequestedCount(recruitment.getRequestedApplicationCount())
                                         .applicationApprovedCount(recruitment.getApprovedApplicationCount())
                                         .recruitmentCount(recruitment.getTotalHiring())
-                                        .recruitmentJob(getJobKeywords(recruitment.getJobCodes()))
+                                        .recruitmentJob(recruitment.getJobCodes())
                                         .companyId(recruitment.getCompanyId())
                                         .build()
                         ).toList();
@@ -58,7 +55,7 @@ public class TeacherQueryRecruitmentsUseCase {
     }
 
     public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status) {
+                                                    Integer year, RecruitStatus status, Boolean winterIntern) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
                 .companyName(companyName)
                 .status(status)
@@ -66,6 +63,7 @@ public class TeacherQueryRecruitmentsUseCase {
                 .endDate(end)
                 .codes(List.of())
                 .year(year)
+                .winterIntern(winterIntern)
                 .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
@@ -73,14 +71,5 @@ public class TeacherQueryRecruitmentsUseCase {
         );
 
         return new TotalPageCountResponse(totalPageCount);
-    }
-
-    private String getJobKeywords(String jobCodes) {
-        return StringUtil.joinStringList(
-                queryCodePort.queryCodesByIdIn(
-                        StringUtil.divideString(jobCodes, ",").stream().map(Long::parseLong).toList()
-                ).stream().map(Code::getKeyword).toList(),
-                "/"
-        );
     }
 }

@@ -5,12 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Embeddable
 @EqualsAndHashCode
 public class RecruitAreaCodeId implements Serializable {
-    private Long recruitArea;
+    @Column
+    private Long recruitAreaId;
+
+    @Column
     private Long code;
 }

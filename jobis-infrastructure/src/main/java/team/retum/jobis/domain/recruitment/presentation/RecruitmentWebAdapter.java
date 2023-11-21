@@ -39,6 +39,7 @@ import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -96,21 +97,40 @@ public class RecruitmentWebAdapter {
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
-            @RequestParam(value = "job_code", required = false) Long jobCode,
-            @RequestParam(value = "tech_code", required = false) String techCode
+            @RequestParam(value = "tech_code", required = false) String techCodes,
+            @RequestParam(value = "job_code", required = false) String jobCode,
+            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        List<Long> techCodes = StringUtil.divideString(techCode, ",").stream().map(Long::parseLong).toList();
-        return studentQueryRecruitmentsUseCase.execute(companyName, page - 1, jobCode, techCodes);
+        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
+        if (jobCode != null) codes.add(jobCode);
+
+        return studentQueryRecruitmentsUseCase.execute(
+                companyName,
+                page - 1,
+                codes.stream()
+                        .map(Long::parseLong)
+                        .toList(),
+                winterIntern
+        );
     }
 
     @GetMapping("/student/count")
     public TotalPageCountResponse studentQueryRecruitmentCount(
             @RequestParam(value = "name", required = false) String companyName,
-            @RequestParam(value = "job_code", required = false) Long jobCode,
-            @RequestParam(value = "tech_code", required = false) String techCode
+            @RequestParam(value = "tech_code", required = false) String techCodes,
+            @RequestParam(value = "job_code", required = false) String jobCode,
+            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        List<Long> techCodes = StringUtil.divideString(techCode, ",").stream().map(Long::parseLong).toList();
-        return studentQueryRecruitmentsUseCase.getTotalPageCount(companyName, jobCode, techCodes);
+        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
+        if (jobCode != null) codes.add(jobCode);
+
+        return studentQueryRecruitmentsUseCase.getTotalPageCount(
+                companyName,
+                codes.stream()
+                        .map(Long::parseLong)
+                        .toList(),
+                winterIntern
+        );
     }
 
     @GetMapping("/teacher")
@@ -120,9 +140,10 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
             @RequestParam(value = "status", required = false) RecruitStatus status,
             @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "page", defaultValue = "1") @Positive Long page
+            @RequestParam(value = "page", defaultValue = "1") @Positive Long page,
+            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1);
+        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
     }
 
     @GetMapping("/teacher/count")
@@ -131,9 +152,10 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
             @RequestParam(value = "status", required = false) RecruitStatus status,
-            @RequestParam(value = "year", required = false) Integer year
+            @RequestParam(value = "year", required = false) Integer year,
+            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        return teacherQueryRecruitmentsUseCase.getTotalPageCount(companyName, start, end, year, status);
+        return teacherQueryRecruitmentsUseCase.getTotalPageCount(companyName, start, end, year, status, winterIntern);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

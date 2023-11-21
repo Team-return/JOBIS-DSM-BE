@@ -4,12 +4,12 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.acceptance.persistence.repository.vo.QQueryApplicationDetailVO;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
+import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationDetailVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;
@@ -175,11 +175,14 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 )
                 .from(applicationEntity)
                 .leftJoin(applicationEntity.student, approvedStudent)
-                .on(approvedStudent.applications.any().applicationStatus.eq(APPROVED))
+                .on(
+                        applicationEntity.applicationStatus.eq(APPROVED),
+                        applicationEntity.student.id.eq(approvedStudent.id)
+                )
                 .leftJoin(applicationEntity.student, passedStudent)
                 .on(
-                        passedStudent.applications.any().applicationStatus.eq(PASS)
-                                .or(passedStudent.applications.any().applicationStatus.eq(FIELD_TRAIN))
+                        applicationEntity.applicationStatus.in(PASS, FIELD_TRAIN),
+                        applicationEntity.student.id.eq(passedStudent.id)
                 )
                 .rightJoin(applicationEntity.student, studentEntity)
                 .on(studentEntity.grade.eq(3))
@@ -211,10 +214,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .select(
                         new QQueryApplicationDetailVO(
                                 applicationEntity.id,
-                                studentEntity.name,
-                                studentEntity.grade,
-                                studentEntity.classRoom,
-                                studentEntity.number,
+                                studentEntity.id,
                                 companyEntity.id,
                                 companyEntity.businessArea,
                                 applicationEntity.applicationStatus

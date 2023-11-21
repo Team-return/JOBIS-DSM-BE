@@ -3,11 +3,12 @@ package team.retum.jobis.domain.student.model;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
-import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
 
+import java.time.Period;
+import java.time.Year;
+
 @Getter
-@Builder(toBuilder = true)
 @Aggregate
 public class Student {
 
@@ -26,6 +27,22 @@ public class Student {
     private final Department department;
 
     private final String profileImageUrl;
+
+    private final Integer entranceYear;
+
+    @Builder(toBuilder = true)
+    public Student(Long id, String name, Integer grade, Integer classRoom, Integer number, Gender gender,
+                   Department department, String profileImageUrl, Integer entranceYear) {
+        this.id = id;
+        this.name = name;
+        this.grade = grade;
+        this.classRoom = classRoom;
+        this.number = number;
+        this.gender = gender;
+        this.department = department;
+        this.profileImageUrl = profileImageUrl;
+        this.entranceYear = entranceYear == null ? getEntranceYear(grade) : entranceYear;
+    }
 
     public static String processGcn(int grade, int classNumber, int number) {
         return String.valueOf(grade) +
@@ -46,15 +63,18 @@ public class Student {
         };
     }
 
-    public void checkIs3rdGrade() {
-        if (!this.grade.equals(3)) {
-            throw InvalidGradeException.EXCEPTION;
-        }
-    }
-
     public Student changeStudentProfile(String profileImageUrl) {
         return this.toBuilder()
                 .profileImageUrl(profileImageUrl)
                 .build();
+    }
+
+    private Integer getEntranceYear(Integer grade) {
+        int year = Year.now().getValue();
+        return switch (grade) {
+            case 2 -> year - 1;
+            case 3 -> year - 2;
+            default -> year;
+        };
     }
 }

@@ -45,6 +45,7 @@ public class ApplyRecruitmentUseCase {
                         .benefits(request.getBenefits())
                         .etc(request.getEtc())
                         .hiringProgress(request.getHiringProgress())
+                        .winterIntern(request.isWinterIntern())
                         .build()
         );
 

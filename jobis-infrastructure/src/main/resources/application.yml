@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}?useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&rewriteBatchedStatements=true
+    url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:11111111}
 
   jpa:
     database-platform: team.retum.jobis.global.config.MysqlDialectConfig
     hibernate:
-      ddl-auto: validate
+      ddl-auto: ${DDL:validate}
     properties.hibernate:
       format_sql: true
       show_sql: ${SHOW_SQL:true}

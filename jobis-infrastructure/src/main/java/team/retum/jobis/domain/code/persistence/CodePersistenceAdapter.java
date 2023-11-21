@@ -28,7 +28,7 @@ public class CodePersistenceAdapter implements CodePort {
         return jpaQueryFactory
                 .selectFrom(codeEntity)
                 .where(
-                        codeEntity.codeType.eq(codeType),
+                        codeEntity.type.eq(codeType),
                         containsKeyword(keyword),
                         eqParentCode(parentCode)
                 ).fetch().stream()
@@ -38,13 +38,13 @@ public class CodePersistenceAdapter implements CodePort {
 
     @Override
     public Optional<Code> queryCodeById(Long codeId) {
-        return codeJpaRepository.findById(codeId)
+    return codeJpaRepository.findById(codeId)
                 .map(codeMapper::toDomain);
     }
 
     @Override
     public List<Code> queryCodesByIdIn(List<Long> codes) {
-        return codeJpaRepository.findCodesByIdIn(codes).stream()
+        return codeJpaRepository.findCodesByCodeIn(codes).stream()
                 .map(codeMapper::toDomain)
                 .toList();
     }
@@ -56,6 +56,6 @@ public class CodePersistenceAdapter implements CodePort {
     }
 
     private BooleanExpression eqParentCode(Long parentCode) {
-        return parentCode == null ? null : codeEntity.parentCode.id.eq(parentCode);
+        return parentCode == null ? null : codeEntity.parentCode.code.eq(parentCode);
     }
 }

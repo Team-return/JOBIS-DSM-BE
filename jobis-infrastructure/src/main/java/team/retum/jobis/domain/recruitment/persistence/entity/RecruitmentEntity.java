@@ -73,8 +73,8 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private String benefits;
 
     @NotNull
-    @Column(columnDefinition = "BIT(1)")
-    private Boolean militarySupport;
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean militarySupport;
 
     @NotNull
     @Convert(converter = HiringProgressConverter.class)
@@ -95,25 +95,23 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private PayInfo payInfo;
 
     @NotNull
-    @Column(columnDefinition = "BIT(1)")
-    private Boolean personalContact;
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean personalContact;
+
+    @NotNull
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean winterIntern;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
-
-    @OneToMany(mappedBy = "recruitment", orphanRemoval = true)
-    private final List<RecruitAreaEntity> recruitAreas = new ArrayList<>();
-
-    @OneToMany(mappedBy = "recruitment")
-    private final List<ApplicationEntity> applications = new ArrayList<>();
 
     @Builder
     public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, Integer trainPay, String pay,
                              LocalTime startTime, LocalTime endTime, String submitDocument, LocalDate startDate,
                              LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport,
                              List<String> requiredLicenses, String etc, List<ProgressType> hiringProgress,
-                             Integer requiredGrade, Boolean personalContact) {
+                             Integer requiredGrade, boolean personalContact, boolean winterIntern) {
         this.id = id;
         this.workingHour = new WorkingHour(startTime, endTime);
         this.hiringProgress = hiringProgress;
@@ -128,6 +126,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
         this.company = companyEntity;
         this.requiredLicenses = requiredLicenses;
         this.militarySupport = militarySupport;
+        this.winterIntern = winterIntern;
         this.etc = etc;
     }
 }

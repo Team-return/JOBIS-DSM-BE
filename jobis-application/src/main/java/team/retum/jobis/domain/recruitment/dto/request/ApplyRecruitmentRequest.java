@@ -40,5 +40,7 @@ public class ApplyRecruitmentRequest {
 
     private LocalDate endDate;
 
+    private boolean winterIntern;
+
     private String etc;
 }

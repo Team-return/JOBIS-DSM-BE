@@ -19,7 +19,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                         "http://lcoalhost:3001",
                         "http://localhost:4000"
                 )
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE")
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD")
                 .allowedHeaders("*");
     }
 }

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
-import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
 import team.retum.jobis.domain.student.model.Department;
 import team.retum.jobis.domain.student.model.Gender;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
@@ -22,13 +20,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -83,16 +78,14 @@ public class StudentEntity {
     @Column(columnDefinition = "VARCHAR(300)", nullable = false)
     private String profileImageUrl;
 
-    @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private final List<ApplicationEntity> applications = new ArrayList<>();
-
-    @OneToMany(mappedBy = "student", orphanRemoval = true)
-    private List<BookmarkEntity> bookmarks = new ArrayList<>();
+    @NotNull
+    @Column(columnDefinition = "YEAR")
+    private Integer entranceYear;
 
     @Builder
     public StudentEntity(Long id, UserEntity userEntity, String name, Integer grade,
                          Integer classRoom, Integer number, Gender gender,
-                         Department department, String profileImageUrl) {
+                         Department department, String profileImageUrl, Integer entranceYear) {
         this.id = id;
         this.userEntity = userEntity;
         this.name = name;
@@ -102,5 +95,6 @@ public class StudentEntity {
         this.gender = gender;
         this.department = department;
         this.profileImageUrl = profileImageUrl;
+        this.entranceYear = entranceYear;
     }
 }

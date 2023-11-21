@@ -16,15 +16,13 @@ public class Acceptance {
 
     private final Integer year;
 
-    private final String studentName;
-
     private final String businessArea;
 
     private final List<String> tech;
 
-    private final String studentGcn;
-
     private final LocalDate contractDate;
 
     private final Long companyId;
+
+    private final Long studentId;
 }

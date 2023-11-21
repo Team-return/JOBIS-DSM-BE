@@ -200,14 +200,19 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         )
                 )
                 .from(companyEntity)
-                .leftJoin(companyEntity.acceptances, acceptanceEntity)
-                .leftJoin(companyEntity.recruitments, recruitmentEntity)
+                .leftJoin(acceptanceEntity)
+                .on(acceptanceEntity.company.id.eq(companyEntity.id))
+                .leftJoin(recruitmentEntity)
+                .on(recruitmentEntity.company.id.eq(companyEntity.id))
                 .on(
                         recruitmentEntity.company.id.eq(companyEntity.id),
                         recentRecruitment(null)
                 )
-                .leftJoin(recruitmentEntity.applications, applicationEntity)
-                .on(applicationEntity.applicationStatus.eq(FIELD_TRAIN))
+                .leftJoin(applicationEntity)
+                .on(
+                        applicationEntity.applicationStatus.eq(FIELD_TRAIN),
+                        applicationEntity.recruitment.id.eq(recruitmentEntity.id)
+                )
                 .where(
                         containsName(filter.getName()),
                         eqCompanyType(filter.getType()),

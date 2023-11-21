@@ -28,12 +28,12 @@ public class CodeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long code;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(13)")
-    private CodeType codeType;
+    private CodeType type;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(8)")
@@ -48,9 +48,9 @@ public class CodeEntity {
     private CodeEntity parentCode;
 
     @Builder
-    public CodeEntity(Long id, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
-        this.id = id;
-        this.codeType = codeType;
+    public CodeEntity(Long code, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
+        this.code = code;
+        this.type = codeType;
         this.jobType = jobType;
         this.keyword = keyword;
         this.parentCode = parentCodeEntity;

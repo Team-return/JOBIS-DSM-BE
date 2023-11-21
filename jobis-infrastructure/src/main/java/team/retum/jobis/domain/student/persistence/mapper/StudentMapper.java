@@ -27,6 +27,7 @@ public class StudentMapper {
                 .department(domain.getDepartment())
                 .profileImageUrl(domain.getProfileImageUrl())
                 .number(domain.getNumber())
+                .entranceYear(domain.getEntranceYear())
                 .userEntity(user)
                 .build();
     }
@@ -41,6 +42,7 @@ public class StudentMapper {
                 .classRoom(entity.getClassRoom())
                 .department(entity.getDepartment())
                 .grade(entity.getGrade())
+                .entranceYear(entity.getEntranceYear())
                 .build();
     }
 }

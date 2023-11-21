@@ -5,9 +5,6 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
-import team.retum.jobis.common.util.StringUtil;
-import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
@@ -23,13 +20,12 @@ public class StudentQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
-    private final QueryCodePort queryCodePort;
 
     public StudentQueryRecruitmentsResponse execute(
             String name,
             Long page,
-            Long jobCode,
-            List<Long> codeIds
+            List<Long> codeIds,
+            Boolean winterIntern
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
@@ -40,7 +36,7 @@ public class StudentQueryRecruitmentsUseCase {
                 .limit(12)
                 .codes(codeIds)
                 .studentId(currentStudentId)
-                .jobCode(jobCode)
+                .winterIntern(winterIntern)
                 .build();
 
         List<StudentRecruitmentResponse> recruitments =
@@ -50,18 +46,18 @@ public class StudentQueryRecruitmentsUseCase {
                                         .recruitId(recruitment.getRecruitmentId())
                                         .companyName(recruitment.getCompanyName())
                                         .trainPay(recruitment.getTrainPay())
-                                        .jobCodeList(getJobKeywords(recruitment.getJobCodes()))
+                                        .jobCodeList(recruitment.getJobCodes())
                                         .military(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())
                                         .totalHiring(recruitment.getTotalHiring())
-                                        .isBookmarked(recruitment.getIsBookmarked() != 0)
+                                        .isBookmarked(recruitment.getIsBookmarked())
                                         .build()
                         ).toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
     }
 
-    public TotalPageCountResponse getTotalPageCount(String name, Long jobCode, List<Long> codeIds) {
+    public TotalPageCountResponse getTotalPageCount(String name, List<Long> codeIds, Boolean winterIntern) {
         Long currentStudentId = securityPort.getCurrentUserId();
 
         RecruitmentFilter filter = RecruitmentFilter.builder()
@@ -71,7 +67,7 @@ public class StudentQueryRecruitmentsUseCase {
                 .limit(12)
                 .codes(codeIds)
                 .studentId(currentStudentId)
-                .jobCode(jobCode)
+                .winterIntern(winterIntern)
                 .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
@@ -79,14 +75,5 @@ public class StudentQueryRecruitmentsUseCase {
         );
 
         return new TotalPageCountResponse(totalPageCount);
-    }
-
-    private String getJobKeywords(String jobCodes) {
-        return StringUtil.joinStringList(
-                queryCodePort.queryCodesByIdIn(
-                        StringUtil.divideString(jobCodes, ",").stream().map(Long::parseLong).toList()
-                ).stream().map(Code::getKeyword).toList(),
-                "/"
-        );
     }
 }
