@@ -9,5 +9,5 @@ public interface QueryStudentPort {
 
     boolean existsByGradeAndClassRoomAndNumber(int grade, int classRoom, int number);
 
-    int queryStudentCountByGrade(int grade);
+    int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear);
 }

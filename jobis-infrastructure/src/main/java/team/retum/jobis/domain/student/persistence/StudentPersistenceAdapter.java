@@ -28,8 +28,8 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public int queryStudentCountByGrade(int grade) {
-        return studentJpaRepository.countByGrade(grade);
+    public int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear) {
+        return studentJpaRepository.countByGradeAndEntranceYear(grade, entranceYear);
     }
 
     @Override
