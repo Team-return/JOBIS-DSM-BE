@@ -27,7 +27,7 @@ import team.retum.jobis.domain.application.usecase.ChangeApplicationsStatusUseCa
 import team.retum.jobis.domain.application.usecase.ChangeFieldTrainDateUseCase;
 import team.retum.jobis.domain.application.usecase.CreateApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
-import team.retum.jobis.domain.application.usecase.QueryCompanyApplicationsUseCase;
+import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
@@ -44,7 +44,7 @@ public class ApplicationWebAdapter {
     private final CreateApplicationUseCase createApplicationUseCase;
     private final DeleteApplicationUseCase deleteApplicationUseCase;
     private final TeacherQueryApplicationsUseCase queryApplicationListService;
-    private final QueryCompanyApplicationsUseCase queryCompanyApplicationsUseCase;
+    private final CompanyQueryApplicationsUseCase companyQueryApplicationsUseCase;
     private final QueryStudentApplicationsUseCase queryStudentApplicationsUseCase;
     private final ChangeApplicationsStatusUseCase changeApplicationsStatusUseCase;
     private final ChangeFieldTrainDateUseCase changeFieldTrainDateUseCase;
@@ -86,7 +86,7 @@ public class ApplicationWebAdapter {
 
     @GetMapping("/company")
     public CompanyQueryApplicationsResponse queryCompanyApplicationList() {
-        return queryCompanyApplicationsUseCase.execute();
+        return companyQueryApplicationsUseCase.execute();
     }
 
     @GetMapping("/students")
