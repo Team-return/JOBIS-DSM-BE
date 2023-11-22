@@ -183,7 +183,7 @@ public class RecruitmentWebAdapter {
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
         List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode != null) codes.add(jobCode);
+        if (jobCode!= null && !jobCode.isBlank()) codes.add(jobCode);
 
         try {
             return codes.stream()
