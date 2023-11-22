@@ -6,7 +6,6 @@ import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
 import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
-import team.retum.jobis.domain.application.spi.vo.TotalApplicationCountVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,8 +19,6 @@ public interface QueryApplicationPort {
     List<FieldTraineesVO> queryApplicationsFieldTraineesByCompanyId(Long companyId);
 
     List<PassedApplicationStudentsVO> queryPassedApplicationStudentsByCompanyId(Long companyId);
-
-    TotalApplicationCountVO queryTotalApplicationCount();
 
     List<Application> queryApplicationsByIds(List<Long> applicationIds);
 
