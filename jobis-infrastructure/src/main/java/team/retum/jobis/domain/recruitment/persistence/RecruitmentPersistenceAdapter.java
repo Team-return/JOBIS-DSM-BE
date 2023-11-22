@@ -295,8 +295,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public boolean existsOnRecruitmentByCompanyId(Long companyId) {
-        return recruitmentJpaRepository.existsByCompanyIdAndStatusNot(companyId, RecruitStatus.DONE);
+    public boolean existsOnRecruitmentByCompanyId(Long companyId, boolean winterIntern) {
+        return recruitmentJpaRepository.existsByCompanyIdAndStatusNotAndWinterIntern(companyId, RecruitStatus.DONE, winterIntern);
     }
 
     //===conditions===//
