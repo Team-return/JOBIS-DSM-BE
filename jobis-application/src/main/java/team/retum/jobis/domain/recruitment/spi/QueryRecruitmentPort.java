@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QueryRecruitmentPort {
-    boolean existsOnRecruitmentByCompanyId(Long companyId, boolean winterIntern);
+    boolean existsOnRecruitmentByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern);
 
     List<Recruitment> queryAllRecruitments();
 

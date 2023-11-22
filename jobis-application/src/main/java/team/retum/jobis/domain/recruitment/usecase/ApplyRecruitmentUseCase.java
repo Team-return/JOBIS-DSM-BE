@@ -24,8 +24,7 @@ public class ApplyRecruitmentUseCase {
 
     public void execute(ApplyRecruitmentRequest request) {
         Long currentCompanyId = securityPort.getCurrentUserId();
-        checkRecruitmentExists(currentCompanyId, true);
-        checkRecruitmentExists(currentCompanyId, false);
+        checkRecruitmentExists(currentCompanyId, request.isWinterIntern());
 
         Recruitment recruitment = commandRecruitmentPort.saveRecruitment(
                 Recruitment.builder()
@@ -54,7 +53,7 @@ public class ApplyRecruitmentUseCase {
     }
 
     private void checkRecruitmentExists(Long companyId, boolean winterIntern) {
-        if (queryRecruitmentPort.existsOnRecruitmentByCompanyId(companyId, winterIntern)) {
+        if (queryRecruitmentPort.existsOnRecruitmentByCompanyIdAndWinterIntern(companyId, winterIntern)) {
             throw RecruitmentAlreadyExistsException.EXCEPTION;
         }
     }
