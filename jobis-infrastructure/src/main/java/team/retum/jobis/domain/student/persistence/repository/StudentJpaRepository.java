@@ -6,4 +6,6 @@ import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 public interface StudentJpaRepository extends JpaRepository<StudentEntity, Long> {
     boolean existsByGradeAndClassRoomAndNumber(Integer grade, Integer classRoom, Integer number);
 
+    int countByGrade(int grade);
+
 }

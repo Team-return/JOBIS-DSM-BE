@@ -34,4 +34,6 @@ public interface QueryApplicationPort {
     boolean existsApplicationByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);
 
     boolean existsApplicationByStudentIdAndRecruitmentId(Long studentId, Long recruitmentId);
+
+    int queryApplicationCountByStatusIn(List<ApplicationStatus> applicationStatus);
 }

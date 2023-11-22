@@ -28,6 +28,11 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
+    public int queryStudentCountByGrade(int grade) {
+        return studentJpaRepository.countByGrade(grade);
+    }
+
+    @Override
     public Student saveStudent(Student student) {
         return studentMapper.toDomain(
                 studentJpaRepository.save(studentMapper.toEntity(student))
