@@ -25,7 +25,9 @@ public interface QueryRecruitmentPort {
 
     RecruitmentDetailVO queryRecruitmentDetailById(Long recruitmentId);
 
-    List<RecruitmentVO> queryRecruitmentsByFilter(RecruitmentFilter filter);
+    List<RecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter);
+
+    List<RecruitmentVO> queryTeacherRecruitmentsByFilter(RecruitmentFilter filter);
 
     List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds);
 
