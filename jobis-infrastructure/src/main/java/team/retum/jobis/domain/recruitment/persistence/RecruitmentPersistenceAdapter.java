@@ -114,7 +114,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
-                        containsCodes(filter.getCodes()),
+                        containsCodes(filter.getCodes(), false),
                         eqWinterIntern(filter.getWinterIntern())
                 )
                 .offset(filter.getOffset())
@@ -162,21 +162,13 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return queryFactory
                 .select(recruitmentEntity.count())
                 .from(recruitmentEntity)
-                .join(recruitAreaEntity)
-                .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-                .join(recruitAreaCodeEntity)
-                .on(
-                        recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
-                        recruitAreaCodeEntity.type.eq(JOB)
-                )
-                .join(recruitAreaCodeEntity.code, codeEntity)
                 .join(recruitmentEntity.company, companyEntity)
                 .where(
                         eqYear(filter.getYear()),
                         betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                         eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
-                        containsCodes(filter.getCodes()),
+                        containsCodes(filter.getCodes(), true),
                         eqWinterIntern(filter.getWinterIntern())
                 )
                 .fetchOne();
@@ -330,8 +322,22 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return companyEntity.name.contains(name);
     }
 
-    private BooleanExpression containsCodes(List<Long> codes) {
-        return codes.isEmpty() ? null : recruitAreaEntity.recruitAreaCodes.any().code.code.in(codes);
+    private BooleanExpression containsCodes(List<Long> codes, boolean isCount) {
+        if (codes.isEmpty()) {
+            return null;
+        }
+
+        return isCount ?
+                select(recruitAreaCodeEntity)
+                        .from(recruitAreaEntity)
+                        .join(recruitAreaCodeEntity)
+                        .on(
+                                recruitAreaEntity.id.eq(recruitAreaCodeEntity.recruitArea.id),
+                                recruitAreaCodeEntity.code.code.in(codes)
+                        )
+                        .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                        .exists()
+                : recruitAreaEntity.recruitAreaCodes.any().code.code.in(codes);
     }
 
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
