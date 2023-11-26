@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.persistence;
 
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
@@ -77,15 +78,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 recruitAreaEntity.hiredCount.sum(),
                                 requestedApplication.countDistinct(),
                                 approvedApplication.countDistinct(),
-                                filter.getStudentId() != null ?
-                                        ExpressionUtils.as(
-                                                select(bookmarkEntity.count().gt(0))
-                                                        .from(bookmarkEntity)
-                                                        .where(
-                                                                bookmarkEntity.student.id.eq(filter.getStudentId()),
-                                                                bookmarkEntity.recruitment.id.eq(recruitmentEntity.id)
-                                                        ), "isBookmarked")
-                                        : Expressions.asBoolean(false),
+                                getIsBookmarkedQuery(filter.getStudentId()),
                                 companyEntity.id
                         )
                 )
@@ -289,6 +282,18 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public boolean existsOnRecruitmentByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
         return recruitmentJpaRepository.existsByCompanyIdAndStatusNotAndWinterIntern(companyId, RecruitStatus.DONE, winterIntern);
+    }
+
+    private Expression<Boolean> getIsBookmarkedQuery(Long studentId) {
+        return studentId != null ?
+                ExpressionUtils.as(
+                        select(bookmarkEntity.count().gt(0))
+                                .from(bookmarkEntity)
+                                .where(
+                                        bookmarkEntity.student.id.eq(studentId),
+                                        bookmarkEntity.recruitment.id.eq(recruitmentEntity.id)
+                                ), "isBookmarked")
+                : Expressions.asBoolean(false);
     }
 
     //===conditions===//
