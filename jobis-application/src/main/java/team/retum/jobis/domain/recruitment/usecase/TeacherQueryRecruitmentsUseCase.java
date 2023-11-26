@@ -33,7 +33,7 @@ public class TeacherQueryRecruitmentsUseCase {
                 .build();
 
         List<TeacherRecruitmentResponse> recruitments =
-                queryRecruitmentPort.queryRecruitmentsByFilter(filter).stream()
+                queryRecruitmentPort.queryTeacherRecruitmentsByFilter(filter).stream()
                         .map(recruitment ->
                                 TeacherRecruitmentResponse.builder()
                                         .id(recruitment.getRecruitmentId())
