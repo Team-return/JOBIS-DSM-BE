@@ -49,8 +49,7 @@ public class StudentQueryRecruitmentsUseCase {
                                         .jobCodeList(recruitment.getJobCodes())
                                         .military(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())
-                                        .totalHiring(recruitment.getTotalHiring())
-                                        .isBookmarked(recruitment.getIsBookmarked())
+                                        .isBookmarked(recruitment.isBookmarked())
                                         .build()
                         ).toList();
 

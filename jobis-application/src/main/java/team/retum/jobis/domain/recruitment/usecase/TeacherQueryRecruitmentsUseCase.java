@@ -42,7 +42,6 @@ public class TeacherQueryRecruitmentsUseCase {
                                         .companyType(recruitment.getCompanyType())
                                         .start(recruitment.getStartDate())
                                         .end(recruitment.getEndDate())
-                                        .militarySupport(recruitment.isMilitarySupport())
                                         .applicationRequestedCount(recruitment.getRequestedApplicationCount())
                                         .applicationApprovedCount(recruitment.getApprovedApplicationCount())
                                         .recruitmentCount(recruitment.getTotalHiring())

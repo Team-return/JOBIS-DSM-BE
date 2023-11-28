@@ -9,22 +9,18 @@ import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class RecruitmentVO {
+public class TeacherRecruitmentVO {
 
-    private final Long recruitmentId;
+    private final long recruitmentId;
     private final RecruitStatus recruitStatus;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String companyName;
     private final CompanyType companyType;
-    private final Integer trainPay;
-    private final boolean militarySupport;
-    private final String companyLogoUrl;
     private final String jobCodes;
-    private final Integer totalHiring;
-    private final Long requestedApplicationCount;
-    private final Long approvedApplicationCount;
-    private final Boolean isBookmarked;
-    private final Long companyId;
+    private final long totalHiring;
+    private final long requestedApplicationCount;
+    private final long approvedApplicationCount;
+    private final long companyId;
 
 }
