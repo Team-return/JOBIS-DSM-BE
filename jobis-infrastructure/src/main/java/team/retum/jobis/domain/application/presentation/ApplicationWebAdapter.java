@@ -116,7 +116,7 @@ public class ApplicationWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/reject/{application-id}")
+    @PatchMapping("/rejection/{application-id}")
     public void rejectApplication(
             @PathVariable("application-id") Long applicationId,
             @Valid @RequestBody RejectApplicationWebRequest request
