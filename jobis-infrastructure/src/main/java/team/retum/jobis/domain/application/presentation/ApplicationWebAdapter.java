@@ -17,6 +17,7 @@ import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
+import team.retum.jobis.domain.application.dto.response.QueryRejectionReasonResponse;
 import team.retum.jobis.domain.application.dto.response.StudentQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -31,6 +32,7 @@ import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
+import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
 import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.RecreateApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
@@ -54,6 +56,7 @@ public class ApplicationWebAdapter {
     private final QueryEmploymentCountUseCase queryEmploymentCountUseCase;
     private final QueryPassedApplicationStudentsUseCase queryPassedApplicationStudentsUseCase;
     private final RecreateApplicationUseCase recreateApplicationUseCase;
+    private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -139,5 +142,10 @@ public class ApplicationWebAdapter {
             @RequestBody CreateApplicationWebRequest request
     ) {
         recreateApplicationUseCase.execute(applicationId, request.toDomainRequest());
+    }
+
+    @GetMapping("/rejection/{application-id}")
+    public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
+        return queryRejectionReasonUseCase.execute(applicationId);
     }
 }
