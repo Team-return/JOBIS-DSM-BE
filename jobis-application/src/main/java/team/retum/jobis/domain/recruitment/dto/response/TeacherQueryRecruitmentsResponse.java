@@ -20,23 +20,23 @@ public class TeacherQueryRecruitmentsResponse {
     public static class TeacherRecruitmentResponse {
         private long id;
 
-        private RecruitStatus recruitmentStatus;
+        private RecruitStatus status;
 
         private String companyName;
 
         private CompanyType companyType;
 
-        private String recruitmentJob;
+        private String hiringJobs;
 
-        private long recruitmentCount;
+        private long totalHiringCount;
 
         private long applicationRequestedCount;
 
         private long applicationApprovedCount;
 
-        private LocalDate start;
+        private LocalDate startDate;
 
-        private LocalDate end;
+        private LocalDate endDate;
 
         private long companyId;
     }

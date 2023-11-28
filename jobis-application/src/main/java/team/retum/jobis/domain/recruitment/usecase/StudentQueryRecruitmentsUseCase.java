@@ -43,13 +43,13 @@ public class StudentQueryRecruitmentsUseCase {
                 queryRecruitmentPort.queryStudentRecruitmentsByFilter(recruitmentFilter).stream()
                         .map(
                                 recruitment -> StudentRecruitmentResponse.builder()
-                                        .recruitId(recruitment.getRecruitmentId())
+                                        .id(recruitment.getRecruitmentId())
                                         .companyName(recruitment.getCompanyName())
                                         .trainPay(recruitment.getTrainPay())
-                                        .jobCodeList(recruitment.getJobCodes())
-                                        .military(recruitment.isMilitarySupport())
+                                        .hiringJobs(recruitment.getJobCodes())
+                                        .militarySupport(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())
-                                        .isBookmarked(recruitment.isBookmarked())
+                                        .bookmarked(recruitment.isBookmarked())
                                         .build()
                         ).toList();
 

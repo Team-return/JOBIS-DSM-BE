@@ -15,12 +15,18 @@ public class StudentQueryRecruitmentsResponse {
     @Getter
     @Builder
     public static class StudentRecruitmentResponse {
-        private long recruitId;
+        private long id;
+
         private String companyName;
+
         private String companyProfileUrl;
+
         private int trainPay;
-        private boolean military;
-        private String jobCodeList;
-        private boolean isBookmarked;
+
+        private boolean militarySupport;
+
+        private String hiringJobs;
+
+        private boolean bookmarked;
     }
 }
