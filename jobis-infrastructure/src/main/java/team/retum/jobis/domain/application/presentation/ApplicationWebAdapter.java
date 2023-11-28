@@ -136,6 +136,7 @@ public class ApplicationWebAdapter {
         return queryPassedApplicationStudentsUseCase.execute(companyId);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{application-id}")
     public void reapply(
             @PathVariable("application-id") Long applicationId,
