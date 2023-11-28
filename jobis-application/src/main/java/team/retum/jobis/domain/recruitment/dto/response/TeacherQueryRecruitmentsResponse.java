@@ -18,17 +18,26 @@ public class TeacherQueryRecruitmentsResponse {
     @Getter
     @Builder
     public static class TeacherRecruitmentResponse {
-        private Long id;
+        private long id;
+
         private RecruitStatus recruitmentStatus;
+
         private String companyName;
+
         private CompanyType companyType;
+
         private String recruitmentJob;
-        private Integer recruitmentCount;
-        private Long applicationRequestedCount;
-        private Long applicationApprovedCount;
+
+        private long recruitmentCount;
+
+        private long applicationRequestedCount;
+
+        private long applicationApprovedCount;
+
         private LocalDate start;
+
         private LocalDate end;
-        private Boolean militarySupport;
-        private Long companyId;
+
+        private long companyId;
     }
 }
