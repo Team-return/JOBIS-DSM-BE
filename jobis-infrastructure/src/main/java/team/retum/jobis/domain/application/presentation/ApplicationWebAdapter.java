@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,7 @@ import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCa
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
+import team.retum.jobis.domain.application.usecase.RecreateApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
@@ -51,6 +53,7 @@ public class ApplicationWebAdapter {
     private final RejectApplicationUseCase rejectApplicationUseCase;
     private final QueryEmploymentCountUseCase queryEmploymentCountUseCase;
     private final QueryPassedApplicationStudentsUseCase queryPassedApplicationStudentsUseCase;
+    private final RecreateApplicationUseCase recreateApplicationUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -128,5 +131,13 @@ public class ApplicationWebAdapter {
             @PathVariable("company-id") Long companyId
     ) {
         return queryPassedApplicationStudentsUseCase.execute(companyId);
+    }
+
+    @PutMapping("/{application-id}")
+    public void reapply(
+            @PathVariable("application-id") Long applicationId,
+            @RequestBody CreateApplicationWebRequest request
+    ) {
+        recreateApplicationUseCase.execute(applicationId, request.toDomainRequest());
     }
 }

@@ -50,6 +50,13 @@ public class Application {
                 .build();
     }
 
+    public Application reapply(List<ApplicationAttachment> attachments) {
+        return this.toBuilder()
+                .attachments(attachments)
+                .applicationStatus(ApplicationStatus.REQUESTED)
+                .build();
+    }
+
     public void checkReviewAuthority() {
         if (this.applicationStatus == ApplicationStatus.REQUESTED
                 || this.applicationStatus == ApplicationStatus.APPROVED
