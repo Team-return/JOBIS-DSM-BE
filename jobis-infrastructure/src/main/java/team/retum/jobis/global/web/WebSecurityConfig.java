@@ -16,6 +16,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                         "https://jobis-company.team-return.com",
                         "https://jobis-student.team-return.com",
                         "https://jobis-company-dev.team-return.com",
+                        "https://jobis-admin-dev.team-return.com",
+                        "https://develop.jobis-student.pages.dev",
+                        "https://jobis-student-dev.team-return.com",
                         "http://localhost:3000",
                         "http://lcoalhost:3001",
                         "http://localhost:4000"
