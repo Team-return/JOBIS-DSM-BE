@@ -13,14 +13,11 @@ import team.retum.jobis.domain.application.persistence.repository.vo.QQueryAppli
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryFieldTraineesVO;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryPassedApplicationStudentsVO;
-import team.retum.jobis.domain.application.persistence.repository.vo.QQueryTotalApplicationCountVO;
-import team.retum.jobis.domain.application.persistence.repository.vo.QueryTotalApplicationCountVO;
 import team.retum.jobis.domain.application.spi.ApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
 import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
-import team.retum.jobis.domain.student.persistence.entity.QStudentEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,7 +26,6 @@ import java.util.Optional;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.jpa.JPAExpressions.select;
-import static team.retum.jobis.domain.application.model.ApplicationStatus.APPROVED;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationAttachmentEntity.applicationAttachmentEntity;
@@ -162,34 +158,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public QueryTotalApplicationCountVO queryTotalApplicationCount() {
-        QStudentEntity approvedStudent = new QStudentEntity("approvedStudent");
-        QStudentEntity passedStudent = new QStudentEntity("passedStudent");
-        return queryFactory
-                .select(
-                        new QQueryTotalApplicationCountVO(
-                                studentEntity.count(),
-                                passedStudent.countDistinct(),
-                                approvedStudent.countDistinct()
-                        )
-                )
-                .from(applicationEntity)
-                .leftJoin(applicationEntity.student, approvedStudent)
-                .on(
-                        applicationEntity.applicationStatus.eq(APPROVED),
-                        applicationEntity.student.id.eq(approvedStudent.id)
-                )
-                .leftJoin(applicationEntity.student, passedStudent)
-                .on(
-                        applicationEntity.applicationStatus.in(PASS, FIELD_TRAIN),
-                        applicationEntity.student.id.eq(passedStudent.id)
-                )
-                .rightJoin(applicationEntity.student, studentEntity)
-                .on(studentEntity.grade.eq(3))
-                .fetchOne();
-    }
-
-    @Override
     public Application saveApplication(Application application) {
         return applicationMapper.toDomain(
                 applicationJpaRepository.save(applicationMapper.toEntity(application))
@@ -297,6 +265,11 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         applicationEntity.student.id.eq(studentId),
                         applicationEntity.recruitment.id.eq(recruitmentId)
                 ).fetchFirst() != null;
+    }
+
+    @Override
+    public int queryApplicationCountByStatusIn(List<ApplicationStatus> applicationStatus) {
+        return applicationJpaRepository.countByApplicationStatusIn(applicationStatus);
     }
 
     @Override

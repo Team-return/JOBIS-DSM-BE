@@ -16,7 +16,7 @@ import team.retum.jobis.domain.student.model.Student;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class QueryCompanyApplicationsUseCase {
+public class CompanyQueryApplicationsUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
@@ -30,7 +30,7 @@ public class QueryCompanyApplicationsUseCase {
 
         return new CompanyQueryApplicationsResponse(
                 queryApplicationPort.queryApplicationByConditions(
-                                recruitment.getId(), null, ApplicationStatus.APPROVED, null
+                                recruitment.getId(), null, ApplicationStatus.SEND, null
                         ).stream()
                         .map(application -> CompanyQueryApplicationResponse.builder()
                                 .applicationId(application.getId())

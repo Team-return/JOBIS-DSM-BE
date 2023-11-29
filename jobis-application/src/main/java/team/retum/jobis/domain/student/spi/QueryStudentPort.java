@@ -8,4 +8,6 @@ public interface QueryStudentPort {
     Optional<Student> queryStudentById(Long studentId);
 
     boolean existsByGradeAndClassRoomAndNumber(int grade, int classRoom, int number);
+
+    int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear);
 }
