@@ -65,8 +65,8 @@ public class Application {
         }
     }
 
-    public void checkApplicationStatus(ApplicationStatus status1, ApplicationStatus status2) {
-        if (status1 != status2) {
+    public void checkApplicationStatus(ApplicationStatus requestedStatus, ApplicationStatus...baseStatuses) {
+        if (List.of(baseStatuses).contains(requestedStatus)) {
             throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
     }

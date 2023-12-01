@@ -34,7 +34,7 @@ import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
 import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
-import team.retum.jobis.domain.application.usecase.RecreateApplicationUseCase;
+import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
@@ -55,7 +55,7 @@ public class ApplicationWebAdapter {
     private final RejectApplicationUseCase rejectApplicationUseCase;
     private final QueryEmploymentCountUseCase queryEmploymentCountUseCase;
     private final QueryPassedApplicationStudentsUseCase queryPassedApplicationStudentsUseCase;
-    private final RecreateApplicationUseCase recreateApplicationUseCase;
+    private final ReapplyUseCase reapplyUseCase;
     private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -142,7 +142,7 @@ public class ApplicationWebAdapter {
             @PathVariable("application-id") Long applicationId,
             @RequestBody CreateApplicationWebRequest request
     ) {
-        recreateApplicationUseCase.execute(applicationId, request.toDomainRequest());
+        reapplyUseCase.execute(applicationId, request.toDomainRequest());
     }
 
     @GetMapping("/rejection/{application-id}")

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -13,7 +12,7 @@ import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 
 @RequiredArgsConstructor
 @UseCase
-public class RecreateApplicationUseCase {
+public class ReapplyUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final CommandApplicationPort commandApplicationPort;
@@ -22,9 +21,7 @@ public class RecreateApplicationUseCase {
         Application application = queryApplicationPort.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
-        if (application.getApplicationStatus() != ApplicationStatus.REJECTED) {
-            throw ApplicationStatusCannotChangeException.EXCEPTION;
-        }
+        application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.REJECTED, ApplicationStatus.REQUESTED);
 
         commandApplicationPort.saveApplication(
                 application.reapply(
