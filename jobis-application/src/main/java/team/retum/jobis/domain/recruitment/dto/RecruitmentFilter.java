@@ -29,7 +29,7 @@ public class RecruitmentFilter {
 
     private final Boolean winterIntern;
     @Builder.Default
-    private int limit = 11;
+    private int limit = 10;
 
     public Long getOffset() {
         return page * limit;
