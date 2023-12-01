@@ -22,10 +22,12 @@ import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpa
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitAreaVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentDetailVO;
-import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentsVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryStudentRecruitmentsVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryTeacherRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
-import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,27 +56,19 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private final RecruitAreaCodeMapper recruitAreaCodeMapper;
 
     @Override
-    public List<RecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter) {
+    public List<StudentRecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter) {
         StringExpression recruitJobsPath = Expressions.stringTemplate("group_concat({0})", codeEntity.keyword);
 
         return queryFactory
                 .select(
-                        new QQueryRecruitmentsVO(
+                        new QQueryStudentRecruitmentsVO(
                                 recruitmentEntity.id,
-                                recruitmentEntity.status,
-                                recruitmentEntity.recruitDate.startDate,
-                                recruitmentEntity.recruitDate.finishDate,
                                 companyEntity.name,
-                                companyEntity.type,
                                 recruitmentEntity.payInfo.trainPay,
                                 recruitmentEntity.militarySupport,
                                 companyEntity.companyLogoUrl,
                                 recruitJobsPath,
-                                recruitAreaEntity.hiredCount.sum(),
-                                Expressions.ZERO.longValue(),
-                                Expressions.ZERO.longValue(),
-                                bookmarkEntity.recruitment.id.isNotNull(),
-                                companyEntity.id
+                                bookmarkEntity.recruitment.id.isNotNull()
                         )
                 )
                 .from(recruitmentEntity)
@@ -94,8 +88,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .join(recruitAreaCodeEntity.code, codeEntity)
                 .where(
                         eqYear(filter.getYear()),
-                        betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
-                        eqRecruitStatus(filter.getStatus()),
                         containsName(filter.getCompanyName()),
                         containsCodes(filter.getCodes()),
                         eqWinterIntern(filter.getWinterIntern())
@@ -105,33 +97,29 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .orderBy(recruitmentEntity.createdAt.desc())
                 .groupBy(recruitmentEntity.id)
                 .fetch().stream()
-                .map(RecruitmentVO.class::cast)
+                .map(StudentRecruitmentVO.class::cast)
                 .toList();
     }
 
     @Override
-    public List<RecruitmentVO> queryTeacherRecruitmentsByFilter(RecruitmentFilter filter) {
+    public List<TeacherRecruitmentVO> queryTeacherRecruitmentsByFilter(RecruitmentFilter filter) {
         QApplicationEntity requestedApplication = new QApplicationEntity("requestedApplication");
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
         StringExpression recruitJobsPath = Expressions.stringTemplate("group_concat({0})", codeEntity.keyword);
         return queryFactory
                 .select(
-                        new QQueryRecruitmentsVO(
+                        new QQueryTeacherRecruitmentsVO(
                                 recruitmentEntity.id,
                                 recruitmentEntity.status,
                                 recruitmentEntity.recruitDate.startDate,
                                 recruitmentEntity.recruitDate.finishDate,
                                 companyEntity.name,
                                 companyEntity.type,
-                                recruitmentEntity.payInfo.trainPay,
-                                recruitmentEntity.militarySupport,
-                                companyEntity.companyLogoUrl,
                                 recruitJobsPath,
-                                recruitAreaEntity.hiredCount.sum(),
+                                recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
                                 requestedApplication.countDistinct(),
                                 approvedApplication.countDistinct(),
-                                Expressions.asBoolean(false),
                                 companyEntity.id
                         )
                 )
@@ -167,7 +155,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .orderBy(recruitmentEntity.createdAt.desc())
                 .groupBy(recruitmentEntity.id)
                 .fetch().stream()
-                .map(RecruitmentVO.class::cast)
+                .map(TeacherRecruitmentVO.class::cast)
                 .toList();
     }
 
@@ -217,8 +205,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                             eqWinterIntern(filter.getWinterIntern())
                     )
                     .fetchOne();
-        }
-        else {
+        } else {
             return queryFactory
                     .select(recruitmentEntity.count())
                     .from(recruitmentEntity)

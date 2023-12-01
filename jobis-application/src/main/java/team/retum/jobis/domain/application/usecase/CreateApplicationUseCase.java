@@ -28,6 +28,7 @@ public class CreateApplicationUseCase {
 
     public void execute(CreateApplicationRequest request, Long recruitmentId) {
         Student student = securityPort.getCurrentStudent();
+
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
         recruitment.checkIsApplicable(student.getGrade());
