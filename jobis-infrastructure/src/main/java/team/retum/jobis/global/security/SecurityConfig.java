@@ -53,22 +53,24 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/students").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students/profile").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.GET, "/students/password").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.PATCH, "/students/password").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.PATCH, "/students/profile").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.PATCH, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
                 // applications
                 .antMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
-                .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAnyAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
                 .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
                 .antMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/reject/{application-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PATCH, "/applications/rejection/{application-id}").hasAuthority(TEACHER.name())
+                .antMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                .antMatchers(HttpMethod.GET, "/applications/rejection/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
                 // recruitments
                 .antMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
@@ -133,7 +135,7 @@ public class SecurityConfig {
                 // review
                 .antMatchers(HttpMethod.GET, "/reviews/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                 .antMatchers(HttpMethod.GET, "/reviews/details/{review-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.POST, "/reviews").hasAuthority(STUDENT.name())
+                .antMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                 .antMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
 
                 .anyRequest().authenticated()

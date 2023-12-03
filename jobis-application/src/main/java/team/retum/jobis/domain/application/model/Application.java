@@ -50,6 +50,13 @@ public class Application {
                 .build();
     }
 
+    public Application reapply(List<ApplicationAttachment> attachments) {
+        return this.toBuilder()
+                .attachments(attachments)
+                .applicationStatus(ApplicationStatus.REQUESTED)
+                .build();
+    }
+
     public void checkReviewAuthority() {
         if (this.applicationStatus == ApplicationStatus.REQUESTED
                 || this.applicationStatus == ApplicationStatus.APPROVED
@@ -58,8 +65,8 @@ public class Application {
         }
     }
 
-    public void checkApplicationStatus(ApplicationStatus status1, ApplicationStatus status2) {
-        if (status1 != status2) {
+    public void checkApplicationStatus(ApplicationStatus requestedStatus, ApplicationStatus...baseStatuses) {
+        if (!List.of(baseStatuses).contains(requestedStatus)) {
             throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
     }
