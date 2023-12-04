@@ -3,6 +3,7 @@ package team.retum.jobis.global.security.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,8 +15,6 @@ import team.retum.jobis.global.exception.InvalidTokenException;
 import team.retum.jobis.global.security.auth.company.CompanyDetailsService;
 import team.retum.jobis.global.security.auth.student.StudentDetailsService;
 import team.retum.jobis.global.security.auth.teacher.TeacherDetailsService;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 @RequiredArgsConstructor

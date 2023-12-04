@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.student.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,6 @@ import team.retum.jobis.domain.student.usecase.UpdateStudentForgottenPasswordUse
 import team.retum.jobis.domain.student.usecase.UpdateStudentPasswordUseCase;
 import team.retum.jobis.domain.student.usecase.UpdateStudentProfileUseCase;
 import team.retum.jobis.domain.student.usecase.VerifyStudentUseCase;
-
-import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/students")

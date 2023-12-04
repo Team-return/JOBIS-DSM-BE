@@ -1,13 +1,5 @@
 package team.retum.jobis.domain.review.persistence.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
-import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
-import team.retum.jobis.global.entity.BaseTimeEntity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +9,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
+import team.retum.jobis.global.entity.BaseTimeEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 

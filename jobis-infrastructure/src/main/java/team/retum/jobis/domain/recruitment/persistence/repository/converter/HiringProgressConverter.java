@@ -1,9 +1,9 @@
 package team.retum.jobis.domain.recruitment.persistence.repository.converter;
 
-import team.retum.jobis.domain.recruitment.model.ProgressType;
-
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

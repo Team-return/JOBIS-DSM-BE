@@ -1,15 +1,14 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.student.dto.StudentSignUpRequest;
 import team.retum.jobis.domain.student.model.Gender;
 import team.retum.jobis.global.util.RegexProperty;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor

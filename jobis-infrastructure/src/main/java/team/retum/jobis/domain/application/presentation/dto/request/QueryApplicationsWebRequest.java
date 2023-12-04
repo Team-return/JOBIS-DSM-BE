@@ -1,11 +1,10 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Getter
 @Builder

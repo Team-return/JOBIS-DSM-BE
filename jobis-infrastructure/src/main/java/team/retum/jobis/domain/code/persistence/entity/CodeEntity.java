@@ -1,12 +1,5 @@
 package team.retum.jobis.domain.code.persistence.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.code.model.CodeType;
-import team.retum.jobis.domain.code.model.JobType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,6 +12,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.code.model.CodeType;
+import team.retum.jobis.domain.code.model.JobType;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

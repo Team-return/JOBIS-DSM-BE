@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.acceptance.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,8 +22,6 @@ import team.retum.jobis.domain.acceptance.usecase.ChangeContractDateUseCase;
 import team.retum.jobis.domain.acceptance.usecase.RegisterEmploymentContractUseCase;
 import team.retum.jobis.domain.acceptance.usecase.RegisterFieldTraineeUseCase;
 import team.retum.jobis.domain.acceptance.usecase.TeacherQueryFieldTraineesAndContractWorkersUseCase;
-
-import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/acceptances")

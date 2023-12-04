@@ -1,19 +1,5 @@
 package team.retum.jobis.domain.company.persistence.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import team.retum.jobis.domain.company.model.CompanyType;
-import team.retum.jobis.domain.company.persistence.entity.type.Address;
-import team.retum.jobis.domain.company.persistence.entity.type.Manager;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
-import team.retum.jobis.global.converter.StringListConverter;
-import team.retum.jobis.global.util.ImageProperty;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -28,6 +14,20 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import team.retum.jobis.domain.company.model.CompanyType;
+import team.retum.jobis.domain.company.persistence.entity.type.Address;
+import team.retum.jobis.domain.company.persistence.entity.type.Manager;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
+import team.retum.jobis.global.converter.StringListConverter;
+import team.retum.jobis.global.util.ImageProperty;
+
 import java.time.LocalDate;
 import java.util.List;
 

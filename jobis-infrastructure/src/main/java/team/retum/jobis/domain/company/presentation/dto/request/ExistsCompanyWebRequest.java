@@ -1,10 +1,9 @@
 package team.retum.jobis.domain.company.presentation.dto.request;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor

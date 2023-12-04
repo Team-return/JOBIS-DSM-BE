@@ -5,7 +5,6 @@ import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
 
-import java.time.Period;
 import java.time.Year;
 
 @Getter

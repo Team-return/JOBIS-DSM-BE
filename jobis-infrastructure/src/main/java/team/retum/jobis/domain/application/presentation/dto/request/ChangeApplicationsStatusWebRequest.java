@@ -1,10 +1,10 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 
-import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter

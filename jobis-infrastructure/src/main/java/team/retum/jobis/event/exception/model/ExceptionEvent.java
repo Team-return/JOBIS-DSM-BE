@@ -1,9 +1,8 @@
 package team.retum.jobis.event.exception.model;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Builder;
 import lombok.Getter;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Getter
 @Builder

@@ -50,6 +50,10 @@ dependencies {
 
     // slack
     implementation 'net.gpedro.integrations.slack:slack-webhook:1.4.0'
+
+    // jaxb
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
+
 }
 
 test.useJUnitPlatform()

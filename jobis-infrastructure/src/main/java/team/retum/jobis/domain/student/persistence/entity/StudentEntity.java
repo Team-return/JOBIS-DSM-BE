@@ -1,16 +1,5 @@
 package team.retum.jobis.domain.student.persistence.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-import team.retum.jobis.domain.student.model.Department;
-import team.retum.jobis.domain.student.model.Gender;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
-import team.retum.jobis.global.util.ImageProperty;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +13,16 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import team.retum.jobis.domain.student.model.Department;
+import team.retum.jobis.domain.student.model.Gender;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
+import team.retum.jobis.global.util.ImageProperty;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

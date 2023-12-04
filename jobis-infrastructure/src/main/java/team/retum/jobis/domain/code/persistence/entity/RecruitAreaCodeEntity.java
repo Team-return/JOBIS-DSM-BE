@@ -1,12 +1,5 @@
 package team.retum.jobis.domain.code.persistence.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.code.model.CodeType;
-import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
-
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,6 +9,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.code.model.CodeType;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 
 
 @Getter

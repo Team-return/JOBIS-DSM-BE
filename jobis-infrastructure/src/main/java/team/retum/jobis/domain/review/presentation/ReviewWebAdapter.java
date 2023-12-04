@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.review.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +18,6 @@ import team.retum.jobis.domain.review.usecase.CreateReviewUseCase;
 import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
-
-import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/reviews")

@@ -1,8 +1,7 @@
 package team.retum.jobis.thirdparty.webhook;
 
-import team.retum.jobis.domain.bug.model.BugReport;
-
 import jakarta.servlet.http.HttpServletRequest;
+import team.retum.jobis.domain.bug.model.BugReport;
 
 public interface WebhookUtil {
 
