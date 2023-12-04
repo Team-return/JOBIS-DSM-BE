@@ -14,7 +14,7 @@ import team.retum.jobis.global.util.LogUtil;
 import team.retum.jobis.thirdparty.s3.S3Properties;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.bug.dto.CreateBugReportRequest;
 import team.retum.jobis.domain.bug.model.DevelopmentArea;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Getter

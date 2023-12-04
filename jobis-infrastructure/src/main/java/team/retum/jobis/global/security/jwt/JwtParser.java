@@ -15,7 +15,7 @@ import team.retum.jobis.global.security.auth.company.CompanyDetailsService;
 import team.retum.jobis.global.security.auth.student.StudentDetailsService;
 import team.retum.jobis.global.security.auth.teacher.TeacherDetailsService;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 @RequiredArgsConstructor

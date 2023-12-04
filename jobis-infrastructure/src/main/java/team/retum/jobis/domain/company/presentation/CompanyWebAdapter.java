@@ -38,8 +38,8 @@ import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 
 @RequiredArgsConstructor
 @Validated

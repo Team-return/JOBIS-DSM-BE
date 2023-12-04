@@ -38,7 +38,7 @@ import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/applications")

@@ -18,7 +18,7 @@ import team.retum.jobis.domain.bug.usecase.CreateBugReportUseCase;
 import team.retum.jobis.domain.bug.usecase.QueryBugReportDetailsUseCase;
 import team.retum.jobis.domain.bug.usecase.QueryBugReportsUseCase;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/bugs")

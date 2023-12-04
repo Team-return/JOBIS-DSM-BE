@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.recruitment.dto.request.ChangeRecruitmentStatusRequest;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter

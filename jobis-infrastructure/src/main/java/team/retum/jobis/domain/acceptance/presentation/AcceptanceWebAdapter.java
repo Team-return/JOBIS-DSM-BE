@@ -22,7 +22,7 @@ import team.retum.jobis.domain.acceptance.usecase.RegisterEmploymentContractUseC
 import team.retum.jobis.domain.acceptance.usecase.RegisterFieldTraineeUseCase;
 import team.retum.jobis.domain.acceptance.usecase.TeacherQueryFieldTraineesAndContractWorkersUseCase;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/acceptances")

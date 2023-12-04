@@ -13,9 +13,9 @@ import team.retum.jobis.global.error.response.ErrorResponse;
 import team.retum.jobis.global.security.auth.CurrentUserHolder;
 import team.retum.jobis.global.util.LogUtil;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j

@@ -24,7 +24,7 @@ import team.retum.jobis.domain.student.usecase.UpdateStudentPasswordUseCase;
 import team.retum.jobis.domain.student.usecase.UpdateStudentProfileUseCase;
 import team.retum.jobis.domain.student.usecase.VerifyStudentUseCase;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/students")

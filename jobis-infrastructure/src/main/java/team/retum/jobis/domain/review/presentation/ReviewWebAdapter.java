@@ -18,7 +18,7 @@ import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/reviews")

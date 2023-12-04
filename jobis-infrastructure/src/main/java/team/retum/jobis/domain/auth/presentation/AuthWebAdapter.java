@@ -17,7 +17,7 @@ import team.retum.jobis.domain.auth.usecase.SendAuthCodeUseCase;
 import team.retum.jobis.domain.auth.usecase.TokenReissueUseCase;
 import team.retum.jobis.domain.auth.usecase.VerifyAuthCodeUseCase;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/auth")

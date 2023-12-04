@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.student.dto.UpdatePasswordRequest;
 import team.retum.jobis.global.util.RegexProperty;
 
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.Pattern;
 
 @Getter
 @NoArgsConstructor

@@ -9,7 +9,7 @@ import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.user.presentation.dto.request.LoginWebRequest;
 import team.retum.jobis.domain.user.usecase.LoginUseCase;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/users")
