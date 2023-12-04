@@ -15,7 +15,7 @@ public class CompanyFilter {
     private final Integer year;
     private final Long page;
     @Builder.Default
-    private int limit = 11;
+    private int limit = 10;
 
     public Long getOffset() {
         return page * limit;
