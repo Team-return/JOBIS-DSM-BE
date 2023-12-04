@@ -6,8 +6,11 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,117 +33,115 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.
-                csrf().disable()
-                .cors().and()
+        http
+                .csrf(CsrfConfigurer::disable)
+                .cors(Customizer.withDefaults())
+                .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                // actuator
+                                .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                // bugs
+                                .requestMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/bugs/{bug-report-id}").hasAuthority(DEVELOPER.name())
+                                .requestMatchers(HttpMethod.POST, "/bugs").hasAuthority(STUDENT.name())
 
-                .and()
+                                // students
+                                .requestMatchers(HttpMethod.GET, "/students/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.POST, "/students").permitAll()
+                                .requestMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/students/exists").permitAll()
+                                .requestMatchers(HttpMethod.PATCH, "/students/profile").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
-                .authorizeRequests()
+                                // applications
+                                .requestMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAnyAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
+                                .requestMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.POST, "/applications/{company-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
+                                .requestMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/applications/rejection/{application-id}").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/applications/rejection/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
-                // actuator
-                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+                                // recruitments
+                                .requestMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
+                                .requestMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
+                                .requestMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/recruitments/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/recruitments/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/recruitments/teacher/count").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
 
-                // bugs
-                .antMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/bugs/{bug-report-id}").hasAuthority(DEVELOPER.name())
-                .antMatchers(HttpMethod.POST, "/bugs").hasAuthority(STUDENT.name())
+                                // bookmarks
+                                .requestMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/bookmarks").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
-                // students
-                .antMatchers(HttpMethod.GET, "/students/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.POST, "/students").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
-                .antMatchers(HttpMethod.GET, "/students/exists").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/students/profile").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.PATCH, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                // auth
+                                .requestMatchers(HttpMethod.POST, "/auth/code").permitAll()
+                                .requestMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
 
-                // applications
-                .antMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
-                .antMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.POST, "/applications/{company-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/applications/rejection/{application-id}").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/applications/rejection/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                // companies
+                                .requestMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/teacher/count").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/companies/type").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/companies/mou").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.POST, "/companies").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/companies/my").hasAuthority(COMPANY.name())
+                                .requestMatchers(HttpMethod.PATCH, "/companies/{company-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(COMPANY.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/employment/count").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
-                // recruitments
-                .antMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/recruitments/teacher/count").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                // users
+                                .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
 
-                // bookmarks
-                .antMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.DELETE, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/bookmarks").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                // files
+                                .requestMatchers(HttpMethod.POST, "/files").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/files").permitAll()
 
-                // auth
-                .antMatchers(HttpMethod.POST, "/auth/code").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
-                .antMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
+                                // code
+                                .requestMatchers(HttpMethod.GET, "/codes").permitAll()
 
-                // companies
-                .antMatchers(HttpMethod.GET, "/companies/teacher").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/companies/teacher/count").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/companies/type").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/companies/mou").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.POST, "/companies").permitAll()
-                .antMatchers(HttpMethod.GET, "/companies/my").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.PATCH, "/companies/{company-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/companies/exists/{business-number}").permitAll()
-                .antMatchers(HttpMethod.POST, "/companies/recruitment").hasAuthority(COMPANY.name())
-                .antMatchers(HttpMethod.GET, "/companies/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/companies/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/companies/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/companies/employment/count").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                // acceptance
+                                .requestMatchers(HttpMethod.GET, "/acceptances/{company-id}").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/acceptances/field-train/{application-id}").hasAnyAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/acceptances/contract-date").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.POST, "/acceptances/employment").hasAnyAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/acceptances/field-train").hasAnyAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/acceptances").hasAnyAuthority(TEACHER.name())
 
-                // users
-                .antMatchers(HttpMethod.POST, "/users/login").permitAll()
+                                // review
+                                .requestMatchers(HttpMethod.GET, "/reviews/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.GET, "/reviews/details/{review-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
 
-                // files
-                .antMatchers(HttpMethod.POST, "/files").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/files").permitAll()
+                                .anyRequest().authenticated()
 
-                // code
-                .antMatchers(HttpMethod.GET, "/codes").permitAll()
-
-                // acceptance
-                .antMatchers(HttpMethod.GET, "/acceptances/{company-id}").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/acceptances/field-train/{application-id}").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/acceptances/contract-date").hasAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.POST, "/acceptances/employment").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.PATCH, "/acceptances/field-train").hasAnyAuthority(TEACHER.name())
-                .antMatchers(HttpMethod.DELETE, "/acceptances").hasAnyAuthority(TEACHER.name())
-
-                // review
-                .antMatchers(HttpMethod.GET, "/reviews/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.GET, "/reviews/details/{review-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                .antMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                .antMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
-
-                .anyRequest().authenticated()
-                .and()
+                )
                 .apply(new FilterConfig(jwtParser, objectMapper, eventPublisher));
+
         return http.build();
     }
 
