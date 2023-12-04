@@ -8,6 +8,7 @@ import team.retum.jobis.domain.auth.spi.QueryAuthCodePort;
 import team.retum.jobis.domain.student.dto.UpdateForgottenPasswordRequest;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.spi.CommandUserPort;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class UpdateStudentForgottenPasswordUseCase {
     private final QueryUserPort queryUserPort;
     private final QueryAuthCodePort queryAuthCodePort;
     private final SecurityPort securityPort;
+    private final CommandUserPort commandUserPort;
 
     public void execute(UpdateForgottenPasswordRequest request) {
         if (!queryUserPort.existsUserByAccountId(request.getEmail())) {
@@ -29,6 +31,8 @@ public class UpdateStudentForgottenPasswordUseCase {
         User userEntity = queryUserPort.queryUserByAccountId(request.getEmail())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        userEntity.updatePassword(securityPort.encodePassword(request.getPassword()));
+        commandUserPort.saveUser(
+                userEntity.updatePassword(securityPort.encodePassword(request.getPassword()))
+        );
     }
 }
