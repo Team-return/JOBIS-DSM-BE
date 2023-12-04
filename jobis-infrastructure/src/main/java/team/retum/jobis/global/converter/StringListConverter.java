@@ -1,8 +1,8 @@
 package team.retum.jobis.global.converter;
 
+import jakarta.persistence.AttributeConverter;
 import team.retum.jobis.common.util.StringUtil;
 
-import javax.persistence.AttributeConverter;
 import java.util.List;
 
 public class StringListConverter implements AttributeConverter<List<String>, String> {

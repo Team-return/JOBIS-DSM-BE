@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.recruitment.dto.request.ChangeRecruitmentStatusRequest;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter

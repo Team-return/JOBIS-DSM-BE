@@ -1,11 +1,10 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.student.dto.UpdatePasswordRequest;
 import team.retum.jobis.global.util.RegexProperty;
-
-import javax.validation.constraints.Pattern;
 
 @Getter
 @NoArgsConstructor

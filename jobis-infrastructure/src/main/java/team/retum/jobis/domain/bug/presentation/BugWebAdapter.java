@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.bug.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,6 @@ import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportWebRe
 import team.retum.jobis.domain.bug.usecase.CreateBugReportUseCase;
 import team.retum.jobis.domain.bug.usecase.QueryBugReportDetailsUseCase;
 import team.retum.jobis.domain.bug.usecase.QueryBugReportsUseCase;
-
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/bugs")

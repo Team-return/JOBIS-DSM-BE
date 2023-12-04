@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.acceptance.dto.request.RegisterFieldTraineeRequest;
 import team.retum.jobis.global.annotation.ValidListElements;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 

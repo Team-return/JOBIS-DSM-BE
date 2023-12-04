@@ -1,5 +1,7 @@
 package team.retum.jobis.domain.company.presentation;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -37,9 +39,6 @@ import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCas
 import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
-
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 
 @RequiredArgsConstructor
 @Validated

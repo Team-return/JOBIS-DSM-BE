@@ -1,6 +1,9 @@
 package team.retum.jobis.global.error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -13,9 +16,6 @@ import team.retum.jobis.global.error.response.ErrorResponse;
 import team.retum.jobis.global.security.auth.CurrentUserHolder;
 import team.retum.jobis.global.util.LogUtil;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j

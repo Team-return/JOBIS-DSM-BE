@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.user.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.user.presentation.dto.request.LoginWebRequest;
 import team.retum.jobis.domain.user.usecase.LoginUseCase;
-
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/users")

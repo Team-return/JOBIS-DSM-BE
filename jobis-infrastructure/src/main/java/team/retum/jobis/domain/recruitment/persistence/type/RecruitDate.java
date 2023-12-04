@@ -1,13 +1,13 @@
 package team.retum.jobis.domain.recruitment.persistence.type;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.exception.InvalidDateException;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter

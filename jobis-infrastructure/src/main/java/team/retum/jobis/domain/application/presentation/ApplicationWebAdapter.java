@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.application.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,9 +28,9 @@ import team.retum.jobis.domain.application.presentation.dto.request.CreateApplic
 import team.retum.jobis.domain.application.presentation.dto.request.RejectApplicationWebRequest;
 import team.retum.jobis.domain.application.usecase.ChangeApplicationsStatusUseCase;
 import team.retum.jobis.domain.application.usecase.ChangeFieldTrainDateUseCase;
+import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.CreateApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
-import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
@@ -37,8 +38,6 @@ import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCa
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
-
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/applications")
