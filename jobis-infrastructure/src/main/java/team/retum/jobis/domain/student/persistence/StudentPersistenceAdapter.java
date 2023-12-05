@@ -33,6 +33,11 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
+    public boolean existsByGradeAndClassRoomAndNumberAndName(int grade, int classRoom, int number, String name) {
+        return studentJpaRepository.existsByGradeAndClassRoomAndNumberAndName(grade, classRoom, number, name);
+    }
+
+    @Override
     public Student saveStudent(Student student) {
         return studentMapper.toDomain(
                 studentJpaRepository.save(studentMapper.toEntity(student))
