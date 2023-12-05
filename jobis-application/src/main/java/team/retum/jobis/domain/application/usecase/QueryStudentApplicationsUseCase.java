@@ -24,6 +24,7 @@ public class QueryStudentApplicationsUseCase {
                                 null, student.getId(), null, null).stream()
                         .map(application -> StudentQueryApplicationResponse.builder()
                                 .applicationId(application.getId())
+                                .recruitmentId(application.getRecruitmentId())
                                 .company(application.getCompanyName())
                                 .attachments(
                                         application.getApplicationAttachmentEntities().stream()

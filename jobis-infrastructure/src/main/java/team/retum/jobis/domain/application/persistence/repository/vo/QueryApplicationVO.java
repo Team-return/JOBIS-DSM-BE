@@ -12,6 +12,7 @@ import java.util.List;
 public class QueryApplicationVO {
 
     private final Long id;
+    private final Long recruitmentId;
     private final String name;
     private final Integer grade;
     private final Integer number;
@@ -24,11 +25,12 @@ public class QueryApplicationVO {
 
 
     @QueryProjection
-    public QueryApplicationVO(Long id, String name, Integer grade, Integer number,
+    public QueryApplicationVO(Long id, Long recruitmentId, String name, Integer grade, Integer number,
                               Integer classNumber, String profileImageUrl, String companyName,
                               List<ApplicationAttachmentEntity> applicationAttachmentEntities,
                               LocalDateTime createdAt, ApplicationStatus applicationStatus) {
         this.id = id;
+        this.recruitmentId = recruitmentId;
         this.name = name;
         this.grade = grade;
         this.number = number;

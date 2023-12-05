@@ -62,6 +62,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                                 .list(
                                         new QQueryApplicationVO(
                                                 applicationEntity.id,
+                                                recruitmentEntity.id,
                                                 studentEntity.name,
                                                 studentEntity.grade,
                                                 studentEntity.number,
@@ -77,6 +78,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .stream()
                 .map(application -> ApplicationVO.builder()
                         .id(application.getId())
+                        .recruitmentId(application.getRecruitmentId())
                         .name(application.getName())
                         .grade(application.getGrade())
                         .number(application.getNumber())
