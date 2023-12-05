@@ -18,9 +18,7 @@ public class VerifyStudentUseCase {
     public void execute(String gcn, String name) {
         SchoolNumber parseSchoolNumber = SchoolNumber.parseSchoolNumber(gcn);
 
-        if (queryStudentPort.existsByGradeAndClassRoomAndNumberAndName(
-                parseSchoolNumber.getGrade(), parseSchoolNumber.getClassRoom(), parseSchoolNumber.getNumber(), name)
-        ) {
+        if (queryStudentPort.existsByGradeAndClassRoomAndNumberAndName(parseSchoolNumber, name)) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
 
