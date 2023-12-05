@@ -1,12 +1,12 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;

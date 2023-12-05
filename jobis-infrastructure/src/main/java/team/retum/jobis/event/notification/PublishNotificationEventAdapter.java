@@ -19,20 +19,14 @@ public class PublishNotificationEventAdapter implements PublishNotificationEvent
     @Override
     public void publishSingleNotificationEvent(Notification notification, String token) {
         eventPublisher.publishEvent(
-                SingleNotificationEvent.builder()
-                        .notification(notification)
-                        .token(token)
-                        .build()
+                new SingleNotificationEvent(notification, token)
         );
     }
 
     @Override
     public void publishGroupNotificationEvent(Notification notification, List<String> tokens) {
         eventPublisher.publishEvent(
-                GroupNotificationEvent.builder()
-                        .notification(notification)
-                        .tokens(tokens)
-                        .build()
+                new GroupNotificationEvent(notification, tokens)
         );
     }
 }

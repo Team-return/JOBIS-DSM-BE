@@ -1,10 +1,10 @@
 package team.retum.jobis.global.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @Getter

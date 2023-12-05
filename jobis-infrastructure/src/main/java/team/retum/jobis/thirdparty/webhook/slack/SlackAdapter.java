@@ -1,5 +1,6 @@
 package team.retum.jobis.thirdparty.webhook.slack;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.gpedro.integrations.slack.SlackApi;
@@ -14,7 +15,6 @@ import team.retum.jobis.global.util.LogUtil;
 import team.retum.jobis.thirdparty.s3.S3Properties;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

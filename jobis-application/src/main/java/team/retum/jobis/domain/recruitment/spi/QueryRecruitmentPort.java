@@ -5,7 +5,8 @@ import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
-import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +26,9 @@ public interface QueryRecruitmentPort {
 
     RecruitmentDetailVO queryRecruitmentDetailById(Long recruitmentId);
 
-    List<RecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter);
+    List<StudentRecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter);
 
-    List<RecruitmentVO> queryTeacherRecruitmentsByFilter(RecruitmentFilter filter);
+    List<TeacherRecruitmentVO> queryTeacherRecruitmentsByFilter(RecruitmentFilter filter);
 
     List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds);
 

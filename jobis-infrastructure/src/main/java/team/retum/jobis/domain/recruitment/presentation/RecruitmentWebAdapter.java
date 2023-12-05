@@ -1,5 +1,7 @@
 package team.retum.jobis.domain.recruitment.presentation;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -38,8 +40,6 @@ import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import team.retum.jobis.global.exception.BadRequestException;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

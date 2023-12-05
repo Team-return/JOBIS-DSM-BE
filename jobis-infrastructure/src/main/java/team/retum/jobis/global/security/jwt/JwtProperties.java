@@ -2,12 +2,10 @@ package team.retum.jobis.global.security.jwt;
 
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 
 import java.util.Base64;
 
 @Getter
-@ConstructorBinding
 @ConfigurationProperties(prefix = "jwt")
 public class JwtProperties {
     private final String secret;

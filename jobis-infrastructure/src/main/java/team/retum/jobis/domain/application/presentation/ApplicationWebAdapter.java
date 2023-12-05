@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.application.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
+import team.retum.jobis.domain.application.dto.response.QueryRejectionReasonResponse;
 import team.retum.jobis.domain.application.dto.response.StudentQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -25,16 +28,16 @@ import team.retum.jobis.domain.application.presentation.dto.request.CreateApplic
 import team.retum.jobis.domain.application.presentation.dto.request.RejectApplicationWebRequest;
 import team.retum.jobis.domain.application.usecase.ChangeApplicationsStatusUseCase;
 import team.retum.jobis.domain.application.usecase.ChangeFieldTrainDateUseCase;
+import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.CreateApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
-import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
+import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
 import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
+import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
-
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/applications")
@@ -51,6 +54,8 @@ public class ApplicationWebAdapter {
     private final RejectApplicationUseCase rejectApplicationUseCase;
     private final QueryEmploymentCountUseCase queryEmploymentCountUseCase;
     private final QueryPassedApplicationStudentsUseCase queryPassedApplicationStudentsUseCase;
+    private final ReapplyUseCase reapplyUseCase;
+    private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
@@ -110,7 +115,7 @@ public class ApplicationWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/reject/{application-id}")
+    @PatchMapping("/rejection/{application-id}")
     public void rejectApplication(
             @PathVariable("application-id") Long applicationId,
             @Valid @RequestBody RejectApplicationWebRequest request
@@ -128,5 +133,19 @@ public class ApplicationWebAdapter {
             @PathVariable("company-id") Long companyId
     ) {
         return queryPassedApplicationStudentsUseCase.execute(companyId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{application-id}")
+    public void reapply(
+            @PathVariable("application-id") Long applicationId,
+            @RequestBody CreateApplicationWebRequest request
+    ) {
+        reapplyUseCase.execute(applicationId, request.toDomainRequest());
+    }
+
+    @GetMapping("/rejection/{application-id}")
+    public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
+        return queryRejectionReasonUseCase.execute(applicationId);
     }
 }

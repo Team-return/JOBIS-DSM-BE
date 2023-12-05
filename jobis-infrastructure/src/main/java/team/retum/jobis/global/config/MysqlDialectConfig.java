@@ -1,16 +1,26 @@
 package team.retum.jobis.global.config;
 
-import org.hibernate.dialect.MySQL8Dialect;
-import org.hibernate.dialect.function.SQLFunctionTemplate;
+import org.hibernate.boot.model.FunctionContributions;
+import org.hibernate.dialect.DatabaseVersion;
+import org.hibernate.dialect.MySQLDialect;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MysqlDialectConfig extends MySQL8Dialect {
+public class MysqlDialectConfig extends MySQLDialect {
+
     public MysqlDialectConfig() {
-        super.registerFunction(
+        super(DatabaseVersion.make(8));
+    }
+
+    @Override
+    public void initializeFunctionRegistry(FunctionContributions functionContributions) {
+        super.initializeFunctionRegistry(functionContributions);
+
+        functionContributions.getFunctionRegistry().registerPattern(
                 "GROUP_CONCAT",
-                new SQLFunctionTemplate(StandardBasicTypes.STRING, "group_concat(distinct ?1)")
+                "group_concat(distinct ?1)",
+                functionContributions.getTypeConfiguration().getBasicTypeRegistry().resolve(StandardBasicTypes.STRING)
         );
     }
 }

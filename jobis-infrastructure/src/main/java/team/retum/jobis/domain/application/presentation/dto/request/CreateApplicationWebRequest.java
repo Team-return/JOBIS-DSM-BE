@@ -1,5 +1,7 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest;
@@ -7,8 +9,6 @@ import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest.
 import team.retum.jobis.domain.application.model.AttachmentType;
 import team.retum.jobis.global.annotation.ValidListElements;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
