@@ -61,7 +61,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAnyAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
-                                .requestMatchers(HttpMethod.GET, "/applications/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                                 .requestMatchers(HttpMethod.POST, "/applications/{company-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                                 .requestMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
                                 .requestMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
