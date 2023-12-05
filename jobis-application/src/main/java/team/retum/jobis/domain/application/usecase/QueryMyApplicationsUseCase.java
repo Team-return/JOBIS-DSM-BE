@@ -16,12 +16,12 @@ public class QueryMyApplicationsUseCase {
     private final QueryApplicationPort queryApplicationPort;
     private final SecurityPort securityPort;
 
-    public QueryMyApplicationsResponse execute() {
+    public QueryMyApplicationsResponse execute(Long page) {
         Student student = securityPort.getCurrentStudent();
 
         return new QueryMyApplicationsResponse(
                 queryApplicationPort.queryApplicationByConditions(
-                                null, student.getId(), null, null).stream()
+                                null, student.getId(), null, null, page).stream()
                         .map(application -> QueryMyApplicationResponse.builder()
                                 .applicationId(application.getId())
                                 .recruitmentId(application.getRecruitmentId())

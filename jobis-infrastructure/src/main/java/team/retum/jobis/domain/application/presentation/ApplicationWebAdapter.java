@@ -92,13 +92,17 @@ public class ApplicationWebAdapter {
     }
 
     @GetMapping("/company")
-    public CompanyQueryApplicationsResponse queryCompanyApplicationList() {
-        return companyQueryApplicationsUseCase.execute();
+    public CompanyQueryApplicationsResponse queryCompanyApplicationList(
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
+    ) {
+        return companyQueryApplicationsUseCase.execute(page - 1);
     }
 
     @GetMapping("/students")
-    public QueryMyApplicationsResponse queryMyApplications() {
-        return queryMyApplicationsUseCase.execute();
+    public QueryMyApplicationsResponse queryMyApplications(
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
+    ) {
+        return queryMyApplicationsUseCase.execute(page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
