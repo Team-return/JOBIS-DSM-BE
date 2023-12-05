@@ -19,7 +19,7 @@ import team.retum.jobis.domain.application.dto.response.CompanyQueryApplications
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryRejectionReasonResponse;
-import team.retum.jobis.domain.application.dto.response.StudentQueryApplicationsResponse;
+import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusWebRequest;
@@ -34,7 +34,7 @@ import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
-import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
+import team.retum.jobis.domain.application.usecase.QueryMyApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
@@ -48,7 +48,7 @@ public class ApplicationWebAdapter {
     private final DeleteApplicationUseCase deleteApplicationUseCase;
     private final TeacherQueryApplicationsUseCase queryApplicationListService;
     private final CompanyQueryApplicationsUseCase companyQueryApplicationsUseCase;
-    private final QueryStudentApplicationsUseCase queryStudentApplicationsUseCase;
+    private final QueryMyApplicationsUseCase queryMyApplicationsUseCase;
     private final ChangeApplicationsStatusUseCase changeApplicationsStatusUseCase;
     private final ChangeFieldTrainDateUseCase changeFieldTrainDateUseCase;
     private final RejectApplicationUseCase rejectApplicationUseCase;
@@ -94,9 +94,9 @@ public class ApplicationWebAdapter {
         return companyQueryApplicationsUseCase.execute();
     }
 
-    @GetMapping("/students")
-    public StudentQueryApplicationsResponse queryApplication() {
-        return queryStudentApplicationsUseCase.execute();
+    @GetMapping("/my")
+    public QueryMyApplicationsResponse queryMyApplications() {
+        return queryMyApplicationsUseCase.execute();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

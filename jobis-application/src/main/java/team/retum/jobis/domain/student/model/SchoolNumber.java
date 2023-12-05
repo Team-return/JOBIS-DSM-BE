@@ -4,8 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
 
-import java.util.List;
-
 @Getter
 @Builder
 public class SchoolNumber {
@@ -15,10 +13,6 @@ public class SchoolNumber {
     private final Integer classRoom;
 
     private final Integer number;
-
-    private static final int FIRST_GRADE = 1;
-    private static final int SECOND_GRADE = 2;
-    private static final int THIRD_GRADE = 3;
 
     public static String processSchoolNumber(SchoolNumber schoolNumber) {
         return String.valueOf(schoolNumber.grade) +
@@ -54,4 +48,8 @@ public class SchoolNumber {
                 .number(number)
                 .build();
     }
+
+    private static final int FIRST_GRADE = 1;
+    private static final int SECOND_GRADE = 2;
+    private static final int THIRD_GRADE = 3;
 }

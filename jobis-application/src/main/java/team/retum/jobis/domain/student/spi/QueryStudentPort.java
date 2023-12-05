@@ -12,5 +12,5 @@ public interface QueryStudentPort {
 
     int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear);
 
-    boolean existsByGradeAndClassRoomAndNumberAndName(SchoolNumber schoolNumber, String name);
+    boolean existsBySchoolNumberAndName(SchoolNumber schoolNumber, String name);
 }
