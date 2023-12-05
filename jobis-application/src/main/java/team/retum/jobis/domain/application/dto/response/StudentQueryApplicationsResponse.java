@@ -17,6 +17,7 @@ public class StudentQueryApplicationsResponse {
     @Builder
     public static class StudentQueryApplicationResponse {
         private final Long applicationId;
+        private final Long recruitmentId;
         private final String company;
         private final List<AttachmentResponse> attachments;
         private final ApplicationStatus applicationStatus;
