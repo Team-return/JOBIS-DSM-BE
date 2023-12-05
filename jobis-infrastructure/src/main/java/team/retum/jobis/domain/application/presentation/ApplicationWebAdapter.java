@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.application.presentation;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -76,9 +77,10 @@ public class ApplicationWebAdapter {
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
-            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId
+            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, page - 1);
     }
 
     @GetMapping("/count")
