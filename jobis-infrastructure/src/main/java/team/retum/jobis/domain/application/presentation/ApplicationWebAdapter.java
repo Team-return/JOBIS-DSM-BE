@@ -94,7 +94,7 @@ public class ApplicationWebAdapter {
         return companyQueryApplicationsUseCase.execute();
     }
 
-    @GetMapping("/my")
+    @GetMapping("/students")
     public QueryMyApplicationsResponse queryMyApplications() {
         return queryMyApplicationsUseCase.execute();
     }
