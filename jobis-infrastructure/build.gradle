@@ -22,7 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     //openfeign
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4'
     implementation "io.github.openfeign:feign-httpclient:11.9.1"
 
     //aws
@@ -46,7 +46,7 @@ dependencies {
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 
     // aop
-    implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.3'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.0'
 
     // slack
     implementation 'net.gpedro.integrations.slack:slack-webhook:1.4.0'
