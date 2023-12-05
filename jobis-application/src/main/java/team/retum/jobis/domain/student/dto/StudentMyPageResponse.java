@@ -3,6 +3,7 @@ package team.retum.jobis.domain.student.dto;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.student.model.Department;
+import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 
 @Getter
@@ -18,11 +19,7 @@ public class StudentMyPageResponse {
         return StudentMyPageResponse.builder()
                 .studentName(student.getName())
                 .studentGcn(
-                        Student.processGcn(
-                                student.getGrade(),
-                                student.getClassRoom(),
-                                student.getNumber()
-                        )
+                        SchoolNumber.processSchoolNumber(student.getSchoolNumber())
                 )
                 .department(student.getDepartment())
                 .profileImageUrl(student.getProfileImageUrl())

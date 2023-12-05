@@ -3,6 +3,8 @@ package team.retum.jobis.domain.recruitment.presentation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -44,6 +46,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@CacheConfig(cacheNames = "default")
 @RestController
 @Validated
 @RequiredArgsConstructor
@@ -95,6 +98,7 @@ public class RecruitmentWebAdapter {
         createRecruitAreaUseCase.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
+    @Cacheable(key = "'all'")
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,

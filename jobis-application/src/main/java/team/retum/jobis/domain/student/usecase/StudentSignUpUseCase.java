@@ -10,6 +10,7 @@ import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.auth.spi.QueryAuthCodePort;
 import team.retum.jobis.domain.student.dto.StudentSignUpRequest;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
+import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.spi.CommandStudentPort;
 import team.retum.jobis.domain.student.spi.CommandVerifiedStudentPort;
@@ -45,7 +46,7 @@ public class StudentSignUpUseCase {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
 
-        User userEntity = commandUserPort.saveUser(
+        User user = commandUserPort.saveUser(
                 User.builder()
                         .accountId(request.getEmail())
                         .password(securityPort.encodePassword(request.getPassword()))
@@ -53,16 +54,20 @@ public class StudentSignUpUseCase {
                         .build()
         );
 
-        Student studentEntity = commandStudentPort.saveStudent(
+        Student student = commandStudentPort.saveStudent(
                 Student.builder()
-                        .id(userEntity.getId())
-                        .classRoom(request.getClassRoom())
-                        .number(request.getNumber())
+                        .id(user.getId())
+                        .schoolNumber(
+                                SchoolNumber.builder()
+                                        .grade(request.getGrade())
+                                        .classRoom(request.getClassRoom())
+                                        .number(request.getNumber())
+                                        .build()
+                        )
                         .name(request.getName())
                         .gender(request.getGender())
-                        .grade(request.getGrade())
                         .department(
-                                Student.getDepartment(
+                                SchoolNumber.getDepartment(
                                         request.getGrade(),
                                         request.getClassRoom()
                                 )
@@ -72,14 +77,10 @@ public class StudentSignUpUseCase {
         );
 
         commandVerifiedStudentPort.deleteVerifiedStudentByGcnAndName(
-                Student.processGcn(
-                        studentEntity.getGrade(),
-                        studentEntity.getClassRoom(),
-                        studentEntity.getNumber()
-                ),
-                studentEntity.getName()
+                SchoolNumber.processSchoolNumber(student.getSchoolNumber()),
+                student.getName()
         );
 
-        return jwtPort.generateTokens(userEntity.getId(), userEntity.getAuthority());
+        return jwtPort.generateTokens(user.getId(), user.getAuthority());
     }
 }
