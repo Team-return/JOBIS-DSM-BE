@@ -46,7 +46,7 @@ dependencies {
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 
     // aop
-    implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 
     // slack
     implementation 'net.gpedro.integrations.slack:slack-webhook:1.4.0'
