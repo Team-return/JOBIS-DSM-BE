@@ -9,13 +9,13 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class StudentQueryApplicationsResponse {
+public class QueryMyApplicationsResponse {
 
-    private final List<StudentQueryApplicationResponse> applications;
+    private final List<QueryMyApplicationResponse> applications;
 
     @Getter
     @Builder
-    public static class StudentQueryApplicationResponse {
+    public static class QueryMyApplicationResponse {
         private final Long applicationId;
         private final Long recruitmentId;
         private final String company;
