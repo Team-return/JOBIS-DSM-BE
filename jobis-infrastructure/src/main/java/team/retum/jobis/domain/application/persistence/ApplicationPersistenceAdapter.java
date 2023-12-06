@@ -43,7 +43,13 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
+    public List<ApplicationVO> queryApplicationByConditions(
+            Long recruitmentId,
+            Long studentId,
+            ApplicationStatus applicationStatus,
+            String studentName,
+            Long page
+    ) {
         return queryFactory
                 .selectFrom(applicationEntity)
                 .join(applicationEntity.student, studentEntity)
@@ -56,6 +62,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         eqApplicationStatus(applicationStatus),
                         containStudentName(studentName)
                 )
+                .offset(page * 11)
+                .limit(11)
                 .orderBy(applicationEntity.createdAt.desc())
                 .transform(
                         groupBy(applicationEntity.id)
