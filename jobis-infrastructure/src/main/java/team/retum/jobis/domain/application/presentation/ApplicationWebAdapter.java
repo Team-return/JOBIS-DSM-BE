@@ -77,10 +77,9 @@ public class ApplicationWebAdapter {
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
-            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
-            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
+            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, page - 1);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
     }
 
     @GetMapping("/count")
@@ -92,17 +91,13 @@ public class ApplicationWebAdapter {
     }
 
     @GetMapping("/company")
-    public CompanyQueryApplicationsResponse queryCompanyApplicationList(
-            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
-    ) {
-        return companyQueryApplicationsUseCase.execute(page - 1);
+    public CompanyQueryApplicationsResponse queryCompanyApplicationList() {
+        return companyQueryApplicationsUseCase.execute();
     }
 
     @GetMapping("/students")
-    public QueryMyApplicationsResponse queryMyApplications(
-            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
-    ) {
-        return queryMyApplicationsUseCase.execute(page - 1);
+    public QueryMyApplicationsResponse queryMyApplications() {
+        return queryMyApplicationsUseCase.execute();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
