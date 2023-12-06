@@ -2,6 +2,7 @@ package team.retum.jobis.domain.student.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
@@ -30,6 +31,13 @@ public class StudentPersistenceAdapter implements StudentPort {
     @Override
     public int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear) {
         return studentJpaRepository.countByGradeAndEntranceYear(grade, entranceYear);
+    }
+
+    @Override
+    public boolean existsBySchoolNumberAndName(SchoolNumber schoolNumber, String name) {
+        return studentJpaRepository.existsByGradeAndClassRoomAndNumberAndName(
+                schoolNumber.getGrade(), schoolNumber.getClassRoom(), schoolNumber.getNumber(), name
+        );
     }
 
     @Override

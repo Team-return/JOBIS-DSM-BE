@@ -43,12 +43,18 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ApplicationVO> queryApplicationByConditions(Long recruitmentId, Long studentId, ApplicationStatus applicationStatus, String studentName) {
+    public List<ApplicationVO> queryApplicationByConditions(
+            Long recruitmentId,
+            Long studentId,
+            ApplicationStatus applicationStatus,
+            String studentName,
+            Long page
+    ) {
         return queryFactory
                 .selectFrom(applicationEntity)
                 .join(applicationEntity.student, studentEntity)
                 .join(applicationEntity.recruitment, recruitmentEntity)
-                .leftJoin(recruitmentEntity.company, companyEntity)
+                .join(recruitmentEntity.company, companyEntity)
                 .leftJoin(applicationEntity.attachments, applicationAttachmentEntity)
                 .where(
                         eqRecruitmentId(recruitmentId),
@@ -56,12 +62,15 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         eqApplicationStatus(applicationStatus),
                         containStudentName(studentName)
                 )
+                .offset(page * 11)
+                .limit(11)
                 .orderBy(applicationEntity.createdAt.desc())
                 .transform(
                         groupBy(applicationEntity.id)
                                 .list(
                                         new QQueryApplicationVO(
                                                 applicationEntity.id,
+                                                recruitmentEntity.id,
                                                 studentEntity.name,
                                                 studentEntity.grade,
                                                 studentEntity.number,
@@ -77,6 +86,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .stream()
                 .map(application -> ApplicationVO.builder()
                         .id(application.getId())
+                        .recruitmentId(application.getRecruitmentId())
                         .name(application.getName())
                         .grade(application.getGrade())
                         .number(application.getNumber())

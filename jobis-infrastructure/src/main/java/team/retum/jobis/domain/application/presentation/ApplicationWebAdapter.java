@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.application.presentation;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +20,7 @@ import team.retum.jobis.domain.application.dto.response.CompanyQueryApplications
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryRejectionReasonResponse;
-import team.retum.jobis.domain.application.dto.response.StudentQueryApplicationsResponse;
+import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusWebRequest;
@@ -34,7 +35,7 @@ import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
-import team.retum.jobis.domain.application.usecase.QueryStudentApplicationsUseCase;
+import team.retum.jobis.domain.application.usecase.QueryMyApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
@@ -48,7 +49,7 @@ public class ApplicationWebAdapter {
     private final DeleteApplicationUseCase deleteApplicationUseCase;
     private final TeacherQueryApplicationsUseCase queryApplicationListService;
     private final CompanyQueryApplicationsUseCase companyQueryApplicationsUseCase;
-    private final QueryStudentApplicationsUseCase queryStudentApplicationsUseCase;
+    private final QueryMyApplicationsUseCase queryMyApplicationsUseCase;
     private final ChangeApplicationsStatusUseCase changeApplicationsStatusUseCase;
     private final ChangeFieldTrainDateUseCase changeFieldTrainDateUseCase;
     private final RejectApplicationUseCase rejectApplicationUseCase;
@@ -76,9 +77,10 @@ public class ApplicationWebAdapter {
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
-            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId
+            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, page - 1);
     }
 
     @GetMapping("/count")
@@ -90,13 +92,17 @@ public class ApplicationWebAdapter {
     }
 
     @GetMapping("/company")
-    public CompanyQueryApplicationsResponse queryCompanyApplicationList() {
-        return companyQueryApplicationsUseCase.execute();
+    public CompanyQueryApplicationsResponse queryCompanyApplicationList(
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
+    ) {
+        return companyQueryApplicationsUseCase.execute(page - 1);
     }
 
     @GetMapping("/students")
-    public StudentQueryApplicationsResponse queryApplication() {
-        return queryStudentApplicationsUseCase.execute();
+    public QueryMyApplicationsResponse queryMyApplications(
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
+    ) {
+        return queryMyApplicationsUseCase.execute(page - 1);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

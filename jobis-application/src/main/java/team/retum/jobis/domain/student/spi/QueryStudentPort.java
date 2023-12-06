@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.student.spi;
 
+import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 
 import java.util.Optional;
@@ -10,4 +11,6 @@ public interface QueryStudentPort {
     boolean existsByGradeAndClassRoomAndNumber(int grade, int classRoom, int number);
 
     int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear);
+
+    boolean existsBySchoolNumberAndName(SchoolNumber schoolNumber, String name);
 }

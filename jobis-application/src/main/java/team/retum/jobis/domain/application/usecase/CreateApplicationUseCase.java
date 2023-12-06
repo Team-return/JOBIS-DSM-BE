@@ -31,7 +31,7 @@ public class CreateApplicationUseCase {
 
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
-        recruitment.checkIsApplicable(student.getGrade());
+        recruitment.checkIsApplicable(student.getSchoolNumber().getGrade());
 
         if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
                 student.getId(), ApplicationStatus.DUPLICATE_CHECK

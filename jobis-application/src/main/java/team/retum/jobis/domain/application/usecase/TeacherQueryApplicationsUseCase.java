@@ -9,7 +9,7 @@ import team.retum.jobis.domain.application.dto.response.TeacherQueryApplications
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse.TeacherQueryApplicationResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
-import team.retum.jobis.domain.student.model.Student;
+import team.retum.jobis.domain.student.model.SchoolNumber;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
@@ -17,17 +17,22 @@ public class TeacherQueryApplicationsUseCase {
 
     private final QueryApplicationPort applicationPersistenceAdapter;
 
-    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId) {
+    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId, Long page) {
         return new TeacherQueryApplicationsResponse(
                 applicationPersistenceAdapter.queryApplicationByConditions(
-                                recruitmentId, null, applicationStatus, studentName).stream()
+                                recruitmentId, null, applicationStatus, studentName, page
+                        ).stream()
                         .map(application -> TeacherQueryApplicationResponse.builder()
                                 .applicationId(application.getId())
                                 .studentName(application.getName())
-                                .studentGcn(Student.processGcn(
-                                        application.getGrade(),
-                                        application.getClassNumber(),
-                                        application.getNumber())
+                                .studentGcn(
+                                        SchoolNumber.processSchoolNumber(
+                                                SchoolNumber.builder()
+                                                        .grade(application.getGrade())
+                                                        .classRoom(application.getClassNumber())
+                                                        .number(application.getNumber())
+                                                        .build()
+                                        )
                                 )
                                 .companyName(application.getCompanyName())
                                 .attachments(

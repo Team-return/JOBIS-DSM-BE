@@ -13,6 +13,7 @@ import java.util.List;
 public class ApplicationVO {
 
     private final Long id;
+    private final Long recruitmentId;
     private final String name;
     private final Integer grade;
     private final Integer number;

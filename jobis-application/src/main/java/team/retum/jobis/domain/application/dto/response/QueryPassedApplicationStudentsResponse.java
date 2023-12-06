@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
-import team.retum.jobis.domain.student.model.Student;
+import team.retum.jobis.domain.student.model.SchoolNumber;
 
 import java.util.List;
 
@@ -18,11 +18,13 @@ public class QueryPassedApplicationStudentsResponse {
         return QueryPassedApplicationStudentResponse.builder()
                 .applicationId(vo.getApplicationId())
                 .studentName(vo.getStudentName())
-                .studentGcn(Student.processGcn(
-                        vo.getGrade(),
-                        vo.getClassRoom(),
-                        vo.getNumber()
-                ))
+                .studentGcn(SchoolNumber.processSchoolNumber(
+                        SchoolNumber.builder()
+                                .grade(vo.getGrade())
+                                .classRoom(vo.getClassRoom())
+                                .number(vo.getNumber())
+                                .build())
+                )
                 .build();
     }
 
