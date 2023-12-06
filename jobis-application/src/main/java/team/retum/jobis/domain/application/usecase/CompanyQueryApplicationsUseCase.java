@@ -22,7 +22,7 @@ public class CompanyQueryApplicationsUseCase {
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
 
-    public CompanyQueryApplicationsResponse execute(Long page) {
+    public CompanyQueryApplicationsResponse execute() {
         Company company = securityPort.getCurrentCompany();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(company.getId())
@@ -30,7 +30,7 @@ public class CompanyQueryApplicationsUseCase {
 
         return new CompanyQueryApplicationsResponse(
                 queryApplicationPort.queryApplicationByConditions(
-                                recruitment.getId(), null, ApplicationStatus.SEND, null, page
+                                recruitment.getId(), null, ApplicationStatus.SEND, null
                         ).stream()
                         .map(application -> CompanyQueryApplicationResponse.builder()
                                 .applicationId(application.getId())

@@ -47,8 +47,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             Long recruitmentId,
             Long studentId,
             ApplicationStatus applicationStatus,
-            String studentName,
-            Long page
+            String studentName
     ) {
         return queryFactory
                 .selectFrom(applicationEntity)
@@ -62,8 +61,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         eqApplicationStatus(applicationStatus),
                         containStudentName(studentName)
                 )
-                .offset(page * 11)
-                .limit(11)
                 .orderBy(applicationEntity.createdAt.desc())
                 .transform(
                         groupBy(applicationEntity.id)

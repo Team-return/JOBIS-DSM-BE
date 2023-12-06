@@ -17,10 +17,10 @@ public class TeacherQueryApplicationsUseCase {
 
     private final QueryApplicationPort applicationPersistenceAdapter;
 
-    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId, Long page) {
+    public TeacherQueryApplicationsResponse execute(ApplicationStatus applicationStatus, String studentName, Long recruitmentId) {
         return new TeacherQueryApplicationsResponse(
                 applicationPersistenceAdapter.queryApplicationByConditions(
-                                recruitmentId, null, applicationStatus, studentName, page
+                                recruitmentId, null, applicationStatus, studentName
                         ).stream()
                         .map(application -> TeacherQueryApplicationResponse.builder()
                                 .applicationId(application.getId())
