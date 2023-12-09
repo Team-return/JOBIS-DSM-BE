@@ -8,7 +8,7 @@ import lombok.Getter;
 public class QueryEmploymentCountResponse {
 
     private final int totalStudentCount;
-    private final int passedCount;
-    private final int approvedCount;
+    private final long passedCount;
+    private final long approvedCount;
 
 }
