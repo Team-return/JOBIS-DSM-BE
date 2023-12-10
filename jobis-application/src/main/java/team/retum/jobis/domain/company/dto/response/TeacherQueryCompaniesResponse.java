@@ -3,17 +3,21 @@ package team.retum.jobis.domain.company.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.company.model.CompanyType;
 
 import java.util.List;
 
 @Getter
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class TeacherQueryCompaniesResponse {
 
     private final List<TeacherQueryCompanyResponse> companies;
 
     @Getter
+    @NoArgsConstructor(force = true)
+    @AllArgsConstructor
     @Builder
     public static class TeacherQueryCompanyResponse {
         private final Long companyId;

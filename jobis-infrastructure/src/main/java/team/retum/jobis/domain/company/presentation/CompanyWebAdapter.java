@@ -132,6 +132,7 @@ public class CompanyWebAdapter {
         return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
     }
 
+    @Cacheable
     @GetMapping("/employment/count")
     public TotalPageCountResponse queryEmployCompaniesCount(
             @RequestParam(value = "company_name", required = false) String companyName,
