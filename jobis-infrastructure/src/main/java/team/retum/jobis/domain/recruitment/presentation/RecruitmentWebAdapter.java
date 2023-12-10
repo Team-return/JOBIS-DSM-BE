@@ -3,6 +3,9 @@ package team.retum.jobis.domain.recruitment.presentation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -44,10 +47,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+import static team.retum.jobis.global.config.cache.CacheName.RECRUITMENT;
+
+@CacheConfig(cacheNames = RECRUITMENT)
 @Validated
 @RequiredArgsConstructor
 @RequestMapping("/recruitments")
+@RestController
 public class RecruitmentWebAdapter {
 
     private final ApplyRecruitmentUseCase applyRecruitmentUseCase;
@@ -62,12 +68,14 @@ public class RecruitmentWebAdapter {
     private final DeleteRecruitmentUseCase deleteRecruitmentUseCase;
     private final DeleteRecruitAreaUseCase deleteRecruitAreaUseCase;
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentWebRequest webRequest) {
         applyRecruitmentUseCase.execute(webRequest.toDomainRequest());
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruitment-id}")
     public void updateRecruitment(
@@ -77,6 +85,7 @@ public class RecruitmentWebAdapter {
         updateRecruitmentService.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(
@@ -86,6 +95,7 @@ public class RecruitmentWebAdapter {
         updateRecruitAreaService.execute(webRequest.toDomainRequest(), recruitAreaId);
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}/area")
     public void createRecruitArea(
@@ -95,6 +105,7 @@ public class RecruitmentWebAdapter {
         createRecruitAreaUseCase.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
+    @Cacheable
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
@@ -111,6 +122,7 @@ public class RecruitmentWebAdapter {
         );
     }
 
+    @Cacheable
     @GetMapping("/student/count")
     public TotalPageCountResponse studentQueryRecruitmentCount(
             @RequestParam(value = "name", required = false) String companyName,
@@ -125,6 +137,7 @@ public class RecruitmentWebAdapter {
         );
     }
 
+    @Cacheable
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
             @RequestParam(value = "company_name", required = false) String companyName,
@@ -138,6 +151,7 @@ public class RecruitmentWebAdapter {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
     }
 
+    @Cacheable
     @GetMapping("/teacher/count")
     public TotalPageCountResponse queryRecruitmentCount(
             @RequestParam(value = "company_name", required = false) String companyName,
@@ -150,6 +164,7 @@ public class RecruitmentWebAdapter {
         return teacherQueryRecruitmentsUseCase.getTotalPageCount(companyName, start, end, year, status, winterIntern);
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
     public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentStatusWebRequest webRequest) {
@@ -157,6 +172,7 @@ public class RecruitmentWebAdapter {
 
     }
 
+    @Cacheable
     @GetMapping("/{recruitment-id}")
     public QueryRecruitmentDetailResponse queryRecruitmentDetail(
             @PathVariable("recruitment-id") Long recruitmentId
@@ -169,12 +185,14 @@ public class RecruitmentWebAdapter {
         return queryMyRecruitmentUseCase.execute();
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{recruitment-id}")
     public void deleteRecruitment(@PathVariable("recruitment-id") Long recruitmentId) {
         deleteRecruitmentUseCase.execute(recruitmentId);
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/area/{recruit-area-id}")
     public void deleteRecruitArea(@PathVariable("recruit-area-id") Long recruitAreaId) {
@@ -183,7 +201,7 @@ public class RecruitmentWebAdapter {
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
         List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode!= null && !jobCode.isBlank()) codes.add(jobCode);
+        if (jobCode != null && !jobCode.isBlank()) codes.add(jobCode);
 
         try {
             return codes.stream()
