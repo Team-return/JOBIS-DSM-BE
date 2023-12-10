@@ -71,7 +71,6 @@ public class ApplicationWebAdapter {
                     @CacheEvict(cacheNames = COMPANY, allEntries = true)
             }
     )
-    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
     public void createApplication(
