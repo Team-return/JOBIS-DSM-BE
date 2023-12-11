@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,6 +41,7 @@ import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
+import team.retum.jobis.global.config.cache.CacheMapping;
 
 import static team.retum.jobis.global.config.cache.CacheName.APPLICATION;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
@@ -92,8 +92,7 @@ public class ApplicationWebAdapter {
         deleteApplicationUseCase.execute(applicationId);
     }
 
-    @Cacheable
-    @GetMapping
+    @CacheMapping
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
@@ -102,8 +101,7 @@ public class ApplicationWebAdapter {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
     }
 
-    @Cacheable
-    @GetMapping("/count")
+    @CacheMapping(path = "/count")
     public TotalPageCountResponse queryApplicationCount(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName
@@ -153,14 +151,12 @@ public class ApplicationWebAdapter {
         rejectApplicationUseCase.execute(applicationId, request.getReason());
     }
 
-    @Cacheable
-    @GetMapping("/employment/count")
+    @CacheMapping(path = "/employment/count")
     public QueryEmploymentCountResponse queryEmploymentCount() {
         return queryEmploymentCountUseCase.execute();
     }
 
-    @Cacheable
-    @GetMapping("/pass/{company-id}")
+    @CacheMapping(path = "/pass/{company-id}")
     public QueryPassedApplicationStudentsResponse queryFieldTrainApplication(
             @PathVariable("company-id") Long companyId
     ) {
@@ -177,8 +173,7 @@ public class ApplicationWebAdapter {
         reapplyUseCase.execute(applicationId, request.toDomainRequest());
     }
 
-    @Cacheable
-    @GetMapping("/rejection/{application-id}")
+    @CacheMapping(path = "/rejection/{application-id}")
     public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
         return queryRejectionReasonUseCase.execute(applicationId);
     }
