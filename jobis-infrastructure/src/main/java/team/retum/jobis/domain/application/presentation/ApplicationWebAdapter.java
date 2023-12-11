@@ -101,7 +101,7 @@ public class ApplicationWebAdapter {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
     }
 
-    @CacheMapping(path = "/count")
+    @CacheMapping("/count")
     public TotalPageCountResponse queryApplicationCount(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName
@@ -151,12 +151,12 @@ public class ApplicationWebAdapter {
         rejectApplicationUseCase.execute(applicationId, request.getReason());
     }
 
-    @CacheMapping(path = "/employment/count")
+    @CacheMapping("/employment/count")
     public QueryEmploymentCountResponse queryEmploymentCount() {
         return queryEmploymentCountUseCase.execute();
     }
 
-    @CacheMapping(path = "/pass/{company-id}")
+    @CacheMapping("/pass/{company-id}")
     public QueryPassedApplicationStudentsResponse queryFieldTrainApplication(
             @PathVariable("company-id") Long companyId
     ) {
@@ -173,7 +173,7 @@ public class ApplicationWebAdapter {
         reapplyUseCase.execute(applicationId, request.toDomainRequest());
     }
 
-    @CacheMapping(path = "/rejection/{application-id}")
+    @CacheMapping("/rejection/{application-id}")
     public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
         return queryRejectionReasonUseCase.execute(applicationId);
     }

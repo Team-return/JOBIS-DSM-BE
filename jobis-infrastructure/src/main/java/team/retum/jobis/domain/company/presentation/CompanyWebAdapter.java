@@ -86,7 +86,7 @@ public class CompanyWebAdapter {
         updateCompanyDetailsUseCase.execute(request.toDomainRequest(), companyId);
     }
 
-    @CacheMapping(path = "/student")
+    @CacheMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
             @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
             @RequestParam(value = "name", required = false) String name
@@ -94,14 +94,14 @@ public class CompanyWebAdapter {
         return studentQueryCompaniesUseCase.execute(page - 1, name);
     }
 
-    @CacheMapping(path = "/student/count")
+    @CacheMapping("/student/count")
     public TotalPageCountResponse studentQueryCompanyCount(
             @RequestParam(value = "name", required = false) String name
     ) {
         return studentQueryCompaniesUseCase.getTotalPageCount(name);
     }
 
-    @CacheMapping(path = "/{company-id}")
+    @CacheMapping("/{company-id}")
     public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
         return queryCompanyDetailsUseCase.execute(companyId);
     }
@@ -118,7 +118,7 @@ public class CompanyWebAdapter {
         updateCompanyTypeUseCase.execute(request.toDomainRequest());
     }
 
-    @CacheMapping(path = "/employment")
+    @CacheMapping("/employment")
     public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "company_type", required = false) CompanyType type,
@@ -128,7 +128,7 @@ public class CompanyWebAdapter {
         return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
     }
 
-    @CacheMapping(path = "/employment/count")
+    @CacheMapping("/employment/count")
     public TotalPageCountResponse queryEmployCompaniesCount(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "company_type", required = false) CompanyType type,
@@ -137,7 +137,7 @@ public class CompanyWebAdapter {
         return teacherQueryEmployCompaniesUseCase.getTotalPageCount(companyName, type, year);
     }
 
-    @CacheMapping(path = "/teacher")
+    @CacheMapping("/teacher")
     public TeacherQueryCompaniesResponse queryCompanies(
             @RequestParam(value = "type", required = false) CompanyType type,
             @RequestParam(value = "name", required = false) String companyName,
@@ -148,7 +148,7 @@ public class CompanyWebAdapter {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page - 1);
     }
 
-    @CacheMapping(path = "/teacher/count")
+    @CacheMapping("/teacher/count")
     public TotalPageCountResponse queryCompanyCount(
             @RequestParam(value = "type", required = false) CompanyType type,
             @RequestParam(value = "name", required = false) String companyName,

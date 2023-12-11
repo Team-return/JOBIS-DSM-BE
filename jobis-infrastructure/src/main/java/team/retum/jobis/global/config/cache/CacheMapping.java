@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 메서드를 호출한 결과를 캐시할 수 있음을 나타내는 주석입니다.
+ * 메서드를 호출한 결과를 캐시할 수 있음을 나타내는 어노테이션
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -22,5 +22,5 @@ import java.lang.annotation.Target;
 public @interface CacheMapping {
 
     @AliasFor(annotation = RequestMapping.class)
-    String[] path() default {};
+    String[] value() default {};
 }
