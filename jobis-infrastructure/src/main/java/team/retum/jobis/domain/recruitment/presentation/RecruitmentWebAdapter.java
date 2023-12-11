@@ -105,7 +105,7 @@ public class RecruitmentWebAdapter {
         createRecruitAreaUseCase.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
-    @CacheMapping(path = "/student")
+    @CacheMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
@@ -121,7 +121,7 @@ public class RecruitmentWebAdapter {
         );
     }
 
-    @CacheMapping(path = "/student/count")
+    @CacheMapping("/student/count")
     public TotalPageCountResponse studentQueryRecruitmentCount(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "tech_code", required = false) String techCodes,
@@ -135,7 +135,7 @@ public class RecruitmentWebAdapter {
         );
     }
 
-    @CacheMapping(path = "/teacher")
+    @CacheMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
@@ -148,7 +148,7 @@ public class RecruitmentWebAdapter {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
     }
 
-    @CacheMapping(path = "/teacher/count")
+    @CacheMapping("/teacher/count")
     public TotalPageCountResponse queryRecruitmentCount(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
@@ -168,7 +168,7 @@ public class RecruitmentWebAdapter {
 
     }
 
-    @CacheMapping(path = "/{recruitment-id}")
+    @CacheMapping("/{recruitment-id}")
     public QueryRecruitmentDetailResponse queryRecruitmentDetail(
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
