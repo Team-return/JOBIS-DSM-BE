@@ -275,11 +275,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public int queryApplicationCountByStatusIn(List<ApplicationStatus> applicationStatus) {
-        return applicationJpaRepository.countByApplicationStatusIn(applicationStatus);
-    }
-
-    @Override
     public void saveAllApplications(List<Application> applications) {
         applicationJpaRepository.saveAll(
                 applications.stream()
