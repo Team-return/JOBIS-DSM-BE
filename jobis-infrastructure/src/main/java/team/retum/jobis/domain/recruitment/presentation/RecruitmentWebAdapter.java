@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +41,6 @@ import team.retum.jobis.domain.recruitment.usecase.TeacherChangeRecruitmentStatu
 import team.retum.jobis.domain.recruitment.usecase.TeacherQueryRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
-import team.retum.jobis.global.config.cache.CacheMapping;
 import team.retum.jobis.global.exception.BadRequestException;
 
 import java.time.LocalDate;
@@ -105,7 +105,8 @@ public class RecruitmentWebAdapter {
         createRecruitAreaUseCase.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
-    @CacheMapping("/student")
+    @Cacheable
+    @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
@@ -121,7 +122,8 @@ public class RecruitmentWebAdapter {
         );
     }
 
-    @CacheMapping("/student/count")
+    @Cacheable
+    @GetMapping("/student/count")
     public TotalPageCountResponse studentQueryRecruitmentCount(
             @RequestParam(value = "name", required = false) String companyName,
             @RequestParam(value = "tech_code", required = false) String techCodes,
@@ -135,7 +137,8 @@ public class RecruitmentWebAdapter {
         );
     }
 
-    @CacheMapping("/teacher")
+    @Cacheable
+    @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
@@ -148,7 +151,8 @@ public class RecruitmentWebAdapter {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
     }
 
-    @CacheMapping("/teacher/count")
+    @Cacheable
+    @GetMapping("/teacher/count")
     public TotalPageCountResponse queryRecruitmentCount(
             @RequestParam(value = "company_name", required = false) String companyName,
             @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
@@ -168,7 +172,8 @@ public class RecruitmentWebAdapter {
 
     }
 
-    @CacheMapping("/{recruitment-id}")
+    @Cacheable
+    @GetMapping("/{recruitment-id}")
     public QueryRecruitmentDetailResponse queryRecruitmentDetail(
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
