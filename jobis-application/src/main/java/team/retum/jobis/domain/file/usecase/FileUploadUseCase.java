@@ -25,9 +25,9 @@ public class FileUploadUseCase {
         List<String> fileUrls = files.stream().filter(Objects::nonNull)
                 .map(
                         file -> {
-                            String fileName = fileType + "/" + UUID.randomUUID() + "-" + file.getName();
-                            validateExtension(fileName, fileType);
-                            filePort.uploadFile(file, fileName, fileType);
+                            String fileName = filePort.getFullFileName(fileType, file.getName());
+                            filePort.validateExtension(fileName, fileType);
+                            filePort.uploadFile(file, fileName);
 
                             return fileName.replace(" ", "+");
                         }
@@ -36,16 +36,5 @@ public class FileUploadUseCase {
         return new FileUploadResponse(fileUrls);
     }
 
-    private void validateExtension(String fileName, FileType fileType) {
-        String extension = fileName.substring(fileName.lastIndexOf("."));
 
-        boolean isValid = switch (fileType) {
-            case LOGO_IMAGE -> LOGO_IMAGE.validExtensions.contains(extension);
-            case EXTENSION_FILE -> EXTENSION_FILE.validExtensions.contains(extension);
-        };
-
-        if (!isValid) {
-            throw InvalidExtensionException.EXCEPTION;
-        }
-    }
 }
