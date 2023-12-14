@@ -1,6 +1,5 @@
-package team.retum.jobis.domain.file.service;
+package team.retum.jobis.common.util;
 
-import team.retum.jobis.common.annotation.Service;
 import team.retum.jobis.domain.file.exception.InvalidExtensionException;
 import team.retum.jobis.domain.file.model.FileType;
 
@@ -9,10 +8,9 @@ import java.util.UUID;
 import static team.retum.jobis.domain.file.model.FileType.EXTENSION_FILE;
 import static team.retum.jobis.domain.file.model.FileType.LOGO_IMAGE;
 
-@Service
-public class FileService {
+public class FileUtil {
 
-    public String generateFullFileName(FileType fileType, String fileName) {
+    public static String generateFullFileName(FileType fileType, String fileName) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
 
         boolean isValid = switch (fileType) {

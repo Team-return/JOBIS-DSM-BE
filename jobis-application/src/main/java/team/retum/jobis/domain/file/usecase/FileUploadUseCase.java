@@ -2,9 +2,9 @@ package team.retum.jobis.domain.file.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
+import team.retum.jobis.common.util.FileUtil;
 import team.retum.jobis.domain.file.dto.response.FileUploadResponse;
 import team.retum.jobis.domain.file.model.FileType;
-import team.retum.jobis.domain.file.service.FileService;
 import team.retum.jobis.domain.file.spi.FilePort;
 
 import java.io.File;
@@ -16,13 +16,12 @@ import java.util.Objects;
 public class FileUploadUseCase {
 
     private final FilePort filePort;
-    private final FileService fileService;
 
     public FileUploadResponse execute(List<File> files, FileType fileType) {
         List<String> fileUrls = files.stream().filter(Objects::nonNull)
                 .map(
                         file -> {
-                            String fileName = fileService.generateFullFileName(fileType, file.getName());
+                            String fileName = FileUtil.generateFullFileName(fileType, file.getName());
                             filePort.uploadFile(file, fileName);
 
                             return fileName.replace(" ", "+");

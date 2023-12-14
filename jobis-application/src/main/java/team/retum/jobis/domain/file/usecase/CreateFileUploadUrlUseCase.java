@@ -5,7 +5,6 @@ import team.retum.jobis.common.annotation.Service;
 import team.retum.jobis.domain.file.dto.CreateFileUploadUrlRequest;
 import team.retum.jobis.domain.file.dto.response.CreateFileUploadUrlResponse;
 import team.retum.jobis.domain.file.dto.response.CreateFileUploadUrlResponse.UrlResponse;
-import team.retum.jobis.domain.file.service.FileService;
 import team.retum.jobis.domain.file.spi.FilePort;
 
 @RequiredArgsConstructor
