@@ -2,7 +2,6 @@ package team.retum.jobis.domain.file.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.file.model.FileType;
 
 import java.util.List;

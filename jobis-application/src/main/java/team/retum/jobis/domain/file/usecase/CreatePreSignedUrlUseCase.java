@@ -5,10 +5,7 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.file.dto.CreatePreSignedUrlRequest;
 import team.retum.jobis.domain.file.dto.response.CreatePreSignedUrlResponse;
 import team.retum.jobis.domain.file.dto.response.CreatePreSignedUrlResponse.PreSignedUrlResponse;
-import team.retum.jobis.domain.file.model.FileType;
 import team.retum.jobis.domain.file.spi.FilePort;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @UseCase

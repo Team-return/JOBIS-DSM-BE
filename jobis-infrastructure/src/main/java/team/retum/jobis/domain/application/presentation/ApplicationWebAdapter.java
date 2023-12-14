@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.application.presentation;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
+import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryPassedApplicationStudentsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryRejectionReasonResponse;
-import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusWebRequest;
@@ -33,9 +32,9 @@ import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCa
 import team.retum.jobis.domain.application.usecase.CreateApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
+import team.retum.jobis.domain.application.usecase.QueryMyApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
-import team.retum.jobis.domain.application.usecase.QueryMyApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
