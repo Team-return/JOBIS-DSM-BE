@@ -22,8 +22,7 @@ public class FileUploadUseCase {
         List<String> fileUrls = files.stream().filter(Objects::nonNull)
                 .map(
                         file -> {
-                            String fileName = fileService.getFullFileName(fileType, file.getName());
-                            fileService.validateExtension(fileName, fileType);
+                            String fileName = fileService.generateFullFileName(fileType, file.getName());
                             filePort.uploadFile(file, fileName);
 
                             return fileName.replace(" ", "+");

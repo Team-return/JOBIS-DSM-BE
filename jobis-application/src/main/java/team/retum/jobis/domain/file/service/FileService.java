@@ -12,11 +12,7 @@ import static team.retum.jobis.domain.file.model.FileType.LOGO_IMAGE;
 @Service
 public class FileService {
 
-    public String getFullFileName(FileType fileType, String fileName) {
-        return fileType.name() + "/" + UUID.randomUUID() + "-" + fileName;
-    }
-
-    public void validateExtension(String fileName, FileType fileType) {
+    public String generateFullFileName(FileType fileType, String fileName) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
 
         boolean isValid = switch (fileType) {
@@ -27,5 +23,7 @@ public class FileService {
         if (!isValid) {
             throw InvalidExtensionException.EXCEPTION;
         }
+
+        return fileType.name() + "/" + UUID.randomUUID() + "-" + fileName;
     }
 }

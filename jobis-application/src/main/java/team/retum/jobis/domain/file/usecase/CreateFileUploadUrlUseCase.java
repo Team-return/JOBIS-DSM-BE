@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.file.usecase;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.common.annotation.UseCase;
+import team.retum.jobis.common.annotation.Service;
 import team.retum.jobis.domain.file.dto.CreateFileUploadUrlRequest;
 import team.retum.jobis.domain.file.dto.response.CreateFileUploadUrlResponse;
 import team.retum.jobis.domain.file.dto.response.CreateFileUploadUrlResponse.UrlResponse;
@@ -9,7 +9,7 @@ import team.retum.jobis.domain.file.service.FileService;
 import team.retum.jobis.domain.file.spi.FilePort;
 
 @RequiredArgsConstructor
-@UseCase
+@Service
 public class CreateFileUploadUrlUseCase {
 
     private final FilePort filePort;
@@ -20,9 +20,8 @@ public class CreateFileUploadUrlUseCase {
                 request.getFiles().stream()
                         .map(
                                 file -> {
-                                    fileService.validateExtension(file.getFileName(), file.getType());
-                                    String fullFileName = fileService.getFullFileName(file.getType(), file.getFileName());
-                                    String url = filePort.getFileUploadUrl(fullFileName);
+                                    String fullFileName = fileService.generateFullFileName(file.getType(), file.getFileName());
+                                    String url = filePort.generateFileUploadUrl(fullFileName);
                                     return new UrlResponse(
                                             fullFileName,
                                             url
