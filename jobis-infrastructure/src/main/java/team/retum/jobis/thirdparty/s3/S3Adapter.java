@@ -52,7 +52,7 @@ public class S3Adapter implements FilePort {
     }
 
     @Override
-    public String getFileUploadUrl(String fullFileName) {
+    public String generateFileUploadUrl(String fullFileName) {
         return URLDecoder.decode(
                 amazonS3.generatePresignedUrl(getPreSignedUrlRequest(fullFileName)).toString(), StandardCharsets.UTF_8
         );
