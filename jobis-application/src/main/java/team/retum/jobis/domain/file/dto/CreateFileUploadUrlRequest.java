@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class CreatePreSignedUrlRequest {
+public class CreateFileUploadUrlRequest {
 
     private final List<FileRequest> files;
 
