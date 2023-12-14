@@ -60,7 +60,7 @@ public class FileWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/pre_signed")
+    @PostMapping("/pre-signed")
     public CreateFileUploadUrlResponse createPreSignedUrl(
             @RequestBody @Valid CreatePreSignedUrlWebRequest request
     ) {
