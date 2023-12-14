@@ -1,17 +1,22 @@
 package team.retum.jobis.domain.file.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import team.retum.jobis.domain.file.dto.response.CreatePreSignedUrlResponse;
 import team.retum.jobis.domain.file.dto.response.FileUploadResponse;
 import team.retum.jobis.domain.file.exception.FileNotFoundException;
 import team.retum.jobis.domain.file.exception.FileUploadFailedException;
 import team.retum.jobis.domain.file.model.FileType;
+import team.retum.jobis.domain.file.presentation.dto.CreatePreSignedUrlWebRequest;
+import team.retum.jobis.domain.file.usecase.CreatePreSignedUrlUseCase;
 import team.retum.jobis.domain.file.usecase.FileUploadUseCase;
 
 import java.io.File;
@@ -26,6 +31,7 @@ import java.util.List;
 public class FileWebAdapter {
 
     private final FileUploadUseCase fileUploadUseCase;
+    private final CreatePreSignedUrlUseCase createPreSignedUrlUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -51,5 +57,13 @@ public class FileWebAdapter {
                         }).toList(),
                 fileType
         );
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/pre_signed")
+    public CreatePreSignedUrlResponse createPreSignedUrl(
+            @RequestBody @Valid CreatePreSignedUrlWebRequest request
+    ) {
+        return createPreSignedUrlUseCase.execute(request.toDomainRequest());
     }
 }
