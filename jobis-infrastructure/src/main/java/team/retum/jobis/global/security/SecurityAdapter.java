@@ -2,23 +2,24 @@ package team.retum.jobis.global.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.company.model.Company;
-import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
 import team.retum.jobis.domain.student.model.Student;
-import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
 import team.retum.jobis.domain.teacher.model.Teacher;
-import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
 import team.retum.jobis.domain.teacher.persistence.mapper.TeacherMapper;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
-import team.retum.jobis.global.security.auth.CurrentUserHolder;
+import team.retum.jobis.global.exception.InvalidTokenException;
+import team.retum.jobis.global.security.auth.company.CompanyDetails;
+import team.retum.jobis.global.security.auth.student.StudentDetails;
+import team.retum.jobis.global.security.auth.teacher.TeacherDetails;
 
 @RequiredArgsConstructor
 @Component
@@ -43,7 +44,8 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Authority getCurrentUserAuthority() {
-        return CurrentUserHolder.getCurrentUserAuthority();
+        UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return Authority.valueOf(currentUser.getAuthorities().iterator().next().getAuthority());
     }
 
     @Override
@@ -53,23 +55,31 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Company getCurrentCompany() {
-        return companyMapper.toDomain((CompanyEntity) CurrentUserHolder.getUser());
+        CompanyDetails companyDetails = (CompanyDetails) getCurrentUserDetails();
+        return companyMapper.toDomain(companyDetails.getCompany());
     }
 
     @Override
     public Student getCurrentStudent() {
-        return studentMapper.toDomain((StudentEntity) CurrentUserHolder.getUser());
+        StudentDetails studentDetails = (StudentDetails) getCurrentUserDetails();
+        return studentMapper.toDomain(studentDetails.getStudent());
     }
 
     @Override
     public Teacher getCurrentTeacher() {
-        return teacherMapper.toDomain((TeacherEntity) CurrentUserHolder.getUser());
+        TeacherDetails teacherDetails = (TeacherDetails) getCurrentUserDetails();
+        return teacherMapper.toDomain(teacherDetails.getTeacher());
     }
 
     @Override
     public User getCurrentUser() {
         Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
         return userJpaRepository.findById(currentUserId)
-                .map(userMapper::toDomain).get();
+                .map(userMapper::toDomain)
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
+    }
+
+    private Object getCurrentUserDetails() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

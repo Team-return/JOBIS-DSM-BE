@@ -1,17 +1,21 @@
 package team.retum.jobis.global.security.auth.teacher;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
 
 import java.util.Collection;
 import java.util.Collections;
 
+@Getter
 @RequiredArgsConstructor
 public class TeacherDetails implements UserDetails {
-    private final Long teacherId;
+
+    private final TeacherEntity teacher;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -25,7 +29,7 @@ public class TeacherDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return teacherId.toString();
+        return teacher.getId().toString();
     }
 
     @Override

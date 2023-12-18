@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.global.exception.InvalidTokenException;
-import team.retum.jobis.global.security.auth.CurrentUserHolder;
 
 @Component
 @RequiredArgsConstructor
@@ -21,8 +20,7 @@ public class StudentDetailsService implements UserDetailsService {
         StudentEntity studentEntity = studentJpaRepository.findById(
                 Long.valueOf(studentId)
         ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
-        CurrentUserHolder.setUser(studentEntity);
 
-        return new StudentDetails(studentEntity.getId());
+        return new StudentDetails(studentEntity);
     }
 }

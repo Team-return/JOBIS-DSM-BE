@@ -1,17 +1,21 @@
 package team.retum.jobis.global.security.auth.company;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 
 import java.util.Collection;
 import java.util.Collections;
 
+@Getter
 @RequiredArgsConstructor
 public class CompanyDetails implements UserDetails {
-    private final Long companyId;
+
+    private final CompanyEntity company;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -25,7 +29,7 @@ public class CompanyDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return companyId.toString();
+        return company.getId().toString();
     }
 
     @Override
