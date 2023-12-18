@@ -15,7 +15,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class TeacherDetails implements UserDetails {
 
-    private final TeacherEntity teacher;
+    private transient final TeacherEntity teacher;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
