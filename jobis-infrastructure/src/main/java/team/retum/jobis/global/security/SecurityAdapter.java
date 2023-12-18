@@ -44,7 +44,7 @@ public class SecurityAdapter implements SecurityPort {
 
     @Override
     public Authority getCurrentUserAuthority() {
-        UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails currentUser = (UserDetails) getCurrentUserDetails();
         return Authority.valueOf(currentUser.getAuthorities().iterator().next().getAuthority());
     }
 
