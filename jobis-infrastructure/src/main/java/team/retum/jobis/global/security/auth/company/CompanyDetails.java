@@ -15,7 +15,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class CompanyDetails implements UserDetails {
 
-    private transient final CompanyEntity company;
+    private final transient CompanyEntity company;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
