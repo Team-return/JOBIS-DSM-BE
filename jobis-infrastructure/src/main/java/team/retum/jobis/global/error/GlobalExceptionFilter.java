@@ -13,7 +13,6 @@ import team.retum.jobis.common.error.JobisException;
 import team.retum.jobis.event.exception.model.ExceptionEvent;
 import team.retum.jobis.global.error.exception.GlobalErrorCode;
 import team.retum.jobis.global.error.response.ErrorResponse;
-import team.retum.jobis.global.security.auth.CurrentUserHolder;
 import team.retum.jobis.global.util.LogUtil;
 
 import java.io.IOException;
@@ -39,8 +38,6 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
                 eventPublisher.publishEvent(ExceptionEvent.builder().request(request).exception(e).build());
                 writeErrorResponse(response, GlobalErrorCode.INTERNAL_SERVER_ERROR);
             }
-        } finally {
-            CurrentUserHolder.clear();
         }
     }
 

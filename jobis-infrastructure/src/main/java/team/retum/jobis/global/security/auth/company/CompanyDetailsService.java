@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.global.exception.InvalidTokenException;
-import team.retum.jobis.global.security.auth.CurrentUserHolder;
 
 @Component
 @RequiredArgsConstructor
@@ -21,8 +20,7 @@ public class CompanyDetailsService implements UserDetailsService {
         CompanyEntity company = companyJpaRepository.findById(
                 Long.valueOf(companyId)
         ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
-        CurrentUserHolder.setUser(company);
 
-        return new CompanyDetails(company.getId());
+        return new CompanyDetails(company);
     }
 }
