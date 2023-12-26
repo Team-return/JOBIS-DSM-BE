@@ -48,8 +48,8 @@ public class CacheConfig {
 
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
-        return (builder) -> builder.withCacheConfiguration(CODE, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofDays(1))
+        return builder -> builder.withCacheConfiguration(CODE, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(10))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
         );
