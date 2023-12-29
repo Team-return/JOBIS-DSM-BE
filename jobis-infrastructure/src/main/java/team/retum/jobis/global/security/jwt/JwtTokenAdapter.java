@@ -42,19 +42,6 @@ public class JwtTokenAdapter implements JwtPort {
         return token;
     }
 
-    public String generateRefreshToken(Long userId, Authority authority) {
-        String token = generateToken(userId.toString(), TokenType.REFRESH, jwtProperties.getRefreshExp(), authority);
-        refreshTokenRepository.save(
-                RefreshTokenEntity.builder()
-                        .token(token)
-                        .authority(authority)
-                        .platformType(PlatformType.WEB)
-                        .ttl(jwtProperties.getRefreshExp().longValue())
-                        .build()
-        );
-        return token;
-    }
-
     public LocalDateTime getExpiredAt(TokenType type) {
         return switch (type) {
             case ACCESS -> LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp());
@@ -90,21 +77,6 @@ public class JwtTokenAdapter implements JwtPort {
                 .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
                 .authority(authority)
                 .platformType(platformType)
-                .build();
-    }
-
-    @Override
-    public TokenResponse generateTokens(Long userId, Authority authority) {
-        String access = generateAccessToken(userId, authority);
-        String refresh = generateRefreshToken(userId, authority);
-
-        return TokenResponse.builder()
-                .accessToken(access)
-                .accessExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp()))
-                .refreshToken(refresh)
-                .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
-                .authority(authority)
-                .platformType(PlatformType.WEB)
                 .build();
     }
 }

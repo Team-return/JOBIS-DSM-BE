@@ -6,6 +6,7 @@ import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
@@ -84,6 +85,6 @@ public class RegisterCompanyUseCase {
                         .build()
         );
 
-        return jwtPort.generateTokens(user.getId(), user.getAuthority());
+        return jwtPort.generateTokens(user.getId(), user.getAuthority(), PlatformType.WEB);
     }
 }

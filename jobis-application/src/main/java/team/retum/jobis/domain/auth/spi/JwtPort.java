@@ -9,6 +9,4 @@ public interface JwtPort {
     Long getRefreshExp();
 
     TokenResponse generateTokens(Long userId, Authority authority, PlatformType platformType);
-
-    TokenResponse generateTokens(Long userId, Authority authority);
 }
