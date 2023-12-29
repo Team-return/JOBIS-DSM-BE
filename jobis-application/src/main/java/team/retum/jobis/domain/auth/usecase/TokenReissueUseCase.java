@@ -14,14 +14,10 @@ import team.retum.jobis.domain.auth.spi.QueryRefreshTokenPort;
 public class TokenReissueUseCase {
 
     private final QueryRefreshTokenPort queryRefreshTokenPort;
-    private final CommandRefreshTokenPort commandRefreshTokenPort;
     private final JwtPort jwtPort;
 
     public TokenResponse execute(String refresh, PlatformType platformType) {
         RefreshToken token = queryRefreshTokenPort.queryRefreshTokenByTokenAndPlatformType(refresh, platformType);
-        TokenResponse newTokens = jwtPort.generateTokens(token.getUserId(), token.getAuthority(), platformType);
-
-        commandRefreshTokenPort.deleteRefreshToken(token);
-        return newTokens;
+        return jwtPort.generateTokens(token.getUserId(), token.getAuthority(), platformType);
     }
 }
