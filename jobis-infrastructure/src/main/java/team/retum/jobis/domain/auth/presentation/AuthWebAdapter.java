@@ -48,7 +48,6 @@ public class AuthWebAdapter {
             @RequestHeader("X-Refresh-Token") String token,
             @RequestParam("platform_type") PlatformType platformType
     ) {
-        System.out.println(token);
         return tokenReissueUseCase.execute(token, platformType);
     }
 }
