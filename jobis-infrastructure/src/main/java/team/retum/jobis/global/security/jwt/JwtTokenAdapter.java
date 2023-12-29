@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.persistence.entity.RefreshTokenEntity;
 import team.retum.jobis.domain.auth.persistence.repository.RefreshTokenRepository;
 import team.retum.jobis.domain.auth.spi.JwtPort;
@@ -24,13 +25,30 @@ public class JwtTokenAdapter implements JwtPort {
         return generateToken(userId.toString(), TokenType.ACCESS, jwtProperties.getAccessExp(), authority);
     }
 
+    public String generateRefreshToken(Long userId, Authority authority, PlatformType platformType) {
+        String token = generateToken(userId.toString(), TokenType.REFRESH, jwtProperties.getRefreshExp(), authority);
+
+        refreshTokenRepository.findByUserIdAndPlatformType(userId, platformType)
+                .ifPresent(refreshTokenRepository::delete);
+        refreshTokenRepository.save(
+                RefreshTokenEntity.builder()
+                        .token(token)
+                        .userId(userId)
+                        .authority(authority)
+                        .platformType(platformType)
+                        .ttl(jwtProperties.getRefreshExp().longValue())
+                        .build()
+        );
+        return token;
+    }
+
     public String generateRefreshToken(Long userId, Authority authority) {
         String token = generateToken(userId.toString(), TokenType.REFRESH, jwtProperties.getRefreshExp(), authority);
         refreshTokenRepository.save(
                 RefreshTokenEntity.builder()
-                        .id(userId)
                         .token(token)
                         .authority(authority)
+                        .platformType(PlatformType.WEB)
                         .ttl(jwtProperties.getRefreshExp().longValue())
                         .build()
         );
@@ -61,6 +79,21 @@ public class JwtTokenAdapter implements JwtPort {
     }
 
     @Override
+    public TokenResponse generateTokens(Long userId, Authority authority, PlatformType platformType) {
+        String access = generateAccessToken(userId, authority);
+        String refresh = generateRefreshToken(userId, authority, platformType);
+
+        return TokenResponse.builder()
+                .accessToken(access)
+                .accessExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp()))
+                .refreshToken(refresh)
+                .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
+                .authority(authority)
+                .platformType(platformType)
+                .build();
+    }
+
+    @Override
     public TokenResponse generateTokens(Long userId, Authority authority) {
         String access = generateAccessToken(userId, authority);
         String refresh = generateRefreshToken(userId, authority);
@@ -71,6 +104,7 @@ public class JwtTokenAdapter implements JwtPort {
                 .refreshToken(refresh)
                 .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
                 .authority(authority)
+                .platformType(PlatformType.WEB)
                 .build();
     }
 }

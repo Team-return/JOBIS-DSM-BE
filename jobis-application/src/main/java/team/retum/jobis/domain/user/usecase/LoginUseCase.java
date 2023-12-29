@@ -27,6 +27,6 @@ public class LoginUseCase {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        return jwtPort.generateTokens(user.getId(), user.getAuthority());
+        return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.getPlatformType());
     }
 }

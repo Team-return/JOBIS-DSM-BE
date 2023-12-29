@@ -3,6 +3,7 @@ package team.retum.jobis.domain.auth.dto;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.auth.model.PlatformType;
 
 import java.time.LocalDateTime;
 
@@ -14,4 +15,5 @@ public class TokenResponse {
     private final String refreshToken;
     private final LocalDateTime refreshExpiresAt;
     private final Authority authority;
+    private final PlatformType platformType;
 }
