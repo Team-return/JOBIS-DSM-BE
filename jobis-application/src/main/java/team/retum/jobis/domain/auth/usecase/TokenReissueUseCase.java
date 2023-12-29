@@ -5,7 +5,6 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.model.RefreshToken;
-import team.retum.jobis.domain.auth.spi.CommandRefreshTokenPort;
 import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.auth.spi.QueryRefreshTokenPort;
 
