@@ -5,6 +5,7 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.model.RefreshToken;
+import team.retum.jobis.domain.auth.spi.CommandRefreshTokenPort;
 import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.auth.spi.QueryRefreshTokenPort;
 
@@ -13,12 +14,14 @@ import team.retum.jobis.domain.auth.spi.QueryRefreshTokenPort;
 public class TokenReissueUseCase {
 
     private final QueryRefreshTokenPort queryRefreshTokenPort;
+    private final CommandRefreshTokenPort commandRefreshTokenPort;
     private final JwtPort jwtPort;
 
     public TokenResponse execute(String refresh, PlatformType platformType) {
         RefreshToken token = queryRefreshTokenPort.queryRefreshTokenByTokenAndPlatformType(refresh, platformType);
         TokenResponse newTokens = jwtPort.generateTokens(token.getUserId(), token.getAuthority(), platformType);
 
+        commandRefreshTokenPort.deleteRefreshToken(token);
         return newTokens;
     }
 }

@@ -6,4 +6,5 @@ public interface CommandRefreshTokenPort {
 
     void saveRefreshToken(RefreshToken refreshToken);
 
+    void deleteRefreshToken(RefreshToken refreshToken);
 }
