@@ -28,17 +28,17 @@ public class JwtTokenAdapter implements JwtPort {
     public String generateRefreshToken(Long userId, Authority authority, PlatformType platformType) {
         String token = generateToken(userId.toString(), TokenType.REFRESH, jwtProperties.getRefreshExp(), authority);
 
-        refreshTokenRepository.findByUserIdAndPlatformType(userId, platformType)
-                .ifPresent(refreshTokenRepository::delete);
-        refreshTokenRepository.save(
-                RefreshTokenEntity.builder()
-                        .token(token)
-                        .userId(userId)
-                        .authority(authority)
-                        .platformType(platformType)
-                        .ttl(jwtProperties.getRefreshExp().longValue())
-                        .build()
-        );
+        RefreshTokenEntity refreshToken = refreshTokenRepository.findByUserIdAndPlatformType(userId, platformType)
+                .orElse(
+                        RefreshTokenEntity.builder()
+                                .token(token)
+                                .userId(userId)
+                                .authority(authority)
+                                .platformType(platformType)
+                                .ttl(jwtProperties.getRefreshExp().longValue())
+                                .build()
+                );
+        refreshTokenRepository.save(refreshToken.updateToken(token));
         return token;
     }
 
