@@ -18,8 +18,11 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class StudentDetails implements UserDetails {
 
+<<<<<<< HEAD
     private final transient StudentEntity student;
 
+=======
+>>>>>>> 6bf52aa6652f4b8c7c434c98e288ae8bc81225b4
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
