@@ -1,12 +1,7 @@
 package team.retum.jobis.global.security.auth.teacher;
 
-<<<<<<< HEAD
 import lombok.Getter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-=======
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
->>>>>>> 6bf52aa6652f4b8c7c434c98e288ae8bc81225b4
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,11 +18,8 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class TeacherDetails implements UserDetails {
 
-<<<<<<< HEAD
     private final transient TeacherEntity teacher;
 
-=======
->>>>>>> 6bf52aa6652f4b8c7c434c98e288ae8bc81225b4
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
