@@ -46,7 +46,7 @@ public class AuthWebAdapter {
     @PutMapping("/reissue")
     public TokenResponse reissue(
             @RequestHeader("X-Refresh-Token") String token,
-            @RequestParam("platform_type") PlatformType platformType
+            @RequestParam("platform-type") PlatformType platformType
     ) {
         return tokenReissueUseCase.execute(token, platformType);
     }
