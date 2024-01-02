@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.student.dto.StudentSignUpRequest;
 import team.retum.jobis.domain.student.model.Gender;
 import team.retum.jobis.global.util.RegexProperty;
@@ -40,6 +41,9 @@ public class StudentSignUpWebRequest {
     @Size(max = 300)
     private String profileImageUrl;
 
+    @NotNull
+    private PlatformType platformType;
+
     public StudentSignUpRequest toDomainRequest() {
         return StudentSignUpRequest.builder()
                 .email(this.email)
@@ -50,6 +54,7 @@ public class StudentSignUpWebRequest {
                 .number(this.number)
                 .gender(this.gender)
                 .profileImageUrl(this.profileImageUrl)
+                .platformType(this.platformType)
                 .build();
     }
 }

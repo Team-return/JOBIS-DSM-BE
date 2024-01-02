@@ -3,6 +3,7 @@ package team.retum.jobis.domain.auth.persistence;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.auth.exception.RefreshTokenNotFoundException;
+import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.model.RefreshToken;
 import team.retum.jobis.domain.auth.persistence.mapper.RefreshTokenMapper;
 import team.retum.jobis.domain.auth.persistence.repository.RefreshTokenRepository;
@@ -23,10 +24,17 @@ public class RefreshTokenPersistenceAdapter implements RefreshTokenPort {
     }
 
     @Override
-    public RefreshToken queryRefreshTokenByToken(String token) {
+    public RefreshToken queryRefreshTokenByTokenAndPlatformType(String token, PlatformType platformType) {
         return refreshTokenMapper.toDomain(
-                refreshTokenRepository.findByToken(token)
+                refreshTokenRepository.findByTokenAndPlatformType(token, platformType)
                         .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION)
+        );
+    }
+
+    @Override
+    public void deleteRefreshToken(RefreshToken refreshToken) {
+        refreshTokenRepository.delete(
+                refreshTokenMapper.toEntity(refreshToken)
         );
     }
 }

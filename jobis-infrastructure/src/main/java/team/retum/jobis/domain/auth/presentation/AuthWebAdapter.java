@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeWebRequest;
 import team.retum.jobis.domain.auth.usecase.SendAuthCodeUseCase;
 import team.retum.jobis.domain.auth.usecase.TokenReissueUseCase;
@@ -43,7 +44,10 @@ public class AuthWebAdapter {
     }
 
     @PutMapping("/reissue")
-    public TokenResponse reissue(@RequestHeader("X-Refresh-Token") String token) {
-        return tokenReissueUseCase.execute(token);
+    public TokenResponse reissue(
+            @RequestHeader("X-Refresh-Token") String token,
+            @RequestParam("platform-type") PlatformType platformType
+    ) {
+        return tokenReissueUseCase.execute(token, platformType);
     }
 }

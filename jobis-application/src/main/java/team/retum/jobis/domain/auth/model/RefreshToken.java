@@ -9,11 +9,13 @@ import team.retum.jobis.common.annotation.Aggregate;
 @Aggregate
 public class RefreshToken {
 
-    private final Long id;
-
     private final String token;
 
+    private final Long userId;
+
     private final Authority authority;
+
+    private final PlatformType platformType;
 
     private final Long ttl;
 

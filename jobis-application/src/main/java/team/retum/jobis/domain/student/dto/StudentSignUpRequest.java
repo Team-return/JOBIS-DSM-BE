@@ -2,25 +2,28 @@ package team.retum.jobis.domain.student.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.student.model.Gender;
 
 @Getter
 @Builder
 public class StudentSignUpRequest {
 
-    private String email;
+    private final String email;
 
-    private String password;
+    private final String password;
 
-    private Integer grade;
+    private final Integer grade;
 
-    private String name;
+    private final String name;
 
-    private Integer classRoom;
+    private final Integer classRoom;
 
-    private Integer number;
+    private final Integer number;
 
-    private Gender gender;
+    private final Gender gender;
 
-    private String profileImageUrl;
+    private final String profileImageUrl;
+
+    private final PlatformType platformType;
 }
