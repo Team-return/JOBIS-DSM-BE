@@ -65,7 +65,7 @@ public class AcceptanceWebAdapter {
         registerFieldTraineeUseCase.execute(request.toDomainRequest());
     }
 
-    @CacheEvict(cacheNames = ACCEPTANCE, allEntries = true)
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/contract-date")
     public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateWebRequest request) {

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
 
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
 
 @CacheConfig(cacheNames = COMPANY)
 @Validated
@@ -76,7 +78,12 @@ public class CompanyWebAdapter {
         return checkCompanyExistsUseCase.execute(businessNumber);
     }
 
-    @CacheEvict(allEntries = true)
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = COMPANY, allEntries = true),
+                    @CacheEvict(cacheNames = COMPANY_USER, allEntries = true)
+            }
+    )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{company-id}")
     public void updateDetails(
