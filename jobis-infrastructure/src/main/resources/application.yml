@@ -14,6 +14,8 @@ spring:
       show_sql: ${SHOW_SQL:true}
       jdbc:
         batch_size: 200
+    open-in-view: false
+
   jackson:
     property-naming-strategy: SNAKE_CASE
 
