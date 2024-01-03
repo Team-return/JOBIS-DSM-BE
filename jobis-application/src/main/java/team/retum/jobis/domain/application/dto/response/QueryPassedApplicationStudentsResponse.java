@@ -3,12 +3,14 @@ package team.retum.jobis.domain.application.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 import team.retum.jobis.domain.student.model.SchoolNumber;
 
 import java.util.List;
 
 @Getter
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class QueryPassedApplicationStudentsResponse {
 
@@ -29,6 +31,8 @@ public class QueryPassedApplicationStudentsResponse {
     }
 
     @Getter
+    @NoArgsConstructor(force = true)
+    @AllArgsConstructor
     @Builder
     public static class QueryPassedApplicationStudentResponse {
 

@@ -3,6 +3,10 @@ package team.retum.jobis.domain.company.presentation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +44,12 @@ import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
 
-@RequiredArgsConstructor
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
+
+@CacheConfig(cacheNames = COMPANY)
 @Validated
+@RequiredArgsConstructor
 @RequestMapping("/companies")
 @RestController
 public class CompanyWebAdapter {
@@ -58,6 +66,7 @@ public class CompanyWebAdapter {
     private final UpdateMouUseCase updateMouUseCase;
     private final QueryReviewAvailableCompaniesUseCase queryReviewAvailableCompaniesUseCase;
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public TokenResponse register(@RequestBody @Valid RegisterCompanyWebRequest request) {
@@ -69,6 +78,12 @@ public class CompanyWebAdapter {
         return checkCompanyExistsUseCase.execute(businessNumber);
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = COMPANY, allEntries = true),
+                    @CacheEvict(cacheNames = COMPANY_USER, allEntries = true)
+            }
+    )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{company-id}")
     public void updateDetails(
@@ -78,6 +93,7 @@ public class CompanyWebAdapter {
         updateCompanyDetailsUseCase.execute(request.toDomainRequest(), companyId);
     }
 
+    @Cacheable
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
             @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
@@ -86,6 +102,7 @@ public class CompanyWebAdapter {
         return studentQueryCompaniesUseCase.execute(page - 1, name);
     }
 
+    @Cacheable
     @GetMapping("/student/count")
     public TotalPageCountResponse studentQueryCompanyCount(
             @RequestParam(value = "name", required = false) String name
@@ -93,6 +110,7 @@ public class CompanyWebAdapter {
         return studentQueryCompaniesUseCase.getTotalPageCount(name);
     }
 
+    @Cacheable
     @GetMapping("/{company-id}")
     public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
         return queryCompanyDetailsUseCase.execute(companyId);
@@ -103,12 +121,14 @@ public class CompanyWebAdapter {
         return companyMyPageUseCase.execute();
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/type")
     public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeWebRequest request) {
         updateCompanyTypeUseCase.execute(request.toDomainRequest());
     }
 
+    @Cacheable
     @GetMapping("/employment")
     public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
             @RequestParam(value = "company_name", required = false) String companyName,
@@ -119,6 +139,7 @@ public class CompanyWebAdapter {
         return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
     }
 
+    @Cacheable
     @GetMapping("/employment/count")
     public TotalPageCountResponse queryEmployCompaniesCount(
             @RequestParam(value = "company_name", required = false) String companyName,
@@ -128,6 +149,7 @@ public class CompanyWebAdapter {
         return teacherQueryEmployCompaniesUseCase.getTotalPageCount(companyName, type, year);
     }
 
+    @Cacheable
     @GetMapping("/teacher")
     public TeacherQueryCompaniesResponse queryCompanies(
             @RequestParam(value = "type", required = false) CompanyType type,
@@ -139,6 +161,7 @@ public class CompanyWebAdapter {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page - 1);
     }
 
+    @Cacheable
     @GetMapping("/teacher/count")
     public TotalPageCountResponse queryCompanyCount(
             @RequestParam(value = "type", required = false) CompanyType type,
@@ -149,6 +172,7 @@ public class CompanyWebAdapter {
         return teacherQueryCompaniesUseCase.getTotalPageCount(type, companyName, region, businessArea);
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/mou")
     public void updateMou(@RequestBody @Valid UpdateMouWebRequest request) {

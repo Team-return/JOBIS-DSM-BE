@@ -2,6 +2,10 @@ package team.retum.jobis.domain.application.presentation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +43,10 @@ import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
+import static team.retum.jobis.global.config.cache.CacheName.APPLICATION;
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
+
+@CacheConfig(cacheNames = APPLICATION)
 @RequiredArgsConstructor
 @RequestMapping("/applications")
 @RestController
@@ -57,6 +65,12 @@ public class ApplicationWebAdapter {
     private final ReapplyUseCase reapplyUseCase;
     private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
 
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
+            }
+    )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
     public void createApplication(
@@ -66,12 +80,19 @@ public class ApplicationWebAdapter {
         createApplicationUseCase.execute(request.toDomainRequest(), recruitmentId);
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
+            }
+    )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{application-id}")
     public void deleteApplication(@PathVariable("application-id") Long applicationId) {
         deleteApplicationUseCase.execute(applicationId);
     }
 
+    @Cacheable
     @GetMapping
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
@@ -81,6 +102,7 @@ public class ApplicationWebAdapter {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
     }
 
+    @Cacheable
     @GetMapping("/count")
     public TotalPageCountResponse queryApplicationCount(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
@@ -99,6 +121,12 @@ public class ApplicationWebAdapter {
         return queryMyApplicationsUseCase.execute();
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
+            }
+    )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
     public void changeApplicationsStatus(@RequestBody @Valid ChangeApplicationsStatusWebRequest request) {
@@ -108,12 +136,14 @@ public class ApplicationWebAdapter {
         );
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/train-date")
     public void changeFieldTrainDate(@RequestBody @Valid ChangeFieldTrainDateWebRequest request) {
         changeFieldTrainDateUseCase.execute(request.toDomainRequest());
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/rejection/{application-id}")
     public void rejectApplication(
@@ -123,11 +153,13 @@ public class ApplicationWebAdapter {
         rejectApplicationUseCase.execute(applicationId, request.getReason());
     }
 
+    @Cacheable
     @GetMapping("/employment/count")
     public QueryEmploymentCountResponse queryEmploymentCount() {
         return queryEmploymentCountUseCase.execute();
     }
 
+    @Cacheable
     @GetMapping("/pass/{company-id}")
     public QueryPassedApplicationStudentsResponse queryFieldTrainApplication(
             @PathVariable("company-id") Long companyId
@@ -135,6 +167,7 @@ public class ApplicationWebAdapter {
         return queryPassedApplicationStudentsUseCase.execute(companyId);
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{application-id}")
     public void reapply(
@@ -144,6 +177,7 @@ public class ApplicationWebAdapter {
         reapplyUseCase.execute(applicationId, request.toDomainRequest());
     }
 
+    @Cacheable
     @GetMapping("/rejection/{application-id}")
     public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
         return queryRejectionReasonUseCase.execute(applicationId);

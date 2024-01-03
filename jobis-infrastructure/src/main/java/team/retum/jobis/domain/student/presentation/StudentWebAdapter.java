@@ -2,6 +2,7 @@ package team.retum.jobis.domain.student.presentation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,6 +25,8 @@ import team.retum.jobis.domain.student.usecase.UpdateStudentForgottenPasswordUse
 import team.retum.jobis.domain.student.usecase.UpdateStudentPasswordUseCase;
 import team.retum.jobis.domain.student.usecase.UpdateStudentProfileUseCase;
 import team.retum.jobis.domain.student.usecase.VerifyStudentUseCase;
+
+import static team.retum.jobis.global.config.cache.CacheName.STUDENT_USER;
 
 @RequiredArgsConstructor
 @RequestMapping("/students")
@@ -63,6 +66,7 @@ public class StudentWebAdapter {
         verifyStudentUseCase.execute(gcn, name);
     }
 
+    @CacheEvict(cacheNames = STUDENT_USER, allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/profile")
     public void updateStudentProfile(@RequestBody @Valid UpdateStudentProfileWebRequest request) {

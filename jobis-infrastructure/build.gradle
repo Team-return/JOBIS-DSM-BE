@@ -54,6 +54,9 @@ dependencies {
     // jaxb
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
 
+    // cache
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
 }
 
 test.useJUnitPlatform()
