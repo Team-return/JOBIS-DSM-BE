@@ -18,7 +18,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class TeacherDetails implements UserDetails {
 
-    private final transient TeacherEntity teacher;
+    private final TeacherEntity teacher;
 
     @JsonIgnore
     @Override

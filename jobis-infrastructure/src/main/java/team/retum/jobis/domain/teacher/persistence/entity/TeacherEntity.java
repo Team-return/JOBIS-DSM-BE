@@ -27,7 +27,6 @@ public class TeacherEntity {
     @Column(name = "teacher_id")
     private Long id;
 
-    @JsonIgnore
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "teacher_id", nullable = false)

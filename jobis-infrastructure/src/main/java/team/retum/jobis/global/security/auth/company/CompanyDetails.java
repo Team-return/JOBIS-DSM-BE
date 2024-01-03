@@ -18,7 +18,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class CompanyDetails implements UserDetails {
 
-    private final transient CompanyEntity company;
+    private final CompanyEntity company;
     
     @JsonIgnore
     @Override
