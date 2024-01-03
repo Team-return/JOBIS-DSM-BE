@@ -81,6 +81,6 @@ public class StudentSignUpUseCase {
                 student.getName()
         );
 
-        return jwtPort.generateTokens(user.getId(), user.getAuthority());
+        return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.getPlatformType());
     }
 }

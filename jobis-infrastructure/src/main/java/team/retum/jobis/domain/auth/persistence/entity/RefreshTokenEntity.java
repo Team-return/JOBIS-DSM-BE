@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.auth.model.PlatformType;
 
 
 @Getter
@@ -15,14 +16,22 @@ import team.retum.jobis.domain.auth.model.Authority;
 public class RefreshTokenEntity {
 
     @Id
-    private Long id;
-
     @Indexed
     private String token;
 
+    @Indexed
+    private Long userId;
+
     private Authority authority;
+
+    @Indexed
+    private PlatformType platformType;
 
     @TimeToLive
     private Long ttl;
 
+    public RefreshTokenEntity updateToken(String token) {
+        this.token = token;
+        return this;
+    }
 }
