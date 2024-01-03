@@ -44,6 +44,7 @@ public class CompanyEntity {
     @Column(name = "company_id")
     private Long id;
 
+    @JsonIgnore
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "company_id", nullable = false)
