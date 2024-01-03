@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -43,6 +44,7 @@ public class CompanyEntity {
     @Column(name = "company_id")
     private Long id;
 
+    @JsonIgnore
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "company_id", nullable = false)

@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.teacher.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,7 @@ public class TeacherEntity {
     @Column(name = "teacher_id")
     private Long id;
 
+    @JsonIgnore
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "teacher_id", nullable = false)
