@@ -38,6 +38,9 @@ public class SecurityConfig {
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
+                                // healthCheck
+                                .requestMatchers(HttpMethod.GET, "/").permitAll()
+
                                 // actuator
                                 .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 
