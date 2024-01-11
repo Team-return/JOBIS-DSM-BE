@@ -20,7 +20,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                         "https://develop.jobis-student.pages.dev",
                         "https://jobis-student-dev.team-return.com",
                         "http://localhost:3000",
-                        "http://lcoalhost:3001",
+                        "http://localhost:3001",
                         "http://localhost:4000"
                 )
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD")
