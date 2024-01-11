@@ -6,6 +6,7 @@ import team.retum.jobis.common.annotation.Aggregate;
 import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
+import team.retum.jobis.domain.recruitment.exception.RecruitmentCannotDeleteException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -94,6 +95,12 @@ public class Recruitment {
 
         if (studentGrade == 1 || (!this.winterIntern && studentGrade == 2)) {
             throw InvalidGradeException.EXCEPTION;
+        }
+    }
+
+    public void checkRecruitmentStatus() {
+        if (this.status.equals(RecruitStatus.RECRUITING)) {
+            throw RecruitmentCannotDeleteException.EXCEPTION;
         }
     }
 }

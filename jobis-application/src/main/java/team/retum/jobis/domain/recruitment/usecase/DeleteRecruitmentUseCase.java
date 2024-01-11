@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.model.Authority;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentCannotDeleteException;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
@@ -29,10 +27,7 @@ public class DeleteRecruitmentUseCase {
             recruitment.checkCompany(currentUserId);
         }
 
-        if (recruitment.getStatus() == RecruitStatus.RECRUITING) {
-            throw RecruitmentCannotDeleteException.EXCEPTION;
-        }
-
+        recruitment.checkRecruitmentStatus();
         commandRecruitmentPort.deleteRecruitment(recruitment);
     }
 }
