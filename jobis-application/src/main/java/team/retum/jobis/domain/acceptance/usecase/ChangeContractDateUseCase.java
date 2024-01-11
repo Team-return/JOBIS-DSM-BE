@@ -15,10 +15,6 @@ public class ChangeContractDateUseCase {
     private final CommandAcceptancePort commandAcceptancePort;
 
     public void execute(ChangeContractDateRequest request) {
-        if (request.getContractDate().isBefore(LocalDate.now())) {
-            throw InvalidDateException.EXCEPTION;
-        }
-
         commandAcceptancePort.updateContractDate(
                 request.getContractDate(),
                 request.getAcceptanceIds()

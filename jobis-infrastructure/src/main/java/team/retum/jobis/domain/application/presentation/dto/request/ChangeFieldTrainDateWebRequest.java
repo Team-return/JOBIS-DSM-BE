@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class ChangeFieldTrainDateWebRequest {
     private List<Long> applicationIds;
 
     @NotNull
+    @Future
     private LocalDate startDate;
 
     @NotNull

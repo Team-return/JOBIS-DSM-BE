@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class ChangeContractDateWebRequest {
     private List<Long> acceptanceIds;
 
     @NotNull
+    @Future
     private LocalDate contractDate;
 
     public ChangeContractDateRequest toDomainRequest() {
