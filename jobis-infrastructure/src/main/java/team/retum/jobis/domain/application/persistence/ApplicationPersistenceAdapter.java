@@ -212,6 +212,19 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
+    public Optional<Application> queryApplicationByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus) {
+        return Optional.ofNullable(
+                queryFactory
+                        .selectFrom(applicationEntity)
+                        .where(
+                                applicationEntity.id.eq(applicationId),
+                                applicationEntity.applicationStatus.eq(applicationStatus)
+                        )
+                        .fetchOne()
+        ).map(applicationMapper::toDomain);
+    }
+
+    @Override
     public Optional<Application> queryApplicationByCompanyIdAndStudentId(Long companyId, Long studentId) {
         return Optional.ofNullable(
                 queryFactory
