@@ -26,6 +26,8 @@ public interface QueryApplicationPort {
 
     Optional<Application> queryApplicationById(Long applicationId);
 
+    Optional<Application> queryApplicationByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus);
+
     Optional<Application> queryApplicationByCompanyIdAndStudentId(Long applicationId, Long studentId);
 
     boolean existsApplicationByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);
