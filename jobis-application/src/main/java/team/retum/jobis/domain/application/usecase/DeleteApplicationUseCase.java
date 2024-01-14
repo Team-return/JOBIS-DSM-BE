@@ -22,6 +22,7 @@ public class DeleteApplicationUseCase {
 
         Application application = queryApplicationPort.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+
         application.checkIsDeletable(student);
 
         commandApplicationPort.deleteApplication(application);

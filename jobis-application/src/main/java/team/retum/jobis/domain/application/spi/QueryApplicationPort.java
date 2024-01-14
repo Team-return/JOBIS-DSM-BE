@@ -22,9 +22,13 @@ public interface QueryApplicationPort {
 
     List<Application> queryApplicationsByIds(List<Long> applicationIds);
 
+    Long queryApplicationCountByIds(List<Long> applicationIds);
+
     List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds);
 
     Optional<Application> queryApplicationById(Long applicationId);
+
+    Optional<Application> queryApplicationByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus);
 
     Optional<Application> queryApplicationByCompanyIdAndStudentId(Long applicationId, Long studentId);
 

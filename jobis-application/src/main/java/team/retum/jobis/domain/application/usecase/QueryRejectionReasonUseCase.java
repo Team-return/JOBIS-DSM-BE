@@ -15,12 +15,8 @@ public class QueryRejectionReasonUseCase {
     private final QueryApplicationPort queryApplicationPort;
 
     public QueryRejectionReasonResponse execute(Long applicationId) {
-        Application application = queryApplicationPort.queryApplicationById(applicationId)
+        Application application = queryApplicationPort.queryApplicationByIdAndApplicationStatus(applicationId, ApplicationStatus.REJECTED)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
-
-        if (application.getApplicationStatus() != ApplicationStatus.REJECTED) {
-            throw ApplicationNotFoundException.EXCEPTION;
-        }
 
         return new QueryRejectionReasonResponse(application.getRejectionReason());
     }
