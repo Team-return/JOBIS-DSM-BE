@@ -10,7 +10,6 @@ import team.retum.jobis.domain.banner.model.Banner;
 public class BannerMapper {
 
     public BannerEntity toEntity(Banner domain) {
-
         return BannerEntity.builder()
                 .id(domain.getId())
                 .bannerUrl(domain.getBannerUrl())
@@ -20,7 +19,6 @@ public class BannerMapper {
     }
 
     public Banner toDomain(BannerEntity entity) {
-
         return Banner.builder()
                 .id(entity.getId())
                 .bannerUrl(entity.getBannerUrl())
