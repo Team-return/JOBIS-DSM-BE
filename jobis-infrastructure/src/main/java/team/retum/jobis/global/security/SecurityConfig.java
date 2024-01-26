@@ -52,7 +52,7 @@ public class SecurityConfig {
                                 // students
                                 .requestMatchers(HttpMethod.GET, "/students/my").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                                 .requestMatchers(HttpMethod.POST, "/students").permitAll()
-                                .requestMatchers(HttpMethod.PATCH, "/students//forgotten_password").permitAll()
+                                .requestMatchers(HttpMethod.PATCH, "/students/forgotten_password").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/students/exists").permitAll()
                                 .requestMatchers(HttpMethod.PATCH, "/students/profile").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                                 .requestMatchers(HttpMethod.GET, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
