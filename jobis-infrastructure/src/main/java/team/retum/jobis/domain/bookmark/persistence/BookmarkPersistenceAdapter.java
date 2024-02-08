@@ -57,6 +57,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
                 .select(
                         new QQueryStudentBookmarksVO(
                                 companyEntity.name,
+                                companyEntity.companyLogoUrl,
                                 recruitmentEntity.id,
                                 bookmarkEntity.createdAt
                         )
