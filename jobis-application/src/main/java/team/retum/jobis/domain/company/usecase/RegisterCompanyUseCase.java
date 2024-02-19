@@ -28,12 +28,10 @@ public class RegisterCompanyUseCase {
     private final FeignClientPort feignClientPort;
     private final QueryCompanyPort queryCompanyPort;
     private final CommandCompanyPort commandCompanyPort;
-    private final CommandUserPort commandUserPort;
-    private final SecurityPort securityPort;
     private final QueryCodePort queryCodePort;
     private final JwtPort jwtPort;
 
-    public TokenResponse execute(RegisterCompanyRequest request) {
+    public void execute(RegisterCompanyRequest request) {
         if (!feignClientPort.checkCompanyExistsByBizNo(request.getBusinessNumber())) {
             throw CompanyNotExistsException.EXCEPTION;
         }
@@ -42,20 +40,11 @@ public class RegisterCompanyUseCase {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        User user = commandUserPort.saveUser(
-                User.builder()
-                        .accountId(request.getBusinessNumber())
-                        .password(securityPort.encodePassword(request.getPassword()))
-                        .authority(Authority.COMPANY)
-                        .build()
-        );
-
         Code code = queryCodePort.queryCodeById(request.getBusinessAreaCode())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         commandCompanyPort.saveCompany(
                 Company.builder()
-                        .id(user.getId())
                         .companyIntroduce(request.getCompanyIntroduce())
                         .companyLogoUrl(request.getCompanyProfileUrl())
                         .bizRegistrationUrl(request.getBizRegistrationUrl())
@@ -84,7 +73,5 @@ public class RegisterCompanyUseCase {
                         .attachmentUrls(request.getAttachmentUrls())
                         .build()
         );
-
-        return jwtPort.generateTokens(user.getId(), user.getAuthority(), PlatformType.WEB);
     }
 }

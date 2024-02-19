@@ -69,8 +69,8 @@ public class CompanyWebAdapter {
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public TokenResponse register(@RequestBody @Valid RegisterCompanyWebRequest request) {
-        return registerCompanyUseCase.execute(request.toDomainRequest());
+    public void register(@RequestBody @Valid RegisterCompanyWebRequest request) {
+        registerCompanyUseCase.execute(request.toDomainRequest());
     }
 
     @GetMapping("/exists/{business-number}")
