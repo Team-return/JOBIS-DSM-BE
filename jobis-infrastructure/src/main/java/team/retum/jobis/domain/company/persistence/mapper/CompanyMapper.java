@@ -12,12 +12,7 @@ import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 @Component
 public class CompanyMapper {
 
-    private final UserJpaRepository userJpaRepository;
-
     public CompanyEntity toEntity(Company domain) {
-        UserEntity user = userJpaRepository.findById(domain.getId())
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-
         return CompanyEntity.builder()
                 .id(domain.getId())
                 .fax(domain.getFax())
@@ -46,7 +41,6 @@ public class CompanyMapper {
                 .isMou(domain.isMou())
                 .workersCount(domain.getWorkersCount())
                 .attachmentUrls(domain.getAttachmentUrls())
-                .userEntity(user)
                 .build();
     }
 
