@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
@@ -41,14 +43,9 @@ import java.util.List;
 public class CompanyEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
     private Long id;
-
-    @JsonIgnore
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "company_id", nullable = false)
-    private UserEntity userEntity;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(50)")
@@ -121,13 +118,12 @@ public class CompanyEntity {
     private List<String> attachmentUrls;
 
     @Builder
-    public CompanyEntity(Long id, UserEntity userEntity, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
+    public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
                          String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
                          String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type, boolean isMou) {
         this.id = id;
-        this.userEntity = userEntity;
         this.name = name;
         this.isMou = isMou;
         this.bizRegistrationUrl = bizRegistrationUrl;
