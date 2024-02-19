@@ -22,13 +22,12 @@ public class ApplyRecruitmentUseCase {
     private final SecurityPort securityPort;
     private final SaveRecruitmentAreaService saveRecruitmentAreaService;
 
-    public void execute(ApplyRecruitmentRequest request) {
-        Long currentCompanyId = securityPort.getCurrentUserId();
-        checkRecruitmentExists(currentCompanyId, request.isWinterIntern());
+    public void execute(ApplyRecruitmentRequest request, Long companyId) {
+        checkRecruitmentExists(companyId, request.isWinterIntern());
 
         Recruitment recruitment = commandRecruitmentPort.saveRecruitment(
                 Recruitment.builder()
-                        .companyId(currentCompanyId)
+                        .companyId(companyId)
                         .recruitYear(Year.now().getValue())
                         .militarySupport(request.isMilitarySupport())
                         .personalContract(request.isPersonalContact())
