@@ -5,7 +5,10 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
+import team.retum.jobis.domain.recruitment.model.RecruitingPeriod;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.model.Salary;
+import team.retum.jobis.domain.recruitment.model.WorkingHours;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 
 @RequiredArgsConstructor
@@ -28,16 +31,16 @@ public class RecruitmentMapper {
                 .personalContact(domain.isPersonalContract())
                 .militarySupport(domain.isMilitarySupport())
                 .status(domain.getStatus())
-                .startDate(domain.getStartDate())
-                .endDate(domain.getEndDate())
+                .startDate(domain.getRecruitingPeriod().startDate())
+                .endDate(domain.getRecruitingPeriod().endDate())
                 .requiredGrade(domain.getRequiredGrade())
                 .requiredLicenses(domain.getRequiredLicenses())
-                .pay(domain.getPay())
+                .pay(domain.getSalary().pay())
                 .submitDocument(domain.getSubmitDocument())
-                .trainPay(domain.getTrainPay())
+                .trainPay(domain.getSalary().trainingPay())
                 .submitDocument(domain.getSubmitDocument())
-                .startTime(domain.getStartTime())
-                .endTime(domain.getEndTime())
+                .startTime(domain.getWorkingHours().startTime())
+                .endTime(domain.getWorkingHours().endTime())
                 .winterIntern(domain.isWinterIntern())
                 .build();
     }
@@ -53,16 +56,22 @@ public class RecruitmentMapper {
                 .personalContract(entity.isPersonalContact())
                 .militarySupport(entity.isMilitarySupport())
                 .status(entity.getStatus())
-                .startDate(entity.getRecruitDate().getStartDate())
-                .endDate(entity.getRecruitDate().getFinishDate())
+                .recruitingPeriod(new RecruitingPeriod(
+                        entity.getRecruitDate().getStartDate(),
+                        entity.getRecruitDate().getFinishDate()
+                ))
+                .salary(new Salary(
+                        entity.getPayInfo().getTrainPay(),
+                        entity.getPayInfo().getPay()
+                ))
+                .workingHours(new WorkingHours(
+                        entity.getWorkingHour().getStartTime(),
+                        entity.getWorkingHour().getEndTime()
+                ))
                 .requiredGrade(entity.getRequiredGrade())
                 .requiredLicenses(entity.getRequiredLicenses())
-                .pay(entity.getPayInfo().getPay())
                 .submitDocument(entity.getSubmitDocument())
-                .trainPay(entity.getPayInfo().getTrainPay())
                 .submitDocument(entity.getSubmitDocument())
-                .startTime(entity.getWorkingHour().getStartTime())
-                .endTime(entity.getWorkingHour().getEndTime())
                 .winterIntern(entity.isWinterIntern())
                 .build();
     }
