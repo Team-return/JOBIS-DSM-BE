@@ -1,7 +1,7 @@
 package team.retum.jobis.global.security.auth.teacher;
 
-import lombok.Getter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

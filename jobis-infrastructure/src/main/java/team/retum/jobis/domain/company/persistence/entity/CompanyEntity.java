@@ -1,20 +1,14 @@
 package team.retum.jobis.domain.company.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -27,7 +21,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.persistence.entity.type.Address;
 import team.retum.jobis.domain.company.persistence.entity.type.Manager;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.util.ImageProperty;
 
