@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class TeacherQueryRecruitmentsUseCase {
-
     private final QueryRecruitmentPort queryRecruitmentPort;
 
     public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,

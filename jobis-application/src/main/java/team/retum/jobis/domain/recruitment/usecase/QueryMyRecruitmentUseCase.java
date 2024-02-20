@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class QueryMyRecruitmentUseCase {
-
     private final SecurityPort securityPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
 

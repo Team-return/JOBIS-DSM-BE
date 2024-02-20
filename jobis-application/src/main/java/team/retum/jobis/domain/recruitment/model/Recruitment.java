@@ -3,13 +3,15 @@ package team.retum.jobis.domain.recruitment.model;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
+import team.retum.jobis.common.util.DateUtil;
 import team.retum.jobis.domain.application.exception.InvalidGradeException;
-import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
+import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
+import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusException;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentCannotDeleteException;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.Year;
 import java.util.List;
 
 @Getter
@@ -27,9 +29,7 @@ public class Recruitment {
 
     private final Integer requiredGrade;
 
-    private final LocalTime startTime;
-
-    private final LocalTime endTime;
+    private final WorkingHours workingHours;
 
     private final String benefits;
 
@@ -41,13 +41,9 @@ public class Recruitment {
 
     private final String etc;
 
-    private final LocalDate startDate;
+    private final RecruitingPeriod recruitingPeriod;
 
-    private final LocalDate endDate;
-
-    private final Integer trainPay;
-
-    private final String pay;
+    private final Salary salary;
 
     private final boolean personalContract;
 
@@ -55,24 +51,23 @@ public class Recruitment {
 
     private final Long companyId;
 
-    public Recruitment update(Integer trainPay, String pay, LocalTime startTime, LocalTime endTime, String submitDocument,
-                              LocalDate startDate, LocalDate endDate, String benefits, List<String> requiredLicenses,
-                              boolean militarySupport, String etc, List<ProgressType> hiringProgress, Integer requiredGrade
-    ) {
-        return this.toBuilder()
-                .startTime(startTime)
-                .endTime(endTime)
-                .hiringProgress(hiringProgress)
-                .submitDocument(submitDocument)
-                .requiredGrade(requiredGrade)
-                .benefits(benefits)
-                .startDate(startDate)
-                .endDate(endDate)
-                .trainPay(trainPay)
-                .pay(pay)
-                .requiredLicenses(requiredLicenses)
-                .militarySupport(militarySupport)
-                .etc(etc)
+    public static Recruitment of(ApplyRecruitmentRequest request, Long currentCompanyId) {
+        return Recruitment.builder()
+                .companyId(currentCompanyId)
+                .recruitYear(Year.now().getValue())
+                .militarySupport(request.isMilitarySupport())
+                .personalContract(request.isPersonalContact())
+                .workingHours(new WorkingHours(request.getStartTime(), request.getEndTime()))
+                .salary(new Salary(request.getTrainPay(), request.getPay()))
+                .requiredLicenses(request.getRequiredLicenses())
+                .status(RecruitStatus.REQUESTED)
+                .requiredGrade(request.getRequiredGrade())
+                .recruitingPeriod(new RecruitingPeriod(request.getStartDate(), request.getEndDate()))
+                .submitDocument(request.getSubmitDocument())
+                .benefits(request.getBenefits())
+                .etc(request.getEtc())
+                .hiringProgress(request.getHiringProgress())
+                .winterIntern(request.isWinterIntern())
                 .build();
     }
 
@@ -80,12 +75,6 @@ public class Recruitment {
         return this.toBuilder()
                 .status(status)
                 .build();
-    }
-
-    public void checkCompany(Long companyId) {
-        if (!this.companyId.equals(companyId)) {
-            throw CompanyMismatchException.EXCEPTION;
-        }
     }
 
     public void checkIsApplicable(Integer studentGrade) {
@@ -98,9 +87,46 @@ public class Recruitment {
         }
     }
 
-    public void checkRecruitmentStatus() {
+    public void checkIsDeletable() {
         if (this.status.equals(RecruitStatus.RECRUITING)) {
             throw RecruitmentCannotDeleteException.EXCEPTION;
         }
     }
+
+    public Recruitment updateRecruitmentStatus() {
+        LocalDate today = LocalDate.now();
+        RecruitingPeriod recruitingPeriod = this.recruitingPeriod;
+
+        if (this.status == RecruitStatus.REQUESTED) {
+            return this;
+        }
+
+        if (DateUtil.between(today, recruitingPeriod.startDate(), recruitingPeriod.endDate()) &&
+                this.status != RecruitStatus.DONE
+        ) {
+            return this.changeStatus(RecruitStatus.RECRUITING);
+        }
+
+        if (today.isAfter(recruitingPeriod.endDate())) {
+            return this.changeStatus(RecruitStatus.DONE);
+        }
+
+        return this;
+    }
+
+    public Recruitment update(UpdateRecruitmentRequest request) {
+        return this.toBuilder()
+                .requiredGrade(request.getRequiredGrade())
+                .workingHours(new WorkingHours(request.getStartTime(), request.getEndTime()))
+                .requiredLicenses(request.getRequiredLicenses())
+                .hiringProgress(request.getHiringProgress())
+                .salary(new Salary(request.getTrainPay(), request.getPay()))
+                .benefits(request.getBenefits())
+                .militarySupport(request.isMilitary())
+                .submitDocument(request.getSubmitDocument())
+                .recruitingPeriod(new RecruitingPeriod(request.getStartDate(), request.getEndDate()))
+                .etc(request.getEtc())
+                .build();
+    }
+
 }

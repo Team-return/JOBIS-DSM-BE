@@ -13,13 +13,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @UseCase
 public class TeacherChangeRecruitmentStatusUseCase {
-
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
 
     public void execute(ChangeRecruitmentStatusRequest request) {
         List<Recruitment> recruitments = queryRecruitmentPort.queryRecruitmentsByIdIn(request.getRecruitmentIds());
-
         if (recruitments.size() != request.getRecruitmentIds().size()) {
             throw RecruitmentNotFoundException.EXCEPTION;
         }
