@@ -8,14 +8,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
-import team.retum.jobis.domain.code.model.RecruitAreaCode;
-import team.retum.jobis.domain.code.persistence.mapper.RecruitAreaCodeMapper;
+import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeEntity;
+import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeId;
+import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 import team.retum.jobis.domain.code.persistence.repository.RecruitAreaCodeJpaRepository;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitAreaMapper;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitmentMapper;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpaRepository;
@@ -30,6 +32,7 @@ import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +56,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
     private final RecruitmentMapper recruitmentMapper;
     private final RecruitAreaMapper recruitAreaMapper;
-    private final RecruitAreaCodeMapper recruitAreaCodeMapper;
+    private final CodeJpaRepository codeJpaRepository;
 
     @Override
     public List<StudentRecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter) {
@@ -187,6 +190,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 )
                 .from(recruitmentEntity)
                 .join(recruitmentEntity.company, companyEntity)
+                .join(recruitAreaEntity)
+                .on(recruitAreaEntity.recruitment.eq(recruitmentEntity))
                 .where(recruitmentEntity.id.eq(recruitmentId))
                 .fetchOne();
     }
@@ -307,16 +312,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public void saveAllRecruitmentAreaCodes(List<RecruitAreaCode> recruitAreaCodes) {
-        recruitAreaCodeJpaRepository.saveAll(
-                recruitAreaCodes.stream()
-                        .map(recruitAreaCodeMapper::toEntity)
-                        .toList()
-        );
-    }
-
-    @Override
     public void deleteRecruitment(Recruitment recruitment) {
+        recruitAreaJpaRepository.deleteByRecruitmentId(recruitment.getId());
         recruitmentJpaRepository.delete(
                 recruitmentMapper.toEntity(recruitment)
         );
@@ -331,9 +328,32 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     @Override
     public RecruitArea saveRecruitmentArea(RecruitArea recruitArea) {
-        return recruitAreaMapper.toDomain(
-                recruitAreaJpaRepository.save(recruitAreaMapper.toEntity(recruitArea))
+        RecruitAreaEntity recruitAreaEntity = recruitAreaJpaRepository.save(
+                recruitAreaMapper.toEntity(recruitArea)
         );
+
+        List<RecruitAreaCodeEntity> recruitAreaCodeEntities = codeJpaRepository.findCodesByCodeIn(
+                        recruitArea.getCodes().values().stream()
+                                .flatMap(Collection::stream)
+                                .toList()
+                ).stream()
+                .map(code ->
+                        new RecruitAreaCodeEntity(
+                                new RecruitAreaCodeId(recruitAreaEntity.getId(), code.getCode()),
+                                recruitAreaEntity,
+                                code,
+                                code.getType()
+                        )
+                )
+                .toList();
+        recruitAreaCodeJpaRepository.saveAll(recruitAreaCodeEntities);
+
+        return recruitAreaMapper.toDomain(recruitAreaEntity);
+    }
+
+    @Override
+    public void saveAllRecruitmentAreas(List<RecruitArea> recruitAreas) {
+        recruitAreas.forEach(this::saveRecruitmentArea);
     }
 
     public List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds) {
