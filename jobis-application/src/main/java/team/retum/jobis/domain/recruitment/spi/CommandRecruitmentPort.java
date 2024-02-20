@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.recruitment.spi;
 
-import team.retum.jobis.domain.code.model.RecruitAreaCode;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 
@@ -11,7 +10,7 @@ public interface CommandRecruitmentPort {
 
     RecruitArea saveRecruitmentArea(RecruitArea recruitArea);
 
-    void saveAllRecruitmentAreaCodes(List<RecruitAreaCode> recruitAreaCodes);
+    void saveAllRecruitmentAreas(List<RecruitArea> recruitAreas);
 
     void saveAllRecruitments(List<Recruitment> recruitments);
 

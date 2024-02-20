@@ -75,10 +75,10 @@ public class SecurityConfig {
 
                                 // recruitments
                                 .requestMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
-                                .requestMatchers(HttpMethod.POST, "/recruitments/{company-id}").permitAll()
-                                .requestMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                                .requestMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                                .requestMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
+                                .requestMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.GET, "/recruitments/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                                 .requestMatchers(HttpMethod.GET, "/recruitments/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                                 .requestMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
@@ -86,7 +86,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/recruitments/teacher/count").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
-                                .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name())
 
                                 // bookmarks
                                 .requestMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
