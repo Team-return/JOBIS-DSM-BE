@@ -18,9 +18,6 @@ public class RegisterEmploymentContractWebRequest {
     private List<Long> applicationIds;
 
     public RegisterEmploymentContractRequest toDomainRequest() {
-        return RegisterEmploymentContractRequest.builder()
-                .codeKeywords(this.codeKeywords)
-                .applicationIds(this.applicationIds)
-                .build();
+        return new RegisterEmploymentContractRequest(codeKeywords, applicationIds);
     }
 }

@@ -15,8 +15,6 @@ public class CancelFieldTraineesWebRequest {
     private List<Long> applicationIds;
 
     public CancelFieldTraineesRequest toDomainRequest() {
-        return CancelFieldTraineesRequest.builder()
-                .applicationIds(this.applicationIds)
-                .build();
+        return new CancelFieldTraineesRequest(applicationIds);
     }
 }

@@ -22,9 +22,6 @@ public class ChangeContractDateWebRequest {
     private LocalDate contractDate;
 
     public ChangeContractDateRequest toDomainRequest() {
-        return ChangeContractDateRequest.builder()
-                .acceptanceIds(this.acceptanceIds)
-                .contractDate(this.contractDate)
-                .build();
+        return new ChangeContractDateRequest(acceptanceIds, contractDate);
     }
 }

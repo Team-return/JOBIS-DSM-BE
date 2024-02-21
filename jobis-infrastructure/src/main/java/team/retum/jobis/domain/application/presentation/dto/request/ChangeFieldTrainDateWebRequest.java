@@ -25,10 +25,6 @@ public class ChangeFieldTrainDateWebRequest {
     private LocalDate endDate;
 
     public ChangeFieldTrainDateRequest toDomainRequest() {
-        return ChangeFieldTrainDateRequest.builder()
-                .applicationIds(this.applicationIds)
-                .startDate(this.startDate)
-                .endDate(this.endDate)
-                .build();
+        return new ChangeFieldTrainDateRequest(applicationIds, startDate, endDate);
     }
 }

@@ -4,8 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
 import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest;
-import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest.AttachmentRequest;
 import team.retum.jobis.domain.application.model.AttachmentType;
 import team.retum.jobis.global.annotation.ValidListElements;
 
@@ -19,17 +19,11 @@ public class CreateApplicationWebRequest {
     private List<AttachmentWebRequest> attachments;
 
     public CreateApplicationRequest toDomainRequest() {
-        return CreateApplicationRequest.builder()
-                .attachments(
-                        this.attachments.stream()
-                                .map(
-                                        attachment -> AttachmentRequest.builder()
-                                                .url(attachment.url)
-                                                .type(attachment.type)
-                                                .build()
-                                ).toList()
-                )
-                .build();
+        return new CreateApplicationRequest(
+                attachments.stream()
+                        .map(attachment -> new AttachmentRequest(attachment.url, attachment.type))
+                        .toList()
+        );
     }
 
     @Getter

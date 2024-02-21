@@ -3,7 +3,6 @@ package team.retum.jobis.domain.auth.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SendEmailPort;
-import team.retum.jobis.domain.auth.dto.SendAuthCodeRequest;
 import team.retum.jobis.domain.auth.model.AuthCode;
 import team.retum.jobis.domain.auth.model.AuthCodeType;
 import team.retum.jobis.domain.auth.spi.CommandAuthCodePort;
@@ -21,13 +20,13 @@ public class SendAuthCodeUseCase {
     private final QueryUserPort queryUserPort;
     private final SendEmailPort sendEmailPort;
 
-    public void execute(SendAuthCodeRequest request) {
-        if (request.getAuthCodeType() == AuthCodeType.SIGN_UP) {
-            if (queryUserPort.existsUserByAccountId(request.getEmail())) {
+    public void execute(String email, AuthCodeType authCodeType) {
+        if (authCodeType == AuthCodeType.SIGN_UP) {
+            if (queryUserPort.existsUserByAccountId(email)) {
                 throw StudentAlreadyExistsException.EXCEPTION;
             }
         } else {
-            if (!queryUserPort.existsUserByAccountId(request.getEmail())) {
+            if (!queryUserPort.existsUserByAccountId(email)) {
                 throw StudentNotFoundException.EXCEPTION;
             }
         }
@@ -36,7 +35,7 @@ public class SendAuthCodeUseCase {
                 .code(String.valueOf(new Random().nextInt(899999) + 100000))
                 .ttl(300)
                 .isVerified(false)
-                .email(request.getEmail())
+                .email(email)
                 .build();
         commandAuthCodePort.saveAuthCode(authCode);
 
