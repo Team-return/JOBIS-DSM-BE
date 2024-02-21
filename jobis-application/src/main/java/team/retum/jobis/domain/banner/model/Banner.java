@@ -15,6 +15,8 @@ public class Banner {
 
     private final String bannerUrl;
 
+    private final BannerType bannerType;
+
     private final LocalDate startDate;
 
     private final LocalDate endDate;

@@ -13,6 +13,7 @@ public class BannerMapper {
         return BannerEntity.builder()
                 .id(domain.getId())
                 .bannerUrl(domain.getBannerUrl())
+                .bannerType(domain.getBannerType())
                 .startDate(domain.getStartDate())
                 .endDate(domain.getEndDate())
                 .build();
@@ -22,6 +23,7 @@ public class BannerMapper {
         return Banner.builder()
                 .id(entity.getId())
                 .bannerUrl(entity.getBannerUrl())
+                .bannerType(entity.getBannerType())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
                 .build();
