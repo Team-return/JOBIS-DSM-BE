@@ -13,22 +13,6 @@ import java.util.List;
 @Component
 public class FCMUtil {
 
-    public void sendMessage(Notification notification, String token) {
-        Message message = Message.builder()
-                .setToken(token)
-                .setNotification(
-                        com.google.firebase.messaging.Notification.builder()
-                                .setTitle(notification.getTitle())
-                                .setBody(notification.getContent())
-                                .build()
-                )
-                .putData("detail_id", notification.getDetailId().toString())
-                .putData("topic", notification.getTopic().toString())
-                .build();
-
-        FirebaseMessaging.getInstance().sendAsync(message);
-    }
-
     public void sendMessages(Notification notification, List<String> tokens) {
         try {
             MulticastMessage message = MulticastMessage.builder()
@@ -38,6 +22,8 @@ public class FCMUtil {
                             .setBody(notification.getContent())
                             .build()
                     )
+                    .putData("detail_id", notification.getDetailId().toString())
+                    .putData("topic", notification.getTopic().toString())
                     .build();
 
             FirebaseMessaging.getInstance().sendEachForMulticast(message);

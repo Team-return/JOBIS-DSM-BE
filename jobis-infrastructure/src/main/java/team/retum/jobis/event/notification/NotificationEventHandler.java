@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-import team.retum.jobis.event.notification.model.GroupNotificationEvent;
 import team.retum.jobis.event.notification.model.NotificationEvent;
-import team.retum.jobis.event.notification.model.SingleNotificationEvent;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 @RequiredArgsConstructor
@@ -17,10 +15,6 @@ public class NotificationEventHandler {
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onNotificationEvent(NotificationEvent event) {
-        if (event instanceof SingleNotificationEvent singleEvent) {
-            fcmUtil.sendMessage(singleEvent.getNotification(), singleEvent.getToken());
-        } else if (event instanceof GroupNotificationEvent groupEvent) {
-            fcmUtil.sendMessages(groupEvent.getNotification(), groupEvent.getTokens());
-        }
+        fcmUtil.sendMessages(event.getNotification(), event.getTokens());
     }
 }

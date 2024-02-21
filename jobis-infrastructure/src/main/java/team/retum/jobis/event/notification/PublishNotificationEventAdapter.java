@@ -5,8 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.spi.PublishNotificationEventPort;
 import team.retum.jobis.domain.notification.model.Notification;
-import team.retum.jobis.event.notification.model.GroupNotificationEvent;
-import team.retum.jobis.event.notification.model.SingleNotificationEvent;
+import team.retum.jobis.event.notification.model.NotificationEvent;
 
 import java.util.List;
 
@@ -17,16 +16,16 @@ public class PublishNotificationEventAdapter implements PublishNotificationEvent
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    public void publishSingleNotificationEvent(Notification notification, String token) {
+    public void publishNotificationEvent(Notification notification, String token) {
         eventPublisher.publishEvent(
-                new SingleNotificationEvent(notification, token)
+                new NotificationEvent(notification, List.of(token))
         );
     }
 
     @Override
-    public void publishGroupNotificationEvent(Notification notification, List<String> tokens) {
+    public void publishNotificationEvent(Notification notification, List<String> tokens) {
         eventPublisher.publishEvent(
-                new GroupNotificationEvent(notification, tokens)
+                new NotificationEvent(notification, tokens)
         );
     }
 }
