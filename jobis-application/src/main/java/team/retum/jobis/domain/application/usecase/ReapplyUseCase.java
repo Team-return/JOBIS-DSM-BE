@@ -25,8 +25,8 @@ public class ReapplyUseCase {
 
         commandApplicationPort.saveApplication(
                 application.reapply(
-                        request.getAttachments().stream()
-                                .map(attachment -> new ApplicationAttachment(attachment.getUrl(), attachment.getType()))
+                        request.attachmentRequests().stream()
+                                .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
                                 .toList()
                 )
         );

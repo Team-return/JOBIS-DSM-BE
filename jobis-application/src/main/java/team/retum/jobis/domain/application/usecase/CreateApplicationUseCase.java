@@ -43,9 +43,9 @@ public class CreateApplicationUseCase {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        List<ApplicationAttachment> attachments = request.getAttachments()
+        List<ApplicationAttachment> attachments = request.attachmentRequests()
                 .stream()
-                .map(attachment -> new ApplicationAttachment(attachment.getUrl(), attachment.getType()))
+                .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
                 .toList();
 
         commandApplicationPort.saveApplication(
