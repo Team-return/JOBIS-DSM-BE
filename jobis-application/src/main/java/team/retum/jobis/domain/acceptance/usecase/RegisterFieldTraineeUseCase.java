@@ -18,14 +18,14 @@ public class RegisterFieldTraineeUseCase {
     private final QueryApplicationPort queryApplicationPort;
 
     public void execute(RegisterFieldTraineeRequest request) {
-        List<Application> applications = queryApplicationPort.queryApplicationsByIds(request.getApplicationIds());
-        if (request.getApplicationIds().size() != applications.size()) {
+        List<Application> applications = queryApplicationPort.queryApplicationsByIds(request.applicationIds());
+        if (request.applicationIds().size() != applications.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
         List<Application> converted = applications.stream()
                 .map(application ->
-                        application.toFieldTrain(request.getStartDate(), request.getEndDate())
+                        application.toFieldTrain(request.startDate(), request.endDate())
                 ).toList();
 
         commandApplicationPort.saveAllApplications(converted);

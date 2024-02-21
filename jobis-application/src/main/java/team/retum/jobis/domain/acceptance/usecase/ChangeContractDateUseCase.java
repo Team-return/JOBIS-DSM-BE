@@ -13,8 +13,8 @@ public class ChangeContractDateUseCase {
 
     public void execute(ChangeContractDateRequest request) {
         commandAcceptancePort.updateContractDate(
-                request.getContractDate(),
-                request.getAcceptanceIds()
+                request.contractDate(),
+                request.acceptanceIds()
         );
     }
 }

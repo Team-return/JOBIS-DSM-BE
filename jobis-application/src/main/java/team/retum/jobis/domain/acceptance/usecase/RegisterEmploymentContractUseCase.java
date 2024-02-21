@@ -25,8 +25,8 @@ public class RegisterEmploymentContractUseCase {
     private final CommandApplicationPort commandApplicationPort;
 
     public void execute(RegisterEmploymentContractRequest request) {
-        List<ApplicationDetailVO> applications = applicationRepository.queryApplicationDetailsByIds(request.getApplicationIds());
-        if (applications.size() != request.getApplicationIds().size()) {
+        List<ApplicationDetailVO> applications = applicationRepository.queryApplicationDetailsByIds(request.applicationIds());
+        if (applications.size() != request.applicationIds().size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
@@ -41,7 +41,7 @@ public class RegisterEmploymentContractUseCase {
                                     .companyId(application.getCompanyId())
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
-                                    .tech(request.getCodeKeywords())
+                                    .tech(request.codeKeywords())
                                     .businessArea(application.getBusinessArea())
                                     .studentId(application.getStudentId())
                                     .build();
