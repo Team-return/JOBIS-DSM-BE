@@ -34,6 +34,7 @@ import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
@@ -365,6 +366,18 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public boolean existsOnRecruitmentByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
         return recruitmentJpaRepository.existsByCompanyIdAndStatusNotAndWinterIntern(companyId, RecruitStatus.DONE, winterIntern);
+    }
+
+    @Override
+    public Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds) {
+        return queryFactory
+                .selectFrom(recruitmentEntity)
+                .join(recruitmentEntity.company, companyEntity)
+                .where(recruitmentEntity.id.in(recruitmentIds))
+                .transform(
+                        groupBy(recruitmentEntity.id)
+                                .as(companyEntity.name)
+                );
     }
 
     //===conditions===//
