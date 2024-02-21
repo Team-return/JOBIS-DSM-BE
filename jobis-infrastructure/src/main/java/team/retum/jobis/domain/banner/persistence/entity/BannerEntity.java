@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.banner.entity;
+package team.retum.jobis.domain.banner.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +28,7 @@ public class BannerEntity {
     @Column(columnDefinition = "VARCHAR(300)")
     private String bannerUrl;
 
+
     @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
@@ -43,5 +44,4 @@ public class BannerEntity {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
 }
