@@ -32,7 +32,7 @@ public class NotificationEntity extends BaseTimeEntity {
     private Long id;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(20)")
+    @Column(columnDefinition = "VARCHAR(100)")
     private String title;
 
     @NotNull
