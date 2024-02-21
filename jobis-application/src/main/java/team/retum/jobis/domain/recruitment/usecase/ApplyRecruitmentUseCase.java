@@ -2,13 +2,14 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.common.spi.SecurityPort;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
+import team.retum.jobis.domain.company.model.Company;
+import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.service.CheckRecruitmentApplicableService;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
-import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 
 import java.util.List;
 
@@ -17,18 +18,18 @@ import java.util.List;
 public class ApplyRecruitmentUseCase {
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final CheckRecruitmentApplicableService checkRecruitmentApplicableService;
-    private final QueryRecruitmentPort queryRecruitmentPort;
-    private final SecurityPort securityPort;
+    private final QueryCompanyPort queryCompanyPort;
 
-    public void execute(ApplyRecruitmentRequest request) {
-        Long currentCompanyId = securityPort.getCurrentUserId();
+    public void execute(ApplyRecruitmentRequest request, Long companyId) {
+        Company company = queryCompanyPort.queryCompanyById(companyId)
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
         checkRecruitmentApplicableService.checkRecruitmentApplicable(
-                securityPort.getCurrentCompany(),
+                company,
                 request.isWinterIntern()
         );
 
         Recruitment recruitment = commandRecruitmentPort.saveRecruitment(
-                Recruitment.of(request, currentCompanyId)
+                Recruitment.of(request, companyId)
         );
 
         List<RecruitArea> recruitAreas = request.getAreas().stream()
