@@ -18,6 +18,9 @@ public class User {
 
     private final Authority authority;
 
+    private final String token;
+
+
     public User updatePassword(String password) {
         return this.toBuilder()
                 .password(password)
