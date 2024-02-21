@@ -12,12 +12,10 @@ import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
-import team.retum.jobis.domain.notification.spi.NotificationPort;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
