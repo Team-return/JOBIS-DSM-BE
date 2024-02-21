@@ -24,8 +24,7 @@ public class ApplyRecruitmentUseCase {
         Long currentCompanyId = securityPort.getCurrentUserId();
         checkRecruitmentApplicableService.checkRecruitmentApplicable(
                 securityPort.getCurrentCompany(),
-                request.isWinterIntern(),
-                queryRecruitmentPort
+                request.isWinterIntern()
         );
 
         Recruitment recruitment = commandRecruitmentPort.saveRecruitment(

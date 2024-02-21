@@ -18,7 +18,7 @@ public class DeleteRecruitAreaUseCase {
     public void execute(Long recruitAreaId) {
         RecruitArea recruitArea = queryRecruitmentPort.queryRecruitmentAreaById(recruitAreaId)
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
-        checkRecruitmentAreaDeletableService.checkRecruitmentAreaDeletable(recruitArea, queryRecruitmentPort);
+        checkRecruitmentAreaDeletableService.checkRecruitmentAreaDeletable(recruitArea);
 
         commandRecruitmentPort.deleteRecruitAreaById(recruitArea.getId());
     }
