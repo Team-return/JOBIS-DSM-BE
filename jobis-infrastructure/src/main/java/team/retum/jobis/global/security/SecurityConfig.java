@@ -75,7 +75,7 @@ public class SecurityConfig {
 
                                 // recruitments
                                 .requestMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
-                                .requestMatchers(HttpMethod.POST, "/recruitments").hasAuthority(COMPANY.name())
+                                .requestMatchers(HttpMethod.POST, "/recruitments/{company-id}").permitAll()
                                 .requestMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                                 .requestMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                                 .requestMatchers(HttpMethod.POST, "/recruitments/{recruitment-id}/area").hasAnyAuthority(COMPANY.name(), TEACHER.name())
