@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class QueryRecruitmentDetailUseCase {
-
     private final QueryRecruitmentPort queryRecruitmentPort;
 
     public QueryRecruitmentDetailResponse execute(Long recruitId) {

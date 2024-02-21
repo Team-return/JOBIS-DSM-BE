@@ -23,10 +23,8 @@ public class ApplyRecruitmentWebRequest {
 
     private Integer requiredGrade;
 
-    @NotNull
     private LocalTime startTime;
 
-    @NotNull
     private LocalTime endTime;
 
     private List<@NotNull String> requiredLicenses;
@@ -52,10 +50,8 @@ public class ApplyRecruitmentWebRequest {
     @NotNull
     private String submitDocument;
 
-    @NotNull
     private LocalDate startDate;
 
-    @NotNull
     private LocalDate endDate;
 
     @NotNull
