@@ -25,14 +25,14 @@ public class ApplyRecruitmentUseCase {
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
         checkRecruitmentApplicableService.checkRecruitmentApplicable(
                 company,
-                request.isWinterIntern()
+                request.winterIntern()
         );
 
         Recruitment recruitment = commandRecruitmentPort.saveRecruitment(
                 Recruitment.of(request, companyId)
         );
 
-        List<RecruitArea> recruitAreas = request.getAreas().stream()
+        List<RecruitArea> recruitAreas = request.areas().stream()
                 .map(area -> RecruitArea.of(area, recruitment.getId()))
                 .toList();
         commandRecruitmentPort.saveAllRecruitmentAreas(recruitAreas);

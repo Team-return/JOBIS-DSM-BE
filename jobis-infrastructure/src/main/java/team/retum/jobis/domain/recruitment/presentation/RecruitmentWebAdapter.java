@@ -171,7 +171,7 @@ public class RecruitmentWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
     public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentStatusWebRequest webRequest) {
-        teacherChangeRecruitmentStatusService.execute(webRequest.toDomainRequest());
+        teacherChangeRecruitmentStatusService.execute(webRequest.getRecruitmentIds(), webRequest.getStatus());
 
     }
 

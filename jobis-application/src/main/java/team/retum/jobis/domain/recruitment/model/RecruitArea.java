@@ -32,13 +32,13 @@ public class RecruitArea {
 
     public static RecruitArea of(CreateRecruitAreaRequest request, Long recruitmentId) {
         Map<CodeType, List<Long>> codeIds = new HashMap<>();
-        codeIds.put(JOB, request.getJobCodes());
-        codeIds.put(TECH, request.getTechCodes());
+        codeIds.put(JOB, request.jobCodes());
+        codeIds.put(TECH, request.techCodes());
         return RecruitArea.builder()
                 .recruitmentId(recruitmentId)
-                .hiredCount(request.getHiring())
-                .majorTask(request.getMajorTask())
-                .preferentialTreatment(request.getPreferentialTreatment())
+                .hiredCount(request.hiring())
+                .majorTask(request.majorTask())
+                .preferentialTreatment(request.preferentialTreatment())
                 .codes(codeIds)
                 .build();
     }

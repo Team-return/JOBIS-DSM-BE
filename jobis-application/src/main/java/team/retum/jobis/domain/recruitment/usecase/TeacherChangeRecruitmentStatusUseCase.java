@@ -6,6 +6,7 @@ import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.domain.recruitment.dto.request.ChangeRecruitmentStatusRequest;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
@@ -19,15 +20,15 @@ public class TeacherChangeRecruitmentStatusUseCase {
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final PublishEventPort publishEventPort;
 
-    public void execute(ChangeRecruitmentStatusRequest request) {
-        List<Recruitment> recruitments = queryRecruitmentPort.queryRecruitmentsByIdIn(request.getRecruitmentIds());
-        if (recruitments.size() != request.getRecruitmentIds().size()) {
+    public void execute(List<Long> recruitmentIds, RecruitStatus status) {
+        List<Recruitment> recruitments = queryRecruitmentPort.queryRecruitmentsByIdIn(recruitmentIds);
+        if (recruitments.size() != recruitmentIds.size()) {
             throw RecruitmentNotFoundException.EXCEPTION;
         }
 
         commandRecruitmentPort.saveAllRecruitments(
                 recruitments.stream()
-                        .map(recruitment -> recruitment.changeStatus(request.getStatus()))
+                        .map(recruitment -> recruitment.changeStatus(status))
                         .toList()
         );
         publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
