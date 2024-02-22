@@ -1,8 +1,8 @@
-package team.retum.jobis.domain.banner.mapper;
+package team.retum.jobis.domain.banner.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.banner.entity.BannerEntity;
+import team.retum.jobis.domain.banner.persistence.entity.BannerEntity;
 import team.retum.jobis.domain.banner.model.Banner;
 
 @RequiredArgsConstructor
@@ -13,6 +13,7 @@ public class BannerMapper {
         return BannerEntity.builder()
                 .id(domain.getId())
                 .bannerUrl(domain.getBannerUrl())
+                .bannerType(domain.getBannerType())
                 .startDate(domain.getStartDate())
                 .endDate(domain.getEndDate())
                 .build();
@@ -22,6 +23,7 @@ public class BannerMapper {
         return Banner.builder()
                 .id(entity.getId())
                 .bannerUrl(entity.getBannerUrl())
+                .bannerType(entity.getBannerType())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
                 .build();

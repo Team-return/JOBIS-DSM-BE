@@ -140,6 +140,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                                 .requestMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
 
+                                // banner
+                                .requestMatchers(HttpMethod.POST, "/banners").hasAuthority(TEACHER.name())
                                 .anyRequest().authenticated()
 
                 )
