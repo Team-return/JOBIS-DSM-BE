@@ -22,4 +22,9 @@ public class BannerPersistenceAdapter implements BannerPort {
                 )
         );
     }
+
+    @Override
+    public void deleteBannerById(Long bannerId) {
+        bannerJpaRepository.deleteById(bannerId);
+    }
 }
