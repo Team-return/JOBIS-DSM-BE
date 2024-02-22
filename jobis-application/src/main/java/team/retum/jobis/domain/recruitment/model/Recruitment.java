@@ -97,17 +97,15 @@ public class Recruitment {
         LocalDate today = LocalDate.now();
         RecruitingPeriod recruitingPeriod = this.recruitingPeriod;
 
-        if (this.status == RecruitStatus.REQUESTED) {
+        if (this.status == RecruitStatus.REQUESTED || this.status == RecruitStatus.DONE) {
             return this;
         }
 
-        if (DateUtil.between(today, recruitingPeriod.startDate(), recruitingPeriod.endDate()) &&
-                this.status != RecruitStatus.DONE
-        ) {
+        if (DateUtil.between(today, recruitingPeriod.startDate(), recruitingPeriod.endDate())) {
             return this.changeStatus(RecruitStatus.RECRUITING);
         }
 
-        if (today.isAfter(recruitingPeriod.endDate())) {
+        if (today.equals(recruitingPeriod.endDate())) {
             return this.changeStatus(RecruitStatus.DONE);
         }
 
