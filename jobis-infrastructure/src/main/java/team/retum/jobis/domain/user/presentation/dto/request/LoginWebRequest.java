@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.auth.model.PlatformType;
-import team.retum.jobis.domain.user.dto.LoginRequest;
+import team.retum.jobis.domain.user.dto.request.LoginRequest;
 import team.retum.jobis.global.util.RegexProperty;
 
 @Getter
@@ -25,10 +25,6 @@ public class LoginWebRequest {
     private PlatformType platformType;
 
     public LoginRequest toDomainRequest() {
-        return LoginRequest.builder()
-                .accountId(this.accountId)
-                .password(this.password)
-                .platformType(this.platformType)
-                .build();
+        return new LoginRequest(accountId, password, platformType);
     }
 }

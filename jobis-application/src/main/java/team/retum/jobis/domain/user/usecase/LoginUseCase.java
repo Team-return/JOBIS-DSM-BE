@@ -3,9 +3,9 @@ package team.retum.jobis.domain.user.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.spi.JwtPort;
-import team.retum.jobis.domain.user.dto.LoginRequest;
+import team.retum.jobis.domain.user.dto.request.LoginRequest;
 import team.retum.jobis.domain.user.exception.InvalidPasswordException;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
@@ -20,13 +20,13 @@ public class LoginUseCase {
     private final JwtPort jwtPort;
 
     public TokenResponse execute(LoginRequest request) {
-        User user = queryUserPort.queryUserByAccountId(request.getAccountId())
+        User user = queryUserPort.queryUserByAccountId(request.accountId())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        if (!securityPort.isPasswordMatch(request.getPassword(), user.getPassword())) {
+        if (!securityPort.isPasswordMatch(request.password(), user.getPassword())) {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.getPlatformType());
+        return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.platformType());
     }
 }
