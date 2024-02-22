@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.auth.dto.TokenResponse;
-import team.retum.jobis.domain.student.dto.StudentMyPageResponse;
+import team.retum.jobis.domain.auth.dto.response.TokenResponse;
+import team.retum.jobis.domain.student.dto.response.StudentMyPageResponse;
 import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdatePasswordWebRequest;
@@ -50,7 +50,10 @@ public class StudentWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/forgotten_password")
     public void updateForgottenPassword(@RequestBody @Valid UpdateForgottenPasswordWebRequest webRequest) {
-        updateStudentForgottenPasswordUseCase.execute(webRequest.toDomainRequest());
+        updateStudentForgottenPasswordUseCase.execute(
+                webRequest.getEmail(),
+                webRequest.getPassword()
+        );
     }
 
     @GetMapping("/my")
@@ -81,6 +84,9 @@ public class StudentWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/password")
     public void updatePassword(@RequestBody @Valid UpdatePasswordWebRequest webRequest) {
-        updateStudentPasswordUseCase.execute(webRequest.toDomainRequest());
+        updateStudentPasswordUseCase.execute(
+                webRequest.getCurrentPassword(),
+                webRequest.getNewPassword()
+        );
     }
 }

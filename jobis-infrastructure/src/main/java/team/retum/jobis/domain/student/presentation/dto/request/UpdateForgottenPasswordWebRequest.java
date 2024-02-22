@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.student.dto.UpdateForgottenPasswordRequest;
 import team.retum.jobis.global.util.RegexProperty;
 
 @Getter
@@ -19,11 +18,4 @@ public class UpdateForgottenPasswordWebRequest {
 
     @Pattern(regexp = RegexProperty.PASSWORD)
     private String password;
-
-    public UpdateForgottenPasswordRequest toDomainRequest() {
-        return UpdateForgottenPasswordRequest.builder()
-                .email(this.email)
-                .password(this.password)
-                .build();
-    }
 }

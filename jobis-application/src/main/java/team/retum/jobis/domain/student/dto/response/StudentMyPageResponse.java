@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.student.dto;
+package team.retum.jobis.domain.student.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
