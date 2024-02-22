@@ -3,6 +3,8 @@ package team.retum.jobis.domain.company.model;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
+import team.retum.jobis.domain.company.dto.request.RegisterCompanyRequest;
+import team.retum.jobis.domain.company.dto.request.UpdateCompanyDetailsRequest;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 
 import java.time.LocalDate;
@@ -51,35 +53,72 @@ public class Company {
 
     private final List<String> attachmentUrls;
 
-    public Company update(String mainAddress, String mainAddressDetail, String mainZipCode, String subAddress, String subAddressDetail, String subZipCode,
-                          double take, int workersCount, String managerName, String managerPhoneNo, String subManagerName,
-                          String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl, String fax, String email, String serviceName) {
+    public static Company of(RegisterCompanyRequest request, String businessArea) {
+        return Company.builder()
+                .companyIntroduce(request.companyIntroduce())
+                .companyLogoUrl(request.companyProfileUrl())
+                .bizRegistrationUrl(request.bizRegistrationUrl())
+                .businessArea(businessArea)
+                .serviceName(request.serviceName())
+                .name(request.name())
+                .type(CompanyType.PARTICIPATING)
+                .take(request.take())
+                .addressInfo(
+                        AddressInfo.builder()
+                                .mainAddress(request.mainAddress())
+                                .mainAddressDetail(request.mainAddressDetail())
+                                .mainZipCode(request.mainZipCode())
+                                .subAddress(request.subAddress())
+                                .subAddressDetail(request.subAddressDetail())
+                                .subZipCode(request.subZipCode())
+                                .build()
+                )
+                .managerInfo(
+                        ManagerInfo.builder()
+                                .managerName(request.managerName())
+                                .managerPhoneNo(request.managerPhoneNo())
+                                .subManagerName(request.subManagerName())
+                                .subManagerPhoneNo(request.subManagerPhoneNo())
+                                .build()
+                )
+                .workersCount(request.workerNumber())
+                .email(request.email())
+                .fax(request.fax())
+                .isMou(false)
+                .bizNo(request.businessNumber())
+                .representative(request.representativeName())
+                .foundedAt(request.foundedAt())
+                .attachmentUrls(request.attachmentUrls())
+                .build();
+    }
+
+    public Company update(UpdateCompanyDetailsRequest request) {
         return this.toBuilder()
                 .addressInfo(
                         AddressInfo.builder()
-                                .mainAddress(mainAddress)
-                                .mainAddressDetail(mainAddressDetail)
-                                .mainZipCode(mainZipCode)
-                                .subAddress(subAddress)
-                                .subAddressDetail(subAddressDetail)
-                                .subZipCode(subZipCode)
+                                .mainAddress(request.mainAddress())
+                                .mainAddressDetail(request.mainAddressDetail())
+                                .mainZipCode(request.mainZipCode())
+                                .subAddress(request.subAddress())
+                                .subAddressDetail(request.subAddressDetail())
+                                .subZipCode(request.subZipCode())
                                 .build()
                 )
-                .take(take)
-                .workersCount(workersCount)
+                .take(request.take())
+                .workersCount(request.workerNumber())
                 .managerInfo(
                         ManagerInfo.builder()
-                                .managerName(managerName)
-                                .managerPhoneNo(managerPhoneNo)
-                                .subManagerName(subManagerName)
-                                .subManagerPhoneNo(subManagerPhoneNo)
+                                .managerName(request.managerName())
+                                .managerPhoneNo(request.managerPhoneNo())
+                                .subManagerName(request.subManagerName())
+                                .subManagerPhoneNo(request.subManagerPhoneNo())
                                 .build()
                 )
-                .companyIntroduce(companyIntroduce)
-                .companyLogoUrl(companyLogoUrl)
-                .fax(fax)
-                .email(email)
-                .serviceName(serviceName)
+                .companyIntroduce(request.companyIntroduce())
+                .companyLogoUrl(request.companyProfileUrl())
+                .fax(request.fax())
+                .email(request.email())
+                .serviceName(request.serviceName())
                 .build();
     }
 

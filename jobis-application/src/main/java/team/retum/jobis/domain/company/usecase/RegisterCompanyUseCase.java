@@ -37,34 +37,7 @@ public class RegisterCompanyUseCase {
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         Company company = commandCompanyPort.saveCompany(
-                Company.builder()
-                        .companyIntroduce(request.companyIntroduce())
-                        .companyLogoUrl(request.companyProfileUrl())
-                        .bizRegistrationUrl(request.bizRegistrationUrl())
-                        .businessArea(code.getKeyword())
-                        .serviceName(request.serviceName())
-                        .name(request.name())
-                        .type(CompanyType.PARTICIPATING)
-                        .take(request.take())
-                        .mainAddress(request.mainAddress())
-                        .mainAddressDetail(request.mainAddressDetail())
-                        .mainZipCode(request.mainZipCode())
-                        .subAddress(request.subAddress())
-                        .subAddressDetail(request.subAddressDetail())
-                        .subZipCode(request.subZipCode())
-                        .managerName(request.managerName())
-                        .managerPhoneNo(request.managerPhoneNo())
-                        .subManagerName(request.subManagerName())
-                        .subManagerPhoneNo(request.subManagerPhoneNo())
-                        .workersCount(request.workerNumber())
-                        .email(request.email())
-                        .fax(request.fax())
-                        .isMou(false)
-                        .bizNo(request.businessNumber())
-                        .representative(request.representativeName())
-                        .foundedAt(request.foundedAt())
-                        .attachmentUrls(request.attachmentUrls())
-                        .build()
+                Company.of(request, code.getKeyword())
         );
 
         return new RegisterCompanyResponse(company.getId());

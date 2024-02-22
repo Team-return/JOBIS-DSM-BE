@@ -2,6 +2,7 @@ package team.retum.jobis.domain.company.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyType;
 
 import java.time.LocalDate;
@@ -34,4 +35,34 @@ public class CompanyMyPageResponse {
     private final String serviceName;
     private final String businessArea;
     private final String bizRegistrationUrl;
+
+    public static CompanyMyPageResponse from(Company company) {
+        return CompanyMyPageResponse.builder()
+                .companyId(company.getId())
+                .name(company.getName())
+                .bizNo(company.getBizNo())
+                .type(company.getType())
+                .mainAddress(company.getAddressInfo().mainAddress())
+                .mainAddressDetail(company.getAddressInfo().mainAddressDetail())
+                .mainZipCode(company.getAddressInfo().mainZipCode())
+                .subAddress(company.getAddressInfo().subAddress())
+                .subAddressDetail(company.getAddressInfo().subAddressDetail())
+                .subZipCode(company.getAddressInfo().subZipCode())
+                .representative(company.getRepresentative())
+                .foundedAt(company.getFoundedAt())
+                .take(company.getTake())
+                .workersCount(company.getWorkersCount())
+                .managerName(company.getManagerInfo().managerName())
+                .managerPhoneNo(company.getManagerInfo().managerPhoneNo())
+                .subManagerName(company.getManagerInfo().subManagerName())
+                .subManagerPhoneNo(company.getManagerInfo().subManagerPhoneNo())
+                .fax(company.getFax())
+                .email(company.getEmail())
+                .companyIntroduce(company.getCompanyIntroduce())
+                .companyLogoUrl(company.getCompanyLogoUrl())
+                .serviceName(company.getServiceName())
+                .businessArea(company.getBusinessArea())
+                .bizRegistrationUrl(company.getBizRegistrationUrl())
+                .build();
+    }
 }
