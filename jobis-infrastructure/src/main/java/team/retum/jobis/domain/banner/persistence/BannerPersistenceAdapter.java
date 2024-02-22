@@ -7,6 +7,8 @@ import team.retum.jobis.domain.banner.persistence.mapper.BannerMapper;
 import team.retum.jobis.domain.banner.persistence.repository.BannerJpaRepository;
 import team.retum.jobis.domain.banner.spi.BannerPort;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Repository
 public class BannerPersistenceAdapter implements BannerPort {
@@ -24,7 +26,13 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public void deleteBannerById(Long bannerId) {
-        bannerJpaRepository.deleteById(bannerId);
+    public void deleteBanner(Banner banner) {
+        bannerJpaRepository.delete(bannerMapper.toEntity(banner));
+    }
+
+    @Override
+    public Optional<Banner> queryBannerById(Long bannerId) {
+        return bannerJpaRepository.findById(bannerId)
+                .map(bannerMapper::toDomain);
     }
 }

@@ -6,5 +6,5 @@ public interface CommandBannerPort {
 
     void saveBanner(Banner banner);
 
-    void deleteBannerById(Long bannerId);
+    void deleteBanner(Banner banner);
 }
