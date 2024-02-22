@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.retum.jobis.domain.review.dto.QnAElement;
 import team.retum.jobis.domain.review.dto.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.dto.QueryReviewsResponse;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewWebRequest;
@@ -49,7 +50,16 @@ public class ReviewWebAdapter {
     public void createReview(
             @RequestBody @Valid CreateReviewWebRequest webRequest
     ) {
-        createReviewUseCase.execute(webRequest.toDomainRequest());
+        createReviewUseCase.execute(
+                webRequest.getCompanyId(),
+                webRequest.getQnaElements().stream()
+                        .map(qnAWebElement -> new QnAElement(
+                                qnAWebElement.getQuestion(),
+                                qnAWebElement.getAnswer(),
+                                qnAWebElement.getCodeId()
+                        ))
+                        .toList()
+        );
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
