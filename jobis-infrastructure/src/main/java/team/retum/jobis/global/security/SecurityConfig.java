@@ -142,6 +142,7 @@ public class SecurityConfig {
 
                                 // banner
                                 .requestMatchers(HttpMethod.POST, "/banners").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/banners/{banner-id}").hasAuthority(TEACHER.name())
                                 .anyRequest().authenticated()
 
                 )
