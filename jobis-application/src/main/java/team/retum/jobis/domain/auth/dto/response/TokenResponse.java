@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.auth.dto;
+package team.retum.jobis.domain.auth.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

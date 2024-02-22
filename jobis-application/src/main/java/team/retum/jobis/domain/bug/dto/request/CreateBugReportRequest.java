@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.bug.dto;
+package team.retum.jobis.domain.bug.dto.request;
 
 import lombok.Builder;
 import team.retum.jobis.domain.bug.model.DevelopmentArea;

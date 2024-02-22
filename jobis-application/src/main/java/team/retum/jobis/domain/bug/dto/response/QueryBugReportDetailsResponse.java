@@ -1,8 +1,7 @@
-package team.retum.jobis.domain.bug.dto;
+package team.retum.jobis.domain.bug.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
 import team.retum.jobis.domain.bug.model.DevelopmentArea;
 
