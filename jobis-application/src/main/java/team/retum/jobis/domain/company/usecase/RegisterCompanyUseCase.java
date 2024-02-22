@@ -25,45 +25,45 @@ public class RegisterCompanyUseCase {
     private final QueryCodePort queryCodePort;
 
     public RegisterCompanyResponse execute(RegisterCompanyRequest request) {
-        if (!feignClientPort.checkCompanyExistsByBizNo(request.getBusinessNumber())) {
+        if (!feignClientPort.checkCompanyExistsByBizNo(request.businessNumber())) {
             throw CompanyNotExistsException.EXCEPTION;
         }
 
-        if (queryCompanyPort.existsCompanyByBizNo(request.getBusinessNumber())) {
+        if (queryCompanyPort.existsCompanyByBizNo(request.businessNumber())) {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
 
-        Code code = queryCodePort.queryCodeById(request.getBusinessAreaCode())
+        Code code = queryCodePort.queryCodeById(request.businessAreaCode())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         Company company = commandCompanyPort.saveCompany(
                 Company.builder()
-                        .companyIntroduce(request.getCompanyIntroduce())
-                        .companyLogoUrl(request.getCompanyProfileUrl())
-                        .bizRegistrationUrl(request.getBizRegistrationUrl())
+                        .companyIntroduce(request.companyIntroduce())
+                        .companyLogoUrl(request.companyProfileUrl())
+                        .bizRegistrationUrl(request.bizRegistrationUrl())
                         .businessArea(code.getKeyword())
-                        .serviceName(request.getServiceName())
-                        .name(request.getName())
+                        .serviceName(request.serviceName())
+                        .name(request.name())
                         .type(CompanyType.PARTICIPATING)
-                        .take(request.getTake())
-                        .mainAddress(request.getMainAddress())
-                        .mainAddressDetail(request.getMainAddressDetail())
-                        .mainZipCode(request.getMainZipCode())
-                        .subAddress(request.getSubAddress())
-                        .subAddressDetail(request.getSubAddressDetail())
-                        .subZipCode(request.getSubZipCode())
-                        .managerName(request.getManagerName())
-                        .managerPhoneNo(request.getManagerPhoneNo())
-                        .subManagerName(request.getSubManagerName())
-                        .subManagerPhoneNo(request.getSubManagerPhoneNo())
-                        .workersCount(request.getWorkerNumber())
-                        .email(request.getEmail())
-                        .fax(request.getFax())
+                        .take(request.take())
+                        .mainAddress(request.mainAddress())
+                        .mainAddressDetail(request.mainAddressDetail())
+                        .mainZipCode(request.mainZipCode())
+                        .subAddress(request.subAddress())
+                        .subAddressDetail(request.subAddressDetail())
+                        .subZipCode(request.subZipCode())
+                        .managerName(request.managerName())
+                        .managerPhoneNo(request.managerPhoneNo())
+                        .subManagerName(request.subManagerName())
+                        .subManagerPhoneNo(request.subManagerPhoneNo())
+                        .workersCount(request.workerNumber())
+                        .email(request.email())
+                        .fax(request.fax())
                         .isMou(false)
-                        .bizNo(request.getBusinessNumber())
-                        .representative(request.getRepresentativeName())
-                        .foundedAt(request.getFoundedAt())
-                        .attachmentUrls(request.getAttachmentUrls())
+                        .bizNo(request.businessNumber())
+                        .representative(request.representativeName())
+                        .foundedAt(request.foundedAt())
+                        .attachmentUrls(request.attachmentUrls())
                         .build()
         );
 

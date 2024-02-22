@@ -28,13 +28,13 @@ public class UpdateCompanyDetailsUseCase {
 
         commandCompanyPort.saveCompany(
                 company.update(
-                        request.getMainAddress(), request.getMainAddressDetail(), request.getMainZipCode(),
-                        request.getSubAddress(), request.getSubAddressDetail(), request.getSubZipCode(),
-                        request.getTake(), request.getWorkerNumber(),
-                        request.getManagerName(), request.getManagerPhoneNo(),
-                        request.getSubManagerName(), request.getSubManagerPhoneNo(),
-                        request.getCompanyIntroduce(), request.getCompanyProfileUrl(),
-                        request.getFax(), request.getEmail(), request.getServiceName()
+                        request.mainAddress(), request.mainAddressDetail(), request.mainZipCode(),
+                        request.subAddress(), request.subAddressDetail(), request.subZipCode(),
+                        request.take(), request.workerNumber(),
+                        request.managerName(), request.managerPhoneNo(),
+                        request.subManagerName(), request.subManagerPhoneNo(),
+                        request.companyIntroduce(), request.companyProfileUrl(),
+                        request.fax(), request.email(), request.serviceName()
                 )
         );
     }
