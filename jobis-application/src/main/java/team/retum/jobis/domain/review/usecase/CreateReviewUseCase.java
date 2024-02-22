@@ -8,7 +8,7 @@ import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
-import team.retum.jobis.domain.review.dto.CreateReviewRequest;
+import team.retum.jobis.domain.review.dto.QnAElement;
 import team.retum.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
@@ -28,8 +28,8 @@ public class CreateReviewUseCase {
     private final QueryReviewPort queryReviewPort;
     private final SecurityPort securityPort;
 
-    public void execute(CreateReviewRequest request) {
-        Company company = queryCompanyPort.queryCompanyById(request.getCompanyId())
+    public void execute(Long companyId, List<QnAElement> qnAElements) {
+        Company company = queryCompanyPort.queryCompanyById(companyId)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         Student student = securityPort.getCurrentStudent();
@@ -49,12 +49,12 @@ public class CreateReviewUseCase {
                         .build()
         );
 
-        List<QnA> qnAs = request.getQnaElements().stream()
+        List<QnA> qnAs = qnAElements.stream()
                 .map(qnARequest -> QnA.builder()
-                        .question(qnARequest.getQuestion())
-                        .answer(qnARequest.getAnswer())
+                        .question(qnARequest.question())
+                        .answer(qnARequest.answer())
                         .reviewId(review.getId())
-                        .codeId(qnARequest.getCodeId())
+                        .codeId(qnARequest.codeId())
                         .build())
                 .toList();
         commandReviewPort.saveAllQnAs(qnAs);
