@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import team.retum.jobis.domain.banner.dto.CreateBannerRequest;
 import team.retum.jobis.domain.banner.model.BannerType;
 
@@ -19,10 +20,10 @@ public class CreateBannerWebRequest {
     @NotNull
     private BannerType bannerType;
 
-    @NotBlank
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
 
-    @NotBlank
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
     public CreateBannerRequest toDomainRequest() {
