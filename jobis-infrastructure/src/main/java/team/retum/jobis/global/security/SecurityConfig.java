@@ -145,6 +145,10 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/banners/{banner-id}").hasAuthority(TEACHER.name())
                                 .anyRequest().authenticated()
 
+                                //notice
+                                .requestMatchers(HttpMethod.POST, "/notice").hasAuthority(TEACHER.name())
+                                .anyRequest().authenticated()
+
                 )
                 .apply(new FilterConfig(jwtParser, objectMapper, eventPublisher));
 
