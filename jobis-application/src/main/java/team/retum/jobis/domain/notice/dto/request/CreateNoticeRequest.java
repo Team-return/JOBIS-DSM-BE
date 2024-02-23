@@ -14,11 +14,22 @@ public class CreateNoticeRequest {
 
     private List<AttachmentRequest> attachments;
 
+    public CreateNoticeRequest(String title, String content, List<AttachmentRequest> attachments) {
+        this.title = title;
+        this.content = content;
+        this.attachments = attachments;
+    }
+
     @Getter
     public static class AttachmentRequest {
 
         private String url;
 
         private AttachmentType type;
+
+        public AttachmentRequest(String url, AttachmentType type) {
+            this.url = url;
+            this.type = type;
+        }
     }
 }

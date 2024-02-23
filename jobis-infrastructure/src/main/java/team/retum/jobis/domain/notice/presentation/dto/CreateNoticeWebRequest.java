@@ -9,6 +9,7 @@ import team.retum.jobis.domain.notice.model.AttachmentType;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -24,19 +25,11 @@ public class CreateNoticeWebRequest {
     private List<AttachmentWebRequest> attachments;
 
     public CreateNoticeRequest toDomainRequest() {
-        return CreateNoticeRequest.builder()
-                .title(this.title)
-                .content(this.content)
-                .attachments(
-                        this.attachments.stream()
-                                .map(
-                                        attachment -> CreateNoticeRequest.AttachmentRequest.builder()
-                                                .url(attachment.url)
-                                                .type(attachment.type)
-                                                .build()
-                                ).toList()
-                )
-                .build();
+        List<CreateNoticeRequest.AttachmentRequest> attachmentRequests = this.attachments.stream()
+                .map(attachment -> new CreateNoticeRequest.AttachmentRequest(attachment.url, attachment.type))
+                .collect(Collectors.toList());
+
+        return new CreateNoticeRequest(this.title, this.content, attachmentRequests);
     }
 
     @Getter
