@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.notice.dto.CreateNoticeRequest;
+import team.retum.jobis.domain.notice.dto.request.CreateNoticeRequest;
 import team.retum.jobis.domain.notice.model.AttachmentType;
 import team.retum.jobis.global.annotation.ValidListElements;
 
