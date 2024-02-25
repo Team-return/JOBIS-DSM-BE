@@ -144,10 +144,10 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/banners").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.DELETE, "/banners/{banner-id}").hasAuthority(TEACHER.name())
 
-                                //notice
-                                .requestMatchers(HttpMethod.POST, "/notice").hasAuthority(TEACHER.name())
-                                .requestMatchers(HttpMethod.PATCH, "/notice/{notice-id}").hasAuthority(TEACHER.name())
-                                .requestMatchers(HttpMethod.DELETE, "/notice/{notice-id}").hasAuthority(TEACHER.name())
+                                //notices
+                                .requestMatchers(HttpMethod.POST, "/notices").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.PATCH, "/notices/{notice-id}").hasAuthority(TEACHER.name())
+                                .requestMatchers(HttpMethod.DELETE, "/notices/{notice-id}").hasAuthority(TEACHER.name())
                                 .anyRequest().authenticated()
 
                 )

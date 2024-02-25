@@ -12,7 +12,7 @@ import team.retum.jobis.domain.notice.presentation.dto.CreateNoticeWebRequest;
 import team.retum.jobis.domain.notice.usecase.CreateNoticeUseCase;
 
 @RequiredArgsConstructor
-@RequestMapping("/notice")
+@RequestMapping("/notices")
 @RestController
 public class NoticeWebAdapter {
 
