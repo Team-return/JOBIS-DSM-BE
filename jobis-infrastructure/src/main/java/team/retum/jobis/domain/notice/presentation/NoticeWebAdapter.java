@@ -17,29 +17,10 @@ import team.retum.jobis.domain.notice.usecase.CreateNoticeUseCase;
 public class NoticeWebAdapter {
 
     private final CreateNoticeUseCase createNoticeUseCase;
-//    private final UpdateNoticeUseCase updateNoticeUseCase;
-//    private final DeleteNoticeUseCase deleteNoticeUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createNotice(@RequestBody @Valid CreateNoticeWebRequest request) {
         createNoticeUseCase.execute(request.toDomainRequest());
     }
-
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @PatchMapping("/{notice-id}")
-//    public void updateNotice(
-//        @RequestBody @Valid UpdateNoticeWebRequest request,
-//        @PathVariable("notice-id") Long noticeId
-//    ) {
-//        updateNoticeUseCase.execute(request.toDomainRequest(), noticeId);
-//    }
-//
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @DeleteMapping("/{notice-id}")
-//    public void deleteNotice(
-//            @PathVariable("notice-id") Long noticeId
-//    ) {
-//        deleteNoticeUseCase.execute(noticeId);
-//    }
 }

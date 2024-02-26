@@ -13,11 +13,4 @@ public class UpdateNoticeWebRequest {
 
     @NotNull
     private String content;
-
-//    public UpdateNoticeRequest toDomainRequest() {
-//        return new UpdateNoticeRequest(
-//                this.title,
-//                this.content
-//        );
-//    }
 }
