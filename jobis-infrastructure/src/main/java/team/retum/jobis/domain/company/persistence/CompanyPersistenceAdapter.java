@@ -234,6 +234,12 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
+    public Optional<Company> queryCompanyByBusinessNumber(String businessNumber) {
+        return companyJpaRepository.findByBizNo(businessNumber)
+                .map(companyMapper::toDomain);
+    }
+
+    @Override
     public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
         return companyJpaRepository.findAllByIdIn(companyIds).stream()
                 .map(companyMapper::toDomain)

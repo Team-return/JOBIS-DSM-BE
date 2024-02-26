@@ -14,12 +14,8 @@ public class CheckCompanyExistsUseCase {
     private final QueryCompanyPort queryCompanyPort;
 
     public CheckCompanyExistsResponse execute(String businessNumber) {
-        String companyName = feignClientPort.getCompanyNameByBizNo(businessNumber);
-        boolean exists = queryCompanyPort.existsCompanyByBizNo(businessNumber);
-
-        return CheckCompanyExistsResponse.builder()
-                .companyName(companyName)
-                .exists(exists)
-                .build();
+        return queryCompanyPort.queryCompanyByBusinessNumber(businessNumber)
+                .map(c -> new CheckCompanyExistsResponse(c.getName(), c.getId()))
+                .orElse(new CheckCompanyExistsResponse(feignClientPort.getCompanyNameByBizNo(businessNumber)));
     }
 }
