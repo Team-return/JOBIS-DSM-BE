@@ -23,7 +23,7 @@ public class NoticeMapper {
                 .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
 
         List<NoticeAttachmentEntity> attachments = domain.getAttachments().stream()
-                .map(attachment -> new NoticeAttachmentEntity(attachment.getAttachmentUrl()))
+                .map(attachment -> new NoticeAttachmentEntity(attachment.getAttachmentUrl(), attachment.getType()))
                 .toList();
 
         return NoticeEntity.builder()
@@ -38,7 +38,7 @@ public class NoticeMapper {
 
     public Notice toDomain(NoticeEntity entity) {
         List<NoticeAttachment> attachments = entity.getAttachments().stream()
-                .map(attachment -> new NoticeAttachment(attachment.getAttachmentUrl()))
+                .map(attachment -> new NoticeAttachment(attachment.getAttachmentUrl(), attachment.getType()))
                 .toList();
 
         return Notice.builder()

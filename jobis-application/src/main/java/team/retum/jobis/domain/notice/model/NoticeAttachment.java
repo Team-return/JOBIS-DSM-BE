@@ -9,4 +9,6 @@ public class NoticeAttachment {
 
     private final String attachmentUrl;
 
+    private final AttachmentType type;
+
 }

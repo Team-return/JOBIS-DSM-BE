@@ -24,5 +24,4 @@ public class Notice {
 
     private final List<NoticeAttachment> attachments;
 
-
 }
