@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class CreateNoticeWebRequest {
 
-    @NotNull
+    @NotBlank
     private String title;
 
-    @NotNull
+    @NotBlank
     private String content;
 
     @ValidListElements
