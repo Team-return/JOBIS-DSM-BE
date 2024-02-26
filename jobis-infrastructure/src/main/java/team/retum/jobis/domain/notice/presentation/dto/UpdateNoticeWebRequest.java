@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.notice.presentation.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateNoticeWebRequest {
 
-    @NotNull
+    @NotBlank
     private String title;
 
-    @NotNull
+    @NotBlank
     private String content;
 }

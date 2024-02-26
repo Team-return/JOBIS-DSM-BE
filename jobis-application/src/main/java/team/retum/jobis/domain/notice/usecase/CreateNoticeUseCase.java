@@ -14,7 +14,6 @@ import java.util.List;
 public class CreateNoticeUseCase {
 
     private final CommandNoticePort commandNoticePort;
-
     public void execute(CreateNoticeRequest request) {
 
         List<NoticeAttachment> attachments = request.getAttachments()
