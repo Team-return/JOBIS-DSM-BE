@@ -25,6 +25,8 @@ public interface QueryCompanyPort {
 
     Optional<Company> queryCompanyById(Long companyId);
 
+    Optional<Company> queryCompanyByBusinessNumber(String businessNumber);
+
     List<Company> queryCompaniesByIdIn(List<Long> companyIds);
 
     boolean existsCompanyByBizNo(String bizNo);
