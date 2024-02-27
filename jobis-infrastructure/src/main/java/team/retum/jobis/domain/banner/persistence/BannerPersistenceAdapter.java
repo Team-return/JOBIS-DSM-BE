@@ -10,11 +10,12 @@ import team.retum.jobis.domain.banner.persistence.repository.vo.QQueryBannerVO;
 import team.retum.jobis.domain.banner.spi.BannerPort;
 import team.retum.jobis.domain.banner.spi.vo.BannerVO;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static team.retum.jobis.domain.bookmark.persistence.entity.QBannerEntity.bannerEntity;
+import static team.retum.jobis.domain.banner.persistence.entity.QBannerEntity.bannerEntity;
+
 
 @RequiredArgsConstructor
 @Repository
@@ -56,9 +57,11 @@ public class BannerPersistenceAdapter implements BannerPort {
                 )
                 .from(bannerEntity)
                 .where(
-                        bannerEntity.startDate.before(LocalDateTime.now()),
-                        bannerEntity.endDate.after(LocalDateTime.now())
+                        bannerEntity.startDate.before(LocalDate.now()),
+                        bannerEntity.endDate.after(LocalDate.now())
                 )
-                .fetch();
+                .stream()
+                .map(BannerVO.class::cast)
+                .toList();
     }
 }
