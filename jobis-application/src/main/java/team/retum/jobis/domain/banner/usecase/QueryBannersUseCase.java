@@ -12,7 +12,6 @@ public class QueryBannersUseCase {
     private final QueryBannerPort queryBannerPort;
 
     public QueryBannersResponse execute() {
-
         return new QueryBannersResponse(
                 queryBannerPort.queryCurrentBanners()
         );

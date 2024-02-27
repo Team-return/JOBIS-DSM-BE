@@ -47,6 +47,7 @@ public class BannerPersistenceAdapter implements BannerPort {
 
     @Override
     public List<BannerVO> queryCurrentBanners() {
+        LocalDate today = LocalDate.now();
         return queryFactory
                 .select(
                         new QQueryBannerVO(
@@ -57,8 +58,8 @@ public class BannerPersistenceAdapter implements BannerPort {
                 )
                 .from(bannerEntity)
                 .where(
-                        bannerEntity.startDate.before(LocalDate.now()),
-                        bannerEntity.endDate.after(LocalDate.now())
+                        bannerEntity.startDate.before(today),
+                        bannerEntity.endDate.after(today)
                 )
                 .stream()
                 .map(BannerVO.class::cast)
