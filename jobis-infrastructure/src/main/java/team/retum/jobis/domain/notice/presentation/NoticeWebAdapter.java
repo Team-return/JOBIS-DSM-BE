@@ -35,6 +35,6 @@ public class NoticeWebAdapter {
         @RequestBody @Valid UpdateNoticeWebRequest request,
         @PathVariable("notice-id") Long noticeId
     ) {
-        updateNoticeUseCase.execute(request.toDomainRequest(), noticeId);
+        updateNoticeUseCase.execute(request.getTitle(), request.getContent(), noticeId);
     }
 }
