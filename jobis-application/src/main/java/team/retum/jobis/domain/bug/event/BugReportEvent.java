@@ -1,4 +1,4 @@
-package team.retum.jobis.event.bug.model;
+package team.retum.jobis.domain.bug.event;
 
 import lombok.Builder;
 import lombok.Getter;

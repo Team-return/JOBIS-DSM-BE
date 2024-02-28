@@ -5,12 +5,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-import team.retum.jobis.event.bug.model.BugReportEvent;
+import team.retum.jobis.domain.bug.event.BugReportEvent;
 import team.retum.jobis.thirdparty.webhook.WebhookUtil;
 
 @RequiredArgsConstructor
 @Component
-public class BugReportHandler {
+public class BugReportEventHandler {
 
     private final WebhookUtil webhookUtil;
 
