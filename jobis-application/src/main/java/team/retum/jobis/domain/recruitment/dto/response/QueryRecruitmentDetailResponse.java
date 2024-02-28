@@ -35,8 +35,10 @@ public class QueryRecruitmentDetailResponse {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String etc;
+    private final Boolean isApplyPossible;
+    private final boolean isBookmarked;
 
-    public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas) {
+    public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas, Boolean isApplyPossible) {
         return QueryRecruitmentDetailResponse.builder()
                 .recruitmentId(recruitmentDetail.getRecruitmentId())
                 .companyId(recruitmentDetail.getCompanyId())
@@ -56,6 +58,8 @@ public class QueryRecruitmentDetailResponse {
                 .startDate(recruitmentDetail.getStartDate())
                 .endDate(recruitmentDetail.getEndDate())
                 .etc(recruitmentDetail.getEtc())
+                .isApplyPossible(isApplyPossible)
+                .isBookmarked(recruitmentDetail.getIsBookmarked() != 0)
                 .build();
     }
 }
