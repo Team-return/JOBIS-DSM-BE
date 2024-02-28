@@ -20,6 +20,7 @@ public class ApplicationVO {
     private final Integer classNumber;
     private final String profileImageUrl;
     private final String companyName;
+    private final String companyLogoUrl;
     private final List<ApplicationAttachment> applicationAttachmentEntities;
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;

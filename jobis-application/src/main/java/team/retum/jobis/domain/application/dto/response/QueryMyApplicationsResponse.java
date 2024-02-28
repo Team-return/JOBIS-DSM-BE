@@ -19,6 +19,7 @@ public class QueryMyApplicationsResponse {
         private final Long applicationId;
         private final Long recruitmentId;
         private final String company;
+        private final String companyLogoUrl;
         private final List<AttachmentResponse> attachments;
         private final ApplicationStatus applicationStatus;
     }

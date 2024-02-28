@@ -74,6 +74,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                                                 studentEntity.classRoom,
                                                 studentEntity.profileImageUrl,
                                                 companyEntity.name,
+                                                companyEntity.companyLogoUrl,
                                                 list(applicationAttachmentEntity),
                                                 applicationEntity.createdAt,
                                                 applicationEntity.applicationStatus
