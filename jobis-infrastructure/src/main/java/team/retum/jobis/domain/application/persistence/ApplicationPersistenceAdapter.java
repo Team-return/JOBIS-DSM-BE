@@ -25,7 +25,6 @@ import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
-import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationAttachmentEntity.applicationAttachmentEntity;
