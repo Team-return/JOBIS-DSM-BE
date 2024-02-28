@@ -164,7 +164,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public RecruitmentDetailVO queryRecruitmentDetailById(Long recruitmentId) {
+    public RecruitmentDetailVO queryRecruitmentDetailById(Long recruitmentId, Long studentId) {
         return queryFactory
                 .select(
                         new QQueryRecruitmentDetailVO(
@@ -185,13 +185,20 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 recruitmentEntity.recruitDate.startDate,
                                 recruitmentEntity.recruitDate.finishDate,
                                 recruitmentEntity.etc,
-                                companyEntity.bizNo
+                                companyEntity.bizNo,
+                                recruitmentEntity.winterIntern,
+                                bookmarkEntity.count()
                         )
                 )
                 .from(recruitmentEntity)
                 .join(recruitmentEntity.company, companyEntity)
                 .join(recruitAreaEntity)
                 .on(recruitAreaEntity.recruitment.eq(recruitmentEntity))
+                .leftJoin(bookmarkEntity)
+                .on(
+                        recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
+                        eqStudentId(studentId)
+                )
                 .where(recruitmentEntity.id.eq(recruitmentId))
                 .fetchOne();
     }
@@ -406,5 +413,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
         return winterIntern == null ? null : recruitmentEntity.winterIntern.eq(winterIntern);
+    }
+
+    private BooleanExpression eqStudentId(Long studentId) {
+        return studentId == null ? bookmarkEntity.recruitment.eq(recruitmentEntity) : bookmarkEntity.student.id.eq(studentId);
     }
 }
