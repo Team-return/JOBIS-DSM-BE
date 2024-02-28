@@ -1,0 +1,57 @@
+package team.retum.jobis.event.application;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
+import team.retum.jobis.domain.application.event.ChangeApplicationsStatusEvent;
+import team.retum.jobis.domain.application.model.Application;
+import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.notification.model.Notification;
+import team.retum.jobis.domain.notification.model.Topic;
+import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
+import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
+import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.spi.QueryUserPort;
+import team.retum.jobis.thirdparty.fcm.FCMUtil;
+
+import java.util.List;
+import java.util.Map;
+
+@RequiredArgsConstructor
+@Component
+public class ApplicationEventHandler {
+
+    private final QueryRecruitmentPort queryRecruitmentPort;
+    private final CommandNotificationPort commandNotificationPort;
+    private final QueryUserPort queryUserPort;
+    private final FCMUtil fcmUtil;
+
+    @Async("asyncTaskExecutor")
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onApplicationStatusChanged(ChangeApplicationsStatusEvent event) {
+        List<String> tokens = queryUserPort.queryUsersByIds(
+                        event.getApplications().stream().map(Application::getStudentId).toList()
+                ).stream()
+                .map(User::getToken)
+                .toList();
+        Map<Long, String> companyNameMap = queryRecruitmentPort.queryCompanyNameByRecruitmentIds(
+                event.getApplications().stream().map(Application::getRecruitmentId).toList()
+        );
+        for (Application application : event.getApplications()) {
+            Notification notification = Notification.builder()
+                    .title(companyNameMap.get(application.getRecruitmentId()))
+                    .content("지원서 상태가 {" + event.getStatus().name() + "}로 변경되었습니다.")
+                    .userId(application.getStudentId())
+                    .topic(Topic.APPLICATION_STATUS_CHANGED)
+                    .detailId(application.getId())
+                    .authority(Authority.STUDENT)
+                    .isNew(true)
+                    .build();
+
+            commandNotificationPort.saveNotification(notification);
+            fcmUtil.sendMessages(notification, tokens);
+        }
+    }
+}
