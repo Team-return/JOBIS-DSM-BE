@@ -39,21 +39,13 @@ public class QueryRecruitmentDetailUseCase {
                                 .build()
                 ).toList();
 
-        return QueryRecruitmentDetailResponse.of(recruitmentDetail, recruitAreaResponses, getApplyPossible(recruitmentDetail.isWinterIntern()));
+        return QueryRecruitmentDetailResponse.of(recruitmentDetail, recruitAreaResponses, getApplicable(recruitmentDetail.isWinterIntern()));
     }
 
-    private Long getStudentId() {
+    private Boolean getApplicable(boolean winterIntern) {
         if (securityPort.getCurrentUserAuthority().equals(Authority.STUDENT)
                 || securityPort.getCurrentUserAuthority().equals(Authority.DEVELOPER)) {
-            return securityPort.getCurrentUserId();
-        }
-        return null;
-    }
-
-    private Boolean getApplyPossible(boolean winterIntern) {
-        if (securityPort.getCurrentUserAuthority().equals(Authority.STUDENT)
-                || securityPort.getCurrentUserAuthority().equals(Authority.DEVELOPER)) {
-            return securityPort.getCurrentStudent().getApplyPossible(winterIntern);
+            return securityPort.getCurrentStudent().getApplicable(winterIntern);
         }
         return null;
     }

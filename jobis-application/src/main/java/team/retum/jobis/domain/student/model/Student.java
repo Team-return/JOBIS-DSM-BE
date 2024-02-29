@@ -51,7 +51,7 @@ public class Student {
         };
     }
 
-    public boolean getApplyPossible(boolean winterIntern) {
+    public boolean getApplicable(boolean winterIntern) {
         if (winterIntern && this.schoolNumber.getGrade().equals(2)) {
             return true;
         }
