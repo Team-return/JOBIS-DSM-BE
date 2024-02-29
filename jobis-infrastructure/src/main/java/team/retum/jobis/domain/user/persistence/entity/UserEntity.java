@@ -38,12 +38,16 @@ public class UserEntity extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
+    @Column(columnDefinition = "VARCHAR(255)")
+    private String token;
+
     @Builder
-    public UserEntity(Long id, String accountId, String password, Authority authority) {
+    public UserEntity(Long id, String accountId, String password, Authority authority, String token) {
         this.id = id;
         this.accountId = accountId;
         this.password = password;
         this.authority = authority;
+        this.token = token;
     }
 
 }
