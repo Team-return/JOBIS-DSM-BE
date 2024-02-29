@@ -24,4 +24,11 @@ public class Notice {
 
     private final List<NoticeAttachment> attachments;
 
+    public Notice update(String title, String content) {
+        return this.toBuilder()
+                .title(title)
+                .content(content)
+                .build();
+    }
+
 }

@@ -7,6 +7,8 @@ import team.retum.jobis.domain.notice.persistence.mapper.NoticeMapper;
 import team.retum.jobis.domain.notice.persistence.repository.NoticeJpaRepository;
 import team.retum.jobis.domain.notice.spi.NoticePort;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Repository
 public class NoticePersistenceAdapter implements NoticePort {
@@ -21,6 +23,12 @@ public class NoticePersistenceAdapter implements NoticePort {
                         noticeMapper.toEntity(notice)
                 )
         );
+    }
+
+    @Override
+    public Optional<Notice> queryNoticeById(Long noticeId) {
+        return noticeJpaRepository.findById(noticeId)
+                .map(noticeMapper::toDomain);
     }
 
     @Override
