@@ -16,7 +16,7 @@ public class QueryRecruitmentDetailVO extends RecruitmentDetailVO {
                                     Integer requiredGrade, LocalTime startTime, LocalTime endTime, List<String> requiredLicenses,
                                     List<ProgressType> hiringProgress, Integer trainPay, String pay, String benefits,
                                     Boolean military, String submitDocument, LocalDate startDate, LocalDate endDate,
-                                    String etc, String companyBizNo, boolean winterIntern, Long isBookmarked) {
+                                    String etc, String companyBizNo, boolean winterIntern, boolean isBookmarked) {
         super(recruitmentId, companyId, companyProfileUrl, companyName,
                 requiredGrade, startTime, endTime, requiredLicenses,
                 hiringProgress, trainPay, pay, benefits, military,

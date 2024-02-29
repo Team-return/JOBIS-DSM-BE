@@ -24,7 +24,7 @@ public class QueryRecruitmentDetailUseCase {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.queryRecruitmentDetailById(recruitment.getId(), getStudentId());
+        RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.queryRecruitmentDetailById(recruitment.getId(), securityPort.getCurrentUserId());
         List<RecruitAreaResponse> recruitAreaResponses = queryRecruitmentPort.queryRecruitAreasByRecruitmentId(
                         recruitment.getId()
                 ).stream()

@@ -59,7 +59,7 @@ public class QueryRecruitmentDetailResponse {
                 .endDate(recruitmentDetail.getEndDate())
                 .etc(recruitmentDetail.getEtc())
                 .isApplicable(isApplicable)
-                .isBookmarked(recruitmentDetail.getIsBookmarked() != 0)
+                .isBookmarked(recruitmentDetail.isBookmarked())
                 .build();
     }
 }
