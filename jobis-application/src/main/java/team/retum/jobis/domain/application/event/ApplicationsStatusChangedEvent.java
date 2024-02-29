@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class ChangeApplicationsStatusEvent {
+public class ApplicationsStatusChangedEvent {
 
     private final List<Application> applications;
     private final ApplicationStatus status;

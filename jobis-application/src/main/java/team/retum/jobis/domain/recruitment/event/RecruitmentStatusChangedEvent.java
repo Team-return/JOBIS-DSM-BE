@@ -8,6 +8,6 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class ChangeRecruitmentStatusEvent {
+public class RecruitmentStatusChangedEvent {
     private final List<Recruitment> recruitments;
 }

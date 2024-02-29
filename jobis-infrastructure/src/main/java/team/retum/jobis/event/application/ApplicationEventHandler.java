@@ -5,7 +5,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-import team.retum.jobis.domain.application.event.ChangeApplicationsStatusEvent;
+import team.retum.jobis.domain.application.event.ApplicationsStatusChangedEvent;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.notification.model.Notification;
@@ -30,7 +30,7 @@ public class ApplicationEventHandler {
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onApplicationStatusChanged(ChangeApplicationsStatusEvent event) {
+    public void onApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
         List<String> tokens = queryUserPort.queryUsersByIds(
                         event.getApplications().stream().map(Application::getStudentId).toList()
                 ).stream()

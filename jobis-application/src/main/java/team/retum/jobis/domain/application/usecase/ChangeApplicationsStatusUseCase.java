@@ -3,7 +3,7 @@ package team.retum.jobis.domain.application.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
-import team.retum.jobis.domain.application.event.ChangeApplicationsStatusEvent;
+import team.retum.jobis.domain.application.event.ApplicationsStatusChangedEvent;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -28,11 +28,6 @@ public class ChangeApplicationsStatusUseCase {
         }
 
         commandApplicationPort.changeApplicationStatus(status, applicationIds);
-        publishEventPort.publishEvent(
-                ChangeApplicationsStatusEvent.builder()
-                        .applications(applications)
-                        .status(status)
-                        .build()
-        );
+        publishEventPort.publishEvent(new ApplicationsStatusChangedEvent(applications, status));
     }
 }

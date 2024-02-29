@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.domain.recruitment.dto.request.ChangeRecruitmentStatusRequest;
-import team.retum.jobis.domain.recruitment.event.ChangeRecruitmentStatusEvent;
+import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
@@ -30,6 +30,6 @@ public class TeacherChangeRecruitmentStatusUseCase {
                         .map(recruitment -> recruitment.changeStatus(request.getStatus()))
                         .toList()
         );
-        publishEventPort.publishEvent(new ChangeRecruitmentStatusEvent(recruitments));
+        publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
     }
 }

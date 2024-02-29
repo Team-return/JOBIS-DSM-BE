@@ -11,7 +11,7 @@ import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
-import team.retum.jobis.domain.recruitment.event.ChangeRecruitmentStatusEvent;
+import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
@@ -30,7 +30,7 @@ public class RecruitmentEventHandler {
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onRecruitmentStatusChanged(ChangeRecruitmentStatusEvent event) {
+    public void onRecruitmentStatusChanged(RecruitmentStatusChangedEvent event) {
         List<Recruitment> doneRecruitments = event.getRecruitments().stream()
                 .filter(recruitment -> recruitment.getEndDate().isAfter(LocalDate.now()))
                 .toList();
