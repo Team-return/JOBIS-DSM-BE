@@ -18,6 +18,7 @@ import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -31,11 +32,13 @@ public class ApplicationEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
-        List<String> tokens = queryUserPort.queryUsersByIds(
+        Map<Long, String> userIdTokenMap = queryUserPort.queryUsersByIds(
                         event.getApplications().stream().map(Application::getStudentId).toList()
                 ).stream()
-                .map(User::getToken)
-                .toList();
+                .collect(Collectors.toMap(
+                        User::getId,
+                        User::getToken
+                ));
         Map<Long, String> companyNameMap = queryRecruitmentPort.queryCompanyNameByRecruitmentIds(
                 event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
@@ -51,7 +54,10 @@ public class ApplicationEventHandler {
                     .build();
 
             commandNotificationPort.saveNotification(notification);
-            fcmUtil.sendMessages(notification, tokens);
+            fcmUtil.sendMessages(
+                    notification,
+                    List.of(userIdTokenMap.get(application.getStudentId()))
+            );
         }
     }
 }
