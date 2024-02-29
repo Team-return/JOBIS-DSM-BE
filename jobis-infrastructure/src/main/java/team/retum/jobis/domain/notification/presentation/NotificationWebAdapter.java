@@ -1,11 +1,13 @@
 package team.retum.jobis.domain.notification.presentation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.notification.dto.response.QueryNotificationsResponse;
 import team.retum.jobis.domain.notification.usecase.QueryNotificationsUseCase;
@@ -24,6 +26,7 @@ public class NotificationWebAdapter {
         return queryNotificationsUseCase.execute(isNew);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{notification-id}")
     public void readNotification(@PathVariable("notification-id") Long notificationId) {
         readNotificationUseCase.execute(notificationId);
