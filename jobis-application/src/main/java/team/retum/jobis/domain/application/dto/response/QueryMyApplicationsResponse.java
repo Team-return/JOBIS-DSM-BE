@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
 
 import java.util.List;
 
@@ -12,6 +13,25 @@ import java.util.List;
 public class QueryMyApplicationsResponse {
 
     private final List<QueryMyApplicationResponse> applications;
+
+    public static QueryMyApplicationsResponse of(List<ApplicationVO> applicationVOs) {
+        return new QueryMyApplicationsResponse(
+                applicationVOs.stream()
+                        .map(application -> QueryMyApplicationResponse.builder()
+                                .applicationId(application.getId())
+                                .recruitmentId(application.getRecruitmentId())
+                                .company(application.getCompanyName())
+                                .companyLogoUrl(application.getCompanyLogoUrl())
+                                .attachments(
+                                        application.getApplicationAttachmentEntities().stream()
+                                                .map(AttachmentResponse::of)
+                                                .toList()
+                                )
+                                .applicationStatus(application.getApplicationStatus())
+                                .build()
+                        ).toList()
+        );
+    }
 
     @Getter
     @Builder

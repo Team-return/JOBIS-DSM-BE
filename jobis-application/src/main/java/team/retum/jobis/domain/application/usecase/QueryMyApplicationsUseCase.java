@@ -6,8 +6,13 @@ import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.application.dto.response.AttachmentResponse;
 import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse.QueryMyApplicationResponse;
+import team.retum.jobis.domain.application.model.ApplicationFilter;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
+import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
 import team.retum.jobis.domain.student.model.Student;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
@@ -19,23 +24,12 @@ public class QueryMyApplicationsUseCase {
     public QueryMyApplicationsResponse execute() {
         Student student = securityPort.getCurrentStudent();
 
-        return new QueryMyApplicationsResponse(
-                queryApplicationPort.queryApplicationByConditions(
-                                null, student.getId(), null, null
-                        ).stream()
-                        .map(application -> QueryMyApplicationResponse.builder()
-                                .applicationId(application.getId())
-                                .recruitmentId(application.getRecruitmentId())
-                                .company(application.getCompanyName())
-                                .companyLogoUrl(application.getCompanyLogoUrl())
-                                .attachments(
-                                        application.getApplicationAttachmentEntities().stream()
-                                                .map(AttachmentResponse::of)
-                                                .toList()
-                                )
-                                .applicationStatus(application.getApplicationStatus())
-                                .build()
-                        ).toList()
-        );
+        ApplicationFilter applicationFilter = ApplicationFilter.builder()
+                .studentId(student.getId())
+                .build();
+
+        List<ApplicationVO> applicationVOs = queryApplicationPort.queryApplicationByConditions(applicationFilter);
+
+        return QueryMyApplicationsResponse.of(applicationVOs);
     }
 }
