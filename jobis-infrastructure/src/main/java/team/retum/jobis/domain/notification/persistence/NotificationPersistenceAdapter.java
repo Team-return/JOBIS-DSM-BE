@@ -10,6 +10,7 @@ import team.retum.jobis.domain.notification.persistence.repository.NotificationJ
 import team.retum.jobis.domain.notification.spi.NotificationPort;
 
 import java.util.List;
+import java.util.Optional;
 
 import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
 import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
@@ -26,6 +27,13 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     public void saveNotification(Notification notification) {
         notificationJpaRepository.save(notificationMapper.toEntity(notification));
     }
+
+    @Override
+    public Optional<Notification> queryNotificationById(Long notificationId) {
+        return notificationJpaRepository.findById(notificationId)
+                .map(notificationMapper::toDomain);
+    }
+
     @Override
     public List<Notification> queryNotificationsByCondition(Long userId, Boolean isNew) {
         return queryFactory
