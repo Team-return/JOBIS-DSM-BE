@@ -145,10 +145,14 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/banners/{banner-id}").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.GET, "/banners").hasAuthority(STUDENT.name())
 
-                                //notices
+                                // notice
                                 .requestMatchers(HttpMethod.POST, "/notices").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.PATCH, "/notices/{notice-id}").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.DELETE, "/notices/{notice-id}").hasAuthority(TEACHER.name())
+
+                                // notification
+                                .requestMatchers(HttpMethod.GET, "/notifications").authenticated()
+                                .requestMatchers(HttpMethod.PATCH, "/notifications/{notification-id}").authenticated()
                                 .anyRequest().authenticated()
 
                 )
