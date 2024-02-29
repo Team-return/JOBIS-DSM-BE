@@ -27,6 +27,7 @@ public class QueryMyApplicationsUseCase {
                                 .applicationId(application.getId())
                                 .recruitmentId(application.getRecruitmentId())
                                 .company(application.getCompanyName())
+                                .companyLogoUrl(application.getCompanyLogoUrl())
                                 .attachments(
                                         application.getApplicationAttachmentEntities().stream()
                                                 .map(AttachmentResponse::of)

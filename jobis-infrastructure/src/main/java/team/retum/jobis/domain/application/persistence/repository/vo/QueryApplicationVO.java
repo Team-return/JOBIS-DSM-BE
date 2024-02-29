@@ -19,6 +19,7 @@ public class QueryApplicationVO {
     private final Integer classNumber;
     private final String profileImageUrl;
     private final String companyName;
+    private final String companyLogoUrl;
     private final List<ApplicationAttachmentEntity> applicationAttachmentEntities;
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;
@@ -26,7 +27,7 @@ public class QueryApplicationVO {
 
     @QueryProjection
     public QueryApplicationVO(Long id, Long recruitmentId, String name, Integer grade, Integer number,
-                              Integer classNumber, String profileImageUrl, String companyName,
+                              Integer classNumber, String profileImageUrl, String companyName, String companyLogoUrl,
                               List<ApplicationAttachmentEntity> applicationAttachmentEntities,
                               LocalDateTime createdAt, ApplicationStatus applicationStatus) {
         this.id = id;
@@ -37,6 +38,7 @@ public class QueryApplicationVO {
         this.classNumber = classNumber;
         this.profileImageUrl = profileImageUrl;
         this.companyName = companyName;
+        this.companyLogoUrl = companyLogoUrl;
         this.applicationAttachmentEntities = applicationAttachmentEntities;
         this.createdAt = createdAt;
         this.applicationStatus = applicationStatus;
