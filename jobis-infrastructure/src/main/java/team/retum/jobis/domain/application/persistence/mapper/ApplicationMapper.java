@@ -59,6 +59,7 @@ public class ApplicationMapper {
                 .studentId(entity.getStudent().getId())
                 .recruitmentId(entity.getRecruitment().getId())
                 .attachments(attachments)
+                .createdAt(entity.getCreatedAt())
                 .build();
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,8 @@ import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
+
+import java.time.Year;
 
 import static team.retum.jobis.global.config.cache.CacheName.APPLICATION;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
@@ -97,9 +100,10 @@ public class ApplicationWebAdapter {
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
             @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
             @RequestParam(value = "student_name", required = false) String studentName,
-            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId
-    ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId);
+            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
+            ) {
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year);
     }
 
     @Cacheable

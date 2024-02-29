@@ -1,11 +1,13 @@
 package team.retum.jobis.domain.application.persistence;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.model.ApplicationFilter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
@@ -20,6 +22,7 @@ import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,12 +46,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ApplicationVO> queryApplicationByConditions(
-            Long recruitmentId,
-            Long studentId,
-            ApplicationStatus applicationStatus,
-            String studentName
-    ) {
+    public List<ApplicationVO> queryApplicationByConditions(ApplicationFilter applicationFilter) {
         return queryFactory
                 .selectFrom(applicationEntity)
                 .join(applicationEntity.student, studentEntity)
@@ -56,10 +54,11 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .join(recruitmentEntity.company, companyEntity)
                 .leftJoin(applicationEntity.attachments, applicationAttachmentEntity)
                 .where(
-                        eqRecruitmentId(recruitmentId),
-                        eqStudentId(studentId),
-                        eqApplicationStatus(applicationStatus),
-                        containStudentName(studentName)
+                        eqRecruitmentId(applicationFilter.getRecruitmentId()),
+                        eqStudentId(applicationFilter.getStudentId()),
+                        eqApplicationStatus(applicationFilter.getApplicationStatus()),
+                        containStudentName(applicationFilter.getStudentName()),
+                        eqYear(applicationFilter.getYear())
                 )
                 .orderBy(applicationEntity.createdAt.desc())
                 .transform(
@@ -330,5 +329,9 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         .from(recruitmentEntity)
                         .where(recruitmentEntity.company.id.eq(companyId))
         );
+    }
+
+    private BooleanExpression eqYear(Year year) {
+        return year == null ? null : applicationEntity.createdAt.year().eq(year.getValue());
     }
 }
