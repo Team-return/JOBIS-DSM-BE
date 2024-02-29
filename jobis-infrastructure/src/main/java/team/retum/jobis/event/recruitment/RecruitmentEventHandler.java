@@ -32,7 +32,7 @@ public class RecruitmentEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onRecruitmentStatusChanged(RecruitmentStatusChangedEvent event) {
         List<Recruitment> doneRecruitments = event.getRecruitments().stream()
-                .filter(recruitment -> recruitment.getEndDate().isAfter(LocalDate.now()))
+                .filter(recruitment -> recruitment.getRecruitingPeriod().endDate().isAfter(LocalDate.now()))
                 .toList();
         Map<Long, List<BookmarkUserVO>> bookmarkUserMap = queryBookmarkPort.queryBookmarkUserByRecruitmentIds(
                 doneRecruitments.stream().map(Recruitment::getId).toList()
