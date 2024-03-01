@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
-import team.retum.jobis.domain.application.model.ApplicationFilter;
+import team.retum.jobis.domain.application.dto.ApplicationFilter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;

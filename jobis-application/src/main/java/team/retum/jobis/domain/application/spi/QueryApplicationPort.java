@@ -1,14 +1,13 @@
 package team.retum.jobis.domain.application.spi;
 
 import team.retum.jobis.domain.application.model.Application;
-import team.retum.jobis.domain.application.model.ApplicationFilter;
+import team.retum.jobis.domain.application.dto.ApplicationFilter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
 import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 
-import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 

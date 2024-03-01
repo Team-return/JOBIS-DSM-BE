@@ -1,7 +1,8 @@
-package team.retum.jobis.domain.application.model;
+package team.retum.jobis.domain.application.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 
 import java.time.Year;
 
