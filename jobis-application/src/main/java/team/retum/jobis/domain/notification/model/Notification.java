@@ -21,4 +21,10 @@ public class Notification {
     private final Authority authority;
     private final Boolean isNew;
     private final LocalDateTime createdAt;
+
+    public Notification read() {
+        return this.toBuilder()
+                .isNew(false)
+                .build();
+    }
 }
