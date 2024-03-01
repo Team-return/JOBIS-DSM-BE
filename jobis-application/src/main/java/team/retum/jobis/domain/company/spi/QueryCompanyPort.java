@@ -19,7 +19,7 @@ public interface QueryCompanyPort {
 
     Long getTotalCompanyCount(CompanyFilter filter);
 
-    CompanyDetailsVO queryCompanyDetails(Long companyId);
+    Optional<CompanyDetailsVO> queryCompanyDetails(Long companyId);
 
     List<TeacherEmployCompaniesVO> queryEmployCompanies(CompanyFilter filter);
 

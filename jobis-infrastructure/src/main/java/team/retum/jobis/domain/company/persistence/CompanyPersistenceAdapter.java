@@ -16,8 +16,8 @@ import team.retum.jobis.domain.company.persistence.repository.vo.QQueryReviewAva
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryTeacherEmployCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
-import team.retum.jobis.domain.company.persistence.repository.vo.QueryCompanyDetailsVO;
 import team.retum.jobis.domain.company.spi.CompanyPort;
+import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
@@ -148,44 +148,46 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public QueryCompanyDetailsVO queryCompanyDetails(Long companyId) {
-        return queryFactory
-                .select(
-                        new QQueryCompanyDetailsVO(
-                                companyEntity.bizNo,
-                                companyEntity.name,
-                                companyEntity.companyLogoUrl,
-                                companyEntity.companyIntroduce,
-                                companyEntity.address.mainZipCode,
-                                companyEntity.address.mainAddress,
-                                companyEntity.address.mainAddressDetail,
-                                companyEntity.address.subZipCode,
-                                companyEntity.address.subAddress,
-                                companyEntity.address.subAddressDetail,
-                                companyEntity.manager.managerName,
-                                companyEntity.manager.managerPhoneNo,
-                                companyEntity.manager.subManagerName,
-                                companyEntity.manager.subManagerPhoneNo,
-                                companyEntity.fax,
-                                companyEntity.email,
-                                companyEntity.representative,
-                                companyEntity.foundedAt,
-                                companyEntity.workersCount,
-                                companyEntity.take,
-                                recruitmentEntity.id,
-                                companyEntity.serviceName,
-                                companyEntity.businessArea,
-                                companyEntity.attachmentUrls
-                        )
-                )
-                .from(companyEntity)
-                .leftJoin(recruitmentEntity)
-                .on(
-                        recruitmentEntity.company.id.eq(companyEntity.id),
-                        recentRecruitment(RecruitStatus.RECRUITING)
-                )
-                .where(companyEntity.id.eq(companyId))
-                .fetchOne();
+    public Optional<CompanyDetailsVO> queryCompanyDetails(Long companyId) {
+        return Optional.ofNullable(
+                queryFactory
+                    .select(
+                            new QQueryCompanyDetailsVO(
+                                    companyEntity.bizNo,
+                                    companyEntity.name,
+                                    companyEntity.companyLogoUrl,
+                                    companyEntity.companyIntroduce,
+                                    companyEntity.address.mainZipCode,
+                                    companyEntity.address.mainAddress,
+                                    companyEntity.address.mainAddressDetail,
+                                    companyEntity.address.subZipCode,
+                                    companyEntity.address.subAddress,
+                                    companyEntity.address.subAddressDetail,
+                                    companyEntity.manager.managerName,
+                                    companyEntity.manager.managerPhoneNo,
+                                    companyEntity.manager.subManagerName,
+                                    companyEntity.manager.subManagerPhoneNo,
+                                    companyEntity.fax,
+                                    companyEntity.email,
+                                    companyEntity.representative,
+                                    companyEntity.foundedAt,
+                                    companyEntity.workersCount,
+                                    companyEntity.take,
+                                    recruitmentEntity.id,
+                                    companyEntity.serviceName,
+                                    companyEntity.businessArea,
+                                    companyEntity.attachmentUrls
+                            )
+                    )
+                    .from(companyEntity)
+                    .leftJoin(recruitmentEntity)
+                    .on(
+                            recruitmentEntity.company.id.eq(companyEntity.id),
+                            recentRecruitment(RecruitStatus.RECRUITING)
+                    )
+                    .where(companyEntity.id.eq(companyId))
+                    .fetchOne()
+                );
     }
 
     @Override
