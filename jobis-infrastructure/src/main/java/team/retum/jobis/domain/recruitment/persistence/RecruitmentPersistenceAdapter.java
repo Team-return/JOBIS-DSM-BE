@@ -166,7 +166,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public RecruitmentDetailVO queryRecruitmentDetailById(Long recruitmentId, Long userId) {
         return queryFactory
-                .selectDistinct(
+                .select(
                         new QQueryRecruitmentDetailVO(
                                 recruitmentEntity.id,
                                 companyEntity.id,
@@ -192,8 +192,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 )
                 .from(recruitmentEntity)
                 .join(recruitmentEntity.company, companyEntity)
-                .join(recruitAreaEntity)
-                .on(recruitAreaEntity.recruitment.eq(recruitmentEntity))
                 .leftJoin(bookmarkEntity)
                 .on(
                         recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
