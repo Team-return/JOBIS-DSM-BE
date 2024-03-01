@@ -99,7 +99,7 @@ public class CompanyEntity {
     private String bizRegistrationUrl;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(20)")
+    @Column(columnDefinition = "VARCHAR(30)")
     private String businessArea;
 
     @NotNull
