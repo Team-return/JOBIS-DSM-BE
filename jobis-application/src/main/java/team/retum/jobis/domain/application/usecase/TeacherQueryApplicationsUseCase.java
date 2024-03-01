@@ -5,7 +5,7 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
-import team.retum.jobis.domain.application.model.ApplicationFilter;
+import team.retum.jobis.domain.application.dto.ApplicationFilter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;

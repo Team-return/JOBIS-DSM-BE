@@ -1,13 +1,12 @@
 package team.retum.jobis.domain.application.persistence;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
-import team.retum.jobis.domain.application.model.ApplicationFilter;
+import team.retum.jobis.domain.application.dto.ApplicationFilter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
