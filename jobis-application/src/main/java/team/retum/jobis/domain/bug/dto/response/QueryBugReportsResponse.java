@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.bug.dto.request;
+package team.retum.jobis.domain.bug.dto.response;
 
 import team.retum.jobis.domain.bug.spi.vo.BugReportsVO;
 

@@ -2,7 +2,6 @@ package team.retum.jobis.domain.acceptance.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.domain.acceptance.dto.request.CancelFieldTraineesRequest;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -18,10 +17,10 @@ public class CancelFieldTraineesUseCase {
     private final QueryApplicationPort applicationRepository;
     private final CommandApplicationPort commandApplicationPort;
 
-    public void execute(CancelFieldTraineesRequest request) {
-        List<Application> applications = applicationRepository.queryApplicationsByIds(request.applicationIds());
+    public void execute(List<Long> applicationIds) {
+        List<Application> applications = applicationRepository.queryApplicationsByIds(applicationIds);
 
-        if (request.applicationIds().size() != applications.size()) {
+        if (applicationIds.size() != applications.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
@@ -31,7 +30,7 @@ public class CancelFieldTraineesUseCase {
 
         commandApplicationPort.changeApplicationStatus(
                 ApplicationStatus.PASS,
-                request.applicationIds()
+                applicationIds
         );
     }
 }

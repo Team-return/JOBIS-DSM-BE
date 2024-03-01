@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.domain.bug.dto.CreateBugReportRequest;
+import team.retum.jobis.domain.bug.dto.request.CreateBugReportRequest;
 import team.retum.jobis.domain.bug.event.BugReportEvent;
 import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;

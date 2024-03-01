@@ -1,11 +1,10 @@
 package team.retum.jobis.domain.banner.presentation.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import team.retum.jobis.domain.banner.dto.CreateBannerRequest;
+import team.retum.jobis.domain.banner.dto.request.CreateBannerRequest;
 import team.retum.jobis.domain.banner.model.BannerType;
 
 import java.time.LocalDate;

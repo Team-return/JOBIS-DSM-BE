@@ -3,7 +3,7 @@ package team.retum.jobis.domain.application.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.domain.application.dto.request.CreateApplicationRequest;
+import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
 import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
@@ -26,7 +26,7 @@ public class CreateApplicationUseCase {
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
 
-    public void execute(CreateApplicationRequest request, Long recruitmentId) {
+    public void execute(Long recruitmentId, List<AttachmentRequest> attachmentRequests) {
         Student student = securityPort.getCurrentStudent();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
@@ -43,7 +43,7 @@ public class CreateApplicationUseCase {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
 
-        List<ApplicationAttachment> attachments = request.attachmentRequests()
+        List<ApplicationAttachment> attachments = attachmentRequests
                 .stream()
                 .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
                 .toList();

@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.review.dto;
+package team.retum.jobis.domain.review.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

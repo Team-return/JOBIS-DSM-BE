@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.banner.dto.QueryBannersResponse;
+import team.retum.jobis.domain.banner.dto.response.QueryBannersResponse;
 import team.retum.jobis.domain.banner.presentation.dto.CreateBannerWebRequest;
 import team.retum.jobis.domain.banner.usecase.CreateBannerUseCase;
 import team.retum.jobis.domain.banner.usecase.DeleteBannerUseCase;

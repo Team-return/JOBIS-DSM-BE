@@ -15,7 +15,6 @@ public class CreateNoticeUseCase {
 
     private final CommandNoticePort commandNoticePort;
     public void execute(CreateNoticeRequest request) {
-
         List<NoticeAttachment> attachments = request.getAttachments()
                 .stream()
                 .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))

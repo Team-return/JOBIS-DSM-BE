@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
+import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
@@ -80,7 +81,12 @@ public class ApplicationWebAdapter {
             @RequestBody @Valid CreateApplicationWebRequest request,
             @PathVariable("recruitment-id") Long recruitmentId
     ) {
-        createApplicationUseCase.execute(request.toDomainRequest(), recruitmentId);
+        createApplicationUseCase.execute(
+                recruitmentId,
+                request.getAttachments().stream()
+                        .map(attachment -> new AttachmentRequest(attachment.getUrl(), attachment.getType()))
+                        .toList()
+        );
     }
 
     @Caching(
@@ -102,7 +108,7 @@ public class ApplicationWebAdapter {
             @RequestParam(value = "student_name", required = false) String studentName,
             @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
-            ) {
+    ) {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year);
     }
 
@@ -178,7 +184,12 @@ public class ApplicationWebAdapter {
             @PathVariable("application-id") Long applicationId,
             @RequestBody CreateApplicationWebRequest request
     ) {
-        reapplyUseCase.execute(applicationId, request.toDomainRequest());
+        reapplyUseCase.execute(
+                applicationId,
+                request.getAttachments().stream()
+                        .map(attachment -> new AttachmentRequest(attachment.getUrl(), attachment.getType()))
+                        .toList()
+        );
     }
 
     @Cacheable

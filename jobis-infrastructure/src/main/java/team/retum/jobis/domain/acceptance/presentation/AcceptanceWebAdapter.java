@@ -69,7 +69,7 @@ public class AcceptanceWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/contract-date")
     public void changeWorkContractDate(@RequestBody @Valid ChangeContractDateWebRequest request) {
-        changeContractDateUseCase.execute(request.toDomainRequest());
+        changeContractDateUseCase.execute(request.getAcceptanceIds(), request.getContractDate());
     }
 
     @Caching(
@@ -82,7 +82,7 @@ public class AcceptanceWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
     public void registerEmploymentContract(@RequestBody @Valid RegisterEmploymentContractWebRequest request) {
-        registerEmploymentContractUseCase.execute(request.toDomainRequest());
+        registerEmploymentContractUseCase.execute(request.getCodeKeywords(), request.getApplicationIds());
     }
 
     @Caching(
@@ -94,6 +94,6 @@ public class AcceptanceWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
     public void cancelFieldTrainees(@RequestBody @Valid CancelFieldTraineesWebRequest request) {
-        cancelFieldTraineesUseCase.execute(request.toDomainRequest());
+        cancelFieldTraineesUseCase.execute(request.getApplicationIds());
     }
 }

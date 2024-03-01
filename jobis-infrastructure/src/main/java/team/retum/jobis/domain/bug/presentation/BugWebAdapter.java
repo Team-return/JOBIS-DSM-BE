@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.bug.dto.response.QueryBugReportDetailsResponse;
-import team.retum.jobis.domain.bug.dto.request.QueryBugReportsResponse;
+import team.retum.jobis.domain.bug.dto.response.QueryBugReportsResponse;
 import team.retum.jobis.domain.bug.model.DevelopmentArea;
 import team.retum.jobis.domain.bug.presentation.dto.request.CreateBugReportWebRequest;
 import team.retum.jobis.domain.bug.usecase.CreateBugReportUseCase;

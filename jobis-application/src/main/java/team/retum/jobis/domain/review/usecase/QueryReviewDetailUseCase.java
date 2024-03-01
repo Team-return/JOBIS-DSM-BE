@@ -2,7 +2,7 @@ package team.retum.jobis.domain.review.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.domain.review.dto.QueryReviewDetailResponse;
+import team.retum.jobis.domain.review.dto.response.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.spi.QueryReviewPort;
 
 @RequiredArgsConstructor

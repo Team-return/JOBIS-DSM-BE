@@ -6,5 +6,4 @@ public record LoginRequest(
         String accountId,
         String password,
         PlatformType platformType
-) {
-}
+) {}

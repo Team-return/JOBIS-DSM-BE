@@ -3,7 +3,6 @@ package team.retum.jobis.domain.recruitment.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
-import team.retum.jobis.domain.recruitment.dto.request.ChangeRecruitmentStatusRequest;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
