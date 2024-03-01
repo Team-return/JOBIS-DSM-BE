@@ -1,14 +1,14 @@
 package team.retum.jobis.domain.notification.usecase;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.common.annotation.UseCase;
+import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.notification.dto.response.QueryNotificationsResponse;
 import team.retum.jobis.domain.notification.dto.response.QueryNotificationsResponse.NotificationResponse;
 import team.retum.jobis.domain.notification.spi.QueryNotificationPort;
 
 @RequiredArgsConstructor
-@UseCase
+@ReadOnlyUseCase
 public class QueryNotificationsUseCase {
 
     private final QueryNotificationPort queryNotificationPort;
