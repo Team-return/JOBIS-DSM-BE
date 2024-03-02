@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.domain.banner.dto.response.QueryBannersResponse;
+import org.springframework.web.bind.annotation.RequestParam;
+import team.retum.jobis.domain.banner.dto.QueryBannerListResponse;
+import team.retum.jobis.domain.banner.dto.QueryBannersResponse;
 import team.retum.jobis.domain.banner.presentation.dto.CreateBannerWebRequest;
 import team.retum.jobis.domain.banner.usecase.CreateBannerUseCase;
 import team.retum.jobis.domain.banner.usecase.DeleteBannerUseCase;
+import team.retum.jobis.domain.banner.usecase.QueryBannerListUseCase;
 import team.retum.jobis.domain.banner.usecase.QueryBannersUseCase;
 
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class BannerWebAdapter {
     private final CreateBannerUseCase createBannerUseCase;
     private final DeleteBannerUseCase deleteBannerUseCase;
     private final QueryBannersUseCase queryBannersUseCase;
+    private final QueryBannerListUseCase queryBannerListUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -43,5 +47,12 @@ public class BannerWebAdapter {
     @GetMapping
     public QueryBannersResponse queryBanners() {
         return queryBannersUseCase.execute();
+    }
+
+    @GetMapping("/teacher")
+    public QueryBannerListResponse queryBannerList(
+            @RequestParam(value = "banner_status", required = false) String bannerStatus
+    ) {
+        return queryBannerListUseCase.execute(bannerStatus);
     }
 }
