@@ -5,6 +5,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.banner.model.Banner;
+import team.retum.jobis.domain.banner.model.BannerStatus;
+import team.retum.jobis.domain.banner.model.BannerType;
 import team.retum.jobis.domain.banner.persistence.mapper.BannerMapper;
 import team.retum.jobis.domain.banner.persistence.repository.BannerJpaRepository;
 import team.retum.jobis.domain.banner.persistence.repository.vo.QQueryBannerVO;
@@ -72,8 +74,7 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public List<TeacherBannersVO> queryBannerList(String bannerStatus) {
-        LocalDate today = LocalDate.now();
+    public List<TeacherBannersVO> queryBannerList(BannerStatus bannerStatus) {
 
         return queryFactory
                 .select(
@@ -86,17 +87,18 @@ public class BannerPersistenceAdapter implements BannerPort {
                         )
                 )
                 .from(bannerEntity)
-                .where(predicate(bannerStatus, today))
+                .where(checkStatus(bannerStatus))
                 .stream()
                 .map(TeacherBannersVO.class::cast)
                 .toList();
     }
 
-    private BooleanExpression predicate(String status, LocalDate today) {
-        switch (status) {
-            case "OPENED":
+    private BooleanExpression checkStatus(BannerStatus bannerStatus) {
+        LocalDate today = LocalDate.now();
+        switch (bannerStatus) {
+            case BannerStatus.OPENED:
                 return bannerEntity.startDate.before(today);
-            case "YET":
+            case BannerStatus.YET:
                 return bannerEntity.startDate.after(today);
             default:
                 return null;
