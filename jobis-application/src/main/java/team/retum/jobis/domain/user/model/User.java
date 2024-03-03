@@ -26,4 +26,10 @@ public class User {
                 .password(password)
                 .build();
     }
+
+    public User setToken(String token) {
+        return this.toBuilder()
+                .token(token)
+                .build();
+    }
 }
