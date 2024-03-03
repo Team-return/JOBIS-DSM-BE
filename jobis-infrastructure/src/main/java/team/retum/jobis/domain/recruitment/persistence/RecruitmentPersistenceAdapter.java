@@ -412,8 +412,4 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
         return winterIntern == null ? null : recruitmentEntity.winterIntern.eq(winterIntern);
     }
-
-    private BooleanExpression eqStudentId(Long studentId) {
-        return studentId == null ? bookmarkEntity.recruitment.eq(recruitmentEntity) : bookmarkEntity.student.id.eq(studentId);
-    }
 }
