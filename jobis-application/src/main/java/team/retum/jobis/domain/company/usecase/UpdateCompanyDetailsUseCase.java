@@ -26,16 +26,6 @@ public class UpdateCompanyDetailsUseCase {
             company.verifySameCompany(securityPort.getCurrentCompany());
         }
 
-        commandCompanyPort.saveCompany(
-                company.update(
-                        request.getMainAddress(), request.getMainAddressDetail(), request.getMainZipCode(),
-                        request.getSubAddress(), request.getSubAddressDetail(), request.getSubZipCode(),
-                        request.getTake(), request.getWorkerNumber(),
-                        request.getManagerName(), request.getManagerPhoneNo(),
-                        request.getSubManagerName(), request.getSubManagerPhoneNo(),
-                        request.getCompanyIntroduce(), request.getCompanyProfileUrl(),
-                        request.getFax(), request.getEmail(), request.getServiceName()
-                )
-        );
+        commandCompanyPort.saveCompany(company.update(request));
     }
 }

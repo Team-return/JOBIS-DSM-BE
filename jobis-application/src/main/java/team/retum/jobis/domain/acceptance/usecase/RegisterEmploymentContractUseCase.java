@@ -2,7 +2,6 @@ package team.retum.jobis.domain.acceptance.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.domain.acceptance.dto.request.RegisterEmploymentContractRequest;
 import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.spi.CommandAcceptancePort;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
@@ -24,9 +23,9 @@ public class RegisterEmploymentContractUseCase {
     private final QueryApplicationPort applicationRepository;
     private final CommandApplicationPort commandApplicationPort;
 
-    public void execute(RegisterEmploymentContractRequest request) {
-        List<ApplicationDetailVO> applications = applicationRepository.queryApplicationDetailsByIds(request.getApplicationIds());
-        if (applications.size() != request.getApplicationIds().size()) {
+    public void execute(List<String> codeKeywords, List<Long> applicationIds) {
+        List<ApplicationDetailVO> applications = applicationRepository.queryApplicationDetailsByIds(applicationIds);
+        if (applications.size() != applicationIds.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
@@ -41,7 +40,7 @@ public class RegisterEmploymentContractUseCase {
                                     .companyId(application.getCompanyId())
                                     .contractDate(LocalDate.now())
                                     .year(Year.now().getValue())
-                                    .tech(request.getCodeKeywords())
+                                    .tech(codeKeywords)
                                     .businessArea(application.getBusinessArea())
                                     .studentId(application.getStudentId())
                                     .build();

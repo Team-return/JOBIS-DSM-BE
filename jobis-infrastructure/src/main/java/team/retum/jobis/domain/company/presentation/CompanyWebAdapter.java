@@ -125,7 +125,7 @@ public class CompanyWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/type")
     public void updateCompanyType(@RequestBody @Valid UpdateCompanyTypeWebRequest request) {
-        updateCompanyTypeUseCase.execute(request.toDomainRequest());
+        updateCompanyTypeUseCase.execute(request.getCompanyIds(), request.getCompanyType());
     }
 
     @Cacheable
@@ -176,7 +176,7 @@ public class CompanyWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/mou")
     public void updateMou(@RequestBody @Valid UpdateMouWebRequest request) {
-        updateMouUseCase.execute(request.toDomainRequest());
+        updateMouUseCase.execute(request.getCompanyIds());
     }
 
     @GetMapping("/review")

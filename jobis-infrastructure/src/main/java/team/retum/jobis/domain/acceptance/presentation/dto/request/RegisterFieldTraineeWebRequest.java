@@ -23,10 +23,6 @@ public class RegisterFieldTraineeWebRequest {
     private LocalDate endDate;
 
     public RegisterFieldTraineeRequest toDomainRequest() {
-        return RegisterFieldTraineeRequest.builder()
-                .applicationIds(this.applicationIds)
-                .startDate(this.startDate)
-                .endDate(this.endDate)
-                .build();
+        return new RegisterFieldTraineeRequest(applicationIds, startDate, endDate);
     }
 }

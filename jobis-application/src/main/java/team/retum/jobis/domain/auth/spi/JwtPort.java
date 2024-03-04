@@ -1,6 +1,6 @@
 package team.retum.jobis.domain.auth.spi;
 
-import team.retum.jobis.domain.auth.dto.TokenResponse;
+import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.model.PlatformType;
 

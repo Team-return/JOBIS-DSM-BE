@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.domain.review.dto.CreateReviewRequest;
-import team.retum.jobis.domain.review.dto.CreateReviewRequest.QnAElement;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import java.util.List;
@@ -20,21 +18,6 @@ public class CreateReviewWebRequest {
 
     @ValidListElements
     private List<@Valid QnAWebElement> qnaElements;
-
-    public CreateReviewRequest toDomainRequest() {
-        return CreateReviewRequest.builder()
-                .companyId(this.companyId)
-                .qnaElements(
-                        this.qnaElements.stream()
-                                .map(webRequest -> QnAElement.builder()
-                                        .question(webRequest.getQuestion())
-                                        .answer(webRequest.getAnswer())
-                                        .codeId(webRequest.getCodeId())
-                                        .build())
-                                .toList()
-                )
-                .build();
-    }
 
     @Getter
     @Builder

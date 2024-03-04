@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.auth.model.PlatformType;
-import team.retum.jobis.domain.student.dto.StudentSignUpRequest;
+import team.retum.jobis.domain.student.dto.request.StudentSignUpRequest;
 import team.retum.jobis.domain.student.model.Gender;
 import team.retum.jobis.global.util.RegexProperty;
 

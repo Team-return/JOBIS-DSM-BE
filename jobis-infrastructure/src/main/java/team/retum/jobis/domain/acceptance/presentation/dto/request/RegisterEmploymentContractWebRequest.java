@@ -2,7 +2,6 @@ package team.retum.jobis.domain.acceptance.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.acceptance.dto.request.RegisterEmploymentContractRequest;
 import team.retum.jobis.global.annotation.ValidListElements;
 
 import java.util.List;
@@ -16,11 +15,4 @@ public class RegisterEmploymentContractWebRequest {
 
     @ValidListElements
     private List<Long> applicationIds;
-
-    public RegisterEmploymentContractRequest toDomainRequest() {
-        return RegisterEmploymentContractRequest.builder()
-                .codeKeywords(this.codeKeywords)
-                .applicationIds(this.applicationIds)
-                .build();
-    }
 }

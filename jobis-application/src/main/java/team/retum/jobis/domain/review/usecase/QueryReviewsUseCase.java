@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
-import team.retum.jobis.domain.review.dto.QueryReviewsResponse;
+import team.retum.jobis.domain.review.dto.response.QueryReviewsResponse;
 import team.retum.jobis.domain.review.spi.QueryReviewPort;
 
 @RequiredArgsConstructor
