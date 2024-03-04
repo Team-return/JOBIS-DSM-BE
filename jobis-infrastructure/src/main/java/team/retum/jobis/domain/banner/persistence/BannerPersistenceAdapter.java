@@ -5,8 +5,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.banner.model.Banner;
-import team.retum.jobis.domain.banner.model.BannerStatus;
-import team.retum.jobis.domain.banner.model.BannerType;
 import team.retum.jobis.domain.banner.persistence.mapper.BannerMapper;
 import team.retum.jobis.domain.banner.persistence.repository.BannerJpaRepository;
 import team.retum.jobis.domain.banner.persistence.repository.vo.QQueryBannerVO;
@@ -20,8 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static team.retum.jobis.domain.banner.persistence.entity.QBannerEntity.bannerEntity;
-import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitAreaEntity.recruitAreaEntity;
-import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
 
 
 @RequiredArgsConstructor
@@ -74,8 +70,7 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public List<TeacherBannersVO> queryBannerList(BannerStatus bannerStatus) {
-
+    public List<TeacherBannersVO> queryBannerList(boolean isOpened) {
         return queryFactory
                 .select(
                         new QQueryTeacherBannersVO(
@@ -87,21 +82,18 @@ public class BannerPersistenceAdapter implements BannerPort {
                         )
                 )
                 .from(bannerEntity)
-                .where(checkStatus(bannerStatus))
+                .where(checkStatus(isOpened))
                 .stream()
                 .map(TeacherBannersVO.class::cast)
                 .toList();
     }
 
-    private BooleanExpression checkStatus(BannerStatus bannerStatus) {
+    private BooleanExpression checkStatus(boolean isOpened) {
         LocalDate today = LocalDate.now();
-        switch (bannerStatus) {
-            case BannerStatus.OPENED:
-                return bannerEntity.startDate.before(today);
-            case BannerStatus.YET:
-                return bannerEntity.startDate.after(today);
-            default:
-                return null;
+        if (isOpened) {
+            return bannerEntity.startDate.before(today);
+        } else {
+            return bannerEntity.startDate.after(today);
         }
     }
 }

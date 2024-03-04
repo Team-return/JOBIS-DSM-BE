@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.banner.spi;
 
 import team.retum.jobis.domain.banner.model.Banner;
-import team.retum.jobis.domain.banner.model.BannerStatus;
 import team.retum.jobis.domain.banner.spi.vo.BannerVO;
 import team.retum.jobis.domain.banner.spi.vo.TeacherBannersVO;
 
@@ -13,5 +12,5 @@ public interface QueryBannerPort {
 
     List<BannerVO> queryCurrentBanners();
 
-    List<TeacherBannersVO> queryBannerList(BannerStatus bannerList);
+    List<TeacherBannersVO> queryBannerList(boolean isOpened);
 }
