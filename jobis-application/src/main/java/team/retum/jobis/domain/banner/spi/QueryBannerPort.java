@@ -12,5 +12,5 @@ public interface QueryBannerPort {
 
     List<BannerVO> queryCurrentBanners();
 
-    List<TeacherBannersVO> teacherQueryBanners(boolean isOpened);
+    List<TeacherBannersVO> queryBanners(boolean isOpened);
 }

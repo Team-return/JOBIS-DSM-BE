@@ -13,7 +13,7 @@ public class TeacherQueryBannersUseCase {
 
     public TeacherQueryBannersResponse execute(boolean isOpened) {
         return new TeacherQueryBannersResponse(
-                queryBannerPort.teacherQueryBanners(isOpened)
+                queryBannerPort.queryBanners(isOpened)
         );
     }
 }
