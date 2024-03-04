@@ -51,7 +51,7 @@ public class BannerWebAdapter {
 
     @GetMapping("/teacher")
     public TeacherQueryBannersResponse queryBannerList(
-            @RequestParam(value = "is_opened", required = false) Boolean isOpened
+            @RequestParam(value = "is_opened") Boolean isOpened
     ) {
         return queryBannerListUseCase.execute(isOpened);
     }
