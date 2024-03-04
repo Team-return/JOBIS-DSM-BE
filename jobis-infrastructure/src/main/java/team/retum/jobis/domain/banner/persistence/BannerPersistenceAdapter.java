@@ -70,7 +70,7 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public List<TeacherBannersVO> queryBannerList(boolean isOpened) {
+    public List<TeacherBannersVO> teacherQueryBanners(boolean isOpened) {
         return queryFactory
                 .select(
                         new QQueryTeacherBannersVO(

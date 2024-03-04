@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
-import team.retum.jobis.domain.banner.dto.QueryBannerListResponse;
+import team.retum.jobis.domain.banner.dto.TeacherQueryBannersResponse;
 import team.retum.jobis.domain.banner.dto.QueryBannersResponse;
 import team.retum.jobis.domain.banner.presentation.dto.CreateBannerWebRequest;
 import team.retum.jobis.domain.banner.usecase.CreateBannerUseCase;
 import team.retum.jobis.domain.banner.usecase.DeleteBannerUseCase;
-import team.retum.jobis.domain.banner.usecase.QueryBannerListUseCase;
+import team.retum.jobis.domain.banner.usecase.TeacherQueryBannersUseCase;
 import team.retum.jobis.domain.banner.usecase.QueryBannersUseCase;
 
 @RequiredArgsConstructor
@@ -28,7 +28,7 @@ public class BannerWebAdapter {
     private final CreateBannerUseCase createBannerUseCase;
     private final DeleteBannerUseCase deleteBannerUseCase;
     private final QueryBannersUseCase queryBannersUseCase;
-    private final QueryBannerListUseCase queryBannerListUseCase;
+    private final TeacherQueryBannersUseCase queryBannerListUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -50,7 +50,7 @@ public class BannerWebAdapter {
     }
 
     @GetMapping("/teacher")
-    public QueryBannerListResponse queryBannerList(
+    public TeacherQueryBannersResponse queryBannerList(
             @RequestParam(value = "is_opened", required = false) Boolean isOpened
     ) {
         return queryBannerListUseCase.execute(isOpened);
