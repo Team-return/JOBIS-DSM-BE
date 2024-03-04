@@ -45,7 +45,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 
                                 // recruitments
-                                .requestMatchers(HttpMethod.POST, "/recruitments/{company-id}").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/recruitments").hasAnyAuthority(COMPANY.name())
                                 .requestMatchers(HttpMethod.GET, "/recruitments/my").hasAuthority(COMPANY.name())
                                 .requestMatchers(HttpMethod.PATCH, "/recruitments/{recruitment-id}").hasAnyAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.PATCH, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name())
@@ -94,6 +94,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/bookmarks").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
 
                                 // auth
+                                .requestMatchers(HttpMethod.POST, "/auth/company").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/code").permitAll()
                                 .requestMatchers(HttpMethod.PATCH, "/auth/code").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/auth/reissue").permitAll()
