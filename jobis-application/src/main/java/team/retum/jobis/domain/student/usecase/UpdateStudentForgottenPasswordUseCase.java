@@ -31,7 +31,7 @@ public class UpdateStudentForgottenPasswordUseCase {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         commandUserPort.saveUser(
-                userEntity.updatePassword(securityPort.encodePassword(request.getPassword()))
+                userEntity.updatePassword(securityPort.encodePassword(password))
         );
     }
 }
