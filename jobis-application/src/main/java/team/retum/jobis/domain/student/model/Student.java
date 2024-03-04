@@ -50,4 +50,11 @@ public class Student {
             default -> year;
         };
     }
+
+    public boolean getApplicable(boolean winterIntern) {
+        if (winterIntern && this.schoolNumber.getGrade().equals(2)) {
+            return true;
+        }
+        return !winterIntern && this.schoolNumber.getGrade().equals(3);
+    }
 }

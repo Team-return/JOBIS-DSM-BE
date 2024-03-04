@@ -175,7 +175,6 @@ public class RecruitmentWebAdapter {
 
     }
 
-    @Cacheable
     @GetMapping("/{recruitment-id}")
     public QueryRecruitmentDetailResponse queryRecruitmentDetail(
             @PathVariable("recruitment-id") Long recruitmentId
