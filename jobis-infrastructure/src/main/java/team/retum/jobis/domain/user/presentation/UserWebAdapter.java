@@ -28,6 +28,6 @@ public class UserWebAdapter {
 
     @PatchMapping("/token")
     public void setToken(@RequestBody @Valid SetDeviceTokenWebRequest request) {
-        setDeviceTokenUseCase.execute(request.toDomainRequest());
+        setDeviceTokenUseCase.execute(request.getToken());
     }
 }

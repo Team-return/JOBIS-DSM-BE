@@ -14,11 +14,11 @@ public class SetDeviceTokenUseCase {
     private final SecurityPort securityPort;
     private final CommandUserPort commandUserPort;
 
-    public void execute(SetDeviceTokenRequest request) {
+    public void execute(String token) {
         User user = securityPort.getCurrentUser();
 
         commandUserPort.saveUser(
-                user.setToken(request.token())
+                user.setToken(token)
         );
     }
 }

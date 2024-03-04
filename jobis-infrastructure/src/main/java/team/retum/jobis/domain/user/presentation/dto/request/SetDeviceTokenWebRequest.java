@@ -1,14 +1,13 @@
 package team.retum.jobis.domain.user.presentation.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import team.retum.jobis.domain.user.dto.SetDeviceTokenRequest;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 public class SetDeviceTokenWebRequest {
 
     @NotNull
     private String token;
-
-    public SetDeviceTokenRequest toDomainRequest() {
-        return new SetDeviceTokenRequest(this.token);
-    }
 }
