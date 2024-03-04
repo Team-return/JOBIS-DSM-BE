@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.presentation.dto.SendAuthCodeWebRequest;
+import team.retum.jobis.domain.auth.presentation.dto.request.CompanySignInWebRequest;
+import team.retum.jobis.domain.auth.usecase.CompanySignInUseCase;
 import team.retum.jobis.domain.auth.usecase.SendAuthCodeUseCase;
 import team.retum.jobis.domain.auth.usecase.TokenReissueUseCase;
 import team.retum.jobis.domain.auth.usecase.VerifyAuthCodeUseCase;
@@ -27,6 +29,16 @@ public class AuthWebAdapter {
     private final SendAuthCodeUseCase sendAuthCodeUseCase;
     private final VerifyAuthCodeUseCase verifyAuthCodeUseCase;
     private final TokenReissueUseCase tokenReissueUseCase;
+    private final CompanySignInUseCase companySignInUseCase;
+
+
+    @PostMapping
+    public TokenResponse companySignIn(@RequestBody @Valid CompanySignInWebRequest request) {
+        return companySignInUseCase.execute(
+                request.getBusinessRegistrationNumber(),
+                request.getAuthCode()
+        );
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/code")

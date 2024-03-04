@@ -6,14 +6,21 @@ import team.retum.jobis.domain.company.model.AddressInfo;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.ManagerInfo;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.user.exception.UserNotFoundException;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
+import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 
 @RequiredArgsConstructor
 @Component
 public class CompanyMapper {
+    private final UserJpaRepository userJpaRepository;
 
     public CompanyEntity toEntity(Company domain) {
+        UserEntity user = userJpaRepository.findById(domain.getId())
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
         return CompanyEntity.builder()
                 .id(domain.getId())
+                .user(user)
                 .fax(domain.getFax())
                 .email(domain.getEmail())
                 .bizNo(domain.getBizNo())
