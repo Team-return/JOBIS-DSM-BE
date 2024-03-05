@@ -22,7 +22,7 @@ public class CompanySignInUseCase {
     private final SecurityPort securityPort;
 
     public TokenResponse execute(String businessRegistrationNumber, String authCode) {
-        if (!Objects.equals(authCode, securityPort.getServerAuthCode())) {
+        if (!securityPort.getServerAuthCode().equals(authCode)) {
             throw BadAuthCodeException.EXCEPTION;
         }
 
