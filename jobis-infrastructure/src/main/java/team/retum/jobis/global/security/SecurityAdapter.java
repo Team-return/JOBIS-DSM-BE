@@ -69,12 +69,6 @@ public class SecurityAdapter implements SecurityPort {
     }
 
     @Override
-    public Teacher getCurrentTeacher() {
-        TeacherDetails teacherDetails = (TeacherDetails) getCurrentUserDetails();
-        return teacherMapper.toDomain(teacherDetails.getTeacher());
-    }
-
-    @Override
     public User getCurrentUser() {
         Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
         return userJpaRepository.findById(currentUserId)

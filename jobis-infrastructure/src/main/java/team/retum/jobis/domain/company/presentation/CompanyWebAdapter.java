@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
-import team.retum.jobis.domain.auth.dto.TokenResponse;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
