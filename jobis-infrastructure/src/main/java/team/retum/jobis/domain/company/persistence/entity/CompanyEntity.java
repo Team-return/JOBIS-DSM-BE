@@ -65,7 +65,7 @@ public class CompanyEntity {
 
     @NotNull
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean isMou;
+    private Boolean isMou;
 
     @Embedded
     private Address address;
