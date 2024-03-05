@@ -6,15 +6,10 @@ import lombok.Getter;
 public class CheckCompanyExistsResponse {
 
     private final String companyName;
-    private final Long companyId;
+    private final boolean exists;
 
-    public CheckCompanyExistsResponse(String companyName, Long companyId) {
+    public CheckCompanyExistsResponse(String companyName, boolean exists) {
         this.companyName = companyName;
-        this.companyId = companyId;
-    }
-
-    public CheckCompanyExistsResponse(String companyName) {
-        this.companyName = companyName;
-        this.companyId = null;
+        this.exists = exists;
     }
 }

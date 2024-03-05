@@ -62,6 +62,8 @@ jwt:
   access-exp: ${TOKEN_ACCESS_EXP:3600}
   refresh-exp: ${TOKEN_REFRESH_EXP:1209600}
 
+auth-code: ${AUTH_CODE:auth}
+
 openfeign:
   access-key: ${API_ACCESS_KEY:asdf}
 

@@ -1,6 +1,7 @@
 package team.retum.jobis.global.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,8 @@ import team.retum.jobis.global.security.auth.teacher.TeacherDetails;
 @Component
 public class SecurityAdapter implements SecurityPort {
 
+    @Value("${auth-code}")
+    private String authCode;
     private final PasswordEncoder passwordEncoder;
     private final CompanyMapper companyMapper;
     private final StudentMapper studentMapper;
@@ -66,17 +69,16 @@ public class SecurityAdapter implements SecurityPort {
     }
 
     @Override
-    public Teacher getCurrentTeacher() {
-        TeacherDetails teacherDetails = (TeacherDetails) getCurrentUserDetails();
-        return teacherMapper.toDomain(teacherDetails.getTeacher());
-    }
-
-    @Override
     public User getCurrentUser() {
         Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
         return userJpaRepository.findById(currentUserId)
                 .map(userMapper::toDomain)
                 .orElseThrow(() -> InvalidTokenException.EXCEPTION);
+    }
+
+    @Override
+    public String getServerAuthCode() {
+        return authCode;
     }
 
     private Object getCurrentUserDetails() {

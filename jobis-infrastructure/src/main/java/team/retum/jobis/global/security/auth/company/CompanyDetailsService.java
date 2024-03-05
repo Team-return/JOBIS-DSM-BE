@@ -23,9 +23,8 @@ public class CompanyDetailsService implements UserDetailsService {
     @Cacheable
     @Override
     public UserDetails loadUserByUsername(String companyId) throws UsernameNotFoundException {
-        CompanyEntity company = companyJpaRepository.findById(
-                Long.valueOf(companyId)
-        ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
+        CompanyEntity company = companyJpaRepository.findById(Long.valueOf(companyId))
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
 
         return new CompanyDetails(company);
     }

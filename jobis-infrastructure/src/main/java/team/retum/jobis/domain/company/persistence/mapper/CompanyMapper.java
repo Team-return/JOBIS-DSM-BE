@@ -6,6 +6,9 @@ import team.retum.jobis.domain.company.model.AddressInfo;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.ManagerInfo;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
+import team.retum.jobis.domain.user.exception.UserNotFoundException;
+import team.retum.jobis.domain.user.persistence.entity.UserEntity;
+import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 
 @RequiredArgsConstructor
 @Component
@@ -50,7 +53,7 @@ public class CompanyMapper {
                 .email(entity.getEmail())
                 .bizNo(entity.getBizNo())
                 .type(entity.getType())
-                .isMou(entity.isMou())
+                .isMou(entity.getIsMou())
                 .companyIntroduce(entity.getCompanyIntroduce())
                 .businessArea(entity.getBusinessArea())
                 .companyLogoUrl(entity.getCompanyLogoUrl())

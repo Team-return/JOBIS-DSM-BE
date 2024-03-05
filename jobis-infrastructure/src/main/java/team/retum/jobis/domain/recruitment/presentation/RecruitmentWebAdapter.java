@@ -70,12 +70,9 @@ public class RecruitmentWebAdapter {
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{company-id}")
-    public void applyRecruitment(
-            @RequestBody @Valid ApplyRecruitmentWebRequest webRequest,
-            @PathVariable("company-id") Long companyId
-    ) {
-        applyRecruitmentUseCase.execute(webRequest.toDomainRequest(), companyId);
+    @PostMapping
+    public void applyRecruitment(@RequestBody @Valid ApplyRecruitmentWebRequest webRequest) {
+        applyRecruitmentUseCase.execute(webRequest.toDomainRequest());
     }
 
     @CacheEvict(allEntries = true)

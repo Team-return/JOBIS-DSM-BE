@@ -19,7 +19,7 @@ public interface SecurityPort {
 
     Student getCurrentStudent();
 
-    Teacher getCurrentTeacher();
-
     User getCurrentUser();
+
+    String getServerAuthCode();
 }

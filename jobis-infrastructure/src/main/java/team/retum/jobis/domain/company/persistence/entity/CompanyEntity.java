@@ -34,10 +34,8 @@ import java.util.List;
 @Table(name = "tbl_company")
 @Entity
 public class CompanyEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_id")
     private Long id;
 
     @NotNull
@@ -55,7 +53,7 @@ public class CompanyEntity {
 
     @NotNull
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean isMou;
+    private Boolean isMou;
 
     @Embedded
     private Address address;
