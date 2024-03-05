@@ -35,6 +35,7 @@ import java.util.List;
 @Entity
 public class CompanyEntity {
     @Id
+    @Column(name = "company_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
