@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.banner.persistence;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -7,8 +8,10 @@ import team.retum.jobis.domain.banner.model.Banner;
 import team.retum.jobis.domain.banner.persistence.mapper.BannerMapper;
 import team.retum.jobis.domain.banner.persistence.repository.BannerJpaRepository;
 import team.retum.jobis.domain.banner.persistence.repository.vo.QQueryBannerVO;
+import team.retum.jobis.domain.banner.persistence.repository.vo.QQueryTeacherBannersVO;
 import team.retum.jobis.domain.banner.spi.BannerPort;
 import team.retum.jobis.domain.banner.spi.vo.BannerVO;
+import team.retum.jobis.domain.banner.spi.vo.TeacherBannersVO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -64,5 +67,33 @@ public class BannerPersistenceAdapter implements BannerPort {
                 .stream()
                 .map(BannerVO.class::cast)
                 .toList();
+    }
+
+    @Override
+    public List<TeacherBannersVO> queryBanners(boolean isOpened) {
+        return queryFactory
+                .select(
+                        new QQueryTeacherBannersVO(
+                                bannerEntity.id,
+                                bannerEntity.bannerUrl,
+                                bannerEntity.bannerType,
+                                bannerEntity.startDate,
+                                bannerEntity.endDate
+                        )
+                )
+                .from(bannerEntity)
+                .where(checkStatus(isOpened))
+                .stream()
+                .map(TeacherBannersVO.class::cast)
+                .toList();
+    }
+
+    private BooleanExpression checkStatus(boolean isOpened) {
+        LocalDate today = LocalDate.now();
+        if (isOpened) {
+            return bannerEntity.startDate.before(today);
+        } else {
+            return bannerEntity.startDate.after(today);
+        }
     }
 }
