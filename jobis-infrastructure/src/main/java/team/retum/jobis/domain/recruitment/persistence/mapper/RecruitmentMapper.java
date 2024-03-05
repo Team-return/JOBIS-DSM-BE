@@ -8,7 +8,6 @@ import team.retum.jobis.domain.company.persistence.repository.CompanyJpaReposito
 import team.retum.jobis.domain.recruitment.model.RecruitingPeriod;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.model.Salary;
-import team.retum.jobis.domain.recruitment.model.WorkingHours;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 
 @RequiredArgsConstructor
@@ -39,8 +38,7 @@ public class RecruitmentMapper {
                 .submitDocument(domain.getSubmitDocument())
                 .trainPay(domain.getSalary().trainingPay())
                 .submitDocument(domain.getSubmitDocument())
-                .startTime(domain.getWorkingHours().startTime())
-                .endTime(domain.getWorkingHours().endTime())
+                .workingHours(domain.getWorkingHours())
                 .winterIntern(domain.isWinterIntern())
                 .build();
     }
@@ -64,10 +62,7 @@ public class RecruitmentMapper {
                         entity.getPayInfo().getTrainPay(),
                         entity.getPayInfo().getPay()
                 ))
-                .workingHours(new WorkingHours(
-                        entity.getWorkingHour().getStartTime(),
-                        entity.getWorkingHour().getEndTime()
-                ))
+                .workingHours(entity.getWorkingHours())
                 .requiredGrade(entity.getRequiredGrade())
                 .requiredLicenses(entity.getRequiredLicenses())
                 .submitDocument(entity.getSubmitDocument())

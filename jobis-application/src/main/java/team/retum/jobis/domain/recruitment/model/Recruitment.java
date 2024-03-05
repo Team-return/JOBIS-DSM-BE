@@ -29,7 +29,7 @@ public class Recruitment {
 
     private final Integer requiredGrade;
 
-    private final WorkingHours workingHours;
+    private final String workingHours;
 
     private final String benefits;
 
@@ -57,7 +57,7 @@ public class Recruitment {
                 .recruitYear(Year.now().getValue())
                 .militarySupport(request.militarySupport())
                 .personalContract(request.personalContact())
-                .workingHours(new WorkingHours(request.startTime(), request.endTime()))
+                .workingHours(request.workingHours())
                 .salary(new Salary(request.trainPay(), request.pay()))
                 .requiredLicenses(request.requiredLicenses())
                 .status(RecruitStatus.REQUESTED)
@@ -115,7 +115,7 @@ public class Recruitment {
     public Recruitment update(UpdateRecruitmentRequest request) {
         return this.toBuilder()
                 .requiredGrade(request.requiredGrade())
-                .workingHours(new WorkingHours(request.startTime(), request.endTime()))
+                .workingHours(request.workingHours())
                 .requiredLicenses(request.requiredLicenses())
                 .hiringProgress(request.hiringProgress())
                 .salary(new Salary(request.trainPay(), request.pay()))

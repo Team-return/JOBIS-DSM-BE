@@ -19,8 +19,7 @@ public class QueryMyRecruitmentResponse {
     private final String companyName;
     private final List<RecruitAreaResponse> areas;
     private final Integer requiredGrade;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
+    private final String workingHours;
     private final List<String> requiredLicenses;
     private final List<ProgressType> hiringProgress;
     private final Integer trainPay;
@@ -39,10 +38,9 @@ public class QueryMyRecruitmentResponse {
                 .companyId(recruitmentDetail.getCompanyId())
                 .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
                 .companyName(recruitmentDetail.getCompanyName())
+                .workingHours(recruitmentDetail.getWorkingHours())
                 .areas(recruitAreas)
                 .requiredGrade(recruitmentDetail.getRequiredGrade())
-                .startTime(recruitmentDetail.getStartTime())
-                .endTime(recruitmentDetail.getEndTime())
                 .requiredLicenses(recruitmentDetail.getRequiredLicenses())
                 .hiringProgress(recruitmentDetail.getHiringProgress())
                 .trainPay(recruitmentDetail.getTrainPay())

@@ -10,8 +10,7 @@ import java.util.List;
 @Builder
 public record UpdateRecruitmentRequest(
      Integer requiredGrade,
-     LocalTime startTime,
-     LocalTime endTime,
+     String workingHours,
      List<String> requiredLicenses,
      List<ProgressType> hiringProgress,
      Integer trainPay,

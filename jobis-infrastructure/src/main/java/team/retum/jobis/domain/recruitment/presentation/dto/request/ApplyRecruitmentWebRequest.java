@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -23,9 +24,8 @@ public class ApplyRecruitmentWebRequest {
 
     private Integer requiredGrade;
 
-    private LocalTime startTime;
-
-    private LocalTime endTime;
+    @NotBlank
+    private String workingHours;
 
     private List<@NotNull String> requiredLicenses;
 
@@ -67,8 +67,7 @@ public class ApplyRecruitmentWebRequest {
                                 .map(RecruitAreaWebRequest::toDomainRequest).toList()
                 )
                 .requiredGrade(this.requiredGrade)
-                .startTime(this.startTime)
-                .endTime(this.endTime)
+                .workingHours(this.workingHours)
                 .requiredLicenses(this.requiredLicenses)
                 .hiringProgress(this.hiringProgress)
                 .trainPay(this.trainPay)

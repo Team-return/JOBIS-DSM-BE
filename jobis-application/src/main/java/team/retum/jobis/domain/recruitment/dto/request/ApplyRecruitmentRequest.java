@@ -11,8 +11,7 @@ import java.util.List;
 public record ApplyRecruitmentRequest(
         List<CreateRecruitAreaRequest> areas,
         Integer requiredGrade,
-        LocalTime startTime,
-        LocalTime endTime,
+        String workingHours,
         List<String> requiredLicenses,
         List<ProgressType> hiringProgress,
         int trainPay,

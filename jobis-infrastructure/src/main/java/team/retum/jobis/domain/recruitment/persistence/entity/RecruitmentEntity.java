@@ -66,6 +66,10 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @Embedded
     private WorkingHour workingHour;
 
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(100)")
+    private String workingHours;
+
     @Column(columnDefinition = "VARCHAR(550)")
     private String benefits;
 
@@ -104,12 +108,13 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private CompanyEntity company;
 
     @Builder
-    public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, Integer trainPay, String pay,
+    public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, String workingHours, Integer trainPay, String pay,
                              LocalTime startTime, LocalTime endTime, String submitDocument, LocalDate startDate,
                              LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport,
                              List<String> requiredLicenses, String etc, List<ProgressType> hiringProgress,
                              Integer requiredGrade, boolean personalContact, boolean winterIntern) {
         this.id = id;
+        this.workingHours = workingHours;
         this.workingHour = new WorkingHour(startTime, endTime);
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
