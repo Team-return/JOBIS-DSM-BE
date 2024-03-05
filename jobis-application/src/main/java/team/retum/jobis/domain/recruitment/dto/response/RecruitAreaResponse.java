@@ -24,4 +24,6 @@ public class RecruitAreaResponse {
     private final String majorTask;
 
     private final String preferentialTreatment;
+
+    private final String etcArea;
 }

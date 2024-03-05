@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
+import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
@@ -44,7 +45,7 @@ public class TeacherQueryRecruitmentsUseCase {
                                         .applicationRequestedCount(recruitment.getRequestedApplicationCount())
                                         .applicationApprovedCount(recruitment.getApprovedApplicationCount())
                                         .totalHiringCount(recruitment.getTotalHiringCount())
-                                        .hiringJobs(recruitment.getJobCodes())
+                                        .hiringJobs(StringUtil.combineIfNotNull(recruitment.getJobCodes(), ",", recruitment.getEtcAreas()))
                                         .companyId(recruitment.getCompanyId())
                                         .build()
                         ).toList();

@@ -30,6 +30,7 @@ import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
+import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -61,7 +62,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     @Override
     public List<StudentRecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter) {
-        StringExpression recruitJobsPath = Expressions.stringTemplate("group_concat({0})", codeEntity.keyword);
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+        StringExpression etcAreas =  ExpressionUtil.groupConcat(recruitAreaEntity.etcArea);
 
         return queryFactory
                 .select(
@@ -72,6 +74,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 recruitmentEntity.militarySupport,
                                 companyEntity.companyLogoUrl,
                                 recruitJobsPath,
+                                etcAreas,
                                 bookmarkEntity.recruitment.id.isNotNull()
                         )
                 )
@@ -111,7 +114,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         QApplicationEntity requestedApplication = new QApplicationEntity("requestedApplication");
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
-        StringExpression recruitJobsPath = Expressions.stringTemplate("group_concat({0})", codeEntity.keyword);
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+        StringExpression etcAreas = ExpressionUtil.groupConcat(recruitAreaEntity.etcArea);
         return queryFactory
                 .select(
                         new QQueryTeacherRecruitmentsVO(
@@ -122,6 +126,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 companyEntity.name,
                                 companyEntity.type,
                                 recruitJobsPath,
+                                etcAreas,
                                 recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
                                 requestedApplication.countDistinct(),
                                 approvedApplication.countDistinct(),
@@ -256,7 +261,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                                 recruitAreaEntity.hiredCount,
                                                 recruitAreaEntity.majorTask,
                                                 recruitAreaEntity.preferentialTreatment,
-                                                list(codeEntity)
+                                                list(codeEntity),
+                                                recruitAreaEntity.etcArea
                                         )
                                 )
                 ).stream()

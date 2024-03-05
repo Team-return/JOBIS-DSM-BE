@@ -10,5 +10,6 @@ public record CreateRecruitAreaRequest(
         List<Long> techCodes,
         int hiring,
         String majorTask,
-        String preferentialTreatment
+        String preferentialTreatment,
+        String etcArea
 ) {}

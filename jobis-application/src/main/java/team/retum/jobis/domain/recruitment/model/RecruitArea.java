@@ -30,6 +30,8 @@ public class RecruitArea {
 
     private final Map<CodeType, List<Long>> codes;
 
+    private final String etcArea;
+
     public static RecruitArea of(CreateRecruitAreaRequest request, Long recruitmentId) {
         Map<CodeType, List<Long>> codeIds = new HashMap<>();
         codeIds.put(JOB, request.jobCodes());
@@ -40,6 +42,7 @@ public class RecruitArea {
                 .majorTask(request.majorTask())
                 .preferentialTreatment(request.preferentialTreatment())
                 .codes(codeIds)
+                .etcArea(request.etcArea())
                 .build();
     }
 

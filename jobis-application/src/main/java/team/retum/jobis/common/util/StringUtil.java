@@ -25,6 +25,13 @@ public class StringUtil {
         return new ArrayList<>(dividedList);
     }
 
+    public static String combineIfNotNull(String content, String key, String nullableValue) {
+        if (nullableValue != null) {
+            return content  + key + nullableValue;
+        }
+        return content;
+    }
+
     public static String generateRandomCode(int size) {
         return RandomString.make(size);
     }

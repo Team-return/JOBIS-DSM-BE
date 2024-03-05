@@ -13,6 +13,7 @@ public class StudentRecruitmentVO {
     private final boolean militarySupport;
     private final String companyLogoUrl;
     private final String jobCodes;
+    private final String etcAreas;
     private final boolean isBookmarked;
 
 }
