@@ -43,7 +43,7 @@ public class RegisterCompanyUseCase {
 
         User savedUser = commandUserPort.saveUser(
                 User.builder()
-                        .accountId(request.bizRegistrationUrl())
+                        .accountId(request.businessNumber())
                         .password(securityPort.encodePassword(request.password()))
                         .authority(Authority.COMPANY)
                         .build()
@@ -53,7 +53,7 @@ public class RegisterCompanyUseCase {
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         commandCompanyPort.saveCompany(
-                Company.of(request, code.getKeyword())
+                Company.of(request, savedUser.getId(), code.getKeyword())
         );
 
         return jwtPort.generateTokens(savedUser.getId(), Authority.COMPANY, PlatformType.WEB);
