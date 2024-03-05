@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.auth.presentation.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -9,8 +8,8 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 public class CompanySignInWebRequest {
     @Length(min = 10, max = 10)
-    private String businessRegistrationNumber;
+    private String businessNumber;
 
-    @NotBlank
+    @Length(min = 10, max = 10)
     private String authCode;
 }

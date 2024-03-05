@@ -1,7 +1,5 @@
 package team.retum.jobis.domain.company.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embedded;
@@ -11,9 +9,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -26,7 +21,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.persistence.entity.type.Address;
 import team.retum.jobis.domain.company.persistence.entity.type.Manager;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.util.ImageProperty;
 
@@ -41,14 +35,8 @@ import java.util.List;
 @Entity
 public class CompanyEntity {
     @Id
-    @Column(name = "company_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @JsonIgnore
-    @MapsId
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "company_id", nullable = false)
-    private UserEntity user;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(50)")
@@ -121,13 +109,12 @@ public class CompanyEntity {
     private List<String> attachmentUrls;
 
     @Builder
-    public CompanyEntity(Long id, UserEntity user, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
+    public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
                          String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
                          String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type, boolean isMou) {
         this.id = id;
-        this.user = user;
         this.name = name;
         this.isMou = isMou;
         this.bizRegistrationUrl = bizRegistrationUrl;

@@ -32,10 +32,10 @@ public class AuthWebAdapter {
     private final CompanySignInUseCase companySignInUseCase;
 
 
-    @PostMapping
+    @PostMapping("/company")
     public TokenResponse companySignIn(@RequestBody @Valid CompanySignInWebRequest request) {
         return companySignInUseCase.execute(
-                request.getBusinessRegistrationNumber(),
+                request.getBusinessNumber(),
                 request.getAuthCode()
         );
     }

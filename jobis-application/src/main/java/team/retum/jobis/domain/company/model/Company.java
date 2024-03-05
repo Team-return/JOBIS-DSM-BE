@@ -53,9 +53,8 @@ public class Company {
 
     private final List<String> attachmentUrls;
 
-    public static Company of(RegisterCompanyRequest request, Long userId, String businessArea) {
+    public static Company of(RegisterCompanyRequest request, String businessArea) {
         return Company.builder()
-                .id(userId)
                 .companyIntroduce(request.companyIntroduce())
                 .companyLogoUrl(request.companyProfileUrl())
                 .bizRegistrationUrl(request.bizRegistrationUrl())

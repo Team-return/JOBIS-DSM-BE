@@ -27,9 +27,6 @@ public class RegisterCompanyWebRequest {
     @Size(min = 10, max = 10)
     private String businessNumber;
 
-    @Pattern(regexp = RegexProperty.PASSWORD)
-    private String password;
-
     @NotEmpty
     @Size(max = 1000)
     private String companyIntroduce;
@@ -107,7 +104,6 @@ public class RegisterCompanyWebRequest {
         return RegisterCompanyRequest.builder()
                 .name(this.name)
                 .businessNumber(this.businessNumber)
-                .password(this.password)
                 .companyIntroduce(this.companyIntroduce)
                 .mainZipCode(this.mainZipCode)
                 .mainAddress(this.mainAddress)

@@ -9,7 +9,6 @@ import java.util.List;
 public record RegisterCompanyRequest(
         String name,
         String businessNumber,
-        String password,
         String companyIntroduce,
         String mainZipCode,
         String mainAddress,
