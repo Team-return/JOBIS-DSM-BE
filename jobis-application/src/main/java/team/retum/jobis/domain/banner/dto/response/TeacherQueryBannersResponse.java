@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.banner.dto;
+package team.retum.jobis.domain.banner.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
