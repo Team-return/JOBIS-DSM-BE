@@ -18,10 +18,7 @@ public class UpdateRecruitmentWebRequest {
     private Integer requiredGrade;
 
     @NotNull
-    private LocalTime startTime;
-
-    @NotNull
-    private LocalTime endTime;
+    private String workingHours;
 
     private List<String> requiredLicenses;
 
@@ -55,8 +52,7 @@ public class UpdateRecruitmentWebRequest {
     public UpdateRecruitmentRequest toDomainRequest() {
         return UpdateRecruitmentRequest.builder()
                 .requiredGrade(this.requiredGrade)
-                .startTime(this.startTime)
-                .endTime(this.endTime)
+                .workingHours(this.workingHours)
                 .requiredLicenses(this.requiredLicenses)
                 .hiringProgress(this.hiringProgress)
                 .trainPay(this.trainPay)

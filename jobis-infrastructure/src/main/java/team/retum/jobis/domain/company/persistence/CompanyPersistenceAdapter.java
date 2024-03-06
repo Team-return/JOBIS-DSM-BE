@@ -170,6 +170,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                                     companyEntity.fax,
                                     companyEntity.email,
                                     companyEntity.representative,
+                                    companyEntity.representativePhoneNo,
                                     companyEntity.foundedAt,
                                     companyEntity.workersCount,
                                     companyEntity.take,

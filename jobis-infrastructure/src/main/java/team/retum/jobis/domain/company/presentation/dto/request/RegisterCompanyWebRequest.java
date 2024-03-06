@@ -77,6 +77,10 @@ public class RegisterCompanyWebRequest {
     @Size(max = 10)
     private String representativeName;
 
+    @NotBlank
+    @Size(min = 10, max = 12)
+    private String representativePhoneNo;
+
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate foundedAt;
@@ -118,6 +122,7 @@ public class RegisterCompanyWebRequest {
                 .fax(this.fax)
                 .email(this.email)
                 .representativeName(this.representativeName)
+                .representativePhoneNo(this.representativePhoneNo)
                 .foundedAt(this.foundedAt)
                 .workerNumber(this.workerNumber)
                 .take(this.take)

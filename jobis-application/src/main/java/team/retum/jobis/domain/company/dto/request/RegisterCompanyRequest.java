@@ -23,6 +23,7 @@ public record RegisterCompanyRequest(
         String fax,
         String email,
         String representativeName,
+        String representativePhoneNo,
         LocalDate foundedAt,
         int workerNumber,
         double take,

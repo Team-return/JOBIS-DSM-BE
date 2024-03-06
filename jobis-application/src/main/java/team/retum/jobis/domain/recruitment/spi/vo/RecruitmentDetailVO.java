@@ -17,8 +17,7 @@ public class RecruitmentDetailVO {
     private final String companyProfileUrl;
     private final String companyName;
     private final Integer requiredGrade;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
+    private final String workingHours;
     private final List<String> requiredLicenses;
     private final List<ProgressType> hiringProgress;
     private final Integer trainPay;

@@ -64,6 +64,10 @@ public class CompanyEntity {
     private String representative;
 
     @NotNull
+    @Column(columnDefinition = "VARCHAR(12)")
+    private String representativePhoneNo;
+
+    @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate foundedAt;
 
@@ -114,7 +118,7 @@ public class CompanyEntity {
                          String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type, boolean isMou) {
+                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type, boolean isMou, String representativePhoneNo) {
         this.id = id;
         this.name = name;
         this.isMou = isMou;
@@ -122,6 +126,7 @@ public class CompanyEntity {
         this.businessArea = businessArea;
         this.serviceName = serviceName;
         this.type = type;
+        this.representativePhoneNo = representativePhoneNo;
         this.address = new Address(mainAddress, mainAddressDetail, mainZipCode, subAddress, subAddressDetail, subZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;
