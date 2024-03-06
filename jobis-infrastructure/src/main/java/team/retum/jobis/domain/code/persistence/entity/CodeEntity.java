@@ -42,16 +42,21 @@ public class CodeEntity {
     @Column(columnDefinition = "VARCHAR(30)")
     private String keyword;
 
+    @NotNull
+    @Column(columnDefinition = "BIT")
+    private boolean isPublic;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_code_id")
     private CodeEntity parentCode;
 
     @Builder
-    public CodeEntity(Long code, CodeType codeType, JobType jobType, String keyword, CodeEntity parentCodeEntity) {
+    public CodeEntity(Long code, CodeType codeType, JobType jobType, String keyword, boolean isPublic, CodeEntity parentCodeEntity) {
         this.code = code;
         this.type = codeType;
         this.jobType = jobType;
         this.keyword = keyword;
+        this.isPublic = isPublic;
         this.parentCode = parentCodeEntity;
     }
 }
