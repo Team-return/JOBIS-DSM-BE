@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.code.dto.response.CodesResponse;
 import team.retum.jobis.domain.code.model.CodeType;
-import team.retum.jobis.domain.code.usecase.QueryCodesService;
+import team.retum.jobis.domain.code.presentation.dto.CreateCodeWebRequest;
 
 import static team.retum.jobis.global.config.cache.CacheName.CODE;
 
@@ -19,7 +19,7 @@ import static team.retum.jobis.global.config.cache.CacheName.CODE;
 @RestController
 public class CodeWebAdapter {
 
-    private final QueryCodesService codesService;
+    private final QueryCodesUseCase codesService;
 
     @Cacheable
     @GetMapping
