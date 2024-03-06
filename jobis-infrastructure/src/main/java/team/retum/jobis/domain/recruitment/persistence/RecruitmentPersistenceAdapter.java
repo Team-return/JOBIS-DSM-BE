@@ -63,8 +63,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public List<StudentRecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
-        StringExpression etcAreas =  ExpressionUtil.groupConcat(recruitAreaEntity.etcArea);
-
         return queryFactory
                 .select(
                         new QQueryStudentRecruitmentsVO(
@@ -74,7 +72,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 recruitmentEntity.militarySupport,
                                 companyEntity.companyLogoUrl,
                                 recruitJobsPath,
-                                etcAreas,
                                 bookmarkEntity.recruitment.id.isNotNull()
                         )
                 )
@@ -115,7 +112,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
-        StringExpression etcAreas = ExpressionUtil.groupConcat(recruitAreaEntity.etcArea);
         return queryFactory
                 .select(
                         new QQueryTeacherRecruitmentsVO(
@@ -126,7 +122,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 companyEntity.name,
                                 companyEntity.type,
                                 recruitJobsPath,
-                                etcAreas,
                                 recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
                                 requestedApplication.countDistinct(),
                                 approvedApplication.countDistinct(),
@@ -261,8 +256,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                                 recruitAreaEntity.hiredCount,
                                                 recruitAreaEntity.majorTask,
                                                 recruitAreaEntity.preferentialTreatment,
-                                                list(codeEntity),
-                                                recruitAreaEntity.etcArea
+                                                list(codeEntity)
                                         )
                                 )
                 ).stream()

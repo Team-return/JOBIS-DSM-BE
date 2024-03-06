@@ -13,7 +13,7 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
 
     @QueryProjection
     public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask,
-                              String preferentialTreatment, List<CodeEntity> codes, String etcArea) {
+                              String preferentialTreatment, List<CodeEntity> codes) {
         super(
                 id,
                 codes.stream()
@@ -26,8 +26,7 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
                         .toList(),
                 hiredCount,
                 majorTask,
-                preferentialTreatment,
-                etcArea
+                preferentialTreatment
         );
     }
 }

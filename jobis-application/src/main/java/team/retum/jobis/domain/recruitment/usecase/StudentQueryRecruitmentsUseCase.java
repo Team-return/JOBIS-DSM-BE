@@ -46,7 +46,7 @@ public class StudentQueryRecruitmentsUseCase {
                                         .id(recruitment.getRecruitmentId())
                                         .companyName(recruitment.getCompanyName())
                                         .trainPay(recruitment.getTrainPay())
-                                        .hiringJobs(StringUtil.combineIfNotNull(recruitment.getJobCodes(), ",", recruitment.getEtcAreas()))
+                                        .hiringJobs(recruitment.getJobCodes())
                                         .militarySupport(recruitment.isMilitarySupport())
                                         .companyProfileUrl(recruitment.getCompanyLogoUrl())
                                         .bookmarked(recruitment.isBookmarked())

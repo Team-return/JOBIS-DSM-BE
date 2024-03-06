@@ -8,7 +8,7 @@ public class QueryStudentRecruitmentsVO extends StudentRecruitmentVO {
     @QueryProjection
     public QueryStudentRecruitmentsVO(long recruitmentId, String companyName, int trainPay,
                                       boolean militarySupport, String companyLogoUrl, String jobCodes,
-                                      String etcAreas, boolean isBookmarked) {
-        super(recruitmentId, companyName, trainPay, militarySupport, companyLogoUrl, jobCodes, etcAreas, isBookmarked);
+                                      boolean isBookmarked) {
+        super(recruitmentId, companyName, trainPay, militarySupport, companyLogoUrl, jobCodes, isBookmarked);
     }
 }

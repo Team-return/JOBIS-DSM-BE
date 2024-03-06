@@ -14,11 +14,11 @@ public class QueryTeacherRecruitmentsVO extends TeacherRecruitmentVO {
     @QueryProjection
     public QueryTeacherRecruitmentsVO(long recruitmentId, RecruitStatus recruitStatus,
                                       LocalDate startDate, LocalDate endDate, String companyName,
-                                      CompanyType companyType, String jobCodes, String etcAreas, long totalHiring,
+                                      CompanyType companyType, String jobCodes, long totalHiring,
                                       long requestedApplicationCount, long approvedApplicationCount,
                                       long companyId) {
         super(recruitmentId, recruitStatus, startDate, endDate,
-                companyName, companyType, jobCodes, etcAreas, totalHiring,
+                companyName, companyType, jobCodes, totalHiring,
                 requestedApplicationCount, approvedApplicationCount,
                 companyId);
     }

@@ -18,7 +18,6 @@ public class TeacherRecruitmentVO {
     private final String companyName;
     private final CompanyType companyType;
     private final String jobCodes;
-    private final String etcAreas;
     private final long totalHiringCount;
     private final long requestedApplicationCount;
     private final long approvedApplicationCount;

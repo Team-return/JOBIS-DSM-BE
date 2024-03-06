@@ -41,9 +41,6 @@ public class RecruitAreaEntity {
     @Column(columnDefinition = "VARCHAR(500)")
     private String preferentialTreatment;
 
-    @Column(columnDefinition = "VARCHAR(100)")
-    private String etcArea;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruitment_id", nullable = false)
     private RecruitmentEntity recruitment;
@@ -52,13 +49,12 @@ public class RecruitAreaEntity {
     private List<RecruitAreaCodeEntity> recruitAreaCodes = new ArrayList<>();
 
     @Builder
-    public RecruitAreaEntity(Long id, Integer hiredCount, String majorTask, String preferentialTreatment, String etcArea,
+    public RecruitAreaEntity(Long id, Integer hiredCount, String majorTask, String preferentialTreatment,
                              RecruitmentEntity recruitmentEntity) {
         this.id = id;
         this.hiredCount = hiredCount;
         this.majorTask = majorTask;
         this.preferentialTreatment = preferentialTreatment;
-        this.etcArea = etcArea;
         this.recruitment = recruitmentEntity;
     }
 }

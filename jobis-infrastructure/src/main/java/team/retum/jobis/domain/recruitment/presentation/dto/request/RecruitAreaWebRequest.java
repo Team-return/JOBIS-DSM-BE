@@ -28,9 +28,6 @@ public class RecruitAreaWebRequest {
     @Size(max = 500)
     private String preferentialTreatment;
 
-    @Size(max = 100)
-    private String etcArea;
-
     public CreateRecruitAreaRequest toDomainRequest() {
         return CreateRecruitAreaRequest.builder()
                 .hiring(this.hiring)
@@ -38,7 +35,6 @@ public class RecruitAreaWebRequest {
                 .techCodes(this.techCodes)
                 .majorTask(this.majorTask)
                 .preferentialTreatment(this.preferentialTreatment)
-                .etcArea(this.etcArea)
                 .build();
     }
 }
