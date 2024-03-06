@@ -38,7 +38,7 @@ public class CodePersistenceAdapter implements CodePort {
 
     @Override
     public Optional<Code> queryCodeById(Long codeId) {
-    return codeJpaRepository.findById(codeId)
+        return codeJpaRepository.findById(codeId)
                 .map(codeMapper::toDomain);
     }
 
@@ -47,6 +47,19 @@ public class CodePersistenceAdapter implements CodePort {
         return codeJpaRepository.findCodesByCodeIn(codes).stream()
                 .map(codeMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Optional<Code> queryCodeByKeywordAndType(String keyword, CodeType type) {
+        return codeJpaRepository.findByKeywordAndType(keyword, type)
+                .map(codeMapper::toDomain);
+    }
+
+    @Override
+    public Code saveCode(Code code) {
+        return codeMapper.toDomain(
+                codeJpaRepository.save(codeMapper.toEntity(code))
+        );
     }
 
     //==conditions==//
