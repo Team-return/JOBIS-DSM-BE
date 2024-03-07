@@ -51,6 +51,7 @@ public class StudentSignUpUseCase {
                         .accountId(request.email())
                         .password(securityPort.encodePassword(request.password()))
                         .authority(Authority.STUDENT)
+                        .token(request.deviceToken())
                         .build()
         );
 

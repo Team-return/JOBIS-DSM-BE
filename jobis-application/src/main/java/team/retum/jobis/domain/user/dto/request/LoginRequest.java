@@ -5,5 +5,6 @@ import team.retum.jobis.domain.auth.model.PlatformType;
 public record LoginRequest(
         String accountId,
         String password,
-        PlatformType platformType
+        PlatformType platformType,
+        String deviceToken
 ) {}
