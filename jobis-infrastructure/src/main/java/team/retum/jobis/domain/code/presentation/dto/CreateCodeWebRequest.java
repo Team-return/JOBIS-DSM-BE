@@ -16,7 +16,6 @@ public class CreateCodeWebRequest {
     @NotNull
     private CodeType codeType;
 
-    @NotNull
     private JobType jobType;
 
     @NotBlank
