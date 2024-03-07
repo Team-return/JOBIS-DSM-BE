@@ -13,4 +13,6 @@ public interface QueryCodePort {
     Optional<Code> queryCodeById(Long codeId);
 
     List<Code> queryCodesByIdIn(List<Long> codes);
+
+    Optional<Code> queryCodeByKeywordAndType(String keyword, CodeType type);
 }
