@@ -43,7 +43,7 @@ public class CodeEntity {
     private String keyword;
 
     @NotNull
-    @Column(columnDefinition = "BIT")
+    @Column(columnDefinition = "TINYINT(1)")
     private boolean isPublic;
 
     @ManyToOne(fetch = FetchType.LAZY)
