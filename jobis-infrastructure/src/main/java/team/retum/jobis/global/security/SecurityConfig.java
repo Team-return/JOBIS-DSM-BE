@@ -120,7 +120,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
 
                                 // files
-                                .requestMatchers(HttpMethod.POST, "/files/pre_signed").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/files/pre-signed").permitAll()
 
                                 // code
                                 .requestMatchers(HttpMethod.GET, "/codes").permitAll()
