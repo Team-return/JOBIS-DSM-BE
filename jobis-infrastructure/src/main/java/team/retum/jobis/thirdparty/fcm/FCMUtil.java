@@ -1,5 +1,7 @@
 package team.retum.jobis.thirdparty.fcm;
 
+import com.google.firebase.messaging.ApnsConfig;
+import com.google.firebase.messaging.Aps;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.MulticastMessage;
@@ -23,6 +25,14 @@ public class FCMUtil {
                     )
                     .putData("detail_id", notification.getDetailId().toString())
                     .putData("topic", notification.getTopic().toString())
+                    .setApnsConfig(
+                            ApnsConfig.builder()
+                                    .setAps(
+                                            Aps.builder()
+                                                    .setSound("default")
+                                                    .build()
+                                    ).build()
+                    )
                     .build();
 
             FirebaseMessaging.getInstance().sendEachForMulticast(message);
