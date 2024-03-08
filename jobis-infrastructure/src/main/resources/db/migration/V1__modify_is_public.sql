@@ -1,0 +1,1 @@
+alter table tbl_code modify is_public tinyint(1) not null;
