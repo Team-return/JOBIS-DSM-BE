@@ -17,7 +17,7 @@ public class QueryNoticeDetailResponse {
     private final LocalDateTime createdAt;
     private final List<NoticeAttachment> attachments;
 
-    public static QueryNoticeDetailResponse of(Notice notice) {
+    public static QueryNoticeDetailResponse from(Notice notice) {
         return QueryNoticeDetailResponse.builder()
                 .title(notice.getTitle())
                 .content(notice.getContent())
