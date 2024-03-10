@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.bug.dto.request.CreateBugReportRequest;
 import team.retum.jobis.domain.bug.model.DevelopmentArea;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
@@ -28,11 +30,16 @@ public class CreateBugReportWebRequest {
     private List<String> attachmentUrls;
 
     public CreateBugReportRequest toDomainRequest() {
+        setAttachmentUrls(attachmentUrls);
         return CreateBugReportRequest.builder()
                 .title(this.title)
                 .content(this.content)
                 .developmentArea(this.developmentArea)
                 .attachmentUrls(this.attachmentUrls)
                 .build();
+    }
+
+    private void setAttachmentUrls(List<String> attachmentUrls) {
+        this.attachmentUrls = Objects.requireNonNullElse(attachmentUrls, Collections.emptyList());
     }
 }
