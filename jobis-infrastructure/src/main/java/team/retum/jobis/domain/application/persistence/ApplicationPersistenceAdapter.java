@@ -87,6 +87,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                         .grade(application.getGrade())
                         .number(application.getNumber())
                         .classNumber(application.getClassNumber())
+                        .companyLogoUrl(application.getCompanyLogoUrl())
                         .profileImageUrl(application.getProfileImageUrl())
                         .companyName(application.getCompanyName())
                         .createdAt(application.getCreatedAt())
