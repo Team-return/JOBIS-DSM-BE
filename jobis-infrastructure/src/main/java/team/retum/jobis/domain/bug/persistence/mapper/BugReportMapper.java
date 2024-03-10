@@ -22,9 +22,12 @@ public class BugReportMapper {
         StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
                 .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
-        List<BugAttachmentEntity> bugAttachments = domain.getAttachment().attachmentUrls().stream()
-                .map(BugAttachmentEntity::new)
-                .toList();
+        List<BugAttachmentEntity> bugAttachments = null;
+        if (domain.getAttachment().attachmentUrls() != null) {
+            bugAttachments = domain.getAttachment().attachmentUrls().stream()
+                    .map(BugAttachmentEntity::new)
+                    .toList();
+        }
 
         return BugReportEntity.builder()
                 .id(domain.getId())
@@ -37,11 +40,15 @@ public class BugReportMapper {
     }
 
     public BugReport toDomain(BugReportEntity entity) {
-        BugAttachment bugAttachment = new BugAttachment(
-                entity.getAttachments().stream()
-                        .map(BugAttachmentEntity::getAttachmentUrl)
-                        .toList()
-        );
+        BugAttachment bugAttachment = null;
+
+        if (entity.getAttachments() != null) {
+            bugAttachment = new BugAttachment(
+                    entity.getAttachments().stream()
+                            .map(BugAttachmentEntity::getAttachmentUrl)
+                            .toList()
+            );
+        }
 
         return BugReport.builder()
                 .id(entity.getId())
