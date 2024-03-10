@@ -17,7 +17,7 @@ public class AttachmentResponse {
 
     public static AttachmentResponse of(NoticeAttachment noticeAttachment) {
         return new AttachmentResponse(
-                noticeAttachment.getAttachmentUrl(),
+                noticeAttachment.getUrl(),
                 noticeAttachment.getType()
         );
     }
