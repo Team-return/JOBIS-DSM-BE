@@ -30,16 +30,11 @@ public class CreateBugReportWebRequest {
     private List<String> attachmentUrls;
 
     public CreateBugReportRequest toDomainRequest() {
-        setAttachmentUrls(attachmentUrls);
         return CreateBugReportRequest.builder()
                 .title(this.title)
                 .content(this.content)
                 .developmentArea(this.developmentArea)
-                .attachmentUrls(this.attachmentUrls)
+                .attachmentUrls(Objects.requireNonNullElse(attachmentUrls, Collections.emptyList()))
                 .build();
-    }
-
-    private void setAttachmentUrls(List<String> attachmentUrls) {
-        this.attachmentUrls = Objects.requireNonNullElse(attachmentUrls, Collections.emptyList());
     }
 }
