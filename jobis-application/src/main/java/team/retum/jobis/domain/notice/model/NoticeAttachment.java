@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class NoticeAttachment {
 
-    private final String attachmentUrl;
+    private final String url;
 
     private final AttachmentType type;
 
