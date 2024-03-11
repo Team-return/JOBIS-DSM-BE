@@ -44,7 +44,6 @@ public class NoticePersistenceAdapter implements NoticePort {
                 .map(noticeMapper::toDomain);
     }
 
-
     @Override
     public void deleteNotice(Notice notice) {
         noticeJpaRepository.delete(noticeMapper.toEntity(notice));
@@ -86,9 +85,4 @@ public class NoticePersistenceAdapter implements NoticePort {
                 })
                 .toList();
     }
-
-
-
-
-
 }
