@@ -12,25 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class QueryNoticesResponse {
 
-    private final List<QueryNoticeResponse> notices;
+    private final List<NoticeVO> notices;
 
-    public static QueryNoticesResponse from(List<NoticeVO> noticeVOs) {
-        return new QueryNoticesResponse(
-                noticeVOs.stream()
-                        .map(notice -> QueryNoticeResponse.builder()
-                                .noticeId(notice.getId())
-                                .title(notice.getTitle())
-                                .createAt(notice.getCreatedAt())
-                                .build()
-                        ).toList()
-        );
-    }
-
-    @Getter
-    @Builder
-    public static class QueryNoticeResponse {
-        private final Long noticeId;
-        private final String title;
-        private final LocalDateTime createAt;
-    }
 }

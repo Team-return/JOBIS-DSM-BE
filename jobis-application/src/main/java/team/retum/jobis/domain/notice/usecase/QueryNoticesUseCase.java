@@ -11,12 +11,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class QueryNoticesUseCase {
-    
+
     private final QueryNoticePort queryNoticePort;
 
     public QueryNoticesResponse execute() {
         List<NoticeVO> noticeVOs = queryNoticePort.queryNotices();
 
-        return QueryNoticesResponse.from(noticeVOs);
+        return new QueryNoticesResponse(noticeVOs);
     }
 }
