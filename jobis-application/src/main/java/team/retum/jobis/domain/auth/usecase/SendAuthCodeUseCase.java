@@ -11,9 +11,6 @@ import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
-import java.security.SecureRandom;
-import java.util.Random;
-
 @RequiredArgsConstructor
 @UseCase
 public class SendAuthCodeUseCase {
