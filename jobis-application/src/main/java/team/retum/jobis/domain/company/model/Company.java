@@ -28,6 +28,7 @@ public class Company {
     private final AddressInfo addressInfo;
 
     private final String representative;
+
     private final String representativePhoneNo;
 
     private final LocalDate foundedAt;
