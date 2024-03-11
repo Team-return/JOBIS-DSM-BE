@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import team.retum.jobis.domain.notice.dto.response.QueryNoticeDetailResponse;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticesResponse;
 import team.retum.jobis.domain.notice.presentation.dto.CreateNoticeWebRequest;
 import team.retum.jobis.domain.notice.presentation.dto.UpdateNoticeWebRequest;
@@ -19,7 +18,6 @@ public class NoticeWebAdapter {
     private final UpdateNoticeUseCase updateNoticeUseCase;
     private final DeleteNoticeUseCase deleteNoticeUseCase;
     private final QueryNoticesUseCase queryNoticesUseCase;
-    private final QueryNoticeDetailUseCase queryNoticeDetailsUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
