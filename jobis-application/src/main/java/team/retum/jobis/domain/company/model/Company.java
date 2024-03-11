@@ -95,7 +95,7 @@ public class Company {
                 .build();
     }
 
-    public Company update(UpdateCompanyDetailsRequest request) {
+    public Company update(UpdateCompanyDetailsRequest request, String businessArea) {
         return this.toBuilder()
                 .addressInfo(
                         AddressInfo.builder()
@@ -123,6 +123,9 @@ public class Company {
                 .fax(request.fax())
                 .email(request.email())
                 .serviceName(request.serviceName())
+                .attachmentUrls(request.attachmentUrls())
+                .businessArea(businessArea)
+                .bizRegistrationUrl(request.bizRegistrationUrl())
                 .build();
     }
 
