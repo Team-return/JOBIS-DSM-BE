@@ -5,7 +5,7 @@ import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Aggregate
 public class Code {
 
@@ -17,5 +17,13 @@ public class Code {
 
     private final String keyword;
 
+    private final boolean isPublic;
+
     private final Long parentCodeId;
+
+    public Code changeAccessible(boolean isPublic) {
+        return this.toBuilder()
+                .isPublic(isPublic)
+                .build();
+    }
 }

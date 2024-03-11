@@ -14,5 +14,6 @@ public record StudentSignUpRequest(
         Integer number,
         Gender gender,
         String profileImageUrl,
-        PlatformType platformType
+        PlatformType platformType,
+        String deviceToken
 ) {}

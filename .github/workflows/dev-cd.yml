@@ -53,4 +53,4 @@ jobs:
             docker pull ${{ secrets.ECR_REPOSITORY }}
             docker rm -f jobis-server
             docker image prune -a -f
-            docker run --name jobis-server -dp 8080:8080 --env-file .env ${{ secrets.ECR_REPOSITORY }}
+            docker run -dp 8080:8080 --name jobis-server --env-file .env -v ./:/jobis ${{ secrets.ECR_REPOSITORY }}

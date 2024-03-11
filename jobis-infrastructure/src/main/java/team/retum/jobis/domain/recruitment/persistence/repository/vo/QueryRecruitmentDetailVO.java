@@ -11,14 +11,13 @@ import java.util.List;
 public class QueryRecruitmentDetailVO extends RecruitmentDetailVO {
 
     @QueryProjection
-
     public QueryRecruitmentDetailVO(Long recruitmentId, Long companyId, String companyProfileUrl, String companyName,
-                                    Integer requiredGrade, LocalTime startTime, LocalTime endTime, List<String> requiredLicenses,
+                                    Integer requiredGrade, String workingHours, List<String> requiredLicenses,
                                     List<ProgressType> hiringProgress, Integer trainPay, String pay, String benefits,
                                     Boolean military, String submitDocument, LocalDate startDate, LocalDate endDate,
                                     String etc, String companyBizNo, boolean winterIntern, boolean isBookmarked) {
         super(recruitmentId, companyId, companyProfileUrl, companyName,
-                requiredGrade, startTime, endTime, requiredLicenses,
+                requiredGrade, workingHours, requiredLicenses,
                 hiringProgress, trainPay, pay, benefits, military,
                 submitDocument, startDate, endDate, etc, companyBizNo, winterIntern, isBookmarked);
     }

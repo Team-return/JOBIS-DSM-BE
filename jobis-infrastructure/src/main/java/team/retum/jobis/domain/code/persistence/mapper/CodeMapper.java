@@ -23,6 +23,7 @@ public class CodeMapper {
                 .codeType(domain.getCodeType())
                 .keyword(domain.getKeyword())
                 .jobType(domain.getJobType())
+                .isPublic(domain.isPublic())
                 .parentCodeEntity(code)
                 .build();
     }
@@ -33,6 +34,7 @@ public class CodeMapper {
                 .codeType(entity.getType())
                 .jobType(entity.getJobType())
                 .keyword(entity.getKeyword())
+                .isPublic(entity.isPublic())
                 .parentCodeId(entity.getParentCode() == null ? null : entity.getParentCode().getCode())
                 .build();
     }

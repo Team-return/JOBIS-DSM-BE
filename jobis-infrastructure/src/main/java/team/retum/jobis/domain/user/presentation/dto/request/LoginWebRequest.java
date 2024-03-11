@@ -24,7 +24,9 @@ public class LoginWebRequest {
     @NotNull
     private PlatformType platformType;
 
+    private String deviceToken;
+
     public LoginRequest toDomainRequest() {
-        return new LoginRequest(accountId, password, platformType);
+        return new LoginRequest(accountId, password, platformType, deviceToken);
     }
 }

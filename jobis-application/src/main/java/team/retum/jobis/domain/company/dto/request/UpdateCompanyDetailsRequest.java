@@ -20,6 +20,7 @@ public record UpdateCompanyDetailsRequest(
         int workerNumber,
         double take,
         String companyProfileUrl,
-        String serviceName
+        String serviceName,
+        String representativePhoneNo
 ) {
 }

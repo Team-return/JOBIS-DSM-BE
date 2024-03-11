@@ -9,6 +9,7 @@ import team.retum.jobis.domain.user.dto.request.LoginRequest;
 import team.retum.jobis.domain.user.exception.InvalidPasswordException;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.spi.CommandUserPort;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ import team.retum.jobis.domain.user.spi.QueryUserPort;
 public class LoginUseCase {
 
     private final QueryUserPort queryUserPort;
+    private final CommandUserPort commandUserPort;
     private final SecurityPort securityPort;
     private final JwtPort jwtPort;
 
@@ -26,7 +28,7 @@ public class LoginUseCase {
         if (!securityPort.isPasswordMatch(request.password(), user.getPassword())) {
             throw InvalidPasswordException.EXCEPTION;
         }
-
+        commandUserPort.saveUser(user.setToken(request.deviceToken()));
         return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.platformType());
     }
 }

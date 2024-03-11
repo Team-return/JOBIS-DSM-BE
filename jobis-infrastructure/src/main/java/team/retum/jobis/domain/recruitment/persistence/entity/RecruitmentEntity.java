@@ -26,12 +26,10 @@ import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.persistence.repository.converter.HiringProgressConverter;
 import team.retum.jobis.domain.recruitment.persistence.type.PayInfo;
 import team.retum.jobis.domain.recruitment.persistence.type.RecruitDate;
-import team.retum.jobis.domain.recruitment.persistence.type.WorkingHour;
 import team.retum.jobis.global.converter.StringListConverter;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -63,8 +61,8 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private Integer requiredGrade;
 
     @NotNull
-    @Embedded
-    private WorkingHour workingHour;
+    @Column(columnDefinition = "VARCHAR(100)")
+    private String workingHours;
 
     @Column(columnDefinition = "VARCHAR(550)")
     private String benefits;
@@ -104,13 +102,13 @@ public class RecruitmentEntity extends BaseTimeEntity {
     private CompanyEntity company;
 
     @Builder
-    public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, Integer trainPay, String pay,
-                             LocalTime startTime, LocalTime endTime, String submitDocument, LocalDate startDate,
-                             LocalDate endDate, CompanyEntity companyEntity, String benefits, boolean militarySupport,
-                             List<String> requiredLicenses, String etc, List<ProgressType> hiringProgress,
-                             Integer requiredGrade, boolean personalContact, boolean winterIntern) {
+    public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, String workingHours, Integer trainPay, String pay,
+                             String submitDocument, LocalDate startDate, LocalDate endDate, CompanyEntity companyEntity,
+                             String benefits, boolean militarySupport, List<String> requiredLicenses, String etc,
+                             List<ProgressType> hiringProgress, Integer requiredGrade,
+                             boolean personalContact, boolean winterIntern) {
         this.id = id;
-        this.workingHour = new WorkingHour(startTime, endTime);
+        this.workingHours = workingHours;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
         this.requiredGrade = requiredGrade;

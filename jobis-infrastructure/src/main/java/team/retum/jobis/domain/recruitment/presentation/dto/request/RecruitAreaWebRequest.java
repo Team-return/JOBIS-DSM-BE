@@ -34,7 +34,7 @@ public class RecruitAreaWebRequest {
                 .jobCodes(this.jobCodes)
                 .techCodes(this.techCodes)
                 .majorTask(this.majorTask)
-                .preferentialTreatment(preferentialTreatment)
+                .preferentialTreatment(this.preferentialTreatment)
                 .build();
     }
 }

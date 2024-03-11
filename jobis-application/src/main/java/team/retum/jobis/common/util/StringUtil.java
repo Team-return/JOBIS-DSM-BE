@@ -2,7 +2,6 @@ package team.retum.jobis.common.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.utility.RandomString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +22,5 @@ public class StringUtil {
         List<String> dividedList = Arrays.asList(content.split(key));
 
         return new ArrayList<>(dividedList);
-    }
-
-    public static String generateRandomCode(int size) {
-        return RandomString.make(size);
     }
 }

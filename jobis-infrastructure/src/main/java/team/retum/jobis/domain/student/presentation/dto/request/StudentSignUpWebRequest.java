@@ -44,6 +44,8 @@ public class StudentSignUpWebRequest {
     @NotNull
     private PlatformType platformType;
 
+    private String deviceToken;
+
     public StudentSignUpRequest toDomainRequest() {
         return StudentSignUpRequest.builder()
                 .email(this.email)
@@ -55,6 +57,7 @@ public class StudentSignUpWebRequest {
                 .gender(this.gender)
                 .profileImageUrl(this.profileImageUrl)
                 .platformType(this.platformType)
+                .deviceToken(this.deviceToken)
                 .build();
     }
 }

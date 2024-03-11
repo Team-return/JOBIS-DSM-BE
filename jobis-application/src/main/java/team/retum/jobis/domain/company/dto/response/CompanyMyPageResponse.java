@@ -6,6 +6,7 @@ import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyType;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Builder
@@ -21,6 +22,7 @@ public class CompanyMyPageResponse {
     private final String subAddressDetail;
     private final String subZipCode;
     private final String representative;
+    private final String representativePhoneNo;
     private final LocalDate foundedAt;
     private final double take;
     private final int workersCount;
@@ -35,6 +37,7 @@ public class CompanyMyPageResponse {
     private final String serviceName;
     private final String businessArea;
     private final String bizRegistrationUrl;
+    private final List<String> attachmentUrls;
 
     public static CompanyMyPageResponse from(Company company) {
         return CompanyMyPageResponse.builder()
@@ -49,6 +52,7 @@ public class CompanyMyPageResponse {
                 .subAddressDetail(company.getAddressInfo().subAddressDetail())
                 .subZipCode(company.getAddressInfo().subZipCode())
                 .representative(company.getRepresentative())
+                .representativePhoneNo(company.getRepresentativePhoneNo())
                 .foundedAt(company.getFoundedAt())
                 .take(company.getTake())
                 .workersCount(company.getWorkersCount())
@@ -63,6 +67,7 @@ public class CompanyMyPageResponse {
                 .serviceName(company.getServiceName())
                 .businessArea(company.getBusinessArea())
                 .bizRegistrationUrl(company.getBizRegistrationUrl())
+                .attachmentUrls(company.getAttachmentUrls())
                 .build();
     }
 }

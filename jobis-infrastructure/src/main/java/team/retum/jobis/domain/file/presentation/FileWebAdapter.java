@@ -17,6 +17,7 @@ import team.retum.jobis.domain.file.usecase.CreateFileUploadUrlUseCase;
 @RequestMapping("/files")
 @RequiredArgsConstructor
 public class FileWebAdapter {
+
     private final CreateFileUploadUrlUseCase createFileUploadUrlUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)

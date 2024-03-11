@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
-public class QueryCodesService {
+public class QueryCodesUseCase {
 
     private final QueryCodePort queryCodePort;
 
