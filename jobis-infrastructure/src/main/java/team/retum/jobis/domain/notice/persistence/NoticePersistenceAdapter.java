@@ -13,7 +13,6 @@ import team.retum.jobis.domain.notice.spi.vo.NoticeVO;
 import java.util.List;
 import java.util.Optional;
 
-import static com.querydsl.core.group.GroupBy.groupBy;
 import static team.retum.jobis.domain.notice.persistence.entity.QNoticeEntity.noticeEntity;
 
 
