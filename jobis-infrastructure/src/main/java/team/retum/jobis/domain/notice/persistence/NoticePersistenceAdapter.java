@@ -48,18 +48,16 @@ public class NoticePersistenceAdapter implements NoticePort {
     @Override
     public List<NoticeVO> queryNotices() {
         return queryFactory
-                .selectFrom(noticeEntity)
-                .orderBy(noticeEntity.createdAt.desc())
-                .transform(
-                        groupBy(noticeEntity.id)
-                                .list(
-                                        new QQueryNoticeVO(
-                                                noticeEntity.id,
-                                                noticeEntity.title,
-                                                noticeEntity.createdAt
-                                        )
-                                )
+                .select(
+                        new QQueryNoticeVO(
+                                noticeEntity.id,
+                                noticeEntity.title,
+                                noticeEntity.createdAt
+                        )
                 )
+                .from(noticeEntity)
+                .orderBy(noticeEntity.createdAt.desc())
+                .fetch()
                 .stream()
                 .map(NoticeVO.class::cast)
                 .toList();
