@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.company.dto.request.UpdateCompanyDetailsRequest;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 public class UpdateCompanyDetailsWebRequest {
@@ -73,6 +75,14 @@ public class UpdateCompanyDetailsWebRequest {
     @NotBlank
     private String representativePhoneNo;
 
+    @NotNull
+    private Long businessAreaCode;
+
+    @NotBlank
+    private String bizRegistrationUrl;
+
+    private List<@NotNull String> attachmentUrls;
+
 
     public UpdateCompanyDetailsRequest toDomainRequest() {
         return UpdateCompanyDetailsRequest.builder()
@@ -94,6 +104,10 @@ public class UpdateCompanyDetailsWebRequest {
                 .companyProfileUrl(this.companyProfileUrl)
                 .serviceName(this.serviceName)
                 .representativePhoneNo(this.representativePhoneNo)
+                .representativePhoneNo(this.representativePhoneNo)
+                .businessAreaCode(this.businessAreaCode)
+                .bizRegistrationUrl(this.bizRegistrationUrl)
+                .attachmentUrls(this.attachmentUrls)
                 .build();
     }
 }
