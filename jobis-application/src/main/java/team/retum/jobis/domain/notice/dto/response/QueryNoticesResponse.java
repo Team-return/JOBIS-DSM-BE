@@ -14,18 +14,12 @@ public class QueryNoticesResponse {
 
     private final List<QueryNoticeResponse> notices;
 
-    public static QueryNoticesResponse of(List<NoticeVO> noticeVOs) {
+    public static QueryNoticesResponse from(List<NoticeVO> noticeVOs) {
         return new QueryNoticesResponse(
                 noticeVOs.stream()
                         .map(notice -> QueryNoticeResponse.builder()
                                 .noticeId(notice.getId())
                                 .title(notice.getTitle())
-                                .content(notice.getContent())
-                                .attachments(
-                                        notice.getNoticeAttachmentsEntities().stream()
-                                                .map(AttachmentResponse::of)
-                                                .toList()
-                                )
                                 .createAt(notice.getCreatedAt())
                                 .build()
                         ).toList()
@@ -37,8 +31,6 @@ public class QueryNoticesResponse {
     public static class QueryNoticeResponse {
         private final Long noticeId;
         private final String title;
-        private final String content;
-        private final List<AttachmentResponse> attachments;
         private final LocalDateTime createAt;
     }
 }
