@@ -149,7 +149,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/notices").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.PATCH, "/notices/{notice-id}").hasAuthority(TEACHER.name())
                                 .requestMatchers(HttpMethod.DELETE, "/notices/{notice-id}").hasAuthority(TEACHER.name())
-                                .requestMatchers(HttpMethod.GET, "/notices/{notice-id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/notices").hasAnyAuthority(STUDENT.name(), TEACHER.name())
 
                                 // notification
                                 .requestMatchers(HttpMethod.GET, "/notifications").authenticated()
