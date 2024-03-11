@@ -36,6 +36,7 @@ public class QueryCompanyDetailsUseCase {
                 .fax(vo.getFax())
                 .email(vo.getEmail())
                 .representativeName(vo.getRepresentativeName())
+                .representativePhoneNo(vo.getRepresentativePhoneNo())
                 .foundedAt(vo.getFoundedAt())
                 .workerNumber(vo.getWorkerNumber())
                 .take(vo.getTake())
