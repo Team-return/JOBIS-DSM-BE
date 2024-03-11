@@ -1,5 +1,6 @@
 package team.retum.jobis.thirdparty.fcm;
 
+import com.google.firebase.messaging.AndroidConfig;
 import com.google.firebase.messaging.ApnsConfig;
 import com.google.firebase.messaging.Aps;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -23,13 +24,19 @@ public class FCMUtil {
                             .setBody(notification.getContent())
                             .build()
                     )
-                    .putData("detail_id", notification.getDetailId().toString())
-                    .putData("topic", notification.getTopic().toString())
+                    .setAndroidConfig(
+                            AndroidConfig.builder()
+                                    .putData("detail_id", notification.getDetailId().toString())
+                                    .putData("topic", notification.getTopic().toString())
+                                    .build()
+                    )
                     .setApnsConfig(
                             ApnsConfig.builder()
                                     .setAps(
                                             Aps.builder()
                                                     .setSound("default")
+                                                    .putCustomData("detail_id", notification.getDetailId().toString())
+                                                    .putCustomData("topic", notification.getTopic().toString())
                                                     .build()
                                     ).build()
                     )

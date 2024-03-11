@@ -2,7 +2,6 @@ package team.retum.jobis.domain.bug.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class BugAttachmentEntity {
 
-    @NotNull
     @Column(columnDefinition = "VARCHAR(300)")
     private String attachmentUrl;
 }

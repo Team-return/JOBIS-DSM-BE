@@ -83,6 +83,7 @@ public class Company {
                                 .build()
                 )
                 .workersCount(request.workerNumber())
+                .representativePhoneNo(request.representativePhoneNo())
                 .email(request.email())
                 .fax(request.fax())
                 .isMou(false)

@@ -23,7 +23,7 @@ public class NoticeMapper {
                 .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
 
         List<NoticeAttachmentEntity> attachments = domain.getAttachments().stream()
-                .map(attachment -> new NoticeAttachmentEntity(attachment.getAttachmentUrl(), attachment.getType()))
+                .map(attachment -> new NoticeAttachmentEntity(attachment.getUrl(), attachment.getType()))
                 .toList();
 
         return NoticeEntity.builder()
