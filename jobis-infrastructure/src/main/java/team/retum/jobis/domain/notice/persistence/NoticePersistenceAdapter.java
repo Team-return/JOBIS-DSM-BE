@@ -3,17 +3,21 @@ package team.retum.jobis.domain.notice.persistence;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
 import team.retum.jobis.domain.notice.model.Notice;
+import team.retum.jobis.domain.notice.model.NoticeAttachment;
 import team.retum.jobis.domain.notice.persistence.mapper.NoticeMapper;
 import team.retum.jobis.domain.notice.persistence.repository.NoticeJpaRepository;
 import team.retum.jobis.domain.notice.persistence.repository.vo.QQueryNoticeVO;
 import team.retum.jobis.domain.notice.spi.NoticePort;
 import team.retum.jobis.domain.notice.spi.vo.NoticeVO;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.group.GroupBy.list;
+import static team.retum.jobis.domain.notice.persistence.entity.QNoticeAttachmentEntity.noticeAttachmentEntity;
 import static team.retum.jobis.domain.notice.persistence.entity.QNoticeEntity.noticeEntity;
 
 
@@ -23,7 +27,6 @@ public class NoticePersistenceAdapter implements NoticePort {
 
     private final NoticeJpaRepository noticeJpaRepository;
     private final NoticeMapper noticeMapper;
-    private final ApplicationJpaRepository applicationJpaRepository;
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -50,19 +53,42 @@ public class NoticePersistenceAdapter implements NoticePort {
     @Override
     public List<NoticeVO> queryNotices() {
         return queryFactory
-                .select(
-                        new QQueryNoticeVO(
-                                noticeEntity.id,
-                                noticeEntity.title,
-                                noticeEntity.content,
-                                noticeEntity.attachments,
-                                noticeEntity.createdAt
-                        )
+                .selectFrom(noticeEntity)
+                .leftJoin(noticeEntity.attachments, noticeAttachmentEntity)
+                .orderBy(noticeEntity.createdAt.desc())
+                .transform(
+                        groupBy(noticeEntity.id)
+                                .list(
+                                        new QQueryNoticeVO(
+                                                noticeEntity.id,
+                                                noticeEntity.title,
+                                                noticeEntity.content,
+                                                list(noticeAttachmentEntity),
+                                                noticeEntity.createdAt
+                                        )
+                                )
                 )
-                .from(noticeEntity)
                 .stream()
-                .map(NoticeVO.class::cast)
+                .map(notice -> {
+                    List<NoticeAttachment> attachments = Collections.emptyList();
+
+                    if (notice.getNoticeAttachmentEntities() != null) {
+                        attachments = notice.getNoticeAttachmentEntities().stream()
+                                .map(attachment -> new NoticeAttachment(attachment.getAttachmentUrl(), attachment.getType()))
+                                .toList();
+                    }
+                    return NoticeVO.builder()
+                            .id(notice.getId())
+                            .title(notice.getTitle())
+                            .content(notice.getContent())
+                            .noticeAttachmentsEntities(attachments)
+                            .build();
+                })
                 .toList();
     }
+
+
+
+
 
 }
