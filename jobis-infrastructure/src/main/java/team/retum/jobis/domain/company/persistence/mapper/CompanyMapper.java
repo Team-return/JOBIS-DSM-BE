@@ -80,7 +80,7 @@ public class CompanyMapper {
                                 .build()
                 )
                 .representative(entity.getRepresentative())
-                .representativePhoneNo(entity.getRepresentative())
+                .representativePhoneNo(entity.getRepresentativePhoneNo())
                 .serviceName(entity.getServiceName())
                 .take(entity.getTake())
                 .workersCount(entity.getWorkersCount())
