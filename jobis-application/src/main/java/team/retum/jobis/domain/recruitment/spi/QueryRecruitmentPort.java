@@ -4,6 +4,7 @@ import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
@@ -38,4 +39,6 @@ public interface QueryRecruitmentPort {
     List<RecruitAreaResponse> queryRecruitAreasByRecruitmentId(Long recruitmentId);
 
     Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
+
+    List<MyAllRecruitmentsVO> queryMyAllRecruitmentsVOByCompanyId(Long companyId);
 }
