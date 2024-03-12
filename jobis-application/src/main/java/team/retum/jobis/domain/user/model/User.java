@@ -28,8 +28,12 @@ public class User {
     }
 
     public User setToken(String token) {
-        return this.toBuilder()
-                .token(token)
-                .build();
+        if (token != null) {
+            return this.toBuilder()
+                    .token(token)
+                    .build();
+        } else {
+            return this;
+        }
     }
 }

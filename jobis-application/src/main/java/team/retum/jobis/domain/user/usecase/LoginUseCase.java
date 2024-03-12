@@ -29,9 +29,7 @@ public class LoginUseCase {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        if (request.deviceToken() != null) {
-            commandUserPort.saveUser(user.setToken(request.deviceToken()));
-        }
+        commandUserPort.saveUser(user.setToken(request.deviceToken()));
 
         return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.platformType());
     }
