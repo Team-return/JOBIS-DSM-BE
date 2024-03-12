@@ -10,6 +10,4 @@ public interface RecruitmentJpaRepository extends JpaRepository<RecruitmentEntit
     List<RecruitmentEntity> findByIdIn(List<Long> recruitmentIds);
 
     boolean existsByCompanyIdAndStatusNotAndWinterIntern(Long companyId, RecruitStatus status, boolean winterIntern);
-
-    List<RecruitmentEntity> findAllByCompanyId(Long companyId);
 }
