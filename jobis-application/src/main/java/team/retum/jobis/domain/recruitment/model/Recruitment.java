@@ -31,6 +31,8 @@ public class Recruitment {
 
     private final String workingHours;
 
+    private final boolean flexibleWorking;
+
     private final String benefits;
 
     private final boolean militarySupport;
@@ -58,6 +60,7 @@ public class Recruitment {
                 .militarySupport(request.militarySupport())
                 .personalContract(request.personalContact())
                 .workingHours(request.workingHours())
+                .flexibleWorking(request.flexibleWorking())
                 .salary(new Salary(request.trainPay(), request.pay()))
                 .requiredLicenses(request.requiredLicenses())
                 .status(RecruitStatus.REQUESTED)

@@ -17,6 +17,7 @@ import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
+import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitAreaMapper;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitmentMapper;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpaRepository;
@@ -176,6 +177,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 companyEntity.name,
                                 recruitmentEntity.requiredGrade,
                                 recruitmentEntity.workingHours,
+                                recruitmentEntity.flexibleWorking,
                                 recruitmentEntity.requiredLicenses,
                                 recruitmentEntity.hiringProgress,
                                 recruitmentEntity.payInfo.trainPay,
