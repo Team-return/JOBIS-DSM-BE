@@ -66,7 +66,7 @@ public class ApplyRecruitmentWebRequest {
     private String etc;
 
     public ApplyRecruitmentRequest toDomainRequest() {
-        if (!flexibleWorking && !PatternMatchUtils.simpleMatch("/^([01][0-9]|2[0-3]):([0-5][0-9])$/", workingHours)) {
+        if (!flexibleWorking && !PatternMatchUtils.simpleMatch("/^([01][0-9]|2[0-3]):([0-5][0-9]) ~ ([01][0-9]|2[0-3]):([0-5][0-9])$/", workingHours)) {
             throw BadRequestException.EXCEPTION;
         }
 
