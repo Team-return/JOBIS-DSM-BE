@@ -176,6 +176,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 companyEntity.name,
                                 recruitmentEntity.requiredGrade,
                                 recruitmentEntity.workingHours,
+                                recruitmentEntity.flexibleWorking,
                                 recruitmentEntity.requiredLicenses,
                                 recruitmentEntity.hiringProgress,
                                 recruitmentEntity.payInfo.trainPay,

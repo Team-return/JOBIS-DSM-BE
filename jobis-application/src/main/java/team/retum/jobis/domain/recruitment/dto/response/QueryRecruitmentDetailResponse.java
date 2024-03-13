@@ -24,6 +24,7 @@ public class QueryRecruitmentDetailResponse {
     private final List<RecruitAreaResponse> areas;
     private final Integer requiredGrade;
     private final String workingHours;
+    private final boolean flexibleWorking;
     private final List<String> requiredLicenses;
     private final List<ProgressType> hiringProgress;
     private final Integer trainPay;
@@ -46,6 +47,7 @@ public class QueryRecruitmentDetailResponse {
                 .areas(recruitAreas)
                 .requiredGrade(recruitmentDetail.getRequiredGrade())
                 .workingHours(recruitmentDetail.getWorkingHours())
+                .flexibleWorking(recruitmentDetail.isFlexibleWorking())
                 .requiredLicenses(recruitmentDetail.getRequiredLicenses())
                 .hiringProgress(recruitmentDetail.getHiringProgress())
                 .trainPay(recruitmentDetail.getTrainPay())

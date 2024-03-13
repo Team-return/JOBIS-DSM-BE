@@ -39,6 +39,7 @@ public class RecruitmentMapper {
                 .trainPay(domain.getSalary().trainingPay())
                 .submitDocument(domain.getSubmitDocument())
                 .workingHours(domain.getWorkingHours())
+                .flexibleWorking(domain.isFlexibleWorking())
                 .winterIntern(domain.isWinterIntern())
                 .build();
     }
@@ -63,6 +64,7 @@ public class RecruitmentMapper {
                         entity.getPayInfo().getPay()
                 ))
                 .workingHours(entity.getWorkingHours())
+                .flexibleWorking(entity.isFlexibleWorking())
                 .requiredGrade(entity.getRequiredGrade())
                 .requiredLicenses(entity.getRequiredLicenses())
                 .submitDocument(entity.getSubmitDocument())

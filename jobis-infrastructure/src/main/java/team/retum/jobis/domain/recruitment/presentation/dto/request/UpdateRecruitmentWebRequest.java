@@ -26,7 +26,7 @@ public class UpdateRecruitmentWebRequest {
     private List<ProgressType> hiringProgress;
 
     @NotNull
-    private int trainPay;
+    private Integer trainPay;
 
     private String pay;
 
@@ -34,7 +34,7 @@ public class UpdateRecruitmentWebRequest {
     private String benefits;
 
     @NotNull
-    private boolean military;
+    private Boolean military;
 
     @Size(max = 100)
     @NotNull
