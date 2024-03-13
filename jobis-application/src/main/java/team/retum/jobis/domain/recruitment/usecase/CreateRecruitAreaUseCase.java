@@ -2,7 +2,6 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.recruitment.dto.request.CreateRecruitAreaRequest;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
@@ -20,7 +19,7 @@ public class CreateRecruitAreaUseCase {
 
     public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-                        .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
         checkRecruitmentPermissionService.checkPermission(recruitment);
         commandRecruitmentPort.saveRecruitmentArea(RecruitArea.of(request, recruitmentId));
     }

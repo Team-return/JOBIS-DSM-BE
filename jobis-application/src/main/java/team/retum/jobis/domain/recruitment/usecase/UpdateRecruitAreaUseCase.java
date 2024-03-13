@@ -2,7 +2,6 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.recruitment.dto.request.CreateRecruitAreaRequest;
 import team.retum.jobis.domain.recruitment.exception.RecruitAreaNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
