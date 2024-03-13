@@ -11,6 +11,7 @@ import java.util.List;
 public record UpdateRecruitmentRequest(
      Integer requiredGrade,
      String workingHours,
+     boolean flexibleWorking,
      List<String> requiredLicenses,
      List<ProgressType> hiringProgress,
      Integer trainPay,

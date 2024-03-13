@@ -119,6 +119,7 @@ public class Recruitment {
         return this.toBuilder()
                 .requiredGrade(request.requiredGrade())
                 .workingHours(request.workingHours())
+                .flexibleWorking(request.flexibleWorking())
                 .requiredLicenses(request.requiredLicenses())
                 .hiringProgress(request.hiringProgress())
                 .salary(new Salary(request.trainPay(), request.pay()))

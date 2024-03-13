@@ -20,6 +20,9 @@ public class UpdateRecruitmentWebRequest {
     @NotNull
     private String workingHours;
 
+    @NotNull
+    private Boolean flexibleWorking;
+
     private List<String> requiredLicenses;
 
     @NotNull
@@ -53,6 +56,7 @@ public class UpdateRecruitmentWebRequest {
         return UpdateRecruitmentRequest.builder()
                 .requiredGrade(this.requiredGrade)
                 .workingHours(this.workingHours)
+                .flexibleWorking(this.flexibleWorking)
                 .requiredLicenses(this.requiredLicenses)
                 .hiringProgress(this.hiringProgress)
                 .trainPay(this.trainPay)
