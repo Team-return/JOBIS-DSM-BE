@@ -201,7 +201,6 @@ public class RecruitmentWebAdapter {
         deleteRecruitAreaUseCase.execute(recruitAreaId);
     }
 
-    @Cacheable
     @GetMapping("/my")
     public QueryMyRecruitmentsResponse getAllMyRecruitments() {
         return queryMyRecruitmentsUseCase.execute();
