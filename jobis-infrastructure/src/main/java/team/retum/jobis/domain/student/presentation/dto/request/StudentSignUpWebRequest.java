@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.student.presentation.dto.request;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -23,17 +24,17 @@ public class StudentSignUpWebRequest {
     private String password;
 
     @NotNull
-    private int grade;
+    private Integer grade;
 
     @Size(max = 10)
     @NotBlank
     private String name;
 
     @NotNull
-    private int classRoom;
+    private Integer classRoom;
 
     @NotNull
-    private int number;
+    private Integer number;
 
     @NotNull
     private Gender gender;

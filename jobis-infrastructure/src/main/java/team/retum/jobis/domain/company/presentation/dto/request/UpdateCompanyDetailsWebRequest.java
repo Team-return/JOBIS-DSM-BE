@@ -60,10 +60,10 @@ public class UpdateCompanyDetailsWebRequest {
     private String email;
 
     @NotNull
-    private int workerNumber;
+    private Integer workerNumber;
 
     @NotNull
-    private double take;
+    private Double take;
 
     @NotBlank
     private String companyProfileUrl;
