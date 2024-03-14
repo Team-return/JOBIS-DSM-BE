@@ -15,11 +15,9 @@ import java.time.LocalDate;
 @Embeddable
 public class RecruitDate {
 
-    @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
-    @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate finishDate;
 
