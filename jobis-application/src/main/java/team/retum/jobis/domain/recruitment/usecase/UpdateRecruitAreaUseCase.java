@@ -21,9 +21,6 @@ public class UpdateRecruitAreaUseCase {
                 .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
         checkRecruitmentPermissionService.checkPermission(recruitArea);
 
-        commandRecruitmentPort.deleteRecruitAreaById(recruitAreaId);
-        commandRecruitmentPort.saveRecruitmentArea(
-                RecruitArea.of(request, recruitArea.getRecruitmentId())
-        );
+        commandRecruitmentPort.saveRecruitmentArea(recruitArea.update(request));
     }
 }
