@@ -43,10 +43,8 @@ public class UpdateRecruitmentWebRequest {
     @NotNull
     private String submitDocument;
 
-    @NotNull
     private LocalDate startDate;
 
-    @NotNull
     private LocalDate endDate;
 
     @Size(max = 350)
