@@ -45,6 +45,13 @@ public class RecruitmentMapper {
     }
 
     public Recruitment toDomain(RecruitmentEntity entity) {
+        RecruitingPeriod recruitingPeriod = null;
+        if (entity.getRecruitDate() != null) {
+            recruitingPeriod = new RecruitingPeriod(
+                    entity.getRecruitDate().getStartDate(),
+                    entity.getRecruitDate().getFinishDate()
+            );
+        }
         return Recruitment.builder()
                 .id(entity.getId())
                 .companyId(entity.getCompany().getId())
@@ -55,10 +62,7 @@ public class RecruitmentMapper {
                 .personalContract(entity.isPersonalContact())
                 .militarySupport(entity.isMilitarySupport())
                 .status(entity.getStatus())
-                .recruitingPeriod(new RecruitingPeriod(
-                        entity.getRecruitDate().getStartDate(),
-                        entity.getRecruitDate().getFinishDate()
-                ))
+                .recruitingPeriod(recruitingPeriod)
                 .salary(new Salary(
                         entity.getPayInfo().getTrainPay(),
                         entity.getPayInfo().getPay()
