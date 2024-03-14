@@ -6,15 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.PatternMatchUtils;
 import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 import team.retum.jobis.global.annotation.ValidListElements;
 import team.retum.jobis.global.exception.BadRequestException;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Getter
 @NoArgsConstructor
@@ -66,7 +65,7 @@ public class ApplyRecruitmentWebRequest {
     private String etc;
 
     public ApplyRecruitmentRequest toDomainRequest() {
-        if (!flexibleWorking && !PatternMatchUtils.simpleMatch("/^([01][0-9]|2[0-3]):([0-5][0-9]) ~ ([01][0-9]|2[0-3]):([0-5][0-9])$/", workingHours)) {
+        if (!flexibleWorking && !Pattern.matches("^([01][0-9]|2[0-3]):([0-5][0-9]) ~ ([01][0-9]|2[0-3]):([0-5][0-9])$", workingHours)) {
             throw BadRequestException.EXCEPTION;
         }
 
