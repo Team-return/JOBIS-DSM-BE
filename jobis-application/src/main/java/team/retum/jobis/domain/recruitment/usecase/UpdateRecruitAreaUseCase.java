@@ -22,7 +22,7 @@ public class UpdateRecruitAreaUseCase {
         checkRecruitmentPermissionService.checkPermission(recruitArea);
 
         commandRecruitmentPort.saveRecruitmentArea(
-                RecruitArea.of(request, recruitAreaId)
+                RecruitArea.of(request, recruitArea.getRecruitmentId())
         );
     }
 }
