@@ -2,7 +2,7 @@ package team.retum.jobis.domain.banner.model;
 
 public enum BannerType {
 
-    RECRRUITMENT,
+    RECRUITMENT,
     BOOKMARK,
     NONE,
     INTERNSHIP,
