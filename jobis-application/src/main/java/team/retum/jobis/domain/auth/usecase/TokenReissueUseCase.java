@@ -28,6 +28,7 @@ public class TokenReissueUseCase {
                         .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         commandUserPort.saveUser(user.setToken(deviceToken));
+
         return jwtPort.generateTokens(token.getUserId(), token.getAuthority(), platformType);
     }
 }

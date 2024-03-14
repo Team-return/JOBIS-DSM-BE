@@ -20,6 +20,7 @@ public class QueryMyRecruitmentResponse {
     private final List<RecruitAreaResponse> areas;
     private final Integer requiredGrade;
     private final String workingHours;
+    private final boolean flexibleWorking;
     private final List<String> requiredLicenses;
     private final List<ProgressType> hiringProgress;
     private final Integer trainPay;
@@ -39,6 +40,7 @@ public class QueryMyRecruitmentResponse {
                 .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
                 .companyName(recruitmentDetail.getCompanyName())
                 .workingHours(recruitmentDetail.getWorkingHours())
+                .flexibleWorking(recruitmentDetail.isFlexibleWorking())
                 .areas(recruitAreas)
                 .requiredGrade(recruitmentDetail.getRequiredGrade())
                 .requiredLicenses(recruitmentDetail.getRequiredLicenses())

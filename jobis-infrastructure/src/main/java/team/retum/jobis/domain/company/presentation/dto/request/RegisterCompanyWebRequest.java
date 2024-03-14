@@ -86,10 +86,10 @@ public class RegisterCompanyWebRequest {
     private LocalDate foundedAt;
 
     @NotNull
-    private int workerNumber;
+    private Integer workerNumber;
 
     @NotNull
-    private double take;
+    private Double take;
 
     private String companyProfileUrl;
 

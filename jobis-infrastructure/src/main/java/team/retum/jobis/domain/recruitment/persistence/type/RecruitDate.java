@@ -15,23 +15,14 @@ import java.time.LocalDate;
 @Embeddable
 public class RecruitDate {
 
-    @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
-    @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate finishDate;
 
     public RecruitDate(LocalDate startDate, LocalDate finishDate) {
-        validateDateRage(startDate, finishDate);
         this.startDate = startDate;
         this.finishDate = finishDate;
-    }
-
-    private void validateDateRage(LocalDate start, LocalDate end) {
-        if (start.isAfter(end)) {
-            throw InvalidDateException.EXCEPTION;
-        }
     }
 }

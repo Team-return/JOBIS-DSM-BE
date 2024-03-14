@@ -6,6 +6,7 @@ spring:
     password: ${DB_PASSWORD:11111111}
   flyway:
     baseline-on-migrate: true
+    baseline-version: 0
 
   jpa:
     database-platform: team.retum.jobis.global.config.MysqlDialectConfig

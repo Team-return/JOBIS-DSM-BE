@@ -12,6 +12,7 @@ public record ApplyRecruitmentRequest(
         List<CreateRecruitAreaRequest> areas,
         Integer requiredGrade,
         String workingHours,
+        boolean flexibleWorking,
         List<String> requiredLicenses,
         List<ProgressType> hiringProgress,
         int trainPay,

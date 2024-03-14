@@ -12,7 +12,6 @@ import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
-import team.retum.jobis.domain.teacher.model.Teacher;
 import team.retum.jobis.domain.teacher.persistence.mapper.TeacherMapper;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
@@ -20,20 +19,19 @@ import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 import team.retum.jobis.global.exception.InvalidTokenException;
 import team.retum.jobis.global.security.auth.company.CompanyDetails;
 import team.retum.jobis.global.security.auth.student.StudentDetails;
-import team.retum.jobis.global.security.auth.teacher.TeacherDetails;
 
 @RequiredArgsConstructor
 @Component
 public class SecurityAdapter implements SecurityPort {
 
-    @Value("${auth-code}")
-    private String authCode;
     private final PasswordEncoder passwordEncoder;
     private final CompanyMapper companyMapper;
     private final StudentMapper studentMapper;
     private final TeacherMapper teacherMapper;
     private final UserMapper userMapper;
     private final UserJpaRepository userJpaRepository;
+    @Value("${auth-code}")
+    private String authCode;
 
     @Override
     public Long getCurrentUserId() {

@@ -20,13 +20,16 @@ public class UpdateRecruitmentWebRequest {
     @NotNull
     private String workingHours;
 
+    @NotNull
+    private Boolean flexibleWorking;
+
     private List<String> requiredLicenses;
 
     @NotNull
     private List<ProgressType> hiringProgress;
 
     @NotNull
-    private int trainPay;
+    private Integer trainPay;
 
     private String pay;
 
@@ -34,16 +37,14 @@ public class UpdateRecruitmentWebRequest {
     private String benefits;
 
     @NotNull
-    private boolean military;
+    private Boolean military;
 
     @Size(max = 100)
     @NotNull
     private String submitDocument;
 
-    @NotNull
     private LocalDate startDate;
 
-    @NotNull
     private LocalDate endDate;
 
     @Size(max = 350)
@@ -53,6 +54,7 @@ public class UpdateRecruitmentWebRequest {
         return UpdateRecruitmentRequest.builder()
                 .requiredGrade(this.requiredGrade)
                 .workingHours(this.workingHours)
+                .flexibleWorking(this.flexibleWorking)
                 .requiredLicenses(this.requiredLicenses)
                 .hiringProgress(this.hiringProgress)
                 .trainPay(this.trainPay)

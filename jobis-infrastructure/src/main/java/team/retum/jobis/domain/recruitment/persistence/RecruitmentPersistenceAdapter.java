@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.recruitment.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +21,13 @@ import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitAreaMapper;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitmentMapper;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpaRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryMyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitAreaVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryStudentRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryTeacherRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
+import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
@@ -175,6 +176,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 companyEntity.name,
                                 recruitmentEntity.requiredGrade,
                                 recruitmentEntity.workingHours,
+                                recruitmentEntity.flexibleWorking,
                                 recruitmentEntity.requiredLicenses,
                                 recruitmentEntity.hiringProgress,
                                 recruitmentEntity.payInfo.trainPay,
@@ -382,6 +384,32 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         groupBy(recruitmentEntity.id)
                                 .as(companyEntity.name)
                 );
+    }
+
+    @Override
+    public List<MyAllRecruitmentsVO> queryMyAllRecruitmentsVOByCompanyId(Long companyId) {
+        return queryFactory
+                .selectFrom(recruitmentEntity)
+                .join(recruitAreaEntity)
+                .on(recruitAreaEntity.recruitment.eq(recruitmentEntity))
+                .join(recruitAreaEntity.recruitAreaCodes, recruitAreaCodeEntity)
+                .on(recruitAreaCodeEntity.type.eq(JOB))
+                .join(recruitAreaCodeEntity.code, codeEntity)
+                .join(recruitmentEntity.company, companyEntity)
+                .where(companyEntity.id.eq(companyId))
+                .orderBy(recruitmentEntity.createdAt.desc())
+                .transform(
+                        groupBy(recruitmentEntity.id)
+                                .list(
+                                        new QQueryMyAllRecruitmentsVO(
+                                                recruitmentEntity.id,
+                                                list(codeEntity),
+                                                recruitAreaEntity.hiredCount,
+                                                recruitmentEntity.createdAt
+                                        )
+                                )
+                ).stream().map(MyAllRecruitmentsVO.class::cast)
+                .toList();
     }
 
     //===conditions===//

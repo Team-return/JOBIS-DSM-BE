@@ -39,11 +39,19 @@ public class RecruitmentMapper {
                 .trainPay(domain.getSalary().trainingPay())
                 .submitDocument(domain.getSubmitDocument())
                 .workingHours(domain.getWorkingHours())
+                .flexibleWorking(domain.isFlexibleWorking())
                 .winterIntern(domain.isWinterIntern())
                 .build();
     }
 
     public Recruitment toDomain(RecruitmentEntity entity) {
+        RecruitingPeriod recruitingPeriod = null;
+        if (entity.getRecruitDate() != null) {
+            recruitingPeriod = new RecruitingPeriod(
+                    entity.getRecruitDate().getStartDate(),
+                    entity.getRecruitDate().getFinishDate()
+            );
+        }
         return Recruitment.builder()
                 .id(entity.getId())
                 .companyId(entity.getCompany().getId())
@@ -54,15 +62,13 @@ public class RecruitmentMapper {
                 .personalContract(entity.isPersonalContact())
                 .militarySupport(entity.isMilitarySupport())
                 .status(entity.getStatus())
-                .recruitingPeriod(new RecruitingPeriod(
-                        entity.getRecruitDate().getStartDate(),
-                        entity.getRecruitDate().getFinishDate()
-                ))
+                .recruitingPeriod(recruitingPeriod)
                 .salary(new Salary(
                         entity.getPayInfo().getTrainPay(),
                         entity.getPayInfo().getPay()
                 ))
                 .workingHours(entity.getWorkingHours())
+                .flexibleWorking(entity.isFlexibleWorking())
                 .requiredGrade(entity.getRequiredGrade())
                 .requiredLicenses(entity.getRequiredLicenses())
                 .submitDocument(entity.getSubmitDocument())

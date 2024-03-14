@@ -28,7 +28,9 @@ public class LoginUseCase {
         if (!securityPort.isPasswordMatch(request.password(), user.getPassword())) {
             throw InvalidPasswordException.EXCEPTION;
         }
+
         commandUserPort.saveUser(user.setToken(request.deviceToken()));
+
         return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.platformType());
     }
 }

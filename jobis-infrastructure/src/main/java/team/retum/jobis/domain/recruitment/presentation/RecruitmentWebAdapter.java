@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
+import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
@@ -35,6 +36,7 @@ import team.retum.jobis.domain.recruitment.usecase.CreateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitmentUseCase;
 import team.retum.jobis.domain.recruitment.usecase.QueryMyRecruitmentUseCase;
+import team.retum.jobis.domain.recruitment.usecase.QueryMyRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.QueryRecruitmentDetailUseCase;
 import team.retum.jobis.domain.recruitment.usecase.StudentQueryRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.TeacherChangeRecruitmentStatusUseCase;
@@ -67,6 +69,7 @@ public class RecruitmentWebAdapter {
     private final QueryMyRecruitmentUseCase queryMyRecruitmentUseCase;
     private final DeleteRecruitmentUseCase deleteRecruitmentUseCase;
     private final DeleteRecruitAreaUseCase deleteRecruitAreaUseCase;
+    private final QueryMyRecruitmentsUseCase queryMyRecruitmentsUseCase;
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
@@ -179,7 +182,7 @@ public class RecruitmentWebAdapter {
         return queryRecruitmentDetailUseCase.execute(recruitmentId);
     }
 
-    @GetMapping("/my")
+    @GetMapping("/my/recent")
     public QueryMyRecruitmentResponse queryMyRecruitment() {
         return queryMyRecruitmentUseCase.execute();
     }
@@ -196,6 +199,11 @@ public class RecruitmentWebAdapter {
     @DeleteMapping("/area/{recruit-area-id}")
     public void deleteRecruitArea(@PathVariable("recruit-area-id") Long recruitAreaId) {
         deleteRecruitAreaUseCase.execute(recruitAreaId);
+    }
+
+    @GetMapping("/my")
+    public QueryMyRecruitmentsResponse getAllMyRecruitments() {
+        return queryMyRecruitmentsUseCase.execute();
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {

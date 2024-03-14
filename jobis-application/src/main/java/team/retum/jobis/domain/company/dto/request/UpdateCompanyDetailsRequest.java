@@ -2,6 +2,8 @@ package team.retum.jobis.domain.company.dto.request;
 
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
 public record UpdateCompanyDetailsRequest(
         String companyIntroduce,
@@ -21,6 +23,9 @@ public record UpdateCompanyDetailsRequest(
         double take,
         String companyProfileUrl,
         String serviceName,
-        String representativePhoneNo
+        String representativePhoneNo,
+        Long businessAreaCode,
+        String bizRegistrationUrl,
+        List<String> attachmentUrls
 ) {
 }
