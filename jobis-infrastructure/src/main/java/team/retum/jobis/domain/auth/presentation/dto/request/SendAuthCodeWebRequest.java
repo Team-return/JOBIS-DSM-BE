@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.auth.presentation.dto;
+package team.retum.jobis.domain.auth.presentation.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

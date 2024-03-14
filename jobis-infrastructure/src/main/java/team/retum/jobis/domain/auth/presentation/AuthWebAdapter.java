@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.PlatformType;
-import team.retum.jobis.domain.auth.presentation.dto.SendAuthCodeWebRequest;
+import team.retum.jobis.domain.auth.presentation.dto.request.SendAuthCodeWebRequest;
 import team.retum.jobis.domain.auth.presentation.dto.request.CompanySignInWebRequest;
 import team.retum.jobis.domain.auth.usecase.CompanySignInUseCase;
 import team.retum.jobis.domain.auth.usecase.SendAuthCodeUseCase;
