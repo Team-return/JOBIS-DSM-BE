@@ -29,9 +29,12 @@ subprojects {
         activeRecipe("org.openrewrite.java.ShortenFullyQualifiedTypeReferences")
         activeRecipe("org.openrewrite.staticanalysis.CodeCleanup")
         activeRecipe("org.openrewrite.java.OrderImports")
-        activeRecipe("org.openrewrite.java.format.TabsAndIndents")
 
         checkstyleConfigFile = file("${project.rootDir}/jobis-lint.xml")
+    }
+
+    tasks.withType(Checkstyle) {
+        dependsOn rewriteRun
     }
 
     checkstyleMain {
