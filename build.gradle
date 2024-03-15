@@ -1,41 +1,69 @@
 plugins {
-    id 'org.springframework.boot' version '3.1.6'
-    id 'java'
-    id "org.sonarqube" version "3.5.0.2730"
-    id 'jacoco'
+    id "java"
+    id "org.sonarqube" version "4.4.1.3373"
+    id "org.openrewrite.rewrite" version "6.10.0"
 }
 
 repositories {
     mavenCentral()
 }
 
+rewrite {
+    activeRecipe("org.openrewrite.java.RemoveUnusedImports")
+    activeRecipe("org.openrewrite.java.ShortenFullyQualifiedTypeReferences")
+    activeRecipe("org.openrewrite.staticanalysis.CodeCleanup")
+    activeRecipe("org.openrewrite.java.OrderImports")
+    activeRecipe("org.openrewrite.java.format.AutoFormat")
+
+    checkstyleConfigFile = file("${project.rootDir}/jobis-lint.xml")
+    exclusion("**/entity/Q*.java")
+}
+
 subprojects {
-    group = 'team.retum'
-    version = '0.0.1-SNAPSHOT'
-    sourceCompatibility = 17
-
-    apply plugin: 'java'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
-    }
+    apply plugin: "java"
+    apply plugin: "checkstyle"
 
     repositories {
         mavenCentral()
     }
 
-    dependencies {
-        //lombok
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
-
-        //test
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    checkstyle {
+        toolVersion = "8.45"
+        configFile = file("${project.rootDir}/jobis-lint.xml")
+        ignoreFailures = false
+        maxWarnings = 0
     }
+
+    checkstyleMain {
+        source = sourceSets.main.allSource
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok:1.18.30"
+        annotationProcessor "org.projectlombok:lombok:1.18.30"
+    }
+
+    test.useJUnitPlatform()
+}
+
+allprojects {
+    apply plugin: "jacoco"
+    apply plugin:  "checkstyle"
+
+    group = 'team.retum'
+    version = '1.0.4'
+
+    compileJava {
+        sourceCompatibility = JavaVersion.VERSION_17.majorVersion
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+dependencies {
+    rewrite("org.openrewrite.recipe:rewrite-static-analysis:1.4.0")
 }
 
 sonar {
@@ -46,20 +74,4 @@ sonar {
     }
 }
 
-jacoco {
-    toolVersion = '0.8.7'
-}
-
-test {
-    useJUnitPlatform()
-    finalizedBy 'jacocoTestReport'
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-    }
-}
-
 jar.enabled = false
-bootJar.enabled = false
