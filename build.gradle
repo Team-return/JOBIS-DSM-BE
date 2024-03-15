@@ -17,7 +17,7 @@ subprojects {
     }
 
     checkstyle {
-        toolVersion = "8.45"
+        toolVersion = "10.8.1"
         configFile = file("${project.rootDir}/jobis-lint.xml")
         ignoreFailures = false
         maxWarnings = 0
