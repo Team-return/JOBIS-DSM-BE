@@ -31,6 +31,8 @@ subprojects {
         activeRecipe("org.openrewrite.java.OrderImports")
 
         checkstyleConfigFile = file("${project.rootDir}/jobis-lint.xml")
+
+        exclusion("**/generated/**")
     }
 
     checkstyleMain {
