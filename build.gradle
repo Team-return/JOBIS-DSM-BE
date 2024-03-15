@@ -33,10 +33,6 @@ subprojects {
         checkstyleConfigFile = file("${project.rootDir}/jobis-lint.xml")
     }
 
-    tasks.withType(Checkstyle) {
-        dependsOn rewriteRun
-    }
-
     checkstyleMain {
         source = sourceSets.main.allSource
     }
