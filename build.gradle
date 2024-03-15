@@ -10,13 +10,14 @@ repositories {
 
 rewrite {
     activeRecipe("org.openrewrite.java.RemoveUnusedImports")
+    activeRecipe("org.openrewrite.java.format.BlankLines")
     activeRecipe("org.openrewrite.java.ShortenFullyQualifiedTypeReferences")
     activeRecipe("org.openrewrite.staticanalysis.CodeCleanup")
     activeRecipe("org.openrewrite.java.OrderImports")
     activeRecipe("org.openrewrite.java.format.AutoFormat")
+    activeRecipe("org.openrewrite.java.format.TabsAndIndents")
 
     checkstyleConfigFile = file("${project.rootDir}/jobis-lint.xml")
-    exclusion("**/entity/Q*.java")
 }
 
 subprojects {
