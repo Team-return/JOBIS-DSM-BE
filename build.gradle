@@ -8,18 +8,6 @@ repositories {
     mavenCentral()
 }
 
-rewrite {
-    activeRecipe("org.openrewrite.java.RemoveUnusedImports")
-    activeRecipe("org.openrewrite.java.format.BlankLines")
-    activeRecipe("org.openrewrite.java.ShortenFullyQualifiedTypeReferences")
-    activeRecipe("org.openrewrite.staticanalysis.CodeCleanup")
-    activeRecipe("org.openrewrite.java.OrderImports")
-    activeRecipe("org.openrewrite.java.format.AutoFormat")
-    activeRecipe("org.openrewrite.java.format.TabsAndIndents")
-
-    checkstyleConfigFile = file("${project.rootDir}/jobis-lint.xml")
-}
-
 subprojects {
     apply plugin: "java"
     apply plugin: "checkstyle"
@@ -33,6 +21,17 @@ subprojects {
         configFile = file("${project.rootDir}/jobis-lint.xml")
         ignoreFailures = false
         maxWarnings = 0
+    }
+
+    rewrite {
+        activeRecipe("org.openrewrite.java.RemoveUnusedImports")
+        activeRecipe("org.openrewrite.java.format.BlankLines")
+        activeRecipe("org.openrewrite.java.ShortenFullyQualifiedTypeReferences")
+        activeRecipe("org.openrewrite.staticanalysis.CodeCleanup")
+        activeRecipe("org.openrewrite.java.OrderImports")
+        activeRecipe("org.openrewrite.java.format.TabsAndIndents")
+
+        checkstyleConfigFile = file("${project.rootDir}/jobis-lint.xml")
     }
 
     checkstyleMain {
@@ -65,6 +64,7 @@ allprojects {
 
 dependencies {
     rewrite("org.openrewrite.recipe:rewrite-static-analysis:1.4.0")
+    rewrite("org.openrewrite:rewrite-java")
 }
 
 sonar {
