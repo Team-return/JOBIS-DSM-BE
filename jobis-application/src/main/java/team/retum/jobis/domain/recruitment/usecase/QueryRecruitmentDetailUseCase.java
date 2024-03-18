@@ -7,6 +7,7 @@ import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
+import team.retum.jobis.domain.recruitment.model.JobResponse;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.model.TechResponse;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
@@ -32,7 +33,9 @@ public class QueryRecruitmentDetailUseCase {
                 .map(recruitAreaResponse ->
                         RecruitAreaResponse.builder()
                                 .id(recruitAreaResponse.getId())
-                                .job(recruitAreaResponse.getJob())
+                                .job(recruitAreaResponse.getJob().stream()
+                                        .map(job -> new JobResponse(job.getId(), job.getName()))
+                                        .toList())
                                 .tech(recruitAreaResponse.getTech().stream()
                                         .map(tech -> new TechResponse(tech.getId(), tech.getName()))
                                         .toList())
