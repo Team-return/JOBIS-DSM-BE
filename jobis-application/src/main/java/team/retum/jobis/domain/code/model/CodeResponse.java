@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.recruitment.model;
+package team.retum.jobis.domain.code.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Builder
-public class TechResponse {
+public class CodeResponse {
     private final Long id;
     private final String name;
 }
