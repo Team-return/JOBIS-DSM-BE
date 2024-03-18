@@ -5,6 +5,7 @@ import lombok.Getter;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
+import team.retum.jobis.domain.recruitment.model.JobResponse;
 import team.retum.jobis.domain.recruitment.model.TechResponse;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
                 id,
                 codes.stream()
                         .filter(code -> code.getType().equals(CodeType.JOB))
-                        .map(CodeEntity::getKeyword)
+                        .map(code -> new JobResponse(code.getCode(), code.getKeyword()))
                         .toList(),
                 codes.stream()
                         .filter(code -> code.getType().equals(CodeType.TECH))

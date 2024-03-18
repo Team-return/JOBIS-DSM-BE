@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.recruitment.model.JobResponse;
 import team.retum.jobis.domain.recruitment.model.TechResponse;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class RecruitAreaResponse {
 
     private final Long id;
 
-    private final List<String> job;
+    private final List<JobResponse> job;
 
     private final List<TechResponse> tech;
 
