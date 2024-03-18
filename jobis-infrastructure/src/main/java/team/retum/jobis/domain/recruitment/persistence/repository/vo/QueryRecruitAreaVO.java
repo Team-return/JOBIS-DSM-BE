@@ -5,6 +5,7 @@ import lombok.Getter;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
+import team.retum.jobis.domain.recruitment.model.TechResponse;
 
 import java.util.List;
 
@@ -12,8 +13,7 @@ import java.util.List;
 public class QueryRecruitAreaVO extends RecruitAreaResponse {
 
     @QueryProjection
-    public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask,
-                              String preferentialTreatment, List<CodeEntity> codes) {
+    public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask, String preferentialTreatment, List<CodeEntity> codes) {
         super(
                 id,
                 codes.stream()
@@ -22,7 +22,7 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
                         .toList(),
                 codes.stream()
                         .filter(code -> code.getType().equals(CodeType.TECH))
-                        .map(CodeEntity::getKeyword)
+                        .map(code -> new TechResponse(code.getCode(), code.getKeyword()))
                         .toList(),
                 hiredCount,
                 majorTask,
