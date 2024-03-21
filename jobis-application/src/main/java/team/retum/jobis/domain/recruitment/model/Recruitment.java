@@ -86,7 +86,7 @@ public class Recruitment {
         }
 
         // 졸업생이 지원시 예외를 던짐
-        if (Year.now().getValue() - 3 <= entranceYear) {
+        if (Year.now().getValue() - 3 >= entranceYear) {
             throw InvalidGradeException.EXCEPTION;
         }
 
@@ -96,7 +96,7 @@ public class Recruitment {
         }
 
         // 2학년이 아닌 학년이 채험형 현장실습 지원시 예외를 던짐
-        if (!(this.winterIntern && entranceYear == Year.now().getValue() - 1)) {
+        if (this.winterIntern && entranceYear != Year.now().getValue() - 1) {
             throw InvalidGradeException.EXCEPTION;
         }
     }
@@ -141,9 +141,4 @@ public class Recruitment {
                 .etc(request.etc())
                 .build();
     }
-
-    private boolean v(Integer entranceYear) {
-        return entranceYear == Year.now().getValue() - 2;
-    }
-
 }
