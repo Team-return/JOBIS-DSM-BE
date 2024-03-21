@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 public class TeacherBannersVO {
-    private final Long bannerId;
+    private final Long id;
     private final String bannerUrl;
     private final BannerType bannerType;
     private final LocalDate startDate;

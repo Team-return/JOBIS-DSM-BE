@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.code.model.CodeResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -31,8 +32,12 @@ public class QueryRecruitmentDetailUseCase {
                 .map(recruitAreaResponse ->
                         RecruitAreaResponse.builder()
                                 .id(recruitAreaResponse.getId())
-                                .job(recruitAreaResponse.getJob())
-                                .tech(recruitAreaResponse.getTech())
+                                .job(recruitAreaResponse.getJob().stream()
+                                        .map(job -> new CodeResponse(job.getId(), job.getName()))
+                                        .toList())
+                                .tech(recruitAreaResponse.getTech().stream()
+                                        .map(tech -> new CodeResponse(tech.getId(), tech.getName()))
+                                        .toList())
                                 .hiring(recruitAreaResponse.getHiring())
                                 .majorTask(recruitAreaResponse.getMajorTask())
                                 .preferentialTreatment(recruitAreaResponse.getPreferentialTreatment())
