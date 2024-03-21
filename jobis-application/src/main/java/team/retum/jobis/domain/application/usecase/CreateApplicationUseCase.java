@@ -28,10 +28,10 @@ public class CreateApplicationUseCase {
 
     public void execute(Long recruitmentId, List<AttachmentRequest> attachmentRequests) {
         Student student = securityPort.getCurrentStudent();
-
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
-        recruitment.checkIsApplicable(student.getSchoolNumber().getGrade());
+
+        recruitment.checkIsApplicable(student.getEntranceYear());
 
         if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
                 student.getId(), ApplicationStatus.DUPLICATE_CHECK

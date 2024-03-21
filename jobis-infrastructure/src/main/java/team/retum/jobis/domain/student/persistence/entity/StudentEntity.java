@@ -32,7 +32,7 @@ import team.retum.jobis.global.util.ImageProperty;
         name = "tbl_student",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        columnNames = {"grade", "classRoom", "number"}
+                        columnNames = {"grade", "classRoom", "number", "entranceYear"}
                 )
         }
 )

@@ -80,12 +80,23 @@ public class Recruitment {
                 .build();
     }
 
-    public void checkIsApplicable(Integer studentGrade) {
+    public void checkIsApplicable(Integer entranceYear) {
         if (this.status != RecruitStatus.RECRUITING) {
             throw InvalidRecruitmentStatusException.EXCEPTION;
         }
 
-        if (studentGrade == 1 || (!this.winterIntern && studentGrade == 2)) {
+        // 졸업생이 지원시 예외를 던짐
+        if (Year.now().getValue() - 3 >= entranceYear) {
+            throw InvalidGradeException.EXCEPTION;
+        }
+
+        // 1학년이 지원할 경우 예외를 던짐
+        if (Year.now().getValue() == entranceYear) {
+            throw InvalidGradeException.EXCEPTION;
+        }
+
+        // 2학년이 아닌 학년이 채험형 현장실습 지원시 예외를 던짐
+        if (this.winterIntern && entranceYear != Year.now().getValue() - 1) {
             throw InvalidGradeException.EXCEPTION;
         }
     }
@@ -130,5 +141,4 @@ public class Recruitment {
                 .etc(request.etc())
                 .build();
     }
-
 }
