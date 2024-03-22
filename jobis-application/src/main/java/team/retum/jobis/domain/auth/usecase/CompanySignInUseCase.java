@@ -22,13 +22,17 @@ public class CompanySignInUseCase {
     private final SecurityPort securityPort;
 
     public TokenResponse execute(String businessRegistrationNumber, String authCode) {
-        if (!securityPort.getServerAuthCode().equals(authCode)) {
-            throw BadAuthCodeException.EXCEPTION;
-        }
-
         Company company = queryCompanyPort.queryCompanyByBusinessNumber(businessRegistrationNumber)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
+        checkServerAuthCode(authCode);
+
         return jwtPort.generateTokens(company.getId(), Authority.COMPANY, PlatformType.WEB);
+    }
+
+    private void checkServerAuthCode(String authCode) {
+        if (!securityPort.getServerAuthCode().equals(authCode)) {
+            throw BadAuthCodeException.EXCEPTION;
+        }
     }
 }

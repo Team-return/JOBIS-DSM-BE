@@ -42,7 +42,7 @@ public class Student {
                 .build();
     }
 
-    private Integer getEntranceYear(Integer grade) {
+    public static Integer getEntranceYear(Integer grade) {
         int year = Year.now().getValue();
         return switch (grade) {
             case 2 -> year - 1;
