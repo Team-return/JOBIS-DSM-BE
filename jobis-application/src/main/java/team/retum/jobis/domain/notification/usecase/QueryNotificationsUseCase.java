@@ -17,17 +17,8 @@ public class QueryNotificationsUseCase {
     public QueryNotificationsResponse execute(Boolean isNew) {
         return new QueryNotificationsResponse(
                 queryNotificationPort.queryNotificationsByCondition(securityPort.getCurrentUserId(), isNew).stream()
-                        .map(notification ->
-                                NotificationResponse.builder()
-                                        .notificationId(notification.getId())
-                                        .title(notification.getTitle())
-                                        .content(notification.getContent())
-                                        .isNew(notification.getIsNew())
-                                        .topic(notification.getTopic())
-                                        .detailId(notification.getDetailId())
-                                        .createdAt(notification.getCreatedAt())
-                                        .build()
-                        ).toList()
+                        .map(NotificationResponse::form)
+                        .toList()
         );
     }
 }

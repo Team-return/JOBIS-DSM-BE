@@ -27,6 +27,6 @@ public class QueryMyApplicationsUseCase {
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.queryApplicationByConditions(applicationFilter);
 
-        return QueryMyApplicationsResponse.of(applicationVOs);
+        return QueryMyApplicationsResponse.from(applicationVOs);
     }
 }

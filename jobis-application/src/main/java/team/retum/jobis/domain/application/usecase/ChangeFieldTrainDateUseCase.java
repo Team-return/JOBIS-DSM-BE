@@ -20,10 +20,12 @@ public class ChangeFieldTrainDateUseCase {
     public void execute(ChangeFieldTrainDateRequest request) {
         List<Application> applications = queryApplicationPort.queryApplicationsByIds(request.applicationIds());
 
-        applications
-                .forEach(application ->
-                        application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN)
-                );
+        applications.forEach(
+                application -> Application.checkApplicationStatus(
+                        application.getApplicationStatus(),
+                        ApplicationStatus.FIELD_TRAIN
+                )
+        );
 
         commandApplicationPort.updateFieldTrainDate(
                 request.startDate(),
