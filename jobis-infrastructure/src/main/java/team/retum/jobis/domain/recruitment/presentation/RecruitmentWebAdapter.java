@@ -108,7 +108,6 @@ public class RecruitmentWebAdapter {
         createRecruitAreaUseCase.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
-    @Cacheable
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
             @RequestParam(value = "name", required = false) String companyName,
