@@ -22,7 +22,6 @@ public class BookmarkUseCase {
 
     public void execute(Long recruitmentId) {
         Student student = securityPort.getCurrentStudent();
-
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
