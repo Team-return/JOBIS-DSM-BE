@@ -13,8 +13,8 @@ import team.retum.jobis.domain.notice.spi.QueryNoticePort;
 public class QueryNoticeDetailUseCase {
 
     private final QueryNoticePort queryNoticePort;
-    public QueryNoticeDetailResponse execute(Long noticeId) {
 
+    public QueryNoticeDetailResponse execute(Long noticeId) {
         Notice notice = queryNoticePort.queryNoticeById(noticeId)
                 .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 

@@ -16,7 +16,7 @@ public class QueryPassedApplicationStudentsResponse {
 
     private final List<QueryPassedApplicationStudentResponse> students;
 
-    public static QueryPassedApplicationStudentResponse of(PassedApplicationStudentsVO vo) {
+    public static QueryPassedApplicationStudentResponse from(PassedApplicationStudentsVO vo) {
         return QueryPassedApplicationStudentResponse.builder()
                 .applicationId(vo.getApplicationId())
                 .studentName(vo.getStudentName())

@@ -32,22 +32,10 @@ public class CreateApplicationUseCase {
                 .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         recruitment.checkIsApplicable(student.getEntranceYear());
+        checkApplicationDuplicated(student.getId());
+        checkApplicationAlreadyApply(student.getId(), recruitment.getId());
 
-        if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
-                student.getId(), ApplicationStatus.DUPLICATE_CHECK
-        )) {
-            throw ApplicationAlreadyExistsException.EXCEPTION;
-        }
-
-        if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(student.getId(), recruitment.getId())) {
-            throw ApplicationAlreadyExistsException.EXCEPTION;
-        }
-
-        List<ApplicationAttachment> attachments = attachmentRequests
-                .stream()
-                .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
-                .toList();
-
+        List<ApplicationAttachment> attachments = ApplicationAttachment.from(attachmentRequests);
         commandApplicationPort.saveApplication(
                 Application.builder()
                         .studentId(student.getId())
@@ -56,5 +44,20 @@ public class CreateApplicationUseCase {
                         .attachments(attachments)
                         .build()
         );
+    }
+
+    private void checkApplicationDuplicated(Long studentId) {
+        if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
+                studentId,
+                ApplicationStatus.DUPLICATE_CHECK
+        )) {
+            throw ApplicationAlreadyExistsException.EXCEPTION;
+        }
+    }
+
+    private void checkApplicationAlreadyApply(Long studentId, Long recruitmentId) {
+        if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(studentId, recruitmentId)) {
+            throw ApplicationAlreadyExistsException.EXCEPTION;
+        }
     }
 }

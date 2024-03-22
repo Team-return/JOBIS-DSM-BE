@@ -40,17 +40,8 @@ public class StudentQueryRecruitmentsUseCase {
 
         List<StudentRecruitmentResponse> recruitments =
                 queryRecruitmentPort.queryStudentRecruitmentsByFilter(recruitmentFilter).stream()
-                        .map(
-                                recruitment -> StudentRecruitmentResponse.builder()
-                                        .id(recruitment.getRecruitmentId())
-                                        .companyName(recruitment.getCompanyName())
-                                        .trainPay(recruitment.getTrainPay())
-                                        .hiringJobs(recruitment.getJobCodes())
-                                        .militarySupport(recruitment.isMilitarySupport())
-                                        .companyProfileUrl(recruitment.getCompanyLogoUrl())
-                                        .bookmarked(recruitment.isBookmarked())
-                                        .build()
-                        ).toList();
+                        .map(StudentRecruitmentResponse::from)
+                        .toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
     }

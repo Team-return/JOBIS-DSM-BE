@@ -25,7 +25,6 @@ public class UpdateCompanyDetailsUseCase {
     public void execute(UpdateCompanyDetailsRequest request, Long companyId) {
         Company company = queryCompanyPort.queryCompanyById(companyId)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-
         Code code = queryCodePort.queryCodeById(request.businessAreaCode())
                 .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 

@@ -16,12 +16,19 @@ public class VerifyStudentUseCase {
     private final QueryStudentPort queryStudentPort;
 
     public void execute(String gcn, String name) {
-        SchoolNumber parseSchoolNumber = SchoolNumber.parseSchoolNumber(gcn);
+        SchoolNumber schoolNumber = SchoolNumber.parseSchoolNumber(gcn);
 
-        if (queryStudentPort.existsBySchoolNumberAndName(parseSchoolNumber, name)) {
+        checkStudentIsSignUp(schoolNumber, name);
+        checkStudentSignUpIsPossible(gcn, name);
+    }
+
+    private void checkStudentIsSignUp(SchoolNumber schoolNumber, String name) {
+        if (queryStudentPort.existsBySchoolNumberAndName(schoolNumber, name)) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
+    }
 
+    private void checkStudentSignUpIsPossible(String gcn, String name) {
         if (!queryVerifiedStudentPort.existsVerifiedStudentByGcnAndName(gcn, name)) {
             throw StudentNotFoundException.EXCEPTION;
         }

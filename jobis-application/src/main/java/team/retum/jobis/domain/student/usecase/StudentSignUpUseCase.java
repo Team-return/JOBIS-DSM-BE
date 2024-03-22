@@ -40,11 +40,7 @@ public class StudentSignUpUseCase {
         AuthCode authCode = queryAuthCodePort.queryAuthCodeByEmail(request.email());
         authCode.checkIsVerified();
 
-        if (queryStudentPort.existsByGradeAndClassRoomAndNumber(
-                request.grade(), request.classRoom(), request.number())
-        ) {
-            throw StudentAlreadyExistsException.EXCEPTION;
-        }
+        checkStudentExists(request.grade(), request.classRoom(), request.number(), Student.getEntranceYear(request.grade()));
 
         User user = commandUserPort.saveUser(
                 User.builder()
@@ -83,5 +79,13 @@ public class StudentSignUpUseCase {
         );
 
         return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.platformType());
+    }
+
+    private void checkStudentExists(Integer grade, Integer classRoom, Integer number, Integer entranceYear) {
+        if (queryStudentPort.existsByGradeAndClassRoomAndNumberAndEntranceYear(
+                grade, classRoom, number, entranceYear
+        )) {
+            throw StudentAlreadyExistsException.EXCEPTION;
+        }
     }
 }

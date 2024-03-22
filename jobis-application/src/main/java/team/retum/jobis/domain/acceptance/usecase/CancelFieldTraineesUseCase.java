@@ -24,8 +24,11 @@ public class CancelFieldTraineesUseCase {
             throw ApplicationNotFoundException.EXCEPTION;
         }
 
-        applications.forEach(application ->
-                application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN)
+        applications.forEach(
+                application -> Application.checkApplicationStatus(
+                        application.getApplicationStatus(),
+                        ApplicationStatus.FIELD_TRAIN
+                )
         );
 
         commandApplicationPort.changeApplicationStatus(
