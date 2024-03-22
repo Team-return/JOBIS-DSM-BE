@@ -18,7 +18,6 @@ import java.util.List;
 public class ApplyRecruitmentUseCase {
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
-    private final CheckRecruitmentApplicableService checkRecruitmentApplicableService;
     private final SecurityPort securityPort;
 
     public void execute(ApplyRecruitmentRequest request) {
