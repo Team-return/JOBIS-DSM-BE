@@ -19,7 +19,6 @@ public class DeleteApplicationUseCase {
 
     public void execute(Long applicationId) {
         Student student = securityPort.getCurrentStudent();
-
         Application application = queryApplicationPort.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
