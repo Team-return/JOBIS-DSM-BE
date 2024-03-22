@@ -33,21 +33,8 @@ public class TeacherQueryRecruitmentsUseCase {
 
         List<TeacherRecruitmentResponse> recruitments =
                 queryRecruitmentPort.queryTeacherRecruitmentsByFilter(filter).stream()
-                        .map(recruitment ->
-                                TeacherRecruitmentResponse.builder()
-                                        .id(recruitment.getRecruitmentId())
-                                        .status(recruitment.getRecruitStatus())
-                                        .companyName(recruitment.getCompanyName())
-                                        .companyType(recruitment.getCompanyType())
-                                        .startDate(recruitment.getStartDate())
-                                        .endDate(recruitment.getEndDate())
-                                        .applicationRequestedCount(recruitment.getRequestedApplicationCount())
-                                        .applicationApprovedCount(recruitment.getApprovedApplicationCount())
-                                        .totalHiringCount(recruitment.getTotalHiringCount())
-                                        .hiringJobs(recruitment.getJobCodes())
-                                        .companyId(recruitment.getCompanyId())
-                                        .build()
-                        ).toList();
+                        .map(TeacherRecruitmentResponse::from)
+                        .toList();
 
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }

@@ -14,7 +14,7 @@ public class QueryMyApplicationsResponse {
 
     private final List<QueryMyApplicationResponse> applications;
 
-    public static QueryMyApplicationsResponse of(List<ApplicationVO> applicationVOs) {
+    public static QueryMyApplicationsResponse from(List<ApplicationVO> applicationVOs) {
         return new QueryMyApplicationsResponse(
                 applicationVOs.stream()
                         .map(application -> QueryMyApplicationResponse.builder()

@@ -23,14 +23,13 @@ public class ReapplyUseCase {
         Application application = queryApplicationPort.queryApplicationById(applicationId)
                 .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
-        application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.REJECTED, ApplicationStatus.REQUESTED);
+        Application.checkApplicationStatus(
+                application.getApplicationStatus(),
+                ApplicationStatus.REJECTED, ApplicationStatus.REQUESTED
+        );
 
         commandApplicationPort.saveApplication(
-                application.reapply(
-                        attachmentRequests.stream()
-                                .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
-                                .toList()
-                )
+                application.reapply(ApplicationAttachment.createApplicationAttachments(attachmentRequests))
         );
     }
 }

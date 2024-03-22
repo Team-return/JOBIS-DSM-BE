@@ -3,6 +3,8 @@ package team.retum.jobis.domain.recruitment.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 
 import java.util.List;
 
@@ -28,5 +30,17 @@ public class StudentQueryRecruitmentsResponse {
         private String hiringJobs;
 
         private boolean bookmarked;
+
+        public static StudentRecruitmentResponse from(StudentRecruitmentVO recruitment) {
+            return StudentRecruitmentResponse.builder()
+                    .id(recruitment.getRecruitmentId())
+                    .companyName(recruitment.getCompanyName())
+                    .trainPay(recruitment.getTrainPay())
+                    .hiringJobs(recruitment.getJobCodes())
+                    .militarySupport(recruitment.isMilitarySupport())
+                    .companyProfileUrl(recruitment.getCompanyLogoUrl())
+                    .bookmarked(recruitment.isBookmarked())
+                    .build();
+        }
     }
 }
