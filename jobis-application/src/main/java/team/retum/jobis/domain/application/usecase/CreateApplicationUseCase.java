@@ -33,7 +33,7 @@ public class CreateApplicationUseCase {
 
         recruitment.checkIsApplicable(student.getEntranceYear());
 
-        if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
+        List<ApplicationAttachment> attachments = ApplicationAttachment.from(attachmentRequests);
                 student.getId(), ApplicationStatus.DUPLICATE_CHECK
         )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;

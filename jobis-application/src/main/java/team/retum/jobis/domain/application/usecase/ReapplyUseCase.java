@@ -29,7 +29,7 @@ public class ReapplyUseCase {
         );
 
         commandApplicationPort.saveApplication(
-                application.reapply(ApplicationAttachment.createApplicationAttachments(attachmentRequests))
+                application.reapply(ApplicationAttachment.from(attachmentRequests))
         );
     }
 }
