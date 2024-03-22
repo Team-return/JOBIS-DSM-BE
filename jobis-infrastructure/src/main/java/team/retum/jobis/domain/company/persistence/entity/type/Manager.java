@@ -17,13 +17,13 @@ public class Manager {
     @Column(columnDefinition = "VARCHAR(10)", nullable = false)
     private String managerName;
 
-    @Column(columnDefinition = "VARCHAR(12)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String managerPhoneNo;
 
     @Column(columnDefinition = "VARCHAR(10)")
     private String subManagerName;
 
-    @Column(columnDefinition = "VARCHAR(12)")
+    @Column(columnDefinition = "VARCHAR(255)")
     private String subManagerPhoneNo;
 
     public void update(String managerName, String managerPhoneNo, String subManagerName, String subManagerPhoneNo) {

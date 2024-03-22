@@ -64,7 +64,7 @@ public class CompanyEntity {
     private String representative;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(12)")
+    @Column(columnDefinition = "VARCHAR(255)")
     private String representativePhoneNo;
 
     @NotNull
