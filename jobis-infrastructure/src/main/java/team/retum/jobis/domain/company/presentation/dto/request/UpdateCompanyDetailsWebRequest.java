@@ -75,12 +75,6 @@ public class UpdateCompanyDetailsWebRequest {
     @NotBlank
     private String representativePhoneNo;
 
-    @NotNull
-    private Long businessAreaCode;
-
-    @NotBlank
-    private String bizRegistrationUrl;
-
     private List<@NotNull String> attachmentUrls;
 
 
@@ -105,8 +99,6 @@ public class UpdateCompanyDetailsWebRequest {
                 .serviceName(this.serviceName)
                 .representativePhoneNo(this.representativePhoneNo)
                 .representativePhoneNo(this.representativePhoneNo)
-                .businessAreaCode(this.businessAreaCode)
-                .bizRegistrationUrl(this.bizRegistrationUrl)
                 .attachmentUrls(this.attachmentUrls)
                 .build();
     }
