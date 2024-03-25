@@ -38,5 +38,7 @@ public class QueryCompanyDetailsResponse {
     private final Long recruitmentId;
     private final List<String> attachments;
     private final String serviceName;
+    private final Long businessAreaCode;
     private final String businessArea;
+    private final String bizRegistrationUrl;
 }

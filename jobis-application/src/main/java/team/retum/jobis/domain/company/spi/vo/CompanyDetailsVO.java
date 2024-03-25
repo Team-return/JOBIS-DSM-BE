@@ -33,6 +33,8 @@ public class CompanyDetailsVO {
     private final double take;
     private final Long recruitmentId;
     private final String serviceName;
+    private final Long businessAreaCode;
     private final String businessArea;
     private final List<String> attachmentUrls;
+    private final String bizRegistrationUrl;
 }
