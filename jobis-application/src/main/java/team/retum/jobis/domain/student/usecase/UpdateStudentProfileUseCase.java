@@ -17,7 +17,7 @@ public class UpdateStudentProfileUseCase {
         Student student = securityPort.getCurrentStudent();
 
         commandStudentPort.saveStudent(
-                student.changeStudentProfile(profileImageUrl)
+            student.changeStudentProfile(profileImageUrl)
         );
     }
 }

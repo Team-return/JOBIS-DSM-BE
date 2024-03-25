@@ -22,7 +22,7 @@ public class UpdateStudentPasswordUseCase {
         }
 
         commandUserPort.saveUser(
-                user.updatePassword(securityPort.encodePassword(newPassword))
+            user.updatePassword(securityPort.encodePassword(newPassword))
         );
     }
 }

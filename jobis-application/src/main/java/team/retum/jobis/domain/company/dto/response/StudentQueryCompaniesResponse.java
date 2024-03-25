@@ -11,5 +11,6 @@ import java.util.List;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class StudentQueryCompaniesResponse {
+
     private final List<StudentCompaniesVO> companies;
 }

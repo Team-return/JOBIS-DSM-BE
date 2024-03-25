@@ -24,15 +24,14 @@ public class BookmarkUseCase {
         Student student = securityPort.getCurrentStudent();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        queryBookmarkPort.queryBookmarkByRecruitmentIdAndStudentId(recruitment.getId(), student.getId())
-                .ifPresentOrElse(
-                        commandBookmarkPort::deleteBookmark,
-                        () -> commandBookmarkPort.saveBookmark(Bookmark.builder()
-                                .studentId(student.getId())
-                                .recruitmentId(recruitment.getId())
-                                .build())
-                );
+        queryBookmarkPort.queryBookmarkByRecruitmentIdAndStudentId(recruitment.getId(), student.getId()).ifPresentOrElse(
+            commandBookmarkPort::deleteBookmark,
+            () -> commandBookmarkPort.saveBookmark(Bookmark.builder()
+                .studentId(student.getId())
+                .recruitmentId(recruitment.getId())
+                .build())
+        );
     }
 }

@@ -5,6 +5,9 @@ import com.querydsl.core.types.dsl.StringExpression;
 
 public class ExpressionUtil {
 
+    private ExpressionUtil() {
+    }
+
     public static StringExpression groupConcat(Object target) {
         return Expressions.stringTemplate("group_concat({0})", target);
     }

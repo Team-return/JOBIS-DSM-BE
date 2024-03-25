@@ -20,11 +20,11 @@ public class QueryBugReportDetailsResponse {
 
     public static QueryBugReportDetailsResponse from(BugReport bugReport) {
         return QueryBugReportDetailsResponse.builder()
-                .title(bugReport.getTitle())
-                .content(bugReport.getContent())
-                .developmentArea(bugReport.getDevelopmentArea())
-                .attachments(bugReport.getAttachment().attachmentUrls())
-                .createdAt(bugReport.getCreatedAt())
-                .build();
+            .title(bugReport.getTitle())
+            .content(bugReport.getContent())
+            .developmentArea(bugReport.getDevelopmentArea())
+            .attachments(bugReport.getAttachment().attachmentUrls())
+            .createdAt(bugReport.getCreatedAt())
+            .build();
     }
 }

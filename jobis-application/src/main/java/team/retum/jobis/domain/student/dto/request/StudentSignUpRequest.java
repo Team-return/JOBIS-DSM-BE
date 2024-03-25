@@ -6,14 +6,16 @@ import team.retum.jobis.domain.student.model.Gender;
 
 @Builder
 public record StudentSignUpRequest(
-        String email,
-        String password,
-        Integer grade,
-        String name,
-        Integer classRoom,
-        Integer number,
-        Gender gender,
-        String profileImageUrl,
-        PlatformType platformType,
-        String deviceToken
-) {}
+    String email,
+    String password,
+    Integer grade,
+    String name,
+    Integer classRoom,
+    Integer number,
+    Gender gender,
+    String profileImageUrl,
+    PlatformType platformType,
+    String deviceToken
+) {
+
+}

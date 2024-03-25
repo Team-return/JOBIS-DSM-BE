@@ -38,8 +38,8 @@ public class Student {
 
     public Student changeStudentProfile(String profileImageUrl) {
         return this.toBuilder()
-                .profileImageUrl(profileImageUrl)
-                .build();
+            .profileImageUrl(profileImageUrl)
+            .build();
     }
 
     private Integer getEntranceYear(Integer grade) {

@@ -12,6 +12,7 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 @RequiredArgsConstructor
 @UseCase
 public class DeleteRecruitAreaUseCase {
+
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final CheckRecruitmentAreaDeletableService checkRecruitmentAreaDeletableService;
@@ -19,7 +20,7 @@ public class DeleteRecruitAreaUseCase {
 
     public void execute(Long recruitAreaId) {
         RecruitArea recruitArea = queryRecruitmentPort.queryRecruitmentAreaById(recruitAreaId)
-                .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitAreaNotFoundException.EXCEPTION);
         checkRecruitmentAreaDeletableService.checkRecruitmentAreaDeletable(recruitArea);
         checkRecruitmentPermissionService.checkPermission(recruitArea);
 

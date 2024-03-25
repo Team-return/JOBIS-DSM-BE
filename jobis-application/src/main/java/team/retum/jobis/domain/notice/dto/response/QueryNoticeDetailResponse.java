@@ -19,10 +19,10 @@ public class QueryNoticeDetailResponse {
 
     public static QueryNoticeDetailResponse from(Notice notice) {
         return QueryNoticeDetailResponse.builder()
-                .title(notice.getTitle())
-                .content(notice.getContent())
-                .createdAt(notice.getCreatedAt())
-                .attachments(notice.getAttachments())
-                .build();
+            .title(notice.getTitle())
+            .content(notice.getContent())
+            .createdAt(notice.getCreatedAt())
+            .attachments(notice.getAttachments())
+            .build();
     }
 }

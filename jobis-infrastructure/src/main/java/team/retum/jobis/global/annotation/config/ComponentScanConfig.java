@@ -10,17 +10,18 @@ import team.retum.jobis.common.annotation.UseCase;
 
 @Configuration
 @ComponentScan(
-        basePackages = {"team.retum.jobis"},
-        includeFilters = {
-                @Filter(
-                        type = FilterType.ANNOTATION,
-                        classes = {
-                                UseCase.class,
-                                ReadOnlyUseCase.class,
-                                Service.class
-                        }
-                )
-        }
+    basePackages = {"team.retum.jobis"},
+    includeFilters = {
+        @Filter(
+            type = FilterType.ANNOTATION,
+            classes = {
+                UseCase.class,
+                ReadOnlyUseCase.class,
+                Service.class
+            }
+        )
+    }
 )
 public class ComponentScanConfig {
+
 }

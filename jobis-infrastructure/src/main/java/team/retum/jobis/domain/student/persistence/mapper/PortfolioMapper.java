@@ -16,19 +16,19 @@ public class PortfolioMapper {
 
     public PortfolioEntity toEntity(Portfolio domain) {
         StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         return PortfolioEntity.builder()
-                .studentEntity(student)
-                .portfolioUrl(domain.getPortfolioUrl())
-                .build();
+            .studentEntity(student)
+            .portfolioUrl(domain.getPortfolioUrl())
+            .build();
     }
 
     public Portfolio toDomain(PortfolioEntity entity) {
         return Portfolio.builder()
-                .id(entity.getId())
-                .portfolioUrl(entity.getPortfolioUrl())
-                .studentId(entity.getStudent().getId())
-                .build();
+            .id(entity.getId())
+            .portfolioUrl(entity.getPortfolioUrl())
+            .studentId(entity.getStudent().getId())
+            .build();
     }
 }

@@ -40,30 +40,30 @@ public class Application {
         checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
 
         return this.toBuilder()
-                .applicationStatus(ApplicationStatus.FIELD_TRAIN)
-                .startDate(startDate)
-                .endDate(endDate)
-                .build();
+            .applicationStatus(ApplicationStatus.FIELD_TRAIN)
+            .startDate(startDate)
+            .endDate(endDate)
+            .build();
     }
 
     public Application rejectApplication(String reason) {
         return this.toBuilder()
-                .applicationStatus(ApplicationStatus.REJECTED)
-                .rejectionReason(reason)
-                .build();
+            .applicationStatus(ApplicationStatus.REJECTED)
+            .rejectionReason(reason)
+            .build();
     }
 
     public Application reapply(List<ApplicationAttachment> attachments) {
         return this.toBuilder()
-                .attachments(attachments)
-                .applicationStatus(ApplicationStatus.REQUESTED)
-                .build();
+            .attachments(attachments)
+            .applicationStatus(ApplicationStatus.REQUESTED)
+            .build();
     }
 
     public void checkReviewAuthority() {
         if (this.applicationStatus == ApplicationStatus.REQUESTED
-                || this.applicationStatus == ApplicationStatus.APPROVED
-                || this.applicationStatus == ApplicationStatus.REJECTED) {
+            || this.applicationStatus == ApplicationStatus.APPROVED
+            || this.applicationStatus == ApplicationStatus.REJECTED) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
     }

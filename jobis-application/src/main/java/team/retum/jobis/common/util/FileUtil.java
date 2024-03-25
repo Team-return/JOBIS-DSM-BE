@@ -10,6 +10,9 @@ import static team.retum.jobis.domain.file.model.FileType.LOGO_IMAGE;
 
 public class FileUtil {
 
+    private FileUtil() {
+    }
+
     public static String generateFullFileName(FileType fileType, String fileName) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
 

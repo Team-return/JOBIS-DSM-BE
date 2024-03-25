@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class MyAllRecruitmentsVO {
+
     private final Long id;
     private final RecruitmentAreaElement recruitmentAreas;
     private final LocalDateTime createdAt;

@@ -9,6 +9,7 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 @RequiredArgsConstructor
 @Service
 public class CheckRecruitmentApplicableService {
+
     private final QueryRecruitmentPort queryRecruitmentPort;
 
     public void checkRecruitmentApplicable(Company company, boolean isWinterIntern) {

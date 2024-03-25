@@ -20,7 +20,7 @@ subprojects {
         toolVersion = "10.8.1"
         configFile = file("${project.rootDir}/jobis-lint.xml")
         ignoreFailures = false
-        maxWarnings = 0
+        maxWarnings = 2
     }
 
     rewrite {

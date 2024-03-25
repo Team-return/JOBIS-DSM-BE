@@ -26,4 +26,5 @@ public record UpdateCompanyDetailsRequest(
         String representativePhoneNo,
         List<String> attachmentUrls
 ) {
+
 }

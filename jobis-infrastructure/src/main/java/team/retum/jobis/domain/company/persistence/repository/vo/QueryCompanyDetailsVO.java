@@ -20,10 +20,10 @@ public class QueryCompanyDetailsVO extends CompanyDetailsVO {
                                  Long recruitmentId, String serviceName, Long businessAreaCode,
                                  String businessArea, List<String> attachmentUrls, String bizRegistrationUrl) {
         super(businessNumber, companyName, companyProfileUrl, companyIntroduce,
-                mainZipCode, mainAddress, mainAddressDetail, subZipCode, subAddress, subAddressDetail,
-                managerName, managerPhoneNo, subManagerName, subManagerPhoneNo,
-                fax, email, representativeName, representativePhoneNo,
-                foundedAt, workerNumber, take, recruitmentId,
-                serviceName, businessAreaCode, businessArea, attachmentUrls, bizRegistrationUrl);
+            mainZipCode, mainAddress, mainAddressDetail, subZipCode, subAddress, subAddressDetail,
+            managerName, managerPhoneNo, subManagerName, subManagerPhoneNo,
+            fax, email, representativeName, representativePhoneNo,
+            foundedAt, workerNumber, take, recruitmentId,
+            serviceName, businessAreaCode, businessArea, attachmentUrls, bizRegistrationUrl);
     }
 }

@@ -26,40 +26,40 @@ public class CodePersistenceAdapter implements CodePort {
     @Override
     public List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType, Long parentCode) {
         return jpaQueryFactory
-                .selectFrom(codeEntity)
-                .where(
-                        codeEntity.type.eq(codeType),
-                        codeEntity.isPublic.eq(true),
-                        containsKeyword(keyword),
-                        eqParentCode(parentCode)
-                ).fetch().stream()
-                .map(codeMapper::toDomain)
-                .toList();
+            .selectFrom(codeEntity)
+            .where(
+                codeEntity.type.eq(codeType),
+                codeEntity.isPublic.eq(true),
+                containsKeyword(keyword),
+                eqParentCode(parentCode)
+            ).fetch().stream()
+            .map(codeMapper::toDomain)
+            .toList();
     }
 
     @Override
     public Optional<Code> queryCodeById(Long codeId) {
         return codeJpaRepository.findById(codeId)
-                .map(codeMapper::toDomain);
+            .map(codeMapper::toDomain);
     }
 
     @Override
     public List<Code> queryCodesByIdIn(List<Long> codes) {
         return codeJpaRepository.findCodesByCodeIn(codes).stream()
-                .map(codeMapper::toDomain)
-                .toList();
+            .map(codeMapper::toDomain)
+            .toList();
     }
 
     @Override
     public Optional<Code> queryCodeByKeywordAndType(String keyword, CodeType type) {
         return codeJpaRepository.findByKeywordAndType(keyword, type)
-                .map(codeMapper::toDomain);
+            .map(codeMapper::toDomain);
     }
 
     @Override
     public Code saveCode(Code code) {
         return codeMapper.toDomain(
-                codeJpaRepository.save(codeMapper.toEntity(code))
+            codeJpaRepository.save(codeMapper.toEntity(code))
         );
     }
 

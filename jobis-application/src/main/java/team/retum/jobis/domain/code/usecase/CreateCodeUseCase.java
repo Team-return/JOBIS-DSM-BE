@@ -17,18 +17,18 @@ public class CreateCodeUseCase {
 
     public CreateCodeResponse execute(CreateCodeRequest request) {
         return queryCodePort.queryCodeByKeywordAndType(request.keyword(), request.codeType())
-                .map(code -> new CreateCodeResponse(commandCodePort.saveCode(code.changeAccessible(true)).getId()))
-                .orElseGet(() -> new CreateCodeResponse(createCode(request).getId()));
+            .map(code -> new CreateCodeResponse(commandCodePort.saveCode(code.changeAccessible(true)).getId()))
+            .orElseGet(() -> new CreateCodeResponse(createCode(request).getId()));
     }
 
     private Code createCode(CreateCodeRequest request) {
         return commandCodePort.saveCode(
-                Code.builder()
-                        .codeType(request.codeType())
-                        .jobType(request.jobType())
-                        .keyword(request.keyword())
-                        .isPublic(false)
-                        .build()
+            Code.builder()
+                .codeType(request.codeType())
+                .jobType(request.jobType())
+                .keyword(request.keyword())
+                .isPublic(false)
+                .build()
         );
     }
 }

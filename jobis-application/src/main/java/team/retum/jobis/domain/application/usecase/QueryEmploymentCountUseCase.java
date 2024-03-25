@@ -24,9 +24,9 @@ public class QueryEmploymentCountUseCase {
         long passedApplicationCount = queryStudentPort.queryStudentCountByApplicationStatus(List.of(PASS, FIELD_TRAIN));
 
         return QueryEmploymentCountResponse.builder()
-                .totalStudentCount(totalStudentCount)
-                .approvedCount(approvedApplicationCount)
-                .passedCount(passedApplicationCount)
-                .build();
+            .totalStudentCount(totalStudentCount)
+            .approvedCount(approvedApplicationCount)
+            .passedCount(passedApplicationCount)
+            .build();
     }
 }

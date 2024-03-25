@@ -17,27 +17,27 @@ public class CompanyQueryApplicationsResponse {
 
     public static CompanyQueryApplicationsResponse of(List<ApplicationVO> applicationVOs) {
         return new CompanyQueryApplicationsResponse(
-                applicationVOs.stream()
-                        .map(application -> CompanyQueryApplicationResponse.builder()
-                                .applicationId(application.getId())
-                                .studentName(application.getName())
-                                .studentNumber(
-                                        SchoolNumber.processSchoolNumber(
-                                                SchoolNumber.builder()
-                                                        .grade(application.getGrade())
-                                                        .classRoom(application.getClassNumber())
-                                                        .number(application.getNumber())
-                                                        .build()
-                                        )
-                                )
-                                .profileImageUrl(application.getProfileImageUrl())
-                                .attachments(
-                                        application.getApplicationAttachmentEntities().stream()
-                                                .map(AttachmentResponse::of).toList()
-                                )
-                                .createdAt(application.getCreatedAt().toLocalDate())
+            applicationVOs.stream()
+                .map(application -> CompanyQueryApplicationResponse.builder()
+                    .applicationId(application.getId())
+                    .studentName(application.getName())
+                    .studentNumber(
+                        SchoolNumber.processSchoolNumber(
+                            SchoolNumber.builder()
+                                .grade(application.getGrade())
+                                .classRoom(application.getClassNumber())
+                                .number(application.getNumber())
                                 .build()
-                        ).toList()
+                        )
+                    )
+                    .profileImageUrl(application.getProfileImageUrl())
+                    .attachments(
+                        application.getApplicationAttachmentEntities().stream()
+                            .map(AttachmentResponse::of).toList()
+                    )
+                    .createdAt(application.getCreatedAt().toLocalDate())
+                    .build()
+                ).toList()
         );
     }
 

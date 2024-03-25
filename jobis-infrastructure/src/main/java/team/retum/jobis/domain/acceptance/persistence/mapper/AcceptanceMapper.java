@@ -20,29 +20,29 @@ public class AcceptanceMapper {
 
     public AcceptanceEntity toEntity(Acceptance domain) {
         CompanyEntity company = companyJpaRepository.findById(domain.getCompanyId())
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
         StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         return AcceptanceEntity.builder()
-                .id(domain.getId())
-                .companyEntity(company)
-                .contractDate(domain.getContractDate())
-                .businessArea(domain.getBusinessArea())
-                .year(domain.getYear())
-                .tech(domain.getTech())
-                .student(student)
-                .build();
+            .id(domain.getId())
+            .companyEntity(company)
+            .contractDate(domain.getContractDate())
+            .businessArea(domain.getBusinessArea())
+            .year(domain.getYear())
+            .tech(domain.getTech())
+            .student(student)
+            .build();
     }
 
     public Acceptance toDomain(AcceptanceEntity entity) {
         return Acceptance.builder()
-                .contractDate(entity.getContractDate())
-                .businessArea(entity.getBusinessArea())
-                .tech(entity.getTech())
-                .id(entity.getId())
-                .companyId(entity.getCompany().getId())
-                .studentId(entity.getStudent().getId())
-                .build();
+            .contractDate(entity.getContractDate())
+            .businessArea(entity.getBusinessArea())
+            .tech(entity.getTech())
+            .id(entity.getId())
+            .companyId(entity.getCompany().getId())
+            .studentId(entity.getStudent().getId())
+            .build();
     }
 }

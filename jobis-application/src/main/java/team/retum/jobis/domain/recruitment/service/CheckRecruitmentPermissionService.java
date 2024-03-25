@@ -12,6 +12,7 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 @RequiredArgsConstructor
 @Service
 public class CheckRecruitmentPermissionService {
+
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
 
@@ -27,6 +28,6 @@ public class CheckRecruitmentPermissionService {
 
     public void checkPermission(RecruitArea recruitArea) {
         queryRecruitmentPort.queryRecruitmentById(recruitArea.getRecruitmentId())
-                .ifPresent(this::checkPermission);
+            .ifPresent(this::checkPermission);
     }
 }

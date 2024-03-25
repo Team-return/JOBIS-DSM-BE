@@ -8,7 +8,7 @@ public class NumberUtil {
 
     public static int getTotalPageCount(Long totalCount, int limit) {
         return (int) Math.ceil(
-                totalCount.doubleValue() / limit
+            totalCount.doubleValue() / limit
         );
     }
 }

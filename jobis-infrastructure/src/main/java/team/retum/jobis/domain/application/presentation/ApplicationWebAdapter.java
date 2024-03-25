@@ -70,30 +70,30 @@ public class ApplicationWebAdapter {
     private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
 
     @Caching(
-            evict = {
-                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
-                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
-            }
+        evict = {
+            @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY, allEntries = true)
+        }
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}")
     public void createApplication(
-            @RequestBody @Valid CreateApplicationWebRequest request,
-            @PathVariable("recruitment-id") Long recruitmentId
+        @RequestBody @Valid CreateApplicationWebRequest request,
+        @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createApplicationUseCase.execute(
-                recruitmentId,
-                request.getAttachments().stream()
-                        .map(attachment -> new AttachmentRequest(attachment.getUrl(), attachment.getType()))
-                        .toList()
+            recruitmentId,
+            request.getAttachments().stream()
+                .map(attachment -> new AttachmentRequest(attachment.getUrl(), attachment.getType()))
+                .toList()
         );
     }
 
     @Caching(
-            evict = {
-                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
-                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
-            }
+        evict = {
+            @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY, allEntries = true)
+        }
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{application-id}")
@@ -104,10 +104,10 @@ public class ApplicationWebAdapter {
     @Cacheable
     @GetMapping
     public TeacherQueryApplicationsResponse queryTeacherApplicationList(
-            @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
-            @RequestParam(value = "student_name", required = false) String studentName,
-            @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
+        @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
+        @RequestParam(value = "student_name", required = false) String studentName,
+        @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
     ) {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year);
     }
@@ -115,8 +115,8 @@ public class ApplicationWebAdapter {
     @Cacheable
     @GetMapping("/count")
     public TotalPageCountResponse queryApplicationCount(
-            @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
-            @RequestParam(value = "student_name", required = false) String studentName
+        @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
+        @RequestParam(value = "student_name", required = false) String studentName
     ) {
         return queryApplicationListService.getTotalPageCount(applicationStatus, studentName);
     }
@@ -132,17 +132,17 @@ public class ApplicationWebAdapter {
     }
 
     @Caching(
-            evict = {
-                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
-                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
-            }
+        evict = {
+            @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY, allEntries = true)
+        }
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/status")
     public void changeApplicationsStatus(@RequestBody @Valid ChangeApplicationsStatusWebRequest request) {
         changeApplicationsStatusUseCase.execute(
-                request.getApplicationIds(),
-                request.getStatus()
+            request.getApplicationIds(),
+            request.getStatus()
         );
     }
 
@@ -157,8 +157,8 @@ public class ApplicationWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/rejection/{application-id}")
     public void rejectApplication(
-            @PathVariable("application-id") Long applicationId,
-            @Valid @RequestBody RejectApplicationWebRequest request
+        @PathVariable("application-id") Long applicationId,
+        @Valid @RequestBody RejectApplicationWebRequest request
     ) {
         rejectApplicationUseCase.execute(applicationId, request.getReason());
     }
@@ -172,7 +172,7 @@ public class ApplicationWebAdapter {
     @Cacheable
     @GetMapping("/pass/{company-id}")
     public QueryPassedApplicationStudentsResponse queryFieldTrainApplication(
-            @PathVariable("company-id") Long companyId
+        @PathVariable("company-id") Long companyId
     ) {
         return queryPassedApplicationStudentsUseCase.execute(companyId);
     }
@@ -181,14 +181,14 @@ public class ApplicationWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{application-id}")
     public void reapply(
-            @PathVariable("application-id") Long applicationId,
-            @RequestBody CreateApplicationWebRequest request
+        @PathVariable("application-id") Long applicationId,
+        @RequestBody CreateApplicationWebRequest request
     ) {
         reapplyUseCase.execute(
-                applicationId,
-                request.getAttachments().stream()
-                        .map(attachment -> new AttachmentRequest(attachment.getUrl(), attachment.getType()))
-                        .toList()
+            applicationId,
+            request.getAttachments().stream()
+                .map(attachment -> new AttachmentRequest(attachment.getUrl(), attachment.getType()))
+                .toList()
         );
     }
 

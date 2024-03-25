@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record ChangeFieldTrainDateRequest(
-        List<Long> applicationIds,
-        LocalDate startDate,
-        LocalDate endDate
-) {}
+    List<Long> applicationIds,
+    LocalDate startDate,
+    LocalDate endDate
+) {
+
+}

@@ -6,7 +6,7 @@ import team.retum.jobis.domain.student.exception.error.StudentErrorCode;
 public class StudentAlreadyExistsException extends JobisException {
 
     public static final JobisException EXCEPTION =
-            new StudentAlreadyExistsException();
+        new StudentAlreadyExistsException();
 
     private StudentAlreadyExistsException() {
         super(StudentErrorCode.STUDENT_ALREADY_EXISTS);

@@ -20,21 +20,21 @@ public class CreateBugReportUseCase {
 
     public void execute(CreateBugReportRequest request) {
         BugReport savedBugReport = commandBugReportPort.saveBugReport(
-                BugReport.builder()
-                        .title(request.title())
-                        .content(request.content())
-                        .developmentArea(request.developmentArea())
-                        .studentId(securityPort.getCurrentUserId())
-                        .attachment(new BugAttachment(request.attachmentUrls()))
-                        .build()
+            BugReport.builder()
+                .title(request.title())
+                .content(request.content())
+                .developmentArea(request.developmentArea())
+                .studentId(securityPort.getCurrentUserId())
+                .attachment(new BugAttachment(request.attachmentUrls()))
+                .build()
         );
 
         String writer = securityPort.getCurrentStudent().getName();
         publishEventPort.publishEvent(
-                BugReportEvent.builder()
-                        .bugReport(savedBugReport)
-                        .writer(writer)
-                        .build()
+            BugReportEvent.builder()
+                .bugReport(savedBugReport)
+                .writer(writer)
+                .build()
         );
     }
 }

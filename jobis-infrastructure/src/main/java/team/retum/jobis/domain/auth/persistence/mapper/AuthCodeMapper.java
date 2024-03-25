@@ -11,19 +11,19 @@ public class AuthCodeMapper {
 
     public AuthCodeEntity toEntity(AuthCode domain) {
         return AuthCodeEntity.builder()
-                .code(domain.getCode())
-                .email(domain.getEmail())
-                .isVerified(domain.isVerified())
-                .ttl(domain.getTtl())
-                .build();
+            .code(domain.getCode())
+            .email(domain.getEmail())
+            .isVerified(domain.isVerified())
+            .ttl(domain.getTtl())
+            .build();
     }
 
     public AuthCode toDomain(AuthCodeEntity entity) {
         return AuthCode.builder()
-                .code(entity.getCode())
-                .email(entity.getEmail())
-                .isVerified(entity.isVerified())
-                .ttl(entity.getTtl())
-                .build();
+            .code(entity.getCode())
+            .email(entity.getEmail())
+            .isVerified(entity.isVerified())
+            .ttl(entity.getTtl())
+            .build();
     }
 }

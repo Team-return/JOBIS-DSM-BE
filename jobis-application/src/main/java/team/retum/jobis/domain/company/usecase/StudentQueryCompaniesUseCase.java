@@ -16,24 +16,24 @@ public class StudentQueryCompaniesUseCase {
 
     public StudentQueryCompaniesResponse execute(Long page, String name) {
         CompanyFilter filter = CompanyFilter.builder()
-                .name(name)
-                .page(page)
-                .limit(12)
-                .build();
+            .name(name)
+            .page(page)
+            .limit(12)
+            .build();
 
         return new StudentQueryCompaniesResponse(
-                queryCompanyPort.queryStudentCompanies(filter)
+            queryCompanyPort.queryStudentCompanies(filter)
         );
     }
 
     public TotalPageCountResponse getTotalPageCount(String name) {
         CompanyFilter filter = CompanyFilter.builder()
-                .name(name)
-                .limit(12)
-                .build();
+            .name(name)
+            .limit(12)
+            .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
-                queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
+            queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
         );
 
         return new TotalPageCountResponse(totalPageCount);

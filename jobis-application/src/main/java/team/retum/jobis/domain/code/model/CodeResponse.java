@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CodeResponse {
+
     private final Long id;
     private final String name;
 }

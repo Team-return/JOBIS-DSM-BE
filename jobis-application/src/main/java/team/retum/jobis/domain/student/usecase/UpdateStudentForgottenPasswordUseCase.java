@@ -28,10 +28,10 @@ public class UpdateStudentForgottenPasswordUseCase {
         authCodeEntity.checkIsVerified();
 
         User userEntity = queryUserPort.queryUserByAccountId(email)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         commandUserPort.saveUser(
-                userEntity.updatePassword(securityPort.encodePassword(password))
+            userEntity.updatePassword(securityPort.encodePassword(password))
         );
     }
 }

@@ -22,6 +22,7 @@ public class TeacherQueryRecruitmentsResponse {
     @AllArgsConstructor
     @Builder
     public static class TeacherRecruitmentResponse {
+
         private long id;
 
         private RecruitStatus status;

@@ -27,41 +27,41 @@ public class AcceptancePersistenceAdapter implements AcceptancePort {
     @Override
     public List<AcceptanceVO> queryAcceptancesByCompanyIdAndYear(Long companyId, Integer year) {
         return queryFactory
-                .select(
-                        new QQueryAcceptanceVO(
-                                acceptanceEntity.id,
-                                studentEntity.grade,
-                                studentEntity.classRoom,
-                                studentEntity.number,
-                                studentEntity.name,
-                                acceptanceEntity.contractDate
-                        )
+            .select(
+                new QQueryAcceptanceVO(
+                    acceptanceEntity.id,
+                    studentEntity.grade,
+                    studentEntity.classRoom,
+                    studentEntity.number,
+                    studentEntity.name,
+                    acceptanceEntity.contractDate
                 )
-                .from(acceptanceEntity)
-                .join(acceptanceEntity.student, studentEntity)
-                .where(
-                        acceptanceEntity.company.id.eq(companyId),
-                        acceptanceEntity.year.eq(year)
-                ).fetch().stream()
-                .map(AcceptanceVO.class::cast)
-                .toList();
+            )
+            .from(acceptanceEntity)
+            .join(acceptanceEntity.student, studentEntity)
+            .where(
+                acceptanceEntity.company.id.eq(companyId),
+                acceptanceEntity.year.eq(year)
+            ).fetch().stream()
+            .map(AcceptanceVO.class::cast)
+            .toList();
     }
 
     @Override
     public void updateContractDate(LocalDate contractDate, List<Long> acceptanceIds) {
         queryFactory
-                .update(acceptanceEntity)
-                .set(acceptanceEntity.contractDate, contractDate)
-                .where(acceptanceEntity.id.in(acceptanceIds))
-                .execute();
+            .update(acceptanceEntity)
+            .set(acceptanceEntity.contractDate, contractDate)
+            .where(acceptanceEntity.id.in(acceptanceIds))
+            .execute();
     }
 
     @Override
     public void saveAllAcceptance(List<Acceptance> acceptances) {
         acceptanceJpaRepository.saveAll(
-                acceptances.stream()
-                        .map(acceptanceMapper::toEntity)
-                        .toList()
+            acceptances.stream()
+                .map(acceptanceMapper::toEntity)
+                .toList()
         );
     }
 }

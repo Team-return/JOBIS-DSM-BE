@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class RecruitmentAreaElement {
+
     private final List<String> jobs;
     private final int hiring;
 }

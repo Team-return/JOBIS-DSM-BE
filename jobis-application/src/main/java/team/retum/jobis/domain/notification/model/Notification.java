@@ -24,7 +24,7 @@ public class Notification {
 
     public Notification read() {
         return this.toBuilder()
-                .isNew(false)
-                .build();
+            .isNew(false)
+            .build();
     }
 }

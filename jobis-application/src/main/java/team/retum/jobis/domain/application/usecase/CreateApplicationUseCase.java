@@ -29,12 +29,12 @@ public class CreateApplicationUseCase {
     public void execute(Long recruitmentId, List<AttachmentRequest> attachmentRequests) {
         Student student = securityPort.getCurrentStudent();
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         recruitment.checkIsApplicable(student.getEntranceYear());
 
         if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
-                student.getId(), ApplicationStatus.DUPLICATE_CHECK
+            student.getId(), ApplicationStatus.DUPLICATE_CHECK
         )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
@@ -44,17 +44,17 @@ public class CreateApplicationUseCase {
         }
 
         List<ApplicationAttachment> attachments = attachmentRequests
-                .stream()
-                .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
-                .toList();
+            .stream()
+            .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
+            .toList();
 
         commandApplicationPort.saveApplication(
-                Application.builder()
-                        .studentId(student.getId())
-                        .recruitmentId(recruitment.getId())
-                        .applicationStatus(ApplicationStatus.REQUESTED)
-                        .attachments(attachments)
-                        .build()
+            Application.builder()
+                .studentId(student.getId())
+                .recruitmentId(recruitment.getId())
+                .applicationStatus(ApplicationStatus.REQUESTED)
+                .attachments(attachments)
+                .build()
         );
     }
 }

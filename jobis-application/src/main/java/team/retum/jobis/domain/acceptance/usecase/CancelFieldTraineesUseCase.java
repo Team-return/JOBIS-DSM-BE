@@ -25,12 +25,12 @@ public class CancelFieldTraineesUseCase {
         }
 
         applications.forEach(application ->
-                application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN)
+            application.checkApplicationStatus(application.getApplicationStatus(), ApplicationStatus.FIELD_TRAIN)
         );
 
         commandApplicationPort.changeApplicationStatus(
-                ApplicationStatus.PASS,
-                applicationIds
+            ApplicationStatus.PASS,
+            applicationIds
         );
     }
 }

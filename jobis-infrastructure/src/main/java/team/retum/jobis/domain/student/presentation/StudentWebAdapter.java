@@ -51,8 +51,8 @@ public class StudentWebAdapter {
     @PatchMapping("/forgotten_password")
     public void updateForgottenPassword(@RequestBody @Valid UpdateForgottenPasswordWebRequest webRequest) {
         updateStudentForgottenPasswordUseCase.execute(
-                webRequest.getEmail(),
-                webRequest.getPassword()
+            webRequest.getEmail(),
+            webRequest.getPassword()
         );
     }
 
@@ -63,8 +63,8 @@ public class StudentWebAdapter {
 
     @GetMapping("/exists")
     public void checkStudentExists(
-            @RequestParam("gcn") String gcn,
-            @RequestParam("name") String name
+        @RequestParam("gcn") String gcn,
+        @RequestParam("name") String name
     ) {
         verifyStudentUseCase.execute(gcn, name);
     }
@@ -85,8 +85,8 @@ public class StudentWebAdapter {
     @PatchMapping("/password")
     public void updatePassword(@RequestBody @Valid UpdatePasswordWebRequest webRequest) {
         updateStudentPasswordUseCase.execute(
-                webRequest.getCurrentPassword(),
-                webRequest.getNewPassword()
+            webRequest.getCurrentPassword(),
+            webRequest.getNewPassword()
         );
     }
 }

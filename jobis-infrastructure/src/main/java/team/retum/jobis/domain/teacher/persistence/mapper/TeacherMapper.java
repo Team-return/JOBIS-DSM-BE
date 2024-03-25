@@ -16,14 +16,14 @@ public class TeacherMapper {
 
     public TeacherEntity toEntity(Teacher domain) {
         UserEntity user = userJpaRepository.findById(domain.getId())
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return new TeacherEntity(domain.getId(), user);
     }
 
     public Teacher toDomain(TeacherEntity entity) {
         return Teacher.builder()
-                .id(entity.getId())
-                .build();
+            .id(entity.getId())
+            .build();
     }
 }

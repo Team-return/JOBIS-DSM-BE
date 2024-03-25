@@ -26,8 +26,8 @@ public class CreateNoticeWebRequest {
 
     public CreateNoticeRequest toDomainRequest() {
         List<CreateNoticeRequest.AttachmentRequest> attachmentRequests = this.attachments.stream()
-                .map(attachment -> new CreateNoticeRequest.AttachmentRequest(attachment.url, attachment.type))
-                .collect(Collectors.toList());
+            .map(attachment -> new CreateNoticeRequest.AttachmentRequest(attachment.url, attachment.type))
+            .collect(Collectors.toList());
 
         return new CreateNoticeRequest(this.title, this.content, attachmentRequests);
     }

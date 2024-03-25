@@ -4,7 +4,9 @@ import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.model.JobType;
 
 public record CreateCodeRequest(
-        CodeType codeType,
-        JobType jobType,
-        String keyword
-) {}
+    CodeType codeType,
+    JobType jobType,
+    String keyword
+) {
+
+}

@@ -5,12 +5,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.company.dto.request.RegisterCompanyRequest;
-import team.retum.jobis.global.util.RegexProperty;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -103,31 +101,31 @@ public class RegisterCompanyWebRequest {
 
     public RegisterCompanyRequest toDomainRequest() {
         return RegisterCompanyRequest.builder()
-                .name(this.name)
-                .businessNumber(this.businessNumber)
-                .companyIntroduce(this.companyIntroduce)
-                .mainZipCode(this.mainZipCode)
-                .mainAddress(this.mainAddress)
-                .mainAddressDetail(this.mainAddressDetail)
-                .subZipCode(this.subZipCode)
-                .subAddress(this.subAddress)
-                .subAddressDetail(this.subAddressDetail)
-                .managerName(this.managerName)
-                .managerPhoneNo(this.managerPhoneNo)
-                .subManagerName(this.subManagerName)
-                .subManagerPhoneNo(this.subManagerPhoneNo)
-                .fax(this.fax)
-                .email(this.email)
-                .representativeName(this.representativeName)
-                .representativePhoneNo(this.representativePhoneNo)
-                .foundedAt(this.foundedAt)
-                .workerNumber(this.workerNumber)
-                .take(this.take)
-                .companyProfileUrl(this.companyProfileUrl)
-                .bizRegistrationUrl(this.bizRegistrationUrl)
-                .businessAreaCode(this.businessAreaCode)
-                .serviceName(this.serviceName)
-                .attachmentUrls(this.attachmentUrls)
-                .build();
+            .name(this.name)
+            .businessNumber(this.businessNumber)
+            .companyIntroduce(this.companyIntroduce)
+            .mainZipCode(this.mainZipCode)
+            .mainAddress(this.mainAddress)
+            .mainAddressDetail(this.mainAddressDetail)
+            .subZipCode(this.subZipCode)
+            .subAddress(this.subAddress)
+            .subAddressDetail(this.subAddressDetail)
+            .managerName(this.managerName)
+            .managerPhoneNo(this.managerPhoneNo)
+            .subManagerName(this.subManagerName)
+            .subManagerPhoneNo(this.subManagerPhoneNo)
+            .fax(this.fax)
+            .email(this.email)
+            .representativeName(this.representativeName)
+            .representativePhoneNo(this.representativePhoneNo)
+            .foundedAt(this.foundedAt)
+            .workerNumber(this.workerNumber)
+            .take(this.take)
+            .companyProfileUrl(this.companyProfileUrl)
+            .bizRegistrationUrl(this.bizRegistrationUrl)
+            .businessAreaCode(this.businessAreaCode)
+            .serviceName(this.serviceName)
+            .attachmentUrls(this.attachmentUrls)
+            .build();
     }
 }

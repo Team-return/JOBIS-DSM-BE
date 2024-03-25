@@ -3,8 +3,8 @@ package team.retum.jobis.domain.application.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.ApplicationFilter;
+import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
@@ -27,12 +27,12 @@ public class CompanyQueryApplicationsUseCase {
         Company company = securityPort.getCurrentCompany();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(company.getId())
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         ApplicationFilter applicationFilter = ApplicationFilter.builder()
-                .recruitmentId(recruitment.getId())
-                .applicationStatus(ApplicationStatus.SEND)
-                .build();
+            .recruitmentId(recruitment.getId())
+            .applicationStatus(ApplicationStatus.SEND)
+            .build();
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.queryApplicationByConditions(applicationFilter);
 

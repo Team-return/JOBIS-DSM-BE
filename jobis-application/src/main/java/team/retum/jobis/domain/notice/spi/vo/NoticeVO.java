@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class NoticeVO{
+public class NoticeVO {
 
     private final Long id;
     private final String title;

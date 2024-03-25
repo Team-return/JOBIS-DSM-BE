@@ -32,7 +32,7 @@ public @interface ValidListElements {
             }
 
             return value.stream()
-                    .allMatch(Objects::nonNull);
+                .allMatch(Objects::nonNull);
         }
     }
 }

@@ -25,32 +25,32 @@ public class RecruitAreaMapper {
 
     public RecruitAreaEntity toEntity(RecruitArea domain) {
         RecruitmentEntity recruitment = recruitmentJpaRepository.findById(domain.getRecruitmentId())
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         return RecruitAreaEntity.builder()
-                .id(domain.getId())
-                .recruitmentEntity(recruitment)
-                .hiredCount(domain.getHiredCount())
-                .majorTask(domain.getMajorTask())
-                .preferentialTreatment(domain.getPreferentialTreatment())
-                .build();
+            .id(domain.getId())
+            .recruitmentEntity(recruitment)
+            .hiredCount(domain.getHiredCount())
+            .majorTask(domain.getMajorTask())
+            .preferentialTreatment(domain.getPreferentialTreatment())
+            .build();
     }
 
     public RecruitArea toDomain(RecruitAreaEntity entity) {
         Map<CodeType, List<Long>> codes = recruitAreaCodeJpaRepository.findByRecruitAreaId(entity.getId()).stream()
-                .map(RecruitAreaCodeEntity::getCode)
-                .collect(Collectors.groupingBy(
-                        CodeEntity::getType,
-                        Collectors.mapping(CodeEntity::getCode, Collectors.toList()))
-                );
+            .map(RecruitAreaCodeEntity::getCode)
+            .collect(Collectors.groupingBy(
+                CodeEntity::getType,
+                Collectors.mapping(CodeEntity::getCode, Collectors.toList()))
+            );
 
 
         return RecruitArea.builder()
-                .id(entity.getId())
-                .recruitmentId(entity.getRecruitment().getId())
-                .majorTask(entity.getMajorTask())
-                .preferentialTreatment(entity.getPreferentialTreatment())
-                .codes(codes)
-                .build();
+            .id(entity.getId())
+            .recruitmentId(entity.getRecruitment().getId())
+            .majorTask(entity.getMajorTask())
+            .preferentialTreatment(entity.getPreferentialTreatment())
+            .codes(codes)
+            .build();
     }
 }

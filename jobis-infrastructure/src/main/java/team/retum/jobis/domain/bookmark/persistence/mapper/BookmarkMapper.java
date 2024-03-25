@@ -20,18 +20,18 @@ public class BookmarkMapper {
 
     public BookmarkEntity toEntity(Bookmark domain) {
         RecruitmentEntity recruitment = recruitmentJpaRepository.findById(domain.getRecruitmentId())
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         return new BookmarkEntity(recruitment, student);
     }
 
     public Bookmark toDomain(BookmarkEntity entity) {
         return Bookmark.builder()
-                .recruitmentId(entity.getRecruitment().getId())
-                .studentId(entity.getStudent().getId())
-                .build();
+            .recruitmentId(entity.getRecruitment().getId())
+            .studentId(entity.getStudent().getId())
+            .build();
     }
 }

@@ -17,13 +17,13 @@ public class StudentMyPageResponse {
 
     public static StudentMyPageResponse of(Student student) {
         return StudentMyPageResponse.builder()
-                .studentName(student.getName())
-                .studentGcn(
-                        SchoolNumber.processSchoolNumber(student.getSchoolNumber())
-                )
-                .department(student.getDepartment())
-                .profileImageUrl(student.getProfileImageUrl())
-                .build();
+            .studentName(student.getName())
+            .studentGcn(
+                SchoolNumber.processSchoolNumber(student.getSchoolNumber())
+            )
+            .department(student.getDepartment())
+            .profileImageUrl(student.getProfileImageUrl())
+            .build();
     }
 
 }

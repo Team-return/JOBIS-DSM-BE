@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @UseCase
 public class ApplyRecruitmentUseCase {
+
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final CheckRecruitmentApplicableService checkRecruitmentApplicableService;
     private final SecurityPort securityPort;
@@ -22,17 +23,17 @@ public class ApplyRecruitmentUseCase {
     public void execute(ApplyRecruitmentRequest request) {
         Company company = securityPort.getCurrentCompany();
         checkRecruitmentApplicableService.checkRecruitmentApplicable(
-                company,
-                request.winterIntern()
+            company,
+            request.winterIntern()
         );
 
         Recruitment recruitment = commandRecruitmentPort.saveRecruitment(
-                Recruitment.of(request, company.getId())
+            Recruitment.of(request, company.getId())
         );
 
         List<RecruitArea> recruitAreas = request.areas().stream()
-                .map(area -> RecruitArea.of(area, recruitment.getId()))
-                .toList();
+            .map(area -> RecruitArea.of(area, recruitment.getId()))
+            .toList();
         commandRecruitmentPort.saveAllRecruitmentAreas(recruitAreas);
     }
 }

@@ -32,26 +32,28 @@ public class RecruitmentEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onRecruitmentStatusChanged(RecruitmentStatusChangedEvent event) {
         List<Recruitment> doneRecruitments = event.getRecruitments().stream()
-                .filter(recruitment -> recruitment.getRecruitingPeriod().endDate().isAfter(LocalDate.now()))
-                .toList();
+            .filter(recruitment -> recruitment.getRecruitingPeriod().endDate().isAfter(LocalDate.now()))
+            .toList();
         Map<Long, List<BookmarkUserVO>> bookmarkUserMap = queryBookmarkPort.queryBookmarkUserByRecruitmentIds(
-                doneRecruitments.stream().map(Recruitment::getId).toList()
+            doneRecruitments.stream().map(Recruitment::getId).toList()
         );
         for (Recruitment recruitment : doneRecruitments) {
             Notification repNotification = null;
             List<String> tokens = new ArrayList<>();
             for (BookmarkUserVO bookmarkUser : bookmarkUserMap.get(recruitment.getId())) {
                 Notification notification = Notification.builder()
-                        .title(bookmarkUser.getCompanyName())
-                        .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
-                        .userId(bookmarkUser.getUserId())
-                        .topic(Topic.RECRUITMENT_DONE)
-                        .detailId(recruitment.getId())
-                        .authority(Authority.STUDENT)
-                        .isNew(true)
-                        .build();
+                    .title(bookmarkUser.getCompanyName())
+                    .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
+                    .userId(bookmarkUser.getUserId())
+                    .topic(Topic.RECRUITMENT_DONE)
+                    .detailId(recruitment.getId())
+                    .authority(Authority.STUDENT)
+                    .isNew(true)
+                    .build();
 
-                if (repNotification == null) repNotification = notification;
+                if (repNotification == null) {
+                    repNotification = notification;
+                }
                 tokens.add(bookmarkUser.getToken());
                 commandNotificationPort.saveNotification(notification);
             }

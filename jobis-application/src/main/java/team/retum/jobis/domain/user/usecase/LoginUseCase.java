@@ -23,7 +23,7 @@ public class LoginUseCase {
 
     public TokenResponse execute(LoginRequest request) {
         User user = queryUserPort.queryUserByAccountId(request.accountId())
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         if (!securityPort.isPasswordMatch(request.password(), user.getPassword())) {
             throw InvalidPasswordException.EXCEPTION;

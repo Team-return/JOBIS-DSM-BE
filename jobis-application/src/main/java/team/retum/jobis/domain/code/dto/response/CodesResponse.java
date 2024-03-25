@@ -18,10 +18,10 @@ public class CodesResponse {
 
     public static CodeResponse of(Code code) {
         return CodeResponse.builder()
-                .code(code.getId())
-                .keyword(code.getKeyword())
-                .jobType(code.getJobType())
-                .build();
+            .code(code.getId())
+            .keyword(code.getKeyword())
+            .jobType(code.getJobType())
+            .build();
     }
 
     @Getter

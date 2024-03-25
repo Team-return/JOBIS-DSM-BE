@@ -29,15 +29,15 @@ public class JwtTokenAdapter implements JwtPort {
         String token = generateToken(userId.toString(), TokenType.REFRESH, jwtProperties.getRefreshExp(), authority);
 
         RefreshTokenEntity refreshToken = refreshTokenRepository.findByUserIdAndPlatformType(userId, platformType)
-                .orElse(
-                        RefreshTokenEntity.builder()
-                                .token(token)
-                                .userId(userId)
-                                .authority(authority)
-                                .platformType(platformType)
-                                .ttl(jwtProperties.getRefreshExp().longValue())
-                                .build()
-                );
+            .orElse(
+                RefreshTokenEntity.builder()
+                    .token(token)
+                    .userId(userId)
+                    .authority(authority)
+                    .platformType(platformType)
+                    .ttl(jwtProperties.getRefreshExp().longValue())
+                    .build()
+            );
         refreshTokenRepository.save(refreshToken.updateToken(token));
         return token;
     }
@@ -56,13 +56,13 @@ public class JwtTokenAdapter implements JwtPort {
 
     private String generateToken(String id, TokenType type, Integer exp, Authority authority) {
         return Jwts.builder()
-                .setSubject(id)
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + (exp * 1000)))
-                .claim("type", type.name())
-                .claim("authority", authority)
-                .compact();
+            .setSubject(id)
+            .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + (exp * 1000)))
+            .claim("type", type.name())
+            .claim("authority", authority)
+            .compact();
     }
 
     @Override
@@ -71,12 +71,12 @@ public class JwtTokenAdapter implements JwtPort {
         String refresh = generateRefreshToken(userId, authority, platformType);
 
         return TokenResponse.builder()
-                .accessToken(access)
-                .accessExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp()))
-                .refreshToken(refresh)
-                .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
-                .authority(authority)
-                .platformType(platformType)
-                .build();
+            .accessToken(access)
+            .accessExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getAccessExp()))
+            .refreshToken(refresh)
+            .refreshExpiresAt(LocalDateTime.now().plusSeconds(jwtProperties.getRefreshExp()))
+            .authority(authority)
+            .platformType(platformType)
+            .build();
     }
 }

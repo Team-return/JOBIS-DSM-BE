@@ -17,6 +17,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
     @Getter
     @Builder
     public static class TeacherQueryFieldTraineesResponse {
+
         private Long applicationId;
         private String studentGcn;
         private String studentName;
@@ -27,6 +28,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
     @Getter
     @Builder
     public static class TeacherQueryContractWorkersResponse {
+
         private Long acceptanceId;
         private String studentGcn;
         private String studentName;

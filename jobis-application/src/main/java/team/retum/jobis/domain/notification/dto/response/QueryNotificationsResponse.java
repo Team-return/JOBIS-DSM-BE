@@ -17,6 +17,7 @@ public class QueryNotificationsResponse {
     @Getter
     @Builder
     public static class NotificationResponse {
+
         private final Long notificationId;
         private final String title;
         private final String content;

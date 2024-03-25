@@ -29,21 +29,21 @@ public class RecruitArea {
 
     public static RecruitArea of(CreateRecruitAreaRequest request, Long recruitmentId) {
         return RecruitArea.builder()
-                .recruitmentId(recruitmentId)
-                .hiredCount(request.hiring())
-                .majorTask(request.majorTask())
-                .preferentialTreatment(request.preferentialTreatment())
-                .codes(Code.combineCodesWithType(request.jobCodes(), request.techCodes()))
-                .build();
+            .recruitmentId(recruitmentId)
+            .hiredCount(request.hiring())
+            .majorTask(request.majorTask())
+            .preferentialTreatment(request.preferentialTreatment())
+            .codes(Code.combineCodesWithType(request.jobCodes(), request.techCodes()))
+            .build();
     }
 
     public RecruitArea update(CreateRecruitAreaRequest request) {
         return this.toBuilder()
-                .hiredCount(request.hiring())
-                .majorTask(request.majorTask())
-                .preferentialTreatment(request.preferentialTreatment())
-                .codes(Code.combineCodesWithType(request.jobCodes(), request.techCodes()))
-                .build();
+            .hiredCount(request.hiring())
+            .majorTask(request.majorTask())
+            .preferentialTreatment(request.preferentialTreatment())
+            .codes(Code.combineCodesWithType(request.jobCodes(), request.techCodes()))
+            .build();
     }
 
 }

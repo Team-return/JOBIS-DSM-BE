@@ -42,8 +42,8 @@ public class NoticeWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{notice-id}")
     public void updateNotice(
-            @RequestBody @Valid UpdateNoticeWebRequest request,
-            @PathVariable("notice-id") Long noticeId
+        @RequestBody @Valid UpdateNoticeWebRequest request,
+        @PathVariable("notice-id") Long noticeId
     ) {
         updateNoticeUseCase.execute(request.getTitle(), request.getContent(), noticeId);
     }
@@ -61,7 +61,7 @@ public class NoticeWebAdapter {
 
     @GetMapping("/{notice-id}")
     public QueryNoticeDetailResponse queryNoticeDetails(
-            @PathVariable("notice-id") Long noticeId
+        @PathVariable("notice-id") Long noticeId
     ) {
         return queryNoticeDetailsUseCase.execute(noticeId);
     }
