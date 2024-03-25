@@ -8,5 +8,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class FileUploadResponse {
+
     private List<String> urls;
 }

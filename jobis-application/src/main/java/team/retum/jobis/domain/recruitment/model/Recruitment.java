@@ -55,29 +55,29 @@ public class Recruitment {
 
     public static Recruitment of(ApplyRecruitmentRequest request, Long currentCompanyId) {
         return Recruitment.builder()
-                .companyId(currentCompanyId)
-                .recruitYear(Year.now().getValue())
-                .militarySupport(request.militarySupport())
-                .personalContract(request.personalContact())
-                .workingHours(request.workingHours())
-                .flexibleWorking(request.flexibleWorking())
-                .salary(new Salary(request.trainPay(), request.pay()))
-                .requiredLicenses(request.requiredLicenses())
-                .status(RecruitStatus.REQUESTED)
-                .requiredGrade(request.requiredGrade())
-                .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
-                .submitDocument(request.submitDocument())
-                .benefits(request.benefits())
-                .etc(request.etc())
-                .hiringProgress(request.hiringProgress())
-                .winterIntern(request.winterIntern())
-                .build();
+            .companyId(currentCompanyId)
+            .recruitYear(Year.now().getValue())
+            .militarySupport(request.militarySupport())
+            .personalContract(request.personalContact())
+            .workingHours(request.workingHours())
+            .flexibleWorking(request.flexibleWorking())
+            .salary(new Salary(request.trainPay(), request.pay()))
+            .requiredLicenses(request.requiredLicenses())
+            .status(RecruitStatus.REQUESTED)
+            .requiredGrade(request.requiredGrade())
+            .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
+            .submitDocument(request.submitDocument())
+            .benefits(request.benefits())
+            .etc(request.etc())
+            .hiringProgress(request.hiringProgress())
+            .winterIntern(request.winterIntern())
+            .build();
     }
 
     public Recruitment changeStatus(RecruitStatus status) {
         return this.toBuilder()
-                .status(status)
-                .build();
+            .status(status)
+            .build();
     }
 
     public void checkIsApplicable(Integer entranceYear) {
@@ -128,17 +128,17 @@ public class Recruitment {
 
     public Recruitment update(UpdateRecruitmentRequest request) {
         return this.toBuilder()
-                .requiredGrade(request.requiredGrade())
-                .workingHours(request.workingHours())
-                .flexibleWorking(request.flexibleWorking())
-                .requiredLicenses(request.requiredLicenses())
-                .hiringProgress(request.hiringProgress())
-                .salary(new Salary(request.trainPay(), request.pay()))
-                .benefits(request.benefits())
-                .militarySupport(request.military())
-                .submitDocument(request.submitDocument())
-                .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
-                .etc(request.etc())
-                .build();
+            .requiredGrade(request.requiredGrade())
+            .workingHours(request.workingHours())
+            .flexibleWorking(request.flexibleWorking())
+            .requiredLicenses(request.requiredLicenses())
+            .hiringProgress(request.hiringProgress())
+            .salary(new Salary(request.trainPay(), request.pay()))
+            .benefits(request.benefits())
+            .militarySupport(request.military())
+            .submitDocument(request.submitDocument())
+            .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
+            .etc(request.etc())
+            .build();
     }
 }

@@ -17,22 +17,22 @@ public class GetKeywordsService {
 
     public String getKeywordsAsJoinedString(String jobCodes) {
         return StringUtil.joinStringList(
-                queryCodePort.queryCodesByIdIn(
-                        StringUtil.divideString(jobCodes, ",").stream().map(Long::parseLong).toList()
-                ).stream().map(Code::getKeyword).toList(),
-                "/"
+            queryCodePort.queryCodesByIdIn(
+                StringUtil.divideString(jobCodes, ",").stream().map(Long::parseLong).toList()
+            ).stream().map(Code::getKeyword).toList(),
+            "/"
         );
     }
 
     public List<String> getKeywordsAsList(List<String> jobCodes) {
         return queryCodePort.queryCodesByIdIn(
-                jobCodes.stream().map(Long::parseLong).toList()
+            jobCodes.stream().map(Long::parseLong).toList()
         ).stream().map(Code::getKeyword).toList();
     }
 
     public String getCodeKeyword(Long code) {
         return queryCodePort.queryCodeById(code)
-                .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
-                .getKeyword();
+            .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+            .getKeyword();
     }
 }

@@ -32,7 +32,7 @@ public class ReviewEntity extends BaseTimeEntity {
     private Long id;
 
     @OneToMany(mappedBy = "review", orphanRemoval = true)
-    private List<QnAEntity> qnAs = new ArrayList<>();
+    private final List<QnAEntity> qnAs = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)

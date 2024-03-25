@@ -24,8 +24,8 @@ public class AwsSesConfig {
         final BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKey, secretKey);
 
         return AmazonSimpleEmailServiceAsyncClient.asyncBuilder()
-                .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
-                .withRegion(Regions.AP_NORTHEAST_2)
-                .build();
+            .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
+            .withRegion(Regions.AP_NORTHEAST_2)
+            .build();
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @UseCase
 public class TeacherChangeRecruitmentStatusUseCase {
+
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final PublishEventPort publishEventPort;
@@ -26,9 +27,9 @@ public class TeacherChangeRecruitmentStatusUseCase {
         }
 
         commandRecruitmentPort.saveAllRecruitments(
-                recruitments.stream()
-                        .map(recruitment -> recruitment.changeStatus(status))
-                        .toList()
+            recruitments.stream()
+                .map(recruitment -> recruitment.changeStatus(status))
+                .toList()
         );
         publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
     }

@@ -18,17 +18,17 @@ public class CreateFileUploadUrlUseCase {
 
     public CreateFileUploadUrlResponse execute(List<FileRequest> fileRequests) {
         return new CreateFileUploadUrlResponse(
-                fileRequests.stream()
-                        .map(
-                                file -> {
-                                    String fullFileName = FileUtil.generateFullFileName(file.type(), file.fileName());
-                                    String url = filePort.generateFileUploadUrl(fullFileName);
-                                    return new UrlResponse(
-                                            fullFileName,
-                                            url
-                                    );
-                                }
-                        ).toList()
+            fileRequests.stream()
+                .map(
+                    file -> {
+                        String fullFileName = FileUtil.generateFullFileName(file.type(), file.fileName());
+                        String url = filePort.generateFileUploadUrl(fullFileName);
+                        return new UrlResponse(
+                            fullFileName,
+                            url
+                        );
+                    }
+                ).toList()
         );
     }
 }

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HealthCheckWebAdapter {
 
-  @GetMapping
-  public String healthCheck() {
-    return "OK";
-  }
+    @GetMapping
+    public String healthCheck() {
+        return "OK";
+    }
 }

@@ -70,21 +70,21 @@ public class ApplyRecruitmentWebRequest {
         }
 
         return ApplyRecruitmentRequest.builder()
-                .areas(this.areas.stream().map(RecruitAreaWebRequest::toDomainRequest).toList())
-                .requiredGrade(this.requiredGrade)
-                .workingHours(this.workingHours)
-                .requiredLicenses(this.requiredLicenses)
-                .hiringProgress(this.hiringProgress)
-                .trainPay(this.trainPay)
-                .pay(this.pay)
-                .benefits(this.benefits)
-                .militarySupport(this.militarySupport)
-                .personalContact(this.personalContact)
-                .submitDocument(this.submitDocument)
-                .startDate(this.startDate)
-                .endDate(this.endDate)
-                .winterIntern(this.winterIntern)
-                .etc(this.etc)
-                .build();
+            .areas(this.areas.stream().map(RecruitAreaWebRequest::toDomainRequest).toList())
+            .requiredGrade(this.requiredGrade)
+            .workingHours(this.workingHours)
+            .requiredLicenses(this.requiredLicenses)
+            .hiringProgress(this.hiringProgress)
+            .trainPay(this.trainPay)
+            .pay(this.pay)
+            .benefits(this.benefits)
+            .militarySupport(this.militarySupport)
+            .personalContact(this.personalContact)
+            .submitDocument(this.submitDocument)
+            .startDate(this.startDate)
+            .endDate(this.endDate)
+            .winterIntern(this.winterIntern)
+            .etc(this.etc)
+            .build();
     }
 }

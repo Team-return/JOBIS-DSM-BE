@@ -21,7 +21,7 @@ public class DeleteApplicationUseCase {
         Student student = securityPort.getCurrentStudent();
 
         Application application = queryApplicationPort.queryApplicationById(applicationId)
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         application.checkIsDeletable(student);
 

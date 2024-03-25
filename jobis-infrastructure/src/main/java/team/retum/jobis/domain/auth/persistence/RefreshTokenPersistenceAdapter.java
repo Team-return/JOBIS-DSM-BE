@@ -19,22 +19,22 @@ public class RefreshTokenPersistenceAdapter implements RefreshTokenPort {
     @Override
     public void saveRefreshToken(RefreshToken refreshToken) {
         refreshTokenRepository.save(
-                refreshTokenMapper.toEntity(refreshToken)
+            refreshTokenMapper.toEntity(refreshToken)
         );
     }
 
     @Override
     public RefreshToken queryRefreshTokenByTokenAndPlatformType(String token, PlatformType platformType) {
         return refreshTokenMapper.toDomain(
-                refreshTokenRepository.findByTokenAndPlatformType(token, platformType)
-                        .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION)
+            refreshTokenRepository.findByTokenAndPlatformType(token, platformType)
+                .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION)
         );
     }
 
     @Override
     public void deleteRefreshToken(RefreshToken refreshToken) {
         refreshTokenRepository.delete(
-                refreshTokenMapper.toEntity(refreshToken)
+            refreshTokenMapper.toEntity(refreshToken)
         );
     }
 }

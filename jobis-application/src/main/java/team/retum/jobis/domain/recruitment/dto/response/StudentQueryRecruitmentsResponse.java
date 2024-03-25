@@ -15,6 +15,7 @@ public class StudentQueryRecruitmentsResponse {
     @Getter
     @Builder
     public static class StudentRecruitmentResponse {
+
         private long id;
 
         private String companyName;

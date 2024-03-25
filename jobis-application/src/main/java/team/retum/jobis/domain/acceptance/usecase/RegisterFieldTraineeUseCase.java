@@ -24,9 +24,9 @@ public class RegisterFieldTraineeUseCase {
         }
 
         List<Application> converted = applications.stream()
-                .map(application ->
-                        application.toFieldTrain(request.startDate(), request.endDate())
-                ).toList();
+            .map(application ->
+                application.toFieldTrain(request.startDate(), request.endDate())
+            ).toList();
 
         commandApplicationPort.saveAllApplications(converted);
     }

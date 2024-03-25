@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Embeddable
 @EqualsAndHashCode
 public class RecruitAreaCodeId implements Serializable {
+
     @Column
     private Long recruitAreaId;
 

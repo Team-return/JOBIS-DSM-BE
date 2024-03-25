@@ -20,28 +20,28 @@ public class TeacherQueryApplicationsResponse {
 
     public static TeacherQueryApplicationsResponse of(List<ApplicationVO> applicationVOs) {
         return new TeacherQueryApplicationsResponse(
-                applicationVOs.stream()
-                        .map(application -> TeacherQueryApplicationResponse.builder()
-                                .applicationId(application.getId())
-                                .studentName(application.getName())
-                                .studentGcn(
-                                        SchoolNumber.processSchoolNumber(
-                                                SchoolNumber.builder()
-                                                        .grade(application.getGrade())
-                                                        .classRoom(application.getClassNumber())
-                                                        .number(application.getNumber())
-                                                        .build()
-                                        )
-                                )
-                                .companyName(application.getCompanyName())
-                                .attachments(
-                                        application.getApplicationAttachmentEntities().stream()
-                                                .map(AttachmentResponse::of).toList()
-                                )
-                                .createdAt(application.getCreatedAt().toLocalDate())
-                                .applicationStatus(application.getApplicationStatus())
+            applicationVOs.stream()
+                .map(application -> TeacherQueryApplicationResponse.builder()
+                    .applicationId(application.getId())
+                    .studentName(application.getName())
+                    .studentGcn(
+                        SchoolNumber.processSchoolNumber(
+                            SchoolNumber.builder()
+                                .grade(application.getGrade())
+                                .classRoom(application.getClassNumber())
+                                .number(application.getNumber())
                                 .build()
-                        ).toList()
+                        )
+                    )
+                    .companyName(application.getCompanyName())
+                    .attachments(
+                        application.getApplicationAttachmentEntities().stream()
+                            .map(AttachmentResponse::of).toList()
+                    )
+                    .createdAt(application.getCreatedAt().toLocalDate())
+                    .applicationStatus(application.getApplicationStatus())
+                    .build()
+                ).toList()
         );
     }
 
@@ -50,6 +50,7 @@ public class TeacherQueryApplicationsResponse {
     @AllArgsConstructor
     @Builder
     public static class TeacherQueryApplicationResponse {
+
         private final Long applicationId;
         private final String studentName;
         private final String studentGcn;

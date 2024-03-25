@@ -11,21 +11,21 @@ public class UserMapper {
 
     public UserEntity toEntity(User domain) {
         return UserEntity.builder()
-                .id(domain.getId())
-                .authority(domain.getAuthority())
-                .accountId(domain.getAccountId())
-                .password(domain.getPassword())
-                .token(domain.getToken())
-                .build();
+            .id(domain.getId())
+            .authority(domain.getAuthority())
+            .accountId(domain.getAccountId())
+            .password(domain.getPassword())
+            .token(domain.getToken())
+            .build();
     }
 
     public User toDomain(UserEntity entity) {
         return User.builder()
-                .id(entity.getId())
-                .authority(entity.getAuthority())
-                .accountId(entity.getAccountId())
-                .password(entity.getPassword())
-                .token(entity.getToken())
-                .build();
+            .id(entity.getId())
+            .authority(entity.getAuthority())
+            .accountId(entity.getAccountId())
+            .password(entity.getPassword())
+            .token(entity.getToken())
+            .build();
     }
 }

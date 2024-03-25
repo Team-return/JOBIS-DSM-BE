@@ -15,18 +15,18 @@ public class QueryRecruitAreaVO extends RecruitAreaResponse {
     @QueryProjection
     public QueryRecruitAreaVO(Long id, Integer hiredCount, String majorTask, String preferentialTreatment, List<CodeEntity> codes) {
         super(
-                id,
-                codes.stream()
-                        .filter(code -> code.getType().equals(CodeType.JOB))
-                        .map(code -> new CodeResponse(code.getCode(), code.getKeyword()))
-                        .toList(),
-                codes.stream()
-                        .filter(code -> code.getType().equals(CodeType.TECH))
-                        .map(code -> new CodeResponse(code.getCode(), code.getKeyword()))
-                        .toList(),
-                hiredCount,
-                majorTask,
-                preferentialTreatment
+            id,
+            codes.stream()
+                .filter(code -> code.getType().equals(CodeType.JOB))
+                .map(code -> new CodeResponse(code.getCode(), code.getKeyword()))
+                .toList(),
+            codes.stream()
+                .filter(code -> code.getType().equals(CodeType.TECH))
+                .map(code -> new CodeResponse(code.getCode(), code.getKeyword()))
+                .toList(),
+            hiredCount,
+            majorTask,
+            preferentialTreatment
         );
     }
 }

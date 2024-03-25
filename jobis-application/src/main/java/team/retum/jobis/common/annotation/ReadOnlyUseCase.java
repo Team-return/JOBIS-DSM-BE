@@ -11,4 +11,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Transactional(readOnly = true)
 public @interface ReadOnlyUseCase {
+
 }

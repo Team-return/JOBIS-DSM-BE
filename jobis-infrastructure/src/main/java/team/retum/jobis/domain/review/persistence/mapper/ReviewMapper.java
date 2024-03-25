@@ -20,22 +20,22 @@ public class ReviewMapper {
 
     public ReviewEntity toEntity(Review domain) {
         CompanyEntity companyEntity = companyJpaRepository.findById(domain.getCompanyId())
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
         StudentEntity studentEntity = studentJpaRepository.findById(domain.getStudentId())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
         return ReviewEntity.builder()
-                .id(domain.getId())
-                .companyEntity(companyEntity)
-                .studentEntity(studentEntity)
-                .build();
+            .id(domain.getId())
+            .companyEntity(companyEntity)
+            .studentEntity(studentEntity)
+            .build();
     }
 
     public Review toDomain(ReviewEntity entity) {
         return Review.builder()
-                .id(entity.getId())
-                .companyId(entity.getCompany().getId())
-                .studentId(entity.getStudent().getId())
-                .createdAt(entity.getCreatedAt())
-                .build();
+            .id(entity.getId())
+            .companyId(entity.getCompany().getId())
+            .studentId(entity.getStudent().getId())
+            .createdAt(entity.getCreatedAt())
+            .build();
     }
 }

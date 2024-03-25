@@ -24,7 +24,7 @@ public class TeacherDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String teacherId) throws UsernameNotFoundException {
         TeacherEntity teacherEntity = teacherJpaRepository.findById(
-                Long.valueOf(teacherId)
+            Long.valueOf(teacherId)
         ).orElseThrow(() -> InvalidTokenException.EXCEPTION);
 
         return new TeacherDetails(teacherEntity);

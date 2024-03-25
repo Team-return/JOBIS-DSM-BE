@@ -37,10 +37,10 @@ public class RegisterCompanyUseCase {
         }
 
         Code code = queryCodePort.queryCodeById(request.businessAreaCode())
-                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         Company savedCompany = commandCompanyPort.saveCompany(
-                Company.of(request, code.getKeyword())
+            Company.of(request, code.getKeyword())
         );
 
         return jwtPort.generateTokens(savedCompany.getId(), Authority.COMPANY, PlatformType.WEB);

@@ -31,10 +31,10 @@ public class CreateBugReportWebRequest {
 
     public CreateBugReportRequest toDomainRequest() {
         return CreateBugReportRequest.builder()
-                .title(this.title)
-                .content(this.content)
-                .developmentArea(this.developmentArea)
-                .attachmentUrls(Objects.requireNonNullElse(attachmentUrls, Collections.emptyList()))
-                .build();
+            .title(this.title)
+            .content(this.content)
+            .developmentArea(this.developmentArea)
+            .attachmentUrls(Objects.requireNonNullElse(attachmentUrls, Collections.emptyList()))
+            .build();
     }
 }

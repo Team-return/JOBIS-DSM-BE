@@ -27,10 +27,10 @@ public class CreateBannerWebRequest {
 
     public CreateBannerRequest toDomainRequest() {
         return CreateBannerRequest.builder()
-                .bannerUrl(this.bannerUrl)
-                .bannerType(this.bannerType)
-                .startDate(this.startDate)
-                .endDate(this.endDate)
-                .build();
+            .bannerUrl(this.bannerUrl)
+            .bannerType(this.bannerType)
+            .startDate(this.startDate)
+            .endDate(this.endDate)
+            .build();
     }
 }

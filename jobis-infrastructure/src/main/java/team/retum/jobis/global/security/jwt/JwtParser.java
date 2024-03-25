@@ -56,8 +56,8 @@ public class JwtParser {
     private Claims getClaims(String token) {
         try {
             return Jwts.parser()
-                    .setSigningKey(jwtProperties.getSecret())
-                    .parseClaimsJws(token).getBody();
+                .setSigningKey(jwtProperties.getSecret())
+                .parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException e) {
             throw ExpiredTokenException.EXCEPTION;
         } catch (Exception e) {

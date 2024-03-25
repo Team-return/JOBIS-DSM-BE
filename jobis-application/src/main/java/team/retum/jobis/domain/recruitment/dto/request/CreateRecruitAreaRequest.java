@@ -6,9 +6,11 @@ import java.util.List;
 
 @Builder
 public record CreateRecruitAreaRequest(
-        List<Long> jobCodes,
-        List<Long> techCodes,
-        int hiring,
-        String majorTask,
-        String preferentialTreatment
-) {}
+    List<Long> jobCodes,
+    List<Long> techCodes,
+    int hiring,
+    String majorTask,
+    String preferentialTreatment
+) {
+
+}

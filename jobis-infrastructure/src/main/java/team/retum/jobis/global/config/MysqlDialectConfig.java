@@ -18,9 +18,9 @@ public class MysqlDialectConfig extends MySQLDialect {
         super.initializeFunctionRegistry(functionContributions);
 
         functionContributions.getFunctionRegistry().registerPattern(
-                "GROUP_CONCAT",
-                "group_concat(distinct ?1)",
-                functionContributions.getTypeConfiguration().getBasicTypeRegistry().resolve(StandardBasicTypes.STRING)
+            "GROUP_CONCAT",
+            "group_concat(distinct ?1)",
+            functionContributions.getTypeConfiguration().getBasicTypeRegistry().resolve(StandardBasicTypes.STRING)
         );
     }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @UseCase
 public class ChangeRecruitmentStatusSchedulerUseCase {
+
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final PublishEventPort publishEventPort;
@@ -21,9 +22,9 @@ public class ChangeRecruitmentStatusSchedulerUseCase {
         List<Recruitment> recruitments = queryRecruitmentPort.queryAllRecruitments();
 
         commandRecruitmentPort.saveAllRecruitments(
-                recruitments.stream()
-                        .map(Recruitment::updateRecruitmentStatus)
-                        .toList()
+            recruitments.stream()
+                .map(Recruitment::updateRecruitmentStatus)
+                .toList()
         );
         publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
     }

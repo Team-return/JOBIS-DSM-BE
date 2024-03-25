@@ -7,9 +7,10 @@ import java.util.List;
 
 @Builder
 public record CreateBugReportRequest(
-        String title,
-        String content,
-        DevelopmentArea developmentArea,
-        List<String> attachmentUrls
+    String title,
+    String content,
+    DevelopmentArea developmentArea,
+    List<String> attachmentUrls
 ) {
+
 }

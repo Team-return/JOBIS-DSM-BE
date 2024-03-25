@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CacheName {
+
     public static final String ACCEPTANCE = "Acceptance";
     public static final String APPLICATION = "application";
     public static final String CODE = "code";

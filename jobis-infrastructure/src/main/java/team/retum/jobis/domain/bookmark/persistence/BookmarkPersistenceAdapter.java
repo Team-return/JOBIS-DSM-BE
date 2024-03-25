@@ -34,20 +34,20 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     @Override
     public void saveBookmark(Bookmark bookmark) {
         bookmarkJpaRepository.save(
-                bookmarkMapper.toEntity(bookmark)
+            bookmarkMapper.toEntity(bookmark)
         );
     }
 
     @Override
     public Optional<Bookmark> queryBookmarkByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId) {
         return bookmarkJpaRepository.findByRecruitmentIdAndStudentId(recruitmentId, studentId)
-                .map(bookmarkMapper::toDomain);
+            .map(bookmarkMapper::toDomain);
     }
 
     @Override
     public void deleteBookmark(Bookmark bookmark) {
         bookmarkJpaRepository.delete(
-                bookmarkMapper.toEntity(bookmark)
+            bookmarkMapper.toEntity(bookmark)
         );
     }
 
@@ -59,45 +59,45 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     @Override
     public List<StudentBookmarksVO> queryBookmarksByStudentId(Long studentId) {
         return queryFactory
-                .select(
-                        new QQueryStudentBookmarksVO(
-                                companyEntity.name,
-                                companyEntity.companyLogoUrl,
-                                recruitmentEntity.id,
-                                bookmarkEntity.createdAt
-                        )
+            .select(
+                new QQueryStudentBookmarksVO(
+                    companyEntity.name,
+                    companyEntity.companyLogoUrl,
+                    recruitmentEntity.id,
+                    bookmarkEntity.createdAt
                 )
-                .from(bookmarkEntity)
-                .join(bookmarkEntity.recruitment, recruitmentEntity)
-                .join(recruitmentEntity.company, companyEntity)
-                .join(bookmarkEntity.student, studentEntity)
-                .where(studentEntity.id.eq(studentId))
-                .orderBy(bookmarkEntity.createdAt.desc())
-                .fetch().stream()
-                .map(StudentBookmarksVO.class::cast)
-                .toList();
+            )
+            .from(bookmarkEntity)
+            .join(bookmarkEntity.recruitment, recruitmentEntity)
+            .join(recruitmentEntity.company, companyEntity)
+            .join(bookmarkEntity.student, studentEntity)
+            .where(studentEntity.id.eq(studentId))
+            .orderBy(bookmarkEntity.createdAt.desc())
+            .fetch().stream()
+            .map(StudentBookmarksVO.class::cast)
+            .toList();
     }
 
     @Override
     public Map<Long, List<BookmarkUserVO>> queryBookmarkUserByRecruitmentIds(List<Long> recruitmentIds) {
         return queryFactory
-                .select(
-                        new QQueryBookmarkUserVO(
-                                recruitmentEntity.id,
-                                userEntity.id,
-                                companyEntity.name,
-                                userEntity.token
-                        )
+            .select(
+                new QQueryBookmarkUserVO(
+                    recruitmentEntity.id,
+                    userEntity.id,
+                    companyEntity.name,
+                    userEntity.token
                 )
-                .from(bookmarkEntity)
-                .join(bookmarkEntity.recruitment, recruitmentEntity)
-                .join(recruitmentEntity.company, companyEntity)
-                .join(bookmarkEntity.student, studentEntity)
-                .join(studentEntity.userEntity, userEntity)
-                .where(recruitmentEntity.id.in(recruitmentIds))
-                .fetch().stream()
-                .map(BookmarkUserVO.class::cast)
-                .toList().stream()
-                .collect(Collectors.groupingBy(BookmarkUserVO::getRecruitmentId));
+            )
+            .from(bookmarkEntity)
+            .join(bookmarkEntity.recruitment, recruitmentEntity)
+            .join(recruitmentEntity.company, companyEntity)
+            .join(bookmarkEntity.student, studentEntity)
+            .join(studentEntity.userEntity, userEntity)
+            .where(recruitmentEntity.id.in(recruitmentIds))
+            .fetch().stream()
+            .map(BookmarkUserVO.class::cast)
+            .toList().stream()
+            .collect(Collectors.groupingBy(BookmarkUserVO::getRecruitmentId));
     }
 }

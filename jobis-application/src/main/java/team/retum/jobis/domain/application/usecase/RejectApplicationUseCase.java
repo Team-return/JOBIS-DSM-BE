@@ -16,10 +16,10 @@ public class RejectApplicationUseCase {
 
     public void execute(Long applicationId, String rejectReason) {
         Application application = queryApplicationPort.queryApplicationById(applicationId)
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         commandApplicationPort.saveApplication(
-                application.rejectApplication(rejectReason)
+            application.rejectApplication(rejectReason)
         );
     }
 }

@@ -18,7 +18,7 @@ public class VerifyAuthCodeUseCase {
         authCode.verifyCode(code);
 
         commandAuthCodePort.saveAuthCode(
-                authCode.verify()
+            authCode.verify()
         );
     }
 }

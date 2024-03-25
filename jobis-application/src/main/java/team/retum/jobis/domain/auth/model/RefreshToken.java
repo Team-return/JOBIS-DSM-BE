@@ -21,8 +21,8 @@ public class RefreshToken {
 
     public RefreshToken update(String token, Long ttl) {
         return this.toBuilder()
-                .token(token)
-                .ttl(ttl)
-                .build();
+            .token(token)
+            .ttl(ttl)
+            .build();
     }
 }

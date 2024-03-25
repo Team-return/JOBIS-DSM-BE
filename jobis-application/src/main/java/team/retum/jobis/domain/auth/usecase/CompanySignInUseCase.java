@@ -12,11 +12,10 @@ import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
-import java.util.Objects;
-
 @RequiredArgsConstructor
 @UseCase
 public class CompanySignInUseCase {
+
     private final QueryCompanyPort queryCompanyPort;
     private final JwtPort jwtPort;
     private final SecurityPort securityPort;
@@ -27,7 +26,7 @@ public class CompanySignInUseCase {
         }
 
         Company company = queryCompanyPort.queryCompanyByBusinessNumber(businessRegistrationNumber)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return jwtPort.generateTokens(company.getId(), Authority.COMPANY, PlatformType.WEB);
     }

@@ -21,7 +21,7 @@ public class QueryMyRecruitmentsUseCase {
         Company company = securityPort.getCurrentCompany();
 
         List<MyAllRecruitmentsVO> recruitments =
-                queryRecruitmentPort.queryMyAllRecruitmentsVOByCompanyId(company.getId());
+            queryRecruitmentPort.queryMyAllRecruitmentsVOByCompanyId(company.getId());
 
         return new QueryMyRecruitmentsResponse(recruitments);
     }

@@ -29,12 +29,10 @@ import team.retum.jobis.global.util.ImageProperty;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @Table(
-        name = "tbl_student",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        columnNames = {"grade", "classRoom", "number", "entranceYear"}
-                )
-        }
+    name = "tbl_student",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"grade", "classRoom", "number", "entranceYear"})
+    }
 )
 @Entity
 public class StudentEntity {

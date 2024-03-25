@@ -19,7 +19,7 @@ import java.util.Collections;
 public class CompanyDetails implements UserDetails {
 
     private final CompanyEntity company;
-    
+
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

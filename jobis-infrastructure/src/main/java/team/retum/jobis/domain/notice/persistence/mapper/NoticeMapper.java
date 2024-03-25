@@ -20,34 +20,34 @@ public class NoticeMapper {
 
     public NoticeEntity toEntity(Notice domain) {
         NotificationEntity notification = notificationJpaRepository.findById(domain.getNotificationId())
-                .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
+            .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
 
         List<NoticeAttachmentEntity> attachments = domain.getAttachments().stream()
-                .map(attachment -> new NoticeAttachmentEntity(attachment.getUrl(), attachment.getType()))
-                .toList();
+            .map(attachment -> new NoticeAttachmentEntity(attachment.getUrl(), attachment.getType()))
+            .toList();
 
         return NoticeEntity.builder()
-                .id(domain.getId())
-                .title(domain.getTitle())
-                .content(domain.getContent())
-                .notificationEntity(notification)
-                .createdAt(domain.getCreatedAt())
-                .attachments(attachments)
-                .build();
+            .id(domain.getId())
+            .title(domain.getTitle())
+            .content(domain.getContent())
+            .notificationEntity(notification)
+            .createdAt(domain.getCreatedAt())
+            .attachments(attachments)
+            .build();
     }
 
     public Notice toDomain(NoticeEntity entity) {
         List<NoticeAttachment> attachments = entity.getAttachments().stream()
-                .map(attachment -> new NoticeAttachment(attachment.getAttachmentUrl(), attachment.getType()))
-                .toList();
+            .map(attachment -> new NoticeAttachment(attachment.getAttachmentUrl(), attachment.getType()))
+            .toList();
 
         return Notice.builder()
-                .id(entity.getId())
-                .title(entity.getTitle())
-                .content(entity.getContent())
-                .notificationId(entity.getNotification().getId())
-                .createdAt(entity.getCreatedAt())
-                .attachments(attachments)
-                .build();
+            .id(entity.getId())
+            .title(entity.getTitle())
+            .content(entity.getContent())
+            .notificationId(entity.getNotification().getId())
+            .createdAt(entity.getCreatedAt())
+            .attachments(attachments)
+            .build();
     }
 }

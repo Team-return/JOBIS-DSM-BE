@@ -31,22 +31,22 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     @Override
     public Optional<Notification> queryNotificationById(Long notificationId) {
         return notificationJpaRepository.findById(notificationId)
-                .map(notificationMapper::toDomain);
+            .map(notificationMapper::toDomain);
     }
 
     @Override
     public List<Notification> queryNotificationsByCondition(Long userId, Boolean isNew) {
         return queryFactory
-                .selectFrom(notificationEntity)
-                .join(notificationEntity.userEntity, userEntity)
-                .where(
-                        userEntity.id.eq(userId),
-                        isNew(isNew)
-                )
-                .orderBy(notificationEntity.createdAt.desc())
-                .fetch().stream()
-                .map(notificationMapper::toDomain)
-                .toList();
+            .selectFrom(notificationEntity)
+            .join(notificationEntity.userEntity, userEntity)
+            .where(
+                userEntity.id.eq(userId),
+                isNew(isNew)
+            )
+            .orderBy(notificationEntity.createdAt.desc())
+            .fetch().stream()
+            .map(notificationMapper::toDomain)
+            .toList();
     }
 
     //==condition==//

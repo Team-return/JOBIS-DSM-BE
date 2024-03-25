@@ -23,33 +23,33 @@ public class QueryRecruitmentDetailUseCase {
 
     public QueryRecruitmentDetailResponse execute(Long recruitId) {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.queryRecruitmentDetailById(recruitment.getId(), securityPort.getCurrentUserId());
         List<RecruitAreaResponse> recruitAreaResponses = queryRecruitmentPort.queryRecruitAreasByRecruitmentId(
-                        recruitment.getId()
-                ).stream()
-                .map(recruitAreaResponse ->
-                        RecruitAreaResponse.builder()
-                                .id(recruitAreaResponse.getId())
-                                .job(recruitAreaResponse.getJob().stream()
-                                        .map(job -> new CodeResponse(job.getId(), job.getName()))
-                                        .toList())
-                                .tech(recruitAreaResponse.getTech().stream()
-                                        .map(tech -> new CodeResponse(tech.getId(), tech.getName()))
-                                        .toList())
-                                .hiring(recruitAreaResponse.getHiring())
-                                .majorTask(recruitAreaResponse.getMajorTask())
-                                .preferentialTreatment(recruitAreaResponse.getPreferentialTreatment())
-                                .build()
-                ).toList();
+                recruitment.getId()
+            ).stream()
+            .map(recruitAreaResponse ->
+                RecruitAreaResponse.builder()
+                    .id(recruitAreaResponse.getId())
+                    .job(recruitAreaResponse.getJob().stream()
+                        .map(job -> new CodeResponse(job.getId(), job.getName()))
+                        .toList())
+                    .tech(recruitAreaResponse.getTech().stream()
+                        .map(tech -> new CodeResponse(tech.getId(), tech.getName()))
+                        .toList())
+                    .hiring(recruitAreaResponse.getHiring())
+                    .majorTask(recruitAreaResponse.getMajorTask())
+                    .preferentialTreatment(recruitAreaResponse.getPreferentialTreatment())
+                    .build()
+            ).toList();
 
         return QueryRecruitmentDetailResponse.of(recruitmentDetail, recruitAreaResponses, getApplicable(recruitmentDetail.isWinterIntern()));
     }
 
     private Boolean getApplicable(boolean winterIntern) {
         if (securityPort.getCurrentUserAuthority().equals(Authority.STUDENT)
-                || securityPort.getCurrentUserAuthority().equals(Authority.DEVELOPER)) {
+            || securityPort.getCurrentUserAuthority().equals(Authority.DEVELOPER)) {
             return securityPort.getCurrentStudent().getApplicable(winterIntern);
         }
         return null;

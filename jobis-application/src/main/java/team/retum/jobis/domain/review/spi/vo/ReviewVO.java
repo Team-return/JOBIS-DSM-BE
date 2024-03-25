@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 public class ReviewVO {
+
     private final Long reviewId;
     private final String writer;
     private final int year;

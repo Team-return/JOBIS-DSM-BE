@@ -23,12 +23,12 @@ public class FileWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/pre-signed")
     public CreateFileUploadUrlResponse createPreSignedUrl(
-            @RequestBody @Valid CreatePreSignedUrlWebRequest request
+        @RequestBody @Valid CreatePreSignedUrlWebRequest request
     ) {
         return createFileUploadUrlUseCase.execute(
-                request.getFiles().stream()
-                        .map(file -> new FileRequest(file.getType(), file.getFileName()))
-                        .toList()
+            request.getFiles().stream()
+                .map(file -> new FileRequest(file.getType(), file.getFileName()))
+                .toList()
         );
     }
 }

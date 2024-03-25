@@ -11,6 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 public class BookmarkId implements Serializable {
+
     private Long recruitment;
     private Long student;
 }
