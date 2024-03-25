@@ -98,34 +98,34 @@ public class Company {
 
     public Company update(UpdateCompanyDetailsRequest request) {
         return this.toBuilder()
-                .addressInfo(
-                        AddressInfo.builder()
-                                .mainAddress(request.mainAddress())
-                                .mainAddressDetail(request.mainAddressDetail())
-                                .mainZipCode(request.mainZipCode())
-                                .subAddress(request.subAddress())
-                                .subAddressDetail(request.subAddressDetail())
-                                .subZipCode(request.subZipCode())
-                                .build()
-                )
-                .take(request.take())
-                .workersCount(request.workerNumber())
-                .managerInfo(
-                        ManagerInfo.builder()
-                                .managerName(request.managerName())
-                                .managerPhoneNo(request.managerPhoneNo())
-                                .subManagerName(request.subManagerName())
-                                .subManagerPhoneNo(request.subManagerPhoneNo())
-                                .build()
-                )
-                .companyIntroduce(request.companyIntroduce())
-                .representativePhoneNo(request.representativePhoneNo())
-                .companyLogoUrl(request.companyProfileUrl())
-                .fax(request.fax())
-                .email(request.email())
-                .serviceName(request.serviceName())
-                .attachmentUrls(request.attachmentUrls())
-                .build();
+            .addressInfo(
+                AddressInfo.builder()
+                    .mainAddress(request.mainAddress())
+                    .mainAddressDetail(request.mainAddressDetail())
+                    .mainZipCode(request.mainZipCode())
+                    .subAddress(request.subAddress())
+                    .subAddressDetail(request.subAddressDetail())
+                    .subZipCode(request.subZipCode())
+                    .build()
+            )
+            .take(request.take())
+            .workersCount(request.workerNumber())
+            .managerInfo(
+                ManagerInfo.builder()
+                    .managerName(request.managerName())
+                    .managerPhoneNo(request.managerPhoneNo())
+                    .subManagerName(request.subManagerName())
+                    .subManagerPhoneNo(request.subManagerPhoneNo())
+                    .build()
+            )
+            .companyIntroduce(request.companyIntroduce())
+            .representativePhoneNo(request.representativePhoneNo())
+            .companyLogoUrl(request.companyProfileUrl())
+            .fax(request.fax())
+            .email(request.email())
+            .serviceName(request.serviceName())
+            .attachmentUrls(request.attachmentUrls())
+            .build();
     }
 
     public Company changeCompanyType(CompanyType type) {
