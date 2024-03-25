@@ -45,7 +45,7 @@ public class ApplicationEventHandler {
         for (Application application : event.getApplications()) {
             Notification notification = Notification.builder()
                     .title(companyNameMap.get(application.getRecruitmentId()))
-                    .content("지원서 상태가 {" + event.getStatus().name() + "}로 변경되었습니다.")
+                    .content("지원서 상태가 " + event.getStatus().getName() + "로 변경되었습니다.")
                     .userId(application.getStudentId())
                     .topic(Topic.APPLICATION_STATUS_CHANGED)
                     .detailId(application.getId())
