@@ -24,8 +24,6 @@ public record UpdateCompanyDetailsRequest(
         String companyProfileUrl,
         String serviceName,
         String representativePhoneNo,
-        Long businessAreaCode,
-        String bizRegistrationUrl,
         List<String> attachmentUrls
 ) {
 }
