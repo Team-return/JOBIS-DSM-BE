@@ -5,6 +5,7 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
@@ -32,6 +33,7 @@ import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
+import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
 import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
 import static team.retum.jobis.domain.review.persistence.entity.QReviewEntity.reviewEntity;
@@ -151,44 +153,51 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     public Optional<CompanyDetailsVO> queryCompanyDetails(Long companyId) {
         return Optional.ofNullable(
                 queryFactory
-                    .select(
-                            new QQueryCompanyDetailsVO(
-                                    companyEntity.bizNo,
-                                    companyEntity.name,
-                                    companyEntity.companyLogoUrl,
-                                    companyEntity.companyIntroduce,
-                                    companyEntity.address.mainZipCode,
-                                    companyEntity.address.mainAddress,
-                                    companyEntity.address.mainAddressDetail,
-                                    companyEntity.address.subZipCode,
-                                    companyEntity.address.subAddress,
-                                    companyEntity.address.subAddressDetail,
-                                    companyEntity.manager.managerName,
-                                    companyEntity.manager.managerPhoneNo,
-                                    companyEntity.manager.subManagerName,
-                                    companyEntity.manager.subManagerPhoneNo,
-                                    companyEntity.fax,
-                                    companyEntity.email,
-                                    companyEntity.representative,
-                                    companyEntity.representativePhoneNo,
-                                    companyEntity.foundedAt,
-                                    companyEntity.workersCount,
-                                    companyEntity.take,
-                                    recruitmentEntity.id,
-                                    companyEntity.serviceName,
-                                    companyEntity.businessArea,
-                                    companyEntity.attachmentUrls
-                            )
-                    )
-                    .from(companyEntity)
-                    .leftJoin(recruitmentEntity)
-                    .on(
-                            recruitmentEntity.company.id.eq(companyEntity.id),
-                            recentRecruitment(RecruitStatus.RECRUITING)
-                    )
-                    .where(companyEntity.id.eq(companyId))
-                    .fetchOne()
-                );
+                        .select(
+                                new QQueryCompanyDetailsVO(
+                                        companyEntity.bizNo,
+                                        companyEntity.name,
+                                        companyEntity.companyLogoUrl,
+                                        companyEntity.companyIntroduce,
+                                        companyEntity.address.mainZipCode,
+                                        companyEntity.address.mainAddress,
+                                        companyEntity.address.mainAddressDetail,
+                                        companyEntity.address.subZipCode,
+                                        companyEntity.address.subAddress,
+                                        companyEntity.address.subAddressDetail,
+                                        companyEntity.manager.managerName,
+                                        companyEntity.manager.managerPhoneNo,
+                                        companyEntity.manager.subManagerName,
+                                        companyEntity.manager.subManagerPhoneNo,
+                                        companyEntity.fax,
+                                        companyEntity.email,
+                                        companyEntity.representative,
+                                        companyEntity.representativePhoneNo,
+                                        companyEntity.foundedAt,
+                                        companyEntity.workersCount,
+                                        companyEntity.take,
+                                        recruitmentEntity.id,
+                                        companyEntity.serviceName,
+                                        codeEntity.code,
+                                        companyEntity.businessArea,
+                                        companyEntity.attachmentUrls,
+                                        companyEntity.bizRegistrationUrl
+                                )
+                        )
+                        .from(companyEntity)
+                        .leftJoin(recruitmentEntity)
+                        .on(
+                                recruitmentEntity.company.id.eq(companyEntity.id),
+                                recentRecruitment(RecruitStatus.RECRUITING)
+                        )
+                        .join(codeEntity)
+                        .on(
+                                codeEntity.keyword.eq(companyEntity.businessArea),
+                                codeEntity.type.eq(CodeType.BUSINESS_AREA)
+                        )
+                        .where(companyEntity.id.eq(companyId))
+                        .fetchOne()
+        );
     }
 
     @Override

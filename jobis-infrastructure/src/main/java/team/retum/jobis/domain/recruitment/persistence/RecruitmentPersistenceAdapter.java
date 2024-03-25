@@ -353,6 +353,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         )
                 )
                 .toList();
+        recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitArea.getId());
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodeEntities);
 
         return recruitAreaMapper.toDomain(recruitAreaEntity);

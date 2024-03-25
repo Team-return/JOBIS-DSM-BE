@@ -43,7 +43,9 @@ public class QueryCompanyDetailsUseCase {
                 .recruitmentId(vo.getRecruitmentId())
                 .attachments(vo.getAttachmentUrls())
                 .serviceName(vo.getServiceName())
+                .businessAreaCode(vo.getBusinessAreaCode())
                 .businessArea(vo.getBusinessArea())
+                .bizRegistrationUrl(vo.getBizRegistrationUrl())
                 .build();
     }
 }
