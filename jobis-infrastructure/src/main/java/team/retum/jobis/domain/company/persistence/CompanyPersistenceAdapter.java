@@ -178,8 +178,10 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                                         companyEntity.take,
                                         recruitmentEntity.id,
                                         companyEntity.serviceName,
+                                        codeEntity.code,
                                         companyEntity.businessArea,
-                                        companyEntity.attachmentUrls
+                                        companyEntity.attachmentUrls,
+                                        companyEntity.bizRegistrationUrl
                                 )
                         )
                         .from(companyEntity)
