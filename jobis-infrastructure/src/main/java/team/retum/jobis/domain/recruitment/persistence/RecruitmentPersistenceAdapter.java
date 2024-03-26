@@ -166,7 +166,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public RecruitmentDetailVO queryRecruitmentDetailById(Long recruitmentId, Long userId) {
+    public RecruitmentDetailVO queryRecruitmentDetailByIdAndStudentId(Long recruitmentId, Long userId) {
         return queryFactory
                 .select(
                         new QQueryRecruitmentDetailVO(
