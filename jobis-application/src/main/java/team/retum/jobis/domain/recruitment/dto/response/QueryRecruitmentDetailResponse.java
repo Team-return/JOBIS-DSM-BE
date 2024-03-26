@@ -8,7 +8,6 @@ import team.retum.jobis.domain.recruitment.model.ProgressType;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -40,26 +39,26 @@ public class QueryRecruitmentDetailResponse {
 
     public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas, Boolean isApplicable) {
         return QueryRecruitmentDetailResponse.builder()
-                .recruitmentId(recruitmentDetail.getRecruitmentId())
-                .companyId(recruitmentDetail.getCompanyId())
-                .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
-                .companyName(recruitmentDetail.getCompanyName())
-                .areas(recruitAreas)
-                .requiredGrade(recruitmentDetail.getRequiredGrade())
-                .workingHours(recruitmentDetail.getWorkingHours())
-                .flexibleWorking(recruitmentDetail.isFlexibleWorking())
-                .requiredLicenses(recruitmentDetail.getRequiredLicenses())
-                .hiringProgress(recruitmentDetail.getHiringProgress())
-                .trainPay(recruitmentDetail.getTrainPay())
-                .pay(recruitmentDetail.getPay())
-                .benefits(recruitmentDetail.getBenefits())
-                .military(recruitmentDetail.getMilitary())
-                .submitDocument(recruitmentDetail.getSubmitDocument())
-                .startDate(recruitmentDetail.getStartDate())
-                .endDate(recruitmentDetail.getEndDate())
-                .etc(recruitmentDetail.getEtc())
-                .isApplicable(isApplicable)
-                .isBookmarked(recruitmentDetail.isBookmarked())
-                .build();
+            .recruitmentId(recruitmentDetail.getRecruitmentId())
+            .companyId(recruitmentDetail.getCompanyId())
+            .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
+            .companyName(recruitmentDetail.getCompanyName())
+            .areas(recruitAreas)
+            .requiredGrade(recruitmentDetail.getRequiredGrade())
+            .workingHours(recruitmentDetail.getWorkingHours())
+            .flexibleWorking(recruitmentDetail.isFlexibleWorking())
+            .requiredLicenses(recruitmentDetail.getRequiredLicenses())
+            .hiringProgress(recruitmentDetail.getHiringProgress())
+            .trainPay(recruitmentDetail.getTrainPay())
+            .pay(recruitmentDetail.getPay())
+            .benefits(recruitmentDetail.getBenefits())
+            .military(recruitmentDetail.getMilitary())
+            .submitDocument(recruitmentDetail.getSubmitDocument())
+            .startDate(recruitmentDetail.getStartDate())
+            .endDate(recruitmentDetail.getEndDate())
+            .etc(recruitmentDetail.getEtc())
+            .isApplicable(isApplicable)
+            .isBookmarked(recruitmentDetail.isBookmarked())
+            .build();
     }
 }
