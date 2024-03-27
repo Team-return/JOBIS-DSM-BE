@@ -40,50 +40,49 @@ public class StudentSignUpUseCase {
         AuthCode authCode = queryAuthCodePort.queryAuthCodeByEmail(request.email());
         authCode.checkIsVerified();
 
-        checkStudentExists(request.grade(), request.classRoom(), request.number(), Student.getEntranceYear(request.grade()));
+        SchoolNumber schoolNumber = SchoolNumber.builder()
+            .grade(request.grade())
+            .classRoom(request.classRoom())
+            .number(request.number())
+            .build();
+        checkStudentExists(schoolNumber, Student.getEntranceYear(request.grade()));
 
         User user = commandUserPort.saveUser(
-                User.builder()
-                        .accountId(request.email())
-                        .password(securityPort.encodePassword(request.password()))
-                        .authority(Authority.STUDENT)
-                        .token(request.deviceToken())
-                        .build()
+            User.builder()
+                .accountId(request.email())
+                .password(securityPort.encodePassword(request.password()))
+                .authority(Authority.STUDENT)
+                .token(request.deviceToken())
+                .build()
         );
 
         Student student = commandStudentPort.saveStudent(
-                Student.builder()
-                        .id(user.getId())
-                        .schoolNumber(
-                                SchoolNumber.builder()
-                                        .grade(request.grade())
-                                        .classRoom(request.classRoom())
-                                        .number(request.number())
-                                        .build()
-                        )
-                        .name(request.name())
-                        .gender(request.gender())
-                        .department(
-                                SchoolNumber.getDepartment(
-                                        request.grade(),
-                                        request.classRoom()
-                                )
-                        )
-                        .profileImageUrl(request.profileImageUrl())
-                        .build()
+            Student.builder()
+                .id(user.getId())
+                .schoolNumber(schoolNumber)
+                .name(request.name())
+                .gender(request.gender())
+                .department(
+                    SchoolNumber.getDepartment(
+                        request.grade(),
+                        request.classRoom()
+                    )
+                )
+                .profileImageUrl(request.profileImageUrl())
+                .build()
         );
 
         commandVerifiedStudentPort.deleteVerifiedStudentByGcnAndName(
-                SchoolNumber.processSchoolNumber(student.getSchoolNumber()),
-                student.getName()
+            SchoolNumber.processSchoolNumber(student.getSchoolNumber()),
+            student.getName()
         );
 
         return jwtPort.generateTokens(user.getId(), user.getAuthority(), request.platformType());
     }
 
-    private void checkStudentExists(Integer grade, Integer classRoom, Integer number, Integer entranceYear) {
+    private void checkStudentExists(SchoolNumber schoolNumber, Integer entranceYear) {
         if (queryStudentPort.existsByGradeAndClassRoomAndNumberAndEntranceYear(
-                grade, classRoom, number, entranceYear
+            schoolNumber, entranceYear
         )) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }

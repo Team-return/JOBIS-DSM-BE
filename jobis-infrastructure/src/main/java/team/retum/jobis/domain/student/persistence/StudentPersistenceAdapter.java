@@ -31,8 +31,13 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(int grade, int classRoom, int number, int entranceYear) {
-        return studentJpaRepository.existsByGradeAndClassRoomAndNumberAndEntranceYear(grade, classRoom, number, entranceYear);
+    public boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear) {
+        return studentJpaRepository.existsByGradeAndClassRoomAndNumberAndEntranceYear(
+            schoolNumber.getGrade(),
+            schoolNumber.getClassRoom(),
+            schoolNumber.getNumber(),
+            entranceYear
+        );
     }
 
     @Override
