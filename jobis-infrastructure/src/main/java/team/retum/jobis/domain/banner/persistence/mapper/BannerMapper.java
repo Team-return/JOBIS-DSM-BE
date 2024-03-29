@@ -2,8 +2,8 @@ package team.retum.jobis.domain.banner.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.banner.persistence.entity.BannerEntity;
 import team.retum.jobis.domain.banner.model.Banner;
+import team.retum.jobis.domain.banner.persistence.entity.BannerEntity;
 
 @RequiredArgsConstructor
 @Component

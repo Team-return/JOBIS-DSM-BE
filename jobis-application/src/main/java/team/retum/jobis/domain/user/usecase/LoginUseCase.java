@@ -2,12 +2,10 @@ package team.retum.jobis.domain.user.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.user.checker.UserChecker;
 import team.retum.jobis.domain.user.dto.request.LoginRequest;
-import team.retum.jobis.domain.user.exception.InvalidPasswordException;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;

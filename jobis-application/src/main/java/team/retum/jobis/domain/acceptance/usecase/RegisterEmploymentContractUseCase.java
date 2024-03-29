@@ -5,7 +5,6 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.spi.CommandAcceptancePort;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
