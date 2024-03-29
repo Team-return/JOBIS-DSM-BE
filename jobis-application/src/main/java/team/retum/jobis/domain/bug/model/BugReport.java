@@ -5,7 +5,6 @@ import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Builder(toBuilder = true)

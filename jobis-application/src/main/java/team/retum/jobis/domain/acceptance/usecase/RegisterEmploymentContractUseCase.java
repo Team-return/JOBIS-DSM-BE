@@ -5,7 +5,7 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.spi.CommandAcceptancePort;
 import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
-import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
+import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
@@ -32,9 +32,10 @@ public class RegisterEmploymentContractUseCase {
         List<Acceptance> acceptances = applications.stream()
                 .map(
                         application -> {
-                            if (application.getStatus() != ApplicationStatus.FIELD_TRAIN) {
-                                throw ApplicationStatusCannotChangeException.EXCEPTION;
-                            }
+                            Application.checkApplicationStatus(
+                                    application.getStatus(),
+                                    ApplicationStatus.FIELD_TRAIN
+                            );
 
                             return Acceptance.builder()
                                     .companyId(application.getCompanyId())

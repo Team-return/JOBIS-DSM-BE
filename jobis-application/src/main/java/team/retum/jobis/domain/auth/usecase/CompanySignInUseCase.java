@@ -12,8 +12,6 @@ import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
-import java.util.Objects;
-
 @RequiredArgsConstructor
 @UseCase
 public class CompanySignInUseCase {
@@ -22,13 +20,17 @@ public class CompanySignInUseCase {
     private final SecurityPort securityPort;
 
     public TokenResponse execute(String businessRegistrationNumber, String authCode) {
-        if (!securityPort.getServerAuthCode().equals(authCode)) {
-            throw BadAuthCodeException.EXCEPTION;
-        }
-
         Company company = queryCompanyPort.queryCompanyByBusinessNumber(businessRegistrationNumber)
                 .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
+        checkServerAuthCode(authCode);
+
         return jwtPort.generateTokens(company.getId(), Authority.COMPANY, PlatformType.WEB);
+    }
+
+    private void checkServerAuthCode(String authCode) {
+        if (!securityPort.getServerAuthCode().equals(authCode)) {
+            throw BadAuthCodeException.EXCEPTION;
+        }
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface QueryStudentPort {
     Optional<Student> queryStudentById(Long studentId);
 
-    boolean existsByGradeAndClassRoomAndNumber(int grade, int classRoom, int number);
+    boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear);
 
     int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear);
 
