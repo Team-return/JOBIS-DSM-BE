@@ -17,12 +17,13 @@ public class QueryCompanyDetailsVO extends CompanyDetailsVO {
                                  String managerName, String managerPhoneNo, String subManagerName, String subManagerPhoneNo,
                                  String fax, String email, String representativeName, String representativePhoneNo,
                                  LocalDate foundedAt, int workerNumber, double take,
-                                 Long recruitmentId, String serviceName, String businessArea, List<String> attachmentUrls) {
+                                 Long recruitmentId, String serviceName, Long businessAreaCode,
+                                 String businessArea, List<String> attachmentUrls, String bizRegistrationUrl) {
         super(businessNumber, companyName, companyProfileUrl, companyIntroduce,
                 mainZipCode, mainAddress, mainAddressDetail, subZipCode, subAddress, subAddressDetail,
                 managerName, managerPhoneNo, subManagerName, subManagerPhoneNo,
                 fax, email, representativeName, representativePhoneNo,
                 foundedAt, workerNumber, take, recruitmentId,
-                serviceName, businessArea, attachmentUrls);
+                serviceName, businessAreaCode, businessArea, attachmentUrls, bizRegistrationUrl);
     }
 }

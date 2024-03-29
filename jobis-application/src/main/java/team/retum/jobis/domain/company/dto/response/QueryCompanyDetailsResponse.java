@@ -39,7 +39,9 @@ public class QueryCompanyDetailsResponse {
     private final Long recruitmentId;
     private final List<String> attachments;
     private final String serviceName;
+    private final Long businessAreaCode;
     private final String businessArea;
+    private final String bizRegistrationUrl;
 
     public static QueryCompanyDetailsResponse from(CompanyDetailsVO vo) {
         return QueryCompanyDetailsResponse.builder()
@@ -68,6 +70,7 @@ public class QueryCompanyDetailsResponse {
                 .attachments(vo.getAttachmentUrls())
                 .serviceName(vo.getServiceName())
                 .businessArea(vo.getBusinessArea())
+                .bizRegistrationUrl(vo.getBizRegistrationUrl())
                 .build();
     }
 }

@@ -166,7 +166,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public RecruitmentDetailVO queryRecruitmentDetailById(Long recruitmentId, Long userId) {
+    public RecruitmentDetailVO queryRecruitmentDetailByIdAndStudentId(Long recruitmentId, Long studentId) {
         return queryFactory
                 .select(
                         new QQueryRecruitmentDetailVO(
@@ -197,7 +197,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .leftJoin(bookmarkEntity)
                 .on(
                         recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
-                        bookmarkEntity.student.id.eq(userId)
+                        bookmarkEntity.student.id.eq(studentId)
                 )
                 .where(recruitmentEntity.id.eq(recruitmentId))
                 .fetchOne();
@@ -353,6 +353,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         )
                 )
                 .toList();
+        recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitArea.getId());
         recruitAreaCodeJpaRepository.saveAll(recruitAreaCodeEntities);
 
         return recruitAreaMapper.toDomain(recruitAreaEntity);
