@@ -6,7 +6,6 @@ import team.retum.jobis.domain.recruitment.model.ProgressType;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Getter

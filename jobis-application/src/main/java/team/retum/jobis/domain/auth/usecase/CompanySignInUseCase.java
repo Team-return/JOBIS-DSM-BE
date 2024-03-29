@@ -12,8 +12,6 @@ import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
-import java.util.Objects;
-
 @RequiredArgsConstructor
 @UseCase
 public class CompanySignInUseCase {

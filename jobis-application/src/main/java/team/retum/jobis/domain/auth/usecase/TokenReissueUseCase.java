@@ -2,7 +2,6 @@ package team.retum.jobis.domain.auth.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.model.RefreshToken;

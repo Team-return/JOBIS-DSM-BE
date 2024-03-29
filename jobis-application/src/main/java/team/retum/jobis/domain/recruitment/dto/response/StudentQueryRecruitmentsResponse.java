@@ -3,7 +3,6 @@ package team.retum.jobis.domain.recruitment.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 
 import java.util.List;

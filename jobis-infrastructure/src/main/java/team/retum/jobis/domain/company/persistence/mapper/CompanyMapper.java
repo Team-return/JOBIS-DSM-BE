@@ -6,9 +6,6 @@ import team.retum.jobis.domain.company.model.AddressInfo;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.ManagerInfo;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
-import team.retum.jobis.domain.user.exception.UserNotFoundException;
-import team.retum.jobis.domain.user.persistence.entity.UserEntity;
-import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 
 @RequiredArgsConstructor
 @Component

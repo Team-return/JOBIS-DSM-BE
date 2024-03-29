@@ -8,7 +8,6 @@ import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Getter
