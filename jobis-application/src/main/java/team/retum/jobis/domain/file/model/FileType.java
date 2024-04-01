@@ -14,4 +14,3 @@ public enum FileType {
 
     public final List<String> validExtensions;
 }
-

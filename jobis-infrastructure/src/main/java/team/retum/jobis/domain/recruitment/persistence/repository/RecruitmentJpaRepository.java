@@ -7,6 +7,7 @@ import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import java.util.List;
 
 public interface RecruitmentJpaRepository extends JpaRepository<RecruitmentEntity, Long> {
+
     List<RecruitmentEntity> findByIdIn(List<Long> recruitmentIds);
 
     boolean existsByCompanyIdAndStatusNotAndWinterIntern(Long companyId, RecruitStatus status, boolean winterIntern);

@@ -28,17 +28,17 @@ public class Code {
 
     private final Long parentCodeId;
 
-    public Code changeAccessible(boolean isPublic) {
-        return this.toBuilder()
-                .isPublic(isPublic)
-                .build();
-    }
-
     public static Map<CodeType, List<Long>> combineCodesWithType(List<Long> jobCode, List<Long> techCode) {
         Map<CodeType, List<Long>> codeIds = new HashMap<>();
         codeIds.put(JOB, jobCode);
         codeIds.put(TECH, techCode);
 
         return codeIds;
+    }
+
+    public Code changeAccessible(boolean isPublic) {
+        return this.toBuilder()
+            .isPublic(isPublic)
+            .build();
     }
 }

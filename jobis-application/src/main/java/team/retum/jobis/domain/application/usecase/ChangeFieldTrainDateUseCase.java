@@ -21,16 +21,16 @@ public class ChangeFieldTrainDateUseCase {
         List<Application> applications = queryApplicationPort.queryApplicationsByIds(request.applicationIds());
 
         applications.forEach(
-                application -> Application.checkApplicationStatus(
-                        application.getApplicationStatus(),
-                        ApplicationStatus.FIELD_TRAIN
-                )
+            application -> Application.checkApplicationStatus(
+                application.getApplicationStatus(),
+                ApplicationStatus.FIELD_TRAIN
+            )
         );
 
         commandApplicationPort.updateFieldTrainDate(
-                request.startDate(),
-                request.endDate(),
-                request.applicationIds()
+            request.startDate(),
+            request.endDate(),
+            request.applicationIds()
         );
     }
 }

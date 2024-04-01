@@ -82,8 +82,8 @@ public class RecruitmentWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruitment-id}")
     public void updateRecruitment(
-            @RequestBody @Valid UpdateRecruitmentWebRequest webRequest,
-            @PathVariable("recruitment-id") Long recruitmentId
+        @RequestBody @Valid UpdateRecruitmentWebRequest webRequest,
+        @PathVariable("recruitment-id") Long recruitmentId
     ) {
         updateRecruitmentService.execute(webRequest.toDomainRequest(), recruitmentId);
     }
@@ -92,8 +92,8 @@ public class RecruitmentWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/area/{recruit-area-id}")
     public void updateRecruitArea(
-            @RequestBody @Valid RecruitAreaWebRequest webRequest,
-            @PathVariable("recruit-area-id") Long recruitAreaId
+        @RequestBody @Valid RecruitAreaWebRequest webRequest,
+        @PathVariable("recruit-area-id") Long recruitAreaId
     ) {
         updateRecruitAreaService.execute(webRequest.toDomainRequest(), recruitAreaId);
     }
@@ -102,53 +102,53 @@ public class RecruitmentWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{recruitment-id}/area")
     public void createRecruitArea(
-            @RequestBody @Valid RecruitAreaWebRequest webRequest,
-            @PathVariable("recruitment-id") Long recruitmentId
+        @RequestBody @Valid RecruitAreaWebRequest webRequest,
+        @PathVariable("recruitment-id") Long recruitmentId
     ) {
         createRecruitAreaUseCase.execute(webRequest.toDomainRequest(), recruitmentId);
     }
 
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
-            @RequestParam(value = "name", required = false) String companyName,
-            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
-            @RequestParam(value = "tech_code", required = false) String techCodes,
-            @RequestParam(value = "job_code", required = false) String jobCode,
-            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "name", required = false) String companyName,
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
+        @RequestParam(value = "tech_code", required = false) String techCodes,
+        @RequestParam(value = "job_code", required = false) String jobCode,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         return studentQueryRecruitmentsUseCase.execute(
-                companyName,
-                page - 1,
-                this.parseCodes(jobCode, techCodes),
-                winterIntern
+            companyName,
+            page - 1,
+            this.parseCodes(jobCode, techCodes),
+            winterIntern
         );
     }
 
     @Cacheable
     @GetMapping("/student/count")
     public TotalPageCountResponse studentQueryRecruitmentCount(
-            @RequestParam(value = "name", required = false) String companyName,
-            @RequestParam(value = "tech_code", required = false) String techCodes,
-            @RequestParam(value = "job_code", required = false) String jobCode,
-            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "name", required = false) String companyName,
+        @RequestParam(value = "tech_code", required = false) String techCodes,
+        @RequestParam(value = "job_code", required = false) String jobCode,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         return studentQueryRecruitmentsUseCase.getTotalPageCount(
-                companyName,
-                this.parseCodes(jobCode, techCodes),
-                winterIntern
+            companyName,
+            this.parseCodes(jobCode, techCodes),
+            winterIntern
         );
     }
 
     @Cacheable
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
-            @RequestParam(value = "company_name", required = false) String companyName,
-            @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-            @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
-            @RequestParam(value = "status", required = false) RecruitStatus status,
-            @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "page", defaultValue = "1") @Positive Long page,
-            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "company_name", required = false) String companyName,
+        @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+        @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
+        @RequestParam(value = "status", required = false) RecruitStatus status,
+        @RequestParam(value = "year", required = false) Integer year,
+        @RequestParam(value = "page", defaultValue = "1") @Positive Long page,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
     }
@@ -156,12 +156,12 @@ public class RecruitmentWebAdapter {
     @Cacheable
     @GetMapping("/teacher/count")
     public TotalPageCountResponse queryRecruitmentCount(
-            @RequestParam(value = "company_name", required = false) String companyName,
-            @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-            @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
-            @RequestParam(value = "status", required = false) RecruitStatus status,
-            @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "company_name", required = false) String companyName,
+        @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+        @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
+        @RequestParam(value = "status", required = false) RecruitStatus status,
+        @RequestParam(value = "year", required = false) Integer year,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         return teacherQueryRecruitmentsUseCase.getTotalPageCount(companyName, start, end, year, status, winterIntern);
     }
@@ -176,7 +176,7 @@ public class RecruitmentWebAdapter {
 
     @GetMapping("/{recruitment-id}")
     public QueryRecruitmentDetailResponse queryRecruitmentDetail(
-            @PathVariable("recruitment-id") Long recruitmentId
+        @PathVariable("recruitment-id") Long recruitmentId
     ) {
         return queryRecruitmentDetailUseCase.execute(recruitmentId);
     }
@@ -207,12 +207,14 @@ public class RecruitmentWebAdapter {
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
         List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
-        if (jobCode != null && !jobCode.isBlank()) codes.add(jobCode);
+        if (jobCode != null && !jobCode.isBlank()) {
+            codes.add(jobCode);
+        }
 
         try {
             return codes.stream()
-                    .map(Long::parseLong)
-                    .toList();
+                .map(Long::parseLong)
+                .toList();
         } catch (Exception e) {
             throw new BadRequestException();
         }

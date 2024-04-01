@@ -32,9 +32,9 @@ public class CodeWebAdapter {
     @Cacheable
     @GetMapping
     public CodesResponse getCodes(
-            @RequestParam(value = "type") CodeType codeType,
-            @RequestParam(value = "keyword", required = false) String keyword,
-            @RequestParam(value = "parent_code", required = false) Long parentCode
+        @RequestParam(value = "type") CodeType codeType,
+        @RequestParam(value = "keyword", required = false) String keyword,
+        @RequestParam(value = "parent_code", required = false) Long parentCode
     ) {
         return codesService.execute(keyword, codeType, parentCode);
     }

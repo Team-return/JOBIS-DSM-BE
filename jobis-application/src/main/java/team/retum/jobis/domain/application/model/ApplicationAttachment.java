@@ -16,7 +16,7 @@ public class ApplicationAttachment {
 
     public static List<ApplicationAttachment> from(List<AttachmentRequest> requests) {
         return requests.stream()
-                .map(request -> new ApplicationAttachment(request.url(), request.type()))
-                .toList();
+            .map(request -> new ApplicationAttachment(request.url(), request.type()))
+            .toList();
     }
 }

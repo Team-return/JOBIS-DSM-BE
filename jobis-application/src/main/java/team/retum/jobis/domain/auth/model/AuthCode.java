@@ -21,8 +21,8 @@ public class AuthCode {
 
     public AuthCode verify() {
         return this.toBuilder()
-                .isVerified(true)
-                .build();
+            .isVerified(true)
+            .build();
     }
 
     public void checkIsVerified() {

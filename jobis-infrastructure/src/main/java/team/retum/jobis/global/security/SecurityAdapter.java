@@ -70,8 +70,8 @@ public class SecurityAdapter implements SecurityPort {
     public User getCurrentUser() {
         Long currentUserId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
         return userJpaRepository.findById(currentUserId)
-                .map(userMapper::toDomain)
-                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
+            .map(userMapper::toDomain)
+            .orElseThrow(() -> InvalidTokenException.EXCEPTION);
     }
 
     @Override

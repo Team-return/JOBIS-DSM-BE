@@ -15,7 +15,7 @@ public class QueryCompanyDetailsUseCase {
 
     public QueryCompanyDetailsResponse execute(Long companyId) {
         CompanyDetailsVO vo = queryCompanyPort.queryCompanyDetails(companyId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return QueryCompanyDetailsResponse.from(vo);
     }

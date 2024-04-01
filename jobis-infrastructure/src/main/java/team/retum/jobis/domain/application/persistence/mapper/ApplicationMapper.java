@@ -24,42 +24,42 @@ public class ApplicationMapper {
 
     public ApplicationEntity toEntity(Application domain) {
         StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 
         RecruitmentEntity recruitment = recruitmentJpaRepository.findById(domain.getRecruitmentId())
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         List<ApplicationAttachmentEntity> attachments = domain.getAttachments().stream()
-                .map(attachment -> new ApplicationAttachmentEntity(attachment.getAttachmentUrl(), attachment.getType()))
-                .toList();
+            .map(attachment -> new ApplicationAttachmentEntity(attachment.getAttachmentUrl(), attachment.getType()))
+            .toList();
 
         return ApplicationEntity.builder()
-                .id(domain.getId())
-                .applicationStatus(domain.getApplicationStatus())
-                .studentEntity(student)
-                .recruitmentEntity(recruitment)
-                .rejectionReason(domain.getRejectionReason())
-                .startDate(domain.getStartDate())
-                .endDate(domain.getEndDate())
-                .attachments(attachments)
-                .build();
+            .id(domain.getId())
+            .applicationStatus(domain.getApplicationStatus())
+            .studentEntity(student)
+            .recruitmentEntity(recruitment)
+            .rejectionReason(domain.getRejectionReason())
+            .startDate(domain.getStartDate())
+            .endDate(domain.getEndDate())
+            .attachments(attachments)
+            .build();
     }
 
     public Application toDomain(ApplicationEntity entity) {
         List<ApplicationAttachment> attachments = entity.getAttachments().stream()
-                .map(attachment -> new ApplicationAttachment(attachment.getAttachmentUrl(), attachment.getType()))
-                .toList();
+            .map(attachment -> new ApplicationAttachment(attachment.getAttachmentUrl(), attachment.getType()))
+            .toList();
 
         return Application.builder()
-                .id(entity.getId())
-                .applicationStatus(entity.getApplicationStatus())
-                .startDate(entity.getStartDate())
-                .endDate(entity.getEndDate())
-                .rejectionReason(entity.getRejectionReason())
-                .studentId(entity.getStudent().getId())
-                .recruitmentId(entity.getRecruitment().getId())
-                .attachments(attachments)
-                .createdAt(entity.getCreatedAt())
-                .build();
+            .id(entity.getId())
+            .applicationStatus(entity.getApplicationStatus())
+            .startDate(entity.getStartDate())
+            .endDate(entity.getEndDate())
+            .rejectionReason(entity.getRejectionReason())
+            .studentId(entity.getStudent().getId())
+            .recruitmentId(entity.getRecruitment().getId())
+            .attachments(attachments)
+            .createdAt(entity.getCreatedAt())
+            .build();
     }
 }

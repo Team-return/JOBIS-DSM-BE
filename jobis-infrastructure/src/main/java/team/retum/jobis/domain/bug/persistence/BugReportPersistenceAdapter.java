@@ -30,44 +30,44 @@ public class BugReportPersistenceAdapter implements BugReportPort {
     @Override
     public BugReport saveBugReport(BugReport bugReport) {
         return bugReportMapper.toDomain(
-                bugReportJpaRepository.save(
-                        bugReportMapper.toEntity(bugReport)
-                )
+            bugReportJpaRepository.save(
+                bugReportMapper.toEntity(bugReport)
+            )
         );
     }
 
     @Override
     public Optional<BugReport> queryBugReportById(Long id) {
         return bugReportJpaRepository.findById(id)
-                .map(bugReportMapper::toDomain);
+            .map(bugReportMapper::toDomain);
     }
 
     @Override
     public List<BugReportsVO> queryBugReportsByDevelopmentArea(DevelopmentArea developmentArea) {
         return queryFactory
-                .selectFrom(bugReportEntity)
-                .leftJoin(bugReportEntity.attachments, bugAttachmentEntity)
-                .where(eqDevelopmentArea(developmentArea))
-                .orderBy(bugReportEntity.createdAt.desc())
-                .transform(
-                        groupBy(bugReportEntity.id)
-                                .list(
-                                        new QQueryBugReportsVO(
-                                                bugReportEntity.id,
-                                                bugReportEntity.title,
-                                                bugReportEntity.developmentArea,
-                                                bugReportEntity.createdAt
-                                        )
-                                )
-                ).stream()
-                .map(BugReportsVO.class::cast)
-                .toList();
+            .selectFrom(bugReportEntity)
+            .leftJoin(bugReportEntity.attachments, bugAttachmentEntity)
+            .where(eqDevelopmentArea(developmentArea))
+            .orderBy(bugReportEntity.createdAt.desc())
+            .transform(
+                groupBy(bugReportEntity.id)
+                    .list(
+                        new QQueryBugReportsVO(
+                            bugReportEntity.id,
+                            bugReportEntity.title,
+                            bugReportEntity.developmentArea,
+                            bugReportEntity.createdAt
+                        )
+                    )
+            ).stream()
+            .map(BugReportsVO.class::cast)
+            .toList();
     }
 
     //==conditions==//
 
     private BooleanExpression eqDevelopmentArea(DevelopmentArea developmentArea) {
         return developmentArea == null || developmentArea == DevelopmentArea.ALL
-                ? null : bugReportEntity.developmentArea.eq(developmentArea);
+            ? null : bugReportEntity.developmentArea.eq(developmentArea);
     }
 }

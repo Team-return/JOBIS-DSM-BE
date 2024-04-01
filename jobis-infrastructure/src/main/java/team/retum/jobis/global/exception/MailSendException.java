@@ -6,7 +6,7 @@ import team.retum.jobis.global.error.exception.GlobalErrorCode;
 public class MailSendException extends JobisException {
 
     public static final JobisException EXCEPTION =
-            new MailSendException();
+        new MailSendException();
 
     private MailSendException() {
         super(GlobalErrorCode.MAIL_SEND_FAIL);

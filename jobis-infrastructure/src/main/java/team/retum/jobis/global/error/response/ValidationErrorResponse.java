@@ -14,6 +14,7 @@ import java.util.Map;
 @Getter
 @Builder
 public class ValidationErrorResponse {
+
     private final String status;
     private final Map<String, String> error;
 
@@ -24,9 +25,9 @@ public class ValidationErrorResponse {
         }
 
         return ValidationErrorResponse.builder()
-                .status(HttpStatus.BAD_REQUEST.name())
-                .error(filedErrors)
-                .build();
+            .status(HttpStatus.BAD_REQUEST.name())
+            .error(filedErrors)
+            .build();
     }
 
     public static ValidationErrorResponse of(ConstraintViolationException e) {
@@ -37,8 +38,8 @@ public class ValidationErrorResponse {
         }
 
         return ValidationErrorResponse.builder()
-                .status(HttpStatus.BAD_REQUEST.name())
-                .error(filedErrors)
-                .build();
+            .status(HttpStatus.BAD_REQUEST.name())
+            .error(filedErrors)
+            .build();
     }
 }

@@ -16,7 +16,7 @@ public class ReadNotificationUseCase {
 
     public void execute(Long notificationId) {
         Notification notification = queryNotificationPort.queryNotificationById(notificationId)
-                .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
+            .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
 
         commandNotificationPort.saveNotification(notification.read());
     }

@@ -18,8 +18,8 @@ public class QueryTeacherRecruitmentsVO extends TeacherRecruitmentVO {
                                       long requestedApplicationCount, long approvedApplicationCount,
                                       long companyId) {
         super(recruitmentId, recruitStatus, startDate, endDate,
-                companyName, companyType, jobCodes, totalHiring,
-                requestedApplicationCount, approvedApplicationCount,
-                companyId);
+            companyName, companyType, jobCodes, totalHiring,
+            requestedApplicationCount, approvedApplicationCount,
+            companyId);
     }
 }

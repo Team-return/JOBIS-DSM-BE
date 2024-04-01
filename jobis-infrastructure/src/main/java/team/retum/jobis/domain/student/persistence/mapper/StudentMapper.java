@@ -17,37 +17,37 @@ public class StudentMapper {
 
     public StudentEntity toEntity(Student domain) {
         UserEntity user = userJpaRepository.findById(domain.getId())
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return StudentEntity.builder()
-                .id(domain.getId())
-                .name(domain.getName())
-                .grade(domain.getSchoolNumber().getGrade())
-                .classRoom(domain.getSchoolNumber().getClassRoom())
-                .number(domain.getSchoolNumber().getNumber())
-                .gender(domain.getGender())
-                .department(domain.getDepartment())
-                .profileImageUrl(domain.getProfileImageUrl())
-                .entranceYear(domain.getEntranceYear())
-                .userEntity(user)
-                .build();
+            .id(domain.getId())
+            .name(domain.getName())
+            .grade(domain.getSchoolNumber().getGrade())
+            .classRoom(domain.getSchoolNumber().getClassRoom())
+            .number(domain.getSchoolNumber().getNumber())
+            .gender(domain.getGender())
+            .department(domain.getDepartment())
+            .profileImageUrl(domain.getProfileImageUrl())
+            .entranceYear(domain.getEntranceYear())
+            .userEntity(user)
+            .build();
     }
 
     public Student toDomain(StudentEntity entity) {
         return Student.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .schoolNumber(
-                        SchoolNumber.builder()
-                                .grade(entity.getGrade())
-                                .classRoom(entity.getClassRoom())
-                                .number(entity.getNumber())
-                                .build()
-                )
-                .gender(entity.getGender())
-                .profileImageUrl(entity.getProfileImageUrl())
-                .department(entity.getDepartment())
-                .entranceYear(entity.getEntranceYear())
-                .build();
+            .id(entity.getId())
+            .name(entity.getName())
+            .schoolNumber(
+                SchoolNumber.builder()
+                    .grade(entity.getGrade())
+                    .classRoom(entity.getClassRoom())
+                    .number(entity.getNumber())
+                    .build()
+            )
+            .gender(entity.getGender())
+            .profileImageUrl(entity.getProfileImageUrl())
+            .department(entity.getDepartment())
+            .entranceYear(entity.getEntranceYear())
+            .build();
     }
 }

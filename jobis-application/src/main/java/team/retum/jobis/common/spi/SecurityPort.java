@@ -6,6 +6,7 @@ import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.user.model.User;
 
 public interface SecurityPort {
+
     Long getCurrentUserId();
 
     String encodePassword(String password);

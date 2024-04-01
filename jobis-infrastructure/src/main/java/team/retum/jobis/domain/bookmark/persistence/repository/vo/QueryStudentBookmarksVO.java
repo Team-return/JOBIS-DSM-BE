@@ -11,10 +11,10 @@ public class QueryStudentBookmarksVO extends StudentBookmarksVO {
 
     @QueryProjection
     public QueryStudentBookmarksVO(
-            String companyName,
-            String companyLogoUrl,
-            Long recruitmentId,
-            LocalDateTime createdAt
+        String companyName,
+        String companyLogoUrl,
+        Long recruitmentId,
+        LocalDateTime createdAt
     ) {
         super(companyName, companyLogoUrl, recruitmentId, createdAt);
     }

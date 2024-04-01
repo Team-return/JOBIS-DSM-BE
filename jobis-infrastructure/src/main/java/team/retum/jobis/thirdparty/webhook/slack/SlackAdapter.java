@@ -59,25 +59,25 @@ public class SlackAdapter implements WebhookUtil {
         BugAttachment bugAttachment = bugReport.getAttachment();
         if (bugAttachment.attachmentUrls().isEmpty()) {
             return Collections.singletonList(
-                    createBugReportSlackAttachment(bugReport, writer, null, true)
+                createBugReportSlackAttachment(bugReport, writer, null, true)
             );
         } else {
             return bugAttachment.attachmentUrls().stream()
-                    .map(url -> {
-                        boolean isFirst = bugAttachment.attachmentUrls().get(0).equals(url);
-                        return createBugReportSlackAttachment(
-                                bugReport, writer, url, isFirst
-                        );
-                    })
-                    .toList();
+                .map(url -> {
+                    boolean isFirst = bugAttachment.attachmentUrls().get(0).equals(url);
+                    return createBugReportSlackAttachment(
+                        bugReport, writer, url, isFirst
+                    );
+                })
+                .toList();
         }
     }
 
     private SlackAttachment createBugReportSlackAttachment(
-            BugReport bugReport,
-            String writer,
-            String attachmentUrl,
-            boolean isFirst
+        BugReport bugReport,
+        String writer,
+        String attachmentUrl,
+        boolean isFirst
     ) {
         SlackAttachment slackAttachment = new SlackAttachment();
         slackAttachment.setFallback(FALLBACK);
@@ -97,10 +97,10 @@ public class SlackAdapter implements WebhookUtil {
 
     private List<SlackField> createBugReportSlackFields(BugReport bugReport, String writer) {
         return List.of(
-                createSlackField(BUG_REPORT_TITLE, bugReport.getTitle()),
-                createSlackField(CONTENT, bugReport.getContent()),
-                createSlackField(DEVELOPMENT_AREA, bugReport.getDevelopmentArea().toString()),
-                createSlackField(WRITER, writer)
+            createSlackField(BUG_REPORT_TITLE, bugReport.getTitle()),
+            createSlackField(CONTENT, bugReport.getContent()),
+            createSlackField(DEVELOPMENT_AREA, bugReport.getDevelopmentArea().toString()),
+            createSlackField(WRITER, writer)
         );
     }
 
@@ -108,9 +108,9 @@ public class SlackAdapter implements WebhookUtil {
         SlackAttachment slackAttachment = new SlackAttachment();
 
         List<SlackField> slackFields = List.of(
-                createSlackField(REQUEST_URI, request.getRequestURI()),
-                createSlackField(METHOD, request.getMethod()),
-                createSlackField(CURRENT_TIME, new Date().toString())
+            createSlackField(REQUEST_URI, request.getRequestURI()),
+            createSlackField(METHOD, request.getMethod()),
+            createSlackField(CURRENT_TIME, new Date().toString())
         );
 
         slackAttachment.setFallback(FALLBACK);
@@ -124,8 +124,8 @@ public class SlackAdapter implements WebhookUtil {
 
     private SlackField createSlackField(String title, String value) {
         return new SlackField()
-                .setTitle(title)
-                .setValue(value);
+            .setTitle(title)
+            .setValue(value);
     }
 
     private void sendSlackMessage(String text, List<SlackAttachment> slackAttachments) {

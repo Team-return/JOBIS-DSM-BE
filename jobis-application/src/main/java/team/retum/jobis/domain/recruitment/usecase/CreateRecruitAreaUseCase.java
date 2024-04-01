@@ -13,13 +13,14 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 @RequiredArgsConstructor
 @UseCase
 public class CreateRecruitAreaUseCase {
+
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final RecruitmentChecker recruitmentChecker;
 
     public void execute(CreateRecruitAreaRequest request, Long recruitmentId) {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
         recruitmentChecker.checkPermission(recruitment);
         commandRecruitmentPort.saveRecruitmentArea(RecruitArea.of(request, recruitmentId));
     }

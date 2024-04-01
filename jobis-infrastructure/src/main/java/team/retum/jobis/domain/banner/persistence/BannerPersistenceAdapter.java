@@ -31,9 +31,9 @@ public class BannerPersistenceAdapter implements BannerPort {
     @Override
     public void saveBanner(Banner banner) {
         bannerMapper.toDomain(
-                bannerJpaRepository.save(
-                        bannerMapper.toEntity(banner)
-                )
+            bannerJpaRepository.save(
+                bannerMapper.toEntity(banner)
+            )
         );
     }
 
@@ -45,47 +45,47 @@ public class BannerPersistenceAdapter implements BannerPort {
     @Override
     public Optional<Banner> queryBannerById(Long bannerId) {
         return bannerJpaRepository.findById(bannerId)
-                .map(bannerMapper::toDomain);
+            .map(bannerMapper::toDomain);
     }
 
     @Override
     public List<BannerVO> queryCurrentBanners() {
         LocalDate today = LocalDate.now();
         return queryFactory
-                .select(
-                        new QQueryBannerVO(
-                                bannerEntity.id,
-                                bannerEntity.bannerUrl,
-                                bannerEntity.bannerType
-                        )
+            .select(
+                new QQueryBannerVO(
+                    bannerEntity.id,
+                    bannerEntity.bannerUrl,
+                    bannerEntity.bannerType
                 )
-                .from(bannerEntity)
-                .where(
-                        bannerEntity.startDate.before(today),
-                        bannerEntity.endDate.after(today)
-                )
-                .stream()
-                .map(BannerVO.class::cast)
-                .toList();
+            )
+            .from(bannerEntity)
+            .where(
+                bannerEntity.startDate.before(today),
+                bannerEntity.endDate.after(today)
+            )
+            .stream()
+            .map(BannerVO.class::cast)
+            .toList();
     }
 
     @Override
     public List<TeacherBannersVO> queryBanners(boolean isOpened) {
         return queryFactory
-                .select(
-                        new QQueryTeacherBannersVO(
-                                bannerEntity.id,
-                                bannerEntity.bannerUrl,
-                                bannerEntity.bannerType,
-                                bannerEntity.startDate,
-                                bannerEntity.endDate
-                        )
+            .select(
+                new QQueryTeacherBannersVO(
+                    bannerEntity.id,
+                    bannerEntity.bannerUrl,
+                    bannerEntity.bannerType,
+                    bannerEntity.startDate,
+                    bannerEntity.endDate
                 )
-                .from(bannerEntity)
-                .where(checkStatus(isOpened))
-                .stream()
-                .map(TeacherBannersVO.class::cast)
-                .toList();
+            )
+            .from(bannerEntity)
+            .where(checkStatus(isOpened))
+            .stream()
+            .map(TeacherBannersVO.class::cast)
+            .toList();
     }
 
     private BooleanExpression checkStatus(boolean isOpened) {

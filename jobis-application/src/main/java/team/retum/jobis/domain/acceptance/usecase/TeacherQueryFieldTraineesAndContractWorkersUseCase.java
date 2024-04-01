@@ -25,8 +25,8 @@ public class TeacherQueryFieldTraineesAndContractWorkersUseCase {
         List<AcceptanceVO> acceptances = queryAcceptancePort.queryAcceptancesByCompanyIdAndYear(companyId, Year.now().getValue());
 
         return new TeacherQueryFieldTraineesAndContractWorkersResponse(
-                TeacherQueryFieldTraineesResponse.from(fieldTrainees),
-                TeacherQueryContractWorkersResponse.from(acceptances)
+            TeacherQueryFieldTraineesResponse.from(fieldTrainees),
+            TeacherQueryContractWorkersResponse.from(acceptances)
         );
     }
 }

@@ -18,10 +18,10 @@ import java.util.List;
 @ReadOnlyUseCase
 public class QueryRecruitmentDetailUseCase {
 
+    private static final List<Authority> APPLICABLE_AUTHORITIES = List.of(Authority.STUDENT, Authority.DEVELOPER);
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final QueryApplicationPort queryApplicationPort;
     private final SecurityPort securityPort;
-    private static final List<Authority> APPLICABLE_AUTHORITIES = List.of(Authority.STUDENT, Authority.DEVELOPER);
 
     public QueryRecruitmentDetailResponse execute(Long recruitId) {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitId)

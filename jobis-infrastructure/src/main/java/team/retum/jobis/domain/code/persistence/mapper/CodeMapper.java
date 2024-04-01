@@ -14,28 +14,28 @@ public class CodeMapper {
     private final CodeJpaRepository codeJpaRepository;
 
     public CodeEntity toEntity(Code domain) {
-        CodeEntity code = domain.getParentCodeId() == null ?
-                null : codeJpaRepository.findById(domain.getParentCodeId())
-                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+        CodeEntity code = domain.getParentCodeId() == null
+            ? null : codeJpaRepository.findById(domain.getParentCodeId())
+            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         return CodeEntity.builder()
-                .code(domain.getId())
-                .codeType(domain.getCodeType())
-                .keyword(domain.getKeyword())
-                .jobType(domain.getJobType())
-                .isPublic(domain.isPublic())
-                .parentCodeEntity(code)
-                .build();
+            .code(domain.getId())
+            .codeType(domain.getCodeType())
+            .keyword(domain.getKeyword())
+            .jobType(domain.getJobType())
+            .isPublic(domain.isPublic())
+            .parentCodeEntity(code)
+            .build();
     }
 
     public Code toDomain(CodeEntity entity) {
         return Code.builder()
-                .id(entity.getCode())
-                .codeType(entity.getType())
-                .jobType(entity.getJobType())
-                .keyword(entity.getKeyword())
-                .isPublic(entity.isPublic())
-                .parentCodeId(entity.getParentCode() == null ? null : entity.getParentCode().getCode())
-                .build();
+            .id(entity.getCode())
+            .codeType(entity.getType())
+            .jobType(entity.getJobType())
+            .keyword(entity.getKeyword())
+            .isPublic(entity.isPublic())
+            .parentCodeId(entity.getParentCode() == null ? null : entity.getParentCode().getCode())
+            .build();
     }
 }

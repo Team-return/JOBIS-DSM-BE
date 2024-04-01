@@ -21,15 +21,15 @@ public class ReapplyUseCase {
 
     public void execute(Long applicationId, List<AttachmentRequest> attachmentRequests) {
         Application application = queryApplicationPort.queryApplicationById(applicationId)
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         Application.checkApplicationStatus(
-                application.getApplicationStatus(),
-                ApplicationStatus.REJECTED, ApplicationStatus.REQUESTED
+            application.getApplicationStatus(),
+            ApplicationStatus.REJECTED, ApplicationStatus.REQUESTED
         );
 
         commandApplicationPort.saveApplication(
-                application.reapply(ApplicationAttachment.from(attachmentRequests))
+            application.reapply(ApplicationAttachment.from(attachmentRequests))
         );
     }
 }
