@@ -7,6 +7,7 @@ import team.retum.jobis.common.error.ErrorProperty;
 @Getter
 @AllArgsConstructor
 public class ErrorResponse {
+
     private final Integer status;
     private final String message;
 

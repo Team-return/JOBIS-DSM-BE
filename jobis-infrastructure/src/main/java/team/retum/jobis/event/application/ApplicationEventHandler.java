@@ -33,30 +33,30 @@ public class ApplicationEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
         Map<Long, String> userIdTokenMap = queryUserPort.queryUsersByIds(
-                        event.getApplications().stream().map(Application::getStudentId).toList()
-                ).stream()
-                .collect(Collectors.toMap(
-                        User::getId,
-                        User::getToken
-                ));
+                event.getApplications().stream().map(Application::getStudentId).toList()
+            ).stream()
+            .collect(Collectors.toMap(
+                User::getId,
+                User::getToken
+            ));
         Map<Long, String> companyNameMap = queryRecruitmentPort.queryCompanyNameByRecruitmentIds(
-                event.getApplications().stream().map(Application::getRecruitmentId).toList()
+            event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {
             Notification notification = Notification.builder()
-                    .title(companyNameMap.get(application.getRecruitmentId()))
-                    .content("지원서 상태가 " + event.getStatus().getName() + "로 변경되었습니다.")
-                    .userId(application.getStudentId())
-                    .topic(Topic.APPLICATION_STATUS_CHANGED)
-                    .detailId(application.getId())
-                    .authority(Authority.STUDENT)
-                    .isNew(true)
-                    .build();
+                .title(companyNameMap.get(application.getRecruitmentId()))
+                .content("지원서 상태가 " + event.getStatus().getName() + "로 변경되었습니다.")
+                .userId(application.getStudentId())
+                .topic(Topic.APPLICATION_STATUS_CHANGED)
+                .detailId(application.getId())
+                .authority(Authority.STUDENT)
+                .isNew(true)
+                .build();
 
             commandNotificationPort.saveNotification(notification);
             fcmUtil.sendMessages(
-                    notification,
-                    List.of(userIdTokenMap.get(application.getStudentId()))
+                notification,
+                List.of(userIdTokenMap.get(application.getStudentId()))
             );
         }
     }

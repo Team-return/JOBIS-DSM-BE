@@ -51,19 +51,19 @@ public class UpdateRecruitmentWebRequest {
 
     public UpdateRecruitmentRequest toDomainRequest() {
         return UpdateRecruitmentRequest.builder()
-                .requiredGrade(this.requiredGrade)
-                .workingHours(this.workingHours)
-                .flexibleWorking(this.flexibleWorking)
-                .requiredLicenses(this.requiredLicenses)
-                .hiringProgress(this.hiringProgress)
-                .trainPay(this.trainPay)
-                .pay(this.pay)
-                .benefits(this.benefits)
-                .military(this.military)
-                .submitDocument(this.submitDocument)
-                .startDate(this.startDate)
-                .endDate(this.endDate)
-                .etc(this.etc)
-                .build();
+            .requiredGrade(this.requiredGrade)
+            .workingHours(this.workingHours)
+            .flexibleWorking(this.flexibleWorking)
+            .requiredLicenses(this.requiredLicenses)
+            .hiringProgress(this.hiringProgress)
+            .trainPay(this.trainPay)
+            .pay(this.pay)
+            .benefits(this.benefits)
+            .military(this.military)
+            .submitDocument(this.submitDocument)
+            .startDate(this.startDate)
+            .endDate(this.endDate)
+            .etc(this.etc)
+            .build();
     }
 }

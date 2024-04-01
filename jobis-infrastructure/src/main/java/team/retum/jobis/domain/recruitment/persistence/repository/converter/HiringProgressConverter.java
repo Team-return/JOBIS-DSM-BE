@@ -14,13 +14,13 @@ public class HiringProgressConverter implements AttributeConverter<List<Progress
     @Override
     public String convertToDatabaseColumn(List<ProgressType> attribute) {
         return attribute.stream().map(Enum::toString)
-                .collect(Collectors.joining(","));
+            .collect(Collectors.joining(","));
     }
 
     @Override
     public List<ProgressType> convertToEntityAttribute(String dbData) {
         return Arrays.stream(dbData.split(","))
-                .map(ProgressType::valueOf)
-                .toList();
+            .map(ProgressType::valueOf)
+            .toList();
     }
 }

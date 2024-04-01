@@ -8,11 +8,11 @@ import java.util.List;
 @Getter
 public class CreateNoticeRequest {
 
-    private String title;
+    private final String title;
 
-    private String content;
+    private final String content;
 
-    private List<AttachmentRequest> attachments;
+    private final List<AttachmentRequest> attachments;
 
     public CreateNoticeRequest(String title, String content, List<AttachmentRequest> attachments) {
         this.title = title;
@@ -23,9 +23,9 @@ public class CreateNoticeRequest {
     @Getter
     public static class AttachmentRequest {
 
-        private String url;
+        private final String url;
 
-        private AttachmentType type;
+        private final AttachmentType type;
 
         public AttachmentRequest(String url, AttachmentType type) {
             this.url = url;

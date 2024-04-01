@@ -23,18 +23,18 @@ public class SendEmailAdapter implements SendEmailPort {
     @Override
     public void sendMail(String authCode, String sendTo) {
         String emailTemplate = templateEngine.process(
-                "signup-template",
-                generateContext(authCode)
+            "signup-template",
+            generateContext(authCode)
         );
 
         Message message = new Message()
-                .withSubject(generateContent("[JOBIS 메일 인증]"))
-                .withBody(new Body().withHtml(generateContent(emailTemplate)));
+            .withSubject(generateContent("[JOBIS 메일 인증]"))
+            .withBody(new Body().withHtml(generateContent(emailTemplate)));
 
         SendEmailRequest emailRequest = new SendEmailRequest()
-                .withSource(awsSesProperties.getSource())
-                .withMessage(message)
-                .withDestination(new Destination().withToAddresses(sendTo));
+            .withSource(awsSesProperties.getSource())
+            .withMessage(message)
+            .withDestination(new Destination().withToAddresses(sendTo));
 
         amazonSimpleEmailServiceAsync.sendEmailAsync(emailRequest);
     }
@@ -48,7 +48,7 @@ public class SendEmailAdapter implements SendEmailPort {
 
     private Content generateContent(String data) {
         return new Content()
-                .withCharset("UTF-8")
-                .withData(data);
+            .withCharset("UTF-8")
+            .withData(data);
     }
 }

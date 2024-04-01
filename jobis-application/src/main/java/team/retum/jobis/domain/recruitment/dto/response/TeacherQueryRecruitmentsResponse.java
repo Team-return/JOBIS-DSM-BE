@@ -23,6 +23,7 @@ public class TeacherQueryRecruitmentsResponse {
     @AllArgsConstructor
     @Builder
     public static class TeacherRecruitmentResponse {
+
         private long id;
 
         private RecruitStatus status;
@@ -47,18 +48,18 @@ public class TeacherQueryRecruitmentsResponse {
 
         public static TeacherRecruitmentResponse from(TeacherRecruitmentVO recruitment) {
             return TeacherRecruitmentResponse.builder()
-                    .id(recruitment.getRecruitmentId())
-                    .status(recruitment.getRecruitStatus())
-                    .companyName(recruitment.getCompanyName())
-                    .companyType(recruitment.getCompanyType())
-                    .startDate(recruitment.getStartDate())
-                    .endDate(recruitment.getEndDate())
-                    .applicationRequestedCount(recruitment.getRequestedApplicationCount())
-                    .applicationApprovedCount(recruitment.getApprovedApplicationCount())
-                    .totalHiringCount(recruitment.getTotalHiringCount())
-                    .hiringJobs(recruitment.getJobCodes())
-                    .companyId(recruitment.getCompanyId())
-                    .build();
+                .id(recruitment.getRecruitmentId())
+                .status(recruitment.getRecruitStatus())
+                .companyName(recruitment.getCompanyName())
+                .companyType(recruitment.getCompanyType())
+                .startDate(recruitment.getStartDate())
+                .endDate(recruitment.getEndDate())
+                .applicationRequestedCount(recruitment.getRequestedApplicationCount())
+                .applicationApprovedCount(recruitment.getApprovedApplicationCount())
+                .totalHiringCount(recruitment.getTotalHiringCount())
+                .hiringJobs(recruitment.getJobCodes())
+                .companyId(recruitment.getCompanyId())
+                .build();
         }
     }
 }

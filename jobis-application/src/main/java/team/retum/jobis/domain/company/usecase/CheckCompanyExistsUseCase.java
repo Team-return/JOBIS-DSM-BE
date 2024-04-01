@@ -15,7 +15,7 @@ public class CheckCompanyExistsUseCase {
 
     public CheckCompanyExistsResponse execute(String businessNumber) {
         return queryCompanyPort.queryCompanyByBusinessNumber(businessNumber)
-                .map(c -> new CheckCompanyExistsResponse(c.getName(), true))
-                .orElse(new CheckCompanyExistsResponse(feignClientPort.getCompanyNameByBizNo(businessNumber), false));
+            .map(c -> new CheckCompanyExistsResponse(c.getName(), true))
+            .orElse(new CheckCompanyExistsResponse(feignClientPort.getCompanyNameByBizNo(businessNumber), false));
     }
 }

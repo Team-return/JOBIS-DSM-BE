@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class BugReportsVO {
+
     private final Long id;
     private final String title;
     private final DevelopmentArea developmentArea;

@@ -27,7 +27,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     @Override
     public Optional<Student> queryStudentById(Long studentId) {
         return studentJpaRepository.findById(studentId)
-                .map(studentMapper::toDomain);
+            .map(studentMapper::toDomain);
     }
 
     @Override
@@ -48,28 +48,28 @@ public class StudentPersistenceAdapter implements StudentPort {
     @Override
     public boolean existsBySchoolNumberAndName(SchoolNumber schoolNumber, String name) {
         return studentJpaRepository.existsByGradeAndClassRoomAndNumberAndName(
-                schoolNumber.getGrade(), schoolNumber.getClassRoom(), schoolNumber.getNumber(), name
+            schoolNumber.getGrade(), schoolNumber.getClassRoom(), schoolNumber.getNumber(), name
         );
     }
 
     @Override
     public Long queryStudentCountByApplicationStatus(List<ApplicationStatus> statuses) {
         return queryFactory
-                .select(studentEntity.countDistinct())
-                .from(studentEntity)
-                .join(applicationEntity)
-                .on(
-                        applicationEntity.student.eq(studentEntity),
-                        applicationEntity.applicationStatus.in(statuses)
-                )
-                .where(studentEntity.grade.eq(3))
-                .fetchOne();
+            .select(studentEntity.countDistinct())
+            .from(studentEntity)
+            .join(applicationEntity)
+            .on(
+                applicationEntity.student.eq(studentEntity),
+                applicationEntity.applicationStatus.in(statuses)
+            )
+            .where(studentEntity.grade.eq(3))
+            .fetchOne();
     }
 
     @Override
     public Student saveStudent(Student student) {
         return studentMapper.toDomain(
-                studentJpaRepository.save(studentMapper.toEntity(student))
+            studentJpaRepository.save(studentMapper.toEntity(student))
         );
     }
 }

@@ -39,7 +39,7 @@ public class BannerWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{banner-id}")
     public void deleteBanner(
-            @PathVariable("banner-id") Long bannerId
+        @PathVariable("banner-id") Long bannerId
     ) {
         deleteBannerUseCase.execute(bannerId);
     }
@@ -51,7 +51,7 @@ public class BannerWebAdapter {
 
     @GetMapping("/teacher")
     public TeacherQueryBannersResponse queryBannerList(
-            @RequestParam(value = "is_opened") Boolean isOpened
+        @RequestParam(value = "is_opened") Boolean isOpened
     ) {
         return queryBannerListUseCase.execute(isOpened);
     }

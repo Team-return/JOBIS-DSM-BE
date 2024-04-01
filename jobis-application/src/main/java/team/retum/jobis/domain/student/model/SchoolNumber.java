@@ -8,16 +8,17 @@ import team.retum.jobis.domain.student.exception.ClassRoomNotFoundException;
 @Builder
 public class SchoolNumber {
 
+    private static final int FIRST_GRADE = 1;
+    private static final int SECOND_GRADE = 2;
+    private static final int THIRD_GRADE = 3;
     private final Integer grade;
-
     private final Integer classRoom;
-
     private final Integer number;
 
     public static String processSchoolNumber(SchoolNumber schoolNumber) {
-        return String.valueOf(schoolNumber.grade) +
-                schoolNumber.classRoom +
-                (schoolNumber.number < 10 ? "0" + schoolNumber.number : schoolNumber.number);
+        return String.valueOf(schoolNumber.grade)
+            + schoolNumber.classRoom
+            + (schoolNumber.number < 10 ? "0" + schoolNumber.number : schoolNumber.number);
     }
 
     public static Department getDepartment(Integer grade, Integer classRoom) {
@@ -43,13 +44,9 @@ public class SchoolNumber {
         }
 
         return SchoolNumber.builder()
-                .grade(grade)
-                .classRoom(classRoom)
-                .number(number)
-                .build();
+            .grade(grade)
+            .classRoom(classRoom)
+            .number(number)
+            .build();
     }
-
-    private static final int FIRST_GRADE = 1;
-    private static final int SECOND_GRADE = 2;
-    private static final int THIRD_GRADE = 3;
 }

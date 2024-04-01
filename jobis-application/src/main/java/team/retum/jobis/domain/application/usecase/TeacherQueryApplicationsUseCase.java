@@ -20,17 +20,17 @@ public class TeacherQueryApplicationsUseCase {
     private final QueryApplicationPort queryApplicationPort;
 
     public TeacherQueryApplicationsResponse execute(
-            ApplicationStatus applicationStatus,
-            String studentName,
-            Long recruitmentId,
-            Year year
+        ApplicationStatus applicationStatus,
+        String studentName,
+        Long recruitmentId,
+        Year year
     ) {
         ApplicationFilter applicationFilter = ApplicationFilter.builder()
-                .recruitmentId(recruitmentId)
-                .applicationStatus(applicationStatus)
-                .studentName(studentName)
-                .year(year)
-                .build();
+            .recruitmentId(recruitmentId)
+            .applicationStatus(applicationStatus)
+            .studentName(studentName)
+            .year(year)
+            .build();
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.queryApplicationByConditions(applicationFilter);
 
@@ -39,9 +39,9 @@ public class TeacherQueryApplicationsUseCase {
 
     public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName) {
         return new TotalPageCountResponse(
-                NumberUtil.getTotalPageCount(
-                        queryApplicationPort.queryApplicationCountByCondition(applicationStatus, studentName), 11
-                )
+            NumberUtil.getTotalPageCount(
+                queryApplicationPort.queryApplicationCountByCondition(applicationStatus, studentName), 11
+            )
         );
     }
 }

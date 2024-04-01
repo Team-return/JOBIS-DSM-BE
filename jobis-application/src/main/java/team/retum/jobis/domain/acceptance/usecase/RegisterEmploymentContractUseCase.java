@@ -30,28 +30,28 @@ public class RegisterEmploymentContractUseCase {
         }
 
         List<Acceptance> acceptances = applications.stream()
-                .map(
-                        application -> {
-                            Application.checkApplicationStatus(
-                                    application.getStatus(),
-                                    ApplicationStatus.FIELD_TRAIN
-                            );
+            .map(
+                application -> {
+                    Application.checkApplicationStatus(
+                        application.getStatus(),
+                        ApplicationStatus.FIELD_TRAIN
+                    );
 
-                            return Acceptance.builder()
-                                    .companyId(application.getCompanyId())
-                                    .contractDate(LocalDate.now())
-                                    .year(Year.now().getValue())
-                                    .tech(codeKeywords)
-                                    .businessArea(application.getBusinessArea())
-                                    .studentId(application.getStudentId())
-                                    .build();
-                        }
-                ).toList();
+                    return Acceptance.builder()
+                        .companyId(application.getCompanyId())
+                        .contractDate(LocalDate.now())
+                        .year(Year.now().getValue())
+                        .tech(codeKeywords)
+                        .businessArea(application.getBusinessArea())
+                        .studentId(application.getStudentId())
+                        .build();
+                }
+            ).toList();
 
         commandAcceptancePort.saveAllAcceptance(acceptances);
         commandApplicationPort.changeApplicationStatus(
-                ApplicationStatus.ACCEPTANCE,
-                applications.stream().map(ApplicationDetailVO::getId).toList()
+            ApplicationStatus.ACCEPTANCE,
+            applications.stream().map(ApplicationDetailVO::getId).toList()
         );
     }
 }

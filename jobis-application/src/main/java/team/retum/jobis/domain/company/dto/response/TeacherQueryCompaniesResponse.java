@@ -20,6 +20,7 @@ public class TeacherQueryCompaniesResponse {
     @AllArgsConstructor
     @Builder
     public static class TeacherQueryCompanyResponse {
+
         private final Long companyId;
         private final String companyName;
         private final String region;

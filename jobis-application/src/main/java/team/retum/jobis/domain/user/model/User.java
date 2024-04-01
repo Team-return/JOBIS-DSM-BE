@@ -23,15 +23,15 @@ public class User {
 
     public User updatePassword(String password) {
         return this.toBuilder()
-                .password(password)
-                .build();
+            .password(password)
+            .build();
     }
 
     public User setToken(String token) {
         if (token != null) {
             return this.toBuilder()
-                    .token(token)
-                    .build();
+                .token(token)
+                .build();
         } else {
             return this;
         }

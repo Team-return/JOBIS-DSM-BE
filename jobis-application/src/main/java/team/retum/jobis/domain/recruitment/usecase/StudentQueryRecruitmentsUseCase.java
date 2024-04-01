@@ -17,31 +17,32 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class StudentQueryRecruitmentsUseCase {
+
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
 
     public StudentQueryRecruitmentsResponse execute(
-            String name,
-            Long page,
-            List<Long> codeIds,
-            Boolean winterIntern
+        String name,
+        Long page,
+        List<Long> codeIds,
+        Boolean winterIntern
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
-                .year(Year.now().getValue())
-                .status(RecruitStatus.RECRUITING)
-                .companyName(name)
-                .page(page)
-                .limit(12)
-                .codes(codeIds)
-                .studentId(currentStudentId)
-                .winterIntern(winterIntern)
-                .build();
+            .year(Year.now().getValue())
+            .status(RecruitStatus.RECRUITING)
+            .companyName(name)
+            .page(page)
+            .limit(12)
+            .codes(codeIds)
+            .studentId(currentStudentId)
+            .winterIntern(winterIntern)
+            .build();
 
         List<StudentRecruitmentResponse> recruitments =
-                queryRecruitmentPort.queryStudentRecruitmentsByFilter(recruitmentFilter).stream()
-                        .map(StudentRecruitmentResponse::from)
-                        .toList();
+            queryRecruitmentPort.queryStudentRecruitmentsByFilter(recruitmentFilter).stream()
+                .map(StudentRecruitmentResponse::from)
+                .toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
     }
@@ -50,17 +51,17 @@ public class StudentQueryRecruitmentsUseCase {
         Long currentStudentId = securityPort.getCurrentUserId();
 
         RecruitmentFilter filter = RecruitmentFilter.builder()
-                .year(Year.now().getValue())
-                .status(RecruitStatus.RECRUITING)
-                .companyName(name)
-                .limit(12)
-                .codes(codeIds)
-                .studentId(currentStudentId)
-                .winterIntern(winterIntern)
-                .build();
+            .year(Year.now().getValue())
+            .status(RecruitStatus.RECRUITING)
+            .companyName(name)
+            .limit(12)
+            .codes(codeIds)
+            .studentId(currentStudentId)
+            .winterIntern(winterIntern)
+            .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
-                queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
+            queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
         );
 
         return new TotalPageCountResponse(totalPageCount);

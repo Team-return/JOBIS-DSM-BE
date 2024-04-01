@@ -33,14 +33,14 @@ public class ReviewWebAdapter {
 
     @GetMapping("/{company-id}")
     public QueryReviewsResponse getReviews(
-            @PathVariable(name = "company-id") Long companyId
+        @PathVariable(name = "company-id") Long companyId
     ) {
         return queryReviewsUseCase.execute(companyId);
     }
 
     @GetMapping("/details/{review-id}")
     public QueryReviewDetailResponse getReviewDetails(
-            @PathVariable(name = "review-id") Long reviewId
+        @PathVariable(name = "review-id") Long reviewId
     ) {
         return queryReviewDetailUseCase.execute(reviewId);
     }
@@ -48,27 +48,25 @@ public class ReviewWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createReview(
-            @RequestBody @Valid CreateReviewWebRequest webRequest
+        @RequestBody @Valid CreateReviewWebRequest webRequest
     ) {
         createReviewUseCase.execute(
-                webRequest.getCompanyId(),
-                webRequest.getQnaElements().stream()
-                        .map(qnAWebElement -> new QnAElement(
-                                qnAWebElement.getQuestion(),
-                                qnAWebElement.getAnswer(),
-                                qnAWebElement.getCodeId()
-                        ))
-                        .toList()
+            webRequest.getCompanyId(),
+            webRequest.getQnaElements().stream()
+                .map(qnAWebElement -> new QnAElement(
+                    qnAWebElement.getQuestion(),
+                    qnAWebElement.getAnswer(),
+                    qnAWebElement.getCodeId()
+                ))
+                .toList()
         );
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{review-id}")
     public void deleteReview(
-            @PathVariable(name = "review-id") Long reviewId
+        @PathVariable(name = "review-id") Long reviewId
     ) {
         deleteReviewUseCase.execute(reviewId);
     }
 }
-
-

@@ -8,11 +8,13 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class CreateFileUploadUrlResponse {
+
     private final List<UrlResponse> urls;
 
     @Getter
     @AllArgsConstructor
     public static class UrlResponse {
+
         private final String filePath;
         private final String preSignedUrl;
     }

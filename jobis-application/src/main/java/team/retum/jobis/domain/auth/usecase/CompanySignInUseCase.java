@@ -15,13 +15,14 @@ import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 @RequiredArgsConstructor
 @UseCase
 public class CompanySignInUseCase {
+
     private final QueryCompanyPort queryCompanyPort;
     private final JwtPort jwtPort;
     private final SecurityPort securityPort;
 
     public TokenResponse execute(String businessRegistrationNumber, String authCode) {
         Company company = queryCompanyPort.queryCompanyByBusinessNumber(businessRegistrationNumber)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         checkServerAuthCode(authCode);
 

@@ -20,6 +20,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
     @Getter
     @Builder
     public static class TeacherQueryFieldTraineesResponse {
+
         private Long applicationId;
         private String studentGcn;
         private String studentName;
@@ -28,30 +29,31 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
 
         public static List<TeacherQueryFieldTraineesResponse> from(List<FieldTraineesVO> fieldTrainees) {
             return fieldTrainees.stream()
-                    .map(
-                            fieldTrainee -> TeacherQueryFieldTraineesResponse
-                                    .builder()
-                                    .applicationId(fieldTrainee.getApplicationId())
-                                    .studentGcn(
-                                            SchoolNumber.processSchoolNumber(
-                                                    SchoolNumber.builder()
-                                                            .grade(fieldTrainee.getGrade())
-                                                            .classRoom(fieldTrainee.getClassRoom())
-                                                            .number(fieldTrainee.getNumber())
-                                                            .build()
-                                            )
-                                    )
-                                    .studentName(fieldTrainee.getStudentName())
-                                    .startDate(fieldTrainee.getStartDate())
-                                    .endDate(fieldTrainee.getEndDate())
+                .map(
+                    fieldTrainee -> TeacherQueryFieldTraineesResponse
+                        .builder()
+                        .applicationId(fieldTrainee.getApplicationId())
+                        .studentGcn(
+                            SchoolNumber.processSchoolNumber(
+                                SchoolNumber.builder()
+                                    .grade(fieldTrainee.getGrade())
+                                    .classRoom(fieldTrainee.getClassRoom())
+                                    .number(fieldTrainee.getNumber())
                                     .build()
-                    ).toList();
+                            )
+                        )
+                        .studentName(fieldTrainee.getStudentName())
+                        .startDate(fieldTrainee.getStartDate())
+                        .endDate(fieldTrainee.getEndDate())
+                        .build()
+                ).toList();
         }
     }
 
     @Getter
     @Builder
     public static class TeacherQueryContractWorkersResponse {
+
         private Long acceptanceId;
         private String studentGcn;
         private String studentName;
@@ -59,23 +61,23 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
 
         public static List<TeacherQueryContractWorkersResponse> from(List<AcceptanceVO> acceptances) {
             return acceptances.stream()
-                    .map(
-                            acceptance -> TeacherQueryContractWorkersResponse
-                                    .builder()
-                                    .acceptanceId(acceptance.getAcceptanceId())
-                                    .studentGcn(
-                                            SchoolNumber.processSchoolNumber(
-                                                    SchoolNumber.builder()
-                                                            .grade(acceptance.getGrade())
-                                                            .classRoom(acceptance.getClassRoom())
-                                                            .number(acceptance.getNumber())
-                                                            .build()
-                                            )
-                                    )
-                                    .studentName(acceptance.getStudentName())
-                                    .contractDate(acceptance.getContractDate())
+                .map(
+                    acceptance -> TeacherQueryContractWorkersResponse
+                        .builder()
+                        .acceptanceId(acceptance.getAcceptanceId())
+                        .studentGcn(
+                            SchoolNumber.processSchoolNumber(
+                                SchoolNumber.builder()
+                                    .grade(acceptance.getGrade())
+                                    .classRoom(acceptance.getClassRoom())
+                                    .number(acceptance.getNumber())
                                     .build()
-                    ).toList();
+                            )
+                        )
+                        .studentName(acceptance.getStudentName())
+                        .contractDate(acceptance.getContractDate())
+                        .build()
+                ).toList();
         }
     }
 }

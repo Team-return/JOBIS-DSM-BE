@@ -16,26 +16,27 @@ public class QueryMyApplicationsResponse {
 
     public static QueryMyApplicationsResponse from(List<ApplicationVO> applicationVOs) {
         return new QueryMyApplicationsResponse(
-                applicationVOs.stream()
-                        .map(application -> QueryMyApplicationResponse.builder()
-                                .applicationId(application.getId())
-                                .recruitmentId(application.getRecruitmentId())
-                                .company(application.getCompanyName())
-                                .companyLogoUrl(application.getCompanyLogoUrl())
-                                .attachments(
-                                        application.getApplicationAttachmentEntities().stream()
-                                                .map(AttachmentResponse::of)
-                                                .toList()
-                                )
-                                .applicationStatus(application.getApplicationStatus())
-                                .build()
-                        ).toList()
+            applicationVOs.stream()
+                .map(application -> QueryMyApplicationResponse.builder()
+                    .applicationId(application.getId())
+                    .recruitmentId(application.getRecruitmentId())
+                    .company(application.getCompanyName())
+                    .companyLogoUrl(application.getCompanyLogoUrl())
+                    .attachments(
+                        application.getApplicationAttachmentEntities().stream()
+                            .map(AttachmentResponse::of)
+                            .toList()
+                    )
+                    .applicationStatus(application.getApplicationStatus())
+                    .build()
+                ).toList()
         );
     }
 
     @Getter
     @Builder
     public static class QueryMyApplicationResponse {
+
         private final Long applicationId;
         private final Long recruitmentId;
         private final String company;

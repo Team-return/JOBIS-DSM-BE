@@ -9,5 +9,6 @@ import java.util.List;
 public interface RecruitAreaCodeJpaRepository extends JpaRepository<RecruitAreaCodeEntity, RecruitAreaCodeId> {
 
     List<RecruitAreaCodeEntity> findByRecruitAreaId(Long id);
+
     void deleteAllByRecruitAreaId(Long recruitAreaId);
 }

@@ -35,8 +35,8 @@ public class AuthWebAdapter {
     @PostMapping("/company")
     public TokenResponse companySignIn(@RequestBody @Valid CompanySignInWebRequest request) {
         return companySignInUseCase.execute(
-                request.getBusinessNumber(),
-                request.getAuthCode()
+            request.getBusinessNumber(),
+            request.getAuthCode()
         );
     }
 
@@ -44,24 +44,24 @@ public class AuthWebAdapter {
     @PostMapping("/code")
     public void sendSignUpCode(@RequestBody @Valid SendAuthCodeWebRequest request) {
         sendAuthCodeUseCase.execute(
-                request.getEmail(), request.getAuthCodeType()
+            request.getEmail(), request.getAuthCodeType()
         );
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/code")
     public void verifyCode(
-            @RequestParam("email") String email,
-            @RequestParam("auth_code") String authCode
+        @RequestParam("email") String email,
+        @RequestParam("auth_code") String authCode
     ) {
         verifyAuthCodeUseCase.execute(email, authCode);
     }
 
     @PutMapping("/reissue")
     public TokenResponse reissue(
-            @RequestHeader("X-Refresh-Token") String token,
-            @RequestParam("platform-type") PlatformType platformType,
-            @RequestParam(value = "device-token", required = false) String deviceToken
+        @RequestHeader("X-Refresh-Token") String token,
+        @RequestParam("platform-type") PlatformType platformType,
+        @RequestParam(value = "device-token", required = false) String deviceToken
     ) {
         return tokenReissueUseCase.execute(token, platformType, deviceToken);
     }

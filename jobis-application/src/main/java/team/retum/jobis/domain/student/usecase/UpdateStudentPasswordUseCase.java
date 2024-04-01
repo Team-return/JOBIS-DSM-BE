@@ -21,7 +21,7 @@ public class UpdateStudentPasswordUseCase {
         userChecker.checkPasswordMatch(currentPassword, user.getPassword());
 
         commandUserPort.saveUser(
-                user.updatePassword(securityPort.encodePassword(newPassword))
+            user.updatePassword(securityPort.encodePassword(newPassword))
         );
     }
 }

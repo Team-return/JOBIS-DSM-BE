@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QueryBannerPort {
+
     Optional<Banner> queryBannerById(Long bannerId);
 
     List<BannerVO> queryCurrentBanners();

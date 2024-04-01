@@ -46,21 +46,21 @@ public class AcceptanceWebAdapter {
     @Cacheable
     @GetMapping("/{company-id}")
     public TeacherQueryFieldTraineesAndContractWorkersResponse teacherQueryFieldTraineesAndContractWorkers(
-            @PathVariable(name = "company-id") Long companyId
+        @PathVariable(name = "company-id") Long companyId
     ) {
         return teacherQueryFieldTraineesAndContractWorkersUseCase.execute(companyId);
     }
 
     @Caching(
-            evict = {
-                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
-                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
-            }
+        evict = {
+            @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY, allEntries = true)
+        }
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/field-train")
     public void registerFieldTrainee(
-            @RequestBody @Valid RegisterFieldTraineeWebRequest request
+        @RequestBody @Valid RegisterFieldTraineeWebRequest request
     ) {
         registerFieldTraineeUseCase.execute(request.toDomainRequest());
     }
@@ -73,11 +73,11 @@ public class AcceptanceWebAdapter {
     }
 
     @Caching(
-            evict = {
-                    @CacheEvict(cacheNames = ACCEPTANCE, allEntries = true),
-                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
-                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
-            }
+        evict = {
+            @CacheEvict(cacheNames = ACCEPTANCE, allEntries = true),
+            @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY, allEntries = true)
+        }
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employment")
@@ -86,10 +86,10 @@ public class AcceptanceWebAdapter {
     }
 
     @Caching(
-            evict = {
-                    @CacheEvict(cacheNames = APPLICATION, allEntries = true),
-                    @CacheEvict(cacheNames = COMPANY, allEntries = true)
-            }
+        evict = {
+            @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY, allEntries = true)
+        }
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping

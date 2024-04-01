@@ -15,7 +15,7 @@ public class QueryBugReportDetailsUseCase {
 
     public QueryBugReportDetailsResponse execute(Long bugReportId) {
         BugReport bugReport = queryBugReportPort.queryBugReportById(bugReportId)
-                .orElseThrow(() -> BugReportNotFoundException.EXCEPTION);
+            .orElseThrow(() -> BugReportNotFoundException.EXCEPTION);
 
         return QueryBugReportDetailsResponse.from(bugReport);
     }

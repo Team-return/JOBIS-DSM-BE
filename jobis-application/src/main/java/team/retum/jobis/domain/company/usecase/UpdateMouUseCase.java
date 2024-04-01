@@ -23,9 +23,9 @@ public class UpdateMouUseCase {
         }
 
         commandCompanyPort.saveAllCompanies(
-                companies.stream()
-                        .map(Company::convertToMou)
-                        .toList()
+            companies.stream()
+                .map(Company::convertToMou)
+                .toList()
         );
     }
 }

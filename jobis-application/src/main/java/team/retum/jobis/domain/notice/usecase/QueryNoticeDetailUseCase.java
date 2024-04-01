@@ -16,7 +16,7 @@ public class QueryNoticeDetailUseCase {
 
     public QueryNoticeDetailResponse execute(Long noticeId) {
         Notice notice = queryNoticePort.queryNoticeById(noticeId)
-                .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
+            .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 
         return QueryNoticeDetailResponse.from(notice);
 

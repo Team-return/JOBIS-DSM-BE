@@ -10,14 +10,15 @@ import team.retum.jobis.domain.application.model.AttachmentType;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AttachmentResponse {
+
     private String url;
 
     private AttachmentType type;
 
     public static AttachmentResponse of(ApplicationAttachment applicationAttachment) {
         return new AttachmentResponse(
-                applicationAttachment.getAttachmentUrl(),
-                applicationAttachment.getType()
+            applicationAttachment.getAttachmentUrl(),
+            applicationAttachment.getType()
         );
     }
 }

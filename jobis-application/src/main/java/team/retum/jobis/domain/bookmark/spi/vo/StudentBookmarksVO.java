@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class StudentBookmarksVO {
+
     private final String companyName;
     private final String companyLogoUrl;
     private final Long recruitmentId;

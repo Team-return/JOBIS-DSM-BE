@@ -14,6 +14,7 @@ public class QueryReviewAvailableCompaniesResponse {
     @Getter
     @AllArgsConstructor
     public static class CompanyResponse {
+
         private final Long id;
         private final String name;
     }
