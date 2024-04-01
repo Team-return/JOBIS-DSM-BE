@@ -184,15 +184,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public Long queryApplicationCountByIds(List<Long> applicationIds) {
-        return queryFactory
-            .select(applicationEntity.count())
-            .from(applicationEntity)
-            .where(applicationEntity.id.in(applicationIds))
-            .fetchOne();
-    }
-
-    @Override
     public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
         return queryFactory
             .select(
@@ -281,7 +272,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .from(applicationEntity)
             .where(
                 applicationEntity.student.id.eq(studentId),
-                applicationEntity.applicationStatus.in(applicationStatuses)
+                applicationEntity.applicationStatus.in(applicationStatuses),
+                eqYear(Year.now())
             ).fetchFirst() != null;
     }
 

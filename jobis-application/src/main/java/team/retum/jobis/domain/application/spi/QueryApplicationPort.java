@@ -23,8 +23,6 @@ public interface QueryApplicationPort {
 
     List<Application> queryApplicationsByIds(List<Long> applicationIds);
 
-    Long queryApplicationCountByIds(List<Long> applicationIds);
-
     List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds);
 
     Optional<Application> queryApplicationById(Long applicationId);
