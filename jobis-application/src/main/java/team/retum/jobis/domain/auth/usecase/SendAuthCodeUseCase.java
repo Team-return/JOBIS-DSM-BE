@@ -23,11 +23,11 @@ public class SendAuthCodeUseCase {
         checkAuthCodeSendable(authCodeType, email);
 
         AuthCode authCode = AuthCode.builder()
-                .code(RandomStringUtils.randomNumeric(6))
-                .ttl(300)
-                .isVerified(false)
-                .email(email)
-                .build();
+            .code(RandomStringUtils.randomNumeric(6))
+            .ttl(300)
+            .isVerified(false)
+            .email(email)
+            .build();
         commandAuthCodePort.saveAuthCode(authCode);
 
         sendEmailPort.sendMail(authCode.getCode(), authCode.getEmail());

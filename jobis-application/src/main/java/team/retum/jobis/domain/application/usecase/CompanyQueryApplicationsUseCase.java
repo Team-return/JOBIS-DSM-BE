@@ -27,12 +27,12 @@ public class CompanyQueryApplicationsUseCase {
         Company company = securityPort.getCurrentCompany();
 
         Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(company.getId())
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         ApplicationFilter applicationFilter = ApplicationFilter.builder()
-                .recruitmentId(recruitment.getId())
-                .applicationStatus(ApplicationStatus.SEND)
-                .build();
+            .recruitmentId(recruitment.getId())
+            .applicationStatus(ApplicationStatus.SEND)
+            .build();
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.queryApplicationByConditions(applicationFilter);
 

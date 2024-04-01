@@ -26,9 +26,9 @@ public class Notice {
 
     public Notice update(String title, String content) {
         return this.toBuilder()
-                .title(title)
-                .content(content)
-                .build();
+            .title(title)
+            .content(content)
+            .build();
     }
 
 }

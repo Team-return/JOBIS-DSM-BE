@@ -14,7 +14,7 @@ public class TeacherQueryCompaniesVO extends TeacherCompaniesVO {
                                    Boolean convention, Boolean personalContact, Integer recentRecruitYear,
                                    Long totalAcceptanceCount, Long reviewCount) {
         super(companyId, companyName, mainAddress, businessArea,
-                workersCount, take, companyType, convention,
-                personalContact, recentRecruitYear, totalAcceptanceCount, reviewCount);
+            workersCount, take, companyType, convention,
+            personalContact, recentRecruitYear, totalAcceptanceCount, reviewCount);
     }
 }

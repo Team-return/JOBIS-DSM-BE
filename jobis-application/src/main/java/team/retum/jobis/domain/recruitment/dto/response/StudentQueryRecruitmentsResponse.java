@@ -16,6 +16,7 @@ public class StudentQueryRecruitmentsResponse {
     @Getter
     @Builder
     public static class StudentRecruitmentResponse {
+
         private long id;
 
         private String companyName;
@@ -32,14 +33,14 @@ public class StudentQueryRecruitmentsResponse {
 
         public static StudentRecruitmentResponse from(StudentRecruitmentVO recruitment) {
             return StudentRecruitmentResponse.builder()
-                    .id(recruitment.getRecruitmentId())
-                    .companyName(recruitment.getCompanyName())
-                    .trainPay(recruitment.getTrainPay())
-                    .hiringJobs(recruitment.getJobCodes())
-                    .militarySupport(recruitment.isMilitarySupport())
-                    .companyProfileUrl(recruitment.getCompanyLogoUrl())
-                    .bookmarked(recruitment.isBookmarked())
-                    .build();
+                .id(recruitment.getRecruitmentId())
+                .companyName(recruitment.getCompanyName())
+                .trainPay(recruitment.getTrainPay())
+                .hiringJobs(recruitment.getJobCodes())
+                .militarySupport(recruitment.isMilitarySupport())
+                .companyProfileUrl(recruitment.getCompanyLogoUrl())
+                .bookmarked(recruitment.isBookmarked())
+                .build();
         }
     }
 }

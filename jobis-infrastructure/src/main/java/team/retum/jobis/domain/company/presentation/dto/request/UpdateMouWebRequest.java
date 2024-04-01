@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class UpdateMouWebRequest {
+
     @NotNull
     private List<Long> companyIds;
 }

@@ -18,7 +18,7 @@ public class BugReportEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onBugReportEvent(BugReportEvent event) {
         webhookUtil.sendBugReport(
-                event.getBugReport(), event.getWriter()
+            event.getBugReport(), event.getWriter()
         );
     }
 }

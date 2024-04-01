@@ -21,13 +21,13 @@ public class UpdateStudentForgottenPasswordUseCase {
 
     public void execute(String email, String password) {
         User user = queryUserPort.queryUserByAccountId(email)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         AuthCode authCode = queryAuthCodePort.queryAuthCodeByEmail(email);
         authCode.checkIsVerified();
 
         commandUserPort.saveUser(
-                user.updatePassword(securityPort.encodePassword(password))
+            user.updatePassword(securityPort.encodePassword(password))
         );
     }
 }

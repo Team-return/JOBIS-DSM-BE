@@ -28,6 +28,6 @@ public class RecruitmentChecker {
 
     public void checkPermission(RecruitArea recruitArea) {
         queryRecruitmentPort.queryRecruitmentById(recruitArea.getRecruitmentId())
-                .ifPresent(this::checkPermission);
+            .ifPresent(this::checkPermission);
     }
 }

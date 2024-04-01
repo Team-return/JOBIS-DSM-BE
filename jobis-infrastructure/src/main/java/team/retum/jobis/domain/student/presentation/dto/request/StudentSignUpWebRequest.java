@@ -48,16 +48,16 @@ public class StudentSignUpWebRequest {
 
     public StudentSignUpRequest toDomainRequest() {
         return StudentSignUpRequest.builder()
-                .email(this.email)
-                .password(this.password)
-                .grade(this.grade)
-                .name(this.name)
-                .classRoom(this.classRoom)
-                .number(this.number)
-                .gender(this.gender)
-                .profileImageUrl(this.profileImageUrl)
-                .platformType(this.platformType)
-                .deviceToken(this.deviceToken)
-                .build();
+            .email(this.email)
+            .password(this.password)
+            .grade(this.grade)
+            .name(this.name)
+            .classRoom(this.classRoom)
+            .number(this.number)
+            .gender(this.gender)
+            .profileImageUrl(this.profileImageUrl)
+            .platformType(this.platformType)
+            .deviceToken(this.deviceToken)
+            .build();
     }
 }

@@ -36,14 +36,14 @@ public class BugWebAdapter {
 
     @GetMapping
     public QueryBugReportsResponse queryBugReports(
-            @RequestParam(value = "development_area", required = false) DevelopmentArea developmentArea
+        @RequestParam(value = "development_area", required = false) DevelopmentArea developmentArea
     ) {
         return queryBugReportsUseCase.execute(developmentArea);
     }
 
     @GetMapping("/{bug-report-id}")
     public QueryBugReportDetailsResponse queryBugReportDetails(
-            @PathVariable("bug-report-id") Long bugReportId
+        @PathVariable("bug-report-id") Long bugReportId
     ) {
         return queryBugReportDetailsUseCase.execute(bugReportId);
     }

@@ -7,6 +7,7 @@ import team.retum.jobis.domain.banner.model.BannerType;
 @Getter
 @AllArgsConstructor
 public class BannerVO {
+
     private final Long id;
     private final String bannerUrl;
     private final BannerType bannerType;

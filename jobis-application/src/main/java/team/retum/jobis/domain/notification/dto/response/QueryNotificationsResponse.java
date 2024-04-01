@@ -18,6 +18,7 @@ public class QueryNotificationsResponse {
     @Getter
     @Builder
     public static class NotificationResponse {
+
         private final Long notificationId;
         private final String title;
         private final String content;
@@ -28,14 +29,14 @@ public class QueryNotificationsResponse {
 
         public static NotificationResponse form(Notification notification) {
             return NotificationResponse.builder()
-                    .notificationId(notification.getId())
-                    .title(notification.getTitle())
-                    .content(notification.getContent())
-                    .isNew(notification.getIsNew())
-                    .topic(notification.getTopic())
-                    .detailId(notification.getDetailId())
-                    .createdAt(notification.getCreatedAt())
-                    .build();
+                .notificationId(notification.getId())
+                .title(notification.getTitle())
+                .content(notification.getContent())
+                .isNew(notification.getIsNew())
+                .topic(notification.getTopic())
+                .detailId(notification.getDetailId())
+                .createdAt(notification.getCreatedAt())
+                .build();
         }
     }
 }

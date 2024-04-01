@@ -16,13 +16,13 @@ public class UpdateNoticeUseCase {
 
     public void execute(String title, String content, Long noticeId) {
         Notice notice = queryNoticePort.queryNoticeById(noticeId)
-                .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
+            .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 
         commandNoticePort.saveNotice(
-                notice.update(
-                        title,
-                        content
-                )
+            notice.update(
+                title,
+                content
+            )
         );
     }
 }

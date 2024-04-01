@@ -36,44 +36,43 @@ public class Application {
 
     private final LocalDateTime createdAt;
 
-    public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
-        checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
-
-        return this.toBuilder()
-                .applicationStatus(ApplicationStatus.FIELD_TRAIN)
-                .startDate(startDate)
-                .endDate(endDate)
-                .build();
-    }
-
-    public Application rejectApplication(String reason) {
-        return this.toBuilder()
-                .applicationStatus(ApplicationStatus.REJECTED)
-                .rejectionReason(reason)
-                .build();
-    }
-
-    public Application reapply(List<ApplicationAttachment> attachments) {
-        return this.toBuilder()
-                .attachments(attachments)
-                .applicationStatus(ApplicationStatus.REQUESTED)
-                .build();
-    }
-
-    public void checkReviewAuthority() {
-        if (this.applicationStatus == ApplicationStatus.REQUESTED
-                || this.applicationStatus == ApplicationStatus.APPROVED
-                || this.applicationStatus == ApplicationStatus.REJECTED) {
-            throw ApplicationNotFoundException.EXCEPTION;
-        }
-    }
-
     public static void checkApplicationStatus(ApplicationStatus requestedStatus, ApplicationStatus... baseStatuses) {
         if (!List.of(baseStatuses).contains(requestedStatus)) {
             throw ApplicationStatusCannotChangeException.EXCEPTION;
         }
     }
 
+    public Application toFieldTrain(LocalDate startDate, LocalDate endDate) {
+        checkApplicationStatus(this.applicationStatus, ApplicationStatus.PASS);
+
+        return this.toBuilder()
+            .applicationStatus(ApplicationStatus.FIELD_TRAIN)
+            .startDate(startDate)
+            .endDate(endDate)
+            .build();
+    }
+
+    public Application rejectApplication(String reason) {
+        return this.toBuilder()
+            .applicationStatus(ApplicationStatus.REJECTED)
+            .rejectionReason(reason)
+            .build();
+    }
+
+    public Application reapply(List<ApplicationAttachment> attachments) {
+        return this.toBuilder()
+            .attachments(attachments)
+            .applicationStatus(ApplicationStatus.REQUESTED)
+            .build();
+    }
+
+    public void checkReviewAuthority() {
+        if (this.applicationStatus == ApplicationStatus.REQUESTED
+            || this.applicationStatus == ApplicationStatus.APPROVED
+            || this.applicationStatus == ApplicationStatus.REJECTED) {
+            throw ApplicationNotFoundException.EXCEPTION;
+        }
+    }
 
     public void checkIsDeletable(Student student) {
         if (!this.studentId.equals(student.getId())) {

@@ -30,11 +30,11 @@ public class RecruitAreaWebRequest {
 
     public CreateRecruitAreaRequest toDomainRequest() {
         return CreateRecruitAreaRequest.builder()
-                .hiring(this.hiring)
-                .jobCodes(this.jobCodes)
-                .techCodes(this.techCodes)
-                .majorTask(this.majorTask)
-                .preferentialTreatment(this.preferentialTreatment)
-                .build();
+            .hiring(this.hiring)
+            .jobCodes(this.jobCodes)
+            .techCodes(this.techCodes)
+            .majorTask(this.majorTask)
+            .preferentialTreatment(this.preferentialTreatment)
+            .build();
     }
 }

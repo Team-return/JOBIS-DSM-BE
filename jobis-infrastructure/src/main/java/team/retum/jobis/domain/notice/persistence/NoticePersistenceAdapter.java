@@ -27,16 +27,16 @@ public class NoticePersistenceAdapter implements NoticePort {
     @Override
     public void saveNotice(Notice notice) {
         noticeMapper.toDomain(
-                noticeJpaRepository.save(
-                        noticeMapper.toEntity(notice)
-                )
+            noticeJpaRepository.save(
+                noticeMapper.toEntity(notice)
+            )
         );
     }
 
     @Override
     public Optional<Notice> queryNoticeById(Long noticeId) {
         return noticeJpaRepository.findById(noticeId)
-                .map(noticeMapper::toDomain);
+            .map(noticeMapper::toDomain);
     }
 
     @Override
@@ -47,18 +47,18 @@ public class NoticePersistenceAdapter implements NoticePort {
     @Override
     public List<NoticeVO> queryNotices() {
         return queryFactory
-                .select(
-                        new QQueryNoticeVO(
-                                noticeEntity.id,
-                                noticeEntity.title,
-                                noticeEntity.createdAt
-                        )
+            .select(
+                new QQueryNoticeVO(
+                    noticeEntity.id,
+                    noticeEntity.title,
+                    noticeEntity.createdAt
                 )
-                .from(noticeEntity)
-                .orderBy(noticeEntity.createdAt.desc())
-                .fetch()
-                .stream()
-                .map(NoticeVO.class::cast)
-                .toList();
+            )
+            .from(noticeEntity)
+            .orderBy(noticeEntity.createdAt.desc())
+            .fetch()
+            .stream()
+            .map(NoticeVO.class::cast)
+            .toList();
     }
 }

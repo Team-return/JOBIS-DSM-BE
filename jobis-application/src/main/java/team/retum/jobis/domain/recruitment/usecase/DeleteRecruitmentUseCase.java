@@ -11,13 +11,14 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 @RequiredArgsConstructor
 @UseCase
 public class DeleteRecruitmentUseCase {
+
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final CommandRecruitmentPort commandRecruitmentPort;
     private final RecruitmentChecker recruitmentChecker;
 
     public void execute(Long recruitmentId) {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         recruitment.checkIsDeletable();
         recruitmentChecker.checkPermission(recruitment);

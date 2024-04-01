@@ -37,18 +37,18 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     @Override
     public Review saveReview(Review review) {
         return reviewMapper.toDomain(
-                reviewJpaRepository.save(
-                        reviewMapper.toEntity(review)
-                )
+            reviewJpaRepository.save(
+                reviewMapper.toEntity(review)
+            )
         );
     }
 
     @Override
     public void saveAllQnAs(List<QnA> qnAs) {
         qnAJpaRepository.saveAll(
-                qnAs.stream()
-                        .map(qnAMapper::toEntity)
-                        .toList()
+            qnAs.stream()
+                .map(qnAMapper::toEntity)
+                .toList()
         );
     }
 
@@ -65,43 +65,43 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     @Override
     public Optional<Review> queryReviewById(Long reviewId) {
         return reviewJpaRepository.findById(reviewId)
-                .map(reviewMapper::toDomain);
+            .map(reviewMapper::toDomain);
     }
 
     @Override
     public List<QnAVO> queryAllQnAsByReviewId(Long reviewId) {
         return queryFactory
-                .select(
-                        new QQueryQnAVO(
-                                qnAEntity.question,
-                                qnAEntity.answer,
-                                codeEntity.keyword
-                        )
+            .select(
+                new QQueryQnAVO(
+                    qnAEntity.question,
+                    qnAEntity.answer,
+                    codeEntity.keyword
                 )
-                .from(qnAEntity)
-                .join(qnAEntity.code, codeEntity)
-                .where(qnAEntity.review.id.eq(reviewId))
-                .fetch().stream()
-                .map(QnAVO.class::cast)
-                .toList();
+            )
+            .from(qnAEntity)
+            .join(qnAEntity.code, codeEntity)
+            .where(qnAEntity.review.id.eq(reviewId))
+            .fetch().stream()
+            .map(QnAVO.class::cast)
+            .toList();
     }
 
     @Override
     public List<ReviewVO> queryAllReviewsByCompanyId(Long companyId) {
         return queryFactory
-                .select(
-                        new QQueryReviewVO(
-                                reviewEntity.id,
-                                studentEntity.name,
-                                reviewEntity.createdAt
-                        )
+            .select(
+                new QQueryReviewVO(
+                    reviewEntity.id,
+                    studentEntity.name,
+                    reviewEntity.createdAt
                 )
-                .from(reviewEntity)
-                .join(reviewEntity.student, studentEntity)
-                .join(reviewEntity.company, companyEntity)
-                .where(companyEntity.id.eq(companyId))
-                .fetch().stream()
-                .map(ReviewVO.class::cast)
-                .toList();
+            )
+            .from(reviewEntity)
+            .join(reviewEntity.student, studentEntity)
+            .join(reviewEntity.company, companyEntity)
+            .where(companyEntity.id.eq(companyId))
+            .fetch().stream()
+            .map(ReviewVO.class::cast)
+            .toList();
     }
 }

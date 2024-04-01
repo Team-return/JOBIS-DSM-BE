@@ -22,8 +22,8 @@ public class QueryMyApplicationsUseCase {
         Student student = securityPort.getCurrentStudent();
 
         ApplicationFilter applicationFilter = ApplicationFilter.builder()
-                .studentId(student.getId())
-                .build();
+            .studentId(student.getId())
+            .build();
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.queryApplicationByConditions(applicationFilter);
 

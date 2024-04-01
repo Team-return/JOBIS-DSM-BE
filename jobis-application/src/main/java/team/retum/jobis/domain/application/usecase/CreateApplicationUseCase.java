@@ -29,7 +29,7 @@ public class CreateApplicationUseCase {
     public void execute(Long recruitmentId, List<AttachmentRequest> attachmentRequests) {
         Student student = securityPort.getCurrentStudent();
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         recruitment.checkIsApplicable(student.getEntranceYear());
         checkApplicationDuplicated(student.getId());
@@ -37,19 +37,19 @@ public class CreateApplicationUseCase {
 
         List<ApplicationAttachment> attachments = ApplicationAttachment.from(attachmentRequests);
         commandApplicationPort.saveApplication(
-                Application.builder()
-                        .studentId(student.getId())
-                        .recruitmentId(recruitment.getId())
-                        .applicationStatus(ApplicationStatus.REQUESTED)
-                        .attachments(attachments)
-                        .build()
+            Application.builder()
+                .studentId(student.getId())
+                .recruitmentId(recruitment.getId())
+                .applicationStatus(ApplicationStatus.REQUESTED)
+                .attachments(attachments)
+                .build()
         );
     }
 
     private void checkApplicationDuplicated(Long studentId) {
         if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
-                studentId,
-                ApplicationStatus.DUPLICATE_CHECK
+            studentId,
+            ApplicationStatus.DUPLICATE_CHECK
         )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }

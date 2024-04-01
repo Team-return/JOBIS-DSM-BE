@@ -38,12 +38,12 @@ public class S3Adapter implements FilePort {
             objectMetadata.setContentLength(file.length());
 
             amazonS3.putObject(
-                    new PutObjectRequest(
-                            s3Properties.getBucket(),
-                            fileName,
-                            inputStream,
-                            objectMetadata
-                    ).withCannedAcl(CannedAccessControlList.PublicRead)
+                new PutObjectRequest(
+                    s3Properties.getBucket(),
+                    fileName,
+                    inputStream,
+                    objectMetadata
+                ).withCannedAcl(CannedAccessControlList.PublicRead)
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,18 +54,18 @@ public class S3Adapter implements FilePort {
     @Override
     public String generateFileUploadUrl(String fullFileName) {
         return URLDecoder.decode(
-                amazonS3.generatePresignedUrl(getPreSignedUrlRequest(fullFileName)).toString(), StandardCharsets.UTF_8
+            amazonS3.generatePresignedUrl(getPreSignedUrlRequest(fullFileName)).toString(), StandardCharsets.UTF_8
         );
     }
 
     private GeneratePresignedUrlRequest getPreSignedUrlRequest(String filename) {
         GeneratePresignedUrlRequest request =
-                new GeneratePresignedUrlRequest(s3Properties.getBucket(), filename)
-                        .withMethod(HttpMethod.PUT)
-                        .withExpiration(getPreSignedUrlExpiration());
+            new GeneratePresignedUrlRequest(s3Properties.getBucket(), filename)
+                .withMethod(HttpMethod.PUT)
+                .withExpiration(getPreSignedUrlExpiration());
         request.addRequestParameter(
-                Headers.S3_CANNED_ACL,
-                CannedAccessControlList.PublicRead.toString()
+            Headers.S3_CANNED_ACL,
+            CannedAccessControlList.PublicRead.toString()
         );
 
         return request;

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QueryStudentPort {
+
     Optional<Student> queryStudentById(Long studentId);
 
     boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear);

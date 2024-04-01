@@ -5,8 +5,3 @@ dependencies {
     // util
     implementation 'org.apache.commons:commons-lang3:3.0'
 }
-
-
-bootJar {
-    enabled = false
-}

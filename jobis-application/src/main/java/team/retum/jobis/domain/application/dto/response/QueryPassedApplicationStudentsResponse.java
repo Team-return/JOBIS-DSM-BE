@@ -18,16 +18,16 @@ public class QueryPassedApplicationStudentsResponse {
 
     public static QueryPassedApplicationStudentResponse from(PassedApplicationStudentsVO vo) {
         return QueryPassedApplicationStudentResponse.builder()
-                .applicationId(vo.getApplicationId())
-                .studentName(vo.getStudentName())
-                .studentGcn(SchoolNumber.processSchoolNumber(
-                        SchoolNumber.builder()
-                                .grade(vo.getGrade())
-                                .classRoom(vo.getClassRoom())
-                                .number(vo.getNumber())
-                                .build())
-                )
-                .build();
+            .applicationId(vo.getApplicationId())
+            .studentName(vo.getStudentName())
+            .studentGcn(SchoolNumber.processSchoolNumber(
+                SchoolNumber.builder()
+                    .grade(vo.getGrade())
+                    .classRoom(vo.getClassRoom())
+                    .number(vo.getNumber())
+                    .build())
+            )
+            .build();
     }
 
     @Getter
