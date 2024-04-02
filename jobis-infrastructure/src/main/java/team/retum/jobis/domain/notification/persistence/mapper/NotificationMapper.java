@@ -16,31 +16,31 @@ public class NotificationMapper {
 
     public NotificationEntity toEntity(Notification notification) {
         UserEntity userEntity = userJpaRepository.findById(notification.getUserId())
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return NotificationEntity.builder()
-                .id(notification.getId())
-                .title(notification.getTitle())
-                .content(notification.getContent())
-                .userEntity(userEntity)
-                .detailId(notification.getDetailId())
-                .topic(notification.getTopic())
-                .authority(notification.getAuthority())
-                .isNew(notification.getIsNew())
-                .build();
+            .id(notification.getId())
+            .title(notification.getTitle())
+            .content(notification.getContent())
+            .userEntity(userEntity)
+            .detailId(notification.getDetailId())
+            .topic(notification.getTopic())
+            .authority(notification.getAuthority())
+            .isNew(notification.getIsNew())
+            .build();
     }
 
     public Notification toDomain(NotificationEntity notificationEntity) {
         return Notification.builder()
-                .id(notificationEntity.getId())
-                .title(notificationEntity.getTitle())
-                .content(notificationEntity.getContent())
-                .userId(notificationEntity.getUserEntity().getId())
-                .detailId(notificationEntity.getDetailId())
-                .topic(notificationEntity.getTopic())
-                .authority(notificationEntity.getAuthority())
-                .isNew(notificationEntity.isNew())
-                .createdAt(notificationEntity.getCreatedAt())
-                .build();
+            .id(notificationEntity.getId())
+            .title(notificationEntity.getTitle())
+            .content(notificationEntity.getContent())
+            .userId(notificationEntity.getUserEntity().getId())
+            .detailId(notificationEntity.getDetailId())
+            .topic(notificationEntity.getTopic())
+            .authority(notificationEntity.getAuthority())
+            .isNew(notificationEntity.isNew())
+            .createdAt(notificationEntity.getCreatedAt())
+            .build();
     }
 }

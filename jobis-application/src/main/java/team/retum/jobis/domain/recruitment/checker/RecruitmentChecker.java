@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.recruitment.service;
+package team.retum.jobis.domain.recruitment.checker;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.Service;
@@ -11,7 +11,8 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 
 @RequiredArgsConstructor
 @Service
-public class CheckRecruitmentPermissionService {
+public class RecruitmentChecker {
+
     private final QueryRecruitmentPort queryRecruitmentPort;
     private final SecurityPort securityPort;
 
@@ -27,6 +28,6 @@ public class CheckRecruitmentPermissionService {
 
     public void checkPermission(RecruitArea recruitArea) {
         queryRecruitmentPort.queryRecruitmentById(recruitArea.getRecruitmentId())
-                .ifPresent(this::checkPermission);
+            .ifPresent(this::checkPermission);
     }
 }

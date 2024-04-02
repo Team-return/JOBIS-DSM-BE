@@ -17,10 +17,10 @@ public class QueryCodesUseCase {
 
     public CodesResponse execute(String keyword, CodeType codeType, Long parentCode) {
         List<CodeResponse> codes = queryCodePort.queryCodesByKeywordAndType(
-                        keyword, codeType, parentCode
-                ).stream()
-                .map(CodesResponse::of)
-                .toList();
+                keyword, codeType, parentCode
+            ).stream()
+            .map(CodesResponse::of)
+            .toList();
 
         return new CodesResponse(codes);
     }

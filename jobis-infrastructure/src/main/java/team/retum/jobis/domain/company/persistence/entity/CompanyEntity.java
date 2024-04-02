@@ -34,6 +34,7 @@ import java.util.List;
 @Table(name = "tbl_company")
 @Entity
 public class CompanyEntity {
+
     @Id
     @Column(name = "company_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,7 +119,8 @@ public class CompanyEntity {
                          String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
                          String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type, boolean isMou, String representativePhoneNo) {
+                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea,
+                         String serviceName, CompanyType type, boolean isMou, String representativePhoneNo) {
         this.id = id;
         this.name = name;
         this.isMou = isMou;

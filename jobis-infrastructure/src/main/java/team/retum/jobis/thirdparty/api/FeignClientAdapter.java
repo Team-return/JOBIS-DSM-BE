@@ -34,7 +34,7 @@ public class FeignClientAdapter implements FeignClientPort {
 
     private BusinessNumberResponse callApi(String businessNumber) {
         BusinessNumberResponse response = bizNoFeignClient.getApi(
-                feignProperty.getAccessKey(), 1, "N", businessNumber, "JSON"
+            feignProperty.getAccessKey(), 1, "N", businessNumber, "JSON"
         );
 
         if (response.getResultCode() < 0) {

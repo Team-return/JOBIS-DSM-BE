@@ -13,9 +13,9 @@ public class QueryPassedApplicationStudentsUseCase {
 
     public QueryPassedApplicationStudentsResponse execute(Long companyId) {
         return new QueryPassedApplicationStudentsResponse(
-                queryApplicationPort.queryPassedApplicationStudentsByCompanyId(companyId).stream()
-                        .map(QueryPassedApplicationStudentsResponse::of)
-                        .toList()
+            queryApplicationPort.queryPassedApplicationStudentsByCompanyId(companyId).stream()
+                .map(QueryPassedApplicationStudentsResponse::from)
+                .toList()
         );
     }
 }

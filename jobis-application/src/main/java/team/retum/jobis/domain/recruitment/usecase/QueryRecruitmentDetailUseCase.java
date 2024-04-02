@@ -3,8 +3,8 @@ package team.retum.jobis.domain.recruitment.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
+import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.auth.model.Authority;
-import team.retum.jobis.domain.code.model.CodeResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -18,38 +18,38 @@ import java.util.List;
 @ReadOnlyUseCase
 public class QueryRecruitmentDetailUseCase {
 
+    private static final List<Authority> APPLICABLE_AUTHORITIES = List.of(Authority.STUDENT, Authority.DEVELOPER);
     private final QueryRecruitmentPort queryRecruitmentPort;
+    private final QueryApplicationPort queryApplicationPort;
     private final SecurityPort securityPort;
 
     public QueryRecruitmentDetailResponse execute(Long recruitId) {
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.queryRecruitmentDetailById(recruitment.getId(), securityPort.getCurrentUserId());
-        List<RecruitAreaResponse> recruitAreaResponses = queryRecruitmentPort.queryRecruitAreasByRecruitmentId(
-                        recruitment.getId()
-                ).stream()
-                .map(recruitAreaResponse ->
-                        RecruitAreaResponse.builder()
-                                .id(recruitAreaResponse.getId())
-                                .job(recruitAreaResponse.getJob().stream()
-                                        .map(job -> new CodeResponse(job.getId(), job.getName()))
-                                        .toList())
-                                .tech(recruitAreaResponse.getTech().stream()
-                                        .map(tech -> new CodeResponse(tech.getId(), tech.getName()))
-                                        .toList())
-                                .hiring(recruitAreaResponse.getHiring())
-                                .majorTask(recruitAreaResponse.getMajorTask())
-                                .preferentialTreatment(recruitAreaResponse.getPreferentialTreatment())
-                                .build()
-                ).toList();
+        RecruitmentDetailVO recruitmentDetail =
+            queryRecruitmentPort.queryRecruitmentDetailByIdAndStudentId(recruitment.getId(), securityPort.getCurrentUserId());
 
-        return QueryRecruitmentDetailResponse.of(recruitmentDetail, recruitAreaResponses, getApplicable(recruitmentDetail.isWinterIntern()));
+        List<RecruitAreaResponse> recruitAreaResponses =
+            queryRecruitmentPort.queryRecruitAreasByRecruitmentId(recruitment.getId())
+                .stream()
+                .map(RecruitAreaResponse::from)
+                .toList();
+
+        return QueryRecruitmentDetailResponse.of(
+            recruitmentDetail,
+            recruitAreaResponses,
+            getApplicable(recruitmentDetail.isWinterIntern(), recruitment.getId())
+        );
     }
 
-    private Boolean getApplicable(boolean winterIntern) {
-        if (securityPort.getCurrentUserAuthority().equals(Authority.STUDENT)
-                || securityPort.getCurrentUserAuthority().equals(Authority.DEVELOPER)) {
+    private Boolean getApplicable(boolean winterIntern, long recruitmentId) {
+        if (APPLICABLE_AUTHORITIES.contains(securityPort.getCurrentUserAuthority())) {
+            if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(
+                securityPort.getCurrentUserId(), recruitmentId)
+            ) {
+                return false;
+            }
             return securityPort.getCurrentStudent().getApplicable(winterIntern);
         }
         return null;

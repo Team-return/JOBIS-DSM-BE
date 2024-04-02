@@ -19,18 +19,18 @@ public class TeacherQueryEmployCompaniesUseCase {
     private final QueryCompanyPort queryCompanyPort;
 
     public TeacherQueryEmployCompaniesResponse execute(
-            String companyName,
-            CompanyType type,
-            Integer year,
-            Long page
+        String companyName,
+        CompanyType type,
+        Integer year,
+        Long page
     ) {
         CompanyFilter filter = CompanyFilter.builder()
-                .name(companyName)
-                .type(type)
-                .year(year)
-                .page(page)
-                .limit(13)
-                .build();
+            .name(companyName)
+            .type(type)
+            .year(year)
+            .page(page)
+            .limit(13)
+            .build();
 
         List<TeacherEmployCompaniesVO> companies = queryCompanyPort.queryEmployCompanies(filter);
 
@@ -38,21 +38,21 @@ public class TeacherQueryEmployCompaniesUseCase {
     }
 
     public TotalPageCountResponse getTotalPageCount(
-            String companyName,
-            CompanyType type,
-            Integer year
+        String companyName,
+        CompanyType type,
+        Integer year
     ) {
         CompanyFilter filter = CompanyFilter.builder()
-                .name(companyName)
-                .type(type)
-                .year(year)
-                .limit(13)
-                .build();
+            .name(companyName)
+            .type(type)
+            .year(year)
+            .limit(13)
+            .build();
 
         return new TotalPageCountResponse(
-                NumberUtil.getTotalPageCount(
-                        queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
-                )
+            NumberUtil.getTotalPageCount(
+                queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
+            )
         );
     }
 }

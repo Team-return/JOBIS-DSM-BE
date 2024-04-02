@@ -36,19 +36,19 @@ public class Student {
         this.entranceYear = entranceYear == null ? getEntranceYear(schoolNumber.getGrade()) : entranceYear;
     }
 
-    public Student changeStudentProfile(String profileImageUrl) {
-        return this.toBuilder()
-                .profileImageUrl(profileImageUrl)
-                .build();
-    }
-
-    private Integer getEntranceYear(Integer grade) {
+    public static Integer getEntranceYear(Integer grade) {
         int year = Year.now().getValue();
         return switch (grade) {
             case 2 -> year - 1;
             case 3 -> year - 2;
             default -> year;
         };
+    }
+
+    public Student changeStudentProfile(String profileImageUrl) {
+        return this.toBuilder()
+            .profileImageUrl(profileImageUrl)
+            .build();
     }
 
     public boolean getApplicable(boolean winterIntern) {

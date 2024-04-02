@@ -20,6 +20,20 @@ public class SendAuthCodeUseCase {
     private final SendEmailPort sendEmailPort;
 
     public void execute(String email, AuthCodeType authCodeType) {
+        checkAuthCodeSendable(authCodeType, email);
+
+        AuthCode authCode = AuthCode.builder()
+            .code(RandomStringUtils.randomNumeric(6))
+            .ttl(300)
+            .isVerified(false)
+            .email(email)
+            .build();
+        commandAuthCodePort.saveAuthCode(authCode);
+
+        sendEmailPort.sendMail(authCode.getCode(), authCode.getEmail());
+    }
+
+    private void checkAuthCodeSendable(AuthCodeType authCodeType, String email) {
         if (authCodeType == AuthCodeType.SIGN_UP) {
             if (queryUserPort.existsUserByAccountId(email)) {
                 throw StudentAlreadyExistsException.EXCEPTION;
@@ -29,15 +43,5 @@ public class SendAuthCodeUseCase {
                 throw StudentNotFoundException.EXCEPTION;
             }
         }
-
-        AuthCode authCode = AuthCode.builder()
-                .code(RandomStringUtils.randomNumeric(6))
-                .ttl(300)
-                .isVerified(false)
-                .email(email)
-                .build();
-        commandAuthCodePort.saveAuthCode(authCode);
-
-        sendEmailPort.sendMail(authCode.getCode(), authCode.getEmail());
     }
 }

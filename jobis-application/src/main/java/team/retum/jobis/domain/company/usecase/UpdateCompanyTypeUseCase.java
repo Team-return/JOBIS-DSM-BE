@@ -24,9 +24,9 @@ public class UpdateCompanyTypeUseCase {
         }
 
         commandCompanyPort.saveAllCompanies(
-                companies.stream()
-                        .map(company -> company.changeCompanyType(type))
-                        .toList()
+            companies.stream()
+                .map(company -> company.changeCompanyType(type))
+                .toList()
         );
     }
 }

@@ -75,39 +75,31 @@ public class UpdateCompanyDetailsWebRequest {
     @NotBlank
     private String representativePhoneNo;
 
-    @NotNull
-    private Long businessAreaCode;
-
-    @NotBlank
-    private String bizRegistrationUrl;
-
     private List<@NotNull String> attachmentUrls;
 
 
     public UpdateCompanyDetailsRequest toDomainRequest() {
         return UpdateCompanyDetailsRequest.builder()
-                .companyIntroduce(this.companyIntroduce)
-                .mainZipCode(this.mainZipCode)
-                .mainAddress(this.mainAddress)
-                .mainAddressDetail(this.mainAddressDetail)
-                .subZipCode(this.subZipCode)
-                .subAddress(this.subAddress)
-                .subAddressDetail(this.subAddressDetail)
-                .managerName(this.managerName)
-                .managerPhoneNo(this.managerPhoneNo)
-                .subManagerName(this.subManagerName)
-                .subManagerPhoneNo(this.subManagerPhoneNo)
-                .fax(this.fax)
-                .email(this.email)
-                .workerNumber(this.workerNumber)
-                .take(this.take)
-                .companyProfileUrl(this.companyProfileUrl)
-                .serviceName(this.serviceName)
-                .representativePhoneNo(this.representativePhoneNo)
-                .representativePhoneNo(this.representativePhoneNo)
-                .businessAreaCode(this.businessAreaCode)
-                .bizRegistrationUrl(this.bizRegistrationUrl)
-                .attachmentUrls(this.attachmentUrls)
-                .build();
+            .companyIntroduce(this.companyIntroduce)
+            .mainZipCode(this.mainZipCode)
+            .mainAddress(this.mainAddress)
+            .mainAddressDetail(this.mainAddressDetail)
+            .subZipCode(this.subZipCode)
+            .subAddress(this.subAddress)
+            .subAddressDetail(this.subAddressDetail)
+            .managerName(this.managerName)
+            .managerPhoneNo(this.managerPhoneNo)
+            .subManagerName(this.subManagerName)
+            .subManagerPhoneNo(this.subManagerPhoneNo)
+            .fax(this.fax)
+            .email(this.email)
+            .workerNumber(this.workerNumber)
+            .take(this.take)
+            .companyProfileUrl(this.companyProfileUrl)
+            .serviceName(this.serviceName)
+            .representativePhoneNo(this.representativePhoneNo)
+            .representativePhoneNo(this.representativePhoneNo)
+            .attachmentUrls(this.attachmentUrls)
+            .build();
     }
 }

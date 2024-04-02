@@ -29,32 +29,35 @@ public class CreateApplicationUseCase {
     public void execute(Long recruitmentId, List<AttachmentRequest> attachmentRequests) {
         Student student = securityPort.getCurrentStudent();
         Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
         recruitment.checkIsApplicable(student.getEntranceYear());
+        checkApplicationDuplicated(student.getId());
+        checkApplicationAlreadyApply(student.getId(), recruitment.getId());
 
+        List<ApplicationAttachment> attachments = ApplicationAttachment.from(attachmentRequests);
+        commandApplicationPort.saveApplication(
+            Application.builder()
+                .studentId(student.getId())
+                .recruitmentId(recruitment.getId())
+                .applicationStatus(ApplicationStatus.REQUESTED)
+                .attachments(attachments)
+                .build()
+        );
+    }
+
+    private void checkApplicationDuplicated(Long studentId) {
         if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
-                student.getId(), ApplicationStatus.DUPLICATE_CHECK
+            studentId,
+            ApplicationStatus.DUPLICATE_CHECK
         )) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
+    }
 
-        if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(student.getId(), recruitment.getId())) {
+    private void checkApplicationAlreadyApply(Long studentId, Long recruitmentId) {
+        if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(studentId, recruitmentId)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
-
-        List<ApplicationAttachment> attachments = attachmentRequests
-                .stream()
-                .map(attachment -> new ApplicationAttachment(attachment.url(), attachment.type()))
-                .toList();
-
-        commandApplicationPort.saveApplication(
-                Application.builder()
-                        .studentId(student.getId())
-                        .recruitmentId(recruitment.getId())
-                        .applicationStatus(ApplicationStatus.REQUESTED)
-                        .attachments(attachments)
-                        .build()
-        );
     }
 }

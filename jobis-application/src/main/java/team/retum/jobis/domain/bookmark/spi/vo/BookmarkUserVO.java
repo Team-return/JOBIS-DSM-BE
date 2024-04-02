@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BookmarkUserVO {
+
     private final Long recruitmentId;
     private final Long userId;
     private final String companyName;

@@ -8,7 +8,6 @@ import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -52,19 +51,19 @@ public class UpdateRecruitmentWebRequest {
 
     public UpdateRecruitmentRequest toDomainRequest() {
         return UpdateRecruitmentRequest.builder()
-                .requiredGrade(this.requiredGrade)
-                .workingHours(this.workingHours)
-                .flexibleWorking(this.flexibleWorking)
-                .requiredLicenses(this.requiredLicenses)
-                .hiringProgress(this.hiringProgress)
-                .trainPay(this.trainPay)
-                .pay(this.pay)
-                .benefits(this.benefits)
-                .military(this.military)
-                .submitDocument(this.submitDocument)
-                .startDate(this.startDate)
-                .endDate(this.endDate)
-                .etc(this.etc)
-                .build();
+            .requiredGrade(this.requiredGrade)
+            .workingHours(this.workingHours)
+            .flexibleWorking(this.flexibleWorking)
+            .requiredLicenses(this.requiredLicenses)
+            .hiringProgress(this.hiringProgress)
+            .trainPay(this.trainPay)
+            .pay(this.pay)
+            .benefits(this.benefits)
+            .military(this.military)
+            .submitDocument(this.submitDocument)
+            .startDate(this.startDate)
+            .endDate(this.endDate)
+            .etc(this.etc)
+            .build();
     }
 }

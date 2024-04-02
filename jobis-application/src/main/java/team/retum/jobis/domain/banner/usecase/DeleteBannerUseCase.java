@@ -15,9 +15,8 @@ public class DeleteBannerUseCase {
     private final QueryBannerPort queryBannerPort;
 
     public void execute(Long bannerId) {
-
         Banner banner = queryBannerPort.queryBannerById(bannerId)
-                        .orElseThrow(() -> BannerNotFoundException.EXCEPTION);
+            .orElseThrow(() -> BannerNotFoundException.EXCEPTION);
 
         commandBannerPort.deleteBanner(banner);
     }

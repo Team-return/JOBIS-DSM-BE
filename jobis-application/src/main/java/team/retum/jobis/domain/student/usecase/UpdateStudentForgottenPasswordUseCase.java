@@ -20,18 +20,14 @@ public class UpdateStudentForgottenPasswordUseCase {
     private final CommandUserPort commandUserPort;
 
     public void execute(String email, String password) {
-        if (!queryUserPort.existsUserByAccountId(email)) {
-            throw UserNotFoundException.EXCEPTION;
-        }
+        User user = queryUserPort.queryUserByAccountId(email)
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        AuthCode authCodeEntity = queryAuthCodePort.queryAuthCodeByEmail(email);
-        authCodeEntity.checkIsVerified();
-
-        User userEntity = queryUserPort.queryUserByAccountId(email)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        AuthCode authCode = queryAuthCodePort.queryAuthCodeByEmail(email);
+        authCode.checkIsVerified();
 
         commandUserPort.saveUser(
-                userEntity.updatePassword(securityPort.encodePassword(password))
+            user.updatePassword(securityPort.encodePassword(password))
         );
     }
 }

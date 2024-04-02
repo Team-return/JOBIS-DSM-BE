@@ -14,18 +14,19 @@ import java.util.List;
 public class CreateNoticeUseCase {
 
     private final CommandNoticePort commandNoticePort;
+
     public void execute(CreateNoticeRequest request) {
         List<NoticeAttachment> attachments = request.getAttachments()
-                .stream()
-                .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))
-                .toList();
+            .stream()
+            .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))
+            .toList();
 
         commandNoticePort.saveNotice(
-                Notice.builder()
-                        .title(request.getTitle())
-                        .content(request.getContent())
-                        .attachments(attachments)
-                        .build()
+            Notice.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .attachments(attachments)
+                .build()
         );
     }
 }

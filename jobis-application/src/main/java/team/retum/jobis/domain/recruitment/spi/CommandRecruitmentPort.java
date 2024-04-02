@@ -6,6 +6,7 @@ import team.retum.jobis.domain.recruitment.model.Recruitment;
 import java.util.List;
 
 public interface CommandRecruitmentPort {
+
     Recruitment saveRecruitment(Recruitment recruitment);
 
     RecruitArea saveRecruitmentArea(RecruitArea recruitArea);

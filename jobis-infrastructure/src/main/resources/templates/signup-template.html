@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" style="box-sizing: content-box">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" style="box-sizing: content-box">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" style="box-sizing: content-box">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" style="box-sizing: content-box">
     <title>Document</title>
 </head>
 <body style="width: 600px">
 
-<div style="text-align: center" >
+<div style="text-align: center">
     <img src="https://jobis-file.s3.ap-northeast-2.amazonaws.com/JOBIS2.png" style="margin: 28px 330px 19px 80px;
             width: 190px;
             height: 29px;"/>
@@ -38,7 +38,7 @@
 
     <hr style="width: 194px; border: 1px solid #E5E5E5;">
 
-    <p th:text="${code}" style="font-family: 'Noto Sans KR';
+    <p style="font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 700;
     font-size: 32px;
@@ -46,7 +46,7 @@
     margin-bottom: 100px;
     margin-top: 20px;
     letter-spacing: 0.55em;
-    color: #7F7F7F;"></p>
+    color: #7F7F7F;" th:text="${code}"></p>
 
     <hr style="width: 516px;border: 1px solid #E5E5E5; margin: 0 42px 0 42px;">
 

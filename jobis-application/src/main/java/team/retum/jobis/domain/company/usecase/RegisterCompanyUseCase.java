@@ -28,21 +28,28 @@ public class RegisterCompanyUseCase {
     private final JwtPort jwtPort;
 
     public TokenResponse execute(RegisterCompanyRequest request) {
-        if (!feignClientPort.checkCompanyExistsByBizNo(request.businessNumber())) {
-            throw CompanyNotExistsException.EXCEPTION;
-        }
-
-        if (queryCompanyPort.existsCompanyByBizNo(request.businessNumber())) {
-            throw CompanyAlreadyExistsException.EXCEPTION;
-        }
+        checkCompanyExists(request.businessNumber());
+        checkCompanyRegistered(request.businessNumber());
 
         Code code = queryCodePort.queryCodeById(request.businessAreaCode())
-                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
         Company savedCompany = commandCompanyPort.saveCompany(
-                Company.of(request, code.getKeyword())
+            Company.of(request, code.getKeyword())
         );
 
         return jwtPort.generateTokens(savedCompany.getId(), Authority.COMPANY, PlatformType.WEB);
+    }
+
+    private void checkCompanyExists(String businessNumber) {
+        if (!feignClientPort.checkCompanyExistsByBizNo(businessNumber)) {
+            throw CompanyNotExistsException.EXCEPTION;
+        }
+    }
+
+    private void checkCompanyRegistered(String businessNumber) {
+        if (queryCompanyPort.existsCompanyByBizNo(businessNumber)) {
+            throw CompanyAlreadyExistsException.EXCEPTION;
+        }
     }
 }

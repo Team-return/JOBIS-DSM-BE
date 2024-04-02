@@ -27,7 +27,7 @@ public class BookmarkWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{recruitment-id}")
     public void bookmark(
-            @PathVariable("recruitment-id") Long recruitmentId
+        @PathVariable("recruitment-id") Long recruitmentId
     ) {
         bookmarkUseCase.execute(recruitmentId);
     }

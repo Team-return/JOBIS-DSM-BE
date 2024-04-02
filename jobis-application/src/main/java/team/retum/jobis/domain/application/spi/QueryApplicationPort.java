@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.application.spi;
 
-import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.dto.ApplicationFilter;
+import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.vo.ApplicationDetailVO;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
@@ -22,8 +22,6 @@ public interface QueryApplicationPort {
     List<PassedApplicationStudentsVO> queryPassedApplicationStudentsByCompanyId(Long companyId);
 
     List<Application> queryApplicationsByIds(List<Long> applicationIds);
-
-    Long queryApplicationCountByIds(List<Long> applicationIds);
 
     List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds);
 

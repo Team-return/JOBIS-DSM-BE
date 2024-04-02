@@ -18,62 +18,62 @@ public class RecruitmentMapper {
 
     public RecruitmentEntity toEntity(Recruitment domain) {
         CompanyEntity company = companyJpaRepository.findById(domain.getCompanyId())
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         return RecruitmentEntity.builder()
-                .id(domain.getId())
-                .companyEntity(company)
-                .etc(domain.getEtc())
-                .recruitYear(domain.getRecruitYear())
-                .benefits(domain.getBenefits())
-                .hiringProgress(domain.getHiringProgress())
-                .personalContact(domain.isPersonalContract())
-                .militarySupport(domain.isMilitarySupport())
-                .status(domain.getStatus())
-                .startDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().startDate())
-                .endDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().endDate())
-                .requiredGrade(domain.getRequiredGrade())
-                .requiredLicenses(domain.getRequiredLicenses())
-                .pay(domain.getSalary().pay())
-                .submitDocument(domain.getSubmitDocument())
-                .trainPay(domain.getSalary().trainingPay())
-                .submitDocument(domain.getSubmitDocument())
-                .workingHours(domain.getWorkingHours())
-                .flexibleWorking(domain.isFlexibleWorking())
-                .winterIntern(domain.isWinterIntern())
-                .build();
+            .id(domain.getId())
+            .companyEntity(company)
+            .etc(domain.getEtc())
+            .recruitYear(domain.getRecruitYear())
+            .benefits(domain.getBenefits())
+            .hiringProgress(domain.getHiringProgress())
+            .personalContact(domain.isPersonalContract())
+            .militarySupport(domain.isMilitarySupport())
+            .status(domain.getStatus())
+            .startDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().startDate())
+            .endDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().endDate())
+            .requiredGrade(domain.getRequiredGrade())
+            .requiredLicenses(domain.getRequiredLicenses())
+            .pay(domain.getSalary().pay())
+            .submitDocument(domain.getSubmitDocument())
+            .trainPay(domain.getSalary().trainingPay())
+            .submitDocument(domain.getSubmitDocument())
+            .workingHours(domain.getWorkingHours())
+            .flexibleWorking(domain.isFlexibleWorking())
+            .winterIntern(domain.isWinterIntern())
+            .build();
     }
 
     public Recruitment toDomain(RecruitmentEntity entity) {
         RecruitingPeriod recruitingPeriod = null;
         if (entity.getRecruitDate() != null) {
             recruitingPeriod = new RecruitingPeriod(
-                    entity.getRecruitDate().getStartDate(),
-                    entity.getRecruitDate().getFinishDate()
+                entity.getRecruitDate().getStartDate(),
+                entity.getRecruitDate().getFinishDate()
             );
         }
         return Recruitment.builder()
-                .id(entity.getId())
-                .companyId(entity.getCompany().getId())
-                .etc(entity.getEtc())
-                .recruitYear(entity.getRecruitYear())
-                .benefits(entity.getBenefits())
-                .hiringProgress(entity.getHiringProgress())
-                .personalContract(entity.isPersonalContact())
-                .militarySupport(entity.isMilitarySupport())
-                .status(entity.getStatus())
-                .recruitingPeriod(recruitingPeriod)
-                .salary(new Salary(
-                        entity.getPayInfo().getTrainPay(),
-                        entity.getPayInfo().getPay()
-                ))
-                .workingHours(entity.getWorkingHours())
-                .flexibleWorking(entity.isFlexibleWorking())
-                .requiredGrade(entity.getRequiredGrade())
-                .requiredLicenses(entity.getRequiredLicenses())
-                .submitDocument(entity.getSubmitDocument())
-                .submitDocument(entity.getSubmitDocument())
-                .winterIntern(entity.isWinterIntern())
-                .build();
+            .id(entity.getId())
+            .companyId(entity.getCompany().getId())
+            .etc(entity.getEtc())
+            .recruitYear(entity.getRecruitYear())
+            .benefits(entity.getBenefits())
+            .hiringProgress(entity.getHiringProgress())
+            .personalContract(entity.isPersonalContact())
+            .militarySupport(entity.isMilitarySupport())
+            .status(entity.getStatus())
+            .recruitingPeriod(recruitingPeriod)
+            .salary(new Salary(
+                entity.getPayInfo().getTrainPay(),
+                entity.getPayInfo().getPay()
+            ))
+            .workingHours(entity.getWorkingHours())
+            .flexibleWorking(entity.isFlexibleWorking())
+            .requiredGrade(entity.getRequiredGrade())
+            .requiredLicenses(entity.getRequiredLicenses())
+            .submitDocument(entity.getSubmitDocument())
+            .submitDocument(entity.getSubmitDocument())
+            .winterIntern(entity.isWinterIntern())
+            .build();
     }
 }

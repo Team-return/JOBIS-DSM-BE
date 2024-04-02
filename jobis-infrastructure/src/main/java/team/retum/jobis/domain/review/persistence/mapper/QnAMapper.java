@@ -20,25 +20,25 @@ public class QnAMapper {
 
     public QnAEntity toEntity(QnA domain) {
         ReviewEntity review = reviewJpaRepository.findById(domain.getReviewId())
-                .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
+            .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
         CodeEntity code = codeJpaRepository.findById(domain.getCodeId())
-                .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
         return QnAEntity.builder()
-                .id(domain.getId())
-                .question(domain.getQuestion())
-                .answer(domain.getAnswer())
-                .review(review)
-                .code(code)
-                .build();
+            .id(domain.getId())
+            .question(domain.getQuestion())
+            .answer(domain.getAnswer())
+            .review(review)
+            .code(code)
+            .build();
     }
 
     public QnA toDomain(QnAEntity entity) {
         return QnA.builder()
-                .id(entity.getId())
-                .answer(entity.getAnswer())
-                .question(entity.getQuestion())
-                .reviewId(entity.getReview().getId())
-                .codeId(entity.getCode().getCode())
-                .build();
+            .id(entity.getId())
+            .answer(entity.getAnswer())
+            .question(entity.getQuestion())
+            .reviewId(entity.getReview().getId())
+            .codeId(entity.getCode().getCode())
+            .build();
     }
 }

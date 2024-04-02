@@ -20,60 +20,60 @@ public class TeacherQueryCompaniesUseCase {
     private final QueryCodePort queryCodePort;
 
     public TeacherQueryCompaniesResponse execute(
-            CompanyType type,
-            String companyName,
-            String region,
-            Long businessArea,
-            Long page
+        CompanyType type,
+        String companyName,
+        String region,
+        Long businessArea,
+        Long page
     ) {
         CompanyFilter filter = CompanyFilter.builder()
-                .type(type)
-                .name(companyName)
-                .region(region)
-                .businessArea(
-                        businessArea == null ? null :
-                                queryCodePort.queryCodeById(businessArea)
-                                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
-                                        .getKeyword()
-                )
-                .page(page)
-                .build();
+            .type(type)
+            .name(companyName)
+            .region(region)
+            .businessArea(
+                businessArea == null ? null :
+                    queryCodePort.queryCodeById(businessArea)
+                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+                        .getKeyword()
+            )
+            .page(page)
+            .build();
 
         return new TeacherQueryCompaniesResponse(
-                queryCompanyPort.queryCompaniesByConditions(filter).stream()
-                        .map(company -> TeacherQueryCompanyResponse.builder()
-                                .companyId(company.getCompanyId())
-                                .companyName(company.getCompanyName())
-                                .region(getRegionByAddress(company.getMainAddress()))
-                                .businessArea(company.getBusinessArea())
-                                .workersCount(company.getWorkersCount())
-                                .take(company.getTake())
-                                .companyType(company.getCompanyType())
-                                .convention(company.getConvention())
-                                .personalContact(company.getPersonalContact())
-                                .recentRecruitYear(company.getRecentRecruitYear())
-                                .totalAcceptanceCount(company.getTotalAcceptanceCount())
-                                .reviewCount(company.getReviewCount())
-                                .build()
-                        ).toList()
+            queryCompanyPort.queryCompaniesByConditions(filter).stream()
+                .map(company -> TeacherQueryCompanyResponse.builder()
+                    .companyId(company.getCompanyId())
+                    .companyName(company.getCompanyName())
+                    .region(getRegionByAddress(company.getMainAddress()))
+                    .businessArea(company.getBusinessArea())
+                    .workersCount(company.getWorkersCount())
+                    .take(company.getTake())
+                    .companyType(company.getCompanyType())
+                    .convention(company.getConvention())
+                    .personalContact(company.getPersonalContact())
+                    .recentRecruitYear(company.getRecentRecruitYear())
+                    .totalAcceptanceCount(company.getTotalAcceptanceCount())
+                    .reviewCount(company.getReviewCount())
+                    .build()
+                ).toList()
         );
     }
 
     public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea) {
         CompanyFilter filter = CompanyFilter.builder()
-                .type(type)
-                .name(companyName)
-                .region(region)
-                .businessArea(
-                        businessArea == null ? null :
-                                queryCodePort.queryCodeById(businessArea)
-                                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
-                                        .getKeyword()
-                )
-                .build();
+            .type(type)
+            .name(companyName)
+            .region(region)
+            .businessArea(
+                businessArea == null ? null :
+                    queryCodePort.queryCodeById(businessArea)
+                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+                        .getKeyword()
+            )
+            .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
-                queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
+            queryCompanyPort.getTotalCompanyCount(filter), filter.getLimit()
         );
 
         return new TotalPageCountResponse(totalPageCount);

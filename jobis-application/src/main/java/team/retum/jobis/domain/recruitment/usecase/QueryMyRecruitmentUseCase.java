@@ -22,18 +22,19 @@ public class QueryMyRecruitmentUseCase {
     public QueryMyRecruitmentResponse execute() {
         Long currentUserId = securityPort.getCurrentUserId();
         Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(currentUserId)
-                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.queryRecruitmentDetailById(recruitment.getId(), currentUserId);
-        List<RecruitAreaResponse> recruitAreaResponses = queryRecruitmentPort.queryRecruitAreasByRecruitmentId(recruitment.getId())
-                .stream().map(recruitAreaResponse -> RecruitAreaResponse.builder()
-                        .id(recruitAreaResponse.getId())
-                        .job(recruitAreaResponse.getJob())
-                        .tech(recruitAreaResponse.getTech())
-                        .hiring(recruitAreaResponse.getHiring())
-                        .majorTask(recruitAreaResponse.getMajorTask())
-                        .preferentialTreatment(recruitAreaResponse.getPreferentialTreatment())
-                        .build()
+        RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.queryRecruitmentDetailByIdAndStudentId(recruitment.getId(), currentUserId);
+        List<RecruitAreaResponse> recruitAreaResponses =
+            queryRecruitmentPort.queryRecruitAreasByRecruitmentId(recruitment.getId()).stream()
+                .map(recruitAreaResponse -> RecruitAreaResponse.builder()
+                    .id(recruitAreaResponse.getId())
+                    .job(recruitAreaResponse.getJob())
+                    .tech(recruitAreaResponse.getTech())
+                    .hiring(recruitAreaResponse.getHiring())
+                    .majorTask(recruitAreaResponse.getMajorTask())
+                    .preferentialTreatment(recruitAreaResponse.getPreferentialTreatment())
+                    .build()
                 ).toList();
 
         return QueryMyRecruitmentResponse.of(recruitmentDetail, recruitAreaResponses);

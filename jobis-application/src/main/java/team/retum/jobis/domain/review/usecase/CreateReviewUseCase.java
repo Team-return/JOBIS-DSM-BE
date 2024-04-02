@@ -29,34 +29,37 @@ public class CreateReviewUseCase {
     private final SecurityPort securityPort;
 
     public void execute(Long companyId, List<QnAElement> qnAElements) {
-        Company company = queryCompanyPort.queryCompanyById(companyId)
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-
         Student student = securityPort.getCurrentStudent();
+        Company company = queryCompanyPort.queryCompanyById(companyId)
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        if (queryReviewPort.existsByCompanyIdAndStudentId(company.getId(), student.getId())) {
-            throw ReviewAlreadyExistsException.EXCEPTION;
-        }
+        checkReviewExists(companyId, student.getId());
 
         queryApplicationPort.queryApplicationByCompanyIdAndStudentId(company.getId(), student.getId())
-                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION)
-                .checkReviewAuthority();
+            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION)
+            .checkReviewAuthority();
 
         Review review = commandReviewPort.saveReview(
-                Review.builder()
-                        .companyId(company.getId())
-                        .studentId(student.getId())
-                        .build()
+            Review.builder()
+                .companyId(company.getId())
+                .studentId(student.getId())
+                .build()
         );
 
         List<QnA> qnAs = qnAElements.stream()
-                .map(qnARequest -> QnA.builder()
-                        .question(qnARequest.question())
-                        .answer(qnARequest.answer())
-                        .reviewId(review.getId())
-                        .codeId(qnARequest.codeId())
-                        .build())
-                .toList();
+            .map(qnARequest -> QnA.builder()
+                .question(qnARequest.question())
+                .answer(qnARequest.answer())
+                .reviewId(review.getId())
+                .codeId(qnARequest.codeId())
+                .build())
+            .toList();
         commandReviewPort.saveAllQnAs(qnAs);
+    }
+
+    private void checkReviewExists(Long companyId, Long studentId) {
+        if (queryReviewPort.existsByCompanyIdAndStudentId(companyId, studentId)) {
+            throw ReviewAlreadyExistsException.EXCEPTION;
+        }
     }
 }
