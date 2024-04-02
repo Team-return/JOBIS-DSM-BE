@@ -29,7 +29,7 @@ public class CodeWebAdapter {
     private final QueryCodesUseCase codesService;
     private final CreateCodeUseCase createCodeUseCase;
 
-    @Cacheable(condition = "#keyword == null && #parentCode == null")
+    @Cacheable(condition = "#keyword == null and #parentCode == null")
     @GetMapping
     public CodesResponse getCodes(
         @RequestParam(value = "type") CodeType codeType,
