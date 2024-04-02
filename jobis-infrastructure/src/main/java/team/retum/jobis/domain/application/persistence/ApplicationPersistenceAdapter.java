@@ -229,7 +229,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         return Optional.ofNullable(
             queryFactory
                 .selectFrom(applicationEntity)
-                .join(companyEntity)
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .join(recruitmentEntity.company, companyEntity)
                 .on(companyEntity.id.eq(companyId))
                 .where(applicationEntity.student.id.eq(studentId))
                 .fetchFirst()
