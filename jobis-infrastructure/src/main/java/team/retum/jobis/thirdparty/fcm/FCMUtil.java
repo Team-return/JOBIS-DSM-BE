@@ -5,6 +5,7 @@ import com.google.firebase.messaging.ApnsConfig;
 import com.google.firebase.messaging.Aps;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.model.Notification;
@@ -43,6 +44,33 @@ public class FCMUtil {
                 .build();
 
             FirebaseMessaging.getInstance().sendEachForMulticast(message);
+        } catch (FirebaseMessagingException e) {
+            throw FailedSendingMessagesException.EXCEPTION;
+        }
+    }
+
+    public void sendMessageToTopic(Notification notification) {
+        try {
+            Message message = Message.builder()
+                    .setTopic(notification.getTopic().toString())
+                    .setNotification(com.google.firebase.messaging.Notification.builder()
+                            .setTitle(notification.getTitle())
+                            .setBody(notification.getContent())
+                            .build())
+                    .setAndroidConfig(AndroidConfig.builder()
+                            .putData("detail_id", notification.getDetailId().toString())
+                            .putData("topic", notification.getTopic().toString())
+                            .build())
+                    .setApnsConfig(ApnsConfig.builder()
+                            .setAps(Aps.builder()
+                                    .setSound("default")
+                                    .putCustomData("detail_id", notification.getDetailId().toString())
+                                    .putCustomData("topic", notification.getTopic().toString())
+                                    .build())
+                            .build())
+                    .build();
+
+            FirebaseMessaging.getInstance().send(message);
         } catch (FirebaseMessagingException e) {
             throw FailedSendingMessagesException.EXCEPTION;
         }
