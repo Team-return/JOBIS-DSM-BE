@@ -230,8 +230,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             queryFactory
                 .selectFrom(applicationEntity)
                 .join(applicationEntity.recruitment, recruitmentEntity)
-                .join(recruitmentEntity.company, companyEntity)
-                .on(companyEntity.id.eq(companyId))
+                .on(recruitmentEntity.company.id.eq(companyId))
                 .where(applicationEntity.student.id.eq(studentId))
                 .fetchFirst()
         ).map(applicationMapper::toDomain);
