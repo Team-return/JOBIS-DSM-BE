@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.user.persistence;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.user.model.User;
@@ -10,13 +9,13 @@ import team.retum.jobis.domain.user.spi.UserPort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
 public class UserPersistenceAdapter implements UserPort {
 
     private final UserJpaRepository userJpaRepository;
-    private final JPAQueryFactory queryFactory;
     private final UserMapper userMapper;
 
     @Override
@@ -44,5 +43,12 @@ public class UserPersistenceAdapter implements UserPort {
         return userMapper.toDomain(
             userJpaRepository.save(userMapper.toEntity(user))
         );
+    }
+
+    @Override
+    public List<User> queryAllUsers() {
+        return userJpaRepository.findAll().stream()
+                .map(userMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }

@@ -13,4 +13,6 @@ public interface UserJpaRepository extends CrudRepository<UserEntity, Long> {
     boolean existsByAccountId(String accountId);
 
     List<UserEntity> findAllByIdIn(List<Long> ids);
+
+    List<UserEntity> findAll();
 }
