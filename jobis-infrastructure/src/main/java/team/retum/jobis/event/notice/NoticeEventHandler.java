@@ -38,7 +38,11 @@ public class NoticeEventHandler {
                 .isNew(true)
                 .build();
 
-        commandNotificationPort.saveNotification(notification);
-        fcmUtil.sendMessageToTopic(notification);
+        for (User user: users) {
+            if(user.isSubscribed()) {
+                commandNotificationPort.saveNotification(notification);
+                fcmUtil.sendMessageToTopic(notification);
+            }
+        }
     }
 }
