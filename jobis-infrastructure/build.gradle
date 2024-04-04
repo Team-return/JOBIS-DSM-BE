@@ -69,3 +69,9 @@ dependencies {
 }
 
 jar.enabled = false
+
+sonarqube {
+    properties {
+        property 'sonar.gradle.skipCompile', 'true'
+    }
+}

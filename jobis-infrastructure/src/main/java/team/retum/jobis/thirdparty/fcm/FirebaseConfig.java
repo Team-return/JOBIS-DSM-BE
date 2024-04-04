@@ -26,8 +26,8 @@ public class FirebaseConfig {
     public void init() {
         try (FileInputStream account = new FileInputStream(path)) {
             FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(account))
-                .build();
+                    .setCredentials(GoogleCredentials.fromStream(account))
+                    .build();
 
             FirebaseApp.initializeApp(options);
         } catch (Exception e) {

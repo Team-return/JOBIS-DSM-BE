@@ -38,8 +38,8 @@ public class NoticeEventHandler {
                 .isNew(true)
                 .build();
 
-        for (User user: users) {
-            if(user.isSubscribed()) {
+        for (User user : users) {
+            if (user.isSubscribed()) {
                 commandNotificationPort.saveNotification(notification);
                 fcmUtil.sendMessageToTopic(notification);
             }

@@ -19,29 +19,29 @@ public class FCMUtil {
     public void sendMessages(Notification notification, List<String> tokens) {
         try {
             MulticastMessage message = MulticastMessage.builder()
-                .addAllTokens(tokens)
-                .setNotification(com.google.firebase.messaging.Notification.builder()
-                    .setTitle(notification.getTitle())
-                    .setBody(notification.getContent())
-                    .build()
-                )
-                .setAndroidConfig(
-                    AndroidConfig.builder()
-                        .putData("detail_id", notification.getDetailId().toString())
-                        .putData("topic", notification.getTopic().toString())
-                        .build()
-                )
-                .setApnsConfig(
-                    ApnsConfig.builder()
-                        .setAps(
-                            Aps.builder()
-                                .setSound("default")
-                                .putCustomData("detail_id", notification.getDetailId().toString())
-                                .putCustomData("topic", notification.getTopic().toString())
-                                .build()
-                        ).build()
-                )
-                .build();
+                    .addAllTokens(tokens)
+                    .setNotification(com.google.firebase.messaging.Notification.builder()
+                            .setTitle(notification.getTitle())
+                            .setBody(notification.getContent())
+                            .build()
+                    )
+                    .setAndroidConfig(
+                            AndroidConfig.builder()
+                                    .putData("detail_id", notification.getDetailId().toString())
+                                    .putData("topic", notification.getTopic().toString())
+                                    .build()
+                    )
+                    .setApnsConfig(
+                            ApnsConfig.builder()
+                                    .setAps(
+                                            Aps.builder()
+                                                    .setSound("default")
+                                                    .putCustomData("detail_id", notification.getDetailId().toString())
+                                                    .putCustomData("topic", notification.getTopic().toString())
+                                                    .build()
+                                    ).build()
+                    )
+                    .build();
 
             FirebaseMessaging.getInstance().sendEachForMulticast(message);
         } catch (FirebaseMessagingException e) {
