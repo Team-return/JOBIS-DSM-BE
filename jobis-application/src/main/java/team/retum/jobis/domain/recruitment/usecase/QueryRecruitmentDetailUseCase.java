@@ -39,7 +39,8 @@ public class QueryRecruitmentDetailUseCase {
         return QueryRecruitmentDetailResponse.of(
             recruitmentDetail,
             recruitAreaResponses,
-            getApplicable(recruitmentDetail.isWinterIntern(), recruitment.getId())
+            getApplicable(recruitmentDetail.isWinterIntern(), recruitment.getId()),
+            checkAuthority()
         );
     }
 
@@ -53,5 +54,9 @@ public class QueryRecruitmentDetailUseCase {
             return securityPort.getCurrentStudent().getApplicable(winterIntern);
         }
         return null;
+    }
+
+    private boolean checkAuthority() {
+        return securityPort.getCurrentUserAuthority().equals(Authority.STUDENT);
     }
 }
