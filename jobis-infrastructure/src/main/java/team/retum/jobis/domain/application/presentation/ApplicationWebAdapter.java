@@ -49,6 +49,7 @@ import java.time.Year;
 
 import static team.retum.jobis.global.config.cache.CacheName.APPLICATION;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
+import static team.retum.jobis.global.config.cache.CacheName.RECRUITMENT;
 
 @CacheConfig(cacheNames = APPLICATION)
 @RequiredArgsConstructor
@@ -72,7 +73,8 @@ public class ApplicationWebAdapter {
     @Caching(
         evict = {
             @CacheEvict(cacheNames = APPLICATION, allEntries = true),
-            @CacheEvict(cacheNames = COMPANY, allEntries = true)
+            @CacheEvict(cacheNames = COMPANY, allEntries = true),
+            @CacheEvict(cacheNames = RECRUITMENT, allEntries = true)
         }
     )
     @ResponseStatus(HttpStatus.CREATED)

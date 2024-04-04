@@ -37,7 +37,7 @@ public class QueryRecruitmentDetailResponse {
     private final Boolean isApplicable;
     private final boolean isBookmarked;
 
-    public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas, Boolean isApplicable) {
+    public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas, Boolean isApplicable, boolean authority) {
         return QueryRecruitmentDetailResponse.builder()
             .recruitmentId(recruitmentDetail.getRecruitmentId())
             .companyId(recruitmentDetail.getCompanyId())
@@ -49,8 +49,8 @@ public class QueryRecruitmentDetailResponse {
             .flexibleWorking(recruitmentDetail.isFlexibleWorking())
             .requiredLicenses(recruitmentDetail.getRequiredLicenses())
             .hiringProgress(recruitmentDetail.getHiringProgress())
-            .trainPay(recruitmentDetail.getTrainPay())
-            .pay(recruitmentDetail.getPay())
+            .trainPay(authority ? 0 : recruitmentDetail.getTrainPay())
+            .pay(authority ? "0" : recruitmentDetail.getPay())
             .benefits(recruitmentDetail.getBenefits())
             .military(recruitmentDetail.getMilitary())
             .submitDocument(recruitmentDetail.getSubmitDocument())
