@@ -54,4 +54,8 @@ public class UserEntity extends BaseTimeEntity {
         this.isSubscribed = isSubscribed;
     }
 
+    public void setIsSubscribed(boolean isSubscribed) {
+        this.isSubscribed = isSubscribed;
+    }
+
 }
