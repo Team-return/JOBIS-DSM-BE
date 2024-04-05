@@ -14,5 +14,4 @@ public interface UserJpaRepository extends CrudRepository<UserEntity, Long> {
 
     List<UserEntity> findAllByIdIn(List<Long> ids);
 
-    List<UserEntity> findAll();
 }

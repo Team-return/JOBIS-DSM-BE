@@ -14,6 +14,4 @@ public interface QueryUserPort {
     Optional<User> queryUserByAccountId(String accountId);
 
     List<User> queryUsersByIds(List<Long> userIds);
-
-    List<User> queryAllUsers();
 }

@@ -44,11 +44,4 @@ public class UserPersistenceAdapter implements UserPort {
             userJpaRepository.save(userMapper.toEntity(user))
         );
     }
-
-    @Override
-    public List<User> queryAllUsers() {
-        return userJpaRepository.findAll().stream()
-                .map(userMapper::toDomain)
-                .collect(Collectors.toList());
-    }
 }
