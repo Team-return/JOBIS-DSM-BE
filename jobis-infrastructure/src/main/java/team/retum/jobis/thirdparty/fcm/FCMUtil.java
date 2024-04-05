@@ -8,13 +8,40 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.notification.exception.FailedToSubscriptionException;
+import team.retum.jobis.domain.notification.exception.FailedToUnsubscriptionException;
 import team.retum.jobis.domain.notification.model.Notification;
+import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Component
 public class FCMUtil {
+
+    private final FirebaseMessaging firebaseInstance;
+
+    public FCMUtil(FirebaseMessaging firebaseInstance) {
+        this.firebaseInstance = firebaseInstance;
+    }
+
+    public void subscribeTopic(String accountId, Topic topic) {
+        try {
+            firebaseInstance.subscribeToTopicAsync(Arrays.asList(accountId), topic.toString()).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new FailedToSubscriptionException();
+        }
+    }
+
+    public void unsubscribeTopic(String accountId, Topic topic) {
+        try {
+            firebaseInstance.unsubscribeFromTopicAsync(Arrays.asList(accountId), topic.toString()).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new FailedToUnsubscriptionException();
+        }
+    }
 
     private com.google.firebase.messaging.Notification.Builder buildNotification(Notification notification) {
         return com.google.firebase.messaging.Notification.builder()

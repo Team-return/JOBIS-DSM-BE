@@ -5,9 +5,8 @@ import team.retum.jobis.domain.notification.exception.error.NotificationErrorCod
 
 public class FailedToSubscriptionException extends JobisException {
 
-    public static final JobisException EXCEPTION = new FailedToSubscriptionException();
-
-    private FailedToSubscriptionException() {
+    public FailedToSubscriptionException() {
         super(NotificationErrorCode.FAILED_TO_SUBSCRIPTION);
     }
 }
+

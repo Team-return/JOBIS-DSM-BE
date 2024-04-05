@@ -5,9 +5,7 @@ import team.retum.jobis.domain.notification.exception.error.NotificationErrorCod
 
 public class FailedToUnsubscriptionException extends JobisException {
 
-    public static final JobisException EXCEPTION = new FailedToUnsubscriptionException();
-
-    private FailedToUnsubscriptionException() {
+    public FailedToUnsubscriptionException() {
         super(NotificationErrorCode.FAILED_TO_UNSUBSCRIPTION);
     }
 }
