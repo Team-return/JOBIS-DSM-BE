@@ -20,7 +20,6 @@ public class NoticeEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onNoticePosted(NoticePostedEvent event) {
-
         Notification notification = Notification.builder()
                 .title(event.getNotice().getTitle())
                 .content(event.getNotice().getContent())
