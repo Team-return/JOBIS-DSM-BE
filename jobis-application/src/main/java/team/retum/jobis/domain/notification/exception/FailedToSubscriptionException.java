@@ -7,5 +7,7 @@ public class FailedToSubscriptionException extends JobisException {
 
     public static final JobisException EXCEPTION = new FailedToSubscriptionException();
 
-    private FailedToSubscriptionException() { super(NotificationErrorCode.FAILED_TO_SUBSCRIPTION); }
+    private FailedToSubscriptionException() {
+        super(NotificationErrorCode.FAILED_TO_SUBSCRIPTION);
+    }
 }
