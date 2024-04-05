@@ -41,8 +41,6 @@ public class UserEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(255)")
     private String token;
 
-    @Column(columnDefinition = "TINYINT(1)")
-    private boolean isSubscribed;
 
     @Builder
     public UserEntity(Long id, String accountId, String password, Authority authority, String token, boolean isSubscribed) {
@@ -51,11 +49,5 @@ public class UserEntity extends BaseTimeEntity {
         this.password = password;
         this.authority = authority;
         this.token = token;
-        this.isSubscribed = isSubscribed;
     }
-
-    public void setIsSubscribed(boolean isSubscribed) {
-        this.isSubscribed = isSubscribed;
-    }
-
 }

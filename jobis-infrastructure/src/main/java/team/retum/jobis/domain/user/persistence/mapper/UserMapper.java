@@ -16,7 +16,6 @@ public class UserMapper {
             .accountId(domain.getAccountId())
             .password(domain.getPassword())
             .token(domain.getToken())
-            .isSubscribed(domain.isSubscribed())
             .build();
     }
 
@@ -27,7 +26,6 @@ public class UserMapper {
             .accountId(entity.getAccountId())
             .password(entity.getPassword())
             .token(entity.getToken())
-            .isSubscribed(entity.isSubscribed())
             .build();
     }
 }

@@ -20,9 +20,6 @@ public class User {
 
     private final String token;
 
-    private final boolean isSubscribed;
-
-
     public User updatePassword(String password) {
         return this.toBuilder()
             .password(password)
