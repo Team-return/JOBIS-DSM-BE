@@ -11,7 +11,7 @@ public class SubscribeTopicUseCase {
 
     private final CommandNotificationPort commandNotificationPort;
 
-    public void execute(String accountId, Topic topic) {
-        commandNotificationPort.subscribeTopic(accountId, topic);
+    public void execute(String token, Topic topic) {
+        commandNotificationPort.subscribeTopic(token, topic);
     }
 }

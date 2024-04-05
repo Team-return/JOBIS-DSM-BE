@@ -7,7 +7,7 @@ public interface CommandNotificationPort {
 
     void saveNotification(Notification notification);
 
-    void unsubscribeTopic(String accountId, Topic topic);
+    void unsubscribeTopic(String token, Topic topic);
 
-    void subscribeTopic(String accountId, Topic topic);
+    void subscribeTopic(String token, Topic topic);
 }

@@ -27,17 +27,17 @@ public class FCMUtil {
         this.firebaseInstance = firebaseInstance;
     }
 
-    public void subscribeTopic(String accountId, Topic topic) {
+    public void subscribeTopic(String token, Topic topic) {
         try {
-            firebaseInstance.subscribeToTopicAsync(Arrays.asList(accountId), topic.toString()).get();
+            firebaseInstance.subscribeToTopicAsync(Arrays.asList(token), topic.toString()).get();
         } catch (InterruptedException | ExecutionException e) {
             throw new FailedToSubscriptionException();
         }
     }
 
-    public void unsubscribeTopic(String accountId, Topic topic) {
+    public void unsubscribeTopic(String token, Topic topic) {
         try {
-            firebaseInstance.unsubscribeFromTopicAsync(Arrays.asList(accountId), topic.toString()).get();
+            firebaseInstance.unsubscribeFromTopicAsync(Arrays.asList(token), topic.toString()).get();
         } catch (InterruptedException | ExecutionException e) {
             throw new FailedToUnsubscriptionException();
         }

@@ -53,13 +53,13 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     }
 
     @Override
-    public void subscribeTopic(String accountId, Topic topic) {
-        fcmUtil.subscribeTopic(accountId, topic);
+    public void subscribeTopic(String token, Topic topic) {
+        fcmUtil.subscribeTopic(token, topic);
     }
 
     @Override
-    public void unsubscribeTopic(String accountId, Topic topic) {
-        fcmUtil.unsubscribeTopic(accountId, topic);
+    public void unsubscribeTopic(String token, Topic topic) {
+        fcmUtil.unsubscribeTopic(token, topic);
     }
 
     //==condition==//

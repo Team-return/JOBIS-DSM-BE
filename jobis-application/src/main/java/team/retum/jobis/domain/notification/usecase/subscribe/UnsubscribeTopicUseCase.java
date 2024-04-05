@@ -11,7 +11,7 @@ public class UnsubscribeTopicUseCase {
 
     private final CommandNotificationPort commandNotificationPort;
 
-    public void execute(String accountId, Topic topic) {
-        commandNotificationPort.unsubscribeTopic(accountId, topic);
+    public void execute(String token, Topic topic) {
+        commandNotificationPort.unsubscribeTopic(token, topic);
     }
 }

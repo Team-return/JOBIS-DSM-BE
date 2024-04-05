@@ -42,14 +42,14 @@ public class NotificationWebAdapter {
     }
 
     @PostMapping("/topic")
-    public void subscribeTopic(@RequestParam("topic") String topic, @RequestParam("accountId") String accountId) {
+    public void subscribeTopic(@RequestParam("topic") String topic, @RequestParam("token") String token) {
         Topic enumTopic = Topic.valueOf(topic);
-        subscribeTopicUseCase.execute(accountId, enumTopic);
+        subscribeTopicUseCase.execute(token, enumTopic);
     }
 
     @DeleteMapping("/topic")
-    public void unsubscribeTopic(@RequestParam String topic, @RequestParam("accountId") String accountId) {
+    public void unsubscribeTopic(@RequestParam("topic") String topic, @RequestParam("token") String token) {
         Topic enumTopic = Topic.valueOf(topic);
-        unsubscribeTopicUseCase.execute(accountId, enumTopic);
+        unsubscribeTopicUseCase.execute(token, enumTopic);
     }
 }
