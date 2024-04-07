@@ -21,15 +21,9 @@ import java.util.concurrent.ExecutionException;
 @Component
 public class FCMUtil {
 
-    private final FirebaseMessaging firebaseInstance;
-
-    public FCMUtil(FirebaseMessaging firebaseInstance) {
-        this.firebaseInstance = firebaseInstance;
-    }
-
     public void subscribeTopic(String token, Topic topic) {
         try {
-            firebaseInstance.subscribeToTopicAsync(Arrays.asList(token), topic.toString()).get();
+            FirebaseMessaging.getInstance().subscribeToTopicAsync(Arrays.asList(token), topic.toString()).get();
         } catch (InterruptedException | ExecutionException e) {
             throw new FailedToSubscriptionException();
         }
@@ -37,7 +31,7 @@ public class FCMUtil {
 
     public void unsubscribeTopic(String token, Topic topic) {
         try {
-            firebaseInstance.unsubscribeFromTopicAsync(Arrays.asList(token), topic.toString()).get();
+            FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(Arrays.asList(token), topic.toString()).get();
         } catch (InterruptedException | ExecutionException e) {
             throw new FailedToUnsubscriptionException();
         }

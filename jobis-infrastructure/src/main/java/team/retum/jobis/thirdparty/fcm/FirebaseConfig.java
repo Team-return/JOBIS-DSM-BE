@@ -34,17 +34,4 @@ public class FirebaseConfig {
             log.error(LogUtil.stackTraceToString(e));
         }
     }
-
-    @Bean
-    public FirebaseMessaging firebaseMessaging() throws IOException {
-        GoogleCredentials googleCredentials = GoogleCredentials.fromStream(new FileInputStream(path))
-                .createScoped(List.of("https://www.googleapis.com/auth/firebase.messaging"));
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(googleCredentials)
-                .build();
-        if (FirebaseApp.getApps().isEmpty()) {
-            FirebaseApp.initializeApp(options);
-        }
-        return FirebaseMessaging.getInstance();
-    }
 }
