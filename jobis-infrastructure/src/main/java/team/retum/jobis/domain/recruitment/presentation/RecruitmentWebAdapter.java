@@ -144,7 +144,7 @@ public class RecruitmentWebAdapter {
         );
     }
 
-    @Cacheable
+    @Cacheable(condition = "#page <= 5")
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse queryRecruitmentList(
         @RequestParam(value = "company_name", required = false) String companyName,

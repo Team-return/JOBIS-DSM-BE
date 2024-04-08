@@ -93,7 +93,7 @@ public class CompanyWebAdapter {
         updateCompanyDetailsUseCase.execute(request.toDomainRequest(), companyId);
     }
 
-    @Cacheable
+    @Cacheable(condition = "#page <= 5")
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
@@ -128,7 +128,7 @@ public class CompanyWebAdapter {
         updateCompanyTypeUseCase.execute(request.getCompanyIds(), request.getCompanyType());
     }
 
-    @Cacheable
+    @Cacheable(condition = "#page <= 5")
     @GetMapping("/employment")
     public TeacherQueryEmployCompaniesResponse queryEmployCompanies(
         @RequestParam(value = "company_name", required = false) String companyName,
@@ -149,7 +149,7 @@ public class CompanyWebAdapter {
         return teacherQueryEmployCompaniesUseCase.getTotalPageCount(companyName, type, year);
     }
 
-    @Cacheable
+    @Cacheable(condition = "#page <= 5")
     @GetMapping("/teacher")
     public TeacherQueryCompaniesResponse queryCompanies(
         @RequestParam(value = "type", required = false) CompanyType type,

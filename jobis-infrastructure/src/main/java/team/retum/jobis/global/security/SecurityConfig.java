@@ -61,7 +61,6 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name(), COMPANY.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/file").hasAuthority(TEACHER.name())
 
-
                     // bugs
                     .requestMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/bugs/{bug-report-id}").hasAuthority(DEVELOPER.name())
@@ -158,6 +157,9 @@ public class SecurityConfig {
                     // notification
                     .requestMatchers(HttpMethod.GET, "/notifications").authenticated()
                     .requestMatchers(HttpMethod.PATCH, "/notifications/{notification-id}").authenticated()
+
+                    .requestMatchers(HttpMethod.POST, "/notifications/topic").authenticated()
+                    .requestMatchers(HttpMethod.DELETE, "/notifications/topic").authenticated()
                     .anyRequest().authenticated()
 
             )

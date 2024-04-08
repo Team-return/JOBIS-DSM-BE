@@ -116,6 +116,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         JPAQuery<QueryTeacherRecruitmentsVO> recruitmentsVOJPAQuery =queryFactory
+        return queryFactory
             .select(
                 new QQueryTeacherRecruitmentsVO(
                     recruitmentEntity.id,
@@ -180,6 +181,21 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .stream()
                 .map(TeacherRecruitmentVO.class::cast)
                 .toList();
+            )
+            .where(
+                eqYear(filter.getYear()),
+                betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
+                eqRecruitStatus(filter.getStatus()),
+                containsName(filter.getCompanyName()),
+                eqWinterIntern(filter.getWinterIntern())
+            )
+            .offset(filter.getOffset())
+            .limit(filter.getLimit())
+            .orderBy(recruitmentEntity.createdAt.desc())
+            .groupBy(recruitmentEntity.id)
+            .fetch().stream()
+            .map(TeacherRecruitmentVO.class::cast)
+            .toList();
     }
 
     @Override

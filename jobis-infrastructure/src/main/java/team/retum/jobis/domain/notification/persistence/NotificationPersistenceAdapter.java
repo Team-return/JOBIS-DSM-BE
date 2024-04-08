@@ -5,9 +5,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.model.Notification;
+import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.persistence.mapper.NotificationMapper;
 import team.retum.jobis.domain.notification.persistence.repository.NotificationJpaRepository;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
+import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,7 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     private final NotificationJpaRepository notificationJpaRepository;
     private final NotificationMapper notificationMapper;
     private final JPAQueryFactory queryFactory;
+    private final FCMUtil fcmUtil;
 
     @Override
     public void saveNotification(Notification notification) {
@@ -48,6 +51,15 @@ public class NotificationPersistenceAdapter implements NotificationPort {
             .map(notificationMapper::toDomain)
             .toList();
     }
+
+    @Override
+    public void subscribeTopic(String token, Topic topic) {
+        fcmUtil.subscribeTopic(token, topic);
+    }
+
+    @Override
+    public void unsubscribeTopic(String token, Topic topic) {
+        fcmUtil.unsubscribeTopic(token, topic);
 
     //==condition==//
 

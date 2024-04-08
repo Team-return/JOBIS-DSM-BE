@@ -35,7 +35,7 @@ public class StudentQueryRecruitmentsResponse {
             return StudentRecruitmentResponse.builder()
                 .id(recruitment.getRecruitmentId())
                 .companyName(recruitment.getCompanyName())
-                .trainPay(recruitment.getTrainPay())
+                .trainPay(0)
                 .hiringJobs(recruitment.getJobCodes())
                 .militarySupport(recruitment.isMilitarySupport())
                 .companyProfileUrl(recruitment.getCompanyLogoUrl())

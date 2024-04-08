@@ -8,4 +8,5 @@ public enum Topic {
     INTERVIEW_SOON,
     NEW_RECRUITMENT,
     RECRUITMENT_DONE,
+    NEW_NOTICE
 }

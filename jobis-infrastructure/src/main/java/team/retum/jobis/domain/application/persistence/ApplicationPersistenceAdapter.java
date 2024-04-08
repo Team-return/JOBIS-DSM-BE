@@ -238,8 +238,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         return Optional.ofNullable(
             queryFactory
                 .selectFrom(applicationEntity)
-                .join(companyEntity)
-                .on(companyEntity.id.eq(companyId))
+                .join(applicationEntity.recruitment, recruitmentEntity)
+                .on(recruitmentEntity.company.id.eq(companyId))
                 .where(applicationEntity.student.id.eq(studentId))
                 .fetchFirst()
         ).map(applicationMapper::toDomain);
@@ -281,7 +281,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .from(applicationEntity)
             .where(
                 applicationEntity.student.id.eq(studentId),
-                applicationEntity.applicationStatus.in(applicationStatuses)
+                applicationEntity.applicationStatus.in(applicationStatuses),
+                eqYear(Year.now())
             ).fetchFirst() != null;
     }
 
