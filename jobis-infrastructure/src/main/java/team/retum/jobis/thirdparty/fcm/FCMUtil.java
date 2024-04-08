@@ -24,7 +24,7 @@ public class FCMUtil {
     public void subscribeTopic(String token, Topic topic) {
         try {
             FirebaseMessaging.getInstance().subscribeToTopicAsync(Arrays.asList(token), topic.toString()).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (Exception e) {
             throw new FailedToSubscriptionException();
         }
     }
@@ -32,7 +32,7 @@ public class FCMUtil {
     public void unsubscribeTopic(String token, Topic topic) {
         try {
             FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(Arrays.asList(token), topic.toString()).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (Exception e) {
             throw new FailedToUnsubscriptionException();
         }
     }
@@ -69,7 +69,7 @@ public class FCMUtil {
                 .setApnsConfig(buildApnsConfig(notification))
                 .build();
 
-            FirebaseMessaging.getInstance().sendMulticast(message);
+            FirebaseMessaging.getInstance().sendEachForMulticast(message);
         } catch (FirebaseMessagingException e) {
             throw FailedSendingMessagesException.EXCEPTION;
         }
