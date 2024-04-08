@@ -41,7 +41,6 @@ public class UserEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(255)")
     private String token;
 
-
     @Builder
     public UserEntity(Long id, String accountId, String password, Authority authority, String token) {
         this.id = id;

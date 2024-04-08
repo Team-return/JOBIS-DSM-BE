@@ -9,7 +9,6 @@ import team.retum.jobis.domain.user.spi.UserPort;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor

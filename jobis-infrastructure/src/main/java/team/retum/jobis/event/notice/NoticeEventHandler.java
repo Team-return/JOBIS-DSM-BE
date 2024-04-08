@@ -21,13 +21,13 @@ public class NoticeEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onNoticePosted(NoticePostedEvent event) {
         Notification notification = Notification.builder()
-                .title(event.getNotice().getTitle())
-                .content(event.getNotice().getContent())
-                .topic(Topic.NEW_NOTICE)
-                .detailId(event.getNotice().getId())
-                .authority(Authority.STUDENT)
-                .isNew(true)
-                .build();
+            .title(event.getNotice().getTitle())
+            .content(event.getNotice().getContent())
+            .topic(Topic.NEW_NOTICE)
+            .detailId(event.getNotice().getId())
+            .authority(Authority.STUDENT)
+            .isNew(true)
+            .build();
 
         fcmUtil.sendMessageToTopic(notification);
     }

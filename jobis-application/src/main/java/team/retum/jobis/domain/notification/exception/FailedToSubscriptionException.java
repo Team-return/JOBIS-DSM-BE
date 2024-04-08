@@ -9,4 +9,3 @@ public class FailedToSubscriptionException extends JobisException {
         super(NotificationErrorCode.FAILED_TO_SUBSCRIPTION);
     }
 }
-
