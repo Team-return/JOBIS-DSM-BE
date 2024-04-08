@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.presentation;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
@@ -35,6 +37,7 @@ import team.retum.jobis.domain.recruitment.usecase.ApplyRecruitmentUseCase;
 import team.retum.jobis.domain.recruitment.usecase.CreateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitmentUseCase;
+import team.retum.jobis.domain.recruitment.usecase.ExportRecruitmentHistoryUseCase;
 import team.retum.jobis.domain.recruitment.usecase.QueryMyRecruitmentUseCase;
 import team.retum.jobis.domain.recruitment.usecase.QueryMyRecruitmentsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.QueryRecruitmentDetailUseCase;
@@ -45,6 +48,7 @@ import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import team.retum.jobis.global.exception.BadRequestException;
 
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +74,7 @@ public class RecruitmentWebAdapter {
     private final DeleteRecruitmentUseCase deleteRecruitmentUseCase;
     private final DeleteRecruitAreaUseCase deleteRecruitAreaUseCase;
     private final QueryMyRecruitmentsUseCase queryMyRecruitmentsUseCase;
+    private final ExportRecruitmentHistoryUseCase exportRecruitmentHistoryUseCase;
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
@@ -217,6 +222,22 @@ public class RecruitmentWebAdapter {
                 .toList();
         } catch (Exception e) {
             throw new BadRequestException();
+        }
+    }
+
+    @GetMapping("/file")
+    public byte[] exportRecruitmentHistory(HttpServletResponse httpResponse) {
+        ExportRecruitmentHistoryResponse response = exportRecruitmentHistoryUseCase.execute();
+        setExcelContentDisposition(httpResponse, response.getFileName());
+        return response.getFile();
+    }
+
+    public void setExcelContentDisposition(HttpServletResponse response, String fileName) {
+        try {
+            String encodedFileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + ".xlsx\"");
+        } catch (Exception e) {
+
         }
     }
 }
