@@ -290,7 +290,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         );
     }
 
-    public List<Recruitment> getByIdInOrThrow(List<Long> recruitmentIds) {
+    public List<Recruitment> getAllByIdInOrThrow(List<Long> recruitmentIds) {
         List<Recruitment> result = recruitmentJpaRepository.findByIdIn(recruitmentIds).stream()
             .map(recruitmentMapper::toDomain)
             .toList();
@@ -307,19 +307,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds) {
-        return queryFactory
-            .selectFrom(recruitmentEntity)
-            .join(recruitmentEntity.company, companyEntity)
-            .where(recruitmentEntity.id.in(recruitmentIds))
-            .transform(
-                groupBy(recruitmentEntity.id)
-                    .as(companyEntity.name)
-            );
-    }
-
-    @Override
-    public List<MyAllRecruitmentsVO> getByCompanyId(Long companyId) {
+    public List<MyAllRecruitmentsVO> getAllByCompanyId(Long companyId) {
         return queryFactory
             .selectFrom(recruitmentEntity)
             .join(recruitAreaEntity)

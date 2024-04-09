@@ -29,11 +29,9 @@ public interface QueryRecruitmentPort {
 
     List<TeacherRecruitmentVO> getTeacherRecruitmentsBy(RecruitmentFilter filter);
 
-    List<Recruitment> getByIdInOrThrow(List<Long> recruitmentIds);
+    List<Recruitment> getAllByIdInOrThrow(List<Long> recruitmentIds);
 
     Long getCountBy(RecruitmentFilter filter);
 
-    Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
-
-    List<MyAllRecruitmentsVO> getByCompanyId(Long companyId);
+    List<MyAllRecruitmentsVO> getAllByCompanyId(Long companyId);
 }

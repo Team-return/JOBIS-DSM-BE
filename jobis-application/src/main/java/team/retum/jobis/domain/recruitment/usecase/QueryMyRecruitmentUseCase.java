@@ -26,7 +26,7 @@ public class QueryMyRecruitmentUseCase {
 
         RecruitmentDetailVO recruitmentDetail = queryRecruitmentPort.getByIdAndStudentIdOrThrow(recruitment.getId(), currentUserId);
         List<RecruitAreaResponse> recruitAreaResponses =
-            queryRecruitAreaPort.getByRecruitmentId(recruitment.getId()).stream()
+            queryRecruitAreaPort.getAllByRecruitmentId(recruitment.getId()).stream()
                 .map(recruitAreaResponse -> RecruitAreaResponse.builder()
                     .id(recruitAreaResponse.getId())
                     .job(recruitAreaResponse.getJob())

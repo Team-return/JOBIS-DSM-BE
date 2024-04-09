@@ -31,7 +31,7 @@ public class QueryRecruitmentDetailUseCase {
             queryRecruitmentPort.getByIdAndStudentIdOrThrow(recruitment.getId(), securityPort.getCurrentUserId());
 
         List<RecruitAreaResponse> recruitAreaResponses =
-            queryRecruitAreaPort.getByRecruitmentId(recruitment.getId())
+            queryRecruitAreaPort.getAllByRecruitmentId(recruitment.getId())
                 .stream()
                 .map(RecruitAreaResponse::from)
                 .toList();

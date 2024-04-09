@@ -67,7 +67,7 @@ public class RecruitAreaPersistenceAdapter implements RecruitAreaPort {
     }
 
     @Override
-    public List<RecruitAreaResponse> getByRecruitmentId(Long recruitmentId) {
+    public List<RecruitAreaResponse> getAllByRecruitmentId(Long recruitmentId) {
         return queryFactory
             .selectFrom(recruitAreaEntity)
             .join(recruitAreaCodeEntity)

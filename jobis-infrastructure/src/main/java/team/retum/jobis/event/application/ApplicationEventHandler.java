@@ -8,10 +8,10 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import team.retum.jobis.domain.application.event.ApplicationsStatusChangedEvent;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
-import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Component
 public class ApplicationEventHandler {
 
-    private final QueryRecruitmentPort queryRecruitmentPort;
+    private final QueryCompanyPort queryCompanyPort;
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
     private final FCMUtil fcmUtil;
@@ -39,7 +39,7 @@ public class ApplicationEventHandler {
                 User::getId,
                 User::getToken
             ));
-        Map<Long, String> companyNameMap = queryRecruitmentPort.queryCompanyNameByRecruitmentIds(
+        Map<Long, String> companyNameMap = queryCompanyPort.queryCompanyNameByRecruitmentIds(
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {

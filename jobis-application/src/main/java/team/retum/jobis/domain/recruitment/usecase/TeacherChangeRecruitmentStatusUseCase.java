@@ -18,7 +18,7 @@ public class TeacherChangeRecruitmentStatusUseCase {
     private final PublishEventPort publishEventPort;
 
     public void execute(List<Long> recruitmentIds, RecruitStatus status) {
-        List<Recruitment> recruitments = recruitmentPort.getByIdInOrThrow(recruitmentIds);
+        List<Recruitment> recruitments = recruitmentPort.getAllByIdInOrThrow(recruitmentIds);
 
         recruitmentPort.saveAll(
             recruitments.stream()

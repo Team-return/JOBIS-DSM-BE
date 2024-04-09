@@ -11,5 +11,5 @@ public interface QueryRecruitAreaPort {
 
     Long getCountByRecruitmentId(Long recruitmentId);
 
-    List<RecruitAreaResponse> getByRecruitmentId(Long recruitmentId);
+    List<RecruitAreaResponse> getAllByRecruitmentId(Long recruitmentId);
 }
