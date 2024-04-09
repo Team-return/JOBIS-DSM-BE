@@ -2,6 +2,7 @@ package team.retum.jobis.domain.recruitment.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,7 @@ import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryMyAll
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryStudentRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryTeacherRecruitmentsVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QueryTeacherRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
@@ -100,7 +102,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
-        return queryFactory
+        JPAQuery<QueryTeacherRecruitmentsVO> recruitmentsVOJPAQuery =queryFactory
             .select(
                 new QQueryTeacherRecruitmentsVO(
                     recruitmentEntity.id,
@@ -135,19 +137,30 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .on(
                 approvedApplication.recruitment.id.eq(recruitmentEntity.id),
                 approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED)
-            )
-            .where(
-                eqYear(filter.getYear()),
-                betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
-                eqRecruitStatus(filter.getStatus()),
-                containsName(filter.getCompanyName()),
-                eqWinterIntern(filter.getWinterIntern())
-            )
-            .offset(filter.getOffset())
-            .limit(filter.getLimit())
-            .orderBy(recruitmentEntity.createdAt.desc())
-            .groupBy(recruitmentEntity.id)
-            .fetch().stream()
+            );
+
+        if (filter.getPage() == null) {
+
+            recruitmentsVOJPAQuery.where(
+                    eqYear(filter.getYear())
+                )
+                .orderBy(recruitmentEntity.createdAt.desc())
+                .groupBy(recruitmentEntity.id);
+        } else {
+            recruitmentsVOJPAQuery.where(
+                    eqYear(filter.getYear()),
+                    betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
+                    eqRecruitStatus(filter.getStatus()),
+                    containsName(filter.getCompanyName()),
+                    eqWinterIntern(filter.getWinterIntern())
+                )
+                .offset(filter.getOffset())
+                .limit(filter.getLimit())
+                .orderBy(recruitmentEntity.createdAt.desc())
+                .groupBy(recruitmentEntity.id);
+        }
+        return recruitmentsVOJPAQuery.fetch()
+            .stream()
             .map(TeacherRecruitmentVO.class::cast)
             .toList();
     }
