@@ -12,4 +12,7 @@ public class LogUtil {
 
         return stringWriter.toString();
     }
+
+    private LogUtil() {
+    }
 }
