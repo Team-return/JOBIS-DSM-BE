@@ -20,8 +20,7 @@ public class QueryMyRecruitmentsUseCase {
     public QueryMyRecruitmentsResponse execute() {
         Company company = securityPort.getCurrentCompany();
 
-        List<MyAllRecruitmentsVO> recruitments =
-            queryRecruitmentPort.queryMyAllRecruitmentsVOByCompanyId(company.getId());
+        List<MyAllRecruitmentsVO> recruitments = queryRecruitmentPort.getByCompanyId(company.getId());
 
         return new QueryMyRecruitmentsResponse(recruitments);
     }

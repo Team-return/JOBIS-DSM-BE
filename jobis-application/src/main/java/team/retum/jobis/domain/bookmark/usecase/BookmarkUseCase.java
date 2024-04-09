@@ -6,7 +6,6 @@ import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.bookmark.model.Bookmark;
 import team.retum.jobis.domain.bookmark.spi.CommandBookmarkPort;
 import team.retum.jobis.domain.bookmark.spi.QueryBookmarkPort;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.student.model.Student;
@@ -22,8 +21,7 @@ public class BookmarkUseCase {
 
     public void execute(Long recruitmentId) {
         Student student = securityPort.getCurrentStudent();
-        Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(recruitmentId);
 
         queryBookmarkPort.queryBookmarkByRecruitmentIdAndStudentId(recruitment.getId(), student.getId())
             .ifPresentOrElse(

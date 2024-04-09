@@ -27,7 +27,7 @@ public class RecruitmentChecker {
     }
 
     public void checkPermission(RecruitArea recruitArea) {
-        queryRecruitmentPort.queryRecruitmentById(recruitArea.getRecruitmentId())
+        queryRecruitmentPort.getById(recruitArea.getRecruitmentId())
             .ifPresent(this::checkPermission);
     }
 }
