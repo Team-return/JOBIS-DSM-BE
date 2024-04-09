@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface QueryBugReportPort {
 
-    Optional<BugReport> queryBugReportById(Long id);
+    BugReport getByIdOrThrow(Long id);
 
-    List<BugReportsVO> queryBugReportsByDevelopmentArea(DevelopmentArea developmentArea);
+    List<BugReportsVO> getAllByDevelopmentArea(DevelopmentArea developmentArea);
 }

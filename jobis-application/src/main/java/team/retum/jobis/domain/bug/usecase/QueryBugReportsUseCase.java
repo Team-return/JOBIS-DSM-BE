@@ -14,7 +14,7 @@ public class QueryBugReportsUseCase {
 
     public QueryBugReportsResponse execute(DevelopmentArea developmentArea) {
         return new QueryBugReportsResponse(
-            queryBugReportPort.queryBugReportsByDevelopmentArea(developmentArea)
+            queryBugReportPort.getAllByDevelopmentArea(developmentArea)
         );
     }
 }
