@@ -8,7 +8,6 @@ import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface QueryRecruitmentPort {

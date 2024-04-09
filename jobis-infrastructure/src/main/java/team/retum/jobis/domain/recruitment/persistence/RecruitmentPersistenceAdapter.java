@@ -27,7 +27,6 @@ import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
