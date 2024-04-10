@@ -19,7 +19,7 @@ public class CreateBugReportUseCase {
     private final SecurityPort securityPort;
 
     public void execute(CreateBugReportRequest request) {
-        BugReport savedBugReport = commandBugReportPort.saveBugReport(
+        BugReport savedBugReport = commandBugReportPort.save(
             BugReport.builder()
                 .title(request.title())
                 .content(request.content())
