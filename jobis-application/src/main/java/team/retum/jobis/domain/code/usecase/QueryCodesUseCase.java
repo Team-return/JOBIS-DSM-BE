@@ -16,7 +16,7 @@ public class QueryCodesUseCase {
     private final QueryCodePort queryCodePort;
 
     public CodesResponse execute(String keyword, CodeType codeType, Long parentCode) {
-        List<CodeResponse> codes = queryCodePort.queryCodesByKeywordAndType(
+        List<CodeResponse> codes = queryCodePort.getAllByKeywordAndType(
                 keyword, codeType, parentCode
             ).stream()
             .map(CodesResponse::of)

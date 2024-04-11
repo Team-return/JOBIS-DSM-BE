@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.mapper.CodeMapper;
@@ -24,7 +25,7 @@ public class CodePersistenceAdapter implements CodePort {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType, Long parentCode) {
+    public List<Code> getAllByKeywordAndType(String keyword, CodeType codeType, Long parentCode) {
         return jpaQueryFactory
             .selectFrom(codeEntity)
             .where(
@@ -38,26 +39,33 @@ public class CodePersistenceAdapter implements CodePort {
     }
 
     @Override
-    public Optional<Code> queryCodeById(Long codeId) {
-        return codeJpaRepository.findById(codeId)
-            .map(codeMapper::toDomain);
+    public Code getByIdOrThrow(Long codeId) {
+        return codeMapper.toDomain(
+            codeJpaRepository.findById(codeId)
+                .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+        );
     }
 
     @Override
-    public List<Code> queryCodesByIdIn(List<Long> codes) {
-        return codeJpaRepository.findCodesByCodeIn(codes).stream()
+    public List<Code> getAllByIdInOrThrow(List<Long> codes) {
+        List<Code> result = codeJpaRepository.findCodesByCodeIn(codes).stream()
             .map(codeMapper::toDomain)
             .toList();
+        if (result.size() != codes.size()) {
+            throw CodeNotFoundException.EXCEPTION;
+        }
+
+        return result;
     }
 
     @Override
-    public Optional<Code> queryCodeByKeywordAndType(String keyword, CodeType type) {
+    public Optional<Code> getByKeywordAndType(String keyword, CodeType type) {
         return codeJpaRepository.findByKeywordAndType(keyword, type)
             .map(codeMapper::toDomain);
     }
 
     @Override
-    public Code saveCode(Code code) {
+    public Code save(Code code) {
         return codeMapper.toDomain(
             codeJpaRepository.save(codeMapper.toEntity(code))
         );
