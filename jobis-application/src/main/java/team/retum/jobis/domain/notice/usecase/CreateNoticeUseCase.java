@@ -2,7 +2,9 @@ package team.retum.jobis.domain.notice.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
+import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.domain.notice.dto.request.CreateNoticeRequest;
+import team.retum.jobis.domain.notice.event.NoticePostedEvent;
 import team.retum.jobis.domain.notice.model.Notice;
 import team.retum.jobis.domain.notice.model.NoticeAttachment;
 import team.retum.jobis.domain.notice.spi.CommandNoticePort;
@@ -14,6 +16,7 @@ import java.util.List;
 public class CreateNoticeUseCase {
 
     private final CommandNoticePort commandNoticePort;
+    private final PublishEventPort publishEventPort;
 
     public void execute(CreateNoticeRequest request) {
         List<NoticeAttachment> attachments = request.getAttachments()
@@ -21,12 +24,15 @@ public class CreateNoticeUseCase {
             .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))
             .toList();
 
-        commandNoticePort.saveNotice(
-            Notice.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .attachments(attachments)
-                .build()
-        );
+        Notice saveNotice = Notice.builder()
+            .title(request.getTitle())
+            .content(request.getContent())
+            .attachments(attachments)
+            .build();
+
+        commandNoticePort.saveNotice(saveNotice);
+
+        publishEventPort.publishEvent(new NoticePostedEvent(saveNotice));
     }
+
 }
