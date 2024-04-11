@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface QueryUserPort {
 
-    Optional<User> queryUserById(Long userId);
+    User getByIdOrThrow(Long userId);
 
-    boolean existsUserByAccountId(String accountId);
+    boolean existsByAccountId(String accountId);
 
-    Optional<User> queryUserByAccountId(String accountId);
+    User getByAccountIdOrThrow(String accountId);
 
-    List<User> queryUsersByIds(List<Long> userIds);
+    List<User> getAllByIds(List<Long> userIds);
 }

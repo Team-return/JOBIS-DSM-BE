@@ -3,6 +3,7 @@ package team.retum.jobis.domain.review.persistence;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
 import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.persistence.mapper.QnAMapper;
@@ -16,7 +17,6 @@ import team.retum.jobis.domain.review.spi.vo.QnAVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
 
 import java.util.List;
-import java.util.Optional;
 
 import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
@@ -35,7 +35,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Review saveReview(Review review) {
+    public Review save(Review review) {
         return reviewMapper.toDomain(
             reviewJpaRepository.save(
                 reviewMapper.toEntity(review)
@@ -53,7 +53,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public void deleteReview(Review review) {
+    public void delete(Review review) {
         reviewJpaRepository.delete(reviewMapper.toEntity(review));
     }
 
@@ -63,13 +63,15 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public Optional<Review> queryReviewById(Long reviewId) {
+    public Review getByIdOrThrow(Long reviewId) {
         return reviewJpaRepository.findById(reviewId)
-            .map(reviewMapper::toDomain);
+            .map(reviewMapper::toDomain)
+            .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
+
     }
 
     @Override
-    public List<QnAVO> queryAllQnAsByReviewId(Long reviewId) {
+    public List<QnAVO> getAllQnAsByReviewId(Long reviewId) {
         return queryFactory
             .select(
                 new QQueryQnAVO(
@@ -87,7 +89,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public List<ReviewVO> queryAllReviewsByCompanyId(Long companyId) {
+    public List<ReviewVO> getAllByCompanyId(Long companyId) {
         return queryFactory
             .select(
                 new QQueryReviewVO(

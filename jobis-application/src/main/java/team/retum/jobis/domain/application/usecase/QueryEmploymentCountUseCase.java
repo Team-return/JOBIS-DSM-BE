@@ -19,9 +19,9 @@ public class QueryEmploymentCountUseCase {
     private final QueryStudentPort queryStudentPort;
 
     public QueryEmploymentCountResponse execute() {
-        int totalStudentCount = queryStudentPort.queryStudentCountByGradeAndEntranceYear(3, Year.now().getValue() - 2);
-        long approvedApplicationCount = queryStudentPort.queryStudentCountByApplicationStatus(List.of(APPROVED));
-        long passedApplicationCount = queryStudentPort.queryStudentCountByApplicationStatus(List.of(PASS, FIELD_TRAIN));
+        int totalStudentCount = queryStudentPort.getCountByGradeAndEntranceYear(3, Year.now().getValue() - 2);
+        long approvedApplicationCount = queryStudentPort.getCountByApplicationStatus(List.of(APPROVED));
+        long passedApplicationCount = queryStudentPort.getCountByApplicationStatus(List.of(PASS, FIELD_TRAIN));
 
         return QueryEmploymentCountResponse.builder()
             .totalStudentCount(totalStudentCount)

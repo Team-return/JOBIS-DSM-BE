@@ -4,5 +4,5 @@ import team.retum.jobis.domain.user.model.User;
 
 public interface CommandUserPort {
 
-    User saveUser(User user);
+    User save(User user);
 }

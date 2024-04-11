@@ -35,11 +35,11 @@ public class SendAuthCodeUseCase {
 
     private void checkAuthCodeSendable(AuthCodeType authCodeType, String email) {
         if (authCodeType == AuthCodeType.SIGN_UP) {
-            if (queryUserPort.existsUserByAccountId(email)) {
+            if (queryUserPort.existsByAccountId(email)) {
                 throw StudentAlreadyExistsException.EXCEPTION;
             }
         } else {
-            if (!queryUserPort.existsUserByAccountId(email)) {
+            if (!queryUserPort.existsByAccountId(email)) {
                 throw StudentNotFoundException.EXCEPTION;
             }
         }

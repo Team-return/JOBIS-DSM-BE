@@ -12,8 +12,7 @@ import team.retum.jobis.domain.review.dto.QnAElement;
 import team.retum.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
-import team.retum.jobis.domain.review.spi.CommandReviewPort;
-import team.retum.jobis.domain.review.spi.QueryReviewPort;
+import team.retum.jobis.domain.review.spi.ReviewPort;
 import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
@@ -24,8 +23,7 @@ public class CreateReviewUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
     private final QueryApplicationPort queryApplicationPort;
-    private final CommandReviewPort commandReviewPort;
-    private final QueryReviewPort queryReviewPort;
+    private final ReviewPort reviewPort;
     private final SecurityPort securityPort;
 
     public void execute(Long companyId, List<QnAElement> qnAElements) {
@@ -39,7 +37,7 @@ public class CreateReviewUseCase {
             .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION)
             .checkReviewAuthority();
 
-        Review review = commandReviewPort.saveReview(
+        Review review = reviewPort.save(
             Review.builder()
                 .companyId(company.getId())
                 .studentId(student.getId())
@@ -54,11 +52,11 @@ public class CreateReviewUseCase {
                 .codeId(qnARequest.codeId())
                 .build())
             .toList();
-        commandReviewPort.saveAllQnAs(qnAs);
+        reviewPort.saveAllQnAs(qnAs);
     }
 
     private void checkReviewExists(Long companyId, Long studentId) {
-        if (queryReviewPort.existsByCompanyIdAndStudentId(companyId, studentId)) {
+        if (reviewPort.existsByCompanyIdAndStudentId(companyId, studentId)) {
             throw ReviewAlreadyExistsException.EXCEPTION;
         }
     }

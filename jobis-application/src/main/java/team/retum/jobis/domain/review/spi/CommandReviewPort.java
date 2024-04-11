@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface CommandReviewPort {
 
-    Review saveReview(Review review);
+    Review save(Review review);
 
     void saveAllQnAs(List<QnA> qnAs);
 
-    void deleteReview(Review review);
+    void delete(Review review);
 }

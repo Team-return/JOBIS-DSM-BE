@@ -41,7 +41,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear) {
+    public int getCountByGradeAndEntranceYear(int grade, int entranceYear) {
         return studentJpaRepository.countByGradeAndEntranceYear(grade, entranceYear);
     }
 
@@ -53,7 +53,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public Long queryStudentCountByApplicationStatus(List<ApplicationStatus> statuses) {
+    public Long getCountByApplicationStatus(List<ApplicationStatus> statuses) {
         return queryFactory
             .select(studentEntity.countDistinct())
             .from(studentEntity)
@@ -67,7 +67,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public Student saveStudent(Student student) {
+    public Student save(Student student) {
         return studentMapper.toDomain(
             studentJpaRepository.save(studentMapper.toEntity(student))
         );

@@ -16,7 +16,7 @@ public class SetDeviceTokenUseCase {
     public void execute(String token) {
         User user = securityPort.getCurrentUser();
 
-        commandUserPort.saveUser(
+        commandUserPort.save(
             user.setToken(token)
         );
     }
