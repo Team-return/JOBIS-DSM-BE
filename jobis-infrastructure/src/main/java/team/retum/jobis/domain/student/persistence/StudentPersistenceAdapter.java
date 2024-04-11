@@ -11,7 +11,6 @@ import team.retum.jobis.domain.student.persistence.repository.StudentJpaReposito
 import team.retum.jobis.domain.student.spi.StudentPort;
 
 import java.util.List;
-import java.util.Optional;
 
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
@@ -23,12 +22,6 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final StudentJpaRepository studentJpaRepository;
     private final StudentMapper studentMapper;
     private final JPAQueryFactory queryFactory;
-
-    @Override
-    public Optional<Student> queryStudentById(Long studentId) {
-        return studentJpaRepository.findById(studentId)
-            .map(studentMapper::toDomain);
-    }
 
     @Override
     public boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear) {
