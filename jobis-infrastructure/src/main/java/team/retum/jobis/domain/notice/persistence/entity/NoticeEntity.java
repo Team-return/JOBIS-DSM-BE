@@ -41,13 +41,6 @@ public class NoticeEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(1000)")
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notification_id", nullable = false)
-    private NotificationEntity notification;
-
-    @NotNull
-    @Column(columnDefinition = "DATE")
-    private LocalDateTime createdAt;
 
     @ElementCollection
     @CollectionTable(name = "tbl_notice_attachment", joinColumns = @JoinColumn(name = "notice_id"))
@@ -55,14 +48,10 @@ public class NoticeEntity extends BaseTimeEntity {
 
 
     @Builder
-    public NoticeEntity(Long id, String title, String content, NotificationEntity notificationEntity,
-                        LocalDateTime createdAt, List<NoticeAttachmentEntity> attachments) {
+    public NoticeEntity(Long id, String title, String content, List<NoticeAttachmentEntity> attachments) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.notification = notificationEntity;
-        this.createdAt = createdAt;
         this.attachments = attachments;
     }
-
 }

@@ -20,8 +20,6 @@ public class Notice {
 
     private final LocalDateTime createdAt;
 
-    private final Long notificationId;
-
     private final List<NoticeAttachment> attachments;
 
     public Notice update(String title, String content) {
