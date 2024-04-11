@@ -16,6 +16,7 @@ import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class FCMUtil {
@@ -43,20 +44,22 @@ public class FCMUtil {
     }
 
     private AndroidConfig buildAndroidConfig(Notification notification) {
-        return AndroidConfig.builder()
-            .putData("detail_id", notification.getDetailId().toString())
+        AndroidConfig.Builder androidConfigBuilder = AndroidConfig.builder()
             .putData("topic", notification.getTopic().toString())
-            .build();
+            .putData("detail_id", Optional.ofNullable(notification.getDetailId()).map(Object::toString).orElse(""));
+
+        return androidConfigBuilder.build();
     }
 
     private ApnsConfig buildApnsConfig(Notification notification) {
-        return ApnsConfig.builder()
+        ApnsConfig.Builder apnsConfigBuilder = ApnsConfig.builder()
             .setAps(Aps.builder()
                 .setSound("default")
-                .putCustomData("detail_id", notification.getDetailId().toString())
                 .putCustomData("topic", notification.getTopic().toString())
-                .build())
-            .build();
+                .putCustomData("detail_id", Optional.ofNullable(notification.getDetailId()).map(Object::toString).orElse(""))
+                .build());
+
+        return apnsConfigBuilder.build();
     }
 
     public void sendMessages(Notification notification, List<String> tokens) {
