@@ -24,4 +24,7 @@ public class FileUtil {
 
         return fileType.name() + "/" + UUID.randomUUID() + "-" + fileName;
     }
+
+    private FileUtil() {
+    }
 }

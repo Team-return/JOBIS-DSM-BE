@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
-import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
-import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
+import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 
 import java.util.List;
 
@@ -16,17 +14,13 @@ import java.util.List;
 @UseCase
 public class TeacherChangeRecruitmentStatusUseCase {
 
-    private final CommandRecruitmentPort commandRecruitmentPort;
-    private final QueryRecruitmentPort queryRecruitmentPort;
+    private final RecruitmentPort recruitmentPort;
     private final PublishEventPort publishEventPort;
 
     public void execute(List<Long> recruitmentIds, RecruitStatus status) {
-        List<Recruitment> recruitments = queryRecruitmentPort.queryRecruitmentsByIdIn(recruitmentIds);
-        if (recruitments.size() != recruitmentIds.size()) {
-            throw RecruitmentNotFoundException.EXCEPTION;
-        }
+        List<Recruitment> recruitments = recruitmentPort.getAllByIdInOrThrow(recruitmentIds);
 
-        commandRecruitmentPort.saveAllRecruitments(
+        recruitmentPort.saveAll(
             recruitments.stream()
                 .map(recruitment -> recruitment.changeStatus(status))
                 .toList()

@@ -9,7 +9,6 @@ import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
 import team.retum.jobis.domain.company.model.Company;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 
@@ -26,8 +25,7 @@ public class CompanyQueryApplicationsUseCase {
     public CompanyQueryApplicationsResponse execute() {
         Company company = securityPort.getCurrentCompany();
 
-        Recruitment recruitment = queryRecruitmentPort.queryRecentRecruitmentByCompanyId(company.getId())
-            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        Recruitment recruitment = queryRecruitmentPort.getRecentByCompanyIdOrThrow(company.getId());
 
         ApplicationFilter applicationFilter = ApplicationFilter.builder()
             .recruitmentId(recruitment.getId())

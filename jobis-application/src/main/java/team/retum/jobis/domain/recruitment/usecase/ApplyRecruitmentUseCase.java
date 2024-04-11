@@ -8,8 +8,8 @@ import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
-import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
-import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
+import team.retum.jobis.domain.recruitment.spi.CommandRecruitAreaPort;
+import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 
 import java.util.List;
 
@@ -17,8 +17,8 @@ import java.util.List;
 @UseCase
 public class ApplyRecruitmentUseCase {
 
-    private final CommandRecruitmentPort commandRecruitmentPort;
-    private final QueryRecruitmentPort queryRecruitmentPort;
+    private final RecruitmentPort recruitmentPort;
+    private final CommandRecruitAreaPort commandRecruitAreaPort;
     private final SecurityPort securityPort;
 
     public void execute(ApplyRecruitmentRequest request) {
@@ -29,18 +29,18 @@ public class ApplyRecruitmentUseCase {
             request.winterIntern()
         );
 
-        Recruitment recruitment = commandRecruitmentPort.saveRecruitment(
+        Recruitment recruitment = recruitmentPort.save(
             Recruitment.of(request, company.getId())
         );
 
         List<RecruitArea> recruitAreas = request.areas().stream()
             .map(area -> RecruitArea.of(area, recruitment.getId()))
             .toList();
-        commandRecruitmentPort.saveAllRecruitmentAreas(recruitAreas);
+        commandRecruitAreaPort.saveAll(recruitAreas);
     }
 
     private void checkRecruitmentApplicable(Company company, boolean isWinterIntern) {
-        if (queryRecruitmentPort.existsOnRecruitmentByCompanyIdAndWinterIntern(company.getId(), isWinterIntern)) {
+        if (recruitmentPort.existsByCompanyIdAndWinterIntern(company.getId(), isWinterIntern)) {
             throw RecruitmentAlreadyExistsException.EXCEPTION;
         }
     }

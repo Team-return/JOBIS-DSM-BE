@@ -10,7 +10,6 @@ import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.student.model.Student;
@@ -28,8 +27,7 @@ public class CreateApplicationUseCase {
 
     public void execute(Long recruitmentId, List<AttachmentRequest> attachmentRequests) {
         Student student = securityPort.getCurrentStudent();
-        Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(recruitmentId);
 
         recruitment.checkIsApplicable(student.getEntranceYear());
         checkApplicationDuplicated(student.getId());

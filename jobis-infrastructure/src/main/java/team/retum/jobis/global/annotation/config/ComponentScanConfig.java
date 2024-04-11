@@ -14,7 +14,7 @@ import team.retum.jobis.common.annotation.UseCase;
     includeFilters = {
         @Filter(
             type = FilterType.ANNOTATION,
-            classes = { UseCase.class, ReadOnlyUseCase.class, Service.class }
+            classes = {UseCase.class, ReadOnlyUseCase.class, Service.class}
           )
     }
 )

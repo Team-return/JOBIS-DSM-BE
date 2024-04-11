@@ -7,8 +7,8 @@ import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.spi.QueryRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 
@@ -20,18 +20,18 @@ public class QueryRecruitmentDetailUseCase {
 
     private static final List<Authority> APPLICABLE_AUTHORITIES = List.of(Authority.STUDENT, Authority.DEVELOPER);
     private final QueryRecruitmentPort queryRecruitmentPort;
+    private final QueryRecruitAreaPort queryRecruitAreaPort;
     private final QueryApplicationPort queryApplicationPort;
     private final SecurityPort securityPort;
 
     public QueryRecruitmentDetailResponse execute(Long recruitId) {
-        Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitId)
-            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(recruitId);
 
         RecruitmentDetailVO recruitmentDetail =
-            queryRecruitmentPort.queryRecruitmentDetailByIdAndStudentId(recruitment.getId(), securityPort.getCurrentUserId());
+            queryRecruitmentPort.getByIdAndStudentIdOrThrow(recruitment.getId(), securityPort.getCurrentUserId());
 
         List<RecruitAreaResponse> recruitAreaResponses =
-            queryRecruitmentPort.queryRecruitAreasByRecruitmentId(recruitment.getId())
+            queryRecruitAreaPort.getAllByRecruitmentId(recruitment.getId())
                 .stream()
                 .map(RecruitAreaResponse::from)
                 .toList();

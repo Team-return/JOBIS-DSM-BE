@@ -5,8 +5,7 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
-import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
-import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
+import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 
 import java.util.List;
 
@@ -14,14 +13,13 @@ import java.util.List;
 @UseCase
 public class ChangeRecruitmentStatusSchedulerUseCase {
 
-    private final CommandRecruitmentPort commandRecruitmentPort;
-    private final QueryRecruitmentPort queryRecruitmentPort;
+    private final RecruitmentPort recruitmentPort;
     private final PublishEventPort publishEventPort;
 
     public void execute() {
-        List<Recruitment> recruitments = queryRecruitmentPort.queryAllRecruitments();
+        List<Recruitment> recruitments = recruitmentPort.getAll();
 
-        commandRecruitmentPort.saveAllRecruitments(
+        recruitmentPort.saveAll(
             recruitments.stream()
                 .map(Recruitment::updateRecruitmentStatus)
                 .toList()

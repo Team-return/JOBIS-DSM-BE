@@ -25,8 +25,10 @@ import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED;
@@ -299,6 +301,18 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .fetch().stream()
             .map(CompanyResponse.class::cast)
             .toList();
+    }
+
+    @Override
+    public Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds) {
+        return queryFactory
+            .selectFrom(recruitmentEntity)
+            .join(recruitmentEntity.company, companyEntity)
+            .where(recruitmentEntity.id.in(recruitmentIds))
+            .transform(
+                groupBy(recruitmentEntity.id)
+                    .as(companyEntity.name)
+            );
     }
 
     //==conditions==//
