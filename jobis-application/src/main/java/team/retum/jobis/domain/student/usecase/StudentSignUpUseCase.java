@@ -12,28 +12,24 @@ import team.retum.jobis.domain.student.dto.request.StudentSignUpRequest;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
-import team.retum.jobis.domain.student.spi.CommandStudentPort;
 import team.retum.jobis.domain.student.spi.CommandVerifiedStudentPort;
-import team.retum.jobis.domain.student.spi.QueryStudentPort;
+import team.retum.jobis.domain.student.spi.StudentPort;
 import team.retum.jobis.domain.user.model.User;
-import team.retum.jobis.domain.user.spi.CommandUserPort;
-import team.retum.jobis.domain.user.spi.QueryUserPort;
+import team.retum.jobis.domain.user.spi.UserPort;
 
 @RequiredArgsConstructor
 @UseCase
 public class StudentSignUpUseCase {
 
+    private final UserPort userPort;
     private final SecurityPort securityPort;
-    private final QueryUserPort queryUserPort;
     private final QueryAuthCodePort queryAuthCodePort;
-    private final QueryStudentPort queryStudentPort;
-    private final CommandStudentPort commandStudentPort;
+    private final StudentPort studentPort;
     private final CommandVerifiedStudentPort commandVerifiedStudentPort;
-    private final CommandUserPort commandUserPort;
     private final JwtPort jwtPort;
 
     public TokenResponse execute(StudentSignUpRequest request) {
-        if (queryUserPort.existsUserByAccountId(request.email())) {
+        if (userPort.existsByAccountId(request.email())) {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
 
@@ -47,7 +43,7 @@ public class StudentSignUpUseCase {
             .build();
         checkStudentExists(schoolNumber, Student.getEntranceYear(request.grade()));
 
-        User user = commandUserPort.saveUser(
+        User user = userPort.save(
             User.builder()
                 .accountId(request.email())
                 .password(securityPort.encodePassword(request.password()))
@@ -56,7 +52,7 @@ public class StudentSignUpUseCase {
                 .build()
         );
 
-        Student student = commandStudentPort.saveStudent(
+        Student student = studentPort.save(
             Student.builder()
                 .id(user.getId())
                 .schoolNumber(schoolNumber)
@@ -72,7 +68,7 @@ public class StudentSignUpUseCase {
                 .build()
         );
 
-        commandVerifiedStudentPort.deleteVerifiedStudentByGcnAndName(
+        commandVerifiedStudentPort.deleteByGcnAndName(
             SchoolNumber.processSchoolNumber(student.getSchoolNumber()),
             student.getName()
         );
@@ -81,7 +77,7 @@ public class StudentSignUpUseCase {
     }
 
     private void checkStudentExists(SchoolNumber schoolNumber, Integer entranceYear) {
-        if (queryStudentPort.existsByGradeAndClassRoomAndNumberAndEntranceYear(
+        if (studentPort.existsByGradeAndClassRoomAndNumberAndEntranceYear(
             schoolNumber, entranceYear
         )) {
             throw StudentAlreadyExistsException.EXCEPTION;

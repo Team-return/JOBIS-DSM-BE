@@ -32,7 +32,7 @@ public class ApplicationEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
-        Map<Long, String> userIdTokenMap = queryUserPort.queryUsersByIds(
+        Map<Long, String> userIdTokenMap = queryUserPort.getAllByIds(
                 event.getApplications().stream().map(Application::getStudentId).toList()
             ).stream()
             .collect(Collectors.toMap(

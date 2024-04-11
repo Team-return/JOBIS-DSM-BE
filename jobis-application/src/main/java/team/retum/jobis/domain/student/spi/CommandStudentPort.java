@@ -4,5 +4,5 @@ import team.retum.jobis.domain.student.model.Student;
 
 public interface CommandStudentPort {
 
-    Student saveStudent(Student student);
+    Student save(Student student);
 }

@@ -19,6 +19,6 @@ public class QueryReviewsUseCase {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        return new QueryReviewsResponse(queryReviewPort.queryAllReviewsByCompanyId(companyId));
+        return new QueryReviewsResponse(queryReviewPort.getAllByCompanyId(companyId));
     }
 }
