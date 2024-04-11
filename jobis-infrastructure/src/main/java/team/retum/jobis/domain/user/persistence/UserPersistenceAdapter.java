@@ -21,7 +21,7 @@ public class UserPersistenceAdapter implements UserPort {
     public User getByAccountIdOrThrow(String accountId) {
         return userJpaRepository.findByAccountId(accountId)
             .map(userMapper::toDomain)
-            .orElseThrow();
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
     @Override
