@@ -27,8 +27,7 @@ public class NoticePersistenceAdapter implements NoticePort {
 
     @Override
     public Notice saveNotice(Notice notice) {
-        NoticeEntity savedEntity = noticeJpaRepository.save(noticeMapper.toEntity(notice));
-        return noticeMapper.toDomain(savedEntity);
+        return noticeMapper.toDomain(noticeJpaRepository.save(noticeMapper.toEntity(notice)));
     }
 
     @Override

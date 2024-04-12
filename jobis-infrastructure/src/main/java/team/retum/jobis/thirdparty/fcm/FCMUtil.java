@@ -44,22 +44,20 @@ public class FCMUtil {
     }
 
     private AndroidConfig buildAndroidConfig(Notification notification) {
-        AndroidConfig.Builder androidConfigBuilder = AndroidConfig.builder()
+        return AndroidConfig.builder()
             .putData("topic", notification.getTopic().toString())
-            .putData("detail_id", Optional.ofNullable(notification.getDetailId()).map(Object::toString).orElse(""));
-
-        return androidConfigBuilder.build();
+            .putData("detail_id", Optional.ofNullable(notification.getDetailId()).map(Object::toString).orElse(""))
+            .build();
     }
 
     private ApnsConfig buildApnsConfig(Notification notification) {
-        ApnsConfig.Builder apnsConfigBuilder = ApnsConfig.builder()
+        return ApnsConfig.builder()
             .setAps(Aps.builder()
                 .setSound("default")
                 .putCustomData("topic", notification.getTopic().toString())
                 .putCustomData("detail_id", Optional.ofNullable(notification.getDetailId()).map(Object::toString).orElse(""))
-                .build());
-
-        return apnsConfigBuilder.build();
+                .build())
+            .build();
     }
 
     public void sendMessages(Notification notification, List<String> tokens) {
