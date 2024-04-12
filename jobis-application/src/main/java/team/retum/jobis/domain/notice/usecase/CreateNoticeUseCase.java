@@ -24,15 +24,14 @@ public class CreateNoticeUseCase {
             .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))
             .toList();
 
-        Notice saveNotice = Notice.builder()
+        Notice noticeToSave = Notice.builder()
             .title(request.getTitle())
             .content(request.getContent())
             .attachments(attachments)
             .build();
 
-        commandNoticePort.saveNotice(saveNotice);
+        Notice savedNotice = commandNoticePort.saveNotice(noticeToSave);
 
-        publishEventPort.publishEvent(new NoticePostedEvent(saveNotice));
+        publishEventPort.publishEvent(new NoticePostedEvent(savedNotice));
     }
-
 }
