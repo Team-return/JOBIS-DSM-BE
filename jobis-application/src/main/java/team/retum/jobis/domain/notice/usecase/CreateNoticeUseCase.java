@@ -9,8 +9,6 @@ import team.retum.jobis.domain.notice.model.Notice;
 import team.retum.jobis.domain.notice.model.NoticeAttachment;
 import team.retum.jobis.domain.notice.spi.CommandNoticePort;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @UseCase
 public class CreateNoticeUseCase {
@@ -19,18 +17,13 @@ public class CreateNoticeUseCase {
     private final PublishEventPort publishEventPort;
 
     public void execute(CreateNoticeRequest request) {
-        List<NoticeAttachment> attachments = request.getAttachments()
-            .stream()
-            .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))
-            .toList();
-
-        Notice noticeToSave = Notice.builder()
+        Notice savedNotice = commandNoticePort.saveNotice(Notice.builder()
             .title(request.getTitle())
             .content(request.getContent())
-            .attachments(attachments)
-            .build();
-
-        Notice savedNotice = commandNoticePort.saveNotice(noticeToSave);
+            .attachments(request.getAttachments().stream()
+                .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))
+                .toList())
+            .build());
 
         publishEventPort.publishEvent(new NoticePostedEvent(savedNotice));
     }
