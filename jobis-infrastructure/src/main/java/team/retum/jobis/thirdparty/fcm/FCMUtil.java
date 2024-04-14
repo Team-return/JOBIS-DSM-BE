@@ -45,8 +45,8 @@ public class FCMUtil {
 
     private AndroidConfig buildAndroidConfig(Notification notification) {
         return AndroidConfig.builder()
+            .putData("topic", notification.getDetailId().toString())
             .putData("topic", notification.getTopic().toString())
-            .putData("detail_id", Optional.ofNullable(notification.getDetailId()).map(Object::toString).orElse(""))
             .build();
     }
 
@@ -54,8 +54,8 @@ public class FCMUtil {
         return ApnsConfig.builder()
             .setAps(Aps.builder()
                 .setSound("default")
+                .putCustomData("detail_id", notification.getDetailId().toString())
                 .putCustomData("topic", notification.getTopic().toString())
-                .putCustomData("detail_id", Optional.ofNullable(notification.getDetailId()).map(Object::toString).orElse(""))
                 .build())
             .build();
     }
