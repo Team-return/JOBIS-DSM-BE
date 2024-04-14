@@ -102,7 +102,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
-        JPAQuery<QueryTeacherRecruitmentsVO> recruitmentsVOJPAQuery =queryFactory
+        return queryFactory
             .select(
                 new QQueryTeacherRecruitmentsVO(
                     recruitmentEntity.id,
@@ -137,30 +137,19 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .on(
                 approvedApplication.recruitment.id.eq(recruitmentEntity.id),
                 approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED)
-            );
-
-        if (filter.getPage() == null) {
-
-            recruitmentsVOJPAQuery.where(
-                    eqYear(filter.getYear())
-                )
-                .orderBy(recruitmentEntity.createdAt.desc())
-                .groupBy(recruitmentEntity.id);
-        } else {
-            recruitmentsVOJPAQuery.where(
-                    eqYear(filter.getYear()),
-                    betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
-                    eqRecruitStatus(filter.getStatus()),
-                    containsName(filter.getCompanyName()),
-                    eqWinterIntern(filter.getWinterIntern())
-                )
-                .offset(filter.getOffset())
-                .limit(filter.getLimit())
-                .orderBy(recruitmentEntity.createdAt.desc())
-                .groupBy(recruitmentEntity.id);
-        }
-        return recruitmentsVOJPAQuery.fetch()
-            .stream()
+            )
+            .where(
+                eqYear(filter.getYear()),
+                betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
+                eqRecruitStatus(filter.getStatus()),
+                containsName(filter.getCompanyName()),
+                eqWinterIntern(filter.getWinterIntern())
+            )
+            .offset(filter.getOffset())
+            .limit(filter.getLimit())
+            .orderBy(recruitmentEntity.createdAt.desc())
+            .groupBy(recruitmentEntity.id)
+            .fetch().stream()
             .map(TeacherRecruitmentVO.class::cast)
             .toList();
     }

@@ -26,6 +26,26 @@ import static org.hibernate.internal.util.collections.CollectionHelper.listOf;
 @RequiredArgsConstructor
 public class ExcelAdapter implements WriteFilePort {
 
+    @Override
+    public byte[] writeRecruitmentExcelFile(List<TeacherRecruitmentVO> recruitmentList) {
+
+        List<String> attributes = listOf("상태", "기업명", "채용직군", "구분", "모집인원", "지원요청", "지원자", "모집시작일", "모집종료일");
+
+        List<List<String>> dataList = recruitmentList.stream()
+            .map(ph -> List.of(
+                String.valueOf(ph.getRecruitStatus()), // String
+                ph.getCompanyName(),
+                ph.getJobCodes(),
+                String.valueOf(ph.getCompanyType()),
+                String.valueOf(ph.getTotalHiringCount()),
+                String.valueOf(ph.getRequestedApplicationCount()),
+                String.valueOf(ph.getApprovedApplicationCount())
+            ))
+            .toList();
+
+        return createExcelSheet(attributes, dataList);
+    }
+
     private byte[] createExcelSheet(
         List<String> attributes,
         List<List<String>> datasList
@@ -61,8 +81,8 @@ public class ExcelAdapter implements WriteFilePort {
             Cell cell = row.createCell(i);
             String data = datas.get(i);
             try {
-                double dValue = Double.parseDouble(data);
-                cell.setCellValue(dValue);
+                double cellValue = Double.parseDouble(data);
+                cell.setCellValue(cellValue);
             } catch (NumberFormatException e) {
                 cell.setCellValue(data);
             }
@@ -110,25 +130,5 @@ public class ExcelAdapter implements WriteFilePort {
             int width = worksheet.getColumnWidth(i);
             worksheet.setColumnWidth(i, width + 1500);
         }
-    }
-
-    @Override
-    public byte[] writeRecruitmentExcelFile(List<TeacherRecruitmentVO> recruitmentList) {
-
-        List<String> attributes = listOf("상태", "기업명", "채용직군", "구분", "모집인원", "지원요청", "지원자", "모집시작일", "모집종료일");
-
-        List<List<String>> dataList = recruitmentList.stream()
-            .map(ph -> List.of(
-                String.valueOf(ph.getRecruitStatus()), // String
-                ph.getCompanyName(),
-                ph.getJobCodes(),
-                String.valueOf(ph.getCompanyType()),
-                String.valueOf(ph.getTotalHiringCount()),
-                String.valueOf(ph.getRequestedApplicationCount()),
-                String.valueOf(ph.getApprovedApplicationCount())
-            ))
-            .toList();
-
-        return createExcelSheet(attributes, dataList);
     }
 }

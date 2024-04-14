@@ -222,7 +222,7 @@ public class RecruitmentWebAdapter {
             String encodedFileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + ".xlsx\"");
         } catch (Exception e) {
-
+            throw new BadRequestException();
         }
     }
 

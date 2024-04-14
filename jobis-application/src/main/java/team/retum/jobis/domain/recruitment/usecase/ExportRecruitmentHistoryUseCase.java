@@ -1,8 +1,6 @@
 package team.retum.jobis.domain.recruitment.usecase;
 
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.WriteFilePort;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
@@ -30,14 +28,11 @@ public class ExportRecruitmentHistoryUseCase {
 
         return new ExportRecruitmentHistoryResponse(
             writeFilePort.writeRecruitmentExcelFile(recruitmentList),
-            getFileName()
+            getFileName(now)
         );
     }
 
-    LocalDate now = LocalDate.now();
-
-
-    private String getFileName() {
+    private String getFileName(LocalDate now) {
         return now + "_모집의뢰서 엑셀 출력";
     }
 }
