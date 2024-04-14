@@ -45,7 +45,7 @@ public class FCMUtil {
 
     private AndroidConfig buildAndroidConfig(Notification notification) {
         return AndroidConfig.builder()
-            .putData("topic", notification.getDetailId().toString())
+            .putData("detail_id", notification.getDetailId().toString())
             .putData("topic", notification.getTopic().toString())
             .build();
     }
