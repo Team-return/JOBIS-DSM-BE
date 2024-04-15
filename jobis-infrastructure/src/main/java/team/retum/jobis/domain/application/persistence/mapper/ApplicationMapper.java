@@ -22,8 +22,6 @@ public class ApplicationMapper {
 
     public ApplicationEntity toEntity(Application domain) {
         StudentEntity student = studentJpaRepository.getReferenceById(domain.getStudentId());
-        System.out.println(student.getId());
-
         RecruitmentEntity recruitment = recruitmentJpaRepository.getReferenceById(domain.getRecruitmentId());
 
         ApplicationEntity applicationEntity = ApplicationEntity.builder()
