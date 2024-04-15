@@ -155,6 +155,58 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
+    public List<TeacherRecruitmentVO> queryTeacherRecruitmentsByYear(Integer year) {
+        QApplicationEntity requestedApplication = new QApplicationEntity("requestedApplication");
+        QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
+
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+        return queryFactory
+            .select(
+                new QQueryTeacherRecruitmentsVO(
+                    recruitmentEntity.id,
+                    recruitmentEntity.status,
+                    recruitmentEntity.recruitDate.startDate,
+                    recruitmentEntity.recruitDate.finishDate,
+                    companyEntity.name,
+                    companyEntity.type,
+                    recruitJobsPath,
+                    recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
+                    requestedApplication.countDistinct(),
+                    approvedApplication.countDistinct(),
+                    companyEntity.id
+                )
+            )
+            .from(recruitmentEntity)
+            .join(recruitmentEntity.company, companyEntity)
+            .join(recruitAreaEntity)
+            .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+            .join(recruitAreaCodeEntity)
+            .on(
+                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                recruitAreaCodeEntity.type.eq(JOB)
+            )
+            .join(recruitAreaCodeEntity.code, codeEntity)
+            .leftJoin(requestedApplication)
+            .on(
+                requestedApplication.recruitment.id.eq(recruitmentEntity.id),
+                requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED)
+            )
+            .leftJoin(approvedApplication)
+            .on(
+                approvedApplication.recruitment.id.eq(recruitmentEntity.id),
+                approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED)
+            )
+            .where(
+                eqYear(year)
+            )
+            .orderBy(recruitmentEntity.createdAt.desc())
+            .groupBy(recruitmentEntity.id)
+            .fetch().stream()
+            .map(TeacherRecruitmentVO.class::cast)
+            .toList();
+    }
+
+    @Override
     public RecruitmentDetailVO getByIdAndStudentIdOrThrow(Long recruitmentId, Long studentId) {
         return Optional.ofNullable(
                 queryFactory

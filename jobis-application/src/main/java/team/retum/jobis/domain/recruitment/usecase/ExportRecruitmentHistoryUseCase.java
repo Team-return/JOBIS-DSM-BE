@@ -3,7 +3,6 @@ package team.retum.jobis.domain.recruitment.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.WriteFilePort;
-import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
@@ -20,11 +19,7 @@ public class ExportRecruitmentHistoryUseCase {
     public ExportRecruitmentHistoryResponse execute() {
         LocalDate now = LocalDate.now();
 
-        RecruitmentFilter filter = RecruitmentFilter.builder()
-            .year(now.getYear())
-            .build();
-
-        List<TeacherRecruitmentVO> recruitmentList = queryRecruitmentPort.queryTeacherRecruitmentsByFilter(filter);
+        List<TeacherRecruitmentVO> recruitmentList = queryRecruitmentPort.queryTeacherRecruitmentsByYear(now.getYear());
 
         return new ExportRecruitmentHistoryResponse(
             writeFilePort.writeRecruitmentExcelFile(recruitmentList),
@@ -33,6 +28,6 @@ public class ExportRecruitmentHistoryUseCase {
     }
 
     private String getFileName(LocalDate now) {
-        return now + "_모집의뢰서 엑셀 출력";
+        return now + "_모집의뢰서_엑셀_출력";
     }
 }
