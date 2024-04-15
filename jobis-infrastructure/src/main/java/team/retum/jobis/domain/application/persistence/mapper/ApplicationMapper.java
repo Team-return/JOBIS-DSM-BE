@@ -29,11 +29,7 @@ public class ApplicationMapper {
         RecruitmentEntity recruitment = recruitmentJpaRepository.findById(domain.getRecruitmentId())
             .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
 
-        List<ApplicationAttachmentEntity> attachments = domain.getAttachments().stream()
-            .map(attachment -> new ApplicationAttachmentEntity(attachment.getAttachmentUrl(), attachment.getType()))
-            .toList();
-
-        return ApplicationEntity.builder()
+        ApplicationEntity applicationEntity = ApplicationEntity.builder()
             .id(domain.getId())
             .applicationStatus(domain.getApplicationStatus())
             .studentEntity(student)
@@ -41,12 +37,19 @@ public class ApplicationMapper {
             .rejectionReason(domain.getRejectionReason())
             .startDate(domain.getStartDate())
             .endDate(domain.getEndDate())
-            .attachments(attachments)
             .build();
+
+        domain.getAttachments().forEach(
+            attachment -> applicationEntity.addApplicationAttachment(
+                new ApplicationAttachmentEntity(attachment.getAttachmentUrl(), attachment.getType())
+            )
+        );
+
+        return applicationEntity;
     }
 
     public Application toDomain(ApplicationEntity entity) {
-        List<ApplicationAttachment> attachments = entity.getAttachments().stream()
+        List<ApplicationAttachment> attachments = entity.getApplicationAttachments().stream()
             .map(attachment -> new ApplicationAttachment(attachment.getAttachmentUrl(), attachment.getType()))
             .toList();
 
