@@ -1,8 +1,7 @@
 package team.retum.jobis.domain.application.persistence.entity;
 
-import jakarta.persistence.CollectionTable;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -37,14 +37,6 @@ public class ApplicationEntity extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private StudentEntity student;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruitment_id")
-    private RecruitmentEntity recruitment;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(11)")
     @Enumerated(EnumType.STRING)
@@ -59,14 +51,21 @@ public class ApplicationEntity extends BaseTimeEntity {
     @Column(columnDefinition = "DATE")
     private LocalDate endDate;
 
-    @ElementCollection
-    @CollectionTable(name = "tbl_application_attachment", joinColumns = @JoinColumn(name = "application_id"))
-    private List<ApplicationAttachmentEntity> attachments = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = false)
+    private StudentEntity student;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recruitment_id", nullable = false)
+    private RecruitmentEntity recruitment;
+
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    private List<ApplicationAttachmentEntity> applicationAttachments = new ArrayList<>();
 
     @Builder
     public ApplicationEntity(Long id, StudentEntity studentEntity, RecruitmentEntity recruitmentEntity,
                              ApplicationStatus applicationStatus, String rejectionReason,
-                             LocalDate startDate, LocalDate endDate, List<ApplicationAttachmentEntity> attachments) {
+                             LocalDate startDate, LocalDate endDate) {
         this.id = id;
         this.student = studentEntity;
         this.recruitment = recruitmentEntity;
@@ -74,6 +73,10 @@ public class ApplicationEntity extends BaseTimeEntity {
         this.rejectionReason = rejectionReason;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.attachments = attachments;
+    }
+
+    public void addApplicationAttachment(ApplicationAttachmentEntity attachment) {
+        attachment.setApplication(this);
+        this.applicationAttachments.add(attachment);
     }
 }

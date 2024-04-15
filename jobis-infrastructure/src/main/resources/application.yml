@@ -4,10 +4,12 @@ spring:
     url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:11111111}
+
   flyway:
+    baseline-version: 1
+    enabled: true
     baseline-on-migrate: true
-    baseline-version: 0
-    enabled: ${FLYWAY_ENABLED:true}
+    fail-on-missing-locations: true
 
   jpa:
     database-platform: team.retum.jobis.global.config.MysqlDialectConfig

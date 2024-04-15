@@ -19,4 +19,6 @@ public interface CommandApplicationPort {
     void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Long> applicationIds);
 
     void saveAllApplications(List<Application> applications);
+
+    void deleteAllAttachmentByApplicationId(Long applicationId);
 }
