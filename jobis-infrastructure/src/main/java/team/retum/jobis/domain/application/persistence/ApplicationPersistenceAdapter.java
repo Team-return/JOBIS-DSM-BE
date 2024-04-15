@@ -61,7 +61,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 eqYear(applicationFilter.getYear())
             )
             .orderBy(
-                applicationEntity.updatedAt.isNull().asc(),
                 applicationEntity.updatedAt.desc(),
                 applicationEntity.createdAt.desc()
             )
