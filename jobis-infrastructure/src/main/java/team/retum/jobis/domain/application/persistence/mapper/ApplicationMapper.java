@@ -6,10 +6,8 @@ import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
@@ -23,11 +21,10 @@ public class ApplicationMapper {
     private final RecruitmentJpaRepository recruitmentJpaRepository;
 
     public ApplicationEntity toEntity(Application domain) {
-        StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        StudentEntity student = studentJpaRepository.getReferenceById(domain.getStudentId());
+        System.out.println(student.getId());
 
-        RecruitmentEntity recruitment = recruitmentJpaRepository.findById(domain.getRecruitmentId())
-            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        RecruitmentEntity recruitment = recruitmentJpaRepository.getReferenceById(domain.getRecruitmentId());
 
         ApplicationEntity applicationEntity = ApplicationEntity.builder()
             .id(domain.getId())

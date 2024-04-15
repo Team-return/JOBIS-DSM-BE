@@ -51,7 +51,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .join(applicationEntity.student, studentEntity)
             .join(applicationEntity.recruitment, recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
-            .leftJoin(applicationEntity.attachments, applicationAttachmentEntity)
+            .leftJoin(applicationEntity.applicationAttachments, applicationAttachmentEntity)
             .where(
                 eqRecruitmentId(applicationFilter.getRecruitmentId()),
                 eqStudentId(applicationFilter.getStudentId()),
@@ -295,6 +295,13 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .map(applicationMapper::toEntity)
                 .toList()
         );
+    }
+
+    @Override
+    public void deleteAllAttachmentByApplicationId(Long applicationId) {
+        queryFactory.delete(applicationAttachmentEntity)
+            .where(applicationAttachmentEntity.application.id.eq(applicationId))
+            .execute();
     }
 
     //==conditions==//
