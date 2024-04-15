@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.bookmark.model.Bookmark;
 import team.retum.jobis.domain.bookmark.persistence.entity.BookmarkEntity;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
@@ -19,11 +17,9 @@ public class BookmarkMapper {
     private final StudentJpaRepository studentJpaRepository;
 
     public BookmarkEntity toEntity(Bookmark domain) {
-        RecruitmentEntity recruitment = recruitmentJpaRepository.findById(domain.getRecruitmentId())
-            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        RecruitmentEntity recruitment = recruitmentJpaRepository.getReferenceById(domain.getRecruitmentId());
 
-        StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        StudentEntity student = studentJpaRepository.getReferenceById(domain.getStudentId());
 
         return new BookmarkEntity(recruitment, student);
     }

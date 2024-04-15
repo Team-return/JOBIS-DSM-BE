@@ -38,7 +38,8 @@ public class RecruitAreaPersistenceAdapter implements RecruitAreaPort {
     public void saveAll(List<RecruitArea> recruitAreas) {
         recruitAreaJpaRepository.saveAll(
             recruitAreas.stream()
-                .map(recruitAreaMapper::toEntity).toList()
+                .map(recruitAreaMapper::toEntity)
+                .toList()
         );
     }
 

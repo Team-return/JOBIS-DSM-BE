@@ -2,7 +2,6 @@ package team.retum.jobis.domain.code.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
@@ -15,8 +14,7 @@ public class CodeMapper {
 
     public CodeEntity toEntity(Code domain) {
         CodeEntity code = domain.getParentCodeId() == null
-            ? null : codeJpaRepository.findById(domain.getParentCodeId())
-            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+            ? null : codeJpaRepository.getReferenceById(domain.getParentCodeId());
 
         return CodeEntity.builder()
             .code(domain.getId())
