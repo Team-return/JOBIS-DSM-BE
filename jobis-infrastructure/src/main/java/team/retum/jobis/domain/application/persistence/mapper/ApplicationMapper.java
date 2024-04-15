@@ -58,6 +58,7 @@ public class ApplicationMapper {
             .recruitmentId(entity.getRecruitment().getId())
             .attachments(attachments)
             .createdAt(entity.getCreatedAt())
+            .updatedAt(entity.getUpdatedAt())
             .build();
     }
 }

@@ -59,7 +59,11 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 containStudentName(applicationFilter.getStudentName()),
                 eqYear(applicationFilter.getYear())
             )
-            .orderBy(applicationEntity.createdAt.desc())
+            .orderBy(
+                applicationEntity.updatedAt.isNull().asc(),
+                applicationEntity.updatedAt.desc(),
+                applicationEntity.createdAt.desc()
+            )
             .transform(
                 groupBy(applicationEntity.id)
                     .list(
@@ -248,6 +252,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         queryFactory
             .update(applicationEntity)
             .set(applicationEntity.applicationStatus, status)
+            .set(applicationEntity.updatedAt, LocalDateTime.now())
             .where(applicationEntity.id.in(applicationIds))
             .execute();
     }
