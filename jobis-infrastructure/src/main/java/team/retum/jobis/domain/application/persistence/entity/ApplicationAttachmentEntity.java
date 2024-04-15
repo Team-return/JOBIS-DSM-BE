@@ -24,7 +24,7 @@ import team.retum.jobis.global.entity.BaseTimeEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_application_attachment")
 @Entity
-public class ApplicationAttachmentEntity extends BaseTimeEntity {
+public class ApplicationAttachmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
