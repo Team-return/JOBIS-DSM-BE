@@ -21,6 +21,7 @@ import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.List;
 import java.util.Optional;
