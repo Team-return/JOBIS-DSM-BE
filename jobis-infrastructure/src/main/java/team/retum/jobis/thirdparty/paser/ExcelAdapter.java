@@ -33,7 +33,7 @@ public class ExcelAdapter implements WriteFilePort {
 
         List<List<String>> dataList = recruitmentList.stream()
             .map(ph -> List.of(
-                String.valueOf(ph.getRecruitStatus()), // String
+                String.valueOf(ph.getRecruitStatus()),
                 ph.getCompanyName(),
                 ph.getJobCodes(),
                 String.valueOf(ph.getCompanyType()),

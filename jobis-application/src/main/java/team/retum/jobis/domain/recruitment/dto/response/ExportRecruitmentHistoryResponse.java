@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor()
+@NoArgsConstructor
 public class ExportRecruitmentHistoryResponse {
     private byte[] file;
     private String fileName;

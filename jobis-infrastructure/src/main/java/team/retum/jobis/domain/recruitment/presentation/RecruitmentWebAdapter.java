@@ -217,7 +217,7 @@ public class RecruitmentWebAdapter {
         return response.getFile();
     }
 
-    public void setExcelContentDisposition(HttpServletResponse response, String fileName) {
+    private void setExcelContentDisposition(HttpServletResponse response, String fileName) {
         try {
             String encodedFileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + ".xlsx\"");

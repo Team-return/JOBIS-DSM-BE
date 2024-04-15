@@ -23,11 +23,11 @@ public class ExportRecruitmentHistoryUseCase {
 
         return new ExportRecruitmentHistoryResponse(
             writeFilePort.writeRecruitmentExcelFile(recruitmentList),
-            getFileName(now)
+            getFileName(now.getYear())
         );
     }
 
-    private String getFileName(LocalDate now) {
-        return now + "_모집의뢰서_엑셀_출력";
+    private String getFileName(Integer year) {
+        return year + "_모집의뢰서_엑셀_출력";
     }
 }
