@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.model.AttachmentType;
-import team.retum.jobis.global.entity.BaseTimeEntity;
 
 @Getter
 @AllArgsConstructor
