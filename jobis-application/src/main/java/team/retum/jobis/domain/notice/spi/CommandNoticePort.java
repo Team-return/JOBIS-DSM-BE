@@ -4,7 +4,7 @@ import team.retum.jobis.domain.notice.model.Notice;
 
 public interface CommandNoticePort {
 
-    void saveNotice(Notice notice);
+    Notice saveNotice(Notice notice);
 
     void deleteNotice(Notice notice);
 

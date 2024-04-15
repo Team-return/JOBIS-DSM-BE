@@ -9,6 +9,7 @@ import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.notice.event.NoticePostedEvent;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
+import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ import team.retum.jobis.thirdparty.fcm.FCMUtil;
 public class NoticeEventHandler {
 
     private final FCMUtil fcmUtil;
+    private final CommandNotificationPort commandNotificationPort;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -28,6 +30,8 @@ public class NoticeEventHandler {
             .authority(Authority.STUDENT)
             .isNew(true)
             .build();
+
+        commandNotificationPort.saveNotification(notification);
 
         fcmUtil.sendMessageToTopic(notification);
     }

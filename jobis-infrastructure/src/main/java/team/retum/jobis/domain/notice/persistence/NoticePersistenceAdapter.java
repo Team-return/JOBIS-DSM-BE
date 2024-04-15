@@ -4,6 +4,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.notice.model.Notice;
+import team.retum.jobis.domain.notice.persistence.entity.NoticeEntity;
 import team.retum.jobis.domain.notice.persistence.mapper.NoticeMapper;
 import team.retum.jobis.domain.notice.persistence.repository.NoticeJpaRepository;
 import team.retum.jobis.domain.notice.persistence.repository.vo.QQueryNoticeVO;
@@ -25,12 +26,8 @@ public class NoticePersistenceAdapter implements NoticePort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public void saveNotice(Notice notice) {
-        noticeMapper.toDomain(
-            noticeJpaRepository.save(
-                noticeMapper.toEntity(notice)
-            )
-        );
+    public Notice saveNotice(Notice notice) {
+        return noticeMapper.toDomain(noticeJpaRepository.save(noticeMapper.toEntity(notice)));
     }
 
     @Override
