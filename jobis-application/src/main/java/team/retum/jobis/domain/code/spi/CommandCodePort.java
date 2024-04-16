@@ -4,5 +4,5 @@ import team.retum.jobis.domain.code.model.Code;
 
 public interface CommandCodePort {
 
-    Code saveCode(Code code);
+    Code save(Code code);
 }

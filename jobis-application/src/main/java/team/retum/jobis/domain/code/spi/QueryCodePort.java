@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface QueryCodePort {
 
-    List<Code> queryCodesByKeywordAndType(String keyword, CodeType codeType, Long parentCode);
+    List<Code> getAllByKeywordAndType(String keyword, CodeType codeType, Long parentCode);
 
-    Optional<Code> queryCodeById(Long codeId);
+    Code getByIdOrThrow(Long codeId);
 
-    List<Code> queryCodesByIdIn(List<Long> codes);
+    List<Code> getAllByIdInOrThrow(List<Long> codes);
 
-    Optional<Code> queryCodeByKeywordAndType(String keyword, CodeType type);
+    Optional<Code> getByKeywordAndType(String keyword, CodeType type);
 }
