@@ -17,7 +17,6 @@ import java.util.List;
 public class NoticeMapper {
 
     public NoticeEntity toEntity(Notice domain) {
-
         List<NoticeAttachmentEntity> attachments = domain.getAttachments().stream()
             .map(attachment -> new NoticeAttachmentEntity(attachment.getUrl(), attachment.getType()))
             .toList();

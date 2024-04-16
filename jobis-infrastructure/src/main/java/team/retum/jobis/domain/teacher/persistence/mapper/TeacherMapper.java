@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.teacher.model.Teacher;
 import team.retum.jobis.domain.teacher.persistence.entity.TeacherEntity;
-import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 
@@ -15,8 +14,7 @@ public class TeacherMapper {
     private final UserJpaRepository userJpaRepository;
 
     public TeacherEntity toEntity(Teacher domain) {
-        UserEntity user = userJpaRepository.findById(domain.getId())
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        UserEntity user = userJpaRepository.getReferenceById(domain.getId());
 
         return new TeacherEntity(domain.getId(), user);
     }

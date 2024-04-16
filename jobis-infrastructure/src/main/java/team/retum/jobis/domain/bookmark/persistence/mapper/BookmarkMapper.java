@@ -18,7 +18,6 @@ public class BookmarkMapper {
 
     public BookmarkEntity toEntity(Bookmark domain) {
         RecruitmentEntity recruitment = recruitmentJpaRepository.getReferenceById(domain.getRecruitmentId());
-
         StudentEntity student = studentJpaRepository.getReferenceById(domain.getStudentId());
 
         return new BookmarkEntity(recruitment, student);

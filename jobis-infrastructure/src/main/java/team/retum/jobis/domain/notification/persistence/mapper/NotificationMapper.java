@@ -14,13 +14,13 @@ public class NotificationMapper {
     private final UserJpaRepository userJpaRepository;
 
     public NotificationEntity toEntity(Notification notification) {
-        UserEntity userEntity = userJpaRepository.getReferenceById(notification.getUserId());
+        UserEntity user = userJpaRepository.getReferenceById(notification.getUserId());
 
         return NotificationEntity.builder()
             .id(notification.getId())
             .title(notification.getTitle())
             .content(notification.getContent())
-            .userEntity(userEntity)
+            .userEntity(user)
             .detailId(notification.getDetailId())
             .topic(notification.getTopic())
             .authority(notification.getAuthority())
