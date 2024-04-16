@@ -23,7 +23,6 @@ public class ApplyRecruitmentUseCase {
 
     public void execute(ApplyRecruitmentRequest request) {
         Company company = securityPort.getCurrentCompany();
-
         checkRecruitmentApplicable(
             company,
             request.winterIntern()
