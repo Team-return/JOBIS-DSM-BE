@@ -1,0 +1,1 @@
+alter table tbl_application add column updated_at DATETIME(6) not null

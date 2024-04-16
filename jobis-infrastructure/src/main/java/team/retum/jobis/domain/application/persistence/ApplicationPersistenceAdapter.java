@@ -21,6 +21,7 @@ import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,10 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 containStudentName(applicationFilter.getStudentName()),
                 eqYear(applicationFilter.getYear())
             )
-            .orderBy(applicationEntity.createdAt.desc())
+            .orderBy(
+                applicationEntity.updatedAt.desc(),
+                applicationEntity.createdAt.desc()
+            )
             .transform(
                 groupBy(applicationEntity.id)
                     .list(
@@ -248,6 +252,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         queryFactory
             .update(applicationEntity)
             .set(applicationEntity.applicationStatus, status)
+            .set(applicationEntity.updatedAt, LocalDateTime.now())
             .where(applicationEntity.id.in(applicationIds))
             .execute();
     }

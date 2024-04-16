@@ -3,6 +3,7 @@ package team.retum.jobis.domain.application.persistence.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -18,16 +19,20 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_application")
 @Entity
@@ -61,6 +66,10 @@ public class ApplicationEntity extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
     private List<ApplicationAttachmentEntity> applicationAttachments = new ArrayList<>();
+
+    @LastModifiedDate
+    @Column(columnDefinition = "DATETIME(6)")
+    private LocalDateTime updatedAt;
 
     @Builder
     public ApplicationEntity(Long id, StudentEntity studentEntity, RecruitmentEntity recruitmentEntity,
