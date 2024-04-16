@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExportRecruitmentHistoryResponse {
+
     private byte[] file;
     private String fileName;
 }

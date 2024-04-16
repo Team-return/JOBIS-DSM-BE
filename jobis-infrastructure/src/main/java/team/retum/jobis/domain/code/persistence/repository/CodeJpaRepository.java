@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.code.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 
