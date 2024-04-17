@@ -40,7 +40,7 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
-    public TeacherQueryRecruitmentsResponse executeNoPage(int year, List<Long> codeIds) {
+    public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds) {
         List<TeacherRecruitmentResponse> recruitments =
             queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(year, codeIds).stream()
                 .map(TeacherRecruitmentResponse::from)
