@@ -8,6 +8,7 @@ import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,7 +20,8 @@ public class ExportRecruitmentHistoryUseCase {
     public ExportRecruitmentHistoryResponse execute() {
         LocalDate now = LocalDate.now();
 
-        List<TeacherRecruitmentVO> recruitmentList = queryRecruitmentPort.queryTeacherRecruitmentsByYear(now.getYear());
+        List<TeacherRecruitmentVO> recruitmentList =
+            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(now.getYear(), Collections.emptyList());
 
         return new ExportRecruitmentHistoryResponse(
             writeFilePort.writeRecruitmentExcelFile(recruitmentList),

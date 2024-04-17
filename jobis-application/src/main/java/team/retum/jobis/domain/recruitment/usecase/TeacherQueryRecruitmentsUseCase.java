@@ -40,6 +40,15 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
+    public TeacherQueryRecruitmentsResponse executeNoPage(int year, List<Long> codeIds) {
+        List<TeacherRecruitmentResponse> recruitments =
+            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(year, codeIds).stream()
+                .map(TeacherRecruitmentResponse::from)
+                .toList();
+
+        return new TeacherQueryRecruitmentsResponse(recruitments);
+    }
+
     public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Boolean winterIntern) {
         RecruitmentFilter filter = RecruitmentFilter.builder()

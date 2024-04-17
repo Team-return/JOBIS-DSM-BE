@@ -30,7 +30,7 @@ public interface QueryRecruitmentPort {
 
     List<Recruitment> getAllByIdInOrThrow(List<Long> recruitmentIds);
 
-    List<TeacherRecruitmentVO> queryTeacherRecruitmentsByYear(Integer year);
+    List<TeacherRecruitmentVO> getTeacherRecruitmentsByYearAndCodeIds(Integer year, List<Long> codeIds);
 
     Long getCountBy(RecruitmentFilter filter);
 
