@@ -159,12 +159,12 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/teacher/no-page")
-    public TeacherQueryRecruitmentsResponse getRecruitmentListNoPage(
+    public TeacherQueryRecruitmentsResponse getRecruitmentListWithoutPage(
         @RequestParam(value = "year") int year,
         @RequestParam(value = "job_code", required = false) String jobCode,
         @RequestParam(value = "tech_code", required = false) String techCodes
     ) {
-        return teacherQueryRecruitmentsUseCase.executeNoPage(year, this.parseCodes(jobCode, techCodes));
+        return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes));
     }
 
     @Cacheable
