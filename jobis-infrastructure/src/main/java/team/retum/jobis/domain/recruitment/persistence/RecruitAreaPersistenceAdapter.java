@@ -45,9 +45,7 @@ public class RecruitAreaPersistenceAdapter implements RecruitAreaPort {
 
     @Override
     public void delete(RecruitArea recruitArea) {
-        recruitAreaJpaRepository.delete(
-            recruitAreaMapper.toEntity(recruitArea)
-        );
+        recruitAreaJpaRepository.deleteById(recruitArea.getId());
     }
 
     @Override
