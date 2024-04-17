@@ -20,7 +20,6 @@ public class DeleteRecruitAreaUseCase {
         checkRecruitmentAreaDeletable(recruitArea);
         recruitmentChecker.checkPermission(recruitArea);
 
-        System.out.println(recruitArea.getId());
         recruitAreaPort.delete(recruitArea);
     }
 
