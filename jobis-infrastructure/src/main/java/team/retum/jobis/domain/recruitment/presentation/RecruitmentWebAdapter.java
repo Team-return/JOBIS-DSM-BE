@@ -146,7 +146,7 @@ public class RecruitmentWebAdapter {
 
     @Cacheable(condition = "#page <= 5")
     @GetMapping("/teacher")
-    public TeacherQueryRecruitmentsResponse queryRecruitmentList(
+    public TeacherQueryRecruitmentsResponse getRecruitmentList(
         @RequestParam(value = "company_name", required = false) String companyName,
         @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
         @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
@@ -156,6 +156,15 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
+    }
+
+    @GetMapping("/teacher/no-page")
+    public TeacherQueryRecruitmentsResponse getRecruitmentListNoPage(
+        @RequestParam(value = "year") int year,
+        @RequestParam(value = "job_code", required = false) String jobCode,
+        @RequestParam(value = "tech_code", required = false) String techCodes
+    ) {
+        return teacherQueryRecruitmentsUseCase.executeNoPage(year, this.parseCodes(jobCode, techCodes));
     }
 
     @Cacheable
