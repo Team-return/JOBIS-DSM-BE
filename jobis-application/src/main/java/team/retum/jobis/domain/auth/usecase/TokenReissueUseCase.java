@@ -22,7 +22,7 @@ public class TokenReissueUseCase {
     private final CommandUserPort commandUserPort;
 
     public TokenResponse execute(String refresh, PlatformType platformType, String deviceToken) {
-        RefreshToken token = queryRefreshTokenPort.queryRefreshTokenByTokenAndPlatformType(refresh, platformType);
+        RefreshToken token = queryRefreshTokenPort.getByTokenAndPlatformType(refresh, platformType);
         User user = queryUserPort.getByIdOrThrow(token.getUserId());
 
         commandUserPort.save(user.setToken(deviceToken));

@@ -16,22 +16,17 @@ public class AuthCodePersistenceAdapter implements AuthCodePort {
     private final AuthCodeMapper authCodeMapper;
 
     @Override
-    public void saveAuthCode(AuthCode authCode) {
+    public void save(AuthCode authCode) {
         authCodeRepository.save(
             authCodeMapper.toEntity(authCode)
         );
     }
 
     @Override
-    public AuthCode queryAuthCodeByEmail(String email) {
+    public AuthCode getByEmail(String email) {
         return authCodeMapper.toDomain(
             authCodeRepository.findById(email)
                 .orElseThrow(() -> AuthCodeNotFoundException.EXCEPTION)
         );
-    }
-
-    @Override
-    public boolean existsAuthCodeByEmailAndVerifiedIsTrue(String email) {
-        return authCodeRepository.existsByEmailAndVerifiedIsTrue(email);
     }
 }

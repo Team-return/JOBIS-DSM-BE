@@ -5,6 +5,6 @@ import team.retum.jobis.domain.auth.model.RefreshToken;
 
 public interface QueryRefreshTokenPort {
 
-    RefreshToken queryRefreshTokenByTokenAndPlatformType(String token, PlatformType platformType);
+    RefreshToken getByTokenAndPlatformType(String token, PlatformType platformType);
 
 }

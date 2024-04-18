@@ -14,10 +14,10 @@ public class VerifyAuthCodeUseCase {
     private final QueryAuthCodePort queryAuthCodePort;
 
     public void execute(String email, String code) {
-        AuthCode authCode = queryAuthCodePort.queryAuthCodeByEmail(email);
+        AuthCode authCode = queryAuthCodePort.getByEmail(email);
         authCode.verifyCode(code);
 
-        commandAuthCodePort.saveAuthCode(
+        commandAuthCodePort.save(
             authCode.verify()
         );
     }
