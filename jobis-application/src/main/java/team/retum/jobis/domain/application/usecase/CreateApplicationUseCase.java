@@ -34,7 +34,7 @@ public class CreateApplicationUseCase {
         checkApplicationAlreadyApply(student.getId(), recruitment.getId());
 
         List<ApplicationAttachment> attachments = ApplicationAttachment.from(attachmentRequests);
-        commandApplicationPort.saveApplication(
+        commandApplicationPort.save(
             Application.builder()
                 .studentId(student.getId())
                 .recruitmentId(recruitment.getId())
@@ -45,7 +45,7 @@ public class CreateApplicationUseCase {
     }
 
     private void checkApplicationDuplicated(Long studentId) {
-        if (queryApplicationPort.existsApplicationByStudentIdAndApplicationStatusIn(
+        if (queryApplicationPort.existsByStudentIdAndApplicationStatusIn(
             studentId,
             ApplicationStatus.DUPLICATE_CHECK
         )) {
@@ -54,7 +54,7 @@ public class CreateApplicationUseCase {
     }
 
     private void checkApplicationAlreadyApply(Long studentId, Long recruitmentId) {
-        if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(studentId, recruitmentId)) {
+        if (queryApplicationPort.existsByStudentIdAndRecruitmentId(studentId, recruitmentId)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
     }

@@ -15,10 +15,9 @@ public class RejectApplicationUseCase {
     private final CommandApplicationPort commandApplicationPort;
 
     public void execute(Long applicationId, String rejectReason) {
-        Application application = queryApplicationPort.queryApplicationById(applicationId)
-            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+        Application application = queryApplicationPort.getByIdOrThrow(applicationId);
 
-        commandApplicationPort.saveApplication(
+        commandApplicationPort.save(
             application.rejectApplication(rejectReason)
         );
     }

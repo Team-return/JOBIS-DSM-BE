@@ -32,7 +32,7 @@ public class TeacherQueryApplicationsUseCase {
             .year(year)
             .build();
 
-        List<ApplicationVO> applicationVOs = queryApplicationPort.queryApplicationByConditions(applicationFilter);
+        List<ApplicationVO> applicationVOs = queryApplicationPort.getByConditions(applicationFilter);
 
         return TeacherQueryApplicationsResponse.of(applicationVOs);
     }
@@ -40,7 +40,7 @@ public class TeacherQueryApplicationsUseCase {
     public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName) {
         return new TotalPageCountResponse(
             NumberUtil.getTotalPageCount(
-                queryApplicationPort.queryApplicationCountByCondition(applicationStatus, studentName), 11
+                queryApplicationPort.getCountByCondition(applicationStatus, studentName), 11
             )
         );
     }

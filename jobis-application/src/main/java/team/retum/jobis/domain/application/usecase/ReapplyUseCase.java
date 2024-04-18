@@ -20,8 +20,7 @@ public class ReapplyUseCase {
     private final CommandApplicationPort commandApplicationPort;
 
     public void execute(Long applicationId, List<AttachmentRequest> attachmentRequests) {
-        Application application = queryApplicationPort.queryApplicationById(applicationId)
-            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+        Application application = queryApplicationPort.getByIdOrThrow(applicationId);
 
         Application.checkApplicationStatus(
             application.getApplicationStatus(),
@@ -29,7 +28,7 @@ public class ReapplyUseCase {
         );
 
         commandApplicationPort.deleteAllAttachmentByApplicationId(applicationId);
-        commandApplicationPort.saveApplication(
+        commandApplicationPort.save(
             application.reapply(ApplicationAttachment.from(attachmentRequests))
         );
     }

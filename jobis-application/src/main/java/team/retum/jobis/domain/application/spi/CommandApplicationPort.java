@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface CommandApplicationPort {
 
-    Application saveApplication(Application application);
+    Application save(Application application);
 
-    void deleteApplicationByIds(List<Long> applicationIds);
+    void deleteByIds(List<Long> applicationIds);
 
-    void deleteApplication(Application application);
+    void delete(Application application);
 
-    void changeApplicationStatus(ApplicationStatus status, List<Long> applicationIds);
+    void updateApplicationStatus(ApplicationStatus status, List<Long> applicationIds);
 
     void updateFieldTrainDate(LocalDate startDate, LocalDate endDate, List<Long> applicationIds);
 
-    void saveAllApplications(List<Application> applications);
+    void saveAll(List<Application> applications);
 
     void deleteAllAttachmentByApplicationId(Long applicationId);
 }
