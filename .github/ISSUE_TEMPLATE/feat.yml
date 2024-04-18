@@ -1,0 +1,13 @@
+name: "Todo"
+description: "기능 추가/수정 또는 리펙토링을 진행합니다.✏️"
+labels: 기능 추가
+body:
+
+  - type: textarea
+    attributes:
+      label: Describe
+      description: |
+        [설명] 작업에 관한 설명을 작성해주세요.
+      placeholder: |
+        - [ ] <!-- 작업 내용 작성 -->
+        - [ ] <!-- 작업 내용 작성 -->

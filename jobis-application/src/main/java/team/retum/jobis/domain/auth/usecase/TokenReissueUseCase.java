@@ -23,10 +23,9 @@ public class TokenReissueUseCase {
 
     public TokenResponse execute(String refresh, PlatformType platformType, String deviceToken) {
         RefreshToken token = queryRefreshTokenPort.queryRefreshTokenByTokenAndPlatformType(refresh, platformType);
-        User user = queryUserPort.queryUserById(token.getUserId())
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        User user = queryUserPort.getByIdOrThrow(token.getUserId());
 
-        commandUserPort.saveUser(user.setToken(deviceToken));
+        commandUserPort.save(user.setToken(deviceToken));
 
         return jwtPort.generateTokens(token.getUserId(), token.getAuthority(), platformType);
     }

@@ -20,7 +20,7 @@ public class UpdateStudentPasswordUseCase {
 
         userChecker.checkPasswordMatch(currentPassword, user.getPassword());
 
-        commandUserPort.saveUser(
+        commandUserPort.save(
             user.updatePassword(securityPort.encodePassword(newPassword))
         );
     }

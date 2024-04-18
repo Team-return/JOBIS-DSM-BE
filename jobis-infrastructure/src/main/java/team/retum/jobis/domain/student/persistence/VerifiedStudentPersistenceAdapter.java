@@ -12,7 +12,7 @@ public class VerifiedStudentPersistenceAdapter implements VerifiedStudentPort {
     private final VerifiedStudentJpaRepository verifiedStudentJpaRepository;
 
     @Override
-    public void deleteVerifiedStudentByGcnAndName(String gcn, String name) {
+    public void deleteByGcnAndName(String gcn, String name) {
         verifiedStudentJpaRepository.deleteByGcnAndName(gcn, name);
     }
 

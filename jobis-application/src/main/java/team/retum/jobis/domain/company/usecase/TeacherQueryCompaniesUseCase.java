@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
@@ -32,8 +31,7 @@ public class TeacherQueryCompaniesUseCase {
             .region(region)
             .businessArea(
                 businessArea == null ? null :
-                    queryCodePort.queryCodeById(businessArea)
-                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+                    queryCodePort.getByIdOrThrow(businessArea)
                         .getKeyword()
             )
             .page(page)
@@ -66,8 +64,7 @@ public class TeacherQueryCompaniesUseCase {
             .region(region)
             .businessArea(
                 businessArea == null ? null :
-                    queryCodePort.queryCodeById(businessArea)
-                        .orElseThrow(() -> CodeNotFoundException.EXCEPTION)
+                    queryCodePort.getByIdOrThrow(businessArea)
                         .getKeyword()
             )
             .build();

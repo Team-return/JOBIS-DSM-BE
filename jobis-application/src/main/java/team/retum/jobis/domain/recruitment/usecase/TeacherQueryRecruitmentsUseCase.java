@@ -33,7 +33,16 @@ public class TeacherQueryRecruitmentsUseCase {
             .build();
 
         List<TeacherRecruitmentResponse> recruitments =
-            queryRecruitmentPort.queryTeacherRecruitmentsByFilter(filter).stream()
+            queryRecruitmentPort.getTeacherRecruitmentsBy(filter).stream()
+                .map(TeacherRecruitmentResponse::from)
+                .toList();
+
+        return new TeacherQueryRecruitmentsResponse(recruitments);
+    }
+
+    public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds) {
+        List<TeacherRecruitmentResponse> recruitments =
+            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(year, codeIds).stream()
                 .map(TeacherRecruitmentResponse::from)
                 .toList();
 
@@ -53,7 +62,7 @@ public class TeacherQueryRecruitmentsUseCase {
             .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
-            queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
+            queryRecruitmentPort.getCountBy(filter), filter.getLimit()
         );
 
         return new TotalPageCountResponse(totalPageCount);

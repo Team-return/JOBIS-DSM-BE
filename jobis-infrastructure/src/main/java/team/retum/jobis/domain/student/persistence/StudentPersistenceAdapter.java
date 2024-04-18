@@ -11,7 +11,6 @@ import team.retum.jobis.domain.student.persistence.repository.StudentJpaReposito
 import team.retum.jobis.domain.student.spi.StudentPort;
 
 import java.util.List;
-import java.util.Optional;
 
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
@@ -25,12 +24,6 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Optional<Student> queryStudentById(Long studentId) {
-        return studentJpaRepository.findById(studentId)
-            .map(studentMapper::toDomain);
-    }
-
-    @Override
     public boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear) {
         return studentJpaRepository.existsByGradeAndClassRoomAndNumberAndEntranceYear(
             schoolNumber.getGrade(),
@@ -41,7 +34,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public int queryStudentCountByGradeAndEntranceYear(int grade, int entranceYear) {
+    public int getCountByGradeAndEntranceYear(int grade, int entranceYear) {
         return studentJpaRepository.countByGradeAndEntranceYear(grade, entranceYear);
     }
 
@@ -53,7 +46,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public Long queryStudentCountByApplicationStatus(List<ApplicationStatus> statuses) {
+    public Long getCountByApplicationStatus(List<ApplicationStatus> statuses) {
         return queryFactory
             .select(studentEntity.countDistinct())
             .from(studentEntity)
@@ -67,7 +60,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public Student saveStudent(Student student) {
+    public Student save(Student student) {
         return studentMapper.toDomain(
             studentJpaRepository.save(studentMapper.toEntity(student))
         );

@@ -40,7 +40,7 @@ public class StudentQueryRecruitmentsUseCase {
             .build();
 
         List<StudentRecruitmentResponse> recruitments =
-            queryRecruitmentPort.queryStudentRecruitmentsByFilter(recruitmentFilter).stream()
+            queryRecruitmentPort.getStudentRecruitmentsBy(recruitmentFilter).stream()
                 .map(StudentRecruitmentResponse::from)
                 .toList();
 
@@ -61,7 +61,7 @@ public class StudentQueryRecruitmentsUseCase {
             .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
-            queryRecruitmentPort.getRecruitmentCountByFilter(filter), filter.getLimit()
+            queryRecruitmentPort.getCountBy(filter), filter.getLimit()
         );
 
         return new TotalPageCountResponse(totalPageCount);

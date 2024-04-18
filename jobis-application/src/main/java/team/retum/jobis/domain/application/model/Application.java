@@ -36,6 +36,8 @@ public class Application {
 
     private final LocalDateTime createdAt;
 
+    private final LocalDateTime updatedAt;
+
     public static void checkApplicationStatus(ApplicationStatus requestedStatus, ApplicationStatus... baseStatuses) {
         if (!List.of(baseStatuses).contains(requestedStatus)) {
             throw ApplicationStatusCannotChangeException.EXCEPTION;

@@ -37,7 +37,10 @@ public class QueryRecruitmentDetailResponse {
     private final Boolean isApplicable;
     private final boolean isBookmarked;
 
-    public static QueryRecruitmentDetailResponse of(RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas, Boolean isApplicable, boolean authority) {
+    public static QueryRecruitmentDetailResponse of(
+        RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas,
+        Boolean isApplicable, boolean authority
+    ) {
         return QueryRecruitmentDetailResponse.builder()
             .recruitmentId(recruitmentDetail.getRecruitmentId())
             .companyId(recruitmentDetail.getCompanyId())

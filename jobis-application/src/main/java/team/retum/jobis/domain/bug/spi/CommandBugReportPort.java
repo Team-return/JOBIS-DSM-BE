@@ -4,5 +4,5 @@ import team.retum.jobis.domain.bug.model.BugReport;
 
 public interface CommandBugReportPort {
 
-    BugReport saveBugReport(BugReport bugReport);
+    BugReport save(BugReport bugReport);
 }

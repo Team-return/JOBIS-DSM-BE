@@ -20,7 +20,6 @@ public class User {
 
     private final String token;
 
-
     public User updatePassword(String password) {
         return this.toBuilder()
             .password(password)

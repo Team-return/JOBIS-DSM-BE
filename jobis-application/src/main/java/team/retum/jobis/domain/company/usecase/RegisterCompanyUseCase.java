@@ -7,7 +7,6 @@ import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.spi.JwtPort;
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.company.dto.request.RegisterCompanyRequest;
@@ -31,8 +30,7 @@ public class RegisterCompanyUseCase {
         checkCompanyExists(request.businessNumber());
         checkCompanyRegistered(request.businessNumber());
 
-        Code code = queryCodePort.queryCodeById(request.businessAreaCode())
-            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+        Code code = queryCodePort.getByIdOrThrow(request.businessAreaCode());
 
         Company savedCompany = commandCompanyPort.saveCompany(
             Company.of(request, code.getKeyword())

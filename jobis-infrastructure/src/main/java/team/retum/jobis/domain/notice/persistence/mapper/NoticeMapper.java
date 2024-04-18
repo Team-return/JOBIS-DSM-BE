@@ -16,12 +16,7 @@ import java.util.List;
 @Component
 public class NoticeMapper {
 
-    private final NotificationJpaRepository notificationJpaRepository;
-
     public NoticeEntity toEntity(Notice domain) {
-        NotificationEntity notification = notificationJpaRepository.findById(domain.getNotificationId())
-            .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
-
         List<NoticeAttachmentEntity> attachments = domain.getAttachments().stream()
             .map(attachment -> new NoticeAttachmentEntity(attachment.getUrl(), attachment.getType()))
             .toList();
@@ -30,8 +25,6 @@ public class NoticeMapper {
             .id(domain.getId())
             .title(domain.getTitle())
             .content(domain.getContent())
-            .notificationEntity(notification)
-            .createdAt(domain.getCreatedAt())
             .attachments(attachments)
             .build();
     }
@@ -45,7 +38,6 @@ public class NoticeMapper {
             .id(entity.getId())
             .title(entity.getTitle())
             .content(entity.getContent())
-            .notificationId(entity.getNotification().getId())
             .createdAt(entity.getCreatedAt())
             .attachments(attachments)
             .build();

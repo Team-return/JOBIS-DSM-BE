@@ -4,25 +4,21 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.recruitment.checker.RecruitmentChecker;
 import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
-import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
-import team.retum.jobis.domain.recruitment.spi.CommandRecruitmentPort;
-import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
+import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 
 @RequiredArgsConstructor
 @UseCase
 public class UpdateRecruitmentUseCase {
 
-    private final QueryRecruitmentPort queryRecruitmentPort;
-    private final CommandRecruitmentPort commandRecruitmentPort;
+    private final RecruitmentPort recruitmentPort;
     private final RecruitmentChecker recruitmentChecker;
 
     public void execute(UpdateRecruitmentRequest request, Long recruitmentId) {
-        Recruitment recruitment = queryRecruitmentPort.queryRecruitmentById(recruitmentId)
-            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+        Recruitment recruitment = recruitmentPort.getByIdOrThrow(recruitmentId);
 
         recruitmentChecker.checkPermission(recruitment);
 
-        commandRecruitmentPort.saveRecruitment(recruitment.update(request));
+        recruitmentPort.save(recruitment.update(request));
     }
 }

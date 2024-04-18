@@ -54,11 +54,11 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/recruitments/student").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/student/count").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/{recruitment-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name(), COMPANY.name())
-                    .requestMatchers(HttpMethod.GET, "/recruitments/teacher").hasAuthority(TEACHER.name())
-                    .requestMatchers(HttpMethod.GET, "/recruitments/teacher/count").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/recruitments/teacher/**").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.PATCH, "/recruitments/status").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name(), COMPANY.name())
+                    .requestMatchers(HttpMethod.GET, "/recruitments/file").hasAuthority(TEACHER.name())
 
                     // bugs
                     .requestMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
@@ -156,6 +156,8 @@ public class SecurityConfig {
                     // notification
                     .requestMatchers(HttpMethod.GET, "/notifications").authenticated()
                     .requestMatchers(HttpMethod.PATCH, "/notifications/{notification-id}").authenticated()
+                    .requestMatchers(HttpMethod.POST, "/notifications/topic").authenticated()
+                    .requestMatchers(HttpMethod.DELETE, "/notifications/topic").authenticated()
                     .anyRequest().authenticated()
 
             )

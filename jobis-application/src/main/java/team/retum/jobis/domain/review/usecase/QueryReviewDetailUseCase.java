@@ -13,7 +13,7 @@ public class QueryReviewDetailUseCase {
 
     public QueryReviewDetailResponse execute(Long reviewId) {
         return new QueryReviewDetailResponse(
-            queryReviewPort.queryAllQnAsByReviewId(reviewId)
+            queryReviewPort.getAllQnAsByReviewId(reviewId)
         );
     }
 }

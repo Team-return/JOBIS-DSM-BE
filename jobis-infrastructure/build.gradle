@@ -66,6 +66,10 @@ dependencies {
     // cache
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 
+    //excel
+    implementation 'org.apache.poi:poi:5.2.5'
+    implementation 'org.apache.poi:poi-ooxml:5.2.5'
+
 }
 
 jar.enabled = false

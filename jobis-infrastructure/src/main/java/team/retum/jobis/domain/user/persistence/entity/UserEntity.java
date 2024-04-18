@@ -49,5 +49,4 @@ public class UserEntity extends BaseTimeEntity {
         this.authority = authority;
         this.token = token;
     }
-
 }

@@ -9,6 +9,7 @@ import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface QueryCompanyPort {
@@ -34,4 +35,6 @@ public interface QueryCompanyPort {
     boolean existsCompanyById(Long companyId);
 
     List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId);
+
+    Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
 }

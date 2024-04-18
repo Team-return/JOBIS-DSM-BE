@@ -21,6 +21,7 @@ import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .join(applicationEntity.student, studentEntity)
             .join(applicationEntity.recruitment, recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
-            .leftJoin(applicationEntity.attachments, applicationAttachmentEntity)
+            .leftJoin(applicationEntity.applicationAttachments, applicationAttachmentEntity)
             .where(
                 eqRecruitmentId(applicationFilter.getRecruitmentId()),
                 eqStudentId(applicationFilter.getStudentId()),
@@ -59,7 +60,10 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 containStudentName(applicationFilter.getStudentName()),
                 eqYear(applicationFilter.getYear())
             )
-            .orderBy(applicationEntity.createdAt.desc())
+            .orderBy(
+                applicationEntity.updatedAt.desc(),
+                applicationEntity.createdAt.desc()
+            )
             .transform(
                 groupBy(applicationEntity.id)
                     .list(
@@ -248,6 +252,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         queryFactory
             .update(applicationEntity)
             .set(applicationEntity.applicationStatus, status)
+            .set(applicationEntity.updatedAt, LocalDateTime.now())
             .where(applicationEntity.id.in(applicationIds))
             .execute();
     }
@@ -295,6 +300,13 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .map(applicationMapper::toEntity)
                 .toList()
         );
+    }
+
+    @Override
+    public void deleteAllAttachmentByApplicationId(Long applicationId) {
+        queryFactory.delete(applicationAttachmentEntity)
+            .where(applicationAttachmentEntity.application.id.eq(applicationId))
+            .execute();
     }
 
     //==conditions==//

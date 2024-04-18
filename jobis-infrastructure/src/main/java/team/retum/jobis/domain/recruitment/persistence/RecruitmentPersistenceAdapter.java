@@ -7,22 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
-import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeEntity;
-import team.retum.jobis.domain.code.persistence.entity.RecruitAreaCodeId;
-import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
-import team.retum.jobis.domain.code.persistence.repository.RecruitAreaCodeJpaRepository;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
-import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
-import team.retum.jobis.domain.recruitment.model.RecruitArea;
+import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
-import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
-import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitAreaMapper;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitmentMapper;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpaRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryMyAllRecruitmentsVO;
-import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitAreaVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryStudentRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryTeacherRecruitmentsVO;
@@ -34,9 +26,7 @@ import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
@@ -55,14 +45,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private final JPAQueryFactory queryFactory;
     private final RecruitmentJpaRepository recruitmentJpaRepository;
-    private final RecruitAreaCodeJpaRepository recruitAreaCodeJpaRepository;
     private final RecruitAreaJpaRepository recruitAreaJpaRepository;
     private final RecruitmentMapper recruitmentMapper;
-    private final RecruitAreaMapper recruitAreaMapper;
-    private final CodeJpaRepository codeJpaRepository;
 
     @Override
-    public List<StudentRecruitmentVO> queryStudentRecruitmentsByFilter(RecruitmentFilter filter) {
+    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(RecruitmentFilter filter) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         return queryFactory
             .select(
@@ -108,7 +95,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public List<TeacherRecruitmentVO> queryTeacherRecruitmentsByFilter(RecruitmentFilter filter) {
+    public List<TeacherRecruitmentVO> getTeacherRecruitmentsBy(RecruitmentFilter filter) {
         QApplicationEntity requestedApplication = new QApplicationEntity("requestedApplication");
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
@@ -166,45 +153,101 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public RecruitmentDetailVO queryRecruitmentDetailByIdAndStudentId(Long recruitmentId, Long studentId) {
+    public List<TeacherRecruitmentVO> getTeacherRecruitmentsByYearAndCodeIds(Integer year, List<Long> codeIds) {
+        QApplicationEntity requestedApplication = new QApplicationEntity("requestedApplication");
+        QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
+
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         return queryFactory
             .select(
-                new QQueryRecruitmentDetailVO(
+                new QQueryTeacherRecruitmentsVO(
                     recruitmentEntity.id,
-                    companyEntity.id,
-                    companyEntity.companyLogoUrl,
-                    companyEntity.name,
-                    recruitmentEntity.requiredGrade,
-                    recruitmentEntity.workingHours,
-                    recruitmentEntity.flexibleWorking,
-                    recruitmentEntity.requiredLicenses,
-                    recruitmentEntity.hiringProgress,
-                    recruitmentEntity.payInfo.trainPay,
-                    recruitmentEntity.payInfo.pay,
-                    recruitmentEntity.benefits,
-                    recruitmentEntity.militarySupport,
-                    recruitmentEntity.submitDocument,
+                    recruitmentEntity.status,
                     recruitmentEntity.recruitDate.startDate,
                     recruitmentEntity.recruitDate.finishDate,
-                    recruitmentEntity.etc,
-                    companyEntity.bizNo,
-                    recruitmentEntity.winterIntern,
-                    bookmarkEntity.isNotNull()
+                    companyEntity.name,
+                    companyEntity.type,
+                    recruitJobsPath,
+                    recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
+                    requestedApplication.countDistinct(),
+                    approvedApplication.countDistinct(),
+                    companyEntity.id
                 )
             )
             .from(recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
-            .leftJoin(bookmarkEntity)
+            .join(recruitAreaEntity)
+            .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+            .join(recruitAreaCodeEntity)
             .on(
-                recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
-                bookmarkEntity.student.id.eq(studentId)
+                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                recruitAreaCodeEntity.type.eq(JOB)
             )
-            .where(recruitmentEntity.id.eq(recruitmentId))
-            .fetchOne();
+            .join(recruitAreaCodeEntity.code, codeEntity)
+            .leftJoin(requestedApplication)
+            .on(
+                requestedApplication.recruitment.id.eq(recruitmentEntity.id),
+                requestedApplication.applicationStatus.eq(ApplicationStatus.REQUESTED)
+            )
+            .leftJoin(approvedApplication)
+            .on(
+                approvedApplication.recruitment.id.eq(recruitmentEntity.id),
+                approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED)
+            )
+            .where(
+                eqYear(year),
+                containsCodes(codeIds)
+            )
+            .orderBy(recruitmentEntity.createdAt.desc())
+            .groupBy(recruitmentEntity.id)
+            .fetch().stream()
+            .map(TeacherRecruitmentVO.class::cast)
+            .toList();
     }
 
     @Override
-    public Long getRecruitmentCountByFilter(RecruitmentFilter filter) {
+    public RecruitmentDetailVO getByIdAndStudentIdOrThrow(Long recruitmentId, Long studentId) {
+        return Optional.ofNullable(
+                queryFactory
+                    .select(
+                        new QQueryRecruitmentDetailVO(
+                            recruitmentEntity.id,
+                            companyEntity.id,
+                            companyEntity.companyLogoUrl,
+                            companyEntity.name,
+                            recruitmentEntity.requiredGrade,
+                            recruitmentEntity.workingHours,
+                            recruitmentEntity.flexibleWorking,
+                            recruitmentEntity.requiredLicenses,
+                            recruitmentEntity.hiringProgress,
+                            recruitmentEntity.payInfo.trainPay,
+                            recruitmentEntity.payInfo.pay,
+                            recruitmentEntity.benefits,
+                            recruitmentEntity.militarySupport,
+                            recruitmentEntity.submitDocument,
+                            recruitmentEntity.recruitDate.startDate,
+                            recruitmentEntity.recruitDate.finishDate,
+                            recruitmentEntity.etc,
+                            companyEntity.bizNo,
+                            recruitmentEntity.winterIntern,
+                            bookmarkEntity.isNotNull()
+                        )
+                    )
+                    .from(recruitmentEntity)
+                    .join(recruitmentEntity.company, companyEntity)
+                    .leftJoin(bookmarkEntity)
+                    .on(
+                        recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
+                        bookmarkEntity.student.id.eq(studentId)
+                    )
+                    .where(recruitmentEntity.id.eq(recruitmentId))
+                    .fetchOne()
+            )
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
+    }
+
+    @Override
+    public Long getCountBy(RecruitmentFilter filter) {
         if (filter.getCodes().isEmpty()) {
             return queryFactory
                 .select(recruitmentEntity.count())
@@ -243,69 +286,28 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public List<RecruitAreaResponse> queryRecruitAreasByRecruitmentId(Long recruitmentId) {
-        return queryFactory
-            .selectFrom(recruitAreaEntity)
-            .join(recruitAreaCodeEntity)
-            .on(recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id))
-            .join(recruitAreaCodeEntity.code, codeEntity)
-            .where(recruitAreaEntity.recruitment.id.eq(recruitmentId))
-            .transform(
-                groupBy(recruitAreaEntity.id)
-                    .list(
-                        new QQueryRecruitAreaVO(
-                            recruitAreaEntity.id,
-                            recruitAreaEntity.hiredCount,
-                            recruitAreaEntity.majorTask,
-                            recruitAreaEntity.preferentialTreatment,
-                            list(codeEntity)
-                        )
-                    )
-            ).stream()
-            .map(RecruitAreaResponse.class::cast)
-            .toList();
+    public Recruitment getRecentByCompanyIdOrThrow(Long companyId) {
+        return recruitmentMapper.toDomain(
+            Optional.ofNullable(
+                    queryFactory
+                        .selectFrom(recruitmentEntity)
+                        .where(recruitmentEntity.company.id.eq(companyId))
+                        .orderBy(recruitmentEntity.createdAt.desc())
+                        .fetchFirst()
+                )
+                .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION)
+        );
     }
 
     @Override
-    public Optional<Recruitment> queryRecentRecruitmentByCompanyId(Long companyId) {
-        return Optional.ofNullable(
-                queryFactory
-                    .selectFrom(recruitmentEntity)
-                    .where(recruitmentEntity.company.id.eq(companyId))
-                    .orderBy(recruitmentEntity.createdAt.desc())
-                    .fetchFirst()
-            )
-            .map(recruitmentMapper::toDomain);
-    }
-
-    @Override
-    public List<Recruitment> queryAllRecruitments() {
+    public List<Recruitment> getAll() {
         return recruitmentJpaRepository.findAll().stream()
             .map(recruitmentMapper::toDomain)
             .toList();
     }
 
     @Override
-    public Optional<RecruitArea> queryRecruitmentAreaById(Long recruitAreaId) {
-        return recruitAreaJpaRepository.findById(recruitAreaId).map(recruitAreaMapper::toDomain);
-    }
-
-    @Override
-    public Long queryRecruitmentAreaCountByRecruitmentId(Long recruitmentId) {
-        return queryFactory
-            .select(recruitAreaEntity.count())
-            .from(recruitAreaEntity)
-            .where(recruitAreaEntity.recruitment.id.eq(recruitmentId))
-            .fetchOne();
-    }
-
-    @Override
-    public void deleteRecruitAreaById(Long recruitAreaId) {
-        recruitAreaJpaRepository.deleteById(recruitAreaId);
-    }
-
-    @Override
-    public void saveAllRecruitments(List<Recruitment> recruitments) {
+    public void saveAll(List<Recruitment> recruitments) {
         recruitmentJpaRepository.saveAll(
             recruitments.stream()
                 .map(recruitmentMapper::toEntity)
@@ -314,12 +316,19 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public Optional<Recruitment> queryRecruitmentById(Long recruitmentId) {
-        return recruitmentJpaRepository.findById(recruitmentId).map(recruitmentMapper::toDomain);
+    public Recruitment getByIdOrThrow(Long recruitmentId) {
+        return this.getById(recruitmentId)
+            .orElseThrow(() -> RecruitmentNotFoundException.EXCEPTION);
     }
 
     @Override
-    public void deleteRecruitment(Recruitment recruitment) {
+    public Optional<Recruitment> getById(Long recruitmentId) {
+        return recruitmentJpaRepository.findById(recruitmentId)
+            .map(recruitmentMapper::toDomain);
+    }
+
+    @Override
+    public void delete(Recruitment recruitment) {
         recruitAreaJpaRepository.deleteByRecruitmentId(recruitment.getId());
         recruitmentJpaRepository.delete(
             recruitmentMapper.toEntity(recruitment)
@@ -327,68 +336,30 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public Recruitment saveRecruitment(Recruitment recruitment) {
+    public Recruitment save(Recruitment recruitment) {
         return recruitmentMapper.toDomain(
             recruitmentJpaRepository.save(recruitmentMapper.toEntity(recruitment))
         );
     }
 
-    @Override
-    public RecruitArea saveRecruitmentArea(RecruitArea recruitArea) {
-        RecruitAreaEntity recruitAreaEntity = recruitAreaJpaRepository.save(
-            recruitAreaMapper.toEntity(recruitArea)
-        );
-
-        List<RecruitAreaCodeEntity> recruitAreaCodeEntities = codeJpaRepository.findCodesByCodeIn(
-                recruitArea.getCodes().values().stream()
-                    .flatMap(Collection::stream)
-                    .toList()
-            ).stream()
-            .map(code ->
-                new RecruitAreaCodeEntity(
-                    new RecruitAreaCodeId(recruitAreaEntity.getId(), code.getCode()),
-                    recruitAreaEntity,
-                    code,
-                    code.getType()
-                )
-            )
-            .toList();
-        recruitAreaCodeJpaRepository.deleteAllByRecruitAreaId(recruitArea.getId());
-        recruitAreaCodeJpaRepository.saveAll(recruitAreaCodeEntities);
-
-        return recruitAreaMapper.toDomain(recruitAreaEntity);
-    }
-
-    @Override
-    public void saveAllRecruitmentAreas(List<RecruitArea> recruitAreas) {
-        recruitAreas.forEach(this::saveRecruitmentArea);
-    }
-
-    public List<Recruitment> queryRecruitmentsByIdIn(List<Long> recruitmentIds) {
-        return recruitmentJpaRepository.findByIdIn(recruitmentIds).stream()
+    public List<Recruitment> getAllByIdInOrThrow(List<Long> recruitmentIds) {
+        List<Recruitment> result = recruitmentJpaRepository.findByIdIn(recruitmentIds).stream()
             .map(recruitmentMapper::toDomain)
             .toList();
+        if (result.size() != recruitmentIds.size()) {
+            throw RecruitmentNotFoundException.EXCEPTION;
+        }
+
+        return result;
     }
 
     @Override
-    public boolean existsOnRecruitmentByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
+    public boolean existsByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
         return recruitmentJpaRepository.existsByCompanyIdAndStatusNotAndWinterIntern(companyId, RecruitStatus.DONE, winterIntern);
     }
 
     @Override
-    public Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds) {
-        return queryFactory
-            .selectFrom(recruitmentEntity)
-            .join(recruitmentEntity.company, companyEntity)
-            .where(recruitmentEntity.id.in(recruitmentIds))
-            .transform(
-                groupBy(recruitmentEntity.id)
-                    .as(companyEntity.name)
-            );
-    }
-
-    @Override
-    public List<MyAllRecruitmentsVO> queryMyAllRecruitmentsVOByCompanyId(Long companyId) {
+    public List<MyAllRecruitmentsVO> getAllByCompanyId(Long companyId) {
         return queryFactory
             .selectFrom(recruitmentEntity)
             .join(recruitAreaEntity)
