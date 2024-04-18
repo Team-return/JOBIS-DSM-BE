@@ -13,7 +13,7 @@ public class CreateBannerUseCase {
     private final CommandBannerPort commandBannerPort;
 
     public void execute(CreateBannerRequest request) {
-        commandBannerPort.saveBanner(
+        commandBannerPort.save(
             Banner.builder()
                 .bannerUrl(request.getBannerUrl())
                 .bannerType(request.getBannerType())

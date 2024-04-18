@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.banner.exception.BannerNotFoundException;
 import team.retum.jobis.domain.banner.model.Banner;
 import team.retum.jobis.domain.banner.persistence.mapper.BannerMapper;
 import team.retum.jobis.domain.banner.persistence.repository.BannerJpaRepository;
@@ -15,7 +16,6 @@ import team.retum.jobis.domain.banner.spi.vo.TeacherBannersVO;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static team.retum.jobis.domain.banner.persistence.entity.QBannerEntity.bannerEntity;
 
@@ -29,7 +29,7 @@ public class BannerPersistenceAdapter implements BannerPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public void saveBanner(Banner banner) {
+    public void save(Banner banner) {
         bannerMapper.toDomain(
             bannerJpaRepository.save(
                 bannerMapper.toEntity(banner)
@@ -38,18 +38,19 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public void deleteBanner(Banner banner) {
+    public void delete(Banner banner) {
         bannerJpaRepository.delete(bannerMapper.toEntity(banner));
     }
 
     @Override
-    public Optional<Banner> queryBannerById(Long bannerId) {
+    public Banner getByIdOrThrow(Long bannerId) {
         return bannerJpaRepository.findById(bannerId)
-            .map(bannerMapper::toDomain);
+            .map(bannerMapper::toDomain)
+            .orElseThrow(() -> BannerNotFoundException.EXCEPTION);
     }
 
     @Override
-    public List<BannerVO> queryCurrentBanners() {
+    public List<BannerVO> getCurrentBanners() {
         LocalDate today = LocalDate.now();
         return queryFactory
             .select(
@@ -70,7 +71,7 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public List<TeacherBannersVO> queryBanners(boolean isOpened) {
+    public List<TeacherBannersVO> getByIsOpened(boolean isOpened) {
         return queryFactory
             .select(
                 new QQueryTeacherBannersVO(
