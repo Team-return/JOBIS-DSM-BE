@@ -25,7 +25,7 @@ public class AcceptancePersistenceAdapter implements AcceptancePort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<AcceptanceVO> queryAcceptancesByCompanyIdAndYear(Long companyId, Integer year) {
+    public List<AcceptanceVO> getByCompanyIdAndYear(Long companyId, Integer year) {
         return queryFactory
             .select(
                 new QQueryAcceptanceVO(
@@ -57,7 +57,7 @@ public class AcceptancePersistenceAdapter implements AcceptancePort {
     }
 
     @Override
-    public void saveAllAcceptance(List<Acceptance> acceptances) {
+    public void saveAll(List<Acceptance> acceptances) {
         acceptanceJpaRepository.saveAll(
             acceptances.stream()
                 .map(acceptanceMapper::toEntity)

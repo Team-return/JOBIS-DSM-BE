@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface QueryAcceptancePort {
 
-    List<AcceptanceVO> queryAcceptancesByCompanyIdAndYear(Long companyId, Integer year);
-
+    List<AcceptanceVO> getByCompanyIdAndYear(Long companyId, Integer year);
 }

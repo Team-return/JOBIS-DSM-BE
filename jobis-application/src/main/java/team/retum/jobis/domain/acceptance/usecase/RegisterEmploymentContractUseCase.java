@@ -48,7 +48,7 @@ public class RegisterEmploymentContractUseCase {
                 }
             ).toList();
 
-        commandAcceptancePort.saveAllAcceptance(acceptances);
+        commandAcceptancePort.saveAll(acceptances);
         commandApplicationPort.changeApplicationStatus(
             ApplicationStatus.ACCEPTANCE,
             applications.stream().map(ApplicationDetailVO::getId).toList()
