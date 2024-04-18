@@ -6,7 +6,6 @@ import team.retum.jobis.domain.bug.model.BugAttachment;
 import team.retum.jobis.domain.bug.model.BugReport;
 import team.retum.jobis.domain.bug.persistence.entity.BugAttachmentEntity;
 import team.retum.jobis.domain.bug.persistence.entity.BugReportEntity;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
@@ -19,8 +18,7 @@ public class BugReportMapper {
     private final StudentJpaRepository studentJpaRepository;
 
     public BugReportEntity toEntity(BugReport domain) {
-        StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        StudentEntity student = studentJpaRepository.getReferenceById(domain.getStudentId());
 
         List<BugAttachmentEntity> bugAttachments = domain.getAttachment().attachmentUrls().stream()
             .map(BugAttachmentEntity::new)

@@ -2,10 +2,8 @@ package team.retum.jobis.domain.review.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
-import team.retum.jobis.domain.review.exception.ReviewNotFoundException;
 import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.persistence.entity.QnAEntity;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
@@ -19,10 +17,9 @@ public class QnAMapper {
     private final ReviewJpaRepository reviewJpaRepository;
 
     public QnAEntity toEntity(QnA domain) {
-        ReviewEntity review = reviewJpaRepository.findById(domain.getReviewId())
-            .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
-        CodeEntity code = codeJpaRepository.findById(domain.getCodeId())
-            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+        ReviewEntity review = reviewJpaRepository.getReferenceById(domain.getReviewId());
+        CodeEntity code = codeJpaRepository.getReferenceById(domain.getCodeId());
+
         return QnAEntity.builder()
             .id(domain.getId())
             .question(domain.getQuestion())

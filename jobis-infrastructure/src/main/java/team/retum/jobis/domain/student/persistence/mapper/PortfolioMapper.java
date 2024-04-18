@@ -2,7 +2,6 @@ package team.retum.jobis.domain.student.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.Portfolio;
 import team.retum.jobis.domain.student.persistence.entity.PortfolioEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
@@ -15,8 +14,7 @@ public class PortfolioMapper {
     private final StudentJpaRepository studentJpaRepository;
 
     public PortfolioEntity toEntity(Portfolio domain) {
-        StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        StudentEntity student = studentJpaRepository.getReferenceById(domain.getStudentId());
 
         return PortfolioEntity.builder()
             .studentEntity(student)

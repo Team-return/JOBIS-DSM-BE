@@ -2,12 +2,10 @@ package team.retum.jobis.domain.review.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
@@ -19,10 +17,9 @@ public class ReviewMapper {
     private final StudentJpaRepository studentJpaRepository;
 
     public ReviewEntity toEntity(Review domain) {
-        CompanyEntity companyEntity = companyJpaRepository.findById(domain.getCompanyId())
-            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-        StudentEntity studentEntity = studentJpaRepository.findById(domain.getStudentId())
-            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        CompanyEntity companyEntity = companyJpaRepository.getReferenceById(domain.getCompanyId());
+        StudentEntity studentEntity = studentJpaRepository.getReferenceById(domain.getStudentId());
+
         return ReviewEntity.builder()
             .id(domain.getId())
             .companyEntity(companyEntity)

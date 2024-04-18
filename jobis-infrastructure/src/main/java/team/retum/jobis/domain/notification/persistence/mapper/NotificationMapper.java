@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.persistence.entity.NotificationEntity;
-import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 
@@ -15,14 +14,13 @@ public class NotificationMapper {
     private final UserJpaRepository userJpaRepository;
 
     public NotificationEntity toEntity(Notification notification) {
-        UserEntity userEntity = userJpaRepository.findById(notification.getUserId())
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        UserEntity user = userJpaRepository.getReferenceById(notification.getUserId());
 
         return NotificationEntity.builder()
             .id(notification.getId())
             .title(notification.getTitle())
             .content(notification.getContent())
-            .userEntity(userEntity)
+            .userEntity(user)
             .detailId(notification.getDetailId())
             .topic(notification.getTopic())
             .authority(notification.getAuthority())

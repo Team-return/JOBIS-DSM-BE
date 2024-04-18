@@ -38,15 +38,14 @@ public class RecruitAreaPersistenceAdapter implements RecruitAreaPort {
     public void saveAll(List<RecruitArea> recruitAreas) {
         recruitAreaJpaRepository.saveAll(
             recruitAreas.stream()
-                .map(recruitAreaMapper::toEntity).toList()
+                .map(recruitAreaMapper::toEntity)
+                .toList()
         );
     }
 
     @Override
     public void delete(RecruitArea recruitArea) {
-        recruitAreaJpaRepository.delete(
-            recruitAreaMapper.toEntity(recruitArea)
-        );
+        recruitAreaJpaRepository.deleteById(recruitArea.getId());
     }
 
     @Override

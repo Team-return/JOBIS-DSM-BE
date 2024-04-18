@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.persistence.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,8 +46,8 @@ public class RecruitAreaEntity {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private RecruitmentEntity recruitment;
 
-    @OneToMany(mappedBy = "recruitArea", orphanRemoval = true)
-    private final List<RecruitAreaCodeEntity> recruitAreaCodes = new ArrayList<>();
+    @OneToMany(mappedBy = "recruitArea", cascade = CascadeType.ALL)
+    private List<RecruitAreaCodeEntity> recruitAreaCodes = new ArrayList<>();
 
     @Builder
     public RecruitAreaEntity(Long id, Integer hiredCount, String majorTask, String preferentialTreatment,
@@ -57,4 +58,9 @@ public class RecruitAreaEntity {
         this.preferentialTreatment = preferentialTreatment;
         this.recruitment = recruitmentEntity;
     }
+
+    public void addRecruitAreaCode(RecruitAreaCodeEntity recruitAreaCodeEntity) {
+        recruitAreaCodes.add(recruitAreaCodeEntity);
+    }
+
 }

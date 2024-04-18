@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.acceptance.model.Acceptance;
 import team.retum.jobis.domain.acceptance.persistence.entity.AcceptanceEntity;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
-import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 
@@ -19,10 +17,8 @@ public class AcceptanceMapper {
     private final StudentJpaRepository studentJpaRepository;
 
     public AcceptanceEntity toEntity(Acceptance domain) {
-        CompanyEntity company = companyJpaRepository.findById(domain.getCompanyId())
-            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-        StudentEntity student = studentJpaRepository.findById(domain.getStudentId())
-            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+        CompanyEntity company = companyJpaRepository.getReferenceById(domain.getCompanyId());
+        StudentEntity student = studentJpaRepository.getReferenceById(domain.getStudentId());
 
         return AcceptanceEntity.builder()
             .id(domain.getId())

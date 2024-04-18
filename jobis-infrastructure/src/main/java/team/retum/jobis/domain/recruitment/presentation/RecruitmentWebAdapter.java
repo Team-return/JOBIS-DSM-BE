@@ -49,6 +49,7 @@ import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import team.retum.jobis.global.exception.BadRequestException;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -228,7 +229,7 @@ public class RecruitmentWebAdapter {
 
     private void setExcelContentDisposition(HttpServletResponse response, String fileName) {
         try {
-            String encodedFileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+            String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + ".xlsx\"");
         } catch (Exception e) {
             throw new BadRequestException();

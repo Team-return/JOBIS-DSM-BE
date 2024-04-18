@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
-import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 
@@ -16,8 +15,7 @@ public class StudentMapper {
     private final UserJpaRepository userJpaRepository;
 
     public StudentEntity toEntity(Student domain) {
-        UserEntity user = userJpaRepository.findById(domain.getId())
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        UserEntity user = userJpaRepository.getReferenceById(domain.getId());
 
         return StudentEntity.builder()
             .id(domain.getId())

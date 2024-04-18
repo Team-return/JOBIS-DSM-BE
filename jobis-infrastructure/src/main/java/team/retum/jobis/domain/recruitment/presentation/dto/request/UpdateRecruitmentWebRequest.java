@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.recruitment.dto.request.UpdateRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
+import team.retum.jobis.global.exception.BadRequestException;
+import team.retum.jobis.global.util.RegexProperty;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Getter
 @NoArgsConstructor
@@ -50,6 +53,10 @@ public class UpdateRecruitmentWebRequest {
     private String etc;
 
     public UpdateRecruitmentRequest toDomainRequest() {
+        if (!flexibleWorking && !Pattern.matches(RegexProperty.WORKING_HOURS, workingHours)) {
+            throw BadRequestException.EXCEPTION;
+        }
+
         return UpdateRecruitmentRequest.builder()
             .requiredGrade(this.requiredGrade)
             .workingHours(this.workingHours)

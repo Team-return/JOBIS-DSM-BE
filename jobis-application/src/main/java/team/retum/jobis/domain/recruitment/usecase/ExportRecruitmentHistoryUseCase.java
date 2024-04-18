@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class ExportRecruitmentHistoryUseCase {
+
     private final WriteFilePort writeFilePort;
     private final QueryRecruitmentPort queryRecruitmentPort;
 
