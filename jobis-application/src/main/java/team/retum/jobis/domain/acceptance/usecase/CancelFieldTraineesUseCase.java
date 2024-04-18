@@ -18,7 +18,7 @@ public class CancelFieldTraineesUseCase {
     private final CommandApplicationPort commandApplicationPort;
 
     public void execute(List<Long> applicationIds) {
-        List<Application> applications = applicationRepository.queryApplicationsByIds(applicationIds);
+        List<Application> applications = applicationRepository.getByIds(applicationIds);
 
         if (applicationIds.size() != applications.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
@@ -31,7 +31,7 @@ public class CancelFieldTraineesUseCase {
             )
         );
 
-        commandApplicationPort.changeApplicationStatus(
+        commandApplicationPort.updateApplicationStatus(
             ApplicationStatus.PASS,
             applicationIds
         );

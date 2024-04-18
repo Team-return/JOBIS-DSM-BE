@@ -21,7 +21,7 @@ public class TeacherQueryFieldTraineesAndContractWorkersUseCase {
     private final QueryAcceptancePort queryAcceptancePort;
 
     public TeacherQueryFieldTraineesAndContractWorkersResponse execute(Long companyId) {
-        List<FieldTraineesVO> fieldTrainees = queryApplicationPort.queryApplicationsFieldTraineesByCompanyId(companyId);
+        List<FieldTraineesVO> fieldTrainees = queryApplicationPort.getApplicationsFieldTraineesByCompanyId(companyId);
         List<AcceptanceVO> acceptances = queryAcceptancePort.getByCompanyIdAndYear(companyId, Year.now().getValue());
 
         return new TeacherQueryFieldTraineesAndContractWorkersResponse(

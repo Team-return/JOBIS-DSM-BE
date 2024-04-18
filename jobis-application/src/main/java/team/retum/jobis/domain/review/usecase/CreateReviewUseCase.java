@@ -33,8 +33,7 @@ public class CreateReviewUseCase {
 
         checkReviewExists(companyId, student.getId());
 
-        queryApplicationPort.queryApplicationByCompanyIdAndStudentId(company.getId(), student.getId())
-            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION)
+        queryApplicationPort.getByCompanyIdAndStudentIdOrThrow(company.getId(), student.getId())
             .checkReviewAuthority();
 
         Review review = reviewPort.save(
