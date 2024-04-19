@@ -9,5 +9,5 @@ public interface CommandAcceptancePort {
 
     void updateContractDate(LocalDate contractDate, List<Long> acceptanceIds);
 
-    void saveAll(List<Acceptance> acceptanceEntities);
+    void saveAll(List<Acceptance> acceptances);
 }
