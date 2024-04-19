@@ -21,11 +21,7 @@ public class ChangeApplicationsStatusUseCase {
     private final PublishEventPort publishEventPort;
 
     public void execute(List<Long> applicationIds, ApplicationStatus status) {
-        List<Application> applications = queryApplicationPort.getByIds(applicationIds);
-
-        if (applicationIds.size() != applications.size()) {
-            throw ApplicationNotFoundException.EXCEPTION;
-        }
+        List<Application> applications = queryApplicationPort.getByIdsOrThrow(applicationIds);
 
         commandApplicationPort.updateApplicationStatus(status, applicationIds);
         publishEventPort.publishEvent(new ApplicationsStatusChangedEvent(applications, status));

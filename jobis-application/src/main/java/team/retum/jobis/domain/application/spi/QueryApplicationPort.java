@@ -16,11 +16,11 @@ public interface QueryApplicationPort {
 
     Long getCountByCondition(ApplicationStatus applicationStatus, String studentName);
 
-    List<FieldTraineesVO> getApplicationsFieldTraineesByCompanyId(Long companyId);
+    List<FieldTraineesVO> getFieldTraineesByCompanyId(Long companyId);
 
-    List<PassedApplicationStudentsVO> getPassedApplicationStudentsByCompanyId(Long companyId);
+    List<PassedApplicationStudentsVO> getPassedStudentsByCompanyId(Long companyId);
 
-    List<Application> getByIds(List<Long> applicationIds);
+    List<Application> getByIdsOrThrow(List<Long> applicationIds);
 
     List<ApplicationDetailVO> getDetailsByIds(List<Long> applicationIds);
 

@@ -18,10 +18,7 @@ public class RegisterFieldTraineeUseCase {
     private final QueryApplicationPort queryApplicationPort;
 
     public void execute(RegisterFieldTraineeRequest request) {
-        List<Application> applications = queryApplicationPort.getByIds(request.applicationIds());
-        if (request.applicationIds().size() != applications.size()) {
-            throw ApplicationNotFoundException.EXCEPTION;
-        }
+        List<Application> applications = queryApplicationPort.getByIdsOrThrow(request.applicationIds());
 
         List<Application> converted = applications.stream()
             .map(application ->

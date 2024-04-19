@@ -9,6 +9,7 @@ import team.retum.jobis.domain.application.exception.ApplicationNotFoundExceptio
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationDetailVO;
@@ -120,7 +121,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<FieldTraineesVO> getApplicationsFieldTraineesByCompanyId(Long companyId) {
+    public List<FieldTraineesVO> getFieldTraineesByCompanyId(Long companyId) {
         return queryFactory
             .select(
                 new QQueryFieldTraineesVO(
@@ -145,7 +146,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<PassedApplicationStudentsVO> getPassedApplicationStudentsByCompanyId(Long companyId) {
+    public List<PassedApplicationStudentsVO> getPassedStudentsByCompanyId(Long companyId) {
         return queryFactory
             .select(
                 new QQueryPassedApplicationStudentsVO(
@@ -182,8 +183,15 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<Application> getByIds(List<Long> applicationIds) {
-        return applicationJpaRepository.findByIdIn(applicationIds).stream()
+    public List<Application> getByIdsOrThrow(List<Long> applicationIds) {
+        List<ApplicationEntity> applications = applicationJpaRepository.findByIdIn(applicationIds);
+
+        if (applicationIds.size() != applications.size()) {
+            throw ApplicationNotFoundException.EXCEPTION;
+        }
+
+        return applications
+            .stream()
             .map(applicationMapper::toDomain)
             .toList();
     }
