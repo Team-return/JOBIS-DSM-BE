@@ -14,7 +14,7 @@ public class VerifyAuthCodeUseCase {
     private final QueryAuthCodePort queryAuthCodePort;
 
     public void execute(String email, String code) {
-        AuthCode authCode = queryAuthCodePort.getByEmail(email);
+        AuthCode authCode = queryAuthCodePort.getByEmailOrThrow(email);
         authCode.verifyCode(code);
 
         commandAuthCodePort.save(

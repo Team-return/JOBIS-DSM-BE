@@ -23,7 +23,7 @@ public class AuthCodePersistenceAdapter implements AuthCodePort {
     }
 
     @Override
-    public AuthCode getByEmail(String email) {
+    public AuthCode getByEmailOrThrow(String email) {
         return authCodeMapper.toDomain(
             authCodeRepository.findById(email)
                 .orElseThrow(() -> AuthCodeNotFoundException.EXCEPTION)
