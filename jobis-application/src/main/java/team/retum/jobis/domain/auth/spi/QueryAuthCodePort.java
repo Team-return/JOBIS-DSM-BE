@@ -4,7 +4,5 @@ import team.retum.jobis.domain.auth.model.AuthCode;
 
 public interface QueryAuthCodePort {
 
-    AuthCode queryAuthCodeByEmail(String email);
-
-    boolean existsAuthCodeByEmailAndVerifiedIsTrue(String email);
+    AuthCode getByEmailOrThrow(String email);
 }

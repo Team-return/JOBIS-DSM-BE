@@ -17,14 +17,14 @@ public class RefreshTokenPersistenceAdapter implements RefreshTokenPort {
     private final RefreshTokenMapper refreshTokenMapper;
 
     @Override
-    public void saveRefreshToken(RefreshToken refreshToken) {
+    public void save(RefreshToken refreshToken) {
         refreshTokenRepository.save(
             refreshTokenMapper.toEntity(refreshToken)
         );
     }
 
     @Override
-    public RefreshToken queryRefreshTokenByTokenAndPlatformType(String token, PlatformType platformType) {
+    public RefreshToken getByTokenAndPlatformType(String token, PlatformType platformType) {
         return refreshTokenMapper.toDomain(
             refreshTokenRepository.findByTokenAndPlatformType(token, platformType)
                 .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION)
@@ -32,7 +32,7 @@ public class RefreshTokenPersistenceAdapter implements RefreshTokenPort {
     }
 
     @Override
-    public void deleteRefreshToken(RefreshToken refreshToken) {
+    public void delete(RefreshToken refreshToken) {
         refreshTokenRepository.delete(
             refreshTokenMapper.toEntity(refreshToken)
         );
