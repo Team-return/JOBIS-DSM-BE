@@ -20,7 +20,7 @@ public class ChangeApplicationsStatusUseCase {
     private final PublishEventPort publishEventPort;
 
     public void execute(List<Long> applicationIds, ApplicationStatus status) {
-        List<Application> applications = queryApplicationPort.getAllByIdsOrThrow(applicationIds);
+        List<Application> applications = queryApplicationPort.getAllByIdInOrThrow(applicationIds);
 
         commandApplicationPort.updateApplicationStatus(status, applicationIds);
         publishEventPort.publishEvent(new ApplicationsStatusChangedEvent(applications, status));

@@ -20,7 +20,7 @@ public interface QueryApplicationPort {
 
     List<PassedApplicationStudentsVO> getPassedStudentsByCompanyId(Long companyId);
 
-    List<Application> getAllByIdsOrThrow(List<Long> applicationIds);
+    List<Application> getAllByIdInOrThrow(List<Long> applicationIds);
 
     List<ApplicationDetailVO> getDetailsByIds(List<Long> applicationIds);
 

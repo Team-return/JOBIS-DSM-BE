@@ -183,7 +183,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<Application> getAllByIdsOrThrow(List<Long> applicationIds) {
+    public List<Application> getAllByIdInOrThrow(List<Long> applicationIds) {
         List<ApplicationEntity> applications = applicationJpaRepository.findByIdIn(applicationIds);
 
         if (applicationIds.size() != applications.size()) {

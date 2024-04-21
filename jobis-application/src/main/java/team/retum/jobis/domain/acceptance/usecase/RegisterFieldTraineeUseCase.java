@@ -17,7 +17,7 @@ public class RegisterFieldTraineeUseCase {
     private final QueryApplicationPort queryApplicationPort;
 
     public void execute(RegisterFieldTraineeRequest request) {
-        List<Application> applications = queryApplicationPort.getAllByIdsOrThrow(request.applicationIds());
+        List<Application> applications = queryApplicationPort.getAllByIdInOrThrow(request.applicationIds());
 
         List<Application> converted = applications.stream()
             .map(application ->

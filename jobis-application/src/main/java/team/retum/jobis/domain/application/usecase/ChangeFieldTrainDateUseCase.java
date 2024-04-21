@@ -18,7 +18,7 @@ public class ChangeFieldTrainDateUseCase {
     private final CommandApplicationPort commandApplicationPort;
 
     public void execute(ChangeFieldTrainDateRequest request) {
-        List<Application> applications = queryApplicationPort.getAllByIdsOrThrow(request.applicationIds());
+        List<Application> applications = queryApplicationPort.getAllByIdInOrThrow(request.applicationIds());
 
         applications.forEach(
             application -> Application.checkApplicationStatus(

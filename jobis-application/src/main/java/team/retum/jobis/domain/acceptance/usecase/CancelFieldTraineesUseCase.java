@@ -17,7 +17,7 @@ public class CancelFieldTraineesUseCase {
     private final CommandApplicationPort commandApplicationPort;
 
     public void execute(List<Long> applicationIds) {
-        List<Application> applications = applicationRepository.getAllByIdsOrThrow(applicationIds);
+        List<Application> applications = applicationRepository.getAllByIdInOrThrow(applicationIds);
 
         applications.forEach(
             application -> Application.checkApplicationStatus(
