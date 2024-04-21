@@ -9,29 +9,28 @@ import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.application.spi.vo.PassedApplicationStudentsVO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface QueryApplicationPort {
 
-    List<ApplicationVO> queryApplicationByConditions(ApplicationFilter applicationFilter);
+    List<ApplicationVO> getAllByConditions(ApplicationFilter applicationFilter);
 
-    Long queryApplicationCountByCondition(ApplicationStatus applicationStatus, String studentName);
+    Long getCountByCondition(ApplicationStatus applicationStatus, String studentName);
 
-    List<FieldTraineesVO> queryApplicationsFieldTraineesByCompanyId(Long companyId);
+    List<FieldTraineesVO> getFieldTraineesByCompanyId(Long companyId);
 
-    List<PassedApplicationStudentsVO> queryPassedApplicationStudentsByCompanyId(Long companyId);
+    List<PassedApplicationStudentsVO> getPassedStudentsByCompanyId(Long companyId);
 
-    List<Application> queryApplicationsByIds(List<Long> applicationIds);
+    List<Application> getAllByIdInOrThrow(List<Long> applicationIds);
 
-    List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds);
+    List<ApplicationDetailVO> getDetailsByIds(List<Long> applicationIds);
 
-    Optional<Application> queryApplicationById(Long applicationId);
+    Application getByIdOrThrow(Long applicationId);
 
-    Optional<Application> queryApplicationByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus);
+    Application getByIdAndApplicationStatusOrThrow(Long applicationId, ApplicationStatus applicationStatus);
 
-    Optional<Application> queryApplicationByCompanyIdAndStudentId(Long applicationId, Long studentId);
+    Application getByCompanyIdAndStudentIdOrThrow(Long applicationId, Long studentId);
 
-    boolean existsApplicationByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);
+    boolean existsByStudentIdAndApplicationStatusIn(Long studentId, List<ApplicationStatus> applicationStatuses);
 
-    boolean existsApplicationByStudentIdAndRecruitmentId(Long studentId, Long recruitmentId);
+    boolean existsByStudentIdAndRecruitmentId(Long studentId, Long recruitmentId);
 }
