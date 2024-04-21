@@ -32,7 +32,7 @@ public class TeacherQueryApplicationsUseCase {
             .year(year)
             .build();
 
-        List<ApplicationVO> applicationVOs = queryApplicationPort.getByConditions(applicationFilter);
+        List<ApplicationVO> applicationVOs = queryApplicationPort.getAllByConditions(applicationFilter);
 
         return TeacherQueryApplicationsResponse.of(applicationVOs);
     }

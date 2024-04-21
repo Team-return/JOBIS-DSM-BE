@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface QueryApplicationPort {
 
-    List<ApplicationVO> getByConditions(ApplicationFilter applicationFilter);
+    List<ApplicationVO> getAllByConditions(ApplicationFilter applicationFilter);
 
     Long getCountByCondition(ApplicationStatus applicationStatus, String studentName);
 
@@ -20,7 +20,7 @@ public interface QueryApplicationPort {
 
     List<PassedApplicationStudentsVO> getPassedStudentsByCompanyId(Long companyId);
 
-    List<Application> getByIdsOrThrow(List<Long> applicationIds);
+    List<Application> getAllByIdsOrThrow(List<Long> applicationIds);
 
     List<ApplicationDetailVO> getDetailsByIds(List<Long> applicationIds);
 

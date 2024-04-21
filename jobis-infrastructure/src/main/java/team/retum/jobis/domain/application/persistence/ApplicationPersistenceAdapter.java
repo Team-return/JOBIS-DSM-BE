@@ -48,7 +48,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ApplicationVO> getByConditions(ApplicationFilter applicationFilter) {
+    public List<ApplicationVO> getAllByConditions(ApplicationFilter applicationFilter) {
         return queryFactory
             .selectFrom(applicationEntity)
             .join(applicationEntity.student, studentEntity)
@@ -183,7 +183,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<Application> getByIdsOrThrow(List<Long> applicationIds) {
+    public List<Application> getAllByIdsOrThrow(List<Long> applicationIds) {
         List<ApplicationEntity> applications = applicationJpaRepository.findByIdIn(applicationIds);
 
         if (applicationIds.size() != applications.size()) {

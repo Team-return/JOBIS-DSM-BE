@@ -27,7 +27,7 @@ public class QueryMyApplicationsUseCase {
             .year(Year.now())
             .build();
 
-        List<ApplicationVO> applicationVOs = queryApplicationPort.getByConditions(applicationFilter);
+        List<ApplicationVO> applicationVOs = queryApplicationPort.getAllByConditions(applicationFilter);
 
         return QueryMyApplicationsResponse.from(applicationVOs);
     }

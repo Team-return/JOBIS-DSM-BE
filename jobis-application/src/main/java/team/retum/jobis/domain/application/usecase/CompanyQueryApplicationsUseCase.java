@@ -32,7 +32,7 @@ public class CompanyQueryApplicationsUseCase {
             .applicationStatus(ApplicationStatus.SEND)
             .build();
 
-        List<ApplicationVO> applicationVOs = queryApplicationPort.getByConditions(applicationFilter);
+        List<ApplicationVO> applicationVOs = queryApplicationPort.getAllByConditions(applicationFilter);
 
         return CompanyQueryApplicationsResponse.of(applicationVOs);
     }
