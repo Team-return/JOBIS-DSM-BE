@@ -3,7 +3,6 @@ package team.retum.jobis.domain.review.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
