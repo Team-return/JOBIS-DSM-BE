@@ -3,7 +3,6 @@ package team.retum.jobis.domain.acceptance.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.acceptance.dto.request.RegisterFieldTraineeRequest;
-import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
@@ -18,16 +17,13 @@ public class RegisterFieldTraineeUseCase {
     private final QueryApplicationPort queryApplicationPort;
 
     public void execute(RegisterFieldTraineeRequest request) {
-        List<Application> applications = queryApplicationPort.queryApplicationsByIds(request.applicationIds());
-        if (request.applicationIds().size() != applications.size()) {
-            throw ApplicationNotFoundException.EXCEPTION;
-        }
+        List<Application> applications = queryApplicationPort.getAllByIdInOrThrow(request.applicationIds());
 
         List<Application> converted = applications.stream()
             .map(application ->
                 application.toFieldTrain(request.startDate(), request.endDate())
             ).toList();
 
-        commandApplicationPort.saveAllApplications(converted);
+        commandApplicationPort.saveAll(converted);
     }
 }

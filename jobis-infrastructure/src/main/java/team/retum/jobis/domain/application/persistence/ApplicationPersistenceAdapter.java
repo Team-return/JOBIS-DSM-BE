@@ -5,9 +5,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.dto.ApplicationFilter;
+import team.retum.jobis.domain.application.exception.ApplicationNotFoundException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 import team.retum.jobis.domain.application.persistence.mapper.ApplicationMapper;
 import team.retum.jobis.domain.application.persistence.repository.ApplicationJpaRepository;
 import team.retum.jobis.domain.application.persistence.repository.vo.QQueryApplicationDetailVO;
@@ -46,7 +48,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ApplicationVO> queryApplicationByConditions(ApplicationFilter applicationFilter) {
+    public List<ApplicationVO> getAllByConditions(ApplicationFilter applicationFilter) {
         return queryFactory
             .selectFrom(applicationEntity)
             .join(applicationEntity.student, studentEntity)
@@ -107,7 +109,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public Long queryApplicationCountByCondition(ApplicationStatus applicationStatus, String studentName) {
+    public Long getCountByCondition(ApplicationStatus applicationStatus, String studentName) {
         return queryFactory
             .select(applicationEntity.count())
             .from(applicationEntity)
@@ -119,7 +121,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<FieldTraineesVO> queryApplicationsFieldTraineesByCompanyId(Long companyId) {
+    public List<FieldTraineesVO> getFieldTraineesByCompanyId(Long companyId) {
         return queryFactory
             .select(
                 new QQueryFieldTraineesVO(
@@ -144,7 +146,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public List<PassedApplicationStudentsVO> queryPassedApplicationStudentsByCompanyId(Long companyId) {
+    public List<PassedApplicationStudentsVO> getPassedStudentsByCompanyId(Long companyId) {
         return queryFactory
             .select(
                 new QQueryPassedApplicationStudentsVO(
@@ -169,26 +171,33 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public Application saveApplication(Application application) {
+    public Application save(Application application) {
         return applicationMapper.toDomain(
             applicationJpaRepository.save(applicationMapper.toEntity(application))
         );
     }
 
     @Override
-    public void deleteApplicationByIds(List<Long> applicationIds) {
+    public void deleteByIds(List<Long> applicationIds) {
         applicationJpaRepository.deleteByIdIn(applicationIds);
     }
 
     @Override
-    public List<Application> queryApplicationsByIds(List<Long> applicationIds) {
-        return applicationJpaRepository.findByIdIn(applicationIds).stream()
+    public List<Application> getAllByIdInOrThrow(List<Long> applicationIds) {
+        List<ApplicationEntity> applications = applicationJpaRepository.findByIdIn(applicationIds);
+
+        if (applicationIds.size() != applications.size()) {
+            throw ApplicationNotFoundException.EXCEPTION;
+        }
+
+        return applications
+            .stream()
             .map(applicationMapper::toDomain)
             .toList();
     }
 
     @Override
-    public List<ApplicationDetailVO> queryApplicationDetailsByIds(List<Long> applicationIds) {
+    public List<ApplicationDetailVO> getDetailsByIds(List<Long> applicationIds) {
         return queryFactory
             .select(
                 new QQueryApplicationDetailVO(
@@ -210,45 +219,46 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public Optional<Application> queryApplicationById(Long applicationId) {
+    public Application getByIdOrThrow(Long applicationId) {
         return applicationJpaRepository.findByIdFetch(applicationId)
-            .map(applicationMapper::toDomain);
+            .map(applicationMapper::toDomain)
+            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
     }
 
     @Override
-    public Optional<Application> queryApplicationByIdAndApplicationStatus(Long applicationId, ApplicationStatus applicationStatus) {
-        return Optional.ofNullable(
-            queryFactory
+    public Application getByIdAndApplicationStatusOrThrow(Long applicationId, ApplicationStatus applicationStatus) {
+        return Optional.ofNullable(queryFactory
                 .selectFrom(applicationEntity)
                 .where(
                     applicationEntity.id.eq(applicationId),
                     applicationEntity.applicationStatus.eq(applicationStatus)
                 )
-                .fetchOne()
-        ).map(applicationMapper::toDomain);
+                .fetchOne())
+            .map(applicationMapper::toDomain)
+            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
     }
 
     @Override
-    public Optional<Application> queryApplicationByCompanyIdAndStudentId(Long companyId, Long studentId) {
-        return Optional.ofNullable(
-            queryFactory
+    public Application getByCompanyIdAndStudentIdOrThrow(Long companyId, Long studentId) {
+        return Optional.ofNullable(queryFactory
                 .selectFrom(applicationEntity)
                 .join(applicationEntity.recruitment, recruitmentEntity)
                 .on(recruitmentEntity.company.id.eq(companyId))
                 .where(applicationEntity.student.id.eq(studentId))
-                .fetchFirst()
-        ).map(applicationMapper::toDomain);
+                .fetchFirst())
+            .map(applicationMapper::toDomain)
+            .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
     }
 
     @Override
-    public void deleteApplication(Application application) {
+    public void delete(Application application) {
         applicationJpaRepository.delete(
             applicationMapper.toEntity(application)
         );
     }
 
     @Override
-    public void changeApplicationStatus(ApplicationStatus status, List<Long> applicationIds) {
+    public void updateApplicationStatus(ApplicationStatus status, List<Long> applicationIds) {
         queryFactory
             .update(applicationEntity)
             .set(applicationEntity.applicationStatus, status)
@@ -268,7 +278,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public boolean existsApplicationByStudentIdAndApplicationStatusIn(
+    public boolean existsByStudentIdAndApplicationStatusIn(
         Long studentId,
         List<ApplicationStatus> applicationStatuses
     ) {
@@ -283,7 +293,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public boolean existsApplicationByStudentIdAndRecruitmentId(Long studentId, Long recruitmentId) {
+    public boolean existsByStudentIdAndRecruitmentId(Long studentId, Long recruitmentId) {
         return queryFactory
             .selectOne()
             .from(applicationEntity)
@@ -294,7 +304,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public void saveAllApplications(List<Application> applications) {
+    public void saveAll(List<Application> applications) {
         applicationJpaRepository.saveAll(
             applications.stream()
                 .map(applicationMapper::toEntity)

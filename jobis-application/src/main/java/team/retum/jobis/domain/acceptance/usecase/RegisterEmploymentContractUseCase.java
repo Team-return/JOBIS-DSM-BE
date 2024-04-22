@@ -24,7 +24,7 @@ public class RegisterEmploymentContractUseCase {
     private final CommandApplicationPort commandApplicationPort;
 
     public void execute(List<String> codeKeywords, List<Long> applicationIds) {
-        List<ApplicationDetailVO> applications = applicationRepository.queryApplicationDetailsByIds(applicationIds);
+        List<ApplicationDetailVO> applications = applicationRepository.getDetailsByIds(applicationIds);
         if (applications.size() != applicationIds.size()) {
             throw ApplicationNotFoundException.EXCEPTION;
         }
@@ -48,8 +48,8 @@ public class RegisterEmploymentContractUseCase {
                 }
             ).toList();
 
-        commandAcceptancePort.saveAllAcceptance(acceptances);
-        commandApplicationPort.changeApplicationStatus(
+        commandAcceptancePort.saveAll(acceptances);
+        commandApplicationPort.updateApplicationStatus(
             ApplicationStatus.ACCEPTANCE,
             applications.stream().map(ApplicationDetailVO::getId).toList()
         );

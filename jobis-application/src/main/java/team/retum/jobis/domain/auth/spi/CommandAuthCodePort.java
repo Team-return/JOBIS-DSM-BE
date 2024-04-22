@@ -4,5 +4,5 @@ import team.retum.jobis.domain.auth.model.AuthCode;
 
 public interface CommandAuthCodePort {
 
-    void saveAuthCode(AuthCode authCode);
+    void save(AuthCode authCode);
 }

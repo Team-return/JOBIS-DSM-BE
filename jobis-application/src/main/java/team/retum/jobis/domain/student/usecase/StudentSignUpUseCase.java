@@ -33,7 +33,7 @@ public class StudentSignUpUseCase {
             throw StudentAlreadyExistsException.EXCEPTION;
         }
 
-        AuthCode authCode = queryAuthCodePort.queryAuthCodeByEmail(request.email());
+        AuthCode authCode = queryAuthCodePort.getByEmailOrThrow(request.email());
         authCode.checkIsVerified();
 
         SchoolNumber schoolNumber = SchoolNumber.builder()

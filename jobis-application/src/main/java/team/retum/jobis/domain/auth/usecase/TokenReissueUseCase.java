@@ -7,7 +7,6 @@ import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.model.RefreshToken;
 import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.auth.spi.QueryRefreshTokenPort;
-import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
@@ -22,7 +21,7 @@ public class TokenReissueUseCase {
     private final CommandUserPort commandUserPort;
 
     public TokenResponse execute(String refresh, PlatformType platformType, String deviceToken) {
-        RefreshToken token = queryRefreshTokenPort.queryRefreshTokenByTokenAndPlatformType(refresh, platformType);
+        RefreshToken token = queryRefreshTokenPort.getByTokenAndPlatformType(refresh, platformType);
         User user = queryUserPort.getByIdOrThrow(token.getUserId());
 
         commandUserPort.save(user.setToken(deviceToken));

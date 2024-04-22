@@ -46,7 +46,7 @@ public class QueryRecruitmentDetailUseCase {
 
     private Boolean getApplicable(boolean winterIntern, long recruitmentId) {
         if (APPLICABLE_AUTHORITIES.contains(securityPort.getCurrentUserAuthority())) {
-            if (queryApplicationPort.existsApplicationByStudentIdAndRecruitmentId(
+            if (queryApplicationPort.existsByStudentIdAndRecruitmentId(
                 securityPort.getCurrentUserId(), recruitmentId)
             ) {
                 return false;

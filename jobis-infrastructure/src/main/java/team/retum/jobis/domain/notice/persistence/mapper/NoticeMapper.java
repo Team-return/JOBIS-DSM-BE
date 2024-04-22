@@ -6,9 +6,6 @@ import team.retum.jobis.domain.notice.model.Notice;
 import team.retum.jobis.domain.notice.model.NoticeAttachment;
 import team.retum.jobis.domain.notice.persistence.entity.NoticeAttachmentEntity;
 import team.retum.jobis.domain.notice.persistence.entity.NoticeEntity;
-import team.retum.jobis.domain.notification.exception.NotificationNotFoundException;
-import team.retum.jobis.domain.notification.persistence.entity.NotificationEntity;
-import team.retum.jobis.domain.notification.persistence.repository.NotificationJpaRepository;
 
 import java.util.List;
 

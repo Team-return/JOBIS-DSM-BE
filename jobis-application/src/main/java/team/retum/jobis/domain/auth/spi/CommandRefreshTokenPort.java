@@ -4,7 +4,7 @@ import team.retum.jobis.domain.auth.model.RefreshToken;
 
 public interface CommandRefreshTokenPort {
 
-    void saveRefreshToken(RefreshToken refreshToken);
+    void save(RefreshToken refreshToken);
 
-    void deleteRefreshToken(RefreshToken refreshToken);
+    void delete(RefreshToken refreshToken);
 }

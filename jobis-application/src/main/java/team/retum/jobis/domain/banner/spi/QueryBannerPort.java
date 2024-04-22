@@ -5,13 +5,12 @@ import team.retum.jobis.domain.banner.spi.vo.BannerVO;
 import team.retum.jobis.domain.banner.spi.vo.TeacherBannersVO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface QueryBannerPort {
 
-    Optional<Banner> queryBannerById(Long bannerId);
+    Banner getByIdOrThrow(Long bannerId);
 
-    List<BannerVO> queryCurrentBanners();
+    List<BannerVO> getCurrentBanners();
 
-    List<TeacherBannersVO> queryBanners(boolean isOpened);
+    List<TeacherBannersVO> getByIsOpened(boolean isOpened);
 }

@@ -28,7 +28,7 @@ public class SendAuthCodeUseCase {
             .isVerified(false)
             .email(email)
             .build();
-        commandAuthCodePort.saveAuthCode(authCode);
+        commandAuthCodePort.save(authCode);
 
         sendEmailPort.sendMail(authCode.getCode(), authCode.getEmail());
     }
