@@ -163,9 +163,10 @@ public class RecruitmentWebAdapter {
     public TeacherQueryRecruitmentsResponse getRecruitmentListWithoutPage(
         @RequestParam(value = "year") int year,
         @RequestParam(value = "job_code", required = false) String jobCode,
-        @RequestParam(value = "tech_code", required = false) String techCodes
+        @RequestParam(value = "tech_code", required = false) String techCodes,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes));
+        return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes), winterIntern);
     }
 
     @Cacheable
