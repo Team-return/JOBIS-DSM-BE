@@ -40,9 +40,9 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
-    public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds) {
+    public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds, Boolean winterIntern) {
         List<TeacherRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(year, codeIds).stream()
+            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIdsAndWinterIntern(year, codeIds, winterIntern).stream()
                 .map(TeacherRecruitmentResponse::from)
                 .toList();
 
