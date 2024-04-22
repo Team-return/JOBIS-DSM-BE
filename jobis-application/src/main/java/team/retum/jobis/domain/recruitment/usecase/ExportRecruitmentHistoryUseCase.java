@@ -22,7 +22,7 @@ public class ExportRecruitmentHistoryUseCase {
         LocalDate now = LocalDate.now();
 
         List<TeacherRecruitmentVO> recruitmentList =
-            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(now.getYear(), Collections.emptyList());
+            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIdsAndWinterIntern(now.getYear(), Collections.emptyList(), null);
 
         return new ExportRecruitmentHistoryResponse(
             writeFilePort.writeRecruitmentExcelFile(recruitmentList),

@@ -153,7 +153,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public List<TeacherRecruitmentVO> getTeacherRecruitmentsByYearAndCodeIds(Integer year, List<Long> codeIds) {
+    public List<TeacherRecruitmentVO> getTeacherRecruitmentsByYearAndCodeIdsAndWinterIntern(Integer year, List<Long> codeIds, Boolean winterIntern) {
         QApplicationEntity requestedApplication = new QApplicationEntity("requestedApplication");
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
@@ -196,7 +196,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .where(
                 eqYear(year),
-                containsCodes(codeIds)
+                containsCodes(codeIds),
+                eqWinterIntern(winterIntern)
             )
             .orderBy(recruitmentEntity.createdAt.desc())
             .groupBy(recruitmentEntity.id)
