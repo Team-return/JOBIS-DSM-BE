@@ -41,8 +41,14 @@ public class TeacherQueryRecruitmentsUseCase {
     }
 
     public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds, Boolean winterIntern) {
+        RecruitmentFilter filter = RecruitmentFilter.builder()
+            .codes(codeIds)
+            .year(year)
+            .winterIntern(winterIntern)
+            .build();
+
         List<TeacherRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIdsAndWinterIntern(year, codeIds, winterIntern).stream()
+            queryRecruitmentPort.getTeacherRecruitmentsWithoutPageBy(filter).stream()
                 .map(TeacherRecruitmentResponse::from)
                 .toList();
 

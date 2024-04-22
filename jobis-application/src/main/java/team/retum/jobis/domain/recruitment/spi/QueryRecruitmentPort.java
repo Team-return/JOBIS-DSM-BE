@@ -28,7 +28,7 @@ public interface QueryRecruitmentPort {
 
     List<TeacherRecruitmentVO> getTeacherRecruitmentsBy(RecruitmentFilter filter);
 
-    List<TeacherRecruitmentVO> getTeacherRecruitmentsByYearAndCodeIdsAndWinterIntern(Integer year, List<Long> codeIds, Boolean winterIntern);
+    List<TeacherRecruitmentVO> getTeacherRecruitmentsWithoutPageBy(RecruitmentFilter filter);
 
     List<Recruitment> getAllByIdInOrThrow(List<Long> recruitmentIds);
 
