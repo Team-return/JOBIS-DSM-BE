@@ -7,7 +7,7 @@ spring:
 
   flyway:
     baseline-version: 1
-    enabled: false
+    enabled: ${FLYWAY_ENABLED:false}
     baseline-on-migrate: true
     fail-on-missing-locations: true
 
