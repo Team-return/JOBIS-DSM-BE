@@ -11,4 +11,5 @@ public class BannerVO {
     private final Long id;
     private final String bannerUrl;
     private final BannerType bannerType;
+    private final Long detailId;
 }
