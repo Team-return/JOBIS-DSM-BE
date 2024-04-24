@@ -16,6 +16,7 @@ public class BannerMapper {
             .bannerType(domain.getBannerType())
             .startDate(domain.getStartDate())
             .endDate(domain.getEndDate())
+            .detailId(domain.getDetailId())
             .build();
     }
 
@@ -26,6 +27,7 @@ public class BannerMapper {
             .bannerType(entity.getBannerType())
             .startDate(entity.getStartDate())
             .endDate(entity.getEndDate())
+            .detailId(entity.getDetailId())
             .build();
     }
 }
