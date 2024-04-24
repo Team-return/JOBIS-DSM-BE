@@ -31,9 +31,11 @@ public class BannerWebAdapter {
     private final TeacherQueryBannersUseCase queryBannerListUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public void createBanner(@RequestBody @Valid CreateBannerWebRequest request) {
-        createBannerUseCase.execute(request.toDomainRequest());
+    @PostMapping("/{detail-id}")
+    public void createBanner(@RequestBody @Valid CreateBannerWebRequest request,
+                             @PathVariable("detail-id") Long detailId
+    ) {
+        createBannerUseCase.execute(request.toDomainRequest(), detailId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
