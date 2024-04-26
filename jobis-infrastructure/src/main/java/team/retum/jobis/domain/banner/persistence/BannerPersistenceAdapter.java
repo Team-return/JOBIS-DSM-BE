@@ -57,7 +57,8 @@ public class BannerPersistenceAdapter implements BannerPort {
                 new QQueryBannerVO(
                     bannerEntity.id,
                     bannerEntity.bannerUrl,
-                    bannerEntity.bannerType
+                    bannerEntity.bannerType,
+                    bannerEntity.detailId
                 )
             )
             .from(bannerEntity)
@@ -79,7 +80,8 @@ public class BannerPersistenceAdapter implements BannerPort {
                     bannerEntity.bannerUrl,
                     bannerEntity.bannerType,
                     bannerEntity.startDate,
-                    bannerEntity.endDate
+                    bannerEntity.endDate,
+                    bannerEntity.detailId
                 )
             )
             .from(bannerEntity)
