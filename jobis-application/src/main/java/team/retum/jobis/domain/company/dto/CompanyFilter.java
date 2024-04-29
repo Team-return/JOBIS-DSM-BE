@@ -18,6 +18,6 @@ public class CompanyFilter {
     private int limit = 10;
 
     public Long getOffset() {
-        return page * limit;
+        return (page - 1) * limit;
     }
 }
