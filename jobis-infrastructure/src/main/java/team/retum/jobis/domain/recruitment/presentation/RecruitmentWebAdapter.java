@@ -120,13 +120,15 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
         @RequestParam(value = "tech_code", required = false) String techCodes,
         @RequestParam(value = "job_code", required = false) String jobCode,
-        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport
     ) {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
             page - 1,
             this.parseCodes(jobCode, techCodes),
-            winterIntern
+            winterIntern,
+            militarySupport
         );
     }
 
