@@ -154,9 +154,10 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "status", required = false) RecruitStatus status,
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "page", defaultValue = "1") @Positive Long page,
-        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport
     ) {
-        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
+        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern, militarySupport);
     }
 
     @GetMapping("/teacher/no-page")
@@ -164,9 +165,10 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "year") int year,
         @RequestParam(value = "job_code", required = false) String jobCode,
         @RequestParam(value = "tech_code", required = false) String techCodes,
-        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport
     ) {
-        return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes), winterIntern);
+        return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes), winterIntern, militarySupport);
     }
 
     @Cacheable
