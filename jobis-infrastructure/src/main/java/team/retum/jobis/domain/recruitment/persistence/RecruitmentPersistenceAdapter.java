@@ -83,7 +83,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 containsName(filter.getCompanyName()),
                 containsCodes(filter.getCodes()),
                 eqWinterIntern(filter.getWinterIntern()),
-                recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
+                recruitmentEntity.status.eq(RecruitStatus.RECRUITING),
+                eqMilitarySupport(filter.getMilitarySupport())
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
@@ -197,7 +198,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .where(
                 eqYear(filter.getYear()),
                 containsCodes(filter.getCodes()),
-                eqWinterIntern(filter.getWinterIntern())
+                eqWinterIntern(filter.getWinterIntern()),
+                eqMilitarySupport(filter.getMilitarySupport())
             )
             .orderBy(recruitmentEntity.createdAt.desc())
             .groupBy(recruitmentEntity.id)
@@ -428,5 +430,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
         return winterIntern == null ? null : recruitmentEntity.winterIntern.eq(winterIntern);
+    }
+
+    private BooleanExpression eqMilitarySupport(Boolean militarySupport) {
+        return militarySupport == null ? null : recruitmentEntity.militarySupport.eq(militarySupport);
     }
 }

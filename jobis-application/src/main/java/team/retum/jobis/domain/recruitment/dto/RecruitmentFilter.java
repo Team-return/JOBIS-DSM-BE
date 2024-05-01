@@ -28,6 +28,8 @@ public class RecruitmentFilter {
     private final Long studentId;
 
     private final Boolean winterIntern;
+
+    private final Boolean militarySupport;
     @Builder.Default
     private int limit = 10;
 
