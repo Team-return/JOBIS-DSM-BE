@@ -19,8 +19,8 @@ public class TeacherQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
 
-    public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status, Long page, Boolean winterIntern, Boolean militarySupport) {
+    public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end, Integer year,
+                                                    RecruitStatus status, Long page, Boolean winterIntern, Boolean militarySupport, List<Long> codeIds) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
             .companyName(companyName)
             .status(status)
@@ -31,6 +31,7 @@ public class TeacherQueryRecruitmentsUseCase {
             .page(page)
             .winterIntern(winterIntern)
             .militarySupport(militarySupport)
+            .codes(codeIds)
             .build();
 
         List<TeacherRecruitmentResponse> recruitments =
