@@ -144,7 +144,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 containsName(filter.getCompanyName()),
                 eqWinterIntern(filter.getWinterIntern()),
                 containsCodes(filter.getCodes())
-                )
+            )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
             .orderBy(recruitmentEntity.createdAt.desc())
