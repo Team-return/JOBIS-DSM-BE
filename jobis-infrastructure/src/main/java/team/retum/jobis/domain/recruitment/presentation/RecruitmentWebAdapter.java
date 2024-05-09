@@ -160,7 +160,7 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "military_support", required = false) Boolean militarySupport,
         @RequestParam(value = "job_code", required = false) String jobCode,
         @RequestParam(value = "tech_code", required = false) String techCodes
-        ) {
+    ) {
         return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes));
     }
 
