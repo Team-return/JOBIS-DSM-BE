@@ -142,7 +142,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                 eqRecruitStatus(filter.getStatus()),
                 containsName(filter.getCompanyName()),
-                eqWinterIntern(filter.getWinterIntern())
+                eqWinterIntern(filter.getWinterIntern()),
+                containsCodes(filter.getCodes())
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
