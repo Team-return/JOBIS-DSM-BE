@@ -53,7 +53,7 @@ public class TeacherQueryApplicationsUseCase {
         List<ApplicationVO> applicationVOS = queryApplicationPort.getAllByConditions(applicationFilter).stream()
             .toList();
 
-        return applicationVOS.size();
+        return applicationVOS.size()
     }
 
     public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName) {
