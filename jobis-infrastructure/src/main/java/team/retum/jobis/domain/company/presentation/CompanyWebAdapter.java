@@ -161,6 +161,17 @@ public class CompanyWebAdapter {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page);
     }
 
+    @GetMapping("/count")
+    public Long getTotalCompaniesCount(
+        @RequestParam(value = "type", required = false) CompanyType type,
+        @RequestParam(value = "name", required = false) String companyName,
+        @RequestParam(value = "region", required = false) String region,
+        @RequestParam(value = "business_area", required = false) Long businessArea,
+        @RequestParam(value = "page", required = false) @Positive Long page
+    ) {
+        return teacherQueryCompaniesUseCase.getTotalCompaniesCount(type, companyName, region, businessArea, page);
+    }
+
     @Cacheable
     @GetMapping("/teacher/count")
     public TotalPageCountResponse queryCompanyCount(

@@ -57,6 +57,28 @@ public class TeacherQueryCompaniesUseCase {
         );
     }
 
+    public Long getTotalCompaniesCount(
+        CompanyType type,
+        String companyName,
+        String region,
+        Long businessArea,
+        Long page
+    ) {
+        CompanyFilter filter = CompanyFilter.builder()
+            .type(type)
+            .name(companyName)
+            .region(region)
+            .businessArea(
+                businessArea == null ? null :
+                    queryCodePort.getByIdOrThrow(businessArea)
+                        .getKeyword()
+            )
+            .page(page)
+            .build();
+
+        return queryCompanyPort.getTotalCompanyCount(filter);
+    }
+
     public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea) {
         CompanyFilter filter = CompanyFilter.builder()
             .type(type)
