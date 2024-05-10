@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -173,6 +174,18 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "military_support", required = false) Boolean militarySupport
     ) {
         return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes), winterIntern, militarySupport);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getTotalRecruitmentsCount(
+        @RequestParam(value = "year") int year,
+        @RequestParam(value = "job_code", required = false) String jobCode,
+        @RequestParam(value = "tech_code", required = false) String techCodes,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport
+    ) {
+        int count = teacherQueryRecruitmentsUseCase.getTotalRecruitmentsCount(year, this.parseCodes(jobCode, techCodes), winterIntern, militarySupport);
+        return ResponseEntity.ok(count);
     }
 
     @Cacheable
