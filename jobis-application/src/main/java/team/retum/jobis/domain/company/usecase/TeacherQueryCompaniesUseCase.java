@@ -6,6 +6,7 @@ import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -57,8 +58,10 @@ public class TeacherQueryCompaniesUseCase {
         );
     }
 
-    public Long countCompanies() {
-        return queryCompanyPort.countCompanies();
+    public CompanyCountResponse countCompanies() {
+        Long count = queryCompanyPort.countCompanies();
+
+        return new CompanyCountResponse(count);
     }
 
     public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea) {

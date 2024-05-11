@@ -5,6 +5,7 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.application.dto.ApplicationFilter;
+import team.retum.jobis.domain.application.dto.response.ApplicationCountResponse;
 import team.retum.jobis.domain.application.dto.response.TeacherQueryApplicationsResponse;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
@@ -37,8 +38,10 @@ public class TeacherQueryApplicationsUseCase {
         return TeacherQueryApplicationsResponse.of(applicationVOs);
     }
 
-    public Long countApplications() {
-        return queryApplicationPort.countApplications();
+    public ApplicationCountResponse countApplications() {
+        Long count = queryApplicationPort.countApplications();
+
+        return new ApplicationCountResponse(count);
     }
 
     public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName) {

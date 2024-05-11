@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
+import team.retum.jobis.domain.application.dto.response.ApplicationCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
@@ -115,7 +116,7 @@ public class ApplicationWebAdapter {
     }
 
     @GetMapping("/teacher/count")
-    public Long countApplications() {
+    public ApplicationCountResponse countApplications() {
         return queryApplicationListService.countApplications();
     }
 
