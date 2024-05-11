@@ -388,6 +388,14 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .toList();
     }
 
+    @Override
+    public Long countRecruitments() {
+        return queryFactory
+            .select(recruitmentEntity.count())
+            .from(recruitmentEntity)
+            .fetchOne();
+    }
+
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {
