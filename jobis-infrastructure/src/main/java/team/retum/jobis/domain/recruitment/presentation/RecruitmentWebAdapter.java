@@ -177,15 +177,8 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> getTotalRecruitmentsCount(
-        @RequestParam(value = "year") int year,
-        @RequestParam(value = "job_code", required = false) String jobCode,
-        @RequestParam(value = "tech_code", required = false) String techCodes,
-        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
-        @RequestParam(value = "military_support", required = false) Boolean militarySupport
-    ) {
-        int count = teacherQueryRecruitmentsUseCase.getTotalRecruitmentsCount(year, this.parseCodes(jobCode, techCodes), winterIntern, militarySupport);
-        return ResponseEntity.ok(count);
+    public Long countRecruitments() {
+        return teacherQueryRecruitmentsUseCase.countRecruitments();
     }
 
     @Cacheable

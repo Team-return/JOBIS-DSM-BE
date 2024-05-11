@@ -37,4 +37,6 @@ public interface QueryCompanyPort {
     List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId);
 
     Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
+
+    Long countCompanies();
 }

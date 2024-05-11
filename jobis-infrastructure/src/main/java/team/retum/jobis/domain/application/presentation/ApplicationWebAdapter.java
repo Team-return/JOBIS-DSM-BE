@@ -115,13 +115,8 @@ public class ApplicationWebAdapter {
     }
 
     @GetMapping("/teacher/count")
-    public int getTotalApplicationsCount(
-        @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
-        @RequestParam(value = "student_name", required = false) String studentName,
-        @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
-        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
-    ) {
-        return queryApplicationListService.getTotalApplicationsCount(applicationStatus, studentName, recruitmentId, year);
+    public Long countApplications() {
+        return queryApplicationListService.countApplications();
     }
 
     @Cacheable
