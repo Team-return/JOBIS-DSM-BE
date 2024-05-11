@@ -48,7 +48,9 @@ import team.retum.jobis.domain.application.usecase.TeacherDeleteApplicationUseCa
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
 import java.time.Year;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static team.retum.jobis.global.config.cache.CacheName.APPLICATION;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
@@ -212,8 +214,11 @@ public class ApplicationWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
     public void teacherDeleteApplication(
-        @RequestParam(value = "application_id") List<Long> applicationIds
+        @RequestParam(value = "application_id") String applicationId
     ) {
+        List<Long> applicationIds = Arrays.stream(applicationId.split(","))
+                .map(Long::parseLong)
+                    .collect(Collectors.toList());
         teacherDeleteApplicationUseCase.execute(applicationIds);
     }
 }
