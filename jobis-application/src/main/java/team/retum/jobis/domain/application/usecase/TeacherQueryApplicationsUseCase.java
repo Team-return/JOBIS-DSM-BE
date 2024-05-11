@@ -37,23 +37,8 @@ public class TeacherQueryApplicationsUseCase {
         return TeacherQueryApplicationsResponse.of(applicationVOs);
     }
 
-    public int getTotalApplicationsCount(
-        ApplicationStatus applicationStatus,
-        String studentName,
-        Long recruitmentId,
-        Year year
-    ) {
-        ApplicationFilter applicationFilter = ApplicationFilter.builder()
-            .recruitmentId(recruitmentId)
-            .applicationStatus(applicationStatus)
-            .studentName(studentName)
-            .year(year)
-            .build();
-
-        List<ApplicationVO> applicationVOS = queryApplicationPort.getAllByConditions(applicationFilter).stream()
-            .toList();
-
-        return applicationVOS.size();
+    public Long countApplications() {
+        return queryApplicationPort.countApplications();
     }
 
     public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName) {

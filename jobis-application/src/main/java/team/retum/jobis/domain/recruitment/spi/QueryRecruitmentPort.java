@@ -35,4 +35,6 @@ public interface QueryRecruitmentPort {
     Long getCountBy(RecruitmentFilter filter);
 
     List<MyAllRecruitmentsVO> getAllByCompanyId(Long companyId);
+
+    Long countRecruitments();
 }

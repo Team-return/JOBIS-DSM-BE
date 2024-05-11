@@ -319,6 +319,14 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .execute();
     }
 
+    @Override
+    public Long countApplications() {
+        return queryFactory
+            .select(applicationEntity.count())
+            .from(applicationEntity)
+            .fetchOne();
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {

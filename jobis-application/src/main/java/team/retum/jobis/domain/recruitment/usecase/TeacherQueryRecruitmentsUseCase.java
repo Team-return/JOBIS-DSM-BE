@@ -58,20 +58,8 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
-    public int getTotalRecruitmentsCount(int year, List<Long> codeIds, Boolean winterIntern, Boolean militarySupport) {
-        RecruitmentFilter filter = RecruitmentFilter.builder()
-            .codes(codeIds)
-            .year(year)
-            .winterIntern(winterIntern)
-            .militarySupport(militarySupport)
-            .build();
-
-        List<TeacherRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getTeacherRecruitmentsWithoutPageBy(filter).stream()
-                .map(TeacherRecruitmentResponse::from)
-                .toList();
-
-        return recruitments.size();
+    public Long countRecruitments() {
+        return queryRecruitmentPort.countRecruitments();
     }
 
     public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,
