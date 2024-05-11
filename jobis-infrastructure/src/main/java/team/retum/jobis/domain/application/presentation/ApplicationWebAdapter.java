@@ -211,7 +211,9 @@ public class ApplicationWebAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
-    public void teacherDeleteApplication(@RequestParam List<Long> applicationIds) {
+    public void teacherDeleteApplication(
+        @RequestParam(value = "application_id") List<Long> applicationIds
+    ) {
         teacherDeleteApplicationUseCase.execute(applicationIds);
     }
 }
