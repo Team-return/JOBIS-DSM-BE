@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
+import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
 import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse;
@@ -162,7 +163,7 @@ public class CompanyWebAdapter {
     }
 
     @GetMapping("/count")
-    public Long countCompanies() {
+    public CompanyCountResponse countCompanies() {
         return teacherQueryCompaniesUseCase.countCompanies();
     }
 
