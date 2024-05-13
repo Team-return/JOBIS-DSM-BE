@@ -90,6 +90,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/rejection/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/teacher/count").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.DELETE, "/applications").hasAuthority(TEACHER.name())
 
                     // bookmarks
                     .requestMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())

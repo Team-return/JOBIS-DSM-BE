@@ -44,9 +44,13 @@ import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudent
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
+import team.retum.jobis.domain.application.usecase.TeacherDeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
 import java.time.Year;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static team.retum.jobis.global.config.cache.CacheName.APPLICATION;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
@@ -70,6 +74,7 @@ public class ApplicationWebAdapter {
     private final QueryPassedApplicationStudentsUseCase queryPassedApplicationStudentsUseCase;
     private final ReapplyUseCase reapplyUseCase;
     private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
+    private final TeacherDeleteApplicationUseCase teacherDeleteApplicationUseCase;
 
     @Caching(
         evict = {
@@ -204,5 +209,16 @@ public class ApplicationWebAdapter {
     @GetMapping("/rejection/{application-id}")
     public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
         return queryRejectionReasonUseCase.execute(applicationId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping
+    public void teacherDeleteApplication(
+        @RequestParam(value = "application_id") String applicationId
+    ) {
+        List<Long> applicationIds = Arrays.stream(applicationId.split(","))
+                .map(Long::parseLong)
+                    .collect(Collectors.toList());
+        teacherDeleteApplicationUseCase.execute(applicationIds);
     }
 }
