@@ -1,6 +1,5 @@
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-focal
 
-RUN apt-get update; apt-get install -y fontconfig libfreetype6
 EXPOSE 8080
 ENV TZ=Asia/Seoul
 COPY ./jobis-infrastructure/build/libs/*.jar app.jar
