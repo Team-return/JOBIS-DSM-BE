@@ -30,8 +30,6 @@ public class CreateReviewUseCase {
         Company company = queryCompanyPort.queryCompanyById(companyId)
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        checkReviewExists(companyId, student.getId());
-
         queryApplicationPort.getByCompanyIdAndStudentIdOrThrow(company.getId(), student.getId())
             .checkReviewAuthority();
 
@@ -51,11 +49,5 @@ public class CreateReviewUseCase {
                 .build())
             .toList();
         reviewPort.saveAllQnAs(qnAs);
-    }
-
-    private void checkReviewExists(Long companyId, Long studentId) {
-        if (reviewPort.existsByCompanyIdAndStudentId(companyId, studentId)) {
-            throw ReviewAlreadyExistsException.EXCEPTION;
-        }
     }
 }
