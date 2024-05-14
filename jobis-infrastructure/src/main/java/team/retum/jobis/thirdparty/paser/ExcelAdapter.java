@@ -28,19 +28,32 @@ public class ExcelAdapter implements WriteFilePort {
 
     @Override
     public byte[] writeRecruitmentExcelFile(List<TeacherRecruitmentVO> recruitmentList) {
-
         List<String> attributes = listOf("상태", "기업명", "채용직군", "구분", "모집인원", "지원요청", "지원자", "모집시작일", "모집종료일");
 
         List<List<String>> dataList = recruitmentList.stream()
-            .map(ph -> List.of(
-                String.valueOf(ph.getRecruitStatus()),
-                ph.getCompanyName(),
-                ph.getJobCodes(),
-                String.valueOf(ph.getCompanyType()),
-                String.valueOf(ph.getTotalHiringCount()),
-                String.valueOf(ph.getRequestedApplicationCount()),
-                String.valueOf(ph.getApprovedApplicationCount())
-            ))
+            .map(ph -> {
+                String startDate;
+                String endDate;
+
+                if (ph.getStartDate() == null && ph.getEndDate() == null) {
+                    startDate = endDate = "상시 모집";
+                } else {
+                    startDate = String.valueOf(ph.getStartDate());
+                    endDate = String.valueOf(ph.getEndDate());
+                }
+
+                return List.of(
+                    String.valueOf(ph.getRecruitStatus()),
+                    ph.getCompanyName(),
+                    ph.getJobCodes(),
+                    String.valueOf(ph.getCompanyType()),
+                    String.valueOf(ph.getTotalHiringCount()),
+                    String.valueOf(ph.getRequestedApplicationCount()),
+                    String.valueOf(ph.getApprovedApplicationCount()),
+                    startDate,
+                    endDate
+                );
+            })
             .toList();
 
         return createExcelSheet(attributes, dataList);
