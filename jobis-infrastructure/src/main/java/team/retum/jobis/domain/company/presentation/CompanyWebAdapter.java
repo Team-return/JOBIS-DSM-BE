@@ -100,7 +100,7 @@ public class CompanyWebAdapter {
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
         @RequestParam(value = "name", required = false) String name
     ) {
-        return studentQueryCompaniesUseCase.execute(page - 1, name);
+        return studentQueryCompaniesUseCase.execute(page, name);
     }
 
     @Cacheable
