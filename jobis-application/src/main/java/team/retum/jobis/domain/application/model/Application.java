@@ -70,7 +70,6 @@ public class Application {
 
     public void checkReviewAuthority() {
         if (this.applicationStatus == ApplicationStatus.REQUESTED
-            || this.applicationStatus == ApplicationStatus.PROCESSING
             || this.applicationStatus == ApplicationStatus.APPROVED
             || this.applicationStatus == ApplicationStatus.REJECTED) {
             throw ApplicationNotFoundException.EXCEPTION;
