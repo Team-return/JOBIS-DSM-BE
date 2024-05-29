@@ -120,13 +120,13 @@ public class ApplicationWebAdapter {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year);
     }
 
-    @GetMapping("/teacher/count")
+    @GetMapping("/count")
     public ApplicationCountResponse countApplications() {
         return queryApplicationListService.countApplications();
     }
 
     @Cacheable
-    @GetMapping("/count")
+    @GetMapping("/teacher/count")
     public TotalPageCountResponse queryApplicationCount(
         @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
         @RequestParam(value = "student_name", required = false) String studentName
