@@ -77,7 +77,7 @@ public class SecurityConfig {
 
                     // applications
                     .requestMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())
-                    .requestMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/applications/teacher/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
                     .requestMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAnyAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
@@ -89,7 +89,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/applications/rejection/{application-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/rejection/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                    .requestMatchers(HttpMethod.GET, "/applications/teacher/count").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/applications").hasAuthority(TEACHER.name())
 
                     // bookmarks
