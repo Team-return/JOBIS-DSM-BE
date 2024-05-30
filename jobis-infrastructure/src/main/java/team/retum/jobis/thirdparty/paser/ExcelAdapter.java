@@ -1,5 +1,6 @@
 package team.retum.jobis.thirdparty.paser;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -15,9 +16,14 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.spi.WriteFilePort;
+import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
+import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
+import team.retum.jobis.global.exception.BadRequestException;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.listOf;
@@ -56,6 +62,46 @@ public class ExcelAdapter implements WriteFilePort {
             })
             .toList();
 
+        return createExcelSheet(attributes, dataList);
+    }
+
+    @Override
+    public byte[] writeCompanyExcelFile(List<TeacherCompaniesVO> companyList) {
+        List<String> attributes = listOf("기업명", "지역", "사업분야", "근로자수", "매출액(억)", "기업구분", "협약여부", "개인컨택", "최근 의뢰년도", "총 취업 학생수", "후기 등록");
+
+        List<List<String>> dataList = companyList.stream()
+            .map(ph -> {
+
+                String personalContact;
+                String convention;
+
+                if (ph.getPersonalContact()) {
+                    personalContact = "O";
+                } else {
+                    personalContact = "X";
+                }
+
+                if (ph.getConvention()) {
+                    convention = "O";
+                } else {
+                    convention = "X";
+                }
+
+                return List.of(
+                ph.getCompanyName(),
+                    ph.getMainAddress(),
+                    ph.getBusinessArea(),
+                    String.valueOf(ph.getWorkersCount()),
+                    String.valueOf(ph.getTake()),
+                    String.valueOf(ph.getCompanyType()),
+                    convention,
+                    personalContact,
+                    String.valueOf(ph.getRecentRecruitYear()),
+                    String.valueOf(ph.getTotalAcceptanceCount()),
+                    String.valueOf(ph.getReviewCount())
+                );
+            })
+            .toList();
         return createExcelSheet(attributes, dataList);
     }
 
@@ -142,6 +188,15 @@ public class ExcelAdapter implements WriteFilePort {
             worksheet.autoSizeColumn(i);
             int width = worksheet.getColumnWidth(i);
             worksheet.setColumnWidth(i, width + 1500);
+        }
+    }
+
+    public void setExcelContentDisposition(HttpServletResponse response, String fileName) {
+        try {
+            String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + ".xlsx\"");
+        } catch (Exception e) {
+            throw new BadRequestException();
         }
     }
 }
