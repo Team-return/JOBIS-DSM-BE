@@ -48,6 +48,7 @@ import team.retum.jobis.domain.recruitment.usecase.TeacherQueryRecruitmentsUseCa
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import team.retum.jobis.global.exception.BadRequestException;
+import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -77,6 +78,7 @@ public class RecruitmentWebAdapter {
     private final DeleteRecruitAreaUseCase deleteRecruitAreaUseCase;
     private final QueryMyRecruitmentsUseCase queryMyRecruitmentsUseCase;
     private final ExportRecruitmentHistoryUseCase exportRecruitmentHistoryUseCase;
+    private final ExcelAdapter excelAdapter;
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
@@ -236,17 +238,8 @@ public class RecruitmentWebAdapter {
     @GetMapping("/file")
     public byte[] exportRecruitmentHistory(HttpServletResponse httpResponse) {
         ExportRecruitmentHistoryResponse response = exportRecruitmentHistoryUseCase.execute();
-        setExcelContentDisposition(httpResponse, response.getFileName());
+        excelAdapter.setExcelContentDisposition(httpResponse, response.getFileName());
         return response.getFile();
-    }
-
-    private void setExcelContentDisposition(HttpServletResponse response, String fileName) {
-        try {
-            String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20");
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + ".xlsx\"");
-        } catch (Exception e) {
-            throw new BadRequestException();
-        }
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
