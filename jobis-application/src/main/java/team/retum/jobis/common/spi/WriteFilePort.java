@@ -1,6 +1,5 @@
 package team.retum.jobis.common.spi;
 
-import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 
