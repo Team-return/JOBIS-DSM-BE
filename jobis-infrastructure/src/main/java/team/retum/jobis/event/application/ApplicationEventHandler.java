@@ -7,6 +7,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 import team.retum.jobis.domain.application.event.ApplicationsStatusChangedEvent;
 import team.retum.jobis.domain.application.model.Application;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
@@ -32,6 +33,9 @@ public class ApplicationEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
+        if (event.getStatus() == ApplicationStatus.PROCESSING) {
+            return;
+        }
         Map<Long, String> userIdTokenMap = queryUserPort.getAllByIds(
                 event.getApplications().stream().map(Application::getStudentId).toList()
             ).stream()
