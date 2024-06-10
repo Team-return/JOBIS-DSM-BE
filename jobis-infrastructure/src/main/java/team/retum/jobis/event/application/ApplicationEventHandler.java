@@ -47,9 +47,14 @@ public class ApplicationEventHandler {
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {
+            String content = "지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.";
+            if (event.getStatus() == ApplicationStatus.PASS) {
+                content = companyNameMap.get(application.getRecruitmentId()) + "에 합격하셨습니다.";
+            }
+
             Notification notification = Notification.builder()
                 .title(companyNameMap.get(application.getRecruitmentId()))
-                .content("지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.")
+                .content(content)
                 .userId(application.getStudentId())
                 .topic(Topic.APPLICATION_STATUS_CHANGED)
                 .detailId(application.getId())
