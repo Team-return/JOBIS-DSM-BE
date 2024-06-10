@@ -128,7 +128,7 @@ public class RecruitmentWebAdapter {
     ) {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
-            page - 1,
+            page,
             this.parseCodes(jobCode, techCodes),
             winterIntern,
             militarySupport
@@ -164,7 +164,7 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "job_code", required = false) String jobCode,
         @RequestParam(value = "tech_code", required = false) String techCodes
     ) {
-        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes));
+        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes));
     }
 
     @GetMapping("/teacher/no-page")
