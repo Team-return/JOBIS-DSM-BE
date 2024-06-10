@@ -144,7 +144,7 @@ public class CompanyWebAdapter {
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "page", defaultValue = "1") @Positive Long page
     ) {
-        return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
+        return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page);
     }
 
     @Cacheable
