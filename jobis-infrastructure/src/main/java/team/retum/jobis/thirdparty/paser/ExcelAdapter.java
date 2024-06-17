@@ -75,13 +75,17 @@ public class ExcelAdapter implements WriteFilePort {
                 String personalContact;
                 String convention;
 
-                if (ph.getPersonalContact()) {
+                if (ph.getPersonalContact() == null) {
+                    personalContact = "X";
+                } else if (ph.getPersonalContact()){
                     personalContact = "O";
                 } else {
                     personalContact = "X";
                 }
 
-                if (ph.getConvention()) {
+                if (ph.getConvention() == null) {
+                    convention = "X";
+                } else if (ph.getConvention()){
                     convention = "O";
                 } else {
                     convention = "X";
