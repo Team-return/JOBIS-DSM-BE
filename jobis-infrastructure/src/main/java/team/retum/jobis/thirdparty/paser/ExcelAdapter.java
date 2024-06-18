@@ -77,7 +77,7 @@ public class ExcelAdapter implements WriteFilePort {
 
                 if (ph.getPersonalContact() == null) {
                     personalContact = "X";
-                } else if (ph.getPersonalContact()){
+                } else if (ph.getPersonalContact()) {
                     personalContact = "O";
                 } else {
                     personalContact = "X";
@@ -85,7 +85,7 @@ public class ExcelAdapter implements WriteFilePort {
 
                 if (ph.getConvention() == null) {
                     convention = "X";
-                } else if (ph.getConvention()){
+                } else if (ph.getConvention()) {
                     convention = "O";
                 } else {
                     convention = "X";
