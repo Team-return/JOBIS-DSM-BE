@@ -7,6 +7,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 import team.retum.jobis.domain.application.event.ApplicationsStatusChangedEvent;
 import team.retum.jobis.domain.application.model.Application;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
@@ -32,6 +33,9 @@ public class ApplicationEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
+        if (event.getStatus() == ApplicationStatus.PROCESSING) {
+            return;
+        }
         Map<Long, String> userIdTokenMap = queryUserPort.getAllByIds(
                 event.getApplications().stream().map(Application::getStudentId).toList()
             ).stream()
@@ -43,9 +47,15 @@ public class ApplicationEventHandler {
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {
+            String content = "지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.";
+            String companyName = companyNameMap.get(application.getRecruitmentId());
+            if (event.getStatus() == ApplicationStatus.PASS) {
+                content = companyName + "에 합격하셨습니다.";
+            }
+
             Notification notification = Notification.builder()
-                .title(companyNameMap.get(application.getRecruitmentId()))
-                .content("지원서 상태가 " + event.getStatus().getName() + "로 변경되었습니다.")
+                .title(companyName)
+                .content(content)
                 .userId(application.getStudentId())
                 .topic(Topic.APPLICATION_STATUS_CHANGED)
                 .detailId(application.getId())

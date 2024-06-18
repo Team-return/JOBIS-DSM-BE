@@ -19,6 +19,7 @@ public class CreateBannerUseCase {
                 .bannerType(request.getBannerType())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
+                .detailId(request.getDetailId())
                 .build()
         );
     }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
+import team.retum.jobis.domain.application.dto.response.ApplicationCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.application.dto.response.QueryMyApplicationsResponse;
@@ -43,9 +44,13 @@ import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudent
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
 import team.retum.jobis.domain.application.usecase.ReapplyUseCase;
 import team.retum.jobis.domain.application.usecase.RejectApplicationUseCase;
+import team.retum.jobis.domain.application.usecase.TeacherDeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 
 import java.time.Year;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static team.retum.jobis.global.config.cache.CacheName.APPLICATION;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
@@ -69,6 +74,7 @@ public class ApplicationWebAdapter {
     private final QueryPassedApplicationStudentsUseCase queryPassedApplicationStudentsUseCase;
     private final ReapplyUseCase reapplyUseCase;
     private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
+    private final TeacherDeleteApplicationUseCase teacherDeleteApplicationUseCase;
 
     @Caching(
         evict = {
@@ -114,8 +120,13 @@ public class ApplicationWebAdapter {
         return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year);
     }
 
-    @Cacheable
     @GetMapping("/count")
+    public ApplicationCountResponse countApplications() {
+        return queryApplicationListService.countApplications();
+    }
+
+    @Cacheable
+    @GetMapping("/teacher/count")
     public TotalPageCountResponse queryApplicationCount(
         @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
         @RequestParam(value = "student_name", required = false) String studentName
@@ -198,5 +209,16 @@ public class ApplicationWebAdapter {
     @GetMapping("/rejection/{application-id}")
     public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
         return queryRejectionReasonUseCase.execute(applicationId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping
+    public void teacherDeleteApplication(
+        @RequestParam(value = "application_id") String applicationId
+    ) {
+        List<Long> applicationIds = Arrays.stream(applicationId.split(","))
+                .map(Long::parseLong)
+                    .collect(Collectors.toList());
+        teacherDeleteApplicationUseCase.execute(applicationIds);
     }
 }

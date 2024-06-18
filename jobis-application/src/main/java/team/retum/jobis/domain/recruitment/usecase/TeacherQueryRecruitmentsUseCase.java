@@ -5,6 +5,7 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -19,8 +20,8 @@ public class TeacherQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
 
-    public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end,
-                                                    Integer year, RecruitStatus status, Long page, Boolean winterIntern) {
+    public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end, Integer year,
+                                                    RecruitStatus status, Long page, Boolean winterIntern, Boolean militarySupport, List<Long> codeIds) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
             .companyName(companyName)
             .status(status)
@@ -30,6 +31,8 @@ public class TeacherQueryRecruitmentsUseCase {
             .year(year)
             .page(page)
             .winterIntern(winterIntern)
+            .militarySupport(militarySupport)
+            .codes(codeIds)
             .build();
 
         List<TeacherRecruitmentResponse> recruitments =
@@ -40,13 +43,26 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
-    public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds) {
+    public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds, Boolean winterIntern, Boolean militarySupport) {
+        RecruitmentFilter filter = RecruitmentFilter.builder()
+            .codes(codeIds)
+            .year(year)
+            .winterIntern(winterIntern)
+            .militarySupport(militarySupport)
+            .build();
+
         List<TeacherRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(year, codeIds).stream()
+            queryRecruitmentPort.getTeacherRecruitmentsWithoutPageBy(filter).stream()
                 .map(TeacherRecruitmentResponse::from)
                 .toList();
 
         return new TeacherQueryRecruitmentsResponse(recruitments);
+    }
+
+    public RecruitmentCountResponse countRecruitments() {
+        Long count = queryRecruitmentPort.countRecruitments();
+
+        return new RecruitmentCountResponse(count);
     }
 
     public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,

@@ -15,4 +15,5 @@ public class TeacherBannersVO {
     private final BannerType bannerType;
     private final LocalDate startDate;
     private final LocalDate endDate;
+    private final Long detailId;
 }

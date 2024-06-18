@@ -25,7 +25,8 @@ public class StudentQueryRecruitmentsUseCase {
         String name,
         Long page,
         List<Long> codeIds,
-        Boolean winterIntern
+        Boolean winterIntern,
+        Boolean militarySupport
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
         RecruitmentFilter recruitmentFilter = RecruitmentFilter.builder()
@@ -37,6 +38,7 @@ public class StudentQueryRecruitmentsUseCase {
             .codes(codeIds)
             .studentId(currentStudentId)
             .winterIntern(winterIntern)
+            .militarySupport(militarySupport)
             .build();
 
         List<StudentRecruitmentResponse> recruitments =

@@ -17,4 +17,6 @@ public class CreateBannerRequest {
     private LocalDate startDate;
 
     private LocalDate endDate;
+
+    private Long detailId;
 }

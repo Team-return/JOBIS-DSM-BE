@@ -2,6 +2,7 @@ package team.retum.jobis.domain.company.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,7 @@ import team.retum.jobis.domain.company.persistence.repository.vo.QQueryReviewAva
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryTeacherEmployCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
+import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.spi.CompanyPort;
 import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
@@ -93,7 +95,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
 
     @Override
     public List<TeacherCompaniesVO> queryCompaniesByConditions(CompanyFilter filter) {
-        return queryFactory
+        JPAQuery<TeacherQueryCompaniesVO> query = queryFactory
             .select(
                 new QTeacherQueryCompaniesVO(
                     companyEntity.id,
@@ -118,9 +120,16 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 eqRegion(filter.getRegion()),
                 eqBusinessArea(filter.getBusinessArea())
             )
-            .offset(filter.getOffset())
-            .limit(filter.getLimit())
-            .orderBy(companyEntity.name.desc())
+            .orderBy(recruitmentEntity.recruitYear.desc());
+
+        if (filter.getPage() != null) {
+            query
+                .offset(filter.getOffset())
+                .limit(filter.getLimit());
+        }
+
+
+        return query
             .fetch().stream()
             .map(TeacherCompaniesVO.class::cast)
             .toList();
@@ -313,6 +322,14 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 groupBy(recruitmentEntity.id)
                     .as(companyEntity.name)
             );
+    }
+
+    @Override
+    public Long countCompanies() {
+        return queryFactory
+            .select(companyEntity.count())
+            .from(companyEntity)
+            .fetchOne();
     }
 
     //==conditions==//

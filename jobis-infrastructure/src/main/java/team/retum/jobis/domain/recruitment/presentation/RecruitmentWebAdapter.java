@@ -26,6 +26,7 @@ import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistory
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -47,6 +48,7 @@ import team.retum.jobis.domain.recruitment.usecase.TeacherQueryRecruitmentsUseCa
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import team.retum.jobis.global.exception.BadRequestException;
+import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -76,6 +78,7 @@ public class RecruitmentWebAdapter {
     private final DeleteRecruitAreaUseCase deleteRecruitAreaUseCase;
     private final QueryMyRecruitmentsUseCase queryMyRecruitmentsUseCase;
     private final ExportRecruitmentHistoryUseCase exportRecruitmentHistoryUseCase;
+    private final ExcelAdapter excelAdapter;
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
@@ -120,13 +123,15 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
         @RequestParam(value = "tech_code", required = false) String techCodes,
         @RequestParam(value = "job_code", required = false) String jobCode,
-        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport
     ) {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
-            page - 1,
+            page,
             this.parseCodes(jobCode, techCodes),
-            winterIntern
+            winterIntern,
+            militarySupport
         );
     }
 
@@ -154,18 +159,28 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "status", required = false) RecruitStatus status,
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "page", defaultValue = "1") @Positive Long page,
-        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport,
+        @RequestParam(value = "job_code", required = false) String jobCode,
+        @RequestParam(value = "tech_code", required = false) String techCodes
     ) {
-        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page - 1, winterIntern);
+        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes));
     }
 
     @GetMapping("/teacher/no-page")
     public TeacherQueryRecruitmentsResponse getRecruitmentListWithoutPage(
         @RequestParam(value = "year") int year,
         @RequestParam(value = "job_code", required = false) String jobCode,
-        @RequestParam(value = "tech_code", required = false) String techCodes
+        @RequestParam(value = "tech_code", required = false) String techCodes,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport
     ) {
-        return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes));
+        return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes), winterIntern, militarySupport);
+    }
+
+    @GetMapping("/count")
+    public RecruitmentCountResponse countRecruitments() {
+        return teacherQueryRecruitmentsUseCase.countRecruitments();
     }
 
     @Cacheable
@@ -223,17 +238,8 @@ public class RecruitmentWebAdapter {
     @GetMapping("/file")
     public byte[] exportRecruitmentHistory(HttpServletResponse httpResponse) {
         ExportRecruitmentHistoryResponse response = exportRecruitmentHistoryUseCase.execute();
-        setExcelContentDisposition(httpResponse, response.getFileName());
+        excelAdapter.setExcelContentDisposition(httpResponse, response.getFileName());
         return response.getFile();
-    }
-
-    private void setExcelContentDisposition(HttpServletResponse response, String fileName) {
-        try {
-            String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20");
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + ".xlsx\"");
-        } catch (Exception e) {
-            throw new BadRequestException();
-        }
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {

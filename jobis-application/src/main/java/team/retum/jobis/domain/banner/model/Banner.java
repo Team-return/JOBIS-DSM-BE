@@ -21,4 +21,6 @@ public class Banner {
 
     private final LocalDate endDate;
 
+    private final Long detailId;
+
 }

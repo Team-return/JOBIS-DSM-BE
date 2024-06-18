@@ -25,12 +25,15 @@ public class CreateBannerWebRequest {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
+    private Long detailId;
+
     public CreateBannerRequest toDomainRequest() {
         return CreateBannerRequest.builder()
             .bannerUrl(this.bannerUrl)
             .bannerType(this.bannerType)
             .startDate(this.startDate)
             .endDate(this.endDate)
+            .detailId(this.detailId)
             .build();
     }
 }

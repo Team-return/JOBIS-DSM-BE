@@ -28,11 +28,13 @@ public interface QueryRecruitmentPort {
 
     List<TeacherRecruitmentVO> getTeacherRecruitmentsBy(RecruitmentFilter filter);
 
-    List<TeacherRecruitmentVO> getTeacherRecruitmentsByYearAndCodeIds(Integer year, List<Long> codeIds);
+    List<TeacherRecruitmentVO> getTeacherRecruitmentsWithoutPageBy(RecruitmentFilter filter);
 
     List<Recruitment> getAllByIdInOrThrow(List<Long> recruitmentIds);
 
     Long getCountBy(RecruitmentFilter filter);
 
     List<MyAllRecruitmentsVO> getAllByCompanyId(Long companyId);
+
+    Long countRecruitments();
 }

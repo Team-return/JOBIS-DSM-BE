@@ -83,7 +83,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 containsName(filter.getCompanyName()),
                 containsCodes(filter.getCodes()),
                 eqWinterIntern(filter.getWinterIntern()),
-                recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
+                recruitmentEntity.status.eq(RecruitStatus.RECRUITING),
+                eqMilitarySupport(filter.getMilitarySupport())
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
@@ -141,7 +142,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                 eqRecruitStatus(filter.getStatus()),
                 containsName(filter.getCompanyName()),
-                eqWinterIntern(filter.getWinterIntern())
+                eqWinterIntern(filter.getWinterIntern()),
+                containsCodes(filter.getCodes())
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
@@ -153,7 +155,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public List<TeacherRecruitmentVO> getTeacherRecruitmentsByYearAndCodeIds(Integer year, List<Long> codeIds) {
+    public List<TeacherRecruitmentVO> getTeacherRecruitmentsWithoutPageBy(RecruitmentFilter filter) {
         QApplicationEntity requestedApplication = new QApplicationEntity("requestedApplication");
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
@@ -195,8 +197,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED)
             )
             .where(
-                eqYear(year),
-                containsCodes(codeIds)
+                eqYear(filter.getYear()),
+                containsCodes(filter.getCodes()),
+                eqWinterIntern(filter.getWinterIntern()),
+                eqMilitarySupport(filter.getMilitarySupport())
             )
             .orderBy(recruitmentEntity.createdAt.desc())
             .groupBy(recruitmentEntity.id)
@@ -384,6 +388,14 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .toList();
     }
 
+    @Override
+    public Long countRecruitments() {
+        return queryFactory
+            .select(recruitmentEntity.count())
+            .from(recruitmentEntity)
+            .fetchOne();
+    }
+
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {
@@ -427,5 +439,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
         return winterIntern == null ? null : recruitmentEntity.winterIntern.eq(winterIntern);
+    }
+
+    private BooleanExpression eqMilitarySupport(Boolean militarySupport) {
+        return militarySupport == null ? null : recruitmentEntity.militarySupport.eq(militarySupport);
     }
 }

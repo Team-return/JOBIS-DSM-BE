@@ -44,12 +44,16 @@ public class BannerEntity {
     @Column(columnDefinition = "DATE")
     private LocalDate endDate;
 
+    @Column(columnDefinition = "BIGINT")
+    private Long detailId;
+
     @Builder
-    public BannerEntity(Long id, String bannerUrl, BannerType bannerType, LocalDate startDate, LocalDate endDate) {
+    public BannerEntity(Long id, String bannerUrl, BannerType bannerType, LocalDate startDate, LocalDate endDate, Long detailId) {
         this.id = id;
         this.bannerUrl = bannerUrl;
         this.bannerType = bannerType;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.detailId = detailId;
     }
 }

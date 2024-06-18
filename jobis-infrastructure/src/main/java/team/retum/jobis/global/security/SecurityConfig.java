@@ -59,6 +59,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name(), COMPANY.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/file").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "recruitments/count").hasAnyAuthority(TEACHER.name())
 
                     // bugs
                     .requestMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
@@ -76,7 +77,7 @@ public class SecurityConfig {
 
                     // applications
                     .requestMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())
-                    .requestMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/applications/teacher/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/employment/count").permitAll()
                     .requestMatchers(HttpMethod.GET, "/applications/pass/{company-id}").hasAnyAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/company").hasAuthority(COMPANY.name())
@@ -88,6 +89,8 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/applications/rejection/{application-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/rejection/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                    .requestMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.DELETE, "/applications").hasAuthority(TEACHER.name())
 
                     // bookmarks
                     .requestMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
@@ -116,6 +119,8 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/employment/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                    .requestMatchers(HttpMethod.GET, "/companies/count").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/companies/file").hasAuthority(TEACHER.name())
 
                     // users
                     .requestMatchers(HttpMethod.POST, "/users/login").permitAll()

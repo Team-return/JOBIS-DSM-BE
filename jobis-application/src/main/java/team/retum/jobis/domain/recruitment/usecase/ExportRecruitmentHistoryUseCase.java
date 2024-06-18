@@ -3,6 +3,7 @@ package team.retum.jobis.domain.recruitment.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.WriteFilePort;
+import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
@@ -19,14 +20,19 @@ public class ExportRecruitmentHistoryUseCase {
     private final QueryRecruitmentPort queryRecruitmentPort;
 
     public ExportRecruitmentHistoryResponse execute() {
-        LocalDate now = LocalDate.now();
+        int year = LocalDate.now().getYear();
+
+        RecruitmentFilter filter = RecruitmentFilter.builder()
+            .year(year)
+            .codes(List.of())
+            .build();
 
         List<TeacherRecruitmentVO> recruitmentList =
-            queryRecruitmentPort.getTeacherRecruitmentsByYearAndCodeIds(now.getYear(), Collections.emptyList());
+            queryRecruitmentPort.getTeacherRecruitmentsWithoutPageBy(filter);
 
         return new ExportRecruitmentHistoryResponse(
             writeFilePort.writeRecruitmentExcelFile(recruitmentList),
-            getFileName(now.getYear())
+            getFileName(year)
         );
     }
 

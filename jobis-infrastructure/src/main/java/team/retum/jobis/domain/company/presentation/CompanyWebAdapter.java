@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.presentation;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
+import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
+import team.retum.jobis.domain.company.dto.response.ExportCompanyHistoryResponse;
 import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
@@ -34,6 +37,7 @@ import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTyp
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouWebRequest;
 import team.retum.jobis.domain.company.usecase.CheckCompanyExistsUseCase;
 import team.retum.jobis.domain.company.usecase.CompanyMyPageUseCase;
+import team.retum.jobis.domain.company.usecase.ExportCompanyHistoryUseCase;
 import team.retum.jobis.domain.company.usecase.QueryCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.QueryReviewAvailableCompaniesUseCase;
 import team.retum.jobis.domain.company.usecase.RegisterCompanyUseCase;
@@ -43,6 +47,8 @@ import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCas
 import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
+import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
+import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
@@ -65,6 +71,8 @@ public class CompanyWebAdapter {
     private final TeacherQueryCompaniesUseCase teacherQueryCompaniesUseCase;
     private final UpdateMouUseCase updateMouUseCase;
     private final QueryReviewAvailableCompaniesUseCase queryReviewAvailableCompaniesUseCase;
+    private final ExportCompanyHistoryUseCase exportRecruitmentHistoryUseCase;
+    private final ExcelAdapter excelAdapter;
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
@@ -99,7 +107,7 @@ public class CompanyWebAdapter {
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
         @RequestParam(value = "name", required = false) String name
     ) {
-        return studentQueryCompaniesUseCase.execute(page - 1, name);
+        return studentQueryCompaniesUseCase.execute(page, name);
     }
 
     @Cacheable
@@ -136,7 +144,7 @@ public class CompanyWebAdapter {
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "page", defaultValue = "1") @Positive Long page
     ) {
-        return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page - 1);
+        return teacherQueryEmployCompaniesUseCase.execute(companyName, type, year, page);
     }
 
     @Cacheable
@@ -156,9 +164,14 @@ public class CompanyWebAdapter {
         @RequestParam(value = "name", required = false) String companyName,
         @RequestParam(value = "region", required = false) String region,
         @RequestParam(value = "business_area", required = false) Long businessArea,
-        @RequestParam(value = "page", defaultValue = "1") @Positive Long page
+        @RequestParam(value = "page", required = false) @Positive Long page
     ) {
-        return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page - 1);
+        return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page);
+    }
+
+    @GetMapping("/count")
+    public CompanyCountResponse countCompanies() {
+        return teacherQueryCompaniesUseCase.countCompanies();
     }
 
     @Cacheable
@@ -182,5 +195,12 @@ public class CompanyWebAdapter {
     @GetMapping("/review")
     public QueryReviewAvailableCompaniesResponse queryReviewAvailableCompanies() {
         return queryReviewAvailableCompaniesUseCase.execute();
+    }
+
+    @GetMapping("/file")
+    public byte[] exportRecruitmentHistory(HttpServletResponse httpResponse) {
+        ExportCompanyHistoryResponse response = exportRecruitmentHistoryUseCase.execute();
+        excelAdapter.setExcelContentDisposition(httpResponse, response.getFileName());
+        return response.getFile();
     }
 }
