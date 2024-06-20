@@ -85,7 +85,6 @@ public class ExcelAdapter implements WriteFilePort {
                     convention = "X";
                 } else {
                     convention = "O";
-                }
 
                 return List.of(
                 ph.getCompanyName(),
