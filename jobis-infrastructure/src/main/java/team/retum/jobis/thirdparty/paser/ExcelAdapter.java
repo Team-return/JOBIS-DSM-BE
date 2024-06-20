@@ -71,20 +71,8 @@ public class ExcelAdapter implements WriteFilePort {
 
         List<List<String>> dataList = companyList.stream()
             .map(ph -> {
-
-                String personalContact;
-                String convention;
-
-                if (ph.getPersonalContact() == null || !ph.getPersonalContact()) {
-                    personalContact = "X";
-                } else {
-                    personalContact = "O";
-                }
-
-                if (ph.getConvention() == null || !ph.getConvention()) {
-                    convention = "X";
-                } else {
-                    convention = "O";
+                String personalContact = (ph.getPersonalContact() == null || !ph.getPersonalContact()) ? "X" : "O";
+                String convention = (ph.getConvention() == null || !ph.getConvention()) ? "X" : "O";
 
                 return List.of(
                 ph.getCompanyName(),
