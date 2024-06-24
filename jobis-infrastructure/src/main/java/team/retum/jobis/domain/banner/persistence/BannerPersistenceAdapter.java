@@ -43,6 +43,14 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
+    public void deleteExpiredBanners() {
+        queryFactory
+            .delete(bannerEntity)
+            .where(bannerEntity.endDate.loe(LocalDate.now()))
+            .execute();
+    }
+
+    @Override
     public Banner getByIdOrThrow(Long bannerId) {
         return bannerJpaRepository.findById(bannerId)
             .map(bannerMapper::toDomain)
