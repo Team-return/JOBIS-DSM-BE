@@ -47,5 +47,5 @@ jobs:
           script: |
             cd jobis
             docker pull jobis1111/dev-server
-            docker-compose up -d --no-deps --build dev-server
+            docker compose up -d --no-deps --build dev-server
             docker image prune -a -f
