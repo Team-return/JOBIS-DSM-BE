@@ -342,6 +342,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .from(companyEntity)
             .fetchOne();
     }
+
     @Override
     public List<CompanyVO> queryEmploymentRateByClassNumber(Integer classId) {
         return queryFactory
