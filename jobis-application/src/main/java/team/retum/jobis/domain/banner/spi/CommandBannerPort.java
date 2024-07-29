@@ -7,4 +7,6 @@ public interface CommandBannerPort {
     void save(Banner banner);
 
     void delete(Banner banner);
+
+    void deleteExpiredBanners();
 }
