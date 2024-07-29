@@ -39,7 +39,7 @@ import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCa
 import team.retum.jobis.domain.application.usecase.CreateApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
-import team.retum.jobis.domain.application.usecase.QueryEmploymentRateUserCase;
+import team.retum.jobis.domain.application.usecase.QueryEmploymentRateUseCase;
 import team.retum.jobis.domain.application.usecase.QueryMyApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryPassedApplicationStudentsUseCase;
 import team.retum.jobis.domain.application.usecase.QueryRejectionReasonUseCase;
@@ -77,7 +77,7 @@ public class ApplicationWebAdapter {
     private final ReapplyUseCase reapplyUseCase;
     private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
     private final TeacherDeleteApplicationUseCase teacherDeleteApplicationUseCase;
-    private final QueryEmploymentRateUserCase queryEmploymentRateUserCase;
+    private final QueryEmploymentRateUseCase queryEmploymentRateUseCase;
 
     @Caching(
         evict = {
