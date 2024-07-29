@@ -362,8 +362,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .groupBy(companyEntity.id)
             .fetch();
     }
-
-
+    
     private BooleanExpression containsName(String name) {
         return name == null ? null : companyEntity.name.contains(name);
     }
