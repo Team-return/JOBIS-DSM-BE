@@ -225,8 +225,8 @@ public class ApplicationWebAdapter {
         teacherDeleteApplicationUseCase.execute(applicationIds);
     }
 
-    @GetMapping("/class")
+    @GetMapping("/employment")
     public EmploymentRatesResponse queryEmploymentRate() {
-        return queryEmploymentRateUserCase.execute();
+        return queryEmploymentRateUseCase.execute();
     }
 }
