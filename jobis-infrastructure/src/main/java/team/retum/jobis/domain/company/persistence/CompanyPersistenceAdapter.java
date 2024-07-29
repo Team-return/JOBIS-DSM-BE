@@ -344,11 +344,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
     @Override
     public List<CompanyVO> queryEmploymentRateByClassNumber(Integer classId) {
-        QStudentEntity studentEntity = QStudentEntity.studentEntity;
-        QApplicationEntity applicationEntity = QApplicationEntity.applicationEntity;
-        QCompanyEntity companyEntity = QCompanyEntity.companyEntity;
-        QRecruitmentEntity recruitmentEntity = QRecruitmentEntity.recruitmentEntity;
-
         return queryFactory
             .select(
                 Projections.constructor(CompanyVO.class,
