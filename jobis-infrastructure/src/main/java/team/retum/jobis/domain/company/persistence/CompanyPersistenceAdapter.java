@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.persistence;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -348,27 +349,24 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         QCompanyEntity companyEntity = QCompanyEntity.companyEntity;
         QRecruitmentEntity recruitmentEntity = QRecruitmentEntity.recruitmentEntity;
 
-        // 합격자들의 기업 정보를 클래스별로 그룹화하여 조회하는 쿼리
         return queryFactory
             .select(
-                companyEntity.id,
-                companyEntity.name,
-                companyEntity.companyLogoUrl
+                Projections.constructor(CompanyVO.class,
+                    companyEntity.id,
+                    companyEntity.name,
+                    companyEntity.companyLogoUrl
+                )
             )
             .from(studentEntity)
-            .innerJoin(applicationEntity)
-            .on(applicationEntity.student.id.eq(studentEntity.id)) // 학생과 지원서 조인
-            .innerJoin(recruitmentEntity) //application과 같은 recruitment 조회
-            .on(applicationEntity.recruitment.id.eq(recruitmentEntity.id)
-                .and(applicationEntity.applicationStatus.eq(ApplicationStatus.PASS))) // 합격자만 조회
-            .innerJoin(companyEntity)
-            .on(recruitmentEntity.company.id.eq(companyEntity.id)) // 합격자의 채용 정보를 통해 기업과 조인
-            .where(studentEntity.classRoom.eq(classId)) // 특정 반의 학생들만 조회
+            .innerJoin(applicationEntity).on(applicationEntity.student.id.eq(studentEntity.id))
+            .innerJoin(recruitmentEntity).on(applicationEntity.recruitment.id.eq(recruitmentEntity.id)
+                .and(applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)))
+            .innerJoin(companyEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
+            .where(studentEntity.classRoom.eq(classId))
             .groupBy(companyEntity.id)
-            .fetch().stream()
-            .map(CompanyVO.class::cast)
-            .toList();
+            .fetch();
     }
+
 
     private BooleanExpression containsName(String name) {
         return name == null ? null : companyEntity.name.contains(name);
