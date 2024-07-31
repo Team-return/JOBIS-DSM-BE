@@ -3,7 +3,6 @@ package team.retum.jobis.domain.company.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import team.retum.jobis.domain.company.spi.vo.CompanyVO;
 
 import java.util.List;
