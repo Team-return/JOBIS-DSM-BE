@@ -342,7 +342,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<CompanyVO> queryEmploymentRateByClassNumber(Integer classId) {
+    public List<CompanyVO> queryEmploymentRateByClassNumber(Integer classNum) {
         return queryFactory
             .select(
                 Projections.constructor(CompanyVO.class,
@@ -356,7 +356,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .innerJoin(recruitmentEntity).on(applicationEntity.recruitment.id.eq(recruitmentEntity.id)
                 .and(applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)))
             .innerJoin(companyEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
-            .where(studentEntity.classRoom.eq(classId))
+            .where(studentEntity.classRoom.eq(classNum))
             .groupBy(companyEntity.id)
             .fetch();
     }

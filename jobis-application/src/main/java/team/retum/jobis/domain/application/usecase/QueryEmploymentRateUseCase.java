@@ -14,13 +14,15 @@ import java.util.List;
 public class QueryEmploymentRateUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
+    private static final Long FirstClass = 1;
+    private static final Long FourthClass = 4;
 
     public EmploymentRatesResponse execute() {
         List<EmploymentRatesResponse.ClassResponse> classResponses = new ArrayList<>();
 
-        for (int i = 1; i <= 4; i++) {
-            List<CompanyVO> companies = queryCompanyPort.queryEmploymentRateByClassNumber(i);
-            classResponses.add(new EmploymentRatesResponse.ClassResponse((long) i, companies));
+        for (Long classNum = FirstClass; classNum <= FourthClass; classNum++) {
+            List<CompanyVO> companies = queryCompanyPort.queryEmploymentRateByClassNumber(classNum);
+            classResponses.add(new EmploymentRatesResponse.ClassResponse(classNum, companies));
         }
 
         return new EmploymentRatesResponse(classResponses);

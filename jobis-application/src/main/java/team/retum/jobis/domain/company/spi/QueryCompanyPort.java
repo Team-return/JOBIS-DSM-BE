@@ -42,6 +42,6 @@ public interface QueryCompanyPort {
 
     Long countCompanies();
 
-    List<CompanyVO> queryEmploymentRateByClassNumber(Integer classId);
+    List<CompanyVO> queryEmploymentRateByClassNumber(Integer classNum);
 
 }
