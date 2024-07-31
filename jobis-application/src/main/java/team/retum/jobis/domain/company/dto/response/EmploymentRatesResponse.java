@@ -17,7 +17,7 @@ public class EmploymentRatesResponse {
     @Getter
     @AllArgsConstructor
     public static class ClassResponse {
-        private final Long classId;
+        private final Integer classId;
         private final List<CompanyVO> employmentRateResponseList;
     }
 }
