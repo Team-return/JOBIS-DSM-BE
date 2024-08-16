@@ -12,7 +12,7 @@ public class SubscribeAllTopicsUseCase {
     private final CommandNotificationPort commandNotificationPort;
 
     public void execute(String token) {
-        for (Topic topic: Topic.values()) {
+        for (Topic topic : Topic.values()) {
             commandNotificationPort.subscribeTopic(token, topic);
         }
     }
