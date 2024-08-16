@@ -15,7 +15,9 @@ import team.retum.jobis.domain.notification.dto.response.QueryNotificationsRespo
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.usecase.QueryNotificationsUseCase;
 import team.retum.jobis.domain.notification.usecase.ReadNotificationUseCase;
+import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeAllTopicsUseCase;
 import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeTopicUseCase;
+import team.retum.jobis.domain.notification.usecase.subscribe.UnsubscribeAllTopicsUseCase;
 import team.retum.jobis.domain.notification.usecase.subscribe.UnsubscribeTopicUseCase;
 
 @RequiredArgsConstructor
@@ -27,6 +29,8 @@ public class NotificationWebAdapter {
     private final ReadNotificationUseCase readNotificationUseCase;
     private final UnsubscribeTopicUseCase unsubscribeTopicUseCase;
     private final SubscribeTopicUseCase subscribeTopicUseCase;
+    private final SubscribeAllTopicsUseCase subscribeAllTopicsUseCase;
+    private final UnsubscribeAllTopicsUseCase unsubscribeAllTopicsUseCase;
 
     @GetMapping
     public QueryNotificationsResponse queryNotifications(@RequestParam(value = "is_new", required = false) Boolean isNew) {
@@ -47,5 +51,15 @@ public class NotificationWebAdapter {
     @DeleteMapping("/topic")
     public void unsubscribeTopic(@RequestParam("topic") Topic topic, @RequestParam("token") String token) {
         unsubscribeTopicUseCase.execute(token, topic);
+    }
+
+    @PostMapping("/topics")
+    public void subscribeAllTopics(@RequestParam("token") String token) {
+        subscribeAllTopicsUseCase.execute(token);
+    }
+
+    @DeleteMapping("/topics")
+    public void unsubscribeAllTopics(@RequestParam("token") String token) {
+        unsubscribeAllTopicsUseCase.execute(token);
     }
 }
