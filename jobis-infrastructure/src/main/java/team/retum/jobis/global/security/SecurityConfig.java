@@ -164,8 +164,8 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/notifications/{notification-id}").authenticated()
                     .requestMatchers(HttpMethod.POST, "/notifications/topic").authenticated()
                     .requestMatchers(HttpMethod.DELETE, "/notifications/topic").authenticated()
-                    .requestMatchers(HttpMethod.POST, "/notifications/topics").authenticated()
-                    .requestMatchers(HttpMethod.DELETE, "/notifications/topics").authenticated()
+                    .requestMatchers(HttpMethod.POST, "/notifications").authenticated()
+                    .requestMatchers(HttpMethod.DELETE, "/notifications").authenticated()
                     .anyRequest().authenticated()
 
             )
