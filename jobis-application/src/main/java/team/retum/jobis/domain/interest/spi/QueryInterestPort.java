@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.interest.spi;
 
+import team.retum.jobis.domain.interest.dto.InterestResponse;
 import team.retum.jobis.domain.interest.model.Interest;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface QueryInterestPort {
 
     List<Interest> findAllByStudentId(Long studentId);
 
+    List<InterestResponse> findResponsesByStudentId(Long studentId);
 }
