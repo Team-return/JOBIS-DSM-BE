@@ -168,7 +168,8 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/notifications").authenticated()
 
                     // interest
-                    .requestMatchers(HttpMethod.PATCH, "/interests").hasAnyAuthority(STUDENT.name())
+                    .requestMatchers(HttpMethod.PATCH, "/interests/{code}").hasAnyAuthority(STUDENT.name())
+                    .requestMatchers(HttpMethod.GET, "/interests").hasAnyAuthority(STUDENT.name())
                     .anyRequest().authenticated()
 
             )
