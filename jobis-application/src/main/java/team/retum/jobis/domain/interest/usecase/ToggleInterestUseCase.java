@@ -10,6 +10,8 @@ import team.retum.jobis.domain.interest.spi.CommandInterestPort;
 import team.retum.jobis.domain.interest.spi.QueryInterestPort;
 import team.retum.jobis.domain.student.model.Student;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @UseCase
 public class ToggleInterestUseCase {
@@ -19,17 +21,20 @@ public class ToggleInterestUseCase {
     private final QueryCodePort queryCodePort;
     private final SecurityPort securityPort;
 
-    public void execute(Long codeId) {
+    public void execute(List<Long> codeIds) {
         Student student = securityPort.getCurrentStudent();
-        Code code = queryCodePort.getByIdOrThrow(codeId);
 
-        queryInterestPort.findByStudentIdAndCode(student.getId(), code.getId())
-            .ifPresentOrElse(
-                commandInterestPort::deleteInterest,
-                () -> commandInterestPort.saveInterest(Interest.builder()
-                    .studentId(student.getId())
-                    .code(code.getId())
-                    .build())
-            );
+        for (Long codeId : codeIds) {
+            Code code = queryCodePort.getByIdOrThrow(codeId);
+
+            queryInterestPort.findByStudentIdAndCode(student.getId(), code.getId())
+                    .ifPresentOrElse(
+                            commandInterestPort::deleteInterest,
+                            () -> commandInterestPort.saveInterest(Interest.builder()
+                                    .studentId(student.getId())
+                                    .code(code.getId())
+                                    .build())
+                    );
+        }
     }
 }
