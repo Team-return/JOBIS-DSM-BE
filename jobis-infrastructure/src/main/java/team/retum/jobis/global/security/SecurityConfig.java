@@ -166,6 +166,9 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/notifications/topic").authenticated()
                     .requestMatchers(HttpMethod.POST, "/notifications").authenticated()
                     .requestMatchers(HttpMethod.DELETE, "/notifications").authenticated()
+
+                    // interest
+                    .requestMatchers(HttpMethod.PATCH, "/interests").hasAnyAuthority(STUDENT.name())
                     .anyRequest().authenticated()
 
             )
