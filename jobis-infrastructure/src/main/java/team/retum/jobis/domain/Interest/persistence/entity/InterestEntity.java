@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.Interest.persistence.entity;
+package team.retum.jobis.domain.interest.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,8 +1,8 @@
-package team.retum.jobis.domain.Interest.persistence.mapper;
+package team.retum.jobis.domain.interest.persistence.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.Interest.persistence.entity.InterestEntity;
+import team.retum.jobis.domain.interest.persistence.entity.InterestEntity;
 import team.retum.jobis.domain.interest.model.Interest;
 
 @RequiredArgsConstructor
