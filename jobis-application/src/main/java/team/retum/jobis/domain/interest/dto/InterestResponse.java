@@ -20,10 +20,10 @@ public class InterestResponse {
 
     public static InterestResponse from(Interest interest, Code code) {
         return InterestResponse.builder()
-                .id(interest.getId())
-                .studentId(interest.getStudentId())
-                .code(code.getId())
-                .keyword(code.getKeyword())
-                .build();
+            .id(interest.getId())
+            .studentId(interest.getStudentId())
+            .code(code.getId())
+            .keyword(code.getKeyword())
+            .build();
     }
 }
