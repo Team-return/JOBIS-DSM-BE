@@ -9,7 +9,7 @@ import team.retum.jobis.common.error.HttpStatus;
 @AllArgsConstructor
 public enum InterestErrorCode implements ErrorProperty {
 
-    INTEREST_NOT_FOUND(HttpStatus.NOT_FOUND, "InterestEntity Not Found");
+    INTEREST_NOT_FOUND(HttpStatus.NOT_FOUND, "Interest Not Found");
 
     private final HttpStatus status;
     private final String message;

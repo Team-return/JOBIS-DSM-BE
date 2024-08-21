@@ -9,9 +9,9 @@ import team.retum.jobis.common.error.HttpStatus;
 @AllArgsConstructor
 public enum BookmarkErrorCode implements ErrorProperty {
 
-    BOOKMARK_NOT_FOUND(HttpStatus.NOT_FOUND, "BookmarkEntity Not Found"),
+    BOOKMARK_NOT_FOUND(HttpStatus.NOT_FOUND, "Bookmark Not Found"),
 
-    BOOKMARK_ALREADY_EXISTS(HttpStatus.CONFLICT, "BookmarkEntity Already Exists");
+    BOOKMARK_ALREADY_EXISTS(HttpStatus.CONFLICT, "Bookmark Already Exists");
 
     private final HttpStatus status;
     private final String message;
