@@ -3,19 +3,17 @@ package team.retum.jobis.domain.interest.persistence;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.interest.persistence.mapper.InterestMapper;
-import team.retum.jobis.domain.interest.persistence.repository.InterestJpaRepository;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.model.Interest;
+import team.retum.jobis.domain.interest.persistence.mapper.InterestMapper;
+import team.retum.jobis.domain.interest.persistence.repository.InterestJpaRepository;
 import team.retum.jobis.domain.interest.spi.InterestPort;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
 
 @RequiredArgsConstructor
 @Component
@@ -46,11 +44,7 @@ public class InterestPersistenceAdapter implements InterestPort {
 
     @Override
     public List<Interest> findAllByStudentId(Long studentId) {
-        return queryFactory
-            .selectFrom(interestEntity)
-            .where(interestEntity.studentId.eq(studentId))
-            .fetch()
-            .stream()
+        return interestJpaRepository.findByStudentId(studentId).stream()
             .map(interestMapper::toDomain)
             .toList();
     }
