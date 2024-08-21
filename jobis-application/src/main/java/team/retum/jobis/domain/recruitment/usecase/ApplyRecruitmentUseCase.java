@@ -2,9 +2,11 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
+import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
+import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
@@ -20,6 +22,7 @@ public class ApplyRecruitmentUseCase {
     private final RecruitmentPort recruitmentPort;
     private final CommandRecruitAreaPort commandRecruitAreaPort;
     private final SecurityPort securityPort;
+    private final PublishEventPort publishEventPort;
 
     public void execute(ApplyRecruitmentRequest request) {
         Company company = securityPort.getCurrentCompany();
@@ -36,6 +39,15 @@ public class ApplyRecruitmentUseCase {
             .map(area -> RecruitArea.of(area, recruitment.getId()))
             .toList();
         commandRecruitAreaPort.saveAll(recruitAreas);
+
+        publishEventPort.publishEvent(new InterestedRecruitmentEvent(recruitment));
+    }
+
+    public void executeInterestCodeMatch() {
+        List<Recruitment> recentRecruitments = recruitmentPort.getRecentRecruitments();
+        for (Recruitment recruitment : recentRecruitments) {
+            publishEventPort.publishEvent(new InterestedRecruitmentEvent(recruitment));
+        }
     }
 
     private void checkRecruitmentApplicable(Company company, boolean isWinterIntern) {
