@@ -28,13 +28,15 @@ public class ToggleInterestUseCase {
             Code code = queryCodePort.getByIdOrThrow(codeId);
 
             queryInterestPort.findByStudentIdAndCode(student.getId(), code.getId())
-                    .ifPresentOrElse(
-                            commandInterestPort::deleteInterest,
-                            () -> commandInterestPort.saveInterest(Interest.builder()
-                                    .studentId(student.getId())
-                                    .code(code.getId())
-                                    .build())
-                    );
+                .ifPresentOrElse(
+                    commandInterestPort::deleteInterest,
+                    () -> commandInterestPort.saveInterest(
+                        Interest.builder()
+                            .studentId(student.getId())
+                            .code(code.getId())
+                            .build()
+                    )
+                );
         }
     }
 }
