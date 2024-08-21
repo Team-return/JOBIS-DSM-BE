@@ -2,6 +2,8 @@ package team.retum.jobis.domain.user.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
+import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
@@ -16,6 +18,7 @@ public class UserPersistenceAdapter implements UserPort {
 
     private final UserJpaRepository userJpaRepository;
     private final UserMapper userMapper;
+    private final StudentJpaRepository studentJpaRepository;
 
     @Override
     public User getByAccountIdOrThrow(String accountId) {
@@ -46,5 +49,13 @@ public class UserPersistenceAdapter implements UserPort {
         return userMapper.toDomain(
             userJpaRepository.save(userMapper.toEntity(user))
         );
+    }
+
+    @Override
+    public User findUserByStudentId(Long studentId) {
+        return studentJpaRepository.findById(studentId)
+                .map(StudentEntity::getUserEntity)
+                .map(userMapper::toDomain)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 }

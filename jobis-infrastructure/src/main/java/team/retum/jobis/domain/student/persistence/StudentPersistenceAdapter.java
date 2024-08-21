@@ -13,6 +13,7 @@ import team.retum.jobis.domain.student.spi.StudentPort;
 import java.util.List;
 
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
+import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor
@@ -64,5 +65,18 @@ public class StudentPersistenceAdapter implements StudentPort {
         return studentMapper.toDomain(
             studentJpaRepository.save(studentMapper.toEntity(student))
         );
+    }
+
+    @Override
+    public List<Student> findStudentByInterestCode(List<Long> code) {
+        return queryFactory
+                .select(studentEntity)
+                .from(studentEntity)
+                .join(interestEntity).on(interestEntity.studentId.eq(studentEntity.id))
+                .where(interestEntity.code.in(code))
+                .fetch()
+                .stream()
+                .map(studentMapper::toDomain)
+                .toList();
     }
 }
