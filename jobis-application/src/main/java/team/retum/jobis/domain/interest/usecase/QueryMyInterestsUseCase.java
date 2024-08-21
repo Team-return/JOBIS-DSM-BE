@@ -3,7 +3,7 @@ package team.retum.jobis.domain.interest.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
-import team.retum.jobis.domain.interest.dto.InterestResponse;
+import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.spi.QueryInterestPort;
 
 import java.util.List;

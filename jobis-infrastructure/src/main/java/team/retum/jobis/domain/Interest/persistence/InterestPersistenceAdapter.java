@@ -7,7 +7,7 @@ import team.retum.jobis.domain.interest.persistence.mapper.InterestMapper;
 import team.retum.jobis.domain.interest.persistence.repository.InterestJpaRepository;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
-import team.retum.jobis.domain.interest.dto.InterestResponse;
+import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.model.Interest;
 import team.retum.jobis.domain.interest.spi.InterestPort;
 
