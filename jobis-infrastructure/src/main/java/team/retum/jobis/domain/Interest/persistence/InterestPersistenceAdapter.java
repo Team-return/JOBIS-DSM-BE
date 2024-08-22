@@ -25,8 +25,8 @@ public class InterestPersistenceAdapter implements InterestPort {
     private final QueryCodePort queryCodePort;
 
     @Override
-    public Interest saveInterest(Interest interest) {
-        return interestMapper.toDomain(
+    public void saveInterest(Interest interest) {
+        interestMapper.toDomain(
                 interestJpaRepository.save(interestMapper.toEntity(interest))
         );
     }
@@ -56,7 +56,7 @@ public class InterestPersistenceAdapter implements InterestPort {
         return interests.stream()
                 .map(interest -> {
                     Code code = queryCodePort.getByIdOrThrow(interest.getCode());
-                    return InterestResponse.from(interest, code);
+                    return InterestResponse.of(interest, code);
                 })
                 .collect(Collectors.toList());
     }

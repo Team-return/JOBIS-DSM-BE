@@ -18,7 +18,7 @@ public class InterestResponse {
     private final Long code;
     private final String keyword;
 
-    public static InterestResponse from(Interest interest, Code code) {
+    public static InterestResponse of(Interest interest, Code code) {
         return InterestResponse.builder()
             .id(interest.getId())
             .studentId(interest.getStudentId())

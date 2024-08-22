@@ -4,7 +4,7 @@ import team.retum.jobis.domain.interest.model.Interest;
 
 public interface CommandInterestPort {
 
-    Interest saveInterest(Interest interest);
+    void saveInterest(Interest interest);
 
     void deleteInterest(Interest interest);
 }
