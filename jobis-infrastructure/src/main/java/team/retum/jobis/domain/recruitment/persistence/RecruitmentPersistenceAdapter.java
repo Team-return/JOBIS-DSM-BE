@@ -400,9 +400,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public List<Recruitment> getRecentRecruitments() {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime twentyFourHoursAgo = now.minusDays(1);
+        LocalDateTime oneDayAgo = now.minusDays(1);
 
-        return recruitmentJpaRepository.findByCreationDateBetween(twentyFourHoursAgo, now);
+        return recruitmentJpaRepository.findByCreationDateBetween(oneDayAgo, now);
     }
 
     //===conditions===//
