@@ -3,12 +3,10 @@ package team.retum.jobis.domain.interest.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.interest.model.Interest;
 
 @Getter
-@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Builder
 public class InterestResponse {
