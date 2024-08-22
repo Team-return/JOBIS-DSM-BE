@@ -52,7 +52,7 @@ public class UserPersistenceAdapter implements UserPort {
     }
 
     @Override
-    public User findUserByStudentId(Long studentId) {
+    public User getByStudentId(Long studentId) {
         return studentJpaRepository.findById(studentId)
                 .map(StudentEntity::getUserEntity)
                 .map(userMapper::toDomain)

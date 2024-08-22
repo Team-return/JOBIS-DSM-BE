@@ -83,7 +83,7 @@ public class RecruitmentEventHandler {
             List<String> tokens = new ArrayList<>();
 
             for (Student student : interestedStudents) {
-                User user = queryUserPort.findUserByStudentId(student.getId());
+                User user = queryUserPort.getByStudentId(student.getId());
 
                 Notification notification = Notification.builder()
                         .title("모집의뢰서")

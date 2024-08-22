@@ -14,6 +14,6 @@ public interface QueryUserPort {
 
     List<User> getAllByIds(List<Long> userIds);
 
-    User findUserByStudentId(Long studentId);
+    User getByStudentId(Long studentId);
 
 }
