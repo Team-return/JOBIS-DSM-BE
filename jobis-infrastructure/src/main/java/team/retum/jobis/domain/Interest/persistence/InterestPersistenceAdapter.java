@@ -1,9 +1,11 @@
 package team.retum.jobis.domain.interest.persistence;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
+import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
+import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.model.Interest;
@@ -20,8 +22,8 @@ import java.util.stream.Collectors;
 public class InterestPersistenceAdapter implements InterestPort {
 
     private final InterestJpaRepository interestJpaRepository;
+    private final CodeJpaRepository codeJpaRepository;
     private final InterestMapper interestMapper;
-    private final JPAQueryFactory queryFactory;
     private final QueryCodePort queryCodePort;
 
     @Override
@@ -38,9 +40,13 @@ public class InterestPersistenceAdapter implements InterestPort {
 
     @Override
     public Optional<Interest> findByStudentIdAndCode(Long studentId, Long code) {
-        return interestJpaRepository.findByStudentIdAndCode(studentId, code)
-                .map(interestMapper::toDomain);
+        CodeEntity codeEntity = codeJpaRepository.findById(code)
+            .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
+
+        return interestJpaRepository.findByStudentIdAndCode(studentId, codeEntity)
+            .map(interestMapper::toDomain);
     }
+
 
     @Override
     public List<Interest> findAllByStudentId(Long studentId) {

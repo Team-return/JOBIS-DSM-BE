@@ -68,15 +68,17 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public List<Student> findStudentByInterestCode(List<Long> code) {
+    public List<Student> findStudentByInterestCode(List<Long> codeIds) {
         return queryFactory
-                .select(studentEntity)
-                .from(studentEntity)
-                .join(interestEntity).on(interestEntity.studentId.eq(studentEntity.id))
-                .where(interestEntity.code.in(code))
-                .fetch()
-                .stream()
-                .map(studentMapper::toDomain)
-                .toList();
+            .select(studentEntity)
+            .from(studentEntity)
+            .join(interestEntity)
+            .on(interestEntity.student.id.eq(studentEntity.id))
+            .join(interestEntity.code)
+            .where(interestEntity.code.code.in(codeIds))
+            .fetch()
+            .stream()
+            .map(studentMapper::toDomain)
+            .toList();
     }
 }
