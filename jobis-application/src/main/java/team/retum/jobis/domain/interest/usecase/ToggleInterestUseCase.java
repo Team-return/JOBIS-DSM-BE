@@ -27,7 +27,7 @@ public class ToggleInterestUseCase {
         for (Long codeId : codeIds) {
             Code code = queryCodePort.getByIdOrThrow(codeId);
 
-            queryInterestPort.findByStudentIdAndCode(student.getId(), code.getId())
+            queryInterestPort.getByStudentIdAndCode(student.getId(), code.getId())
                 .ifPresentOrElse(
                     commandInterestPort::deleteInterest,
                     () -> commandInterestPort.saveInterest(

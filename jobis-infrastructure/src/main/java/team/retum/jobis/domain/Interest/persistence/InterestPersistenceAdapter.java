@@ -39,7 +39,7 @@ public class InterestPersistenceAdapter implements InterestPort {
     }
 
     @Override
-    public Optional<Interest> findByStudentIdAndCode(Long studentId, Long code) {
+    public Optional<Interest> getByStudentIdAndCode(Long studentId, Long code) {
         CodeEntity codeEntity = codeJpaRepository.findById(code)
             .orElseThrow(() -> CodeNotFoundException.EXCEPTION);
 
@@ -49,15 +49,15 @@ public class InterestPersistenceAdapter implements InterestPort {
 
 
     @Override
-    public List<Interest> findAllByStudentId(Long studentId) {
+    public List<Interest> getAllByStudentId(Long studentId) {
         return interestJpaRepository.findByStudentId(studentId).stream()
             .map(interestMapper::toDomain)
             .toList();
     }
 
     @Override
-    public List<InterestResponse> findResponsesByStudentId(Long studentId) {
-        List<Interest> interests = findAllByStudentId(studentId);
+    public List<InterestResponse> getResponsesByStudentId(Long studentId) {
+        List<Interest> interests = getAllByStudentId(studentId);
 
         return interests.stream()
                 .map(interest -> {

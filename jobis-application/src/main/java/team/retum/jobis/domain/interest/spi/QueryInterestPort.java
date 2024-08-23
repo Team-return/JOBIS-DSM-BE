@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface QueryInterestPort {
 
-    Optional<Interest> findByStudentIdAndCode(Long studentId, Long code);
+    Optional<Interest> getByStudentIdAndCode(Long studentId, Long code);
 
-    List<Interest> findAllByStudentId(Long studentId);
+    List<Interest> getAllByStudentId(Long studentId);
 
-    List<InterestResponse> findResponsesByStudentId(Long studentId);
+    List<InterestResponse> getResponsesByStudentId(Long studentId);
 }
