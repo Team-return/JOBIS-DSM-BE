@@ -56,7 +56,7 @@ public class InterestPersistenceAdapter implements InterestPort {
     }
 
     @Override
-    public List<InterestResponse> getResponsesByStudentId(Long studentId) {
+    public List<InterestResponse> getMyInterestsByStudentId(Long studentId) {
         List<Interest> interests = getAllByStudentId(studentId);
 
         return interests.stream()
