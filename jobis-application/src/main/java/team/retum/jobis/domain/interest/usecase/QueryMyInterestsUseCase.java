@@ -17,6 +17,6 @@ public class QueryMyInterestsUseCase {
 
     public List<InterestResponse> execute() {
         Long studentId = securityPort.getCurrentStudent().getId();
-        return queryInterestPort.getResponsesByStudentId(studentId);
+        return queryInterestPort.getMyInterestsByStudentId(studentId);
     }
 }

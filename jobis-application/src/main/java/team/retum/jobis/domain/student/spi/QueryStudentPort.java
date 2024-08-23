@@ -16,6 +16,6 @@ public interface QueryStudentPort {
 
     Long getCountByApplicationStatus(List<ApplicationStatus> statuses);
 
-    List<Student> findStudentByInterestCode(List<Long> code);
+    List<Student> getStudentByInterestCode(List<Long> code);
 
 }
