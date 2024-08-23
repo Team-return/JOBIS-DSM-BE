@@ -13,4 +13,7 @@ public interface QueryUserPort {
     User getByAccountIdOrThrow(String accountId);
 
     List<User> getAllByIds(List<Long> userIds);
+
+    User getByStudentId(Long studentId);
+
 }

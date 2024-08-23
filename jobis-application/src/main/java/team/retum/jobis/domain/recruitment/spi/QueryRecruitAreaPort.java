@@ -12,4 +12,6 @@ public interface QueryRecruitAreaPort {
     Long getCountByRecruitmentId(Long recruitmentId);
 
     List<RecruitAreaResponse> getAllByRecruitmentId(Long recruitmentId);
+
+    List<Long> getCodesByRecruitmentId(Long recruitmentId);
 }
