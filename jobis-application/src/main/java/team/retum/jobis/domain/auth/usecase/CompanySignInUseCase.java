@@ -21,7 +21,7 @@ public class CompanySignInUseCase {
     private final SecurityPort securityPort;
 
     public TokenResponse execute(String businessRegistrationNumber, String authCode) {
-        Company company = queryCompanyPort.queryCompanyByBusinessNumber(businessRegistrationNumber)
+        Company company = queryCompanyPort.getCompanyByBusinessNumber(businessRegistrationNumber)
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         checkServerAuthCode(authCode);

@@ -9,10 +9,11 @@ import team.retum.jobis.common.error.HttpStatus;
 @AllArgsConstructor
 public enum NotificationErrorCode implements ErrorProperty {
 
-    NOTIFICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "Notification Not Found"),
+    NOTIFICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "Notification not found"),
 
     FAILED_TO_SUBSCRIPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to subscription"),
-    FAILED_TO_UNSUBSCRIPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to unsubscription");
+    FAILED_TO_UNSUBSCRIPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to unsubscription"),
+    DEVICE_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Device token not found");
 
 
     private final HttpStatus status;

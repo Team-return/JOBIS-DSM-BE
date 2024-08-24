@@ -32,13 +32,13 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     }
 
     @Override
-    public Optional<Notification> queryNotificationById(Long notificationId) {
+    public Optional<Notification> getNotificationById(Long notificationId) {
         return notificationJpaRepository.findById(notificationId)
             .map(notificationMapper::toDomain);
     }
 
     @Override
-    public List<Notification> queryNotificationsByCondition(Long userId, Boolean isNew) {
+    public List<Notification> getNotificationsByCondition(Long userId, Boolean isNew) {
         return queryFactory
             .selectFrom(notificationEntity)
             .join(notificationEntity.userEntity, userEntity)

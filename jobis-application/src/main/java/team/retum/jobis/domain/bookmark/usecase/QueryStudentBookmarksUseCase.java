@@ -19,7 +19,7 @@ public class QueryStudentBookmarksUseCase {
     public QueryStudentBookmarksResponse execute() {
         Long currentUserId = securityPort.getCurrentUserId();
 
-        List<StudentBookmarksVO> bookmarks = queryBookmarkPort.queryBookmarksByStudentId(currentUserId);
+        List<StudentBookmarksVO> bookmarks = queryBookmarkPort.getBookmarksByStudentId(currentUserId);
 
         return new QueryStudentBookmarksResponse(bookmarks);
     }

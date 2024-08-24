@@ -27,7 +27,7 @@ public class CreateReviewUseCase {
 
     public void execute(Long companyId, List<QnAElement> qnAElements) {
         Student student = securityPort.getCurrentStudent();
-        Company company = queryCompanyPort.queryCompanyById(companyId)
+        Company company = queryCompanyPort.getCompanyById(companyId)
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         queryApplicationPort.getByCompanyIdAndStudentIdOrThrow(company.getId(), student.getId())

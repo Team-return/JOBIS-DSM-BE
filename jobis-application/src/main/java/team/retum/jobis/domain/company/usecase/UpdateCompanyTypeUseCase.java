@@ -18,7 +18,7 @@ public class UpdateCompanyTypeUseCase {
     private final QueryCompanyPort queryCompanyPort;
 
     public void execute(List<Long> companyIds, CompanyType type) {
-        List<Company> companies = queryCompanyPort.queryCompaniesByIdIn(companyIds);
+        List<Company> companies = queryCompanyPort.getCompaniesByIdIn(companyIds);
         if (companies.size() != companyIds.size()) {
             throw CompanyNotFoundException.EXCEPTION;
         }

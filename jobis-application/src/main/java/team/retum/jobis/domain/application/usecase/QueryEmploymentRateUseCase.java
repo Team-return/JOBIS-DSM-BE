@@ -21,7 +21,7 @@ public class QueryEmploymentRateUseCase {
         List<EmploymentRatesResponse.ClassResponse> classResponses = new ArrayList<>();
 
         for (Integer classNum = FIRTH_CLASS; classNum <= FOURTH_CLASS; classNum++) {
-            List<CompanyVO> companies = queryCompanyPort.queryEmploymentRateByClassNumber(classNum);
+            List<CompanyVO> companies = queryCompanyPort.getEmploymentRateByClassNumber(classNum);
             classResponses.add(new EmploymentRatesResponse.ClassResponse(classNum, companies));
         }
 

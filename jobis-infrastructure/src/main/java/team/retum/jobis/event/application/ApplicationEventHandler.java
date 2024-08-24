@@ -43,7 +43,7 @@ public class ApplicationEventHandler {
                 User::getId,
                 User::getToken
             ));
-        Map<Long, String> companyNameMap = queryCompanyPort.queryCompanyNameByRecruitmentIds(
+        Map<Long, String> companyNameMap = queryCompanyPort.getCompanyNameByRecruitmentIds(
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {

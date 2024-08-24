@@ -16,32 +16,32 @@ import java.util.Optional;
 
 public interface QueryCompanyPort {
 
-    List<StudentCompaniesVO> queryStudentCompanies(CompanyFilter filter);
+    List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter);
 
-    List<TeacherCompaniesVO> queryCompaniesByConditions(CompanyFilter filter);
+    List<TeacherCompaniesVO> getCompaniesByConditions(CompanyFilter filter);
 
     Long getTotalCompanyCount(CompanyFilter filter);
 
-    Optional<CompanyDetailsVO> queryCompanyDetails(Long companyId);
+    Optional<CompanyDetailsVO> getCompanyDetails(Long companyId);
 
-    List<TeacherEmployCompaniesVO> queryEmployCompanies(CompanyFilter filter);
+    List<TeacherEmployCompaniesVO> getEmployCompanies(CompanyFilter filter);
 
-    Optional<Company> queryCompanyById(Long companyId);
+    Optional<Company> getCompanyById(Long companyId);
 
-    Optional<Company> queryCompanyByBusinessNumber(String businessNumber);
+    Optional<Company> getCompanyByBusinessNumber(String businessNumber);
 
-    List<Company> queryCompaniesByIdIn(List<Long> companyIds);
+    List<Company> getCompaniesByIdIn(List<Long> companyIds);
 
     boolean existsCompanyByBizNo(String bizNo);
 
     boolean existsCompanyById(Long companyId);
 
-    List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId);
+    List<CompanyResponse> getReviewAvailableCompaniesByStudentId(Long studentId);
 
-    Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
+    Map<Long, String> getCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
 
     Long countCompanies();
 
-    List<CompanyVO> queryEmploymentRateByClassNumber(Integer classNum);
+    List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum);
 
 }

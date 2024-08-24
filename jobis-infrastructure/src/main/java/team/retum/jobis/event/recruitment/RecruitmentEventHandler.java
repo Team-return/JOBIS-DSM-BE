@@ -43,7 +43,7 @@ public class RecruitmentEventHandler {
         List<Recruitment> doneRecruitments = event.getRecruitments().stream()
             .filter(recruitment -> recruitment.getRecruitingPeriod().endDate().isAfter(LocalDate.now()))
             .toList();
-        Map<Long, List<BookmarkUserVO>> bookmarkUserMap = queryBookmarkPort.queryBookmarkUserByRecruitmentIds(
+        Map<Long, List<BookmarkUserVO>> bookmarkUserMap = queryBookmarkPort.getBookmarkUserByRecruitmentIds(
             doneRecruitments.stream().map(Recruitment::getId).toList()
         );
         for (Recruitment recruitment : doneRecruitments) {
