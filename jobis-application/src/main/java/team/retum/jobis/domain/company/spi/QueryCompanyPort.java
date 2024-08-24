@@ -18,7 +18,7 @@ public interface QueryCompanyPort {
 
     List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter);
 
-    List<TeacherCompaniesVO> getCompaniesByConditions(CompanyFilter filter);
+    List<TeacherCompaniesVO> getByConditions(CompanyFilter filter);
 
     Long getTotalCompanyCount(CompanyFilter filter);
 
@@ -26,15 +26,15 @@ public interface QueryCompanyPort {
 
     List<TeacherEmployCompaniesVO> getEmployCompanies(CompanyFilter filter);
 
-    Optional<Company> getCompanyById(Long companyId);
+    Optional<Company> getById(Long companyId);
 
-    Optional<Company> getCompanyByBusinessNumber(String businessNumber);
+    Optional<Company> getByBusinessNumber(String businessNumber);
 
-    List<Company> getCompaniesByIdIn(List<Long> companyIds);
+    List<Company> getByIdIn(List<Long> companyIds);
 
-    boolean existsCompanyByBizNo(String bizNo);
+    boolean existsByBizNo(String bizNo);
 
-    boolean existsCompanyById(Long companyId);
+    boolean existsById(Long companyId);
 
     List<CompanyResponse> getReviewAvailableCompaniesByStudentId(Long studentId);
 

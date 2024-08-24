@@ -76,7 +76,7 @@ public class RecruitmentEventHandler {
         Recruitment recruitment = event.getRecruitments();
         List<Long> recruitmentCodes = queryRecruitAreaPort.getCodesByRecruitmentId(recruitment.getId());
 
-        List<Student> interestedStudents = queryStudentPort.getStudentByInterestCode(recruitmentCodes);
+        List<Student> interestedStudents = queryStudentPort.getByInterestCode(recruitmentCodes);
 
         if (!interestedStudents.isEmpty()) {
             Notification repNotification = null;

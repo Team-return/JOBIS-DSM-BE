@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface QueryNoticePort {
 
-    Optional<Notice> getNoticeById(Long noticeId);
+    Optional<Notice> getById(Long noticeId);
 
     List<NoticeVO> getNotices();
 

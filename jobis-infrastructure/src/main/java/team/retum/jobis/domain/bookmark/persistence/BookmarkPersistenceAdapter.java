@@ -39,7 +39,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     }
 
     @Override
-    public Optional<Bookmark> getBookmarkByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId) {
+    public Optional<Bookmark> getByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId) {
         return bookmarkJpaRepository.findByRecruitmentIdAndStudentId(recruitmentId, studentId)
             .map(bookmarkMapper::toDomain);
     }
@@ -57,7 +57,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     }
 
     @Override
-    public List<StudentBookmarksVO> getBookmarksByStudentId(Long studentId) {
+    public List<StudentBookmarksVO> getByStudentId(Long studentId) {
         return queryFactory
             .select(
                 new QQueryStudentBookmarksVO(

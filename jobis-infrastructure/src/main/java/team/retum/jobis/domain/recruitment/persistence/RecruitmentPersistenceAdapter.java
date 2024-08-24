@@ -398,7 +398,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public List<Recruitment> getRecentRecruitments() {
+    public List<Recruitment> getRecent() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime oneDayAgo = now.minusDays(1);
 

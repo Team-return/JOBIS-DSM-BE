@@ -25,7 +25,7 @@ public class ExportCompanyHistoryUseCase {
             .build();
 
         List<TeacherCompaniesVO> companyList =
-            queryCompanyPort.getCompaniesByConditions(filter);
+            queryCompanyPort.getByConditions(filter);
 
         return new ExportCompanyHistoryResponse(
             writeFilePort.writeCompanyExcelFile(companyList),

@@ -17,7 +17,7 @@ public class UpdateMouUseCase {
     private final QueryCompanyPort queryCompanyPort;
 
     public void execute(List<Long> companyIds) {
-        List<Company> companies = queryCompanyPort.getCompaniesByIdIn(companyIds);
+        List<Company> companies = queryCompanyPort.getByIdIn(companyIds);
         if (companies.size() != companyIds.size()) {
             throw CompanyNotFoundException.EXCEPTION;
         }

@@ -16,7 +16,7 @@ public class QueryNotificationsUseCase {
 
     public QueryNotificationsResponse execute(Boolean isNew) {
         return new QueryNotificationsResponse(
-            queryNotificationPort.getNotificationsByCondition(securityPort.getCurrentUserId(), isNew).stream()
+            queryNotificationPort.getByCondition(securityPort.getCurrentUserId(), isNew).stream()
                 .map(NotificationResponse::form)
                 .toList()
         );

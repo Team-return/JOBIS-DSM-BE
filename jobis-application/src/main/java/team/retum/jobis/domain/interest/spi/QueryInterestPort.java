@@ -12,5 +12,5 @@ public interface QueryInterestPort {
 
     List<Interest> getAllByStudentId(Long studentId);
 
-    List<InterestResponse> getMyInterestsByStudentId(Long studentId);
+    List<InterestResponse> getByStudentId(Long studentId);
 }

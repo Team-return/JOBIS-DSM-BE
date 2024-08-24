@@ -30,7 +30,7 @@ public class NoticePersistenceAdapter implements NoticePort {
     }
 
     @Override
-    public Optional<Notice> getNoticeById(Long noticeId) {
+    public Optional<Notice> getById(Long noticeId) {
         return noticeJpaRepository.findById(noticeId)
             .map(noticeMapper::toDomain);
     }

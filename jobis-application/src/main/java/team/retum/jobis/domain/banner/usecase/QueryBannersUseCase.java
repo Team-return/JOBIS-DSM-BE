@@ -13,7 +13,7 @@ public class QueryBannersUseCase {
 
     public QueryBannersResponse execute() {
         return new QueryBannersResponse(
-            queryBannerPort.getCurrentBanners()
+            queryBannerPort.getCurrent()
         );
     }
 }

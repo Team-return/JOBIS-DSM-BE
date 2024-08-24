@@ -44,7 +44,7 @@ public class ApplyRecruitmentUseCase {
     }
 
     public void executeInterestCodeMatch() {
-        List<Recruitment> recentRecruitments = recruitmentPort.getRecentRecruitments();
+        List<Recruitment> recentRecruitments = recruitmentPort.getRecent();
         for (Recruitment recruitment : recentRecruitments) {
             publishEventPort.publishEvent(new InterestedRecruitmentEvent(recruitment));
         }

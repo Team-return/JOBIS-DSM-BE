@@ -38,5 +38,5 @@ public interface QueryRecruitmentPort {
 
     Long countRecruitments();
 
-    List<Recruitment> getRecentRecruitments();
+    List<Recruitment> getRecent();
 }
