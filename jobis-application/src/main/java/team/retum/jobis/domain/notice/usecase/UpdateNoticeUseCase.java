@@ -15,7 +15,7 @@ public class UpdateNoticeUseCase {
     private final QueryNoticePort queryNoticePort;
 
     public void execute(String title, String content, Long noticeId) {
-        Notice notice = queryNoticePort.queryNoticeById(noticeId)
+        Notice notice = queryNoticePort.getById(noticeId)
             .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 
         commandNoticePort.saveNotice(

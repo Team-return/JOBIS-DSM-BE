@@ -78,7 +78,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<StudentCompaniesVO> queryStudentCompanies(CompanyFilter filter) {
+    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter) {
         return queryFactory
             .select(
                 new QStudentQueryCompaniesVO(
@@ -103,7 +103,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<TeacherCompaniesVO> queryCompaniesByConditions(CompanyFilter filter) {
+    public List<TeacherCompaniesVO> getByConditions(CompanyFilter filter) {
         JPAQuery<TeacherQueryCompaniesVO> query = queryFactory
             .select(
                 new QTeacherQueryCompaniesVO(
@@ -170,7 +170,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public Optional<CompanyDetailsVO> queryCompanyDetails(Long companyId) {
+    public Optional<CompanyDetailsVO> getCompanyDetails(Long companyId) {
         return Optional.ofNullable(
             queryFactory
                 .select(
@@ -221,7 +221,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<TeacherEmployCompaniesVO> queryEmployCompanies(CompanyFilter filter) {
+    public List<TeacherEmployCompaniesVO> getEmployCompanies(CompanyFilter filter) {
         return queryFactory
             .select(
                 new QQueryTeacherEmployCompaniesVO(
@@ -260,36 +260,36 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public Optional<Company> queryCompanyById(Long companyId) {
+    public Optional<Company> getById(Long companyId) {
         return companyJpaRepository.findById(companyId)
             .map(companyMapper::toDomain);
     }
 
     @Override
-    public Optional<Company> queryCompanyByBusinessNumber(String businessNumber) {
+    public Optional<Company> getByBusinessNumber(String businessNumber) {
         return companyJpaRepository.findByBizNo(businessNumber)
             .map(companyMapper::toDomain);
     }
 
     @Override
-    public List<Company> queryCompaniesByIdIn(List<Long> companyIds) {
+    public List<Company> getByIdIn(List<Long> companyIds) {
         return companyJpaRepository.findAllByIdIn(companyIds).stream()
             .map(companyMapper::toDomain)
             .toList();
     }
 
     @Override
-    public boolean existsCompanyByBizNo(String bizNo) {
+    public boolean existsByBizNo(String bizNo) {
         return companyJpaRepository.existsByBizNo(bizNo);
     }
 
     @Override
-    public boolean existsCompanyById(Long companyId) {
+    public boolean existsById(Long companyId) {
         return companyJpaRepository.existsById(companyId);
     }
 
     @Override
-    public List<CompanyResponse> queryReviewAvailableCompaniesByStudentId(Long studentId) {
+    public List<CompanyResponse> getReviewAvailableCompaniesByStudentId(Long studentId) {
         return queryFactory
             .select(
                 new QQueryReviewAvailableCompanyVO(
@@ -322,7 +322,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public Map<Long, String> queryCompanyNameByRecruitmentIds(List<Long> recruitmentIds) {
+    public Map<Long, String> getCompanyNameByRecruitmentIds(List<Long> recruitmentIds) {
         return queryFactory
             .selectFrom(recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
@@ -342,7 +342,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<CompanyVO> queryEmploymentRateByClassNumber(Integer classNum) {
+    public List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum) {
         return queryFactory
             .select(
                 Projections.constructor(CompanyVO.class,

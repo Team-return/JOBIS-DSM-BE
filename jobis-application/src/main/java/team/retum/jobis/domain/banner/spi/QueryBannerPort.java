@@ -10,7 +10,7 @@ public interface QueryBannerPort {
 
     Banner getByIdOrThrow(Long bannerId);
 
-    List<BannerVO> getCurrentBanners();
+    List<BannerVO> getCurrent();
 
     List<TeacherBannersVO> getByIsOpened(boolean isOpened);
 }

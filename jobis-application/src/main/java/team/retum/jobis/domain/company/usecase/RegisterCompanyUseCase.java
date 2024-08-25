@@ -46,7 +46,7 @@ public class RegisterCompanyUseCase {
     }
 
     private void checkCompanyRegistered(String businessNumber) {
-        if (queryCompanyPort.existsCompanyByBizNo(businessNumber)) {
+        if (queryCompanyPort.existsByBizNo(businessNumber)) {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
     }

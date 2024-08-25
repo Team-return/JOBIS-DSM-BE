@@ -68,7 +68,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public List<Student> getStudentByInterestCode(List<Long> codeIds) {
+    public List<Student> getByInterestCode(List<Long> codeIds) {
         return queryFactory
             .select(studentEntity)
             .from(studentEntity)

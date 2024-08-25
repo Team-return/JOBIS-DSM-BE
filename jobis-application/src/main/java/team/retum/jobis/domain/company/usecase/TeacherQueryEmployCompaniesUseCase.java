@@ -32,7 +32,7 @@ public class TeacherQueryEmployCompaniesUseCase {
             .limit(13)
             .build();
 
-        List<TeacherEmployCompaniesVO> companies = queryCompanyPort.queryEmployCompanies(filter);
+        List<TeacherEmployCompaniesVO> companies = queryCompanyPort.getEmployCompanies(filter);
 
         return new TeacherQueryEmployCompaniesResponse(companies);
     }

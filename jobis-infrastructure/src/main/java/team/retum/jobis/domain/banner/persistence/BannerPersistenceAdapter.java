@@ -58,7 +58,7 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public List<BannerVO> getCurrentBanners() {
+    public List<BannerVO> getCurrent() {
         LocalDate today = LocalDate.now();
         return queryFactory
             .select(

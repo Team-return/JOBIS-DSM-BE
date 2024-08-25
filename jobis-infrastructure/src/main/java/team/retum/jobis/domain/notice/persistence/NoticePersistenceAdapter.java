@@ -30,7 +30,7 @@ public class NoticePersistenceAdapter implements NoticePort {
     }
 
     @Override
-    public Optional<Notice> queryNoticeById(Long noticeId) {
+    public Optional<Notice> getById(Long noticeId) {
         return noticeJpaRepository.findById(noticeId)
             .map(noticeMapper::toDomain);
     }
@@ -41,7 +41,7 @@ public class NoticePersistenceAdapter implements NoticePort {
     }
 
     @Override
-    public List<NoticeVO> queryNotices() {
+    public List<NoticeVO> getNotices() {
         return queryFactory
             .select(
                 new QQueryNoticeVO(

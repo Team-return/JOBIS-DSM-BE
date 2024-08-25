@@ -15,7 +15,7 @@ public class QueryNoticesUseCase {
     private final QueryNoticePort queryNoticePort;
 
     public QueryNoticesResponse execute() {
-        List<NoticeVO> noticeVOs = queryNoticePort.queryNotices();
+        List<NoticeVO> noticeVOs = queryNoticePort.getNotices();
 
         return new QueryNoticesResponse(noticeVOs);
     }

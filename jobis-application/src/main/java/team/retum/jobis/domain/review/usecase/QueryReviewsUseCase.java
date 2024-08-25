@@ -15,7 +15,7 @@ public class QueryReviewsUseCase {
     private final QueryReviewPort queryReviewPort;
 
     public QueryReviewsResponse execute(Long companyId) {
-        if (!queryCompanyPort.existsCompanyById(companyId)) {
+        if (!queryCompanyPort.existsById(companyId)) {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
