@@ -18,9 +18,9 @@ public class QueryTopicsUseCase {
     private final SecurityPort securityPort;
 
     public QueryTopicsResponse execute() {
-        User currentUser = securityPort.getCurrentUser();
+        User user = securityPort.getCurrentUser();
 
-        List<TopicVO> topicsVOs = queryTopicSubscriptionPort.getAllByDeviceToken(currentUser.getToken());
+        List<TopicVO> topicsVOs = queryTopicSubscriptionPort.getAllByDeviceToken(user.getToken());
 
         return new QueryTopicsResponse(topicsVOs);
     }
