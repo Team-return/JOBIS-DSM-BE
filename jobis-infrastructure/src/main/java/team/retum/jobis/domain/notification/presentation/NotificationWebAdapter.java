@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.notification.dto.response.QueryNotificationsResponse;
+import team.retum.jobis.domain.notification.dto.response.QueryTopicsResponse;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.usecase.QueryNotificationsUseCase;
+import team.retum.jobis.domain.notification.usecase.QueryTopicsUseCase;
 import team.retum.jobis.domain.notification.usecase.ReadNotificationUseCase;
 import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeAllTopicsUseCase;
 import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeTopicUseCase;
@@ -31,6 +33,8 @@ public class NotificationWebAdapter {
     private final SubscribeTopicUseCase subscribeTopicUseCase;
     private final SubscribeAllTopicsUseCase subscribeAllTopicsUseCase;
     private final UnsubscribeAllTopicsUseCase unsubscribeAllTopicsUseCase;
+    private final QueryTopicsUseCase queryTopicsUseCase;
+
 
     @GetMapping
     public QueryNotificationsResponse queryNotifications(@RequestParam(value = "is_new", required = false) Boolean isNew) {
@@ -61,5 +65,10 @@ public class NotificationWebAdapter {
     @DeleteMapping
     public void unsubscribeAllTopics(@RequestParam("token") String token) {
         unsubscribeAllTopicsUseCase.execute(token);
+    }
+
+    @GetMapping("/topic")
+    public QueryTopicsResponse queryTopics() {
+        return queryTopicsUseCase.execute();
     }
 }
