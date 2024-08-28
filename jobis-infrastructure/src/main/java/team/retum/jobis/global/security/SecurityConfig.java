@@ -166,13 +166,12 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/notifications/topic").authenticated()
                     .requestMatchers(HttpMethod.POST, "/notifications").authenticated()
                     .requestMatchers(HttpMethod.DELETE, "/notifications").authenticated()
+                    .requestMatchers(HttpMethod.GET, "/notifications/topic").authenticated()
+                    .requestMatchers(HttpMethod.POST, "/notifications/topics").authenticated()
 
                     // interest
                     .requestMatchers(HttpMethod.PATCH, "/interests/{code}").hasAnyAuthority(STUDENT.name())
                     .requestMatchers(HttpMethod.GET, "/interests").hasAnyAuthority(STUDENT.name())
-
-                    // topic
-                    .requestMatchers(HttpMethod.GET, "/topics").authenticated()
                     .anyRequest().authenticated()
 
             )

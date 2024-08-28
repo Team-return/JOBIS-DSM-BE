@@ -48,18 +48,13 @@ public class NotificationWebAdapter {
     }
 
     @PostMapping("/topic")
-    public void subscribeTopic(@RequestParam("topic") Topic topic, @RequestParam("token") String token) {
-        subscribeTopicUseCase.execute(token, topic);
+    public void subscribeTopic(@RequestParam("topic") Topic topic) {
+        subscribeTopicUseCase.execute(topic);
     }
 
-    @DeleteMapping("/topic")
-    public void unsubscribeTopic(@RequestParam("topic") Topic topic, @RequestParam("token") String token) {
-        unsubscribeTopicUseCase.execute(token, topic);
-    }
-
-    @PostMapping
-    public void subscribeAllTopics(@RequestParam("token") String token) {
-        subscribeAllTopicsUseCase.execute(token);
+    @PostMapping("/topics")
+    public void subscribeAllTopics() {
+        subscribeAllTopicsUseCase.execute();
     }
 
     @DeleteMapping

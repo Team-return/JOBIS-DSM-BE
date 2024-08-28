@@ -28,6 +28,7 @@ public class TopicSubscriptionEntity {
     @Id
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(90)")
     private Topic topic;
 
     @NotNull
