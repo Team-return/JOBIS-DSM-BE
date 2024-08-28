@@ -23,6 +23,7 @@ public class TopicSubscriptionEntity {
 
     @Id
     @NotNull
+    @Column(columnDefinition = "VARCHAR(255)")
     private String deviceToken;
 
     @Id
