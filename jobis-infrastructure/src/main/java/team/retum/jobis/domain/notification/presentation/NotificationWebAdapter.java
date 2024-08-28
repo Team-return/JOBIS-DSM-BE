@@ -2,7 +2,6 @@ package team.retum.jobis.domain.notification.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +18,6 @@ import team.retum.jobis.domain.notification.usecase.QueryTopicsUseCase;
 import team.retum.jobis.domain.notification.usecase.ReadNotificationUseCase;
 import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeAllTopicsUseCase;
 import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeTopicUseCase;
-import team.retum.jobis.domain.notification.usecase.subscribe.UnsubscribeAllTopicsUseCase;
-import team.retum.jobis.domain.notification.usecase.subscribe.UnsubscribeTopicUseCase;
 
 @RequiredArgsConstructor
 @RequestMapping("/notifications")
@@ -29,10 +26,8 @@ public class NotificationWebAdapter {
 
     private final QueryNotificationsUseCase queryNotificationsUseCase;
     private final ReadNotificationUseCase readNotificationUseCase;
-    private final UnsubscribeTopicUseCase unsubscribeTopicUseCase;
     private final SubscribeTopicUseCase subscribeTopicUseCase;
     private final SubscribeAllTopicsUseCase subscribeAllTopicsUseCase;
-    private final UnsubscribeAllTopicsUseCase unsubscribeAllTopicsUseCase;
     private final QueryTopicsUseCase queryTopicsUseCase;
 
 
@@ -55,11 +50,6 @@ public class NotificationWebAdapter {
     @PostMapping("/topics")
     public void subscribeAllTopics() {
         subscribeAllTopicsUseCase.execute();
-    }
-
-    @DeleteMapping
-    public void unsubscribeAllTopics(@RequestParam("token") String token) {
-        unsubscribeAllTopicsUseCase.execute(token);
     }
 
     @GetMapping("/topic")
