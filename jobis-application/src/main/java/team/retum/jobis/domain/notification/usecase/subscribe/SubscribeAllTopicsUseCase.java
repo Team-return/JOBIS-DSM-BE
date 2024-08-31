@@ -10,6 +10,8 @@ import team.retum.jobis.domain.notification.spi.CommandTopicSubscriptionPort;
 import team.retum.jobis.domain.notification.spi.QueryTopicSubscriptionPort;
 import team.retum.jobis.domain.user.model.User;
 
+import java.util.Arrays;
+
 @RequiredArgsConstructor
 @UseCase
 public class SubscribeAllTopicsUseCase {
@@ -20,21 +22,13 @@ public class SubscribeAllTopicsUseCase {
     private final SecurityPort securityPort;
 
     public void execute() {
-
         User user = securityPort.getCurrentUser();
-        boolean isSubscription = false;
+        boolean isSubscribed = Arrays.stream(Topic.values())
+            .anyMatch(topic -> queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), topic).isPresent());
 
-        for (Topic topic : Topic.values()) {
-            if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), topic).isPresent()) {
-                isSubscription = true;
-                break;
-            }
-        }
-
-        if (isSubscription) {
-            for (Topic topic : Topic.values()) {
+        if (isSubscribed) {
+            Arrays.stream(Topic.values()).forEach(topic -> {
                 commandNotificationPort.unsubscribeTopic(user.getToken(), topic);
-
                 commandTopicSubscriptionPort.saveTopicSubscription(
                     TopicSubscription.builder()
                         .deviceToken(user.getToken())
@@ -42,11 +36,10 @@ public class SubscribeAllTopicsUseCase {
                         .isSubscribed(false)
                         .build()
                 );
-            }
+            });
         } else {
-            for (Topic topic : Topic.values()) {
+            Arrays.stream(Topic.values()).forEach(topic -> {
                 commandNotificationPort.subscribeTopic(user.getToken(), topic);
-
                 commandTopicSubscriptionPort.saveTopicSubscription(
                     TopicSubscription.builder()
                         .deviceToken(user.getToken())
@@ -54,7 +47,7 @@ public class SubscribeAllTopicsUseCase {
                         .isSubscribed(true)
                         .build()
                 );
-            }
+            });
         }
     }
 }
