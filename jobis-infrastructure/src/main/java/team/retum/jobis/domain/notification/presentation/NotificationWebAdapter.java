@@ -16,8 +16,8 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.usecase.QueryNotificationsUseCase;
 import team.retum.jobis.domain.notification.usecase.QueryTopicsUseCase;
 import team.retum.jobis.domain.notification.usecase.ReadNotificationUseCase;
-import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeAllTopicsUseCase;
-import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeTopicUseCase;
+import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeAllTopicsByToggleUseCase;
+import team.retum.jobis.domain.notification.usecase.subscribe.SubscribeTopicByToggleUseCase;
 
 @RequiredArgsConstructor
 @RequestMapping("/notifications")
@@ -26,8 +26,8 @@ public class NotificationWebAdapter {
 
     private final QueryNotificationsUseCase queryNotificationsUseCase;
     private final ReadNotificationUseCase readNotificationUseCase;
-    private final SubscribeTopicUseCase subscribeTopicUseCase;
-    private final SubscribeAllTopicsUseCase subscribeAllTopicsUseCase;
+    private final SubscribeTopicByToggleUseCase subscribeTopicByToggleUseCase;
+    private final SubscribeAllTopicsByToggleUseCase subscribeAllTopicsByToggleUseCase;
     private final QueryTopicsUseCase queryTopicsUseCase;
 
 
@@ -44,12 +44,12 @@ public class NotificationWebAdapter {
 
     @PostMapping("/topic")
     public void subscribeTopic(@RequestParam("topic") Topic topic) {
-        subscribeTopicUseCase.execute(topic);
+        subscribeTopicByToggleUseCase.execute(topic);
     }
 
     @PostMapping("/topics")
     public void subscribeAllTopics() {
-        subscribeAllTopicsUseCase.execute();
+        subscribeAllTopicsByToggleUseCase.execute();
     }
 
     @GetMapping("/topic")

@@ -12,7 +12,7 @@ import team.retum.jobis.domain.user.model.User;
 
 @RequiredArgsConstructor
 @UseCase
-public class SubscribeTopicUseCase {
+public class SubscribeTopicByToggleUseCase {
 
     private final CommandNotificationPort commandNotificationPort;
     private final QueryTopicSubscriptionPort queryTopicSubscriptionPort;

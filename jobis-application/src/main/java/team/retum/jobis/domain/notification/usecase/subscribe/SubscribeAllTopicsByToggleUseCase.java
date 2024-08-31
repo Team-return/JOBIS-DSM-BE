@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 @RequiredArgsConstructor
 @UseCase
-public class SubscribeAllTopicsUseCase {
+public class SubscribeAllTopicsByToggleUseCase {
 
     private final CommandNotificationPort commandNotificationPort;
     private final QueryTopicSubscriptionPort queryTopicSubscriptionPort;
