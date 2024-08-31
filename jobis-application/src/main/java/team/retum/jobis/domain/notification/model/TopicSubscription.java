@@ -14,4 +14,5 @@ public class TopicSubscription {
     private final Topic topic;
 
     private final boolean isSubscribed;
+
 }

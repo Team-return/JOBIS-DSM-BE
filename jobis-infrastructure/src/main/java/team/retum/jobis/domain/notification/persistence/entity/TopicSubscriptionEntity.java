@@ -23,11 +23,13 @@ public class TopicSubscriptionEntity {
 
     @Id
     @NotNull
+    @Column(columnDefinition = "VARCHAR(255)")
     private String deviceToken;
 
     @Id
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(26)")
     private Topic topic;
 
     @NotNull
