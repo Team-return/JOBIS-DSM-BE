@@ -42,12 +42,12 @@ public class NotificationWebAdapter {
         readNotificationUseCase.execute(notificationId);
     }
 
-    @PostMapping("/topic")
+    @PatchMapping("/topic")
     public void subscribeTopic(@RequestParam("topic") Topic topic) {
         subscribeTopicByToggleUseCase.execute(topic);
     }
 
-    @PostMapping("/topics")
+    @PatchMapping("/topics")
     public void subscribeAllTopics() {
         subscribeAllTopicsByToggleUseCase.execute();
     }
