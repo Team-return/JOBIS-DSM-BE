@@ -14,8 +14,7 @@ public class ToggleWinternUseCase {
     private final QueryWinternPort queryWinternPort;
 
     public void execute() {
-        boolean current = queryWinternPort.getIsWintern();
-        boolean toggled = !current;
+        boolean toggled = !queryWinternPort.getIsWintern();
 
         Wintern toggledWintern = Wintern.builder()
             .isWinterInterned(toggled)

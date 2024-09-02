@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class WinternEntity {
 
     @Id
+    @Column(name = "wintern_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
