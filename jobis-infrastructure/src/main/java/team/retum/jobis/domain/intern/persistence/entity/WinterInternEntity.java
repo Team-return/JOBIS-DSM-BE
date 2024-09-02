@@ -9,15 +9,16 @@ import jakarta.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tbl_wintern")
+@Table(name = "tbl_winter_intern")
 @Entity
 public class WinterInternEntity {
 
     @Id
-    @Column(name = "wintern_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

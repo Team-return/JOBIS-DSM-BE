@@ -11,7 +11,7 @@ import team.retum.jobis.domain.intern.usecase.QueryIsWinterInternUseCase;
 import team.retum.jobis.domain.intern.usecase.ToggleWinterInternUseCase;
 
 @RequiredArgsConstructor
-@RequestMapping("/winterns")
+@RequestMapping("/winter-intern")
 @RestController
 public class WinterInternWebAdapter {
 
@@ -20,12 +20,12 @@ public class WinterInternWebAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
-    public void toggleWintern() {
+    public void toggleWinterIntern() {
         toggleWinterInternUseCase.execute();
     }
 
     @GetMapping
-    public boolean getIsWintern() {
+    public boolean getIsWinterIntern() {
         return queryIsWinterInternUseCase.execute();
     }
 }
