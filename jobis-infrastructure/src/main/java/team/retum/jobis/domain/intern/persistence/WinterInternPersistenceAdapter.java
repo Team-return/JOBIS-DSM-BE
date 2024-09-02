@@ -4,7 +4,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.intern.model.WinterIntern;
-import team.retum.jobis.domain.intern.persistence.mapper.WinterInternMapper;
+import team.retum.jobis.domain.intern.persistence.entity.WinterInternEntity;
 import team.retum.jobis.domain.intern.persistence.repository.WinterInternJpaRepository;
 import team.retum.jobis.domain.intern.spi.WinterInternPort;
 
@@ -16,10 +16,9 @@ public class WinterInternPersistenceAdapter implements WinterInternPort {
 
     private final JPAQueryFactory queryFactory;
     private final WinterInternJpaRepository winterInternJpaRepository;
-    private final WinterInternMapper winterInternMapper;
 
     @Override
-    public boolean getIsWintern() {
+    public boolean getIsWinterIntern() {
         Boolean result = queryFactory
             .select(winterInternEntity.isWinterIntern)
             .from(winterInternEntity)
@@ -30,10 +29,11 @@ public class WinterInternPersistenceAdapter implements WinterInternPort {
 
     @Override
     public void save(WinterIntern winterIntern) {
-        winterInternMapper.toDomain(
-            winterInternJpaRepository.save(
-                winterInternMapper.toEntity(winterIntern)
-            )
-        );
+        WinterInternEntity entity = winterInternJpaRepository.findTopByOrderById()
+            .orElse(new WinterInternEntity(winterIntern.isWinterInterned()));
+
+        entity.setWinterIntern(winterIntern.isWinterInterned());
+
+        winterInternJpaRepository.save(entity);
     }
 }
