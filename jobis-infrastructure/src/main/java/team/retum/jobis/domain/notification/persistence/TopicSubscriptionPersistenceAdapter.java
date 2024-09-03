@@ -44,7 +44,7 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
     }
 
     @Override
-    public void saveTopicSubscription(TopicSubscription topicSubscription) {
+    public void save(TopicSubscription topicSubscription) {
         topicSubscriptionJpaRepository.save(topicSubscriptionMapper.toEntity(topicSubscription));
     }
 }

@@ -25,7 +25,7 @@ public class NoticePersistenceAdapter implements NoticePort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Notice saveNotice(Notice notice) {
+    public Notice save(Notice notice) {
         return noticeMapper.toDomain(noticeJpaRepository.save(noticeMapper.toEntity(notice)));
     }
 
@@ -36,7 +36,7 @@ public class NoticePersistenceAdapter implements NoticePort {
     }
 
     @Override
-    public void deleteNotice(Notice notice) {
+    public void delete(Notice notice) {
         noticeJpaRepository.delete(noticeMapper.toEntity(notice));
     }
 

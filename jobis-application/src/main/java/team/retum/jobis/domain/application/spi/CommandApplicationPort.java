@@ -20,5 +20,5 @@ public interface CommandApplicationPort {
 
     void saveAll(List<Application> applications);
 
-    void deleteAllAttachmentByApplicationId(Long applicationId);
+    void deleteAllByApplicationId(Long applicationId);
 }

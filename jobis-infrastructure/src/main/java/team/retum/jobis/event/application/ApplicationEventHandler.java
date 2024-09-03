@@ -63,7 +63,7 @@ public class ApplicationEventHandler {
                 .isNew(true)
                 .build();
 
-            commandNotificationPort.saveNotification(notification);
+            commandNotificationPort.save(notification);
             fcmUtil.sendMessages(
                 notification,
                 List.of(userIdTokenMap.get(application.getStudentId()))

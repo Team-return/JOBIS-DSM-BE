@@ -5,7 +5,7 @@ import team.retum.jobis.domain.notification.model.Topic;
 
 public interface CommandNotificationPort {
 
-    void saveNotification(Notification notification);
+    void save(Notification notification);
 
     void unsubscribeTopic(String token, Topic topic);
 

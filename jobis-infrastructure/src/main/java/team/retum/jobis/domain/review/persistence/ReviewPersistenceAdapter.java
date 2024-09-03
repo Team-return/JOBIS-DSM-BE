@@ -44,7 +44,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public void saveAllQnAs(List<QnA> qnAs) {
+    public void saveAll(List<QnA> qnAs) {
         qnAJpaRepository.saveAll(
             qnAs.stream()
                 .map(qnAMapper::toEntity)

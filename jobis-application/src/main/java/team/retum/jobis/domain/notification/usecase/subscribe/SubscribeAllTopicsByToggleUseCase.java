@@ -29,7 +29,7 @@ public class SubscribeAllTopicsByToggleUseCase {
         if (isSubscribed) {
             Arrays.stream(Topic.values()).forEach(topic -> {
                 commandNotificationPort.unsubscribeTopic(user.getToken(), topic);
-                commandTopicSubscriptionPort.saveTopicSubscription(
+                commandTopicSubscriptionPort.save(
                     TopicSubscription.builder()
                         .deviceToken(user.getToken())
                         .topic(topic)
@@ -40,7 +40,7 @@ public class SubscribeAllTopicsByToggleUseCase {
         } else {
             Arrays.stream(Topic.values()).forEach(topic -> {
                 commandNotificationPort.subscribeTopic(user.getToken(), topic);
-                commandTopicSubscriptionPort.saveTopicSubscription(
+                commandTopicSubscriptionPort.save(
                     TopicSubscription.builder()
                         .deviceToken(user.getToken())
                         .topic(topic)

@@ -60,7 +60,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Company saveCompany(Company company) {
+    public Company save(Company company) {
         return companyMapper.toDomain(
             companyJpaRepository.save(
                 companyMapper.toEntity(company)
@@ -69,7 +69,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public void saveAllCompanies(List<Company> companies) {
+    public void saveAll(List<Company> companies) {
         companyJpaRepository.saveAll(
             companies.stream()
                 .map(companyMapper::toEntity)
