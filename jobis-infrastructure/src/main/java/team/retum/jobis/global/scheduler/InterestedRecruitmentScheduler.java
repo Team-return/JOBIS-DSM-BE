@@ -11,6 +11,9 @@ public class InterestedRecruitmentScheduler {
 
     private final ApplyRecruitmentUseCase applyRecruitmentUseCase;
 
+    /**
+     * 관심 분야에 추가한 모집의뢰서 들어왔을때 알림
+     */
     @Scheduled(cron = "0 20 8 * * *", zone = "Asia/Seoul")
     public void registerInterestedRecruitment() {
         applyRecruitmentUseCase.executeInterestCodeMatch();
