@@ -11,6 +11,6 @@ public class QueryIsWinterInternUseCase {
     private final QueryWinterInternPort queryWinterInternPort;
 
     public boolean execute() {
-        return queryWinterInternPort.getIsWintern();
+        return queryWinterInternPort.getIsWinterIntern();
     }
 }

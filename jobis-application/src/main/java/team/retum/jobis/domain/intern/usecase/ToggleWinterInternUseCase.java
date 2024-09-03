@@ -14,7 +14,7 @@ public class ToggleWinterInternUseCase {
     private final QueryWinterInternPort queryWinterInternPort;
 
     public void execute() {
-        boolean toggled = !queryWinterInternPort.getIsWintern();
+        boolean toggled = !queryWinterInternPort.getIsWinterIntern();
 
         WinterIntern toggledWinterIntern = WinterIntern.builder()
             .isWinterInterned(toggled)

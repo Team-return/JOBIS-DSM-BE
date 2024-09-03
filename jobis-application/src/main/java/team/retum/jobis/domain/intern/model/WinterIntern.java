@@ -11,9 +11,4 @@ public class WinterIntern {
 
     private final boolean isWinterInterned;
 
-    public WinterIntern toggle() {
-        return this.toBuilder()
-            .isWinterInterned(!this.isWinterInterned)
-            .build();
-    }
 }
