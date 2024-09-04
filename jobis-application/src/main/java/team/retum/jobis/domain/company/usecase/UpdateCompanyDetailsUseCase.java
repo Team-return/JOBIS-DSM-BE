@@ -26,6 +26,6 @@ public class UpdateCompanyDetailsUseCase {
             company.verifySameCompany(securityPort.getCurrentCompany());
         }
 
-        commandCompanyPort.saveCompany(company.update(request));
+        commandCompanyPort.save(company.update(request));
     }
 }

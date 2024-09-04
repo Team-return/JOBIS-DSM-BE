@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CommandCompanyPort {
 
-    Company saveCompany(Company company);
+    Company save(Company company);
 
-    void saveAllCompanies(List<Company> companies);
+    void saveAll(List<Company> companies);
 }

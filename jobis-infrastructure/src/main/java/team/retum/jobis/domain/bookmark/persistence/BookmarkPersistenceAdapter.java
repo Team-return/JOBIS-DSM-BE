@@ -32,7 +32,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public void saveBookmark(Bookmark bookmark) {
+    public void save(Bookmark bookmark) {
         bookmarkJpaRepository.save(
             bookmarkMapper.toEntity(bookmark)
         );
@@ -45,7 +45,7 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
     }
 
     @Override
-    public void deleteBookmark(Bookmark bookmark) {
+    public void delete(Bookmark bookmark) {
         bookmarkJpaRepository.delete(
             bookmarkMapper.toEntity(bookmark)
         );

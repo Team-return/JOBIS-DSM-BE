@@ -29,8 +29,8 @@ public class ToggleInterestUseCase {
 
             queryInterestPort.getByStudentIdAndCode(student.getId(), code.getId())
                 .ifPresentOrElse(
-                    commandInterestPort::deleteInterest,
-                    () -> commandInterestPort.saveInterest(
+                    commandInterestPort::delete,
+                    () -> commandInterestPort.save(
                         Interest.builder()
                             .studentId(student.getId())
                             .code(code.getId())

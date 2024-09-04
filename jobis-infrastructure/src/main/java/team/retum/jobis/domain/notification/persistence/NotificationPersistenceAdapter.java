@@ -32,7 +32,7 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     private final FCMUtil fcmUtil;
 
     @Override
-    public void saveNotification(Notification notification) {
+    public void save(Notification notification) {
         notificationJpaRepository.save(notificationMapper.toEntity(notification));
     }
 

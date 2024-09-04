@@ -64,7 +64,7 @@ public class RecruitmentEventHandler {
                     repNotification = notification;
                 }
                 tokens.add(bookmarkUser.getToken());
-                commandNotificationPort.saveNotification(notification);
+                commandNotificationPort.save(notification);
             }
             fcmUtil.sendMessages(repNotification, tokens);
         }
@@ -99,7 +99,7 @@ public class RecruitmentEventHandler {
                     repNotification = notification;
                 }
                 tokens.add(user.getToken());
-                commandNotificationPort.saveNotification(notification);
+                commandNotificationPort.save(notification);
             }
             fcmUtil.sendMessages(repNotification, tokens);
         }

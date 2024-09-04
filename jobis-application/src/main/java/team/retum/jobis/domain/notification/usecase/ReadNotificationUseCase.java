@@ -18,6 +18,6 @@ public class ReadNotificationUseCase {
         Notification notification = queryNotificationPort.getById(notificationId)
             .orElseThrow(() -> NotificationNotFoundException.EXCEPTION);
 
-        commandNotificationPort.saveNotification(notification.read());
+        commandNotificationPort.save(notification.read());
     }
 }

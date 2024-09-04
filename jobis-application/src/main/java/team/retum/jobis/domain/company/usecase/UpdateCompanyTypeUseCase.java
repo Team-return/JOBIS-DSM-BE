@@ -23,7 +23,7 @@ public class UpdateCompanyTypeUseCase {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        commandCompanyPort.saveAllCompanies(
+        commandCompanyPort.saveAll(
             companies.stream()
                 .map(company -> company.changeCompanyType(type))
                 .toList()

@@ -4,5 +4,5 @@ import team.retum.jobis.domain.notification.model.TopicSubscription;
 
 public interface CommandTopicSubscriptionPort {
 
-    void saveTopicSubscription(TopicSubscription topicSubscription);
+    void save(TopicSubscription topicSubscription);
 }

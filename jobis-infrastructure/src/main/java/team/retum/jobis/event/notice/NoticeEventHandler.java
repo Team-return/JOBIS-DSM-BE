@@ -31,7 +31,7 @@ public class NoticeEventHandler {
             .isNew(true)
             .build();
 
-        commandNotificationPort.saveNotification(notification);
+        commandNotificationPort.save(notification);
 
         fcmUtil.sendMessageToTopic(notification);
     }

@@ -22,7 +22,7 @@ public class UpdateMouUseCase {
             throw CompanyNotFoundException.EXCEPTION;
         }
 
-        commandCompanyPort.saveAllCompanies(
+        commandCompanyPort.saveAll(
             companies.stream()
                 .map(Company::convertToMou)
                 .toList()

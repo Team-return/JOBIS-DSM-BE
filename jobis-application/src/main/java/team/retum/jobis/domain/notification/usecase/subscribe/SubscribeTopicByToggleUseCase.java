@@ -27,7 +27,7 @@ public class SubscribeTopicByToggleUseCase {
                 subscription -> {
                     commandNotificationPort.unsubscribeTopic(user.getToken(), topic);
 
-                    commandTopicSubscriptionPort.saveTopicSubscription(
+                    commandTopicSubscriptionPort.save(
                         TopicSubscription.builder()
                             .deviceToken(user.getToken())
                             .topic(topic)
@@ -38,7 +38,7 @@ public class SubscribeTopicByToggleUseCase {
                 () -> {
                     commandNotificationPort.subscribeTopic(user.getToken(), topic);
 
-                    commandTopicSubscriptionPort.saveTopicSubscription(
+                    commandTopicSubscriptionPort.save(
                         TopicSubscription.builder()
                             .deviceToken(user.getToken())
                             .topic(topic)

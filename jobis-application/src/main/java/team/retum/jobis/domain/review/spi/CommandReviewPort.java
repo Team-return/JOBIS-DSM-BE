@@ -9,7 +9,7 @@ public interface CommandReviewPort {
 
     Review save(Review review);
 
-    void saveAllQnAs(List<QnA> qnAs);
+    void saveAll(List<QnA> qnAs);
 
     void delete(Review review);
 }

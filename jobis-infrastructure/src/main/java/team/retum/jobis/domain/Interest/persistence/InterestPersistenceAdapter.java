@@ -27,14 +27,14 @@ public class InterestPersistenceAdapter implements InterestPort {
     private final QueryCodePort queryCodePort;
 
     @Override
-    public void saveInterest(Interest interest) {
+    public void save(Interest interest) {
         interestMapper.toDomain(
                 interestJpaRepository.save(interestMapper.toEntity(interest))
         );
     }
 
     @Override
-    public void deleteInterest(Interest interest) {
+    public void delete(Interest interest) {
         interestJpaRepository.delete(interestMapper.toEntity(interest));
     }
 
