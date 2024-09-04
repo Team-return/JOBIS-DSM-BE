@@ -162,9 +162,9 @@ public class SecurityConfig {
                     // notification
                     .requestMatchers(HttpMethod.GET, "/notifications").authenticated()
                     .requestMatchers(HttpMethod.PATCH, "/notifications/{notification-id}").authenticated()
-                    .requestMatchers(HttpMethod.POST, "/notifications/topic").authenticated()
+                    .requestMatchers(HttpMethod.PATCH, "/notifications/topic").authenticated()
                     .requestMatchers(HttpMethod.GET, "/notifications/topic").authenticated()
-                    .requestMatchers(HttpMethod.POST, "/notifications/topics").authenticated()
+                    .requestMatchers(HttpMethod.PATCH, "/notifications/topics").authenticated()
 
                     // interest
                     .requestMatchers(HttpMethod.PATCH, "/interests/{code}").hasAnyAuthority(STUDENT.name())
