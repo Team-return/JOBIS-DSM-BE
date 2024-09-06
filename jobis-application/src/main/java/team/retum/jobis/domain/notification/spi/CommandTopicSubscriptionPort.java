@@ -6,5 +6,4 @@ public interface CommandTopicSubscriptionPort {
 
     void save(TopicSubscription topicSubscription);
 
-    void saveTopics(String deviceToken);
 }
