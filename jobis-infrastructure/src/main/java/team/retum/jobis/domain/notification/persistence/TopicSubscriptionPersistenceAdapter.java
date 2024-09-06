@@ -10,7 +10,6 @@ import team.retum.jobis.domain.notification.persistence.mapper.TopicSubscription
 import team.retum.jobis.domain.notification.persistence.repository.TopicSubscriptionJpaRepository;
 import team.retum.jobis.domain.notification.spi.TopicSubscriptionPort;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,14 +53,14 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
 
     @Override
     public void saveTopics(String deviceToken) {
-        Arrays.stream(Topic.values()).forEach(topic -> {
-            save(
-                TopicSubscription.builder()
-                    .deviceToken(deviceToken)
-                    .topic(topic)
-                    .isSubscribed(false)
-                    .build()
-            );
-        });
+        for (Topic topic : Topic.values()) {
+            TopicSubscription subscription = TopicSubscription.builder()
+                .deviceToken(deviceToken)
+                .topic(topic)
+                .isSubscribed(false)
+                .build();
+
+            save(subscription);
+        }
     }
 }
