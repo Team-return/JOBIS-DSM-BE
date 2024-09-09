@@ -17,7 +17,7 @@ public class UpdateStudentForgottenPasswordUseCase {
     private final SecurityPort securityPort;
 
     public void execute(String email, String password) {
-        User user = userPort.getByAccountIdOrThrow(email);
+        User user = (User) queryUserPort.queryUserByAccountId(email);
 
         AuthCode authCode = queryAuthCodePort.getByEmailOrThrow(email);
         authCode.checkIsVerified();

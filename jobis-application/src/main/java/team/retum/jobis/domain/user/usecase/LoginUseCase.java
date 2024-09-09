@@ -18,7 +18,9 @@ public class LoginUseCase {
     private final JwtPort jwtPort;
 
     public TokenResponse execute(LoginRequest request) {
-        User user = userPort.getByAccountIdOrThrow(request.accountId());
+        User user = (User) queryUserPort.queryUserByAccountId(request.accountId());
+//            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+
         userChecker.checkPasswordMatch(request.password(), user.getPassword());
 
         userPort.save(user.setToken(request.deviceToken()));

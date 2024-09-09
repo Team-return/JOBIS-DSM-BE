@@ -10,7 +10,7 @@ public interface QueryUserPort {
 
     boolean existsByAccountId(String accountId);
 
-    User getByAccountIdOrThrow(String accountId);
+    User queryUserByAccountId(String accountId);
 
     List<User> getAllByIds(List<Long> userIds);
 

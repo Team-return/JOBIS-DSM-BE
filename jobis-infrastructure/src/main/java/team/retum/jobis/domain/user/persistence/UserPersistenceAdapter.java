@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
 import team.retum.jobis.domain.user.exception.UserNotFoundException;
+import team.retum.jobis.domain.user.exception.UserNotFoundException;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.persistence.mapper.UserMapper;
 import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
@@ -24,6 +25,9 @@ public class UserPersistenceAdapter implements UserPort {
     public User getByAccountIdOrThrow(String accountId) {
         return userJpaRepository.findByAccountId(accountId)
             .map(userMapper::toDomain)
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    public Object queryUserByAccountId(String accountId) {
+        return userJpaRepository.findByAccountId(accountId)
             .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
