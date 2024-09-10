@@ -9,6 +9,8 @@ import team.retum.jobis.domain.interest.spi.QueryInterestPort;
 import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @UseCase
@@ -19,19 +21,30 @@ public class ToggleInterestUseCase {
     private final SecurityPort securityPort;
 
     public void execute(List<Long> codeIds) {
+
         Student student = securityPort.getCurrentStudent();
 
-        for (Long codeId : codeIds) {
-            queryInterestPort.getByStudentIdAndCode(student.getId(), codeId)
-                .ifPresentOrElse(
-                    commandInterestPort::delete,
-                    () -> commandInterestPort.save(
+        List<Interest> interests = queryInterestPort.getAllByStudentIdAndCodes(student.getId(), codeIds);
+
+        Set<Long> codeIdList = interests.stream()
+            .map(Interest::getCode)
+            .collect(Collectors.toSet());
+
+        codeIds
+            .forEach(codeId -> {
+                if (codeIdList.contains(codeId)) {
+                    interests.stream()
+                        .filter(interest -> interest.getCode().equals(codeId))
+                        .findFirst()
+                        .ifPresent(commandInterestPort::delete);
+                } else {
+                    commandInterestPort.save(
                         Interest.builder()
                             .studentId(student.getId())
                             .code(codeId)
                             .build()
-                    )
-                );
-        }
+                    );
+                }
+            });
     }
 }

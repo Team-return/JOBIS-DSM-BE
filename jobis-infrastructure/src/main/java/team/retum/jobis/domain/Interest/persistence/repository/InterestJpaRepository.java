@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface InterestJpaRepository extends CrudRepository<InterestEntity, Long> {
 
-    Optional<InterestEntity> findByStudentIdAndCode(Long studentId, CodeEntity codeEntity);
+    List<InterestEntity> findByStudentIdAndCodeIn(Long studentId, List<CodeEntity> codeEntity);
 
     List<InterestEntity> findByStudentId(Long studentId);
 }
