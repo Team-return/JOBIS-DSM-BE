@@ -10,4 +10,6 @@ import java.util.List;
 public interface TopicSubscriptionJpaRepository extends CrudRepository<TopicSubscriptionEntity, TopicSubscriptionId> {
 
     List<TopicVO> findAllByDeviceToken(String deviceToken);
+
+    Boolean existsByDeviceToken(String deviceToken);
 }
