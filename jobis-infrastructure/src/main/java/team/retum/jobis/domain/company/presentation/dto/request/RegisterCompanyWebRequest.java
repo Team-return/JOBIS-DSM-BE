@@ -69,7 +69,7 @@ public class RegisterCompanyWebRequest {
 
     @Email
     @Size(max = 30)
-    @Pattern(regexp = RegexProperty.COMPANY)
+    @Pattern(regexp = RegexProperty.EMAIL)
     private String email;
 
     @NotBlank

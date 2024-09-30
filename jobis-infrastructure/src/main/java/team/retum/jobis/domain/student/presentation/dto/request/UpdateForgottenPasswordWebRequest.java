@@ -13,7 +13,7 @@ public class UpdateForgottenPasswordWebRequest {
 
     @Size(max = 30)
     @NotBlank
-    @Pattern(regexp = RegexProperty.EMAIL)
+    @Pattern(regexp = RegexProperty.STUDENT_EMAIL)
     private String email;
 
     @Pattern(regexp = RegexProperty.PASSWORD)
