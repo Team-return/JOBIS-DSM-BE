@@ -13,7 +13,7 @@ import team.retum.jobis.global.util.RegexProperty;
 public class SendAuthCodeWebRequest {
 
     @NotBlank
-    @Pattern(regexp = RegexProperty.EMAIL)
+    @Pattern(regexp = RegexProperty.STUDENT_EMAIL)
     private String email;
 
     @NotNull

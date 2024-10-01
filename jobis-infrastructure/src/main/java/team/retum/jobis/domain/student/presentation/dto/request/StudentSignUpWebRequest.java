@@ -16,7 +16,7 @@ import team.retum.jobis.global.util.RegexProperty;
 public class StudentSignUpWebRequest {
 
     @Size(max = 30)
-    @Pattern(regexp = RegexProperty.EMAIL)
+    @Pattern(regexp = RegexProperty.STUDENT_EMAIL)
     private String email;
 
     @Pattern(regexp = RegexProperty.PASSWORD)
