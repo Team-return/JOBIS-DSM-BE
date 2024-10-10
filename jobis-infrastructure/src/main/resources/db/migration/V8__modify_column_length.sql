@@ -1,0 +1,1 @@
+alter table tbl_topic_subscription modify column topic varchar(28) not null;
