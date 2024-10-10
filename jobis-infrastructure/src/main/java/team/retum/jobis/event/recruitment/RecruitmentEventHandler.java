@@ -86,7 +86,7 @@ public class RecruitmentEventHandler {
                 User user = queryUserPort.getByStudentId(student.getId());
 
                 Notification notification = Notification.builder()
-                        .title("모집의뢰서")
+                        .title("모집의뢰서 보러가기")
                         .content(student.getName() + " 님이 관심 있을 만한 모집의뢰서가 추가되었어요!")
                         .userId(user.getId())
                         .topic(Topic.NEW_INTERESTED_RECRUITMENT)

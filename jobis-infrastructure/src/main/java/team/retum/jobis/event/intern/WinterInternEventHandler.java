@@ -24,8 +24,8 @@ public class WinterInternEventHandler {
     public void onWinterInternToggled(WinterInternToggledEvent event) {
         if (event.getWinterIntern().isWinterInterned()) {
             Notification notification = Notification.builder()
-                    .title("겨울인턴 지원 활성화")
-                    .content("겨울인턴이 활성화되었습니다!")
+                    .title("겨울인턴 시즌이 다가왔어요~")
+                    .content("오늘부터 체험형 현장실습을 지원하실 수 있어요.")
                     .topic(Topic.WINTER_INTERN_STATUS_CHANGED)
                     .detailId(null)
                     .authority(Authority.STUDENT)
