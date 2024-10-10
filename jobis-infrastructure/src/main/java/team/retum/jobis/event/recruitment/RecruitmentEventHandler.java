@@ -72,7 +72,7 @@ public class RecruitmentEventHandler {
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onInterestCodeMatchEvent(InterestedRecruitmentEvent event) {
+    public void onInterestCodeMatched(InterestedRecruitmentEvent event) {
         Recruitment recruitment = event.getRecruitments();
         List<Long> recruitmentCodes = queryRecruitAreaPort.getCodesByRecruitmentId(recruitment.getId());
 
