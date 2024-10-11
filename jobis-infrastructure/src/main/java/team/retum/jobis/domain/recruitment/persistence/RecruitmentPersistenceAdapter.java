@@ -405,6 +405,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return recruitmentJpaRepository.findByCreationDateBetween(oneDayAgo, now);
     }
 
+    @Override
+    public boolean existsByCompanyId(Long companyId) {
+        return recruitmentJpaRepository.existsByCompanyId(companyId);
+    }
+
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {

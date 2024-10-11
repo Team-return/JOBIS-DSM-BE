@@ -35,6 +35,7 @@ import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecrui
 import team.retum.jobis.domain.recruitment.presentation.dto.request.RecruitAreaWebRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.UpdateRecruitmentWebRequest;
 import team.retum.jobis.domain.recruitment.usecase.ApplyRecruitmentUseCase;
+import team.retum.jobis.domain.recruitment.usecase.CheckRecruitmentExistsUseCase;
 import team.retum.jobis.domain.recruitment.usecase.CreateRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitAreaUseCase;
 import team.retum.jobis.domain.recruitment.usecase.DeleteRecruitmentUseCase;
@@ -78,6 +79,7 @@ public class RecruitmentWebAdapter {
     private final DeleteRecruitAreaUseCase deleteRecruitAreaUseCase;
     private final QueryMyRecruitmentsUseCase queryMyRecruitmentsUseCase;
     private final ExportRecruitmentHistoryUseCase exportRecruitmentHistoryUseCase;
+    private final CheckRecruitmentExistsUseCase checkRecruitmentExistsUseCase;
     private final ExcelAdapter excelAdapter;
 
     @CacheEvict(allEntries = true)
@@ -240,6 +242,11 @@ public class RecruitmentWebAdapter {
         ExportRecruitmentHistoryResponse response = exportRecruitmentHistoryUseCase.execute();
         excelAdapter.setExcelContentDisposition(httpResponse, response.getFileName());
         return response.getFile();
+    }
+
+    @GetMapping("/exists/{company-id}")
+    public boolean checkRecruitmentExists(@PathVariable("company-id") Long companyId) {
+        return checkRecruitmentExistsUseCase.execute(companyId);
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
