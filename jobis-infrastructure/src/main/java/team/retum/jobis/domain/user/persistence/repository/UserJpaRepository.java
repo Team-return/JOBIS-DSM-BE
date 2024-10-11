@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.user.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.persistence.entity.UserEntity;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> findAllByIdIn(List<Long> ids);
 
+    Optional<UserEntity> findByToken(String token);
 }

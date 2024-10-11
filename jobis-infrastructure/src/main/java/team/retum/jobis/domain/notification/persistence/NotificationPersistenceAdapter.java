@@ -6,20 +6,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
-import team.retum.jobis.domain.notification.model.TopicSubscription;
+import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
 import team.retum.jobis.domain.notification.persistence.mapper.NotificationMapper;
 import team.retum.jobis.domain.notification.persistence.repository.NotificationJpaRepository;
-import team.retum.jobis.domain.notification.persistence.repository.TopicSubscriptionJpaRepository;
 import team.retum.jobis.domain.notification.spi.CommandTopicSubscriptionPort;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
-import team.retum.jobis.domain.notification.spi.TopicSubscriptionPort;
+import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;
 import java.util.Optional;
-
-import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
-import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
 
 @RequiredArgsConstructor
 @Component

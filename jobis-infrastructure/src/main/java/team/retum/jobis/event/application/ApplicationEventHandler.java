@@ -54,7 +54,7 @@ public class ApplicationEventHandler {
             }
 
             Notification notification = Notification.builder()
-                .title(companyName)
+                .title("결과 보러가기")
                 .content(content)
                 .userId(application.getStudentId())
                 .topic(Topic.APPLICATION_STATUS_CHANGED)
