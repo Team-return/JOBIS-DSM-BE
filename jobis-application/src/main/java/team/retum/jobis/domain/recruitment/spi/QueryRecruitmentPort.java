@@ -39,4 +39,6 @@ public interface QueryRecruitmentPort {
     Long countRecruitments();
 
     List<Recruitment> getRecent();
+
+    boolean existsByCompanyId(Long companyId);
 }
