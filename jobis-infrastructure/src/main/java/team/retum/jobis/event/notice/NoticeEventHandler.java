@@ -10,29 +10,41 @@ import team.retum.jobis.domain.notice.event.NoticePostedEvent;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
+import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.spi.QueryUserPort;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
-@RequiredArgsConstructor
+import java.util.List;
+
 @Component
+@RequiredArgsConstructor
 public class NoticeEventHandler {
 
     private final FCMUtil fcmUtil;
     private final CommandNotificationPort commandNotificationPort;
+    private final QueryUserPort queryUserPort;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onNoticePosted(NoticePostedEvent event) {
-        Notification notification = Notification.builder()
-            .title(event.getNotice().getTitle())
-            .content(event.getNotice().getContent())
-            .topic(Topic.NEW_NOTICE)
-            .detailId(event.getNotice().getId())
-            .authority(Authority.STUDENT)
-            .isNew(true)
-            .build();
+        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.NEW_NOTICE);
 
-        commandNotificationPort.save(notification);
+        deviceTokens.forEach(deviceToken -> {
+            User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
-        fcmUtil.sendMessageToTopic(notification);
+            Notification notification = Notification.builder()
+                .title(event.getNotice().getTitle())
+                .content(event.getNotice().getContent())
+                .userId(user.getId())
+                .detailId(event.getNotice().getId())
+                .topic(Topic.NEW_NOTICE)
+                .authority(Authority.STUDENT)
+                .isNew(true)
+                .build();
+
+            commandNotificationPort.save(notification);
+
+            fcmUtil.sendMessageToTopic(notification);
+        });
     }
 }

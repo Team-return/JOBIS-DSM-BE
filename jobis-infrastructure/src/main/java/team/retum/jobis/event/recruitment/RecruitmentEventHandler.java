@@ -86,14 +86,14 @@ public class RecruitmentEventHandler {
                 User user = queryUserPort.getByStudentId(student.getId());
 
                 Notification notification = Notification.builder()
-                        .title("모집의뢰서 보러가기")
-                        .content(student.getName() + " 님이 관심 있을 만한 모집의뢰서가 추가되었어요!")
-                        .userId(user.getId())
-                        .topic(Topic.NEW_INTERESTED_RECRUITMENT)
-                        .detailId(recruitment.getId())
-                        .authority(Authority.STUDENT)
-                        .isNew(true)
-                        .build();
+                    .title("모집의뢰서 보러가기")
+                    .content(student.getName() + " 님이 관심 있을 만한 모집의뢰서가 추가되었어요!")
+                    .userId(user.getId())
+                    .detailId(recruitment.getId())
+                    .topic(Topic.NEW_INTERESTED_RECRUITMENT)
+                    .authority(Authority.STUDENT)
+                    .isNew(true)
+                    .build();
 
                 if (repNotification == null) {
                     repNotification = notification;
@@ -101,6 +101,7 @@ public class RecruitmentEventHandler {
                 tokens.add(user.getToken());
                 commandNotificationPort.save(notification);
             }
+
             fcmUtil.sendMessages(repNotification, tokens);
         }
     }
