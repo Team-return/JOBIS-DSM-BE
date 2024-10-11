@@ -6,39 +6,40 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
+import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
 import team.retum.jobis.domain.notification.persistence.mapper.NotificationMapper;
 import team.retum.jobis.domain.notification.persistence.repository.NotificationJpaRepository;
+import team.retum.jobis.domain.notification.spi.CommandTopicSubscriptionPort;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
+import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;
 import java.util.Optional;
-
-import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
-import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
 
 @RequiredArgsConstructor
 @Component
 public class NotificationPersistenceAdapter implements NotificationPort {
 
     private final NotificationJpaRepository notificationJpaRepository;
+    private final CommandTopicSubscriptionPort commandTopicSubscriptionPort;
     private final NotificationMapper notificationMapper;
     private final JPAQueryFactory queryFactory;
     private final FCMUtil fcmUtil;
 
     @Override
-    public void saveNotification(Notification notification) {
+    public void save(Notification notification) {
         notificationJpaRepository.save(notificationMapper.toEntity(notification));
     }
 
     @Override
-    public Optional<Notification> queryNotificationById(Long notificationId) {
+    public Optional<Notification> getById(Long notificationId) {
         return notificationJpaRepository.findById(notificationId)
             .map(notificationMapper::toDomain);
     }
 
     @Override
-    public List<Notification> queryNotificationsByCondition(Long userId, Boolean isNew) {
+    public List<Notification> getByCondition(Long userId, Boolean isNew) {
         return queryFactory
             .selectFrom(notificationEntity)
             .join(notificationEntity.userEntity, userEntity)

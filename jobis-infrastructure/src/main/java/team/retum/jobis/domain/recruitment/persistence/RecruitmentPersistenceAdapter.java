@@ -26,6 +26,7 @@ import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -394,6 +395,19 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .select(recruitmentEntity.count())
             .from(recruitmentEntity)
             .fetchOne();
+    }
+
+    @Override
+    public List<Recruitment> getRecent() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime oneDayAgo = now.minusDays(1);
+
+        return recruitmentJpaRepository.findByCreationDateBetween(oneDayAgo, now);
+    }
+
+    @Override
+    public boolean existsByCompanyId(Long companyId) {
+        return recruitmentJpaRepository.existsByCompanyId(companyId);
     }
 
     //===conditions===//

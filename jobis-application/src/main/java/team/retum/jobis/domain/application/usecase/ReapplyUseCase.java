@@ -26,7 +26,7 @@ public class ReapplyUseCase {
             ApplicationStatus.REJECTED, ApplicationStatus.REQUESTED
         );
 
-        commandApplicationPort.deleteAllAttachmentByApplicationId(applicationId);
+        commandApplicationPort.deleteAllByApplicationId(applicationId);
         commandApplicationPort.save(
             application.reapply(ApplicationAttachment.from(attachmentRequests))
         );

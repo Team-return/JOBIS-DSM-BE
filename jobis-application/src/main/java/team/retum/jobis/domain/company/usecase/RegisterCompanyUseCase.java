@@ -32,7 +32,7 @@ public class RegisterCompanyUseCase {
 
         Code code = queryCodePort.getByIdOrThrow(request.businessAreaCode());
 
-        Company savedCompany = commandCompanyPort.saveCompany(
+        Company savedCompany = commandCompanyPort.save(
             Company.of(request, code.getKeyword())
         );
 
@@ -46,7 +46,7 @@ public class RegisterCompanyUseCase {
     }
 
     private void checkCompanyRegistered(String businessNumber) {
-        if (queryCompanyPort.existsCompanyByBizNo(businessNumber)) {
+        if (queryCompanyPort.existsByBizNo(businessNumber)) {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
     }

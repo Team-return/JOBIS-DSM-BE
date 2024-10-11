@@ -15,9 +15,9 @@ public class DeleteNoticeUseCase {
     private final QueryNoticePort queryNoticePort;
 
     public void execute(Long noticeId) {
-        Notice notice = queryNoticePort.queryNoticeById(noticeId)
+        Notice notice = queryNoticePort.getById(noticeId)
             .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 
-        commandNoticePort.deleteNotice(notice);
+        commandNoticePort.delete(notice);
     }
 }

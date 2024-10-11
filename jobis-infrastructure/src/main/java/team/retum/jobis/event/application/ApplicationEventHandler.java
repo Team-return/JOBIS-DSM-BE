@@ -43,7 +43,7 @@ public class ApplicationEventHandler {
                 User::getId,
                 User::getToken
             ));
-        Map<Long, String> companyNameMap = queryCompanyPort.queryCompanyNameByRecruitmentIds(
+        Map<Long, String> companyNameMap = queryCompanyPort.getCompanyNameByRecruitmentIds(
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {
@@ -54,7 +54,7 @@ public class ApplicationEventHandler {
             }
 
             Notification notification = Notification.builder()
-                .title(companyName)
+                .title("결과 보러가기")
                 .content(content)
                 .userId(application.getStudentId())
                 .topic(Topic.APPLICATION_STATUS_CHANGED)
@@ -63,7 +63,7 @@ public class ApplicationEventHandler {
                 .isNew(true)
                 .build();
 
-            commandNotificationPort.saveNotification(notification);
+            commandNotificationPort.save(notification);
             fcmUtil.sendMessages(
                 notification,
                 List.of(userIdTokenMap.get(application.getStudentId()))

@@ -8,7 +8,6 @@ import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.review.dto.QnAElement;
-import team.retum.jobis.domain.review.exception.ReviewAlreadyExistsException;
 import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.spi.ReviewPort;
@@ -27,7 +26,7 @@ public class CreateReviewUseCase {
 
     public void execute(Long companyId, List<QnAElement> qnAElements) {
         Student student = securityPort.getCurrentStudent();
-        Company company = queryCompanyPort.queryCompanyById(companyId)
+        Company company = queryCompanyPort.getById(companyId)
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         queryApplicationPort.getByCompanyIdAndStudentIdOrThrow(company.getId(), student.getId())
@@ -48,6 +47,6 @@ public class CreateReviewUseCase {
                 .codeId(qnARequest.codeId())
                 .build())
             .toList();
-        reviewPort.saveAllQnAs(qnAs);
+        reviewPort.saveAll(qnAs);
     }
 }

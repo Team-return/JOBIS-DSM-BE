@@ -43,6 +43,14 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
+    public void deleteExpiredBanners() {
+        queryFactory
+            .delete(bannerEntity)
+            .where(bannerEntity.endDate.loe(LocalDate.now()))
+            .execute();
+    }
+
+    @Override
     public Banner getByIdOrThrow(Long bannerId) {
         return bannerJpaRepository.findById(bannerId)
             .map(bannerMapper::toDomain)
@@ -50,7 +58,7 @@ public class BannerPersistenceAdapter implements BannerPort {
     }
 
     @Override
-    public List<BannerVO> getCurrentBanners() {
+    public List<BannerVO> getCurrent() {
         LocalDate today = LocalDate.now();
         return queryFactory
             .select(
@@ -63,8 +71,8 @@ public class BannerPersistenceAdapter implements BannerPort {
             )
             .from(bannerEntity)
             .where(
-                bannerEntity.startDate.before(today),
-                bannerEntity.endDate.after(today)
+                bannerEntity.startDate.loe(today),
+                bannerEntity.endDate.gt(today)
             )
             .stream()
             .map(BannerVO.class::cast)
@@ -94,9 +102,10 @@ public class BannerPersistenceAdapter implements BannerPort {
     private BooleanExpression checkStatus(boolean isOpened) {
         LocalDate today = LocalDate.now();
         if (isOpened) {
-            return bannerEntity.startDate.before(today);
+            return bannerEntity.startDate.loe(today)
+                .and(bannerEntity.endDate.gt(today));
         } else {
-            return bannerEntity.startDate.after(today);
+            return bannerEntity.startDate.gt(today);
         }
     }
 }

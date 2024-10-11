@@ -1,9 +1,16 @@
+server:
+  port: 8080
+  shutdown: graceful
+
 spring:
+  profiles:
+    active: ${PROFILE:local}
+
+  lifecycle:
+    timeout-per-shutdown-phase: "60s"
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:11111111}
 
   flyway:
     enabled: ${FLYWAY_ENABLED:false}
@@ -95,8 +102,8 @@ logging:
           EC2MetadataUtils: error
 
 fcm:
-  path: ${FCM_PATH}
+  path: ${FCM_PATH:d}
 
 slack:
-  url: ${SLACK_URL}
-  token: ${SLACK_TOKEN}
+  url: ${SLACK_URL:d}
+  token: ${SLACK_TOKEN:d}

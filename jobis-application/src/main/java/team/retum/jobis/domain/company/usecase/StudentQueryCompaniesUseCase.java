@@ -22,7 +22,7 @@ public class StudentQueryCompaniesUseCase {
             .build();
 
         return new StudentQueryCompaniesResponse(
-            queryCompanyPort.queryStudentCompanies(filter)
+            queryCompanyPort.getStudentCompanies(filter)
         );
     }
 

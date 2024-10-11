@@ -39,7 +39,7 @@ public class TeacherQueryCompaniesUseCase {
             .build();
 
         return new TeacherQueryCompaniesResponse(
-            queryCompanyPort.queryCompaniesByConditions(filter).stream()
+            queryCompanyPort.getByConditions(filter).stream()
                 .map(company -> TeacherQueryCompanyResponse.builder()
                     .companyId(company.getCompanyId())
                     .companyName(company.getCompanyName())

@@ -72,6 +72,7 @@ public class RecruitmentMapper {
             .submitDocument(entity.getSubmitDocument())
             .submitDocument(entity.getSubmitDocument())
             .winterIntern(entity.isWinterIntern())
+            .createdAt(entity.getCreatedAt())
             .build();
     }
 }

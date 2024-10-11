@@ -17,7 +17,7 @@ public class CreateNoticeUseCase {
     private final PublishEventPort publishEventPort;
 
     public void execute(CreateNoticeRequest request) {
-        Notice savedNotice = commandNoticePort.saveNotice(Notice.builder()
+        Notice savedNotice = commandNoticePort.save(Notice.builder()
             .title(request.getTitle())
             .content(request.getContent())
             .attachments(request.getAttachments().stream()

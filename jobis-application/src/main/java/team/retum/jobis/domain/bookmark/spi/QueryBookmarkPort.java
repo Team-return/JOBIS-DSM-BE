@@ -12,9 +12,9 @@ public interface QueryBookmarkPort {
 
     boolean existsBookmarkByRecruitmentAndStudent(Long recruitmentId, Long studentId);
 
-    Optional<Bookmark> queryBookmarkByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId);
+    Optional<Bookmark> getByRecruitmentIdAndStudentId(Long recruitmentId, Long studentId);
 
-    List<StudentBookmarksVO> queryBookmarksByStudentId(Long studentId);
+    List<StudentBookmarksVO> getByStudentId(Long studentId);
 
-    Map<Long, List<BookmarkUserVO>> queryBookmarkUserByRecruitmentIds(List<Long> recruitmentIds);
+    Map<Long, List<BookmarkUserVO>> getBookmarkUserByRecruitmentIds(List<Long> recruitmentIds);
 }

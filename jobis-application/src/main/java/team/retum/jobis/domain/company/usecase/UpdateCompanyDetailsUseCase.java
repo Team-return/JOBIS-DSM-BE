@@ -19,13 +19,13 @@ public class UpdateCompanyDetailsUseCase {
     private final SecurityPort securityPort;
 
     public void execute(UpdateCompanyDetailsRequest request, Long companyId) {
-        Company company = queryCompanyPort.queryCompanyById(companyId)
+        Company company = queryCompanyPort.getById(companyId)
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         if (securityPort.getCurrentUserAuthority() == Authority.COMPANY) {
             company.verifySameCompany(securityPort.getCurrentCompany());
         }
 
-        commandCompanyPort.saveCompany(company.update(request));
+        commandCompanyPort.save(company.update(request));
     }
 }

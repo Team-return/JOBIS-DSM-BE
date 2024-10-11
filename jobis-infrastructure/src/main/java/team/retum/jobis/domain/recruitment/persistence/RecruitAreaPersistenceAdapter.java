@@ -88,4 +88,15 @@ public class RecruitAreaPersistenceAdapter implements RecruitAreaPort {
             .map(RecruitAreaResponse.class::cast)
             .toList();
     }
+
+    @Override
+    public List<Long> getCodesByRecruitmentId(Long recruitmentId) {
+        return queryFactory
+                .select(codeEntity.code)
+                .from(recruitAreaEntity)
+                .leftJoin(recruitAreaEntity.recruitAreaCodes, recruitAreaCodeEntity)
+                .leftJoin(recruitAreaCodeEntity.code, codeEntity)
+                .where(recruitAreaEntity.recruitment.id.eq(recruitmentId))
+                .fetch();
+    }
 }

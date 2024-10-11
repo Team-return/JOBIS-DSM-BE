@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface QueryNotificationPort {
 
-    Optional<Notification> queryNotificationById(Long notificationId);
+    Optional<Notification> getById(Long notificationId);
 
-    List<Notification> queryNotificationsByCondition(Long userId, Boolean isNew);
+    List<Notification> getByCondition(Long userId, Boolean isNew);
 }

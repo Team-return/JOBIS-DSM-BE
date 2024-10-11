@@ -11,6 +11,7 @@ import team.retum.jobis.domain.recruitment.exception.InvalidRecruitmentStatusExc
 import team.retum.jobis.domain.recruitment.exception.RecruitmentCannotDeleteException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.List;
 
@@ -52,6 +53,8 @@ public class Recruitment {
     private final boolean winterIntern;
 
     private final Long companyId;
+
+    private final LocalDateTime createdAt;
 
     public static Recruitment of(ApplyRecruitmentRequest request, Long currentCompanyId) {
         return Recruitment.builder()

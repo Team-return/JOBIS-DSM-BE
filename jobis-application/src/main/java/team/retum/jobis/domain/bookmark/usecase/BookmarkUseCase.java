@@ -23,10 +23,10 @@ public class BookmarkUseCase {
         Student student = securityPort.getCurrentStudent();
         Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(recruitmentId);
 
-        queryBookmarkPort.queryBookmarkByRecruitmentIdAndStudentId(recruitment.getId(), student.getId())
+        queryBookmarkPort.getByRecruitmentIdAndStudentId(recruitment.getId(), student.getId())
             .ifPresentOrElse(
-                commandBookmarkPort::deleteBookmark,
-                () -> commandBookmarkPort.saveBookmark(Bookmark.builder()
+                commandBookmarkPort::delete,
+                () -> commandBookmarkPort.save(Bookmark.builder()
                     .studentId(student.getId())
                     .recruitmentId(recruitment.getId())
                     .build())
