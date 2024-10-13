@@ -2,6 +2,7 @@ package team.retum.jobis.domain.company.presentation.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -84,6 +85,7 @@ public class RegisterCompanyWebRequest {
     private LocalDate foundedAt;
 
     @NotNull
+    @Max(32767)
     private Integer workerNumber;
 
     @NotNull
