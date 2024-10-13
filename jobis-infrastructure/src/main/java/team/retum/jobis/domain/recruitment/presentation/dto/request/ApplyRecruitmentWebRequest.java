@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,6 +25,7 @@ public class ApplyRecruitmentWebRequest {
     @ValidListElements
     private List<RecruitAreaWebRequest> areas;
 
+    @Max(100)
     private Integer requiredGrade;
 
     @NotBlank
