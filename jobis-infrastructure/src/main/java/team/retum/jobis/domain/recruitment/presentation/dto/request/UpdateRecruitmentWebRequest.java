@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -31,8 +32,10 @@ public class UpdateRecruitmentWebRequest {
     private List<ProgressType> hiringProgress;
 
     @NotNull
+    @Max(100000000)
     private Integer trainPay;
 
+    @Size(max = 20)
     private String pay;
 
     @Size(max = 550)
