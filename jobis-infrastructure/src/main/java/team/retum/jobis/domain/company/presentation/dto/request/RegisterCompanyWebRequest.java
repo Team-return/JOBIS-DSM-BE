@@ -63,6 +63,7 @@ public class RegisterCompanyWebRequest {
     @Size(max = 10)
     private String subManagerName;
 
+    @Size(min = 9, max = 12)
     private String subManagerPhoneNo;
 
     @Size(min = 10, max = 12)
@@ -78,6 +79,7 @@ public class RegisterCompanyWebRequest {
     private String representativeName;
 
     @NotBlank
+    @Size(min = 9, max = 12)
     private String representativePhoneNo;
 
     @NotNull
