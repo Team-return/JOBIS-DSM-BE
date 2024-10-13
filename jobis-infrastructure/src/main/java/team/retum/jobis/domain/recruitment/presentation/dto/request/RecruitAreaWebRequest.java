@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.presentation.dto.request;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,6 +20,7 @@ public class RecruitAreaWebRequest {
     private List<Long> techCodes;
 
     @NotNull
+    @Max(255)
     private Integer hiring;
 
     @Size(max = 3500)
