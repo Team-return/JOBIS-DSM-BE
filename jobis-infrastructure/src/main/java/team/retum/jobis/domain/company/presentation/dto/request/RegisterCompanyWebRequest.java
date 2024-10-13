@@ -91,6 +91,7 @@ public class RegisterCompanyWebRequest {
 
     private String companyProfileUrl;
 
+    @NotNull
     private String bizRegistrationUrl;
 
     @NotNull
