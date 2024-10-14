@@ -45,7 +45,7 @@ public class UpdateCompanyDetailsWebRequest {
     private String managerName;
 
     @NotBlank
-    @Size(min = 10, max = 12)
+    @Size(min = 9, max = 12)
     private String managerPhoneNo;
 
     @Size(max = 10)
@@ -74,7 +74,7 @@ public class UpdateCompanyDetailsWebRequest {
     @NotBlank
     private String serviceName;
 
-    @Size(min = 10, max = 12)
+    @Size(min = 9, max = 12)
     @NotBlank
     private String representativePhoneNo;
 
