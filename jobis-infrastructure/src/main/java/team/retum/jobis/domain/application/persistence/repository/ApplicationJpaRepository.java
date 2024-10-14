@@ -16,6 +16,4 @@ public interface ApplicationJpaRepository extends JpaRepository<ApplicationEntit
 
     @Query("select a from ApplicationEntity a join fetch a.applicationAttachments where a.id=?1")
     Optional<ApplicationEntity> findByIdFetch(Long applicationId);
-
-    List<ApplicationStatus> findApplicationStatusByStudentId(Long studentId);
 }
