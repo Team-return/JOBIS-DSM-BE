@@ -29,7 +29,6 @@ public class NotificationPersistenceAdapter implements NotificationPort {
 
     private final NotificationJpaRepository notificationJpaRepository;
     private final CommandTopicSubscriptionPort commandTopicSubscriptionPort;
-    private final CommandNotificationPort commandNotificationPort;
     private final NotificationMapper notificationMapper;
     private final JPAQueryFactory queryFactory;
     private final FCMUtil fcmUtil;
@@ -68,7 +67,7 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     @Override
     public void subscribeAllTopic(User user) {
         Arrays.stream(Topic.values()).forEach(topic -> {
-            commandNotificationPort.subscribeTopic(user.getToken(), topic);
+            subscribeTopic(user.getToken(), topic);
             commandTopicSubscriptionPort.save(
                 TopicSubscription.builder()
                     .deviceToken(user.getToken())
