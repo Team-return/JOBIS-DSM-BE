@@ -3,6 +3,8 @@ package team.retum.jobis.domain.recruitment.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.DUPLICATE_CHECK;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
@@ -44,13 +46,21 @@ public class QueryRecruitmentDetailUseCase {
         );
     }
 
-    private Boolean getApplicable(boolean winterIntern, long recruitmentId) {
+    private Boolean getApplicable(boolean winterIntern, Long recruitmentId) {
         if (APPLICABLE_AUTHORITIES.contains(securityPort.getCurrentUserAuthority())) {
-            if (queryApplicationPort.existsByStudentIdAndRecruitmentId(
-                securityPort.getCurrentUserId(), recruitmentId)
-            ) {
+            List<ApplicationStatus> statuses = queryApplicationPort.getApplicationStatusByStudentId(
+                securityPort.getCurrentUserId()
+            );
+
+            if (statuses.stream().anyMatch(DUPLICATE_CHECK::contains)) {
                 return false;
             }
+
+            if (queryApplicationPort.existsByStudentIdAndRecruitmentId(
+                securityPort.getCurrentUserId(), recruitmentId)) {
+                return false;
+            }
+
             return securityPort.getCurrentStudent().getApplicable(winterIntern);
         }
         return null;

@@ -327,6 +327,11 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .fetchOne();
     }
 
+    @Override
+    public List<ApplicationStatus> getApplicationStatusByStudentId(Long studentId) {
+        return applicationJpaRepository.findApplicationStatusByStudentId(studentId);
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {
