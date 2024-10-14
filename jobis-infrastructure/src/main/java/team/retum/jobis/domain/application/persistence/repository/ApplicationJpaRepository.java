@@ -2,6 +2,7 @@ package team.retum.jobis.domain.application.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ApplicationJpaRepository extends JpaRepository<ApplicationEntit
 
     @Query("select a from ApplicationEntity a join fetch a.applicationAttachments where a.id=?1")
     Optional<ApplicationEntity> findByIdFetch(Long applicationId);
+
+    List<ApplicationStatus> findApplicationStatusByStudentId(Long studentId);
 }
