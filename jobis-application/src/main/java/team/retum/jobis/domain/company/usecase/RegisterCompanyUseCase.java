@@ -3,6 +3,7 @@ package team.retum.jobis.domain.company.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
+import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.model.PlatformType;
@@ -15,6 +16,8 @@ import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
+import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.spi.CommandUserPort;
 
 @RequiredArgsConstructor
 @UseCase
@@ -24,6 +27,8 @@ public class RegisterCompanyUseCase {
     private final QueryCompanyPort queryCompanyPort;
     private final CommandCompanyPort commandCompanyPort;
     private final QueryCodePort queryCodePort;
+    private final CommandUserPort commandUserPort;
+    private final SecurityPort securityPort;
     private final JwtPort jwtPort;
 
     public TokenResponse execute(RegisterCompanyRequest request) {
@@ -32,11 +37,20 @@ public class RegisterCompanyUseCase {
 
         Code code = queryCodePort.getByIdOrThrow(request.businessAreaCode());
 
-        Company savedCompany = commandCompanyPort.save(
-            Company.of(request, code.getKeyword())
+        User user = commandUserPort.save(
+            User.builder()
+                .accountId(request.businessNumber())
+                .password(securityPort.encodePassword("company123"))
+                .authority(Authority.COMPANY)
+                .token(null)
+                .build()
         );
 
-        return jwtPort.generateTokens(savedCompany.getId(), Authority.COMPANY, PlatformType.WEB);
+        commandCompanyPort.save(
+            Company.of(user.getId(), request, code.getKeyword())
+        );
+
+        return jwtPort.generateTokens(user.getId(), Authority.COMPANY, PlatformType.WEB);
     }
 
     private void checkCompanyExists(String businessNumber) {
