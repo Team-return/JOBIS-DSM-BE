@@ -22,6 +22,7 @@ import java.util.List;
 public class FCMUtil {
 
     public void subscribeTopic(String token, Topic topic) {
+
         if (token == null || token.isEmpty()) {
             throw new DeviceTokenNotFoundException();
         }
