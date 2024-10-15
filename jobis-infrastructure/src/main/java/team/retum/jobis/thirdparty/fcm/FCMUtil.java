@@ -34,6 +34,10 @@ public class FCMUtil {
     }
 
     public void unsubscribeTopic(String token, Topic topic) {
+
+        if (token == null || token.isEmpty()) {
+            throw new DeviceTokenNotFoundException();
+        }
         try {
             FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(Arrays.asList(token), topic.toString()).get();
         } catch (Exception e) {
