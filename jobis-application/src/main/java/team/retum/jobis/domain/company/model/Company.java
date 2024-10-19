@@ -39,8 +39,6 @@ public class Company {
 
     private final ManagerInfo managerInfo;
 
-    private final String fax;
-
     private final String email;
 
     private final String companyIntroduce;
@@ -80,14 +78,11 @@ public class Company {
                 ManagerInfo.builder()
                     .managerName(request.managerName())
                     .managerPhoneNo(request.managerPhoneNo())
-                    .subManagerName(request.subManagerName())
-                    .subManagerPhoneNo(request.subManagerPhoneNo())
                     .build()
             )
             .workersCount(request.workerNumber())
             .representativePhoneNo(request.representativePhoneNo())
             .email(request.email())
-            .fax(request.fax())
             .isMou(false)
             .bizNo(request.businessNumber())
             .representative(request.representativeName())
@@ -115,14 +110,11 @@ public class Company {
                 ManagerInfo.builder()
                     .managerName(request.managerName())
                     .managerPhoneNo(request.managerPhoneNo())
-                    .subManagerName(request.subManagerName())
-                    .subManagerPhoneNo(request.subManagerPhoneNo())
                     .build()
             )
             .companyIntroduce(request.companyIntroduce())
             .representativePhoneNo(request.representativePhoneNo())
             .companyLogoUrl(request.companyProfileUrl())
-            .fax(request.fax())
             .email(request.email())
             .serviceName(request.serviceName())
             .attachmentUrls(request.attachmentUrls())
