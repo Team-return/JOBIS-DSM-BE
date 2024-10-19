@@ -22,9 +22,6 @@ public class CompanyDetailsVO {
     private final String subAddressDetail;
     private final String managerName;
     private final String managerPhoneNo;
-    private final String subManagerName;
-    private final String subManagerPhoneNo;
-    private final String fax;
     private final String email;
     private final String representativeName;
     private final String representativePhoneNo;

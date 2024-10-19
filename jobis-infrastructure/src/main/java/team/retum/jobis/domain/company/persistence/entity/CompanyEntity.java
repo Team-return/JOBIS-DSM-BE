@@ -83,9 +83,6 @@ public class CompanyEntity {
     @Embedded
     private Manager manager;
 
-    @Column(columnDefinition = "VARCHAR(12)")
-    private String fax;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(30)")
     private String email;
@@ -118,8 +115,7 @@ public class CompanyEntity {
     public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
                          String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
                          String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
-                         String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea,
+                         String companyIntroduce, String companyLogoUrl, String email, String bizNo, String bizRegistrationUrl, String businessArea,
                          String serviceName, CompanyType type, boolean isMou, String representativePhoneNo) {
         this.id = id;
         this.name = name;
@@ -134,9 +130,8 @@ public class CompanyEntity {
         this.foundedAt = foundedAt;
         this.take = take;
         this.workersCount = workersCount;
-        this.manager = new Manager(managerName, managerPhoneNo, subManagerName, subManagerPhoneNo);
+        this.manager = new Manager(managerName, managerPhoneNo);
         this.email = email;
-        this.fax = fax;
         this.bizNo = bizNo;
         this.companyIntroduce = companyIntroduce;
         this.companyLogoUrl = companyLogoUrl;

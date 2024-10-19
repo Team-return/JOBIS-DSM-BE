@@ -14,7 +14,6 @@ public class CompanyMapper {
     public CompanyEntity toEntity(Company domain) {
         return CompanyEntity.builder()
             .id(domain.getId())
-            .fax(domain.getFax())
             .email(domain.getEmail())
             .bizNo(domain.getBizNo())
             .type(domain.getType())
@@ -32,8 +31,6 @@ public class CompanyMapper {
             .bizRegistrationUrl(domain.getBizRegistrationUrl())
             .managerName(domain.getManagerInfo().managerName())
             .managerPhoneNo(domain.getManagerInfo().managerPhoneNo())
-            .subManagerName(domain.getManagerInfo().subManagerName())
-            .subManagerPhoneNo(domain.getManagerInfo().subManagerPhoneNo())
             .representative(domain.getRepresentative())
             .representativePhoneNo(domain.getRepresentativePhoneNo())
             .serviceName(domain.getServiceName())
@@ -47,7 +44,6 @@ public class CompanyMapper {
     public Company toDomain(CompanyEntity entity) {
         return Company.builder()
             .id(entity.getId())
-            .fax(entity.getFax())
             .email(entity.getEmail())
             .bizNo(entity.getBizNo())
             .type(entity.getType())
@@ -72,8 +68,6 @@ public class CompanyMapper {
                 ManagerInfo.builder()
                     .managerName(entity.getManager().getManagerName())
                     .managerPhoneNo(entity.getManager().getManagerPhoneNo())
-                    .subManagerName(entity.getManager().getSubManagerName())
-                    .subManagerPhoneNo(entity.getManager().getSubManagerPhoneNo())
                     .build()
             )
             .representative(entity.getRepresentative())

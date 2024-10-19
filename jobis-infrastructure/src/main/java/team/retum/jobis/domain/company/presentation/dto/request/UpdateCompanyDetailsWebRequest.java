@@ -48,15 +48,6 @@ public class UpdateCompanyDetailsWebRequest {
     @Size(min = 9, max = 12)
     private String managerPhoneNo;
 
-    @Size(max = 10)
-    private String subManagerName;
-
-    @Size(max = 12)
-    private String subManagerPhoneNo;
-
-    @Size(max = 12)
-    private String fax;
-
     @Email
     @Size(max = 30)
     @Pattern(regexp = RegexProperty.EMAIL)
@@ -92,9 +83,6 @@ public class UpdateCompanyDetailsWebRequest {
             .subAddressDetail(this.subAddressDetail)
             .managerName(this.managerName)
             .managerPhoneNo(this.managerPhoneNo)
-            .subManagerName(this.subManagerName)
-            .subManagerPhoneNo(this.subManagerPhoneNo)
-            .fax(this.fax)
             .email(this.email)
             .workerNumber(this.workerNumber)
             .take(this.take)

@@ -29,9 +29,6 @@ public class CompanyMyPageResponse {
     private final int workersCount;
     private final String managerName;
     private final String managerPhoneNo;
-    private final String subManagerName;
-    private final String subManagerPhoneNo;
-    private final String fax;
     private final String email;
     private final String companyIntroduce;
     private final String companyLogoUrl;
@@ -59,9 +56,6 @@ public class CompanyMyPageResponse {
             .workersCount(company.getWorkersCount())
             .managerName(company.getManagerInfo().managerName())
             .managerPhoneNo(company.getManagerInfo().managerPhoneNo())
-            .subManagerName(company.getManagerInfo().subManagerName())
-            .subManagerPhoneNo(company.getManagerInfo().subManagerPhoneNo())
-            .fax(company.getFax())
             .email(company.getEmail())
             .companyIntroduce(company.getCompanyIntroduce())
             .companyLogoUrl(company.getCompanyLogoUrl())
