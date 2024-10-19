@@ -98,7 +98,6 @@ public class CompanyEntity {
     @Column(columnDefinition = "VARCHAR(300)")
     private String companyLogoUrl;
 
-    @NotNull
     @Column(columnDefinition = "VARCHAR(300)")
     private String bizRegistrationUrl;
 
