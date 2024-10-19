@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UpdateCompanyDetailsWebRequest {
 
-    @Size(max = 4000)
+    @Size(max = 1000)
     private String companyIntroduce;
 
     @NotBlank
