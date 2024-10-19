@@ -88,7 +88,7 @@ public class CompanyEntity {
     private String email;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(4000)")
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String companyIntroduce;
 
     @ColumnDefault(ImageProperty.DEFAULT_COMPANY_LOGO_IMAGE)
