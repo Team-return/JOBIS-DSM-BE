@@ -33,7 +33,7 @@ public class UserWebAdapter {
         setDeviceTokenUseCase.execute(request.getToken());
     }
 
-    @PatchMapping("/device_token")
+    @PatchMapping("/device-token")
     public void removeDeviceToken() {
         removeDeviceTokenUseCase.execute();
     }
