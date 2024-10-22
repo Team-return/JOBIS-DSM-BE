@@ -39,6 +39,7 @@ public class QueryCompanyDetailsResponse {
     private final Long businessAreaCode;
     private final String businessArea;
     private final String bizRegistrationUrl;
+    private final boolean branchExists;
 
     public static QueryCompanyDetailsResponse from(CompanyDetailsVO vo) {
         return QueryCompanyDetailsResponse.builder()
@@ -65,6 +66,7 @@ public class QueryCompanyDetailsResponse {
             .serviceName(vo.getServiceName())
             .businessArea(vo.getBusinessArea())
             .bizRegistrationUrl(vo.getBizRegistrationUrl())
+            .branchExists(vo.isBranchExists())
             .build();
     }
 }

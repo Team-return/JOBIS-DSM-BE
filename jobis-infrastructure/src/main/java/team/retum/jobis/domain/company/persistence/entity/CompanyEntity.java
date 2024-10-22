@@ -110,12 +110,16 @@ public class CompanyEntity {
     @Column(columnDefinition = "VARCHAR(1000)")
     private List<String> attachmentUrls;
 
+    @NotNull
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean branchExists;
+
     @Builder
     public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
-                         String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
-                         String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
-                         String companyIntroduce, String companyLogoUrl, String email, String bizNo, String bizRegistrationUrl, String businessArea,
-                         String serviceName, CompanyType type, boolean isMou, String representativePhoneNo) {
+                         List<String> attachmentUrls, String representative, LocalDate foundedAt, double take, int workersCount,
+                         String managerName, String managerPhoneNo, String companyIntroduce, String companyLogoUrl, String email,
+                         String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type,
+                         boolean isMou, String representativePhoneNo, boolean branchExists) {
         this.id = id;
         this.name = name;
         this.isMou = isMou;
@@ -135,5 +139,6 @@ public class CompanyEntity {
         this.companyIntroduce = companyIntroduce;
         this.companyLogoUrl = companyLogoUrl;
         this.attachmentUrls = attachmentUrls;
+        this.branchExists = branchExists;
     }
 }
