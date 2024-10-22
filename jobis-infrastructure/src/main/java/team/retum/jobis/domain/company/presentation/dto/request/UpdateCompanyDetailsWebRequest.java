@@ -71,6 +71,8 @@ public class UpdateCompanyDetailsWebRequest {
 
     private List<@NotNull String> attachmentUrls;
 
+    private String bizRegistrationUrl;
+
 
     public UpdateCompanyDetailsRequest toDomainRequest() {
         return UpdateCompanyDetailsRequest.builder()
@@ -91,6 +93,7 @@ public class UpdateCompanyDetailsWebRequest {
             .representativePhoneNo(this.representativePhoneNo)
             .representativePhoneNo(this.representativePhoneNo)
             .attachmentUrls(this.attachmentUrls)
+            .bizRegistrationUrl(this.bizRegistrationUrl)
             .build();
     }
 }
