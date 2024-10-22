@@ -2,6 +2,7 @@ package team.retum.jobis.domain.code.spi;
 
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.model.CodeType;
+import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,6 @@ public interface QueryCodePort {
     List<Code> getAllByIdInOrThrow(List<Long> codes);
 
     Optional<Code> getByKeywordAndType(String keyword, CodeType type);
+
+    List<String> getAllByStudentAndInterest(Student student, CodeType type);
 }
