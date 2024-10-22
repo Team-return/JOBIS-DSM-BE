@@ -24,13 +24,4 @@ public class Address {
 
     @Column(columnDefinition = "VARCHAR(5)", nullable = false)
     private String mainZipCode;
-
-    @Column(columnDefinition = "VARCHAR(50)")
-    private String subAddress;
-
-    @Column(columnDefinition = "VARCHAR(50)")
-    private String subAddressDetail;
-
-    @Column(columnDefinition = "VARCHAR(5)")
-    private String subZipCode;
 }

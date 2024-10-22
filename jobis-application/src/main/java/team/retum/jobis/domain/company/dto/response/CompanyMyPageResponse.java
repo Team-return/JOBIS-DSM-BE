@@ -19,9 +19,6 @@ public class CompanyMyPageResponse {
     private final String mainAddress;
     private final String mainAddressDetail;
     private final String mainZipCode;
-    private final String subAddress;
-    private final String subAddressDetail;
-    private final String subZipCode;
     private final String representative;
     private final String representativePhoneNo;
     private final LocalDate foundedAt;
@@ -46,9 +43,6 @@ public class CompanyMyPageResponse {
             .mainAddress(company.getAddressInfo().mainAddress())
             .mainAddressDetail(company.getAddressInfo().mainAddressDetail())
             .mainZipCode(company.getAddressInfo().mainZipCode())
-            .subAddress(company.getAddressInfo().subAddress())
-            .subAddressDetail(company.getAddressInfo().subAddressDetail())
-            .subZipCode(company.getAddressInfo().subZipCode())
             .representative(company.getRepresentative())
             .representativePhoneNo(company.getRepresentativePhoneNo())
             .foundedAt(company.getFoundedAt())

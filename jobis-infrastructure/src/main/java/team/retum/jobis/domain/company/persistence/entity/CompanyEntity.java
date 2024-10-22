@@ -112,10 +112,10 @@ public class CompanyEntity {
 
     @Builder
     public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
-                         String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
-                         String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
-                         String companyIntroduce, String companyLogoUrl, String email, String bizNo, String bizRegistrationUrl, String businessArea,
-                         String serviceName, CompanyType type, boolean isMou, String representativePhoneNo) {
+                         List<String> attachmentUrls, String representative, LocalDate foundedAt, double take, int workersCount,
+                         String managerName, String managerPhoneNo, String companyIntroduce, String companyLogoUrl, String email,
+                         String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type,
+                         boolean isMou, String representativePhoneNo) {
         this.id = id;
         this.name = name;
         this.isMou = isMou;
@@ -124,7 +124,7 @@ public class CompanyEntity {
         this.serviceName = serviceName;
         this.type = type;
         this.representativePhoneNo = representativePhoneNo;
-        this.address = new Address(mainAddress, mainAddressDetail, mainZipCode, subAddress, subAddressDetail, subZipCode);
+        this.address = new Address(mainAddress, mainAddressDetail, mainZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;
         this.take = take;
