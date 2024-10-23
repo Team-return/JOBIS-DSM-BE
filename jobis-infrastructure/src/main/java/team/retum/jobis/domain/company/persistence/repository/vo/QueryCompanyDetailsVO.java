@@ -13,7 +13,6 @@ public class QueryCompanyDetailsVO extends CompanyDetailsVO {
     @QueryProjection
     public QueryCompanyDetailsVO(String businessNumber, String companyName, String companyProfileUrl, String companyIntroduce,
                                  String mainZipCode, String mainAddress, String mainAddressDetail,
-                                 String subZipCode, String subAddress, String subAddressDetail,
                                  String managerName, String managerPhoneNo, String email, String representativeName, String representativePhoneNo,
                                  LocalDate foundedAt, int workerNumber, double take,
                                  Long recruitmentId, String serviceName, Long businessAreaCode,

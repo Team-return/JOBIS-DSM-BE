@@ -128,7 +128,7 @@ public class CompanyEntity {
         this.serviceName = serviceName;
         this.type = type;
         this.representativePhoneNo = representativePhoneNo;
-        this.address = new Address(mainAddress, mainAddressDetail, mainZipCode, subAddress, subAddressDetail, subZipCode);
+        this.address = new Address(mainAddress, mainAddressDetail, mainZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;
         this.take = take;

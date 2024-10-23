@@ -22,9 +22,6 @@ public class QueryCompanyDetailsResponse {
     private final String mainAddress;
     private final String mainAddressDetail;
     private final String mainZipCode;
-    private final String subAddress;
-    private final String subAddressDetail;
-    private final String subZipCode;
     private final String managerName;
     private final String managerPhoneNo;
     private final String email;
@@ -50,9 +47,6 @@ public class QueryCompanyDetailsResponse {
             .mainZipCode(vo.getMainZipCode())
             .mainAddress(vo.getMainAddress())
             .mainAddressDetail(vo.getMainAddressDetail())
-            .subZipCode(vo.getSubZipCode())
-            .subAddress(vo.getSubAddress())
-            .subAddressDetail(vo.getSubAddressDetail())
             .managerName(vo.getManagerName())
             .managerPhoneNo(vo.getManagerPhoneNo())
             .email(vo.getEmail())

@@ -6,10 +6,7 @@ import lombok.Builder;
 public record AddressInfo(
     String mainAddress,
     String mainAddressDetail,
-    String mainZipCode,
-    String subAddress,
-    String subAddressDetail,
-    String subZipCode
+    String mainZipCode
 ) {
 
 }
