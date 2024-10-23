@@ -8,6 +8,7 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.notification.exception.DeviceTokenNotFoundException;
 import team.retum.jobis.domain.notification.exception.FailedToSubscriptionException;
 import team.retum.jobis.domain.notification.exception.FailedToUnsubscriptionException;
 import team.retum.jobis.domain.notification.model.Notification;
@@ -21,6 +22,10 @@ import java.util.List;
 public class FCMUtil {
 
     public void subscribeTopic(String token, Topic topic) {
+        if (token == null || token.isEmpty()) {
+            throw new DeviceTokenNotFoundException();
+        }
+
         try {
             FirebaseMessaging.getInstance().subscribeToTopicAsync(Arrays.asList(token), topic.toString()).get();
         } catch (Exception e) {
@@ -29,6 +34,10 @@ public class FCMUtil {
     }
 
     public void unsubscribeTopic(String token, Topic topic) {
+        if (token == null || token.isEmpty()) {
+            throw new DeviceTokenNotFoundException();
+        }
+
         try {
             FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(Arrays.asList(token), topic.toString()).get();
         } catch (Exception e) {

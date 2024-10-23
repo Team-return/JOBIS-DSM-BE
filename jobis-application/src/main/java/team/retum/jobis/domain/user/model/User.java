@@ -26,6 +26,12 @@ public class User {
             .build();
     }
 
+    public User removeDeviceToken() {
+        return this.toBuilder()
+            .token(null)
+            .build();
+    }
+
     public User setToken(String token) {
         if (token != null) {
             return this.toBuilder()

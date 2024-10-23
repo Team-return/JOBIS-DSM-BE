@@ -11,6 +11,7 @@ import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.user.presentation.dto.request.LoginWebRequest;
 import team.retum.jobis.domain.user.presentation.dto.request.SetDeviceTokenWebRequest;
 import team.retum.jobis.domain.user.usecase.LoginUseCase;
+import team.retum.jobis.domain.user.usecase.RemoveDeviceTokenUseCase;
 import team.retum.jobis.domain.user.usecase.SetDeviceTokenUseCase;
 
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class UserWebAdapter {
 
     private final LoginUseCase loginUseCase;
     private final SetDeviceTokenUseCase setDeviceTokenUseCase;
+    private final RemoveDeviceTokenUseCase removeDeviceTokenUseCase;
 
     @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid LoginWebRequest request) {
@@ -29,5 +31,10 @@ public class UserWebAdapter {
     @PatchMapping("/token")
     public void setToken(@RequestBody @Valid SetDeviceTokenWebRequest request) {
         setDeviceTokenUseCase.execute(request.getToken());
+    }
+
+    @PatchMapping("/device-token")
+    public void removeDeviceToken() {
+        removeDeviceTokenUseCase.execute();
     }
 }

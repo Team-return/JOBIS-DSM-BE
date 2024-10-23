@@ -8,6 +8,7 @@ import team.retum.jobis.domain.auth.model.AuthCode;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.auth.spi.QueryAuthCodePort;
+import team.retum.jobis.domain.notification.spi.NotificationPort;
 import team.retum.jobis.domain.student.dto.request.StudentSignUpRequest;
 import team.retum.jobis.domain.student.exception.StudentAlreadyExistsException;
 import team.retum.jobis.domain.student.model.SchoolNumber;
@@ -26,6 +27,7 @@ public class StudentSignUpUseCase {
     private final QueryAuthCodePort queryAuthCodePort;
     private final StudentPort studentPort;
     private final CommandVerifiedStudentPort commandVerifiedStudentPort;
+    private final NotificationPort notificationPort;
     private final JwtPort jwtPort;
 
     public TokenResponse execute(StudentSignUpRequest request) {
@@ -67,6 +69,8 @@ public class StudentSignUpUseCase {
                 .profileImageUrl(request.profileImageUrl())
                 .build()
         );
+
+        notificationPort.subscribeAllTopic(user);
 
         commandVerifiedStudentPort.deleteByGcnAndName(
             SchoolNumber.processSchoolNumber(student.getSchoolNumber()),

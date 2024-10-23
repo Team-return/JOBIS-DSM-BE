@@ -327,6 +327,15 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .fetchOne();
     }
 
+    @Override
+    public List<ApplicationStatus> getApplicationStatusByStudentId(Long studentId) {
+        return queryFactory
+            .select(applicationEntity.applicationStatus)
+            .from(applicationEntity)
+            .where(applicationEntity.student.id.eq(studentId))
+            .fetch();
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {

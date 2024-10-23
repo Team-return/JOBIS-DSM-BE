@@ -101,6 +101,9 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @Column(columnDefinition = "TINYINT(1)")
     private boolean winterIntern;
 
+    @Column(columnDefinition = "TINYINT(1)")
+    private Boolean isHireConvertible;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
@@ -110,7 +113,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
                              String submitDocument, LocalDate startDate, LocalDate endDate, CompanyEntity companyEntity,
                              String benefits, boolean militarySupport, List<String> requiredLicenses, String etc,
                              List<ProgressType> hiringProgress, Integer requiredGrade, boolean flexibleWorking,
-                             boolean personalContact, boolean winterIntern) {
+                             boolean personalContact, boolean winterIntern, Boolean isHireConvertible) {
         this.id = id;
         this.workingHours = workingHours;
         this.flexibleWorking = flexibleWorking;
@@ -127,6 +130,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
         this.requiredLicenses = requiredLicenses;
         this.militarySupport = militarySupport;
         this.winterIntern = winterIntern;
+        this.isHireConvertible = isHireConvertible;
         this.etc = etc;
     }
 }

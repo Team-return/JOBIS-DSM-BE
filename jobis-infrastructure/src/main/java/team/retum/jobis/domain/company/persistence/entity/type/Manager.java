@@ -20,16 +20,8 @@ public class Manager {
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String managerPhoneNo;
 
-    @Column(columnDefinition = "VARCHAR(10)")
-    private String subManagerName;
-
-    @Column(columnDefinition = "VARCHAR(255)")
-    private String subManagerPhoneNo;
-
-    public void update(String managerName, String managerPhoneNo, String subManagerName, String subManagerPhoneNo) {
+    public void update(String managerName, String managerPhoneNo) {
         this.managerName = managerName;
         this.managerPhoneNo = managerPhoneNo;
-        this.subManagerName = subManagerName;
-        this.subManagerPhoneNo = subManagerPhoneNo;
     }
 }

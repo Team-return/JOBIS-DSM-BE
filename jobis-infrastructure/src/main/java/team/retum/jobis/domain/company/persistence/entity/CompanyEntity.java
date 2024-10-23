@@ -83,22 +83,18 @@ public class CompanyEntity {
     @Embedded
     private Manager manager;
 
-    @Column(columnDefinition = "VARCHAR(12)")
-    private String fax;
-
     @NotNull
     @Column(columnDefinition = "VARCHAR(30)")
     private String email;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(4000)")
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String companyIntroduce;
 
     @ColumnDefault(ImageProperty.DEFAULT_COMPANY_LOGO_IMAGE)
     @Column(columnDefinition = "VARCHAR(300)")
     private String companyLogoUrl;
 
-    @NotNull
     @Column(columnDefinition = "VARCHAR(300)")
     private String bizRegistrationUrl;
 
@@ -114,13 +110,16 @@ public class CompanyEntity {
     @Column(columnDefinition = "VARCHAR(1000)")
     private List<String> attachmentUrls;
 
+    @NotNull
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean branchExists;
+
     @Builder
     public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
-                         String subAddress, String subAddressDetail, String subZipCode, List<String> attachmentUrls,
-                         String representative, LocalDate foundedAt, double take, int workersCount, String managerName, String managerPhoneNo,
-                         String subManagerName, String subManagerPhoneNo, String companyIntroduce, String companyLogoUrl,
-                         String fax, String email, String bizNo, String bizRegistrationUrl, String businessArea,
-                         String serviceName, CompanyType type, boolean isMou, String representativePhoneNo) {
+                         List<String> attachmentUrls, String representative, LocalDate foundedAt, double take, int workersCount,
+                         String managerName, String managerPhoneNo, String companyIntroduce, String companyLogoUrl, String email,
+                         String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type,
+                         boolean isMou, String representativePhoneNo, boolean branchExists) {
         this.id = id;
         this.name = name;
         this.isMou = isMou;
@@ -129,17 +128,17 @@ public class CompanyEntity {
         this.serviceName = serviceName;
         this.type = type;
         this.representativePhoneNo = representativePhoneNo;
-        this.address = new Address(mainAddress, mainAddressDetail, mainZipCode, subAddress, subAddressDetail, subZipCode);
+        this.address = new Address(mainAddress, mainAddressDetail, mainZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;
         this.take = take;
         this.workersCount = workersCount;
-        this.manager = new Manager(managerName, managerPhoneNo, subManagerName, subManagerPhoneNo);
+        this.manager = new Manager(managerName, managerPhoneNo);
         this.email = email;
-        this.fax = fax;
         this.bizNo = bizNo;
         this.companyIntroduce = companyIntroduce;
         this.companyLogoUrl = companyLogoUrl;
         this.attachmentUrls = attachmentUrls;
+        this.branchExists = branchExists;
     }
 }

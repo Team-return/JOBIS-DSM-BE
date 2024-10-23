@@ -13,14 +13,8 @@ public record RegisterCompanyRequest(
     String mainZipCode,
     String mainAddress,
     String mainAddressDetail,
-    String subZipCode,
-    String subAddress,
-    String subAddressDetail,
     String managerName,
     String managerPhoneNo,
-    String subManagerName,
-    String subManagerPhoneNo,
-    String fax,
     String email,
     String representativeName,
     String representativePhoneNo,
@@ -31,7 +25,8 @@ public record RegisterCompanyRequest(
     String bizRegistrationUrl,
     Long businessAreaCode,
     String serviceName,
-    List<String> attachmentUrls
+    List<String> attachmentUrls,
+    boolean branchExists
 ) {
 
 }

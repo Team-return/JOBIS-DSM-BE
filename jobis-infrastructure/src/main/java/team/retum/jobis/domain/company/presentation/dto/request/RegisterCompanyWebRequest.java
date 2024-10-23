@@ -2,6 +2,7 @@ package team.retum.jobis.domain.company.presentation.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -43,29 +44,12 @@ public class RegisterCompanyWebRequest {
     @Size(max = 50)
     private String mainAddressDetail;
 
-    @Size(min = 5, max = 5)
-    private String subZipCode;
-
-    @Size(max = 50)
-    private String subAddress;
-
-    @Size(max = 50)
-    private String subAddressDetail;
-
     @NotBlank
     @Size(max = 10)
     private String managerName;
 
     @NotBlank
     private String managerPhoneNo;
-
-    @Size(max = 10)
-    private String subManagerName;
-
-    private String subManagerPhoneNo;
-
-    @Size(min = 10, max = 12)
-    private String fax;
 
     @Email
     @Size(max = 30)
@@ -77,6 +61,7 @@ public class RegisterCompanyWebRequest {
     private String representativeName;
 
     @NotBlank
+    @Size(min = 9, max = 12)
     private String representativePhoneNo;
 
     @NotNull
@@ -84,6 +69,7 @@ public class RegisterCompanyWebRequest {
     private LocalDate foundedAt;
 
     @NotNull
+    @Max(32767)
     private Integer workerNumber;
 
     @NotNull
@@ -102,6 +88,9 @@ public class RegisterCompanyWebRequest {
 
     private List<String> attachmentUrls;
 
+    @NotNull
+    private Boolean branchExists;
+
     public RegisterCompanyRequest toDomainRequest() {
         return RegisterCompanyRequest.builder()
             .name(this.name)
@@ -110,14 +99,8 @@ public class RegisterCompanyWebRequest {
             .mainZipCode(this.mainZipCode)
             .mainAddress(this.mainAddress)
             .mainAddressDetail(this.mainAddressDetail)
-            .subZipCode(this.subZipCode)
-            .subAddress(this.subAddress)
-            .subAddressDetail(this.subAddressDetail)
             .managerName(this.managerName)
             .managerPhoneNo(this.managerPhoneNo)
-            .subManagerName(this.subManagerName)
-            .subManagerPhoneNo(this.subManagerPhoneNo)
-            .fax(this.fax)
             .email(this.email)
             .representativeName(this.representativeName)
             .representativePhoneNo(this.representativePhoneNo)
@@ -129,6 +112,7 @@ public class RegisterCompanyWebRequest {
             .businessAreaCode(this.businessAreaCode)
             .serviceName(this.serviceName)
             .attachmentUrls(this.attachmentUrls)
+            .branchExists(this.branchExists)
             .build();
     }
 }

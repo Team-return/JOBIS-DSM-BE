@@ -115,7 +115,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
-                    companyEntity.id
+                    companyEntity.id,
+                    recruitmentEntity.isHireConvertible
                 )
             )
             .from(recruitmentEntity)
@@ -174,7 +175,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
-                    companyEntity.id
+                    companyEntity.id,
+                    recruitmentEntity.isHireConvertible
                 )
             )
             .from(recruitmentEntity)
@@ -235,7 +237,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                             recruitmentEntity.etc,
                             companyEntity.bizNo,
                             recruitmentEntity.winterIntern,
-                            bookmarkEntity.isNotNull()
+                            bookmarkEntity.isNotNull(),
+                            recruitmentEntity.isHireConvertible
                         )
                     )
                     .from(recruitmentEntity)

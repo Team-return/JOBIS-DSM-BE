@@ -182,14 +182,8 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         companyEntity.address.mainZipCode,
                         companyEntity.address.mainAddress,
                         companyEntity.address.mainAddressDetail,
-                        companyEntity.address.subZipCode,
-                        companyEntity.address.subAddress,
-                        companyEntity.address.subAddressDetail,
                         companyEntity.manager.managerName,
                         companyEntity.manager.managerPhoneNo,
-                        companyEntity.manager.subManagerName,
-                        companyEntity.manager.subManagerPhoneNo,
-                        companyEntity.fax,
                         companyEntity.email,
                         companyEntity.representative,
                         companyEntity.representativePhoneNo,
@@ -201,7 +195,8 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         codeEntity.code,
                         companyEntity.businessArea,
                         companyEntity.attachmentUrls,
-                        companyEntity.bizRegistrationUrl
+                        companyEntity.bizRegistrationUrl,
+                        companyEntity.branchExists
                     )
                 )
                 .from(companyEntity)
@@ -360,7 +355,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .groupBy(companyEntity.id)
             .fetch();
     }
-    
+
     private BooleanExpression containsName(String name) {
         return name == null ? null : companyEntity.name.contains(name);
     }

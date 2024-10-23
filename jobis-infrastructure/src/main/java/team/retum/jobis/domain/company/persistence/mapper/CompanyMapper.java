@@ -14,7 +14,6 @@ public class CompanyMapper {
     public CompanyEntity toEntity(Company domain) {
         return CompanyEntity.builder()
             .id(domain.getId())
-            .fax(domain.getFax())
             .email(domain.getEmail())
             .bizNo(domain.getBizNo())
             .type(domain.getType())
@@ -26,14 +25,9 @@ public class CompanyMapper {
             .mainAddress(domain.getAddressInfo().mainAddress())
             .mainAddressDetail(domain.getAddressInfo().mainAddressDetail())
             .mainZipCode(domain.getAddressInfo().mainZipCode())
-            .subAddress(domain.getAddressInfo().subAddress())
-            .subAddressDetail(domain.getAddressInfo().subAddressDetail())
-            .subZipCode(domain.getAddressInfo().subZipCode())
             .bizRegistrationUrl(domain.getBizRegistrationUrl())
             .managerName(domain.getManagerInfo().managerName())
             .managerPhoneNo(domain.getManagerInfo().managerPhoneNo())
-            .subManagerName(domain.getManagerInfo().subManagerName())
-            .subManagerPhoneNo(domain.getManagerInfo().subManagerPhoneNo())
             .representative(domain.getRepresentative())
             .representativePhoneNo(domain.getRepresentativePhoneNo())
             .serviceName(domain.getServiceName())
@@ -41,13 +35,13 @@ public class CompanyMapper {
             .isMou(domain.isMou())
             .workersCount(domain.getWorkersCount())
             .attachmentUrls(domain.getAttachmentUrls())
+            .branchExists(domain.isBranchExists())
             .build();
     }
 
     public Company toDomain(CompanyEntity entity) {
         return Company.builder()
             .id(entity.getId())
-            .fax(entity.getFax())
             .email(entity.getEmail())
             .bizNo(entity.getBizNo())
             .type(entity.getType())
@@ -62,9 +56,6 @@ public class CompanyMapper {
                     .mainAddress(entity.getAddress().getMainAddress())
                     .mainAddressDetail(entity.getAddress().getMainAddressDetail())
                     .mainZipCode(entity.getAddress().getMainZipCode())
-                    .subAddress(entity.getAddress().getSubAddress())
-                    .subAddressDetail(entity.getAddress().getSubAddressDetail())
-                    .subZipCode(entity.getAddress().getSubZipCode())
                     .build()
             )
             .bizRegistrationUrl(entity.getBizRegistrationUrl())
@@ -72,8 +63,6 @@ public class CompanyMapper {
                 ManagerInfo.builder()
                     .managerName(entity.getManager().getManagerName())
                     .managerPhoneNo(entity.getManager().getManagerPhoneNo())
-                    .subManagerName(entity.getManager().getSubManagerName())
-                    .subManagerPhoneNo(entity.getManager().getSubManagerPhoneNo())
                     .build()
             )
             .representative(entity.getRepresentative())
@@ -82,6 +71,7 @@ public class CompanyMapper {
             .take(entity.getTake())
             .workersCount(entity.getWorkersCount())
             .attachmentUrls(entity.getAttachmentUrls())
+            .branchExists(entity.isBranchExists())
             .build();
     }
 }

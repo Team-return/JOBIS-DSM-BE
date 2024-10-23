@@ -19,9 +19,6 @@ public class CompanyMyPageResponse {
     private final String mainAddress;
     private final String mainAddressDetail;
     private final String mainZipCode;
-    private final String subAddress;
-    private final String subAddressDetail;
-    private final String subZipCode;
     private final String representative;
     private final String representativePhoneNo;
     private final LocalDate foundedAt;
@@ -29,9 +26,6 @@ public class CompanyMyPageResponse {
     private final int workersCount;
     private final String managerName;
     private final String managerPhoneNo;
-    private final String subManagerName;
-    private final String subManagerPhoneNo;
-    private final String fax;
     private final String email;
     private final String companyIntroduce;
     private final String companyLogoUrl;
@@ -39,6 +33,7 @@ public class CompanyMyPageResponse {
     private final String businessArea;
     private final String bizRegistrationUrl;
     private final List<String> attachmentUrls;
+    private final boolean branchExists;
 
     public static CompanyMyPageResponse from(Company company) {
         return CompanyMyPageResponse.builder()
@@ -49,9 +44,6 @@ public class CompanyMyPageResponse {
             .mainAddress(company.getAddressInfo().mainAddress())
             .mainAddressDetail(company.getAddressInfo().mainAddressDetail())
             .mainZipCode(company.getAddressInfo().mainZipCode())
-            .subAddress(company.getAddressInfo().subAddress())
-            .subAddressDetail(company.getAddressInfo().subAddressDetail())
-            .subZipCode(company.getAddressInfo().subZipCode())
             .representative(company.getRepresentative())
             .representativePhoneNo(company.getRepresentativePhoneNo())
             .foundedAt(company.getFoundedAt())
@@ -59,9 +51,6 @@ public class CompanyMyPageResponse {
             .workersCount(company.getWorkersCount())
             .managerName(company.getManagerInfo().managerName())
             .managerPhoneNo(company.getManagerInfo().managerPhoneNo())
-            .subManagerName(company.getManagerInfo().subManagerName())
-            .subManagerPhoneNo(company.getManagerInfo().subManagerPhoneNo())
-            .fax(company.getFax())
             .email(company.getEmail())
             .companyIntroduce(company.getCompanyIntroduce())
             .companyLogoUrl(company.getCompanyLogoUrl())
@@ -69,6 +58,7 @@ public class CompanyMyPageResponse {
             .businessArea(company.getBusinessArea())
             .bizRegistrationUrl(company.getBizRegistrationUrl())
             .attachmentUrls(company.getAttachmentUrls())
+            .branchExists(company.isBranchExists())
             .build();
     }
 }

@@ -39,8 +39,6 @@ public class Company {
 
     private final ManagerInfo managerInfo;
 
-    private final String fax;
-
     private final String email;
 
     private final String companyIntroduce;
@@ -55,8 +53,11 @@ public class Company {
 
     private final List<String> attachmentUrls;
 
-    public static Company of(RegisterCompanyRequest request, String businessArea) {
+    private final boolean branchExists;
+
+    public static Company of(Long id, RegisterCompanyRequest request, String businessArea) {
         return Company.builder()
+            .id(id)
             .companyIntroduce(request.companyIntroduce())
             .companyLogoUrl(request.companyProfileUrl())
             .bizRegistrationUrl(request.bizRegistrationUrl())
@@ -70,29 +71,24 @@ public class Company {
                     .mainAddress(request.mainAddress())
                     .mainAddressDetail(request.mainAddressDetail())
                     .mainZipCode(request.mainZipCode())
-                    .subAddress(request.subAddress())
-                    .subAddressDetail(request.subAddressDetail())
-                    .subZipCode(request.subZipCode())
                     .build()
             )
             .managerInfo(
                 ManagerInfo.builder()
                     .managerName(request.managerName())
                     .managerPhoneNo(request.managerPhoneNo())
-                    .subManagerName(request.subManagerName())
-                    .subManagerPhoneNo(request.subManagerPhoneNo())
                     .build()
             )
             .workersCount(request.workerNumber())
             .representativePhoneNo(request.representativePhoneNo())
             .email(request.email())
-            .fax(request.fax())
             .isMou(false)
             .bizNo(request.businessNumber())
             .representative(request.representativeName())
             .representativePhoneNo(request.representativePhoneNo())
             .foundedAt(request.foundedAt())
             .attachmentUrls(request.attachmentUrls())
+            .branchExists(request.branchExists())
             .build();
     }
 
@@ -103,9 +99,6 @@ public class Company {
                     .mainAddress(request.mainAddress())
                     .mainAddressDetail(request.mainAddressDetail())
                     .mainZipCode(request.mainZipCode())
-                    .subAddress(request.subAddress())
-                    .subAddressDetail(request.subAddressDetail())
-                    .subZipCode(request.subZipCode())
                     .build()
             )
             .take(request.take())
@@ -114,17 +107,15 @@ public class Company {
                 ManagerInfo.builder()
                     .managerName(request.managerName())
                     .managerPhoneNo(request.managerPhoneNo())
-                    .subManagerName(request.subManagerName())
-                    .subManagerPhoneNo(request.subManagerPhoneNo())
                     .build()
             )
             .companyIntroduce(request.companyIntroduce())
             .representativePhoneNo(request.representativePhoneNo())
             .companyLogoUrl(request.companyProfileUrl())
-            .fax(request.fax())
             .email(request.email())
             .serviceName(request.serviceName())
             .attachmentUrls(request.attachmentUrls())
+            .branchExists(request.branchExists())
             .build();
     }
 
