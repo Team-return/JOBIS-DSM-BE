@@ -52,6 +52,8 @@ public class Recruitment {
 
     private final boolean winterIntern;
 
+    private final Boolean isConvertible;
+
     private final Long companyId;
 
     private final LocalDateTime createdAt;
@@ -74,6 +76,7 @@ public class Recruitment {
             .etc(request.etc())
             .hiringProgress(request.hiringProgress())
             .winterIntern(request.winterIntern())
+            .isConvertible(request.isConvertible())
             .build();
     }
 
