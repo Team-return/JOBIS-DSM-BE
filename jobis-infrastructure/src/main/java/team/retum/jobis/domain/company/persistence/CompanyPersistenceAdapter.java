@@ -355,7 +355,18 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .groupBy(companyEntity.id)
             .fetch();
     }
-    
+
+    @Override
+    public Integer getTotalStudentsByClassNumber(Integer classNum) {
+        Long count = queryFactory
+            .select(studentEntity.count())
+            .from(studentEntity)
+            .where(studentEntity.classRoom.eq(classNum))
+            .fetchOne();
+
+        return count != null ? count.intValue() : 0;
+    }
+
     private BooleanExpression containsName(String name) {
         return name == null ? null : companyEntity.name.contains(name);
     }
