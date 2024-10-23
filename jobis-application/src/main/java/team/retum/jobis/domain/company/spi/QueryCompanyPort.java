@@ -44,6 +44,4 @@ public interface QueryCompanyPort {
 
     List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum);
 
-    Integer getTotalStudentsByClassNumber(Integer classNum);
-
 }
