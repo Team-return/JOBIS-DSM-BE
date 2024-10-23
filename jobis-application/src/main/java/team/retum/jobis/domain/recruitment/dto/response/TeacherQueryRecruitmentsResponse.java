@@ -46,6 +46,8 @@ public class TeacherQueryRecruitmentsResponse {
 
         private long companyId;
 
+        private Boolean isConvertible;
+
         public static TeacherRecruitmentResponse from(TeacherRecruitmentVO recruitment) {
             return TeacherRecruitmentResponse.builder()
                 .id(recruitment.getRecruitmentId())
@@ -59,6 +61,7 @@ public class TeacherQueryRecruitmentsResponse {
                 .totalHiringCount(recruitment.getTotalHiringCount())
                 .hiringJobs(recruitment.getJobCodes())
                 .companyId(recruitment.getCompanyId())
+                .isConvertible(recruitment.getIsConvertible())
                 .build();
         }
     }

@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.recruitment.persistence.mapper;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.company.persistence.entity.CompanyEntity;
@@ -39,7 +40,7 @@ public class RecruitmentMapper {
             .workingHours(domain.getWorkingHours())
             .flexibleWorking(domain.isFlexibleWorking())
             .winterIntern(domain.isWinterIntern())
-            .isConvertible(domain.isConvertible())
+            .isConvertible(domain.getIsConvertible())
             .build();
     }
 
@@ -73,7 +74,7 @@ public class RecruitmentMapper {
             .submitDocument(entity.getSubmitDocument())
             .submitDocument(entity.getSubmitDocument())
             .winterIntern(entity.isWinterIntern())
-            .isConvertible(entity.isConvertible())
+            .isConvertible(entity.getIsConvertible())
             .createdAt(entity.getCreatedAt())
             .build();
     }

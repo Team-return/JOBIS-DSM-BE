@@ -36,6 +36,7 @@ public class QueryRecruitmentDetailResponse {
     private final String etc;
     private final Boolean isApplicable;
     private final boolean isBookmarked;
+    private final Boolean isConvertible;
 
     public static QueryRecruitmentDetailResponse of(
         RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas,
@@ -62,6 +63,7 @@ public class QueryRecruitmentDetailResponse {
             .etc(recruitmentDetail.getEtc())
             .isApplicable(isApplicable)
             .isBookmarked(recruitmentDetail.isBookmarked())
+            .isConvertible(recruitmentDetail.getIsConvertible())
             .build();
     }
 }

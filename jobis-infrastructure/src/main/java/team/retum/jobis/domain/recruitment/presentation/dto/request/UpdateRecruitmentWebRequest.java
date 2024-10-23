@@ -52,6 +52,8 @@ public class UpdateRecruitmentWebRequest {
 
     private LocalDate endDate;
 
+    private Boolean convertible;
+
     @Size(max = 350)
     private String etc;
 
@@ -73,6 +75,7 @@ public class UpdateRecruitmentWebRequest {
             .submitDocument(this.submitDocument)
             .startDate(this.startDate)
             .endDate(this.endDate)
+            .convertible(this.convertible)
             .etc(this.etc)
             .build();
     }

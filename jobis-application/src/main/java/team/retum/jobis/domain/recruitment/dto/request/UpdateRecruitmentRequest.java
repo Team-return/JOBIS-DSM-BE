@@ -20,6 +20,7 @@ public record UpdateRecruitmentRequest(
     String submitDocument,
     LocalDate startDate,
     LocalDate endDate,
+    Boolean convertible,
     String etc
 ) {
 
