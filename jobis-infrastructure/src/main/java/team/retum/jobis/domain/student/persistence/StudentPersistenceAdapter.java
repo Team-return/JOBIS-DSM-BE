@@ -81,4 +81,30 @@ public class StudentPersistenceAdapter implements StudentPort {
             .map(studentMapper::toDomain)
             .toList();
     }
+
+    @Override
+    public Long getTotalStudentsByClassNumber(Integer classNum) {
+        return queryFactory
+            .select(studentEntity.count())
+            .from(studentEntity)
+            .where(studentEntity.classRoom.eq(classNum))
+            .fetchOne();
+    }
+
+
+    @Override
+    public Long getPassedStudentsByClassNumber(Integer classNum) {
+        List<Long> counts = queryFactory
+            .select(studentEntity.countDistinct())
+            .from(studentEntity)
+            .join(applicationEntity)
+            .on(
+                applicationEntity.student.eq(studentEntity),
+                applicationEntity.applicationStatus.in(ApplicationStatus.PASS, ApplicationStatus.FIELD_TRAIN)
+            )
+            .where(studentEntity.classRoom.eq(classNum))
+            .fetch();
+
+        return null != counts ? counts.get(0) : 0;
+    }
 }
