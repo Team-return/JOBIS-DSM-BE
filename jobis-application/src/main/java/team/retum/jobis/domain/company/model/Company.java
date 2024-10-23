@@ -53,6 +53,8 @@ public class Company {
 
     private final List<String> attachmentUrls;
 
+    private final boolean branchExists;
+
     public static Company of(Long id, RegisterCompanyRequest request, String businessArea) {
         return Company.builder()
             .id(id)
@@ -86,6 +88,7 @@ public class Company {
             .representativePhoneNo(request.representativePhoneNo())
             .foundedAt(request.foundedAt())
             .attachmentUrls(request.attachmentUrls())
+            .branchExists(request.branchExists())
             .build();
     }
 
@@ -112,6 +115,7 @@ public class Company {
             .email(request.email())
             .serviceName(request.serviceName())
             .attachmentUrls(request.attachmentUrls())
+            .branchExists(request.branchExists())
             .build();
     }
 

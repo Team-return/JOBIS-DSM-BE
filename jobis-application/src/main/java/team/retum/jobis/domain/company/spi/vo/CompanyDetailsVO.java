@@ -31,4 +31,5 @@ public class CompanyDetailsVO {
     private final String businessArea;
     private final List<String> attachmentUrls;
     private final String bizRegistrationUrl;
+    private final boolean branchExists;
 }

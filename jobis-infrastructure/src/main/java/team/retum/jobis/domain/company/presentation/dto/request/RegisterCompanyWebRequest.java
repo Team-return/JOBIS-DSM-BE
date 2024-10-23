@@ -88,6 +88,9 @@ public class RegisterCompanyWebRequest {
 
     private List<String> attachmentUrls;
 
+    @NotNull
+    private Boolean branchExists;
+
     public RegisterCompanyRequest toDomainRequest() {
         return RegisterCompanyRequest.builder()
             .name(this.name)
@@ -109,6 +112,7 @@ public class RegisterCompanyWebRequest {
             .businessAreaCode(this.businessAreaCode)
             .serviceName(this.serviceName)
             .attachmentUrls(this.attachmentUrls)
+            .branchExists(this.branchExists)
             .build();
     }
 }

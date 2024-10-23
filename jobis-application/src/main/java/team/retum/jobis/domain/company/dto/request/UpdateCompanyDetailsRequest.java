@@ -19,7 +19,8 @@ public record UpdateCompanyDetailsRequest(
     String serviceName,
     String representativePhoneNo,
     List<String> attachmentUrls,
-    String bizRegistrationUrl
+    String bizRegistrationUrl,
+    boolean branchExists
 ) {
 
 }

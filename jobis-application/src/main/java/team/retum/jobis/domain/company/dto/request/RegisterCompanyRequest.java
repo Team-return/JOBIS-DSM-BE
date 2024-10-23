@@ -25,7 +25,8 @@ public record RegisterCompanyRequest(
     String bizRegistrationUrl,
     Long businessAreaCode,
     String serviceName,
-    List<String> attachmentUrls
+    List<String> attachmentUrls,
+    boolean branchExists
 ) {
 
 }

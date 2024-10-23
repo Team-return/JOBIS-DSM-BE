@@ -16,10 +16,10 @@ public class QueryCompanyDetailsVO extends CompanyDetailsVO {
                                  String managerName, String managerPhoneNo, String email, String representativeName, String representativePhoneNo,
                                  LocalDate foundedAt, int workerNumber, double take,
                                  Long recruitmentId, String serviceName, Long businessAreaCode,
-                                 String businessArea, List<String> attachmentUrls, String bizRegistrationUrl) {
+                                 String businessArea, List<String> attachmentUrls, String bizRegistrationUrl, boolean branchExists) {
         super(businessNumber, companyName, companyProfileUrl, companyIntroduce,
             mainZipCode, mainAddress, mainAddressDetail, managerName, managerPhoneNo, email,
             representativeName, representativePhoneNo, foundedAt, workerNumber, take, recruitmentId,
-            serviceName, businessAreaCode, businessArea, attachmentUrls, bizRegistrationUrl);
+            serviceName, businessAreaCode, businessArea, attachmentUrls, bizRegistrationUrl, branchExists);
     }
 }
