@@ -19,6 +19,7 @@ public class EmploymentRatesResponse {
     public static class ClassResponse {
         private final Integer classId;
         private final List<CompanyVO> employmentRateResponseList;
-        private final Integer totalStudents;
+        private final long totalStudents;
+        private final long passedStudents;
     }
 }

@@ -18,6 +18,8 @@ public interface QueryStudentPort {
 
     List<Student> getByInterestCode(List<Long> code);
 
-    Integer getTotalStudentsByClassNumber(Integer classNum);
+    Long getTotalStudentsByClassNumber(Integer classNum);
+
+    Long getPassedStudentsByClassNumber(Integer classNum);
 
 }
