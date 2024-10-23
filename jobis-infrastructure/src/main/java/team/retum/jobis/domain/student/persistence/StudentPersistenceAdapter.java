@@ -105,6 +105,6 @@ public class StudentPersistenceAdapter implements StudentPort {
             .where(studentEntity.classRoom.eq(classNum))
             .fetch();
 
-        return null != counts ? counts.get(0) : null;
+        return null != counts ? counts.get(0) : 0;
     }
 }
