@@ -144,6 +144,7 @@ public class Recruitment {
             .militarySupport(request.military())
             .submitDocument(request.submitDocument())
             .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
+            .isConvertible(request.convertible())
             .etc(request.etc())
             .build();
     }
