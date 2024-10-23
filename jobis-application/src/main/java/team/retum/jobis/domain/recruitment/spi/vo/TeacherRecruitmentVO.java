@@ -22,6 +22,6 @@ public class TeacherRecruitmentVO {
     private final long requestedApplicationCount;
     private final long approvedApplicationCount;
     private final long companyId;
-    private final Boolean isConvertible;
+    private final Boolean isHireConvertible;
 
 }

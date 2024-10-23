@@ -23,7 +23,7 @@ public record ApplyRecruitmentRequest(
     LocalDate startDate,
     LocalDate endDate,
     boolean winterIntern,
-    Boolean isConvertible,
+    Boolean isHireConvertible,
     String etc
 ) {
 

@@ -1,0 +1,1 @@
+alter table tbl_recruitment add column is_hire_convertible TINYINT(1);
