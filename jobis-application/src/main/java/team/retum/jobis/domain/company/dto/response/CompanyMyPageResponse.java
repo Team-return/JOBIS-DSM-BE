@@ -33,7 +33,7 @@ public class CompanyMyPageResponse {
     private final String businessArea;
     private final String bizRegistrationUrl;
     private final List<String> attachmentUrls;
-    private final boolean branchExists;
+    private final boolean isHeadquarter;
 
     public static CompanyMyPageResponse from(Company company) {
         return CompanyMyPageResponse.builder()
@@ -58,7 +58,7 @@ public class CompanyMyPageResponse {
             .businessArea(company.getBusinessArea())
             .bizRegistrationUrl(company.getBizRegistrationUrl())
             .attachmentUrls(company.getAttachmentUrls())
-            .branchExists(company.isBranchExists())
+            .isHeadquarter(company.isHeadquarter())
             .build();
     }
 }

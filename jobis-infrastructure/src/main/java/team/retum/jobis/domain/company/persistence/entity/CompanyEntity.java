@@ -112,14 +112,14 @@ public class CompanyEntity {
 
     @NotNull
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean branchExists;
+    private boolean isHeadquarter;
 
     @Builder
     public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
                          List<String> attachmentUrls, String representative, LocalDate foundedAt, double take, int workersCount,
                          String managerName, String managerPhoneNo, String companyIntroduce, String companyLogoUrl, String email,
                          String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type,
-                         boolean isMou, String representativePhoneNo, boolean branchExists) {
+                         boolean isMou, String representativePhoneNo, boolean isHeadquarter) {
         this.id = id;
         this.name = name;
         this.isMou = isMou;
@@ -139,6 +139,6 @@ public class CompanyEntity {
         this.companyIntroduce = companyIntroduce;
         this.companyLogoUrl = companyLogoUrl;
         this.attachmentUrls = attachmentUrls;
-        this.branchExists = branchExists;
+        this.isHeadquarter = isHeadquarter;
     }
 }
