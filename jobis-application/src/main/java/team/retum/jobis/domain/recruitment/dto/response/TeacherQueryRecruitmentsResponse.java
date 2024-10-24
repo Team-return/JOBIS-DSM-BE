@@ -18,6 +18,8 @@ public class TeacherQueryRecruitmentsResponse {
 
     private final List<TeacherRecruitmentResponse> recruitments;
 
+    private final int counts;
+
     @Getter
     @NoArgsConstructor(force = true)
     @AllArgsConstructor

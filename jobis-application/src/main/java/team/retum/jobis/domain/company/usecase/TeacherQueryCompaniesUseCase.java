@@ -12,6 +12,8 @@ import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesRespons
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @ReadOnlyUseCase
 public class TeacherQueryCompaniesUseCase {
@@ -38,24 +40,24 @@ public class TeacherQueryCompaniesUseCase {
             .page(page)
             .build();
 
-        return new TeacherQueryCompaniesResponse(
-            queryCompanyPort.getByConditions(filter).stream()
-                .map(company -> TeacherQueryCompanyResponse.builder()
-                    .companyId(company.getCompanyId())
-                    .companyName(company.getCompanyName())
-                    .region(getRegionByAddress(company.getMainAddress()))
-                    .businessArea(company.getBusinessArea())
-                    .workersCount(company.getWorkersCount())
-                    .take(company.getTake())
-                    .companyType(company.getCompanyType())
-                    .convention(company.getConvention())
-                    .personalContact(company.getPersonalContact())
-                    .recentRecruitYear(company.getRecentRecruitYear())
-                    .totalAcceptanceCount(company.getTotalAcceptanceCount())
-                    .reviewCount(company.getReviewCount())
-                    .build()
-                ).toList()
-        );
+        List<TeacherQueryCompanyResponse> companies = queryCompanyPort.getByConditions(filter).stream()
+            .map(company -> TeacherQueryCompanyResponse.builder()
+                .companyId(company.getCompanyId())
+                .companyName(company.getCompanyName())
+                .region(getRegionByAddress(company.getMainAddress()))
+                .businessArea(company.getBusinessArea())
+                .workersCount(company.getWorkersCount())
+                .take(company.getTake())
+                .companyType(company.getCompanyType())
+                .convention(company.getConvention())
+                .personalContact(company.getPersonalContact())
+                .recentRecruitYear(company.getRecentRecruitYear())
+                .totalAcceptanceCount(company.getTotalAcceptanceCount())
+                .reviewCount(company.getReviewCount())
+                .build()
+            ).toList();
+
+        return new TeacherQueryCompaniesResponse(companies, companies.size());
     }
 
     public CompanyCountResponse countCompanies() {
