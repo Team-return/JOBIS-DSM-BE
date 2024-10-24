@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.company.spi;
 
 import team.retum.jobis.domain.company.dto.CompanyFilter;
-import team.retum.jobis.domain.company.dto.response.EmploymentRatesResponse;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
@@ -39,8 +38,6 @@ public interface QueryCompanyPort {
     List<CompanyResponse> getReviewAvailableCompaniesByStudentId(Long studentId);
 
     Map<Long, String> getCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
-
-    Long countCompanies();
 
     List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum);
 

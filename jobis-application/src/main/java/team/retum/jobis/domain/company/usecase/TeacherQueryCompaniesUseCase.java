@@ -60,12 +60,6 @@ public class TeacherQueryCompaniesUseCase {
         return new TeacherQueryCompaniesResponse(companies, companies.size());
     }
 
-    public CompanyCountResponse countCompanies() {
-        Long count = queryCompanyPort.countCompanies();
-
-        return new CompanyCountResponse(count);
-    }
-
     public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea) {
         CompanyFilter filter = CompanyFilter.builder()
             .type(type)

@@ -329,14 +329,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public Long countCompanies() {
-        return queryFactory
-            .select(companyEntity.count())
-            .from(companyEntity)
-            .fetchOne();
-    }
-
-    @Override
     public List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum) {
         return queryFactory
             .select(

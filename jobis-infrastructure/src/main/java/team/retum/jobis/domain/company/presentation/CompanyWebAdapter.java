@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
-import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
 import team.retum.jobis.domain.company.dto.response.ExportCompanyHistoryResponse;
 import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
@@ -47,7 +46,6 @@ import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCas
 import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
-import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
 import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
@@ -167,11 +165,6 @@ public class CompanyWebAdapter {
         @RequestParam(value = "page", required = false) @Positive Long page
     ) {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page);
-    }
-
-    @GetMapping("/count")
-    public CompanyCountResponse countCompanies() {
-        return teacherQueryCompaniesUseCase.countCompanies();
     }
 
     @Cacheable
