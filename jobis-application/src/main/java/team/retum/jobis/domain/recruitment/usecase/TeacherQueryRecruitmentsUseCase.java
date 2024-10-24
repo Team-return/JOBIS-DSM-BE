@@ -40,7 +40,7 @@ public class TeacherQueryRecruitmentsUseCase {
                 .map(TeacherRecruitmentResponse::from)
                 .toList();
 
-        return new TeacherQueryRecruitmentsResponse(recruitments);
+        return new TeacherQueryRecruitmentsResponse(recruitments, recruitments.size());
     }
 
     public TeacherQueryRecruitmentsResponse executeWithoutPage(int year, List<Long> codeIds, Boolean winterIntern, Boolean militarySupport) {

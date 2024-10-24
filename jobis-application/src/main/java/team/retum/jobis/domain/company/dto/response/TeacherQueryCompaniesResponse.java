@@ -15,6 +15,8 @@ public class TeacherQueryCompaniesResponse {
 
     private final List<TeacherQueryCompanyResponse> companies;
 
+    private final int counts;
+
     @Getter
     @NoArgsConstructor(force = true)
     @AllArgsConstructor
