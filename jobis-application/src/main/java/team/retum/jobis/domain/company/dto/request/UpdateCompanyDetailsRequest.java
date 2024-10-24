@@ -20,7 +20,7 @@ public record UpdateCompanyDetailsRequest(
     String representativePhoneNo,
     List<String> attachmentUrls,
     String bizRegistrationUrl,
-    boolean branchExists
+    boolean headquarter
 ) {
 
 }

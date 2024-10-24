@@ -65,7 +65,7 @@ public class UpdateCompanyDetailsWebRequest {
     private String bizRegistrationUrl;
 
     @NotNull
-    private Boolean branchExists;
+    private Boolean headquarter;
 
 
     public UpdateCompanyDetailsRequest toDomainRequest() {
@@ -85,7 +85,7 @@ public class UpdateCompanyDetailsWebRequest {
             .representativePhoneNo(this.representativePhoneNo)
             .attachmentUrls(this.attachmentUrls)
             .bizRegistrationUrl(this.bizRegistrationUrl)
-            .branchExists(this.branchExists)
+            .headquarter(this.headquarter)
             .build();
     }
 }

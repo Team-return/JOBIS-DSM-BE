@@ -35,7 +35,7 @@ public class CompanyMapper {
             .isMou(domain.isMou())
             .workersCount(domain.getWorkersCount())
             .attachmentUrls(domain.getAttachmentUrls())
-            .branchExists(domain.isBranchExists())
+            .isHeadquarter(domain.isHeadquarter())
             .build();
     }
 
@@ -71,7 +71,7 @@ public class CompanyMapper {
             .take(entity.getTake())
             .workersCount(entity.getWorkersCount())
             .attachmentUrls(entity.getAttachmentUrls())
-            .branchExists(entity.isBranchExists())
+            .isHeadquarter(entity.isHeadquarter())
             .build();
     }
 }
