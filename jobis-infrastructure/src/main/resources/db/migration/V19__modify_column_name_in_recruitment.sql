@@ -1,0 +1,1 @@
+alter table tbl_recruitment change column required_grade additional_qualifications varchar(100);
