@@ -53,7 +53,7 @@ public class Company {
 
     private final List<String> attachmentUrls;
 
-    private final boolean isHeadquarter;
+    private final boolean headquarter;
 
     public static Company of(Long id, RegisterCompanyRequest request, String businessArea) {
         return Company.builder()
@@ -88,7 +88,7 @@ public class Company {
             .representativePhoneNo(request.representativePhoneNo())
             .foundedAt(request.foundedAt())
             .attachmentUrls(request.attachmentUrls())
-            .isHeadquarter(request.headquarter())
+            .headquarter(request.headquarter())
             .build();
     }
 
@@ -115,7 +115,7 @@ public class Company {
             .email(request.email())
             .serviceName(request.serviceName())
             .attachmentUrls(request.attachmentUrls())
-            .isHeadquarter(request.headquarter())
+            .headquarter(request.headquarter())
             .build();
     }
 

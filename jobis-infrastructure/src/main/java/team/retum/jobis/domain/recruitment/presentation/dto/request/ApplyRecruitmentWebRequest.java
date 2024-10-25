@@ -64,7 +64,7 @@ public class ApplyRecruitmentWebRequest {
     @NotNull
     private Boolean winterIntern;
 
-    private Boolean isHireConvertible;
+    private Boolean hireConvertible;
 
     @Size(max = 350)
     private String etc;
@@ -89,7 +89,7 @@ public class ApplyRecruitmentWebRequest {
             .startDate(this.startDate)
             .endDate(this.endDate)
             .winterIntern(this.winterIntern)
-            .isHireConvertible(this.isHireConvertible)
+            .hireConvertible(this.hireConvertible)
             .etc(this.etc)
             .build();
     }
