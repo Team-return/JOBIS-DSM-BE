@@ -20,7 +20,6 @@ public class CompanyMyPageResponse {
     private final String mainAddressDetail;
     private final String mainZipCode;
     private final String representative;
-    private final String representativePhoneNo;
     private final LocalDate foundedAt;
     private final double take;
     private final int workersCount;
@@ -45,7 +44,6 @@ public class CompanyMyPageResponse {
             .mainAddressDetail(company.getAddressInfo().mainAddressDetail())
             .mainZipCode(company.getAddressInfo().mainZipCode())
             .representative(company.getRepresentative())
-            .representativePhoneNo(company.getRepresentativePhoneNo())
             .foundedAt(company.getFoundedAt())
             .take(company.getTake())
             .workersCount(company.getWorkersCount())

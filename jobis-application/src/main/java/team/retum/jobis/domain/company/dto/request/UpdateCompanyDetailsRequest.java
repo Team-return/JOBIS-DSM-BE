@@ -17,7 +17,6 @@ public record UpdateCompanyDetailsRequest(
     double take,
     String companyProfileUrl,
     String serviceName,
-    String representativePhoneNo,
     List<String> attachmentUrls,
     String bizRegistrationUrl,
     boolean headquarter
