@@ -74,7 +74,7 @@ public class Company {
             .managerInfo(
                 ManagerInfo.builder()
                     .managerName(request.managerName())
-                    .managerPhoneNo(request.managerPhoneNo())
+                    .representativePhoneNo(request.representativePhoneNo())
                     .build()
             )
             .workersCount(request.workerNumber())
@@ -102,7 +102,7 @@ public class Company {
             .managerInfo(
                 ManagerInfo.builder()
                     .managerName(request.managerName())
-                    .managerPhoneNo(request.managerPhoneNo())
+                    .representativePhoneNo(request.representativePhoneNo())
                     .build()
             )
             .companyIntroduce(request.companyIntroduce())

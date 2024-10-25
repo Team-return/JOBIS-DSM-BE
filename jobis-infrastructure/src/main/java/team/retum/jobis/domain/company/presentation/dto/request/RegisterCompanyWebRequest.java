@@ -49,7 +49,7 @@ public class RegisterCompanyWebRequest {
     private String managerName;
 
     @NotBlank
-    private String managerPhoneNo;
+    private String representativePhoneNo;
 
     @Email
     @Size(max = 30)
@@ -96,7 +96,7 @@ public class RegisterCompanyWebRequest {
             .mainAddress(this.mainAddress)
             .mainAddressDetail(this.mainAddressDetail)
             .managerName(this.managerName)
-            .managerPhoneNo(this.managerPhoneNo)
+            .representativePhoneNo(this.representativePhoneNo)
             .email(this.email)
             .representativeName(this.representativeName)
             .foundedAt(this.foundedAt)

@@ -18,7 +18,7 @@ public class CompanyDetailsVO {
     private final String mainAddress;
     private final String mainAddressDetail;
     private final String managerName;
-    private final String managerPhoneNo;
+    private final String representativePhoneNo;
     private final String email;
     private final String representativeName;
     private final LocalDate foundedAt;

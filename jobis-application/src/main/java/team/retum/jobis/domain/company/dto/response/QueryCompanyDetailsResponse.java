@@ -23,7 +23,7 @@ public class QueryCompanyDetailsResponse {
     private final String mainAddressDetail;
     private final String mainZipCode;
     private final String managerName;
-    private final String managerPhoneNo;
+    private final String representativePhoneNo;
     private final String email;
     private final String representativeName;
     private final LocalDate foundedAt;
@@ -47,7 +47,7 @@ public class QueryCompanyDetailsResponse {
             .mainAddress(vo.getMainAddress())
             .mainAddressDetail(vo.getMainAddressDetail())
             .managerName(vo.getManagerName())
-            .managerPhoneNo(vo.getManagerPhoneNo())
+            .representativePhoneNo(vo.getRepresentativePhoneNo())
             .email(vo.getEmail())
             .representativeName(vo.getRepresentativeName())
             .foundedAt(vo.getFoundedAt())
