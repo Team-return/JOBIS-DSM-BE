@@ -181,18 +181,8 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/count")
-    public RecruitmentCountResponse countRecruitments(
-        @RequestParam(required = false) String companyName,
-        @RequestParam(required = false) LocalDate start,
-        @RequestParam(required = false) LocalDate end,
-        @RequestParam(required = false) Integer year,
-        @RequestParam(required = false) RecruitStatus status,
-        @RequestParam(required = false) Boolean winterIntern,
-        @RequestParam(required = false) Boolean militarySupport,
-        @RequestParam(required = false) List<Long> codeIds) {
-        return teacherQueryRecruitmentsUseCase.countRecruitments(
-            companyName, start, end, year, status, winterIntern, militarySupport, codeIds
-        );
+    public RecruitmentCountResponse countRecruitments() {
+        return teacherQueryRecruitmentsUseCase.countRecruitments();
     }
 
     @Cacheable
