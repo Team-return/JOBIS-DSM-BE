@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 public class UpdateRecruitmentWebRequest {
 
-    private Integer requiredGrade;
+    private String additionalQualifications;
 
     @NotNull
     private String workingHours;
@@ -42,7 +42,7 @@ public class UpdateRecruitmentWebRequest {
     private String benefits;
 
     @NotNull
-    private Boolean military;
+    private Boolean militarySupport;
 
     @Size(max = 100)
     @NotNull
@@ -63,7 +63,7 @@ public class UpdateRecruitmentWebRequest {
         }
 
         return UpdateRecruitmentRequest.builder()
-            .requiredGrade(this.requiredGrade)
+            .additionalQualifications(this.additionalQualifications)
             .workingHours(this.workingHours)
             .flexibleWorking(this.flexibleWorking)
             .requiredLicenses(this.requiredLicenses)
@@ -71,7 +71,7 @@ public class UpdateRecruitmentWebRequest {
             .trainPay(this.trainPay)
             .pay(this.pay)
             .benefits(this.benefits)
-            .military(this.military)
+            .militarySupport(this.militarySupport)
             .submitDocument(this.submitDocument)
             .startDate(this.startDate)
             .endDate(this.endDate)

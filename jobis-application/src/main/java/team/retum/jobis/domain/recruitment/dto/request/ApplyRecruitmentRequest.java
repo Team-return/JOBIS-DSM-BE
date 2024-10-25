@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 public record ApplyRecruitmentRequest(
     List<CreateRecruitAreaRequest> areas,
-    Integer requiredGrade,
+    String additionalQualifications,
     String workingHours,
     boolean flexibleWorking,
     List<String> requiredLicenses,

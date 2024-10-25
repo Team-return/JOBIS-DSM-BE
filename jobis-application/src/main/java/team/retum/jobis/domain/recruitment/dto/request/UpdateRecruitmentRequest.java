@@ -8,7 +8,7 @@ import java.util.List;
 
 @Builder
 public record UpdateRecruitmentRequest(
-    Integer requiredGrade,
+    String additionalQualifications,
     String workingHours,
     boolean flexibleWorking,
     List<String> requiredLicenses,
@@ -16,7 +16,7 @@ public record UpdateRecruitmentRequest(
     Integer trainPay,
     String pay,
     String benefits,
-    boolean military,
+    boolean militarySupport,
     String submitDocument,
     LocalDate startDate,
     LocalDate endDate,

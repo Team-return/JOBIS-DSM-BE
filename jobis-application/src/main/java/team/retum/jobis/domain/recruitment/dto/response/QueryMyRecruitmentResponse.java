@@ -17,7 +17,7 @@ public class QueryMyRecruitmentResponse {
     private final String companyProfileUrl;
     private final String companyName;
     private final List<RecruitAreaResponse> areas;
-    private final Integer requiredGrade;
+    private final String additionalQualifications;
     private final String workingHours;
     private final boolean flexibleWorking;
     private final List<String> requiredLicenses;
@@ -25,7 +25,7 @@ public class QueryMyRecruitmentResponse {
     private final Integer trainPay;
     private final String pay;
     private final String benefits;
-    private final Boolean military;
+    private final Boolean militarySupport;
     private final String submitDocument;
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -41,13 +41,13 @@ public class QueryMyRecruitmentResponse {
             .workingHours(recruitmentDetail.getWorkingHours())
             .flexibleWorking(recruitmentDetail.isFlexibleWorking())
             .areas(recruitAreas)
-            .requiredGrade(recruitmentDetail.getRequiredGrade())
+            .additionalQualifications(recruitmentDetail.getAdditionalQualifications())
             .requiredLicenses(recruitmentDetail.getRequiredLicenses())
             .hiringProgress(recruitmentDetail.getHiringProgress())
             .trainPay(recruitmentDetail.getTrainPay())
             .pay(recruitmentDetail.getPay())
             .benefits(recruitmentDetail.getBenefits())
-            .military(recruitmentDetail.getMilitary())
+            .militarySupport(recruitmentDetail.getMilitarySupport())
             .submitDocument(recruitmentDetail.getSubmitDocument())
             .startDate(recruitmentDetail.getStartDate())
             .endDate(recruitmentDetail.getEndDate())

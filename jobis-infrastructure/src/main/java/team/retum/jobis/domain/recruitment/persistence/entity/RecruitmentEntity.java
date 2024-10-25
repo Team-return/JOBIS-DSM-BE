@@ -57,8 +57,8 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(200)")
     private List<String> requiredLicenses;
 
-    @Column(columnDefinition = "TINYINT(100)")
-    private Integer requiredGrade;
+    @Column(columnDefinition = "VARCHAR(100)")
+    private String additionalQualifications;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(100)")
@@ -112,14 +112,14 @@ public class RecruitmentEntity extends BaseTimeEntity {
     public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, String workingHours, Integer trainPay, String pay,
                              String submitDocument, LocalDate startDate, LocalDate endDate, CompanyEntity companyEntity,
                              String benefits, boolean militarySupport, List<String> requiredLicenses, String etc,
-                             List<ProgressType> hiringProgress, Integer requiredGrade, boolean flexibleWorking,
+                             List<ProgressType> hiringProgress, String additionalQualifications, boolean flexibleWorking,
                              boolean personalContact, boolean winterIntern, Boolean hireConvertible) {
         this.id = id;
         this.workingHours = workingHours;
         this.flexibleWorking = flexibleWorking;
         this.hiringProgress = hiringProgress;
         this.submitDocument = submitDocument;
-        this.requiredGrade = requiredGrade;
+        this.additionalQualifications = additionalQualifications;
         this.recruitYear = recruitYear;
         this.status = status;
         this.benefits = benefits;

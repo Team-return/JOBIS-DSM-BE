@@ -21,7 +21,7 @@ public class QueryRecruitmentDetailResponse {
     private final String companyProfileUrl;
     private final String companyName;
     private final List<RecruitAreaResponse> areas;
-    private final Integer requiredGrade;
+    private final String additionalQualifications;
     private final String workingHours;
     private final boolean flexibleWorking;
     private final List<String> requiredLicenses;
@@ -29,7 +29,7 @@ public class QueryRecruitmentDetailResponse {
     private final Integer trainPay;
     private final String pay;
     private final String benefits;
-    private final Boolean military;
+    private final Boolean militarySupport;
     private final String submitDocument;
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -48,7 +48,7 @@ public class QueryRecruitmentDetailResponse {
             .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
             .companyName(recruitmentDetail.getCompanyName())
             .areas(recruitAreas)
-            .requiredGrade(recruitmentDetail.getRequiredGrade())
+            .additionalQualifications(recruitmentDetail.getAdditionalQualifications())
             .workingHours(recruitmentDetail.getWorkingHours())
             .flexibleWorking(recruitmentDetail.isFlexibleWorking())
             .requiredLicenses(recruitmentDetail.getRequiredLicenses())
@@ -56,7 +56,7 @@ public class QueryRecruitmentDetailResponse {
             .trainPay(authority ? 0 : recruitmentDetail.getTrainPay())
             .pay(authority ? "0" : recruitmentDetail.getPay())
             .benefits(recruitmentDetail.getBenefits())
-            .military(recruitmentDetail.getMilitary())
+            .militarySupport(recruitmentDetail.getMilitarySupport())
             .submitDocument(recruitmentDetail.getSubmitDocument())
             .startDate(recruitmentDetail.getStartDate())
             .endDate(recruitmentDetail.getEndDate())

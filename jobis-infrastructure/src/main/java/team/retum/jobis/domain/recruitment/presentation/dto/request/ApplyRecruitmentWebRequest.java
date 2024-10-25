@@ -25,8 +25,8 @@ public class ApplyRecruitmentWebRequest {
     @ValidListElements
     private List<RecruitAreaWebRequest> areas;
 
-    @Max(100)
-    private Integer requiredGrade;
+    @Size(max = 100)
+    private String additionalQualifications;
 
     @NotBlank
     private String workingHours;
@@ -76,7 +76,7 @@ public class ApplyRecruitmentWebRequest {
 
         return ApplyRecruitmentRequest.builder()
             .areas(this.areas.stream().map(RecruitAreaWebRequest::toDomainRequest).toList())
-            .requiredGrade(this.requiredGrade)
+            .additionalQualifications(this.additionalQualifications)
             .workingHours(this.workingHours)
             .requiredLicenses(this.requiredLicenses)
             .hiringProgress(this.hiringProgress)
