@@ -59,8 +59,21 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
-    public RecruitmentCountResponse countRecruitments() {
-        Long count = queryRecruitmentPort.countRecruitments();
+    public RecruitmentCountResponse countRecruitments(String companyName, LocalDate start, LocalDate end,
+                                                      Integer year, RecruitStatus status, Boolean winterIntern,
+                                                      Boolean militarySupport, List<Long> codeIds) {
+        RecruitmentFilter filter = RecruitmentFilter.builder()
+            .companyName(companyName)
+            .status(status)
+            .startDate(start)
+            .endDate(end)
+            .codes(codeIds)
+            .year(year)
+            .winterIntern(winterIntern)
+            .militarySupport(militarySupport)
+            .build();
+
+        Long count = queryRecruitmentPort.getCountBy(filter);
 
         return new RecruitmentCountResponse(count);
     }

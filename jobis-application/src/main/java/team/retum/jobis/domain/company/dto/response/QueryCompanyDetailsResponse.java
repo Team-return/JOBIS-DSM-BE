@@ -36,7 +36,7 @@ public class QueryCompanyDetailsResponse {
     private final Long businessAreaCode;
     private final String businessArea;
     private final String bizRegistrationUrl;
-    private final boolean isHeadquarter;
+    private final boolean headquarter;
 
     public static QueryCompanyDetailsResponse from(CompanyDetailsVO vo) {
         return QueryCompanyDetailsResponse.builder()
@@ -60,7 +60,7 @@ public class QueryCompanyDetailsResponse {
             .serviceName(vo.getServiceName())
             .businessArea(vo.getBusinessArea())
             .bizRegistrationUrl(vo.getBizRegistrationUrl())
-            .isHeadquarter(vo.isHeadquarter())
+            .headquarter(vo.isHeadquarter())
             .build();
     }
 }
