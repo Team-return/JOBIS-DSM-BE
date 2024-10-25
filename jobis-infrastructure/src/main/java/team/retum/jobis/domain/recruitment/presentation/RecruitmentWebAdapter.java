@@ -26,7 +26,6 @@ import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistory
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
-import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -51,8 +50,6 @@ import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import team.retum.jobis.global.exception.BadRequestException;
 import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -178,11 +175,6 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "military_support", required = false) Boolean militarySupport
     ) {
         return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes), winterIntern, militarySupport);
-    }
-
-    @GetMapping("/count")
-    public RecruitmentCountResponse countRecruitments() {
-        return teacherQueryRecruitmentsUseCase.countRecruitments();
     }
 
     @Cacheable

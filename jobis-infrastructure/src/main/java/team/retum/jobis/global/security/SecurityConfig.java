@@ -59,7 +59,6 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/{recruitment-id}").hasAnyAuthority(COMPANY.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name(), COMPANY.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/file").hasAuthority(TEACHER.name())
-                    .requestMatchers(HttpMethod.GET, "/recruitments/count").hasAnyAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/exists/{company-id}").hasAnyAuthority(COMPANY.name())
 
                     // bugs
@@ -121,7 +120,6 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/companies/employment").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/employment/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                    .requestMatchers(HttpMethod.GET, "/companies/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/file").hasAuthority(TEACHER.name())
 
                     // users

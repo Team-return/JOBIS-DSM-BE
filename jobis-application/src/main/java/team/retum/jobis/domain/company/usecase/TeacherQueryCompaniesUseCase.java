@@ -6,7 +6,6 @@ import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
-import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse.TeacherQueryCompanyResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
