@@ -52,7 +52,7 @@ public class Recruitment {
 
     private final boolean winterIntern;
 
-    private final Boolean isHireConvertible;
+    private final Boolean hireConvertible;
 
     private final Long companyId;
 
@@ -76,7 +76,7 @@ public class Recruitment {
             .etc(request.etc())
             .hiringProgress(request.hiringProgress())
             .winterIntern(request.winterIntern())
-            .isHireConvertible(request.isHireConvertible())
+            .hireConvertible(request.hireConvertible())
             .build();
     }
 
@@ -144,7 +144,7 @@ public class Recruitment {
             .militarySupport(request.military())
             .submitDocument(request.submitDocument())
             .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
-            .isHireConvertible(request.hireConvertible())
+            .hireConvertible(request.hireConvertible())
             .etc(request.etc())
             .build();
     }

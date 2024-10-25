@@ -46,7 +46,7 @@ public class TeacherQueryRecruitmentsResponse {
 
         private long companyId;
 
-        private Boolean isHireConvertible;
+        private Boolean hireConvertible;
 
         public static TeacherRecruitmentResponse from(TeacherRecruitmentVO recruitment) {
             return TeacherRecruitmentResponse.builder()
@@ -61,7 +61,7 @@ public class TeacherQueryRecruitmentsResponse {
                 .totalHiringCount(recruitment.getTotalHiringCount())
                 .hiringJobs(recruitment.getJobCodes())
                 .companyId(recruitment.getCompanyId())
-                .isHireConvertible(recruitment.getIsHireConvertible())
+                .hireConvertible(recruitment.getHireConvertible())
                 .build();
         }
     }

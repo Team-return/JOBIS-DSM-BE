@@ -31,5 +31,5 @@ public class RecruitmentDetailVO {
     private final String companyBizNo;
     private final boolean winterIntern;
     private final boolean isBookmarked;
-    private final Boolean isHireConvertible;
+    private final Boolean hireConvertible;
 }
