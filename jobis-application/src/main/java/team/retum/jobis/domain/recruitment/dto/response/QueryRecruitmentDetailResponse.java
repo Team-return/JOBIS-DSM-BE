@@ -21,7 +21,7 @@ public class QueryRecruitmentDetailResponse {
     private final String companyProfileUrl;
     private final String companyName;
     private final List<RecruitAreaResponse> areas;
-    private final Integer requiredGrade;
+    private final String additionalQualifications;
     private final String workingHours;
     private final boolean flexibleWorking;
     private final List<String> requiredLicenses;
@@ -48,7 +48,7 @@ public class QueryRecruitmentDetailResponse {
             .companyProfileUrl(recruitmentDetail.getCompanyProfileUrl())
             .companyName(recruitmentDetail.getCompanyName())
             .areas(recruitAreas)
-            .requiredGrade(recruitmentDetail.getRequiredGrade())
+            .additionalQualifications(recruitmentDetail.getAdditionalQualifications())
             .workingHours(recruitmentDetail.getWorkingHours())
             .flexibleWorking(recruitmentDetail.isFlexibleWorking())
             .requiredLicenses(recruitmentDetail.getRequiredLicenses())

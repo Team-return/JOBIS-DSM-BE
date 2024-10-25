@@ -15,7 +15,7 @@ public class RecruitmentDetailVO {
     private final Long companyId;
     private final String companyProfileUrl;
     private final String companyName;
-    private final Integer requiredGrade;
+    private final String additionalQualifications;
     private final String workingHours;
     private final boolean flexibleWorking;
     private final List<String> requiredLicenses;

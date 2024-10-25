@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 public class UpdateRecruitmentWebRequest {
 
-    private Integer requiredGrade;
+    private String additionalQualifications;
 
     @NotNull
     private String workingHours;
@@ -63,7 +63,7 @@ public class UpdateRecruitmentWebRequest {
         }
 
         return UpdateRecruitmentRequest.builder()
-            .requiredGrade(this.requiredGrade)
+            .additionalQualifications(this.additionalQualifications)
             .workingHours(this.workingHours)
             .flexibleWorking(this.flexibleWorking)
             .requiredLicenses(this.requiredLicenses)
