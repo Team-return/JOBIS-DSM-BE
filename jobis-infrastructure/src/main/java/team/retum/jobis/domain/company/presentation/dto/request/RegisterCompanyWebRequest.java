@@ -49,7 +49,7 @@ public class RegisterCompanyWebRequest {
     private String managerName;
 
     @NotBlank
-    private String managerPhoneNo;
+    private String representativePhoneNo;
 
     @Email
     @Size(max = 30)
@@ -59,10 +59,6 @@ public class RegisterCompanyWebRequest {
     @NotBlank
     @Size(max = 10)
     private String representativeName;
-
-    @NotBlank
-    @Size(min = 9, max = 12)
-    private String representativePhoneNo;
 
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -100,10 +96,9 @@ public class RegisterCompanyWebRequest {
             .mainAddress(this.mainAddress)
             .mainAddressDetail(this.mainAddressDetail)
             .managerName(this.managerName)
-            .managerPhoneNo(this.managerPhoneNo)
+            .representativePhoneNo(this.representativePhoneNo)
             .email(this.email)
             .representativeName(this.representativeName)
-            .representativePhoneNo(this.representativePhoneNo)
             .foundedAt(this.foundedAt)
             .workerNumber(this.workerNumber)
             .take(this.take)

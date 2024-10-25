@@ -20,12 +20,11 @@ public class CompanyMyPageResponse {
     private final String mainAddressDetail;
     private final String mainZipCode;
     private final String representative;
-    private final String representativePhoneNo;
     private final LocalDate foundedAt;
     private final double take;
     private final int workersCount;
     private final String managerName;
-    private final String managerPhoneNo;
+    private final String representativePhoneNo;
     private final String email;
     private final String companyIntroduce;
     private final String companyLogoUrl;
@@ -45,12 +44,11 @@ public class CompanyMyPageResponse {
             .mainAddressDetail(company.getAddressInfo().mainAddressDetail())
             .mainZipCode(company.getAddressInfo().mainZipCode())
             .representative(company.getRepresentative())
-            .representativePhoneNo(company.getRepresentativePhoneNo())
             .foundedAt(company.getFoundedAt())
             .take(company.getTake())
             .workersCount(company.getWorkersCount())
             .managerName(company.getManagerInfo().managerName())
-            .managerPhoneNo(company.getManagerInfo().managerPhoneNo())
+            .representativePhoneNo(company.getManagerInfo().representativePhoneNo())
             .email(company.getEmail())
             .companyIntroduce(company.getCompanyIntroduce())
             .companyLogoUrl(company.getCompanyLogoUrl())
