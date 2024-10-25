@@ -141,7 +141,7 @@ public class Recruitment {
             .hiringProgress(request.hiringProgress())
             .salary(new Salary(request.trainPay(), request.pay()))
             .benefits(request.benefits())
-            .militarySupport(request.military())
+            .militarySupport(request.militarySupport())
             .submitDocument(request.submitDocument())
             .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
             .hireConvertible(request.hireConvertible())

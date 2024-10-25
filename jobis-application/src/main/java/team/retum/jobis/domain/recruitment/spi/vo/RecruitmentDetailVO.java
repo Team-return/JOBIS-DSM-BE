@@ -23,7 +23,7 @@ public class RecruitmentDetailVO {
     private final Integer trainPay;
     private final String pay;
     private final String benefits;
-    private final Boolean military;
+    private final Boolean militarySupport;
     private final String submitDocument;
     private final LocalDate startDate;
     private final LocalDate endDate;

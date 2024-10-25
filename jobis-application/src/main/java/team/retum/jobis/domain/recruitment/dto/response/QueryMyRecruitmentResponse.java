@@ -25,7 +25,7 @@ public class QueryMyRecruitmentResponse {
     private final Integer trainPay;
     private final String pay;
     private final String benefits;
-    private final Boolean military;
+    private final Boolean militarySupport;
     private final String submitDocument;
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -47,7 +47,7 @@ public class QueryMyRecruitmentResponse {
             .trainPay(recruitmentDetail.getTrainPay())
             .pay(recruitmentDetail.getPay())
             .benefits(recruitmentDetail.getBenefits())
-            .military(recruitmentDetail.getMilitary())
+            .militarySupport(recruitmentDetail.getMilitarySupport())
             .submitDocument(recruitmentDetail.getSubmitDocument())
             .startDate(recruitmentDetail.getStartDate())
             .endDate(recruitmentDetail.getEndDate())

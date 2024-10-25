@@ -42,7 +42,7 @@ public class UpdateRecruitmentWebRequest {
     private String benefits;
 
     @NotNull
-    private Boolean military;
+    private Boolean militarySupport;
 
     @Size(max = 100)
     @NotNull
@@ -71,7 +71,7 @@ public class UpdateRecruitmentWebRequest {
             .trainPay(this.trainPay)
             .pay(this.pay)
             .benefits(this.benefits)
-            .military(this.military)
+            .militarySupport(this.militarySupport)
             .submitDocument(this.submitDocument)
             .startDate(this.startDate)
             .endDate(this.endDate)
