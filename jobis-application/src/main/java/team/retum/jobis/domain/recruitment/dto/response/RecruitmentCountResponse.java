@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class RecruitmentCountResponse {
 
-    private Long count;
+    private int count;
 }

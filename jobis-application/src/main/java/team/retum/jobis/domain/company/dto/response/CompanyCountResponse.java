@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CompanyCountResponse {
 
-    private Long count;
+    private int count;
 }

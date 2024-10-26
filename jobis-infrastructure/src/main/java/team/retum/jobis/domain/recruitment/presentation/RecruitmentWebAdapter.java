@@ -51,8 +51,6 @@ import team.retum.jobis.domain.recruitment.usecase.UpdateRecruitmentUseCase;
 import team.retum.jobis.global.exception.BadRequestException;
 import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -181,8 +179,17 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/count")
-    public RecruitmentCountResponse countRecruitments() {
-        return teacherQueryRecruitmentsUseCase.countRecruitments();
+    public RecruitmentCountResponse countRecruitments(
+        @RequestParam(value = "company_name", required = false) String companyName,
+        @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+        @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
+        @RequestParam(value = "status", required = false) RecruitStatus status,
+        @RequestParam(value = "year", required = false) Integer year,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport,
+        @RequestParam(value = "job_code", required = false) String jobCode,
+        @RequestParam(value = "tech_code", required = false) String techCodes) {
+        return teacherQueryRecruitmentsUseCase.countRecruitments(companyName, start, end, year, status, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes));
     }
 
     @Cacheable
