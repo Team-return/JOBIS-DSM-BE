@@ -393,14 +393,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public Long countRecruitments() {
-        return queryFactory
-            .select(recruitmentEntity.count())
-            .from(recruitmentEntity)
-            .fetchOne();
-    }
-
-    @Override
     public List<Recruitment> getRecent() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime oneDayAgo = now.minusDays(1);
