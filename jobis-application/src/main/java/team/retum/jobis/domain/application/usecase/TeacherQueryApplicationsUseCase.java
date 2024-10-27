@@ -53,6 +53,7 @@ public class TeacherQueryApplicationsUseCase {
             .studentName(studentName)
             .year(year)
             .page(1L)
+            .limit(1000)
             .build();
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.getAllByConditions(applicationFilter);
