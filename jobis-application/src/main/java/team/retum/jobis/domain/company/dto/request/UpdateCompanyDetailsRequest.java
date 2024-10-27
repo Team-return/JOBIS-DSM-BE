@@ -11,16 +11,15 @@ public record UpdateCompanyDetailsRequest(
     String mainAddress,
     String mainAddressDetail,
     String managerName,
-    String managerPhoneNo,
+    String representativePhoneNo,
     String email,
     int workerNumber,
     double take,
     String companyProfileUrl,
     String serviceName,
-    String representativePhoneNo,
     List<String> attachmentUrls,
     String bizRegistrationUrl,
-    boolean branchExists
+    boolean headquarter
 ) {
 
 }

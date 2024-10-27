@@ -29,8 +29,6 @@ public class Company {
 
     private final String representative;
 
-    private final String representativePhoneNo;
-
     private final LocalDate foundedAt;
 
     private final double take;
@@ -53,7 +51,7 @@ public class Company {
 
     private final List<String> attachmentUrls;
 
-    private final boolean branchExists;
+    private final boolean headquarter;
 
     public static Company of(Long id, RegisterCompanyRequest request, String businessArea) {
         return Company.builder()
@@ -76,19 +74,17 @@ public class Company {
             .managerInfo(
                 ManagerInfo.builder()
                     .managerName(request.managerName())
-                    .managerPhoneNo(request.managerPhoneNo())
+                    .representativePhoneNo(request.representativePhoneNo())
                     .build()
             )
             .workersCount(request.workerNumber())
-            .representativePhoneNo(request.representativePhoneNo())
             .email(request.email())
             .isMou(false)
             .bizNo(request.businessNumber())
             .representative(request.representativeName())
-            .representativePhoneNo(request.representativePhoneNo())
             .foundedAt(request.foundedAt())
             .attachmentUrls(request.attachmentUrls())
-            .branchExists(request.branchExists())
+            .headquarter(request.headquarter())
             .build();
     }
 
@@ -106,16 +102,15 @@ public class Company {
             .managerInfo(
                 ManagerInfo.builder()
                     .managerName(request.managerName())
-                    .managerPhoneNo(request.managerPhoneNo())
+                    .representativePhoneNo(request.representativePhoneNo())
                     .build()
             )
             .companyIntroduce(request.companyIntroduce())
-            .representativePhoneNo(request.representativePhoneNo())
             .companyLogoUrl(request.companyProfileUrl())
             .email(request.email())
             .serviceName(request.serviceName())
             .attachmentUrls(request.attachmentUrls())
-            .branchExists(request.branchExists())
+            .headquarter(request.headquarter())
             .build();
     }
 

@@ -65,10 +65,6 @@ public class CompanyEntity {
     private String representative;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(255)")
-    private String representativePhoneNo;
-
-    @NotNull
     @Column(columnDefinition = "DATE")
     private LocalDate foundedAt;
 
@@ -112,14 +108,14 @@ public class CompanyEntity {
 
     @NotNull
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean branchExists;
+    private boolean headquarter;
 
     @Builder
     public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
                          List<String> attachmentUrls, String representative, LocalDate foundedAt, double take, int workersCount,
-                         String managerName, String managerPhoneNo, String companyIntroduce, String companyLogoUrl, String email,
+                         String managerName, String representativePhoneNo, String companyIntroduce, String companyLogoUrl, String email,
                          String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type,
-                         boolean isMou, String representativePhoneNo, boolean branchExists) {
+                         boolean isMou, boolean headquarter) {
         this.id = id;
         this.name = name;
         this.isMou = isMou;
@@ -127,18 +123,17 @@ public class CompanyEntity {
         this.businessArea = businessArea;
         this.serviceName = serviceName;
         this.type = type;
-        this.representativePhoneNo = representativePhoneNo;
         this.address = new Address(mainAddress, mainAddressDetail, mainZipCode);
         this.representative = representative;
         this.foundedAt = foundedAt;
         this.take = take;
         this.workersCount = workersCount;
-        this.manager = new Manager(managerName, managerPhoneNo);
+        this.manager = new Manager(managerName, representativePhoneNo);
         this.email = email;
         this.bizNo = bizNo;
         this.companyIntroduce = companyIntroduce;
         this.companyLogoUrl = companyLogoUrl;
         this.attachmentUrls = attachmentUrls;
-        this.branchExists = branchExists;
+        this.headquarter = headquarter;
     }
 }

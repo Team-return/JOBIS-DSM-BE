@@ -14,10 +14,9 @@ public record RegisterCompanyRequest(
     String mainAddress,
     String mainAddressDetail,
     String managerName,
-    String managerPhoneNo,
+    String representativePhoneNo,
     String email,
     String representativeName,
-    String representativePhoneNo,
     LocalDate foundedAt,
     int workerNumber,
     double take,
@@ -26,7 +25,7 @@ public record RegisterCompanyRequest(
     Long businessAreaCode,
     String serviceName,
     List<String> attachmentUrls,
-    boolean branchExists
+    boolean headquarter
 ) {
 
 }

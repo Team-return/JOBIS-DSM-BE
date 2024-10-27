@@ -25,8 +25,8 @@ public class ApplyRecruitmentWebRequest {
     @ValidListElements
     private List<RecruitAreaWebRequest> areas;
 
-    @Max(100)
-    private Integer requiredGrade;
+    @Size(max = 100)
+    private String additionalQualifications;
 
     @NotBlank
     private String workingHours;
@@ -64,7 +64,7 @@ public class ApplyRecruitmentWebRequest {
     @NotNull
     private Boolean winterIntern;
 
-    private Boolean isHireConvertible;
+    private Boolean hireConvertible;
 
     @Size(max = 350)
     private String etc;
@@ -76,7 +76,7 @@ public class ApplyRecruitmentWebRequest {
 
         return ApplyRecruitmentRequest.builder()
             .areas(this.areas.stream().map(RecruitAreaWebRequest::toDomainRequest).toList())
-            .requiredGrade(this.requiredGrade)
+            .additionalQualifications(this.additionalQualifications)
             .workingHours(this.workingHours)
             .requiredLicenses(this.requiredLicenses)
             .hiringProgress(this.hiringProgress)
@@ -89,7 +89,7 @@ public class ApplyRecruitmentWebRequest {
             .startDate(this.startDate)
             .endDate(this.endDate)
             .winterIntern(this.winterIntern)
-            .isHireConvertible(this.isHireConvertible)
+            .hireConvertible(this.hireConvertible)
             .etc(this.etc)
             .build();
     }

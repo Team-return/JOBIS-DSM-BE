@@ -27,15 +27,14 @@ public class CompanyMapper {
             .mainZipCode(domain.getAddressInfo().mainZipCode())
             .bizRegistrationUrl(domain.getBizRegistrationUrl())
             .managerName(domain.getManagerInfo().managerName())
-            .managerPhoneNo(domain.getManagerInfo().managerPhoneNo())
+            .representativePhoneNo(domain.getManagerInfo().representativePhoneNo())
             .representative(domain.getRepresentative())
-            .representativePhoneNo(domain.getRepresentativePhoneNo())
             .serviceName(domain.getServiceName())
             .take(domain.getTake())
             .isMou(domain.isMou())
             .workersCount(domain.getWorkersCount())
             .attachmentUrls(domain.getAttachmentUrls())
-            .branchExists(domain.isBranchExists())
+            .headquarter(domain.isHeadquarter())
             .build();
     }
 
@@ -62,16 +61,15 @@ public class CompanyMapper {
             .managerInfo(
                 ManagerInfo.builder()
                     .managerName(entity.getManager().getManagerName())
-                    .managerPhoneNo(entity.getManager().getManagerPhoneNo())
+                    .representativePhoneNo(entity.getManager().getRepresentativePhoneNo())
                     .build()
             )
             .representative(entity.getRepresentative())
-            .representativePhoneNo(entity.getRepresentativePhoneNo())
             .serviceName(entity.getServiceName())
             .take(entity.getTake())
             .workersCount(entity.getWorkersCount())
             .attachmentUrls(entity.getAttachmentUrls())
-            .branchExists(entity.isBranchExists())
+            .headquarter(entity.isHeadquarter())
             .build();
     }
 }

@@ -30,7 +30,7 @@ public class RecruitmentMapper {
             .status(domain.getStatus())
             .startDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().startDate())
             .endDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().endDate())
-            .requiredGrade(domain.getRequiredGrade())
+            .additionalQualifications(domain.getAdditionalQualifications())
             .requiredLicenses(domain.getRequiredLicenses())
             .pay(domain.getSalary().pay())
             .submitDocument(domain.getSubmitDocument())
@@ -39,7 +39,7 @@ public class RecruitmentMapper {
             .workingHours(domain.getWorkingHours())
             .flexibleWorking(domain.isFlexibleWorking())
             .winterIntern(domain.isWinterIntern())
-            .isHireConvertible(domain.getIsHireConvertible())
+            .hireConvertible(domain.getHireConvertible())
             .build();
     }
 
@@ -68,12 +68,12 @@ public class RecruitmentMapper {
             ))
             .workingHours(entity.getWorkingHours())
             .flexibleWorking(entity.isFlexibleWorking())
-            .requiredGrade(entity.getRequiredGrade())
+            .additionalQualifications(entity.getAdditionalQualifications())
             .requiredLicenses(entity.getRequiredLicenses())
             .submitDocument(entity.getSubmitDocument())
             .submitDocument(entity.getSubmitDocument())
             .winterIntern(entity.isWinterIntern())
-            .isHireConvertible(entity.getIsHireConvertible())
+            .hireConvertible(entity.getHireConvertible())
             .createdAt(entity.getCreatedAt())
             .build();
     }

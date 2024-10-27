@@ -23,10 +23,9 @@ public class QueryCompanyDetailsResponse {
     private final String mainAddressDetail;
     private final String mainZipCode;
     private final String managerName;
-    private final String managerPhoneNo;
+    private final String representativePhoneNo;
     private final String email;
     private final String representativeName;
-    private final String representativePhoneNo;
     private final LocalDate foundedAt;
     private final int workerNumber;
     private final double take;
@@ -36,7 +35,7 @@ public class QueryCompanyDetailsResponse {
     private final Long businessAreaCode;
     private final String businessArea;
     private final String bizRegistrationUrl;
-    private final boolean branchExists;
+    private final boolean headquarter;
 
     public static QueryCompanyDetailsResponse from(CompanyDetailsVO vo) {
         return QueryCompanyDetailsResponse.builder()
@@ -48,10 +47,9 @@ public class QueryCompanyDetailsResponse {
             .mainAddress(vo.getMainAddress())
             .mainAddressDetail(vo.getMainAddressDetail())
             .managerName(vo.getManagerName())
-            .managerPhoneNo(vo.getManagerPhoneNo())
+            .representativePhoneNo(vo.getRepresentativePhoneNo())
             .email(vo.getEmail())
             .representativeName(vo.getRepresentativeName())
-            .representativePhoneNo(vo.getRepresentativePhoneNo())
             .foundedAt(vo.getFoundedAt())
             .workerNumber(vo.getWorkerNumber())
             .take(vo.getTake())
@@ -60,7 +58,7 @@ public class QueryCompanyDetailsResponse {
             .serviceName(vo.getServiceName())
             .businessArea(vo.getBusinessArea())
             .bizRegistrationUrl(vo.getBizRegistrationUrl())
-            .branchExists(vo.isBranchExists())
+            .headquarter(vo.isHeadquarter())
             .build();
     }
 }

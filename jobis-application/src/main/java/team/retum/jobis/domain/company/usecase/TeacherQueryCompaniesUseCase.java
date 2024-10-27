@@ -58,10 +58,29 @@ public class TeacherQueryCompaniesUseCase {
         );
     }
 
-    public CompanyCountResponse countCompanies() {
-        Long count = queryCompanyPort.countCompanies();
+    public CompanyCountResponse countCompanies(
+        CompanyType type,
+        String companyName,
+        String region,
+        Long businessArea
+    ) {
 
-        return new CompanyCountResponse(count);
+        CompanyFilter filter = CompanyFilter.builder()
+            .type(type)
+            .name(companyName)
+            .region(region)
+            .businessArea(
+                businessArea == null ? null :
+                    queryCodePort.getByIdOrThrow(businessArea)
+                        .getKeyword()
+            )
+            .limit(1000)
+            .build();
+
+
+        return new CompanyCountResponse(
+            queryCompanyPort.getByConditions(filter).stream().toList().size()
+        );
     }
 
     public TotalPageCountResponse getTotalPageCount(CompanyType type, String companyName, String region, Long businessArea) {

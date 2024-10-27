@@ -137,7 +137,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .limit(filter.getLimit());
         }
 
-
         return query
             .fetch().stream()
             .map(TeacherCompaniesVO.class::cast)
@@ -183,10 +182,9 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         companyEntity.address.mainAddress,
                         companyEntity.address.mainAddressDetail,
                         companyEntity.manager.managerName,
-                        companyEntity.manager.managerPhoneNo,
+                        companyEntity.manager.representativePhoneNo,
                         companyEntity.email,
                         companyEntity.representative,
-                        companyEntity.representativePhoneNo,
                         companyEntity.foundedAt,
                         companyEntity.workersCount,
                         companyEntity.take,
@@ -196,7 +194,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         companyEntity.businessArea,
                         companyEntity.attachmentUrls,
                         companyEntity.bizRegistrationUrl,
-                        companyEntity.branchExists
+                        companyEntity.headquarter
                     )
                 )
                 .from(companyEntity)
@@ -326,14 +324,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 groupBy(recruitmentEntity.id)
                     .as(companyEntity.name)
             );
-    }
-
-    @Override
-    public Long countCompanies() {
-        return queryFactory
-            .select(companyEntity.count())
-            .from(companyEntity)
-            .fetchOne();
     }
 
     @Override

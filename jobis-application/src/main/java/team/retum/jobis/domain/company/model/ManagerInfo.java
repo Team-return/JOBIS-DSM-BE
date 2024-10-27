@@ -5,7 +5,7 @@ import lombok.Builder;
 @Builder
 public record ManagerInfo(
     String managerName,
-    String managerPhoneNo
+    String representativePhoneNo
 ) {
 
 }

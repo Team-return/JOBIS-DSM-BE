@@ -15,4 +15,11 @@ public class ApplicationFilter {
     private final ApplicationStatus applicationStatus;
     private final String studentName;
     private final Year year;
+    private final Long page;
+    @Builder.Default
+    private int limit = 10;
+
+    public Long getOffset() {
+        return (page - 1) * limit;
+    }
 }

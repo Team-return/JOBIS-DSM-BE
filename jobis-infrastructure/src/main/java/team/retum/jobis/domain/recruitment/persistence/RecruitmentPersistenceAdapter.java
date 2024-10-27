@@ -116,7 +116,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
                     companyEntity.id,
-                    recruitmentEntity.isHireConvertible
+                    recruitmentEntity.hireConvertible
                 )
             )
             .from(recruitmentEntity)
@@ -176,7 +176,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
                     companyEntity.id,
-                    recruitmentEntity.isHireConvertible
+                    recruitmentEntity.hireConvertible
                 )
             )
             .from(recruitmentEntity)
@@ -222,7 +222,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                             companyEntity.id,
                             companyEntity.companyLogoUrl,
                             companyEntity.name,
-                            recruitmentEntity.requiredGrade,
+                            recruitmentEntity.additionalQualifications,
                             recruitmentEntity.workingHours,
                             recruitmentEntity.flexibleWorking,
                             recruitmentEntity.requiredLicenses,
@@ -238,7 +238,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                             companyEntity.bizNo,
                             recruitmentEntity.winterIntern,
                             bookmarkEntity.isNotNull(),
-                            recruitmentEntity.isHireConvertible
+                            recruitmentEntity.hireConvertible
                         )
                     )
                     .from(recruitmentEntity)
@@ -390,14 +390,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     )
             ).stream().map(MyAllRecruitmentsVO.class::cast)
             .toList();
-    }
-
-    @Override
-    public Long countRecruitments() {
-        return queryFactory
-            .select(recruitmentEntity.count())
-            .from(recruitmentEntity)
-            .fetchOne();
     }
 
     @Override

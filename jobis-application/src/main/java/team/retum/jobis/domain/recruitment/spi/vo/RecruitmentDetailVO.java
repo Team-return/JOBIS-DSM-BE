@@ -15,7 +15,7 @@ public class RecruitmentDetailVO {
     private final Long companyId;
     private final String companyProfileUrl;
     private final String companyName;
-    private final Integer requiredGrade;
+    private final String additionalQualifications;
     private final String workingHours;
     private final boolean flexibleWorking;
     private final List<String> requiredLicenses;
@@ -23,7 +23,7 @@ public class RecruitmentDetailVO {
     private final Integer trainPay;
     private final String pay;
     private final String benefits;
-    private final Boolean military;
+    private final Boolean militarySupport;
     private final String submitDocument;
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -31,5 +31,5 @@ public class RecruitmentDetailVO {
     private final String companyBizNo;
     private final boolean winterIntern;
     private final boolean isBookmarked;
-    private final Boolean isHireConvertible;
+    private final Boolean hireConvertible;
 }

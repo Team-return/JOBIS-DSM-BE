@@ -28,7 +28,7 @@ public class Recruitment {
 
     private final List<String> requiredLicenses;
 
-    private final Integer requiredGrade;
+    private final String additionalQualifications;
 
     private final String workingHours;
 
@@ -52,7 +52,7 @@ public class Recruitment {
 
     private final boolean winterIntern;
 
-    private final Boolean isHireConvertible;
+    private final Boolean hireConvertible;
 
     private final Long companyId;
 
@@ -69,14 +69,14 @@ public class Recruitment {
             .salary(new Salary(request.trainPay(), request.pay()))
             .requiredLicenses(request.requiredLicenses())
             .status(RecruitStatus.REQUESTED)
-            .requiredGrade(request.requiredGrade())
+            .additionalQualifications(request.additionalQualifications())
             .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
             .submitDocument(request.submitDocument())
             .benefits(request.benefits())
             .etc(request.etc())
             .hiringProgress(request.hiringProgress())
             .winterIntern(request.winterIntern())
-            .isHireConvertible(request.isHireConvertible())
+            .hireConvertible(request.hireConvertible())
             .build();
     }
 
@@ -134,17 +134,17 @@ public class Recruitment {
 
     public Recruitment update(UpdateRecruitmentRequest request) {
         return this.toBuilder()
-            .requiredGrade(request.requiredGrade())
+            .additionalQualifications(request.additionalQualifications())
             .workingHours(request.workingHours())
             .flexibleWorking(request.flexibleWorking())
             .requiredLicenses(request.requiredLicenses())
             .hiringProgress(request.hiringProgress())
             .salary(new Salary(request.trainPay(), request.pay()))
             .benefits(request.benefits())
-            .militarySupport(request.military())
+            .militarySupport(request.militarySupport())
             .submitDocument(request.submitDocument())
             .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
-            .isHireConvertible(request.hireConvertible())
+            .hireConvertible(request.hireConvertible())
             .etc(request.etc())
             .build();
     }
