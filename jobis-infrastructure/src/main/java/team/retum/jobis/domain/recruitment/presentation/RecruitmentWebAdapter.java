@@ -178,6 +178,7 @@ public class RecruitmentWebAdapter {
         return teacherQueryRecruitmentsUseCase.executeWithoutPage(year, this.parseCodes(jobCode, techCodes), winterIntern, militarySupport);
     }
 
+    @Cacheable
     @GetMapping("/count")
     public RecruitmentCountResponse countRecruitments(
         @RequestParam(value = "company_name", required = false) String companyName,

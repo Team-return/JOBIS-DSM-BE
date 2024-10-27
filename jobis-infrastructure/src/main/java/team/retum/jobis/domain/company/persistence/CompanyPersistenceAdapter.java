@@ -137,7 +137,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .limit(filter.getLimit());
         }
 
-
         return query
             .fetch().stream()
             .map(TeacherCompaniesVO.class::cast)

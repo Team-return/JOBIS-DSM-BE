@@ -48,7 +48,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ApplicationVO> getAllByConditions(ApplicationFilter applicationFilter) {
+    public List<ApplicationVO> getAllByConditions(ApplicationFilter filter) {
         return queryFactory
             .selectFrom(applicationEntity)
             .join(applicationEntity.student, studentEntity)
@@ -56,11 +56,11 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .join(recruitmentEntity.company, companyEntity)
             .leftJoin(applicationEntity.applicationAttachments, applicationAttachmentEntity)
             .where(
-                eqRecruitmentId(applicationFilter.getRecruitmentId()),
-                eqStudentId(applicationFilter.getStudentId()),
-                eqApplicationStatus(applicationFilter.getApplicationStatus()),
-                containStudentName(applicationFilter.getStudentName()),
-                eqYear(applicationFilter.getYear())
+                eqRecruitmentId(filter.getRecruitmentId()),
+                eqStudentId(filter.getStudentId()),
+                eqApplicationStatus(filter.getApplicationStatus()),
+                containStudentName(filter.getStudentName()),
+                eqYear(filter.getYear())
             )
             .orderBy(
                 applicationEntity.updatedAt.desc(),
@@ -317,14 +317,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         queryFactory.delete(applicationAttachmentEntity)
             .where(applicationAttachmentEntity.application.id.eq(applicationId))
             .execute();
-    }
-
-    @Override
-    public Long countApplications() {
-        return queryFactory
-            .select(applicationEntity.count())
-            .from(applicationEntity)
-            .fetchOne();
     }
 
     @Override

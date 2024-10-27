@@ -169,6 +169,7 @@ public class CompanyWebAdapter {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page);
     }
 
+    @Cacheable
     @GetMapping("/count")
     public CompanyCountResponse countCompanies(
         @RequestParam(value = "type", required = false) CompanyType type,

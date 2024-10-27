@@ -68,7 +68,6 @@ public class TeacherQueryRecruitmentsUseCase {
             .endDate(end)
             .codes(List.of())
             .year(year)
-            .page(1L)
             .winterIntern(winterIntern)
             .militarySupport(militarySupport)
             .codes(codeIds)
