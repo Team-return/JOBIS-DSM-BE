@@ -45,7 +45,7 @@ public class TeacherQueryApplicationsUseCase {
         String studentName,
         Long recruitmentId,
         Year year
-        ) {
+    ) {
 
         ApplicationFilter applicationFilter = ApplicationFilter.builder()
             .recruitmentId(recruitmentId)
