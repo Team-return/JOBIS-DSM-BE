@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ApplicationCountResponse {
 
-    private Long count;
+    private int count;
 }

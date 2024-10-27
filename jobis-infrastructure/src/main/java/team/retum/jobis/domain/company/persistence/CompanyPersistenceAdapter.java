@@ -137,7 +137,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 .limit(filter.getLimit());
         }
 
-
         return query
             .fetch().stream()
             .map(TeacherCompaniesVO.class::cast)
@@ -325,14 +324,6 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 groupBy(recruitmentEntity.id)
                     .as(companyEntity.name)
             );
-    }
-
-    @Override
-    public Long countCompanies() {
-        return queryFactory
-            .select(companyEntity.count())
-            .from(companyEntity)
-            .fetchOne();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.application.presentation;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -118,14 +119,21 @@ public class ApplicationWebAdapter {
         @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
         @RequestParam(value = "student_name", required = false) String studentName,
         @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
-        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
+        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year,
+        @RequestParam(value = "page", defaultValue = "1") @Positive Long page
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year, page);
     }
 
+    @Cacheable
     @GetMapping("/count")
-    public ApplicationCountResponse countApplications() {
-        return queryApplicationListService.countApplications();
+    public ApplicationCountResponse countApplications(
+        @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
+        @RequestParam(value = "student_name", required = false) String studentName,
+        @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
+    ) {
+        return queryApplicationListService.countApplications(applicationStatus, studentName, recruitmentId, year);
     }
 
     @Cacheable
