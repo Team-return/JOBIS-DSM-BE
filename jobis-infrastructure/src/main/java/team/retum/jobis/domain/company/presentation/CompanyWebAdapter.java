@@ -47,7 +47,6 @@ import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCas
 import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
-import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
 import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;

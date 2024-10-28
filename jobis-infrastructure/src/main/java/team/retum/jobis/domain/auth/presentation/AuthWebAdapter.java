@@ -34,10 +34,7 @@ public class AuthWebAdapter {
 
     @PostMapping("/company")
     public TokenResponse companySignIn(@RequestBody @Valid CompanySignInWebRequest request) {
-        return companySignInUseCase.execute(
-            request.getBusinessNumber(),
-            request.getAuthCode()
-        );
+        return companySignInUseCase.execute(request.getBusinessNumber());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
