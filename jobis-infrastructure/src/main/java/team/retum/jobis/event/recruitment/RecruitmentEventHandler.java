@@ -8,6 +8,9 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.bookmark.spi.QueryBookmarkPort;
 import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
+import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
+import team.retum.jobis.domain.company.model.Company;
+import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
@@ -37,6 +40,7 @@ public class RecruitmentEventHandler {
     private final QueryStudentPort queryStudentPort;
     private final QueryUserPort queryUserPort;
     private final QueryRecruitAreaPort queryRecruitAreaPort;
+    private final QueryCompanyPort queryCompanyPort;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -115,12 +119,17 @@ public class RecruitmentEventHandler {
         if (recruitment.isWinterIntern()) {
             List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN_REGISTERED);
 
+            Company company = queryCompanyPort.getById(recruitment.getCompanyId())
+                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+
+            String companyName = company.getName();
+
             deviceTokens.forEach(deviceToken -> {
                 User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
                 Notification notification = Notification.builder()
-                    .title("겨울 인턴 모집 안내")
-                    .content("새로운 겨울 인턴형 모집의뢰서가 등록되었습니다. 확인해보세요!")
+                    .title("새로운 체험형 모집의뢰서가 등록되었습니다.")
+                    .content(companyName + "에서 모집의뢰서를 등록했어요. 확인해보세요!")
                     .userId(user.getId())
                     .detailId(recruitment.getId())
                     .topic(Topic.WINTER_INTERN_REGISTERED)
