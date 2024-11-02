@@ -13,6 +13,7 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
+import team.retum.jobis.domain.recruitment.event.WinterInternRegisteredEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitAreaPort;
 import team.retum.jobis.domain.student.model.Student;
@@ -103,6 +104,34 @@ public class RecruitmentEventHandler {
             }
 
             fcmUtil.sendMessages(repNotification, tokens);
+        }
+    }
+
+    @Async("asyncTaskExecutor")
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onWinterInternRegistered(WinterInternRegisteredEvent event) {
+        Recruitment recruitment = event.getRecruitment();
+
+        if (recruitment.isWinterIntern()) {
+            List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN_REGISTERED);
+
+            deviceTokens.forEach(deviceToken -> {
+                User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
+
+                Notification notification = Notification.builder()
+                    .title("겨울 인턴 모집 안내")
+                    .content("새로운 겨울 인턴형 모집의뢰서가 등록되었습니다. 확인해보세요!")
+                    .userId(user.getId())
+                    .detailId(recruitment.getId())
+                    .topic(Topic.WINTER_INTERN_REGISTERED)
+                    .authority(Authority.STUDENT)
+                    .isNew(true)
+                    .build();
+
+                commandNotificationPort.save(notification);
+
+                fcmUtil.sendMessageToTopic(notification);
+            });
         }
     }
 }
