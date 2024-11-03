@@ -128,8 +128,8 @@ public class RecruitmentEventHandler {
                 User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
                 Notification notification = Notification.builder()
-                    .title("새로운 체험형 모집의뢰서가 등록되었습니다.")
-                    .content(companyName + "에서 모집의뢰서를 등록했어요. 확인해보세요!")
+                    .title(companyName  + "겨울 인턴십 모집 공고 ⛄️")
+                    .content("겨울 인턴십 모집 의뢰서가 등록되었어요. 지금 확인해보세요!")
                     .userId(user.getId())
                     .detailId(recruitment.getId())
                     .topic(Topic.WINTER_INTERN_REGISTERED)
