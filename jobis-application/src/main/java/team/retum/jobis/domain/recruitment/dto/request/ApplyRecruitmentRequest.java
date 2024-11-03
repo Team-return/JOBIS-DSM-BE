@@ -17,7 +17,7 @@ public record ApplyRecruitmentRequest(
     int trainPay,
     String pay,
     String benefits,
-    boolean militarySupport,
+    Boolean militarySupport,
     boolean personalContact,
     String submitDocument,
     LocalDate startDate,
