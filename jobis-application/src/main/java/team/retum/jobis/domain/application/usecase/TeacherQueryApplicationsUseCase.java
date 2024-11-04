@@ -24,6 +24,7 @@ public class TeacherQueryApplicationsUseCase {
         ApplicationStatus applicationStatus,
         String studentName,
         Long recruitmentId,
+        Boolean winterIntern,
         Year year,
         Long page
     ) {
@@ -31,6 +32,7 @@ public class TeacherQueryApplicationsUseCase {
             .recruitmentId(recruitmentId)
             .applicationStatus(applicationStatus)
             .studentName(studentName)
+            .winterIntern(winterIntern)
             .year(year)
             .page(page)
             .build();
@@ -44,6 +46,7 @@ public class TeacherQueryApplicationsUseCase {
         ApplicationStatus applicationStatus,
         String studentName,
         Long recruitmentId,
+        Boolean winterIntern,
         Year year
     ) {
 
@@ -51,6 +54,7 @@ public class TeacherQueryApplicationsUseCase {
             .recruitmentId(recruitmentId)
             .applicationStatus(applicationStatus)
             .studentName(studentName)
+            .winterIntern(winterIntern)
             .year(year)
             .page(1L)
             .limit(1000)

@@ -14,6 +14,7 @@ public class ApplicationFilter {
     private final Long studentId;
     private final ApplicationStatus applicationStatus;
     private final String studentName;
+    private final Boolean winterIntern;
     private final Year year;
     private final Long page;
     @Builder.Default

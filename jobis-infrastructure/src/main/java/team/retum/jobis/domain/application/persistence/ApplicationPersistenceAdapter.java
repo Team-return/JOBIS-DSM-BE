@@ -60,6 +60,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 eqStudentId(filter.getStudentId()),
                 eqApplicationStatus(filter.getApplicationStatus()),
                 containStudentName(filter.getStudentName()),
+                eqWinterIntern(filter.getWinterIntern()),
                 eqYear(filter.getYear())
             )
             .orderBy(
@@ -344,6 +345,10 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     private BooleanExpression containStudentName(String studentName) {
         return studentName == null ? null : studentEntity.name.contains(studentName);
+    }
+
+    private BooleanExpression eqWinterIntern(Boolean winterIntern) {
+        return winterIntern == null ? null : applicationEntity.recruitment.winterIntern.eq(winterIntern);
     }
 
     private BooleanExpression recentRecruitment(Long companyId) {
