@@ -42,10 +42,6 @@ public class ApplyRecruitmentUseCase {
         commandRecruitAreaPort.saveAll(recruitAreas);
 
         publishEventPort.publishEvent(new InterestedRecruitmentEvent(recruitment));
-
-        if (recruitment.isWinterIntern()) {
-            publishEventPort.publishEvent(new WinterInternRegisteredEvent(recruitment));
-        }
     }
 
     public void executeInterestCodeMatch() {
