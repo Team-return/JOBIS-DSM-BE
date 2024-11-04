@@ -60,7 +60,7 @@ public class RecruitmentEventHandler {
                     .title(bookmarkUser.getCompanyName())
                     .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
                     .userId(bookmarkUser.getUserId())
-                    .topic(Topic.RECRUITMENT_DONE)
+                    .topic(Topic.RECRUITMENT)
                     .detailId(recruitment.getId())
                     .authority(Authority.STUDENT)
                     .isNew(true)
@@ -96,7 +96,7 @@ public class RecruitmentEventHandler {
                     .content(student.getName() + " 님이 관심 있을 만한 모집의뢰서가 추가되었어요!")
                     .userId(user.getId())
                     .detailId(recruitment.getId())
-                    .topic(Topic.NEW_INTERESTED_RECRUITMENT)
+                    .topic(Topic.RECRUITMENT)
                     .authority(Authority.STUDENT)
                     .isNew(true)
                     .build();
@@ -119,7 +119,7 @@ public class RecruitmentEventHandler {
 
         for (Recruitment recruitment : recruitments) {
             if (recruitment.isWinterIntern() && recruitment.getStatus() == RecruitStatus.RECRUITING) {
-                List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN_REGISTERED);
+                List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
 
                 Company company = queryCompanyPort.getById(recruitment.getCompanyId())
                     .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
@@ -134,7 +134,7 @@ public class RecruitmentEventHandler {
                         .content("겨울 인턴십 모집 의뢰서가 등록되었어요. 지금 확인해보세요!")
                         .userId(user.getId())
                         .detailId(recruitment.getId())
-                        .topic(Topic.WINTER_INTERN_REGISTERED)
+                        .topic(Topic.WINTER_INTERN)
                         .authority(Authority.STUDENT)
                         .isNew(true)
                         .build();

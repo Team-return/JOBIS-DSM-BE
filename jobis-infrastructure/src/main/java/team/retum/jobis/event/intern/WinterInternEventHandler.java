@@ -27,7 +27,7 @@ public class WinterInternEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onWinterInternToggled(WinterInternToggledEvent event) {
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN_STATUS_CHANGED);
+        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
 
         deviceTokens.forEach(deviceToken -> {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
@@ -38,7 +38,7 @@ public class WinterInternEventHandler {
                     .content("오늘부터 체험형 현장실습을 지원하실 수 있어요.")
                     .userId(user.getId())
                     .detailId(0L)
-                    .topic(Topic.WINTER_INTERN_STATUS_CHANGED)
+                    .topic(Topic.WINTER_INTERN)
                     .authority(Authority.STUDENT)
                     .isNew(true)
                     .build();
