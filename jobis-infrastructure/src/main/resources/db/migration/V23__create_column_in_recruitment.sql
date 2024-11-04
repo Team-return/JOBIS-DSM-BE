@@ -1,0 +1,1 @@
+alter table tbl_recruitment add column integration_plan tinyint(1) not null;

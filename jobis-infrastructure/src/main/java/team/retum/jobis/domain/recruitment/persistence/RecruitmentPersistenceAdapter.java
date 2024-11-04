@@ -238,7 +238,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                             companyEntity.bizNo,
                             recruitmentEntity.winterIntern,
                             bookmarkEntity.isNotNull(),
-                            recruitmentEntity.hireConvertible
+                            recruitmentEntity.hireConvertible,
+                            recruitmentEntity.integrationPlan
                         )
                     )
                     .from(recruitmentEntity)

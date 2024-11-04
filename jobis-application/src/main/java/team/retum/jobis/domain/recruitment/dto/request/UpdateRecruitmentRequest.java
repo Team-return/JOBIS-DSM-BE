@@ -21,7 +21,8 @@ public record UpdateRecruitmentRequest(
     LocalDate startDate,
     LocalDate endDate,
     Boolean hireConvertible,
-    String etc
+    String etc,
+    Boolean integrationPlan
 ) {
 
 }
