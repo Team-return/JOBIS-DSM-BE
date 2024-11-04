@@ -71,9 +71,8 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(550)")
     private String benefits;
 
-    @NotNull
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean militarySupport;
+    private Boolean militarySupport;
 
     @NotNull
     @Convert(converter = HiringProgressConverter.class)
@@ -111,7 +110,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @Builder
     public RecruitmentEntity(Long id, int recruitYear, RecruitStatus status, String workingHours, Integer trainPay, String pay,
                              String submitDocument, LocalDate startDate, LocalDate endDate, CompanyEntity companyEntity,
-                             String benefits, boolean militarySupport, List<String> requiredLicenses, String etc,
+                             String benefits, Boolean militarySupport, List<String> requiredLicenses, String etc,
                              List<ProgressType> hiringProgress, String additionalQualifications, boolean flexibleWorking,
                              boolean personalContact, boolean winterIntern, Boolean hireConvertible) {
         this.id = id;

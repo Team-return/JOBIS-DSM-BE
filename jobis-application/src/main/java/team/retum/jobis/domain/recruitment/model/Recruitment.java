@@ -36,7 +36,7 @@ public class Recruitment {
 
     private final String benefits;
 
-    private final boolean militarySupport;
+    private final Boolean militarySupport;
 
     private final List<ProgressType> hiringProgress;
 

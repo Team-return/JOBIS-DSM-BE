@@ -41,7 +41,6 @@ public class UpdateRecruitmentWebRequest {
     @Size(max = 550)
     private String benefits;
 
-    @NotNull
     private Boolean militarySupport;
 
     @Size(max = 100)

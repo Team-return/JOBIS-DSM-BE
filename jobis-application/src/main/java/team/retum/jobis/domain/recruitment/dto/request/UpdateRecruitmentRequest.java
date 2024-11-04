@@ -16,7 +16,7 @@ public record UpdateRecruitmentRequest(
     Integer trainPay,
     String pay,
     String benefits,
-    boolean militarySupport,
+    Boolean militarySupport,
     String submitDocument,
     LocalDate startDate,
     LocalDate endDate,
