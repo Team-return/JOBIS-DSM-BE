@@ -24,7 +24,7 @@ public class CompanyMyPageResponse {
     private final double take;
     private final int workersCount;
     private final String managerName;
-    private final String representativePhoneNo;
+    private final String managerPhoneNo;
     private final String email;
     private final String companyIntroduce;
     private final String companyLogoUrl;
@@ -48,7 +48,7 @@ public class CompanyMyPageResponse {
             .take(company.getTake())
             .workersCount(company.getWorkersCount())
             .managerName(company.getManagerInfo().managerName())
-            .representativePhoneNo(company.getManagerInfo().representativePhoneNo())
+            .managerPhoneNo(company.getManagerInfo().managerPhoneNo())
             .email(company.getEmail())
             .companyIntroduce(company.getCompanyIntroduce())
             .companyLogoUrl(company.getCompanyLogoUrl())

@@ -113,7 +113,7 @@ public class CompanyEntity {
     @Builder
     public CompanyEntity(Long id, String name, String mainAddress, String mainAddressDetail, String mainZipCode,
                          List<String> attachmentUrls, String representative, LocalDate foundedAt, double take, int workersCount,
-                         String managerName, String representativePhoneNo, String companyIntroduce, String companyLogoUrl, String email,
+                         String managerName, String managerPhoneNo, String companyIntroduce, String companyLogoUrl, String email,
                          String bizNo, String bizRegistrationUrl, String businessArea, String serviceName, CompanyType type,
                          boolean isMou, boolean headquarter) {
         this.id = id;
@@ -128,7 +128,7 @@ public class CompanyEntity {
         this.foundedAt = foundedAt;
         this.take = take;
         this.workersCount = workersCount;
-        this.manager = new Manager(managerName, representativePhoneNo);
+        this.manager = new Manager(managerName, managerPhoneNo);
         this.email = email;
         this.bizNo = bizNo;
         this.companyIntroduce = companyIntroduce;

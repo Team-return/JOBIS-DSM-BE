@@ -182,7 +182,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         companyEntity.address.mainAddress,
                         companyEntity.address.mainAddressDetail,
                         companyEntity.manager.managerName,
-                        companyEntity.manager.representativePhoneNo,
+                        companyEntity.manager.managerPhoneNo,
                         companyEntity.email,
                         companyEntity.representative,
                         companyEntity.foundedAt,

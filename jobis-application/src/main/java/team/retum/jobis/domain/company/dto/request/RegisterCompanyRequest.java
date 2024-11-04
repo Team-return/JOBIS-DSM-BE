@@ -14,7 +14,7 @@ public record RegisterCompanyRequest(
     String mainAddress,
     String mainAddressDetail,
     String managerName,
-    String representativePhoneNo,
+    String managerPhoneNo,
     String email,
     String representativeName,
     LocalDate foundedAt,

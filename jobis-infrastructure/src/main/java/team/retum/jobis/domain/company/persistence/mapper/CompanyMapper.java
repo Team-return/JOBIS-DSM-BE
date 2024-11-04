@@ -27,7 +27,7 @@ public class CompanyMapper {
             .mainZipCode(domain.getAddressInfo().mainZipCode())
             .bizRegistrationUrl(domain.getBizRegistrationUrl())
             .managerName(domain.getManagerInfo().managerName())
-            .representativePhoneNo(domain.getManagerInfo().representativePhoneNo())
+            .managerPhoneNo(domain.getManagerInfo().managerPhoneNo())
             .representative(domain.getRepresentative())
             .serviceName(domain.getServiceName())
             .take(domain.getTake())
@@ -61,7 +61,7 @@ public class CompanyMapper {
             .managerInfo(
                 ManagerInfo.builder()
                     .managerName(entity.getManager().getManagerName())
-                    .representativePhoneNo(entity.getManager().getRepresentativePhoneNo())
+                    .managerPhoneNo(entity.getManager().getManagerPhoneNo())
                     .build()
             )
             .representative(entity.getRepresentative())
