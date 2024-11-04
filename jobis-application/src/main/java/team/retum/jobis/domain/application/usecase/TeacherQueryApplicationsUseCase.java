@@ -24,6 +24,7 @@ public class TeacherQueryApplicationsUseCase {
         ApplicationStatus applicationStatus,
         String studentName,
         Long recruitmentId,
+        Boolean winterIntern,
         Year year,
         Long page
     ) {
@@ -31,6 +32,7 @@ public class TeacherQueryApplicationsUseCase {
             .recruitmentId(recruitmentId)
             .applicationStatus(applicationStatus)
             .studentName(studentName)
+            .winterIntern(winterIntern)
             .year(year)
             .page(page)
             .build();
@@ -44,6 +46,7 @@ public class TeacherQueryApplicationsUseCase {
         ApplicationStatus applicationStatus,
         String studentName,
         Long recruitmentId,
+        Boolean winterIntern,
         Year year
     ) {
 
@@ -51,6 +54,7 @@ public class TeacherQueryApplicationsUseCase {
             .recruitmentId(recruitmentId)
             .applicationStatus(applicationStatus)
             .studentName(studentName)
+            .winterIntern(winterIntern)
             .year(year)
             .page(1L)
             .limit(1000)
@@ -61,10 +65,10 @@ public class TeacherQueryApplicationsUseCase {
         return new ApplicationCountResponse(applicationVOs.size());
     }
 
-    public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName) {
+    public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName, Boolean winterIntern) {
         return new TotalPageCountResponse(
             NumberUtil.getTotalPageCount(
-                queryApplicationPort.getCountByCondition(applicationStatus, studentName), 11
+                queryApplicationPort.getCountByCondition(applicationStatus, studentName, winterIntern), 11
             )
         );
     }
