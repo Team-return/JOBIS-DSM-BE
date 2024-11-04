@@ -32,4 +32,5 @@ public class RecruitmentDetailVO {
     private final boolean winterIntern;
     private final boolean isBookmarked;
     private final Boolean hireConvertible;
+    private final Boolean integrationPlan;
 }

@@ -18,10 +18,10 @@ public class Manager {
     private String managerName;
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
-    private String representativePhoneNo;
+    private String managerPhoneNo;
 
-    public void update(String managerName, String representativePhoneNo) {
+    public void update(String managerName, String managerPhoneNo) {
         this.managerName = managerName;
-        this.representativePhoneNo = representativePhoneNo;
+        this.managerPhoneNo = managerPhoneNo;
     }
 }

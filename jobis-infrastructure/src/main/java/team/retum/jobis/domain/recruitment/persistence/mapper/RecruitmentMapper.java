@@ -40,6 +40,7 @@ public class RecruitmentMapper {
             .flexibleWorking(domain.isFlexibleWorking())
             .winterIntern(domain.isWinterIntern())
             .hireConvertible(domain.getHireConvertible())
+            .integrationPlan(domain.getIntegrationPlan())
             .build();
     }
 
@@ -74,6 +75,7 @@ public class RecruitmentMapper {
             .submitDocument(entity.getSubmitDocument())
             .winterIntern(entity.isWinterIntern())
             .hireConvertible(entity.getHireConvertible())
+            .integrationPlan(entity.getIntegrationPlan())
             .createdAt(entity.getCreatedAt())
             .build();
     }

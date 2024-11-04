@@ -38,6 +38,7 @@ public class QueryRecruitmentDetailResponse {
     private final boolean isBookmarked;
     private final Boolean hireConvertible;
     private final boolean winterIntern;
+    private final Boolean integrationPlan;
 
     public static QueryRecruitmentDetailResponse of(
         RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas,
@@ -66,6 +67,7 @@ public class QueryRecruitmentDetailResponse {
             .isBookmarked(recruitmentDetail.isBookmarked())
             .hireConvertible(recruitmentDetail.getHireConvertible())
             .winterIntern(recruitmentDetail.isWinterIntern())
+            .integrationPlan(recruitmentDetail.getIntegrationPlan())
             .build();
     }
 }
