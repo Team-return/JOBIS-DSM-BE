@@ -29,7 +29,7 @@ public class TopicSubscriptionEntity {
     @Id
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(26)")
+    @Column(columnDefinition = "VARCHAR(28)")
     private Topic topic;
 
     @NotNull
