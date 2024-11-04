@@ -65,10 +65,10 @@ public class TeacherQueryApplicationsUseCase {
         return new ApplicationCountResponse(applicationVOs.size());
     }
 
-    public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName) {
+    public TotalPageCountResponse getTotalPageCount(ApplicationStatus applicationStatus, String studentName, Boolean winterIntern) {
         return new TotalPageCountResponse(
             NumberUtil.getTotalPageCount(
-                queryApplicationPort.getCountByCondition(applicationStatus, studentName), 11
+                queryApplicationPort.getCountByCondition(applicationStatus, studentName, winterIntern), 11
             )
         );
     }

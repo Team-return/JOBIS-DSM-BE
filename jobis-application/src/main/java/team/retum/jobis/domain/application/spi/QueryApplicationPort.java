@@ -14,7 +14,7 @@ public interface QueryApplicationPort {
 
     List<ApplicationVO> getAllByConditions(ApplicationFilter applicationFilter);
 
-    Long getCountByCondition(ApplicationStatus applicationStatus, String studentName);
+    Long getCountByCondition(ApplicationStatus applicationStatus, String studentName, Boolean winterIntern);
 
     List<FieldTraineesVO> getFieldTraineesByCompanyId(Long companyId);
 

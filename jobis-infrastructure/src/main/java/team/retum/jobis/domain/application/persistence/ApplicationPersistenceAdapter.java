@@ -110,14 +110,15 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public Long getCountByCondition(ApplicationStatus applicationStatus, String studentName) {
+    public Long getCountByCondition(ApplicationStatus applicationStatus, String studentName, Boolean winterIntern) {
         return queryFactory
             .select(applicationEntity.count())
             .from(applicationEntity)
             .join(applicationEntity.student, studentEntity)
             .where(
                 eqApplicationStatus(applicationStatus),
-                containStudentName(studentName)
+                containStudentName(studentName),
+                eqWinterIntern(winterIntern)
             ).fetchOne();
     }
 
