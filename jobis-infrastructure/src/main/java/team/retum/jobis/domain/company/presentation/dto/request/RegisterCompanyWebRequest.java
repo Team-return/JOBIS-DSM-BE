@@ -60,6 +60,9 @@ public class RegisterCompanyWebRequest {
     @Size(max = 10)
     private String representativeName;
 
+    @Size(min = 9, max = 12)
+    private String representativePhoneNo;
+
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate foundedAt;

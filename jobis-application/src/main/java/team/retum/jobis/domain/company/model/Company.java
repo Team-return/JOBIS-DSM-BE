@@ -29,6 +29,8 @@ public class Company {
 
     private final String representative;
 
+    private final String representativePhoneNo;
+
     private final LocalDate foundedAt;
 
     private final double take;
@@ -82,6 +84,7 @@ public class Company {
             .isMou(false)
             .bizNo(request.businessNumber())
             .representative(request.representativeName())
+            .representativePhoneNo(request.representativePhoneNo())
             .foundedAt(request.foundedAt())
             .attachmentUrls(request.attachmentUrls())
             .headquarter(request.headquarter())
@@ -105,6 +108,7 @@ public class Company {
                     .managerPhoneNo(request.managerPhoneNo())
                     .build()
             )
+            .representativePhoneNo(request.representativePhoneNo())
             .companyIntroduce(request.companyIntroduce())
             .companyLogoUrl(request.companyProfileUrl())
             .email(request.email())
