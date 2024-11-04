@@ -56,6 +56,8 @@ public class UpdateRecruitmentWebRequest {
     @Size(max = 350)
     private String etc;
 
+    private Boolean integrationPlan;
+
     public UpdateRecruitmentRequest toDomainRequest() {
         if (!flexibleWorking && !Pattern.matches(RegexProperty.WORKING_HOURS, workingHours)) {
             throw BadRequestException.EXCEPTION;
@@ -76,6 +78,7 @@ public class UpdateRecruitmentWebRequest {
             .endDate(this.endDate)
             .hireConvertible(this.hireConvertible)
             .etc(this.etc)
+            .integrationPlan(this.integrationPlan)
             .build();
     }
 }
