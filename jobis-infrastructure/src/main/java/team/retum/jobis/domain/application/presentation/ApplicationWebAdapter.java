@@ -144,7 +144,7 @@ public class ApplicationWebAdapter {
         @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
         @RequestParam(value = "student_name", required = false) String studentName,
         @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
-        ) {
+    ) {
         return queryApplicationListService.getTotalPageCount(applicationStatus, studentName, winterIntern);
     }
 
