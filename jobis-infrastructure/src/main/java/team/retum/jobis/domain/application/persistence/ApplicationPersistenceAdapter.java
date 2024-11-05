@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.application.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -49,7 +50,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     @Override
     public List<ApplicationVO> getAllByConditions(ApplicationFilter filter) {
-        return queryFactory
+        JPAQuery<ApplicationEntity> query = queryFactory
             .selectFrom(applicationEntity)
             .join(applicationEntity.student, studentEntity)
             .join(applicationEntity.recruitment, recruitmentEntity)
@@ -63,12 +64,16 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 eqWinterIntern(filter.getWinterIntern()),
                 eqYear(filter.getYear())
             )
-            .offset(filter.getOffset())
-            .limit(filter.getLimit())
             .orderBy(
                 applicationEntity.updatedAt.desc(),
                 applicationEntity.createdAt.desc()
-            )
+            );
+
+        if (filter.getPage() != null) {
+            query.offset(filter.getOffset())
+                .limit(filter.getLimit());
+        }
+        return query
             .transform(
                 groupBy(applicationEntity.id)
                     .list(
