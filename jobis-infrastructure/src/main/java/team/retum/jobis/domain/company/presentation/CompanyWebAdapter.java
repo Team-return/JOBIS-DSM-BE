@@ -163,7 +163,7 @@ public class CompanyWebAdapter {
         @RequestParam(value = "name", required = false) String companyName,
         @RequestParam(value = "region", required = false) String region,
         @RequestParam(value = "business_area", required = false) Long businessArea,
-        @RequestParam(value = "page", required = false) @Positive Long page
+        @RequestParam(value = "page", required = false ,defaultValue = "1") @Positive Long page
     ) {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page);
     }
