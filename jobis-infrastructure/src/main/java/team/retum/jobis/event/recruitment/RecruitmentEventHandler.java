@@ -8,15 +8,12 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.bookmark.spi.QueryBookmarkPort;
 import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
-import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
-import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
-import team.retum.jobis.domain.recruitment.event.WinterInternRegisteredEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitAreaPort;
 import team.retum.jobis.domain.student.model.Student;
@@ -59,7 +56,7 @@ public class RecruitmentEventHandler {
                     .title(bookmarkUser.getCompanyName())
                     .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
                     .userId(bookmarkUser.getUserId())
-                    .topic(Topic.RECRUITMENT_DONE)
+                    .topic(Topic.RECRUITMENT)
                     .detailId(recruitment.getId())
                     .authority(Authority.STUDENT)
                     .isNew(true)
@@ -95,7 +92,7 @@ public class RecruitmentEventHandler {
                     .content(student.getName() + " 님이 관심 있을 만한 모집의뢰서가 추가되었어요!")
                     .userId(user.getId())
                     .detailId(recruitment.getId())
-                    .topic(Topic.NEW_INTERESTED_RECRUITMENT)
+                    .topic(Topic.RECRUITMENT)
                     .authority(Authority.STUDENT)
                     .isNew(true)
                     .build();
@@ -108,39 +105,6 @@ public class RecruitmentEventHandler {
             }
 
             fcmUtil.sendMessages(repNotification, tokens);
-        }
-    }
-
-    @Async("asyncTaskExecutor")
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onWinterInternRegistered(WinterInternRegisteredEvent event) {
-        Recruitment recruitment = event.getRecruitment();
-
-        if (recruitment.isWinterIntern()) {
-            List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN_REGISTERED);
-
-            Company company = queryCompanyPort.getById(recruitment.getCompanyId())
-                .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
-
-            String companyName = company.getName();
-
-            deviceTokens.forEach(deviceToken -> {
-                User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
-
-                Notification notification = Notification.builder()
-                    .title(companyName  + "겨울 인턴십 모집 공고 ⛄️")
-                    .content("겨울 인턴십 모집 의뢰서가 등록되었어요. 지금 확인해보세요!")
-                    .userId(user.getId())
-                    .detailId(recruitment.getId())
-                    .topic(Topic.WINTER_INTERN_REGISTERED)
-                    .authority(Authority.STUDENT)
-                    .isNew(true)
-                    .build();
-
-                commandNotificationPort.save(notification);
-
-                fcmUtil.sendMessageToTopic(notification);
-            });
         }
     }
 }

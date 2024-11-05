@@ -7,7 +7,6 @@ import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
-import team.retum.jobis.domain.recruitment.event.WinterInternRegisteredEvent;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
@@ -42,10 +41,6 @@ public class ApplyRecruitmentUseCase {
         commandRecruitAreaPort.saveAll(recruitAreas);
 
         publishEventPort.publishEvent(new InterestedRecruitmentEvent(recruitment));
-
-        if (recruitment.isWinterIntern()) {
-            publishEventPort.publishEvent(new WinterInternRegisteredEvent(recruitment));
-        }
     }
 
     public void executeInterestCodeMatch() {

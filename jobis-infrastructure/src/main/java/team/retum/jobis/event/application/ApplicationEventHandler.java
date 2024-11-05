@@ -57,7 +57,7 @@ public class ApplicationEventHandler {
                 .title("결과 보러가기")
                 .content(content)
                 .userId(application.getStudentId())
-                .topic(Topic.APPLICATION_STATUS_CHANGED)
+                .topic(Topic.APPLICATION)
                 .detailId(application.getId())
                 .authority(Authority.STUDENT)
                 .isNew(true)
