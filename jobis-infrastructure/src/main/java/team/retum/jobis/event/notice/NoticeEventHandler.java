@@ -27,7 +27,7 @@ public class NoticeEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onNoticePosted(NoticePostedEvent event) {
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.NEW_NOTICE);
+        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.NOTICE);
 
         deviceTokens.forEach(deviceToken -> {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
@@ -37,7 +37,7 @@ public class NoticeEventHandler {
                 .content(event.getNotice().getContent())
                 .userId(user.getId())
                 .detailId(event.getNotice().getId())
-                .topic(Topic.NEW_NOTICE)
+                .topic(Topic.NOTICE)
                 .authority(Authority.STUDENT)
                 .isNew(true)
                 .build();

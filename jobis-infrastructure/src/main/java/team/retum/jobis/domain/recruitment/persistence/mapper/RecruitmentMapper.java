@@ -26,7 +26,7 @@ public class RecruitmentMapper {
             .benefits(domain.getBenefits())
             .hiringProgress(domain.getHiringProgress())
             .personalContact(domain.isPersonalContract())
-            .militarySupport(domain.isMilitarySupport())
+            .militarySupport(domain.getMilitarySupport())
             .status(domain.getStatus())
             .startDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().startDate())
             .endDate(domain.getRecruitingPeriod() == null ? null : domain.getRecruitingPeriod().endDate())
@@ -40,6 +40,7 @@ public class RecruitmentMapper {
             .flexibleWorking(domain.isFlexibleWorking())
             .winterIntern(domain.isWinterIntern())
             .hireConvertible(domain.getHireConvertible())
+            .integrationPlan(domain.getIntegrationPlan())
             .build();
     }
 
@@ -59,7 +60,7 @@ public class RecruitmentMapper {
             .benefits(entity.getBenefits())
             .hiringProgress(entity.getHiringProgress())
             .personalContract(entity.isPersonalContact())
-            .militarySupport(entity.isMilitarySupport())
+            .militarySupport(entity.getMilitarySupport())
             .status(entity.getStatus())
             .recruitingPeriod(recruitingPeriod)
             .salary(new Salary(
@@ -74,6 +75,7 @@ public class RecruitmentMapper {
             .submitDocument(entity.getSubmitDocument())
             .winterIntern(entity.isWinterIntern())
             .hireConvertible(entity.getHireConvertible())
+            .integrationPlan(entity.getIntegrationPlan())
             .createdAt(entity.getCreatedAt())
             .build();
     }

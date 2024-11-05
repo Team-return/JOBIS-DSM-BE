@@ -119,10 +119,11 @@ public class ApplicationWebAdapter {
         @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
         @RequestParam(value = "student_name", required = false) String studentName,
         @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year,
-        @RequestParam(value = "page", defaultValue = "1") @Positive Long page
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, year, page);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, winterIntern, year, page);
     }
 
     @Cacheable
@@ -131,18 +132,20 @@ public class ApplicationWebAdapter {
         @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
         @RequestParam(value = "student_name", required = false) String studentName,
         @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
     ) {
-        return queryApplicationListService.countApplications(applicationStatus, studentName, recruitmentId, year);
+        return queryApplicationListService.countApplications(applicationStatus, studentName, recruitmentId, winterIntern, year);
     }
 
     @Cacheable
     @GetMapping("/teacher/count")
     public TotalPageCountResponse queryApplicationCount(
         @RequestParam(value = "application_status", required = false) ApplicationStatus applicationStatus,
-        @RequestParam(value = "student_name", required = false) String studentName
+        @RequestParam(value = "student_name", required = false) String studentName,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        return queryApplicationListService.getTotalPageCount(applicationStatus, studentName);
+        return queryApplicationListService.getTotalPageCount(applicationStatus, studentName, winterIntern);
     }
 
     @GetMapping("/company")

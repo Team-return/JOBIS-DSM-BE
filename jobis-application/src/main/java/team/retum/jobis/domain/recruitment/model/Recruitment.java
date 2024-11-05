@@ -36,7 +36,7 @@ public class Recruitment {
 
     private final String benefits;
 
-    private final boolean militarySupport;
+    private final Boolean militarySupport;
 
     private final List<ProgressType> hiringProgress;
 
@@ -58,6 +58,8 @@ public class Recruitment {
 
     private final LocalDateTime createdAt;
 
+    private final Boolean integrationPlan;
+
     public static Recruitment of(ApplyRecruitmentRequest request, Long currentCompanyId) {
         return Recruitment.builder()
             .companyId(currentCompanyId)
@@ -77,6 +79,7 @@ public class Recruitment {
             .hiringProgress(request.hiringProgress())
             .winterIntern(request.winterIntern())
             .hireConvertible(request.hireConvertible())
+            .integrationPlan(request.integrationPlan())
             .build();
     }
 
@@ -146,6 +149,7 @@ public class Recruitment {
             .recruitingPeriod(new RecruitingPeriod(request.startDate(), request.endDate()))
             .hireConvertible(request.hireConvertible())
             .etc(request.etc())
+            .integrationPlan(request.integrationPlan())
             .build();
     }
 }

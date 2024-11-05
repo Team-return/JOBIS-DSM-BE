@@ -14,10 +14,10 @@ public class QueryRecruitmentDetailVO extends RecruitmentDetailVO {
                                     String additionalQualifications, String workingHours, boolean flexibleWorking, List<String> requiredLicenses,
                                     List<ProgressType> hiringProgress, Integer trainPay, String pay, String benefits,
                                     Boolean militarySupport, String submitDocument, LocalDate startDate, LocalDate endDate,
-                                    String etc, String companyBizNo, boolean winterIntern, boolean isBookmarked, Boolean hireConvertible) {
+                                    String etc, String companyBizNo, boolean winterIntern, boolean isBookmarked, Boolean hireConvertible, Boolean integrationPlan) {
         super(recruitmentId, companyId, companyProfileUrl, companyName,
             additionalQualifications, workingHours, flexibleWorking, requiredLicenses,
             hiringProgress, trainPay, pay, benefits, militarySupport,
-            submitDocument, startDate, endDate, etc, companyBizNo, winterIntern, isBookmarked, hireConvertible);
+            submitDocument, startDate, endDate, etc, companyBizNo, winterIntern, isBookmarked, hireConvertible, integrationPlan);
     }
 }

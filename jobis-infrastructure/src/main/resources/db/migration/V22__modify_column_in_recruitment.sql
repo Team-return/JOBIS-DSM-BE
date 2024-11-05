@@ -1,0 +1,1 @@
+alter table tbl_recruitment modify column military_support tinyint(1) null;

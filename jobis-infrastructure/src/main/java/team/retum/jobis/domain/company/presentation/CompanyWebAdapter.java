@@ -47,7 +47,6 @@ import team.retum.jobis.domain.company.usecase.TeacherQueryEmployCompaniesUseCas
 import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
-import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
 import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
@@ -164,7 +163,7 @@ public class CompanyWebAdapter {
         @RequestParam(value = "name", required = false) String companyName,
         @RequestParam(value = "region", required = false) String region,
         @RequestParam(value = "business_area", required = false) Long businessArea,
-        @RequestParam(value = "page", required = false) @Positive Long page
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
     ) {
         return teacherQueryCompaniesUseCase.execute(type, companyName, region, businessArea, page);
     }

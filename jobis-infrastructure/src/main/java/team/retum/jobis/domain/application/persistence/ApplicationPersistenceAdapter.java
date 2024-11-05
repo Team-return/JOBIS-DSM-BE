@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.application.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -49,7 +50,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     @Override
     public List<ApplicationVO> getAllByConditions(ApplicationFilter filter) {
-        return queryFactory
+        JPAQuery<ApplicationEntity> query = queryFactory
             .selectFrom(applicationEntity)
             .join(applicationEntity.student, studentEntity)
             .join(applicationEntity.recruitment, recruitmentEntity)
@@ -60,12 +61,19 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 eqStudentId(filter.getStudentId()),
                 eqApplicationStatus(filter.getApplicationStatus()),
                 containStudentName(filter.getStudentName()),
+                eqWinterIntern(filter.getWinterIntern()),
                 eqYear(filter.getYear())
             )
             .orderBy(
                 applicationEntity.updatedAt.desc(),
                 applicationEntity.createdAt.desc()
-            )
+            );
+
+        if (filter.getPage() != null) {
+            query.offset(filter.getOffset())
+                .limit(filter.getLimit());
+        }
+        return query
             .transform(
                 groupBy(applicationEntity.id)
                     .list(
@@ -109,14 +117,15 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public Long getCountByCondition(ApplicationStatus applicationStatus, String studentName) {
+    public Long getCountByCondition(ApplicationStatus applicationStatus, String studentName, Boolean winterIntern) {
         return queryFactory
             .select(applicationEntity.count())
             .from(applicationEntity)
             .join(applicationEntity.student, studentEntity)
             .where(
                 eqApplicationStatus(applicationStatus),
-                containStudentName(studentName)
+                containStudentName(studentName),
+                eqWinterIntern(winterIntern)
             ).fetchOne();
     }
 
@@ -344,6 +353,10 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     private BooleanExpression containStudentName(String studentName) {
         return studentName == null ? null : studentEntity.name.contains(studentName);
+    }
+
+    private BooleanExpression eqWinterIntern(Boolean winterIntern) {
+        return winterIntern == null ? null : applicationEntity.recruitment.winterIntern.eq(winterIntern);
     }
 
     private BooleanExpression recentRecruitment(Long companyId) {

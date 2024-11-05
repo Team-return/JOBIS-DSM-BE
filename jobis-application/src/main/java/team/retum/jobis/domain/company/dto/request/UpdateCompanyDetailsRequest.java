@@ -11,6 +11,7 @@ public record UpdateCompanyDetailsRequest(
     String mainAddress,
     String mainAddressDetail,
     String managerName,
+    String managerPhoneNo,
     String representativePhoneNo,
     String email,
     int workerNumber,

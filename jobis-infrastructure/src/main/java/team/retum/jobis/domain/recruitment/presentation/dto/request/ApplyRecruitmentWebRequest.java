@@ -47,7 +47,6 @@ public class ApplyRecruitmentWebRequest {
     @Size(max = 550)
     private String benefits;
 
-    @NotNull
     private Boolean militarySupport;
 
     @NotNull
@@ -68,6 +67,8 @@ public class ApplyRecruitmentWebRequest {
 
     @Size(max = 350)
     private String etc;
+
+    private Boolean integrationPlan;
 
     public ApplyRecruitmentRequest toDomainRequest() {
         if (!flexibleWorking && !Pattern.matches(RegexProperty.WORKING_HOURS, workingHours)) {
@@ -91,6 +92,7 @@ public class ApplyRecruitmentWebRequest {
             .winterIntern(this.winterIntern)
             .hireConvertible(this.hireConvertible)
             .etc(this.etc)
+            .integrationPlan(this.integrationPlan)
             .build();
     }
 }

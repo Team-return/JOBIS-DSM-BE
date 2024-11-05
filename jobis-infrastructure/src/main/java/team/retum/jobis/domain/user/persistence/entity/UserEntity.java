@@ -30,7 +30,6 @@ public class UserEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(30)", unique = true)
     private String accountId;
 
-    @NotNull
     @Column(columnDefinition = "CHAR(60)")
     private String password;
 

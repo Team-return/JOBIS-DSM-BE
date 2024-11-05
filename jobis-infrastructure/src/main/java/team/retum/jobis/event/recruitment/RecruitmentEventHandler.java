@@ -8,6 +8,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.bookmark.spi.QueryBookmarkPort;
 import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
+import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
@@ -36,6 +37,7 @@ public class RecruitmentEventHandler {
     private final QueryStudentPort queryStudentPort;
     private final QueryUserPort queryUserPort;
     private final QueryRecruitAreaPort queryRecruitAreaPort;
+    private final QueryCompanyPort queryCompanyPort;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -54,7 +56,7 @@ public class RecruitmentEventHandler {
                     .title(bookmarkUser.getCompanyName())
                     .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
                     .userId(bookmarkUser.getUserId())
-                    .topic(Topic.RECRUITMENT_DONE)
+                    .topic(Topic.RECRUITMENT)
                     .detailId(recruitment.getId())
                     .authority(Authority.STUDENT)
                     .isNew(true)
@@ -90,7 +92,7 @@ public class RecruitmentEventHandler {
                     .content(student.getName() + " 님이 관심 있을 만한 모집의뢰서가 추가되었어요!")
                     .userId(user.getId())
                     .detailId(recruitment.getId())
-                    .topic(Topic.NEW_INTERESTED_RECRUITMENT)
+                    .topic(Topic.RECRUITMENT)
                     .authority(Authority.STUDENT)
                     .isNew(true)
                     .build();

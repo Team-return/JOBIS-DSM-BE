@@ -10,7 +10,10 @@ import team.retum.jobis.domain.notification.spi.CommandTopicSubscriptionPort;
 import team.retum.jobis.domain.notification.spi.QueryTopicSubscriptionPort;
 import team.retum.jobis.domain.user.model.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @UseCase
@@ -23,11 +26,20 @@ public class SubscribeAllTopicsByToggleUseCase {
 
     public void execute() {
         User user = securityPort.getCurrentUser();
-        boolean isSubscribed = Arrays.stream(Topic.values())
-            .anyMatch(topic -> queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), topic).isPresent());
 
-        if (isSubscribed) {
-            Arrays.stream(Topic.values()).forEach(topic -> {
+        List<Topic> topics = Arrays.asList(Topic.values());
+        boolean hasSubscribed = false;
+
+        for (Topic topic : topics) {
+            Optional<TopicSubscription> subscription = queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), topic);
+            if (subscription.isPresent() && subscription.get().isSubscribed()) {
+                hasSubscribed = true;
+                break;
+            }
+        }
+
+        if (hasSubscribed) {
+            topics.forEach(topic -> {
                 commandNotificationPort.unsubscribeTopic(user.getToken(), topic);
                 commandTopicSubscriptionPort.save(
                     TopicSubscription.builder()
@@ -38,7 +50,7 @@ public class SubscribeAllTopicsByToggleUseCase {
                 );
             });
         } else {
-            Arrays.stream(Topic.values()).forEach(topic -> {
+            topics.forEach(topic -> {
                 commandNotificationPort.subscribeTopic(user.getToken(), topic);
                 commandTopicSubscriptionPort.save(
                     TopicSubscription.builder()

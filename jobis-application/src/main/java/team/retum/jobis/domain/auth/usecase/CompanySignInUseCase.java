@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
-import team.retum.jobis.domain.auth.exception.BadAuthCodeException;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.spi.JwtPort;
@@ -20,18 +19,10 @@ public class CompanySignInUseCase {
     private final JwtPort jwtPort;
     private final SecurityPort securityPort;
 
-    public TokenResponse execute(String businessRegistrationNumber, String authCode) {
+    public TokenResponse execute(String businessRegistrationNumber) {
         Company company = queryCompanyPort.getByBusinessNumber(businessRegistrationNumber)
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        checkServerAuthCode(authCode);
-
         return jwtPort.generateTokens(company.getId(), Authority.COMPANY, PlatformType.WEB);
-    }
-
-    private void checkServerAuthCode(String authCode) {
-        if (!securityPort.getServerAuthCode().equals(authCode)) {
-            throw BadAuthCodeException.EXCEPTION;
-        }
     }
 }

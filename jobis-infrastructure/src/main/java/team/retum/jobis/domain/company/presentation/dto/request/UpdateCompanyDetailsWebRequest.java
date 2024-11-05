@@ -37,7 +37,7 @@ public class UpdateCompanyDetailsWebRequest {
 
     @NotBlank
     @Size(min = 9, max = 12)
-    private String representativePhoneNo;
+    private String managerPhoneNo;
 
     @Email
     @Size(max = 30)
@@ -56,6 +56,9 @@ public class UpdateCompanyDetailsWebRequest {
     @NotBlank
     private String serviceName;
 
+    @Size(min = 9, max = 12)
+    private String representativePhoneNo;
+
     private List<@NotNull String> attachmentUrls;
 
     private String bizRegistrationUrl;
@@ -71,12 +74,13 @@ public class UpdateCompanyDetailsWebRequest {
             .mainAddress(this.mainAddress)
             .mainAddressDetail(this.mainAddressDetail)
             .managerName(this.managerName)
-            .representativePhoneNo(this.representativePhoneNo)
+            .managerPhoneNo(this.managerPhoneNo)
             .email(this.email)
             .workerNumber(this.workerNumber)
             .take(this.take)
             .companyProfileUrl(this.companyProfileUrl)
             .serviceName(this.serviceName)
+            .representativePhoneNo(this.representativePhoneNo)
             .attachmentUrls(this.attachmentUrls)
             .bizRegistrationUrl(this.bizRegistrationUrl)
             .headquarter(this.headquarter)

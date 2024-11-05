@@ -25,7 +25,7 @@ public class StudentQueryRecruitmentsResponse {
 
         private int trainPay;
 
-        private boolean militarySupport;
+        private Boolean militarySupport;
 
         private String hiringJobs;
 
@@ -37,7 +37,7 @@ public class StudentQueryRecruitmentsResponse {
                 .companyName(recruitment.getCompanyName())
                 .trainPay(0)
                 .hiringJobs(recruitment.getJobCodes())
-                .militarySupport(recruitment.isMilitarySupport())
+                .militarySupport(recruitment.getMilitarySupport())
                 .companyProfileUrl(recruitment.getCompanyLogoUrl())
                 .bookmarked(recruitment.isBookmarked())
                 .build();

@@ -3,7 +3,6 @@ package team.retum.jobis.domain.company.usecase;
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.FeignClientPort;
-import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.model.PlatformType;
@@ -28,7 +27,6 @@ public class RegisterCompanyUseCase {
     private final CommandCompanyPort commandCompanyPort;
     private final QueryCodePort queryCodePort;
     private final CommandUserPort commandUserPort;
-    private final SecurityPort securityPort;
     private final JwtPort jwtPort;
 
     public TokenResponse execute(RegisterCompanyRequest request) {
@@ -40,7 +38,6 @@ public class RegisterCompanyUseCase {
         User user = commandUserPort.save(
             User.builder()
                 .accountId(request.businessNumber())
-                .password(securityPort.encodePassword("company123"))
                 .authority(Authority.COMPANY)
                 .token(null)
                 .build()
