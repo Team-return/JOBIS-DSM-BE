@@ -1,4 +1,4 @@
-package team.retum.jobis.domain.recruitment.event;
+package team.retum.jobis.domain.intern.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

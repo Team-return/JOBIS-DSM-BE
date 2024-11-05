@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
-import team.retum.jobis.domain.recruitment.event.WinterInternRegisteredEvent;
+import team.retum.jobis.domain.intern.event.WinterInternRegisteredEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 
