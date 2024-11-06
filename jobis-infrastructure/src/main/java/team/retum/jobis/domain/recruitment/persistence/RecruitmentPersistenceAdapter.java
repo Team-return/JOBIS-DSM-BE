@@ -364,7 +364,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     @Override
     public boolean existsByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
-        return recruitmentJpaRepository.existsByCompanyIdAndStatusNotAndWinterIntern(companyId, RecruitStatus.DONE, winterIntern);
+        return recruitmentJpaRepository.existsByCompanyIdAndWinterIntern(companyId, winterIntern);
     }
 
     @Override
@@ -399,11 +399,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         LocalDateTime oneDayAgo = now.minusDays(1);
 
         return recruitmentJpaRepository.findByCreationDateBetween(oneDayAgo, now);
-    }
-
-    @Override
-    public boolean existsByCompanyId(Long companyId) {
-        return recruitmentJpaRepository.existsByCompanyId(companyId);
     }
 
     //===conditions===//

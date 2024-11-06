@@ -10,7 +10,7 @@ public class CheckRecruitmentExistsUseCase {
 
     private final RecruitmentPort recruitmentPort;
 
-    public boolean execute(Long companyId) {
-        return recruitmentPort.existsByCompanyId(companyId);
+    public boolean execute(Long companyId, boolean winterIntern) {
+        return recruitmentPort.existsByCompanyIdAndWinterIntern(companyId, winterIntern);
     }
 }
