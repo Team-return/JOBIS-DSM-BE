@@ -6,6 +6,7 @@ import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.auth.model.AuthCode;
 import team.retum.jobis.domain.auth.model.Authority;
+import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.auth.spi.JwtPort;
 import team.retum.jobis.domain.auth.spi.QueryAuthCodePort;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
@@ -70,7 +71,9 @@ public class StudentSignUpUseCase {
                 .build()
         );
 
-        notificationPort.subscribeAllTopic(user);
+        if (request.platformType() != PlatformType.WEB) {
+            notificationPort.subscribeAllTopic(user);
+        }
 
         commandVerifiedStudentPort.deleteByGcnAndName(
             SchoolNumber.processSchoolNumber(student.getSchoolNumber()),
