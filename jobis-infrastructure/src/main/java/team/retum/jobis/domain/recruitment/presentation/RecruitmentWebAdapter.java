@@ -27,6 +27,7 @@ import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentRespon
 import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -253,8 +254,8 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/exists")
-    public boolean checkRecruitmentExists(@RequestParam(value = "winter_intern") Boolean winterIntern) {
-        return checkRecruitmentExistsUseCase.execute(winterIntern);
+    public RecruitmentExistsResponse checkRecruitmentExists() {
+        return checkRecruitmentExistsUseCase.execute();
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
