@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.recruitment.spi;
 
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
@@ -38,4 +39,5 @@ public interface QueryRecruitmentPort {
 
     List<Recruitment> getRecent();
 
+    RecruitmentExistsResponse existsByCompanyId(Long companyId);
 }

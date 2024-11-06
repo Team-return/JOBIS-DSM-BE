@@ -254,9 +254,8 @@ public class RecruitmentWebAdapter {
     }
 
     @GetMapping("/exists")
-    public RecruitmentExistsResponse checkRecruitmentExists(@RequestParam(value = "winter_intern") boolean winterIntern) {
-        boolean exists = checkRecruitmentExistsUseCase.execute(winterIntern);
-        return new RecruitmentExistsResponse(exists);
+    public RecruitmentExistsResponse checkRecruitmentExists() {
+        return checkRecruitmentExistsUseCase.execute();
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
