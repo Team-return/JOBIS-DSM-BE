@@ -19,5 +19,4 @@ public interface RecruitmentJpaRepository extends JpaRepository<RecruitmentEntit
     @Query("SELECT r FROM RecruitmentEntity r WHERE r.createdAt BETWEEN :startDate AND :endDate")
     List<Recruitment> findByCreationDateBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
-    boolean existsByCompanyId(Long companyId);
 }
