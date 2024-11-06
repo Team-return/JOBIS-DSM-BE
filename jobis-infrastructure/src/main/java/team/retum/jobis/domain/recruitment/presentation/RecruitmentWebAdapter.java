@@ -252,9 +252,9 @@ public class RecruitmentWebAdapter {
         return response.getFile();
     }
 
-    @GetMapping("/exists/{company-id}")
-    public boolean checkRecruitmentExists(@PathVariable("company-id") Long companyId) {
-        return checkRecruitmentExistsUseCase.execute(companyId);
+    @GetMapping("/exists")
+    public boolean checkRecruitmentExists(@RequestParam(value = "winter_intern") Boolean winterIntern) {
+        return checkRecruitmentExistsUseCase.execute(winterIntern);
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {

@@ -60,7 +60,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/recruitments/area/{recruit-area-id}").hasAnyAuthority(TEACHER.name(), COMPANY.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/file").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/recruitments/count").hasAnyAuthority(TEACHER.name())
-                    .requestMatchers(HttpMethod.GET, "/recruitments/exists/{company-id}").hasAnyAuthority(COMPANY.name())
+                    .requestMatchers(HttpMethod.GET, "/recruitments/exists").hasAnyAuthority(COMPANY.name())
 
                     // bugs
                     .requestMatchers(HttpMethod.GET, "/bugs").hasAuthority(DEVELOPER.name())
