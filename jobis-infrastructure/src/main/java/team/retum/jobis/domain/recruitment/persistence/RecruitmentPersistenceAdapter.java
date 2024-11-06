@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
@@ -399,6 +400,14 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         LocalDateTime oneDayAgo = now.minusDays(1);
 
         return recruitmentJpaRepository.findByCreationDateBetween(oneDayAgo, now);
+    }
+
+    @Override
+    public RecruitmentExistsResponse existsByCompanyId(Long companyId) {
+        boolean winterInternExists = recruitmentJpaRepository.existsByCompanyIdAndWinterIntern(companyId, true);
+        boolean experientialExists = recruitmentJpaRepository.existsByCompanyIdAndWinterIntern(companyId, false);
+
+        return new RecruitmentExistsResponse(winterInternExists, experientialExists);
     }
 
     //===conditions===//

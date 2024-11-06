@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(force = true)
 public class RecruitmentExistsResponse {
 
-    private boolean exists;
+    private boolean winterIntern;
+
+    private boolean experiential;
 }
