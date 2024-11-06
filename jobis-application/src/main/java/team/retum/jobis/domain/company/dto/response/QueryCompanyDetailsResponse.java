@@ -26,7 +26,7 @@ public class QueryCompanyDetailsResponse {
     private final String managerPhoneNo;
     private final String email;
     private final String representativeName;
-    private final String representativePhonwNo;
+    private final String representativePhoneNo;
     private final LocalDate foundedAt;
     private final int workerNumber;
     private final double take;
@@ -51,7 +51,7 @@ public class QueryCompanyDetailsResponse {
             .managerPhoneNo(vo.getManagerPhoneNo())
             .email(vo.getEmail())
             .representativeName(vo.getRepresentativeName())
-            .representativePhonwNo(vo.getRepresentativePhoneNo())
+            .representativePhoneNo(vo.getRepresentativePhoneNo())
             .foundedAt(vo.getFoundedAt())
             .workerNumber(vo.getWorkerNumber())
             .take(vo.getTake())
