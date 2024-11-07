@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 public class UpdateRecruitmentWebRequest {
 
+    @Size(max = 3000)
     private String additionalQualifications;
 
     @NotNull
