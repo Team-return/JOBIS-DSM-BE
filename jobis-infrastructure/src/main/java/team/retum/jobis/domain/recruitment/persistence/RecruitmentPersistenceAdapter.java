@@ -113,7 +113,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     companyEntity.name,
                     companyEntity.type,
                     recruitJobsPath,
-                    recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
+                    recruitAreaEntity.hiredCount.sum().longValue(),
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
                     companyEntity.id,
