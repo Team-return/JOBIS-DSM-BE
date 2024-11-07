@@ -4,11 +4,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.auth.model.PlatformType;
 import team.retum.jobis.domain.student.dto.request.StudentSignUpRequest;
 import team.retum.jobis.domain.student.model.Gender;
+import team.retum.jobis.global.util.ImageProperty;
 import team.retum.jobis.global.util.RegexProperty;
 
 @Getter
@@ -39,7 +41,7 @@ public class StudentSignUpWebRequest {
     private Gender gender;
 
     @Size(max = 300)
-    private String profileImageUrl;
+    private String profileImageUrl = ImageProperty.DEFAULT_STUDENT_PROFILE_IMAGE;
 
     @NotNull
     private PlatformType platformType;
