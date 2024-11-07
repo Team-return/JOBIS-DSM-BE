@@ -57,7 +57,7 @@ public class RecruitmentEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(200)")
     private List<String> requiredLicenses;
 
-    @Column(columnDefinition = "VARCHAR(100)")
+    @Column(columnDefinition = "VARCHAR(3000)")
     private String additionalQualifications;
 
     @NotNull

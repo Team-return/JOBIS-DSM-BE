@@ -113,7 +113,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     companyEntity.name,
                     companyEntity.type,
                     recruitJobsPath,
-                    recruitAreaEntity.hiredCount.sum().divide(recruitAreaEntity.hiredCount.count()).longValue(),
+                    recruitAreaEntity.hiredCount.sum().longValue(),
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
                     companyEntity.id,
@@ -404,8 +404,23 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     @Override
     public RecruitmentExistsResponse existsByCompanyId(Long companyId) {
-        boolean winterInternExists = recruitmentJpaRepository.existsByCompanyIdAndWinterIntern(companyId, true);
-        boolean experientialExists = recruitmentJpaRepository.existsByCompanyIdAndWinterIntern(companyId, false);
+        boolean winterInternExists = queryFactory
+            .selectOne()
+            .from(recruitmentEntity)
+            .where(
+                recruitmentEntity.company.id.eq(companyId),
+                recruitmentEntity.winterIntern.isTrue(),
+                recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
+            ).fetchFirst() != null;
+
+        boolean experientialExists = queryFactory
+            .selectOne()
+            .from(recruitmentEntity)
+            .where(
+                recruitmentEntity.company.id.eq(companyId),
+                recruitmentEntity.winterIntern.isFalse(),
+                recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
+            ).fetchFirst() != null;
 
         return new RecruitmentExistsResponse(winterInternExists, experientialExists);
     }
