@@ -3,6 +3,7 @@ package team.retum.jobis.domain.acceptance.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.acceptance.spi.vo.AcceptanceVO;
 import team.retum.jobis.domain.application.spi.vo.FieldTraineesVO;
 import team.retum.jobis.domain.student.model.SchoolNumber;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor(force = true)
 public class TeacherQueryFieldTraineesAndContractWorkersResponse {
 
     private final List<TeacherQueryFieldTraineesResponse> fieldTraineesResponse;
