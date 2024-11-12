@@ -19,6 +19,6 @@ public enum ApplicationStatus {
     ACCEPTANCE("근로계약"),
     REJECTED("반려");
 
-    public static final List<ApplicationStatus> DUPLICATE_CHECK = List.of(APPROVED, PASS, FIELD_TRAIN);
+    public static final List<ApplicationStatus> DUPLICATE_CHECK = List.of(REQUESTED, SEND, PROCESSING, ACCEPTANCE, APPROVED, PASS, FIELD_TRAIN);
     private final String name;
 }
