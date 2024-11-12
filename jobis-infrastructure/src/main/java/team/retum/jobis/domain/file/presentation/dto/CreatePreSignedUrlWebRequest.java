@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import team.retum.jobis.domain.file.model.FileType;
 import team.retum.jobis.global.util.RegexProperty;
 
