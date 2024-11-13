@@ -209,7 +209,7 @@ public class ApplicationWebAdapter {
     @PutMapping("/{application-id}")
     public void reapply(
         @PathVariable("application-id") Long applicationId,
-        @RequestBody CreateApplicationWebRequest request
+        @RequestBody @Valid CreateApplicationWebRequest request
     ) {
         reapplyUseCase.execute(
             applicationId,

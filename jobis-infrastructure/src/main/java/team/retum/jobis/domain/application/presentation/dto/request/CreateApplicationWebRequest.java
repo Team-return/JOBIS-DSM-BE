@@ -14,6 +14,7 @@ import java.util.List;
 public class CreateApplicationWebRequest {
 
     @ValidListElements
+    @NotNull
     private List<AttachmentWebRequest> attachments;
 
     @Getter
