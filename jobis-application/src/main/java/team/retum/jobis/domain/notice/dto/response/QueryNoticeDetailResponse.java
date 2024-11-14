@@ -6,6 +6,7 @@ import team.retum.jobis.domain.notice.model.Notice;
 import team.retum.jobis.domain.notice.model.NoticeAttachment;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
