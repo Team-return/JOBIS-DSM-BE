@@ -35,10 +35,8 @@ public class CreateNoticeWebRequest {
     @Getter
     public static class AttachmentWebRequest {
 
-        @NotBlank
         private String url;
 
-        @NotNull
         private AttachmentType type;
     }
 }
