@@ -14,9 +14,13 @@ import java.util.List;
 public class NoticeMapper {
 
     public NoticeEntity toEntity(Notice domain) {
-        List<NoticeAttachmentEntity> attachments = domain.getAttachments().stream()
-            .map(attachment -> new NoticeAttachmentEntity(attachment.getUrl(), attachment.getType()))
-            .toList();
+        List<NoticeAttachmentEntity> attachments = null;
+
+        if (domain.getAttachments() != null && !domain.getAttachments().isEmpty()) {
+            attachments = domain.getAttachments().stream()
+                .map(attachment -> new NoticeAttachmentEntity(attachment.getUrl(), attachment.getType()))
+                .toList();
+        }
 
         return NoticeEntity.builder()
             .id(domain.getId())
@@ -27,9 +31,13 @@ public class NoticeMapper {
     }
 
     public Notice toDomain(NoticeEntity entity) {
-        List<NoticeAttachment> attachments = entity.getAttachments().stream()
-            .map(attachment -> new NoticeAttachment(attachment.getAttachmentUrl(), attachment.getType()))
-            .toList();
+        List<NoticeAttachment> attachments = null;
+
+        if (entity.getAttachments() != null && !entity.getAttachments().isEmpty()) {
+            attachments = entity.getAttachments().stream()
+                .map(attachment -> new NoticeAttachment(attachment.getAttachmentUrl(), attachment.getType()))
+                .toList();
+        }
 
         return Notice.builder()
             .id(entity.getId())

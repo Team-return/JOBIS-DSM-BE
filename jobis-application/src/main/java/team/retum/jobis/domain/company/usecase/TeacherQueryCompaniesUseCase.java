@@ -77,7 +77,6 @@ public class TeacherQueryCompaniesUseCase {
             .limit(1000)
             .build();
 
-
         return new CompanyCountResponse(
             queryCompanyPort.getByConditions(filter).stream().toList().size()
         );

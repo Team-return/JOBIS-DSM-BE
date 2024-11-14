@@ -10,7 +10,7 @@ import java.util.List;
 public enum FileType {
 
     LOGO_IMAGE(List.of(".jpg", ".png", ".svg")),
-    EXTENSION_FILE(List.of(".pdf", ".ppt", ".pptx", ".hwp", ".jpg", ".png", ".zip", ".txt", ".mp4"));
+    EXTENSION_FILE(List.of(".pdf", ".ppt", ".pptx", ".hwp", ".jpg", ".png", ".zip", ".txt", ".mp4", ".opt", ".doc", ".docx", ".hwpx"));
 
     public final List<String> validExtensions;
 }
