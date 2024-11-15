@@ -64,7 +64,7 @@ public class ApplicationEntity extends BaseTimeEntity {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private RecruitmentEntity recruitment;
 
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ApplicationAttachmentEntity> applicationAttachments = new ArrayList<>();
 
     @LastModifiedDate
