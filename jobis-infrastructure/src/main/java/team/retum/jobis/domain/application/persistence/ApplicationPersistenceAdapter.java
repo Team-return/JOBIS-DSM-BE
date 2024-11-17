@@ -323,9 +323,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     @Override
     public void deleteAllByApplicationId(Long applicationId) {
-        queryFactory.delete(applicationAttachmentEntity)
-            .where(applicationAttachmentEntity.application.id.eq(applicationId))
-            .execute();
+        applicationJpaRepository.deleteAttachmentsByApplicationId(applicationId);
     }
 
     @Override

@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.notice.persistence.entity.NoticeAttachmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
@@ -64,7 +65,7 @@ public class ApplicationEntity extends BaseTimeEntity {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private RecruitmentEntity recruitment;
 
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
     private List<ApplicationAttachmentEntity> applicationAttachments = new ArrayList<>();
 
     @LastModifiedDate
