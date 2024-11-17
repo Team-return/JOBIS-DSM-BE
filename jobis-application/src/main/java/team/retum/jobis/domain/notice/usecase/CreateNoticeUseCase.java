@@ -20,7 +20,7 @@ public class CreateNoticeUseCase {
 
     public void execute(CreateNoticeRequest request) {
         List<NoticeAttachment> attachments = request.getAttachments().stream()
-            .filter(attachment -> attachment.getUrl() != null && attachment.getType() != null) // URL과 Type이 null이 아닌 경우만 필터링
+            .filter(attachment -> attachment.getUrl() != null && attachment.getType() != null)
             .map(attachment -> new NoticeAttachment(attachment.getUrl(), attachment.getType()))
             .toList();
 

@@ -17,11 +17,13 @@ public class DeleteApplicationUseCase {
     private final SecurityPort securityPort;
 
     public void execute(Long applicationId) {
+
         Student student = securityPort.getCurrentStudent();
         Application application = queryApplicationPort.getByIdOrThrow(applicationId);
 
         application.checkIsDeletable(student);
 
+        commandApplicationPort.deleteAllByApplicationId(applicationId);
         commandApplicationPort.delete(application);
     }
 }
