@@ -25,8 +25,7 @@ public class TeacherQueryApplicationsUseCase {
         String studentName,
         Long recruitmentId,
         Boolean winterIntern,
-        Year year,
-        Long page
+        Year year
     ) {
         ApplicationFilter applicationFilter = ApplicationFilter.builder()
             .recruitmentId(recruitmentId)
@@ -34,7 +33,6 @@ public class TeacherQueryApplicationsUseCase {
             .studentName(studentName)
             .winterIntern(winterIntern)
             .year(year)
-            .page(page)
             .build();
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.getAllByConditions(applicationFilter);
@@ -56,8 +54,6 @@ public class TeacherQueryApplicationsUseCase {
             .studentName(studentName)
             .winterIntern(winterIntern)
             .year(year)
-            .page(1L)
-            .limit(1000)
             .build();
 
         List<ApplicationVO> applicationVOs = queryApplicationPort.getAllByConditions(applicationFilter);

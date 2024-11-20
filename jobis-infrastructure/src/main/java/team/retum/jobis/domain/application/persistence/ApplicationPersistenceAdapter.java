@@ -69,10 +69,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 applicationEntity.createdAt.desc()
             );
 
-        if (filter.getPage() != null) {
-            query.offset(filter.getOffset())
-                .limit(filter.getLimit());
-        }
         return query
             .transform(
                 groupBy(applicationEntity.id)

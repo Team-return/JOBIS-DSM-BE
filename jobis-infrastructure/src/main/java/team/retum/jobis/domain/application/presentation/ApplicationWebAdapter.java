@@ -120,10 +120,9 @@ public class ApplicationWebAdapter {
         @RequestParam(value = "student_name", required = false) String studentName,
         @RequestParam(value = "recruitment_id", required = false) Long recruitmentId,
         @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
-        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year,
-        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
+        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy") Year year
     ) {
-        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, winterIntern, year, page);
+        return queryApplicationListService.execute(applicationStatus, studentName, recruitmentId, winterIntern, year);
     }
 
     @Cacheable
