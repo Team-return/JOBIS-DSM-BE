@@ -50,7 +50,7 @@ public class ApplicationEventHandler {
 
             String companyName = companyNameMap.get(application.getRecruitmentId());
 
-            ApplicationMessage notificationMessage = ApplicationMessage.from(event, companyName);
+            ApplicationMessage notificationMessage = ApplicationMessage.of(event, companyName);
 
             Notification notification = Notification.builder()
                 .title(notificationMessage.getTitle())

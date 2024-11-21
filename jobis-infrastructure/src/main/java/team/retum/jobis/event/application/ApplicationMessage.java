@@ -10,7 +10,7 @@ public class ApplicationMessage {
     private final String title;
     private final String content;
 
-    public static ApplicationMessage from(ApplicationsStatusChangedEvent event, String companyName) {
+    public static ApplicationMessage of(ApplicationsStatusChangedEvent event, String companyName) {
         String title;
         String content;
 
