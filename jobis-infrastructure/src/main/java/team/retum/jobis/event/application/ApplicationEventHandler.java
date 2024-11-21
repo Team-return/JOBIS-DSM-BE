@@ -15,7 +15,6 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-import team.retum.jobis.event.application.message.ApplicationMessage;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;

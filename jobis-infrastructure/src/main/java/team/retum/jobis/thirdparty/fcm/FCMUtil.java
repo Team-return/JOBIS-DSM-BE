@@ -14,7 +14,7 @@ import team.retum.jobis.domain.notification.exception.FailedToSubscriptionExcept
 import team.retum.jobis.domain.notification.exception.FailedToUnsubscriptionException;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
-import team.retum.jobis.event.application.message.ApplicationMessage;
+import team.retum.jobis.event.application.ApplicationMessage;
 import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
 import java.util.Arrays;
@@ -141,8 +141,8 @@ public class FCMUtil {
                 break;
 
             case ACCEPTANCE:
-                title = "근로계약이 체결됬습니다!";
-                content = "'" + companyName + "'과의 근로계약이 체결됬습니다. 새로운 여정을 응원합니다!";
+                title = "근로계약이 체결되었습니다!";
+                content = "'" + companyName + "'과의 근로계약이 체결되었습니다. 새로운 여정을 응원합니다!";
                 break;
 
             case REJECTED:

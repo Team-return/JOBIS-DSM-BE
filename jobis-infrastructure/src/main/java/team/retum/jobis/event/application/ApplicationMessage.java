@@ -1,4 +1,4 @@
-package team.retum.jobis.event.application.message;
+package team.retum.jobis.event.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
