@@ -8,13 +8,11 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.application.event.ApplicationsStatusChangedEvent;
 import team.retum.jobis.domain.notification.exception.DeviceTokenNotFoundException;
 import team.retum.jobis.domain.notification.exception.FailedToSubscriptionException;
 import team.retum.jobis.domain.notification.exception.FailedToUnsubscriptionException;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
-import team.retum.jobis.event.application.ApplicationMessage;
 import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
 import java.util.Arrays;
