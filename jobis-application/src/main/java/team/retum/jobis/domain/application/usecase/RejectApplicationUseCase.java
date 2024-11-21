@@ -20,7 +20,7 @@ public class RejectApplicationUseCase {
     public void execute(Long applicationId, String rejectReason) {
         Application application = queryApplicationPort.getByIdOrThrow(applicationId);
 
-        publishEventPort.publishEvent(new SingleApplicationStatusChangedEvent(application, ApplicationStatus.REJECTED));
         commandApplicationPort.save(application.rejectApplication(rejectReason));
+        publishEventPort.publishEvent(new SingleApplicationStatusChangedEvent(application, ApplicationStatus.REJECTED));
     }
 }
