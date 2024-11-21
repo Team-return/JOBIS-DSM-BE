@@ -100,10 +100,11 @@ public class FCMUtil {
         }
     }
 
-    public ApplicationMessage applicationMessage (ApplicationsStatusChangedEvent event, String companyName) {
-        String title, content;
+    public ApplicationMessage applicationMessage(ApplicationsStatusChangedEvent event, String companyName) {
+        String title;
+        String content;
 
-        switch(event.getStatus()) {
+        switch (event.getStatus()) {
             case REQUESTED:
                 title = "지원서 제출 완료";
                 content = "지원서가 제출되었습니다. 검토가 진행될 예정입니다. 조금만 기다려 주세요!";
