@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
-import team.retum.jobis.domain.intern.event.WinterInternRegisteredEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 
@@ -20,18 +19,11 @@ public class ChangeRecruitmentStatusSchedulerUseCase {
     public void execute() {
         List<Recruitment> recruitments = recruitmentPort.getAll();
 
-        List<Recruitment> updatedRecruitments = recruitments.stream()
-            .map(Recruitment::updateRecruitmentStatus)
-            .toList();
-
-        List<Recruitment> winterInternRecruitments = updatedRecruitments.stream()
-            .filter(Recruitment::isWinterIntern)
-            .toList();
-
-        publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(updatedRecruitments));
-
-        if (!winterInternRecruitments.isEmpty()) {
-            publishEventPort.publishEvent(new WinterInternRegisteredEvent(winterInternRecruitments));
-        }
+        recruitmentPort.saveAll(
+            recruitments.stream()
+                .map(Recruitment::updateRecruitmentStatus)
+                .toList()
+        );
+        publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
     }
 }
