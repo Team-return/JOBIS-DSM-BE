@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
+import team.retum.jobis.domain.application.event.SingleApplicationStatusChangedEvent;
 import team.retum.jobis.domain.application.event.ApplicationsStatusChangedEvent;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -32,7 +33,7 @@ public class ApplicationEventHandler {
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void onApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
+    public void onSingleApplicationStatusChanged(ApplicationsStatusChangedEvent event) {
         if (event.getStatus() == ApplicationStatus.PROCESSING) {
             return;
         }
@@ -69,5 +70,27 @@ public class ApplicationEventHandler {
                 List.of(userIdTokenMap.get(application.getStudentId()))
             );
         }
+    }
+
+    @Async("asyncTaskExecutor")
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onApplicationStatusChange(SingleApplicationStatusChangedEvent event) {
+        User user = queryUserPort.getByStudentId(event.getApplication().getStudentId());
+
+        Notification notification = Notification.builder()
+            .title("결과 보러가기")
+            .content("지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.")
+            .userId(event.getApplication().getStudentId())
+            .topic(Topic.APPLICATION)
+            .detailId(event.getApplication().getId())
+            .authority(Authority.STUDENT)
+            .isNew(true)
+            .build();
+
+        commandNotificationPort.save(notification);
+        fcmUtil.sendMessages(
+            notification,
+            List.of(user.getToken())
+        );
     }
 }
