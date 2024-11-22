@@ -30,7 +30,6 @@ public class NotificationWebAdapter {
     private final SubscribeAllTopicsByToggleUseCase subscribeAllTopicsByToggleUseCase;
     private final QueryTopicsUseCase queryTopicsUseCase;
 
-
     @GetMapping
     public QueryNotificationsResponse queryNotifications(@RequestParam(value = "is_new", required = false) Boolean isNew) {
         return queryNotificationsUseCase.execute(isNew);
