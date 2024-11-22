@@ -15,7 +15,6 @@ import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
-import team.retum.jobis.domain.user.persistence.repository.UserJpaRepository;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
@@ -29,7 +28,6 @@ public class WinterInternEventHandler {
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
     private final QueryCompanyPort queryCompanyPort;
-    private final UserJpaRepository userJpaRepository;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -62,7 +60,7 @@ public class WinterInternEventHandler {
     public void onWinterInternRegistered(WinterInternRegisteredEvent event) {
         List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
 
-        Company company = queryCompanyPort.getById(event.getRecruitments().getCompanyId())
+        Company company = queryCompanyPort.getById(event.getRecruitment().getCompanyId())
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         String companyName = company.getName();
@@ -74,7 +72,7 @@ public class WinterInternEventHandler {
                 .title(companyName + " 겨울 인턴십 모집 공고 ⛄️")
                 .content("겨울 인턴십 모집 의뢰서가 등록되었어요. 지금 확인해보세요!")
                 .userId(user.getId())
-                .detailId(event.getRecruitments().getId())
+                .detailId(event.getRecruitment().getId())
                 .topic(Topic.WINTER_INTERN)
                 .authority(Authority.STUDENT)
                 .isNew(true)

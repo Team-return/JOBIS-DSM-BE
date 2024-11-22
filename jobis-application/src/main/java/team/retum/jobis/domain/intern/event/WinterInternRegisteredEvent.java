@@ -8,6 +8,6 @@ import team.retum.jobis.domain.recruitment.model.Recruitment;
 @AllArgsConstructor
 public class WinterInternRegisteredEvent {
 
-    private final Recruitment recruitments;
+    private final Recruitment recruitment;
 
 }
