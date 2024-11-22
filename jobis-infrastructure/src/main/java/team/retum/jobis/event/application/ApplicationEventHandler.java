@@ -48,15 +48,14 @@ public class ApplicationEventHandler {
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {
-            String content = "지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.";
+
             String companyName = companyNameMap.get(application.getRecruitmentId());
-            if (event.getStatus() == ApplicationStatus.PASS) {
-                content = companyName + "에 합격하셨습니다.";
-            }
+
+            ApplicationMessage notificationMessage = ApplicationMessage.of(event, companyName);
 
             Notification notification = Notification.builder()
-                .title("결과 보러가기")
-                .content(content)
+                .title(notificationMessage.getTitle())
+                .content(notificationMessage.getContent())
                 .userId(application.getStudentId())
                 .topic(Topic.APPLICATION)
                 .detailId(application.getId())
