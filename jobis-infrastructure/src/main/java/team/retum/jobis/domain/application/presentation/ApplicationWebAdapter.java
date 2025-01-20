@@ -235,6 +235,7 @@ public class ApplicationWebAdapter {
         teacherDeleteApplicationUseCase.execute(applicationIds);
     }
 
+    @Cacheable
     @GetMapping("/employment")
     public EmploymentRatesResponse queryEmploymentRate() {
         return queryEmploymentRateUseCase.execute();
