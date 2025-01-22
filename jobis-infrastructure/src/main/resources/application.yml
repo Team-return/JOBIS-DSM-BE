@@ -54,8 +54,8 @@ spring:
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: 5672
-    username: ${RABBITMQ_USERNAME:jobis}
-    password: ${RABBITMQ_PASSWORD:jobis123}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 
 management:
   endpoint:
