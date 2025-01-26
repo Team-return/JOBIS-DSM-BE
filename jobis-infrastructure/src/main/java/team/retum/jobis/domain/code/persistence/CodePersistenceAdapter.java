@@ -67,19 +67,6 @@ public class CodePersistenceAdapter implements CodePort {
             .map(codeMapper::toDomain);
     }
 
-    //interests 도메인에 있는게 맞는듯?
-    @Override
-    public List<String> getAllByStudentAndCodeType(Student student, CodeType type) {
-        return jpaQueryFactory
-            .select(interestEntity.code.keyword)
-            .from(interestEntity)
-            .innerJoin(studentEntity)
-            .on(studentEntity.id.eq(student.getId()))
-            .where(interestEntity.code.type.eq(type))
-            .fetch().stream()
-            .toList();
-    }
-
     @Override
     public Code save(Code code) {
         return codeMapper.toDomain(

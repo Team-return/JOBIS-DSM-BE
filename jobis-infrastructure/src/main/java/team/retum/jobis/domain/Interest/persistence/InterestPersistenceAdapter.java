@@ -1,28 +1,30 @@
 package team.retum.jobis.domain.interest.persistence;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
-import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
+import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.model.Interest;
 import team.retum.jobis.domain.interest.persistence.mapper.InterestMapper;
 import team.retum.jobis.domain.interest.persistence.repository.InterestJpaRepository;
 import team.retum.jobis.domain.interest.spi.InterestPort;
+import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
+import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor
 @Component
 public class InterestPersistenceAdapter implements InterestPort {
 
+    private final JPAQueryFactory jpaQueryFactory;
     private final InterestJpaRepository interestJpaRepository;
-    private final CodeJpaRepository codeJpaRepository;
     private final InterestMapper interestMapper;
     private final QueryCodePort queryCodePort;
 
@@ -62,5 +64,17 @@ public class InterestPersistenceAdapter implements InterestPort {
                     return InterestResponse.of(interest, code);
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getAllByStudentAndCodeType(Student student, CodeType type) {
+        return jpaQueryFactory
+            .select(interestEntity.code.keyword)
+            .from(interestEntity)
+            .innerJoin(studentEntity)
+            .on(studentEntity.id.eq(student.getId()))
+            .where(interestEntity.code.type.eq(type))
+            .fetch().stream()
+            .toList();
     }
 }

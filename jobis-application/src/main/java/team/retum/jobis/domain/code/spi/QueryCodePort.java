@@ -17,6 +17,4 @@ public interface QueryCodePort {
     List<Code> getAllByIdInOrThrow(List<Long> codes);
 
     Optional<Code> getByKeywordAndType(String keyword, CodeType type);
-
-    List<String> getAllByStudentAndCodeType(Student student, CodeType codeType);
 }
