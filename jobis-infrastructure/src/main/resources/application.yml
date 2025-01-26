@@ -107,3 +107,6 @@ fcm:
 slack:
   url: ${SLACK_URL:d}
   token: ${SLACK_TOKEN:d}
+
+python:
+  url: ${PYTHON_URL:d}

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import team.retum.jobis.thirdparty.api.client.dto.InterestRecruitmentResponse;
 
-@FeignClient(name = "Python", url = "http://3.37.88.98:8314/recommend")
+@FeignClient(name = "Python", url = "${python.url}")
 public interface PythonFeignClient {
 
     @GetMapping
