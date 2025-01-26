@@ -15,7 +15,6 @@ import team.retum.jobis.domain.interest.usecase.QueryMyInterestRecruitmentUseCas
 import team.retum.jobis.domain.interest.usecase.QueryMyInterestsUseCase;
 import team.retum.jobis.domain.interest.usecase.ToggleInterestUseCase;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
-import team.retum.jobis.thirdparty.api.client.dto.InterestRecruitmentResponse;
 
 import java.util.List;
 
