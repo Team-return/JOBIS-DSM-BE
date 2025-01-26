@@ -425,6 +425,47 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return new RecruitmentExistsResponse(winterInternExists, experientialExists);
     }
 
+    @Override
+    public Optional<StudentRecruitmentVO> getStudentRecruitmentByCompanyName(String companyName, Long studentId) { //이거 네이밍도 그렇고 filter 사용할까 고민 중. 매개변수 두 개 있는거 너무 별로
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+        return Optional.ofNullable(
+            queryFactory
+                .select(
+                    new QQueryStudentRecruitmentsVO(
+                        recruitmentEntity.id,
+                        companyEntity.name,
+                        recruitmentEntity.payInfo.trainPay,
+                        recruitmentEntity.militarySupport,
+                        companyEntity.companyLogoUrl,
+                        recruitJobsPath,
+                        bookmarkEntity.recruitment.id.isNotNull()
+                    )
+                )
+                .from(recruitmentEntity)
+                .leftJoin(bookmarkEntity)
+                .on(
+                    recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
+                    bookmarkEntity.student.id.eq(studentId)
+                )
+                .join(recruitmentEntity.company, companyEntity)
+                .join(recruitAreaEntity)
+                .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                .join(recruitAreaCodeEntity)
+                .on(
+                    recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                    recruitAreaCodeEntity.type.eq(JOB)
+                )
+                .join(recruitAreaCodeEntity.code, codeEntity)
+                .where(
+                    containsName(companyName)
+                    //recruitmentEntity.status.eq(RecruitStatus.RECRUITING) <- 이거 일단 보류. 의엘이한테 물어보고 정해야 할 듯
+                )
+                .orderBy(recruitmentEntity.createdAt.desc())
+                .groupBy(recruitmentEntity.id)
+                .fetchOne()
+        );
+    }
+
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {

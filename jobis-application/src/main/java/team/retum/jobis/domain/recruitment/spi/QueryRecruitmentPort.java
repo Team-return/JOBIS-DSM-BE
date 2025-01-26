@@ -27,6 +27,8 @@ public interface QueryRecruitmentPort {
 
     List<StudentRecruitmentVO> getStudentRecruitmentsBy(RecruitmentFilter filter);
 
+    Optional<StudentRecruitmentVO> getStudentRecruitmentByCompanyName(String CompanyName, Long studentId);
+
     List<TeacherRecruitmentVO> getTeacherRecruitmentsBy(RecruitmentFilter filter);
 
     List<TeacherRecruitmentVO> getTeacherRecruitmentsWithoutPageBy(RecruitmentFilter filter);
