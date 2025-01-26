@@ -456,10 +456,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitAreaCodeEntity.type.eq(JOB)
                 )
                 .join(recruitAreaCodeEntity.code, codeEntity)
-                .where(
-                    containsName(companyName)
-                    //recruitmentEntity.status.eq(RecruitStatus.RECRUITING) <- 이거 일단 보류. 의엘이한테 물어보고 정해야 할 듯
-                )
+                .where(containsName(companyName))
                 .orderBy(recruitmentEntity.createdAt.desc())
                 .groupBy(recruitmentEntity.id)
                 .fetchOne()
