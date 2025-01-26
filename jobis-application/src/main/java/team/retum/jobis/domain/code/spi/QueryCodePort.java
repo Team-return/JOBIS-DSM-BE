@@ -2,9 +2,6 @@ package team.retum.jobis.domain.code.spi;
 
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.model.CodeType;
-import team.retum.jobis.domain.interest.model.Interest;
-import team.retum.jobis.domain.student.model.Student;
-
 import java.util.List;
 import java.util.Optional;
 

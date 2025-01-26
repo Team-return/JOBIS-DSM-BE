@@ -10,14 +10,11 @@ import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.mapper.CodeMapper;
 import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
 import team.retum.jobis.domain.code.spi.CodePort;
-import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
 import java.util.Optional;
 
 import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
-import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
-import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor
 @Repository
