@@ -30,9 +30,9 @@ public class QueryMyInterestRecruitmentUseCase {
         List<String> major = interestPort.getAllByStudentAndCodeType(student, CodeType.JOB);
         List<String> tech = interestPort.getAllByStudentAndCodeType(student, CodeType.TECH);
 
-        List<String> response = feignClientPort.getMyInterestRecruitmentByMajorAndTech(major, tech);
+        List<String> interestCompanies = feignClientPort.getMyInterestCompanyByMajorAndTech(major, tech);
 
-        List<StudentRecruitmentResponse> recruitments = response.stream()
+        List<StudentRecruitmentResponse> recruitments = interestCompanies.stream()
             .map(companyName -> queryRecruitmentPort.getStudentRecruitmentByCompanyName(companyName, student.getId()))
             .filter(Optional::isPresent)
             .map(Optional::get)

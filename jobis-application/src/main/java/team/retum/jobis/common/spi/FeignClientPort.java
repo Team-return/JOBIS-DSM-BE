@@ -8,5 +8,5 @@ public interface FeignClientPort {
 
     boolean checkCompanyExistsByBizNo(String businessNumber);
 
-    List<String> getMyInterestRecruitmentByMajorAndTech(List<String> major, List<String> tech);
+    List<String> getMyInterestCompanyByMajorAndTech(List<String> major, List<String> tech);
 }

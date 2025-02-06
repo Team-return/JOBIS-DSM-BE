@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class InterestRecruitmentResponse {
+public class InterestCompanyResponse {
 
     private List<String> recommendedCompanies;
 }
