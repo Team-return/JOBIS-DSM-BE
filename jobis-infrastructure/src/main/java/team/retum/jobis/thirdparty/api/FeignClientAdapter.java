@@ -8,7 +8,7 @@ import team.retum.jobis.thirdparty.api.client.BizNoFeignClient;
 import team.retum.jobis.thirdparty.api.client.FeignProperty;
 import team.retum.jobis.thirdparty.api.client.PythonFeignClient;
 import team.retum.jobis.thirdparty.api.client.dto.BusinessNumberResponse;
-import team.retum.jobis.thirdparty.api.client.dto.InterestRecruitmentResponse;
+import team.retum.jobis.thirdparty.api.client.dto.InterestCompanyResponse;
 import team.retum.jobis.thirdparty.api.exception.FeignBadRequestException;
 import team.retum.jobis.thirdparty.api.exception.FeignServerErrorException;
 import team.retum.jobis.thirdparty.api.exception.FeignUnauthorisedException;
@@ -38,11 +38,11 @@ public class FeignClientAdapter implements FeignClientPort {
     }
 
     @Override
-    public List<String> getMyInterestRecruitmentByMajorAndTech(List<String> major, List<String> tech) {
+    public List<String> getMyInterestCompanyByMajorAndTech(List<String> major, List<String> tech) {
         String majors = String.join(",", major);
         String techs = String.join(",", tech);
 
-        InterestRecruitmentResponse response = pythonFeignClient.getApi(majors, techs);
+        InterestCompanyResponse response = pythonFeignClient.getApi(majors, techs);
 
         return response.getRecommendedCompanies();
     }

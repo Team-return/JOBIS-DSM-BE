@@ -11,13 +11,11 @@ import team.retum.jobis.domain.interest.model.Interest;
 import team.retum.jobis.domain.interest.persistence.mapper.InterestMapper;
 import team.retum.jobis.domain.interest.persistence.repository.InterestJpaRepository;
 import team.retum.jobis.domain.interest.spi.InterestPort;
-import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
-import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor
 @Component
@@ -67,14 +65,11 @@ public class InterestPersistenceAdapter implements InterestPort {
     }
 
     @Override
-    public List<String> getAllByStudentAndCodeType(Student student, CodeType type) {
+    public List<String> getAllByStudentIdAndCodeType(Long studentId, CodeType type) {
         return jpaQueryFactory
             .select(interestEntity.code.keyword)
             .from(interestEntity)
-            .innerJoin(studentEntity)
-            .on(studentEntity.id.eq(student.getId()))
-            .where(interestEntity.code.type.eq(type))
-            .fetch().stream()
-            .toList();
+            .where(interestEntity.student.id.eq(studentId), interestEntity.code.type.eq(type))
+            .fetch();
     }
 }
