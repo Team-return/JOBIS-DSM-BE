@@ -91,7 +91,6 @@ public class StudentPersistenceAdapter implements StudentPort {
             .fetchOne();
     }
 
-
     @Override
     public Long getPassedStudentsByClassNumber(Integer classNum) {
         List<Long> counts = queryFactory
