@@ -6,7 +6,7 @@ import team.retum.jobis.common.spi.FeignClientPort;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.thirdparty.api.client.BizNoFeignClient;
 import team.retum.jobis.thirdparty.api.client.FeignProperty;
-import team.retum.jobis.thirdparty.api.client.PythonFeignClient;
+import team.retum.jobis.thirdparty.api.client.InterestCompanyFeignClient;
 import team.retum.jobis.thirdparty.api.client.dto.BusinessNumberResponse;
 import team.retum.jobis.thirdparty.api.client.dto.InterestCompanyResponse;
 import team.retum.jobis.thirdparty.api.exception.FeignBadRequestException;
@@ -21,7 +21,7 @@ public class FeignClientAdapter implements FeignClientPort {
 
     private final FeignProperty feignProperty;
     private final BizNoFeignClient bizNoFeignClient;
-    private final PythonFeignClient pythonFeignClient;
+    private final InterestCompanyFeignClient interestCompanyFeignClient;
 
     @Override
     public String getCompanyNameByBizNo(String businessNumber) {
@@ -39,10 +39,10 @@ public class FeignClientAdapter implements FeignClientPort {
 
     @Override
     public List<String> getMyInterestCompanyByMajorAndTech(List<String> major, List<String> tech) {
-        String majors = String.join(",", major);
-        String techs = String.join(",", tech);
+        String majors = (major == null ? "" : String.join(",", major));
+        String techs = (tech == null ? "" : String.join(",", tech));
 
-        InterestCompanyResponse response = pythonFeignClient.getApi(majors, techs);
+        InterestCompanyResponse response = interestCompanyFeignClient.getApi(majors, techs);
 
         return response.getRecommendedCompanies();
     }

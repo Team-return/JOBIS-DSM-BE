@@ -11,10 +11,8 @@ import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitments
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.student.model.Student;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -29,25 +27,24 @@ public class QueryMyInterestRecruitmentUseCase {
     public StudentQueryRecruitmentsResponse execute() {
         Student student = securityPort.getCurrentStudent();
 
-        Map<CodeType, List<String>> interests = getInterestsByCodeTypes(student.getId(), CodeType.JOB, CodeType.TECH);
+        Map<CodeType, List<String>> interests = getInterestsByCodeTypes(student.getId());
 
         List<String> major = interests.get(CodeType.JOB);
         List<String> tech = interests.get(CodeType.TECH);
 
         List<String> interestCompanies = feignClientPort.getMyInterestCompanyByMajorAndTech(major, tech);
 
-        List<StudentRecruitmentResponse> recruitments = interestCompanies.stream()
-            .map(companyName -> queryRecruitmentPort.getStudentRecruitmentByCompanyName(companyName, student.getId()))
-            .filter(Optional::isPresent)
-            .map(Optional::get)
+        List<StudentRecruitmentResponse> recruitments =
+            queryRecruitmentPort.getStudentRecruitmentByCompanyName(interestCompanies, student.getId()).stream()
             .map(StudentRecruitmentResponse::from)
             .toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
     }
 
-    private Map<CodeType, List<String>> getInterestsByCodeTypes(Long studentId, CodeType... types) {
-        return Arrays.stream(types)
+    private Map<CodeType, List<String>> getInterestsByCodeTypes(Long studentId) {
+        List<CodeType> types = List.of();
+        return types.stream()
             .collect(Collectors.toMap(
                 type -> type,
                 type -> interestPort.getAllByStudentIdAndCodeType(studentId, type)

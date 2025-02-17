@@ -426,10 +426,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public Optional<StudentRecruitmentVO> getStudentRecruitmentByCompanyName(String companyName, Long studentId) { //이거 네이밍도 그렇고 filter 사용할까 고민 중. 매개변수 두 개 있는거 너무 별로
+    public List<StudentRecruitmentVO> getStudentRecruitmentByCompanyName(List<String> companyNames, Long studentId) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
-        return Optional.ofNullable(
-            queryFactory
+        return queryFactory
                 .select(
                     new QQueryStudentRecruitmentsVO(
                         recruitmentEntity.id,
@@ -456,11 +455,13 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitAreaCodeEntity.type.eq(JOB)
                 )
                 .join(recruitAreaCodeEntity.code, codeEntity)
-                .where(containsName(companyName))
+                .where(companyEntity.name.in(companyNames))
                 .orderBy(recruitmentEntity.createdAt.desc())
                 .groupBy(recruitmentEntity.id)
-                .fetchOne()
-        );
+                .fetch()
+            .stream()
+            .map(StudentRecruitmentVO.class::cast)
+            .toList();
     }
 
     //===conditions===//
