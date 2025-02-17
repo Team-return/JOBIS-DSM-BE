@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import team.retum.jobis.thirdparty.api.client.dto.InterestCompanyResponse;
 
 @FeignClient(name = "Python", url = "${python.url}")
-public interface PythonFeignClient {
+public interface InterestCompanyFeignClient {
 
     @GetMapping
     InterestCompanyResponse getApi(@RequestParam("major") String major, @RequestParam("tech") String tech);
