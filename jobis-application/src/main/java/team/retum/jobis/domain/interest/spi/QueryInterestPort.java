@@ -5,7 +5,6 @@ import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.model.Interest;
 
 import java.util.List;
-import java.util.Map;
 
 public interface QueryInterestPort {
 
