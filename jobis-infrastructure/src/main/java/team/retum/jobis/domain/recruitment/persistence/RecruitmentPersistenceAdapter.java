@@ -426,7 +426,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public List<StudentRecruitmentVO> getStudentRecruitmentByCompanyName(List<String> companyNames, Long studentId) {
+    public List<StudentRecruitmentVO> getStudentRecruitmentByCompanyNames(List<String> companyNames, Long studentId) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         return queryFactory
                 .select(
