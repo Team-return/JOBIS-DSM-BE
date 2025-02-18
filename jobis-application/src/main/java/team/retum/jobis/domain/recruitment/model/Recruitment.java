@@ -152,4 +152,11 @@ public class Recruitment {
             .integrationPlan(request.integrationPlan())
             .build();
     }
+
+
+    public void checkStatusIsNonMou() {
+        if (!(this.status.equals(RecruitStatus.NON_MOU))) {
+            throw InvalidRecruitmentStatusException.EXCEPTION;
+        }
+    }
 }

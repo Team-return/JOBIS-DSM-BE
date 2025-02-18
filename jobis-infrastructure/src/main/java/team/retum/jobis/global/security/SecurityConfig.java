@@ -93,6 +93,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/applications").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/employment").permitAll()
+                    .requestMatchers(HttpMethod.POST, "applications/teacher/{recruitment-id}").hasAnyAuthority(TEACHER.name())
 
                     // bookmarks
                     .requestMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())

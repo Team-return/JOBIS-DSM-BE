@@ -1,9 +1,12 @@
 package team.retum.jobis.domain.student.persistence;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.application.dto.NonMouStudnetGcns;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
@@ -106,5 +109,41 @@ public class StudentPersistenceAdapter implements StudentPort {
             .fetch();
 
         return null != counts ? counts.get(0) : 0;
+    }
+
+    @Override
+    public List<Student> getStudentsByNonMouStudentGcnsOrThrow(NonMouStudnetGcns nonMouStudnetGcns) {
+        BooleanBuilder builder = new BooleanBuilder();
+
+        List<Integer> gradles = nonMouStudnetGcns.getGrade();
+        List<Integer> classRooms = nonMouStudnetGcns.getClassRoom();
+        List<Integer> numbers = nonMouStudnetGcns.getNumber();
+        List<Integer> entranceYears = nonMouStudnetGcns.getEntranceYear();
+
+        for (int i = 0; i < numbers.size(); i++) {
+            BooleanBuilder condition = new BooleanBuilder();
+
+            condition.and(studentEntity.grade.eq(gradles.get(i)))
+                     .and(studentEntity.classRoom.eq(classRooms.get(i)))
+                     .and(studentEntity.number.eq(numbers.get(i)))
+                     .and(studentEntity.entranceYear.eq(entranceYears.get(i)));
+
+            builder.or(condition);
+        }
+
+        List<Student> students = queryFactory
+                .select(studentEntity)
+                .from(studentEntity)
+                .where(builder)
+                .fetch()
+                .stream()
+                .map(studentMapper::toDomain)
+                .toList();
+
+        if (students.size() != numbers.size()) {
+            throw StudentNotFoundException.EXCEPTION;
+        }
+
+        return students;
     }
 }
