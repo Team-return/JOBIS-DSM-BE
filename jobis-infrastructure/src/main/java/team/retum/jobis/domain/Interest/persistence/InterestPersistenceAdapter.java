@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.interest.persistence;
 
+import com.querydsl.core.group.GroupBy;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import team.retum.jobis.domain.interest.persistence.repository.InterestJpaReposi
 import team.retum.jobis.domain.interest.spi.InterestPort;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
@@ -65,11 +67,16 @@ public class InterestPersistenceAdapter implements InterestPort {
     }
 
     @Override
-    public List<String> getAllByStudentIdAndCodeType(Long studentId, CodeType type) {
+    public Map<CodeType, List<String>> getAllByStudentIdAndCodeTypes(Long studentId) {
         return jpaQueryFactory
-            .select(interestEntity.code.keyword)
+            .select(interestEntity.code.type, interestEntity.code.keyword)
             .from(interestEntity)
-            .where(interestEntity.student.id.eq(studentId), interestEntity.code.type.eq(type))
-            .fetch();
+            .where(
+                interestEntity.student.id.eq(studentId),
+                interestEntity.code.type.in(CodeType.JOB, CodeType.TECH)
+            )
+            .transform(GroupBy.groupBy(interestEntity.code.type)
+                .as(GroupBy.list(interestEntity.code.keyword))
+            );
     }
 }

@@ -13,7 +13,6 @@ import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @ReadOnlyUseCase
@@ -27,7 +26,7 @@ public class QueryMyInterestRecruitmentUseCase {
     public StudentQueryRecruitmentsResponse execute() {
         Student student = securityPort.getCurrentStudent();
 
-        Map<CodeType, List<String>> interests = getInterestsByCodeTypes(student.getId());
+        Map<CodeType, List<String>> interests = interestPort.getAllByStudentIdAndCodeTypes(student.getId());
 
         List<String> major = interests.get(CodeType.JOB);
         List<String> tech = interests.get(CodeType.TECH);
@@ -35,19 +34,10 @@ public class QueryMyInterestRecruitmentUseCase {
         List<String> interestCompanies = feignClientPort.getMyInterestCompanyByMajorAndTech(major, tech);
 
         List<StudentRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getStudentRecruitmentByCompanyName(interestCompanies, student.getId()).stream()
+            queryRecruitmentPort.getStudentRecruitmentByCompanyNames(interestCompanies, student.getId()).stream()
             .map(StudentRecruitmentResponse::from)
             .toList();
 
         return new StudentQueryRecruitmentsResponse(recruitments);
-    }
-
-    private Map<CodeType, List<String>> getInterestsByCodeTypes(Long studentId) {
-        List<CodeType> types = List.of();
-        return types.stream()
-            .collect(Collectors.toMap(
-                type -> type,
-                type -> interestPort.getAllByStudentIdAndCodeType(studentId, type)
-            ));
     }
 }
