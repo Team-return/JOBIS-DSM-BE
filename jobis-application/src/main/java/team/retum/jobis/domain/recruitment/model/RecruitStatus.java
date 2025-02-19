@@ -5,5 +5,5 @@ public enum RecruitStatus {
     READY,
     RECRUITING,
     DONE,
-    NON_MOU
+    NON_SCHOOL_CONTACT
 }

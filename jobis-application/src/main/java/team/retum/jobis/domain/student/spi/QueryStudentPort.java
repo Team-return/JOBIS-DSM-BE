@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.student.spi;
 
-import team.retum.jobis.domain.application.dto.NonMouStudnetGcns;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
@@ -23,6 +22,6 @@ public interface QueryStudentPort {
 
     Long getPassedStudentsByClassNumber(Integer classNum);
 
-    List<Student> getStudentsByNonMouStudentGcnsOrThrow(NonMouStudnetGcns nonMouStudnetGcns);
+    List<Student> getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(List<SchoolNumber> schoolNumbers, List<Integer> entranceYear);
 
 }

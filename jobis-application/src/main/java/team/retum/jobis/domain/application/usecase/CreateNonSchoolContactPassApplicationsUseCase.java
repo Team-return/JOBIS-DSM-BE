@@ -2,8 +2,7 @@ package team.retum.jobis.domain.application.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
-import team.retum.jobis.domain.application.dto.NonMouStudnetGcns;
-import team.retum.jobis.domain.application.dto.request.CreateNonMOUPassApplicationsRequest;
+import team.retum.jobis.domain.application.dto.request.CreateNonSchoolContactPassApplicationsRequest;
 import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
@@ -13,6 +12,7 @@ import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
+import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.spi.QueryStudentPort;
 
@@ -21,28 +21,30 @@ import java.util.List;
 
 @UseCase
 @RequiredArgsConstructor
-public class CreateNonMOUPassApplicationsUseCase {
+public class CreateNonSchoolContactPassApplicationsUseCase {
     private final CommandApplicationPort commandApplicationPort;
     private final QueryStudentPort queryStudentPort;
     private final QueryApplicationPort queryApplicationPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
 
-    public void execute(CreateNonMOUPassApplicationsRequest request) {
-
+    public void execute(CreateNonSchoolContactPassApplicationsRequest request) {
         Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(request.recruitmentId());
-        recruitment.checkStatusIsNonMou();
+        recruitment.checkIsNonSchoolContact();
 
+        List<Integer> enterenceYears = new ArrayList<>();
+        List<SchoolNumber> schoolNumbers = request.studentGcns()
+                .stream()
+                .map(gcn -> {
+                    enterenceYears.add(Student.getEntranceYear(Integer.parseInt(gcn.substring(0, 1))));
 
-        NonMouStudnetGcns nonMouStudnetGcns = NonMouStudnetGcns.builder()
-                .grade(request.studentGcns().stream().map(gcn -> Integer.parseInt(gcn.substring(0, 1))).toList())
-                .classRoom(request.studentGcns().stream().map(gcn -> Integer.parseInt(gcn.substring(1, 2))).toList())
-                .number(request.studentGcns().stream().map(gcn -> Integer.parseInt(gcn.substring(2, 4))).toList())
-                .build();
+                    return SchoolNumber.builder()
+                        .grade(Integer.parseInt(gcn.substring(0, 1)))
+                        .classRoom(Integer.parseInt(gcn.substring(1, 2)))
+                        .number(Integer.parseInt(gcn.substring(2, 4)))
+                        .build();
+                }).toList();
 
-
-        List<Student> students = queryStudentPort.getStudentsByNonMouStudentGcnsOrThrow(nonMouStudnetGcns);
-
-
+        List<Student> students = queryStudentPort.getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(schoolNumbers, enterenceYears);
         List<Application> applications = new ArrayList<>();
         ApplicationAttachment attachment = new ApplicationAttachment("", AttachmentType.NONE);
 
@@ -64,7 +66,6 @@ public class CreateNonMOUPassApplicationsUseCase {
 
         commandApplicationPort.saveAll(applications);
     }
-
 
     private void checkApplicationDuplicated(Long studentId) {
         if (queryApplicationPort.existsByStudentIdAndApplicationStatusIn(

@@ -4,7 +4,6 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.domain.application.dto.NonMouStudnetGcns;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.SchoolNumber;
@@ -94,7 +93,6 @@ public class StudentPersistenceAdapter implements StudentPort {
             .fetchOne();
     }
 
-
     @Override
     public Long getPassedStudentsByClassNumber(Integer classNum) {
         List<Long> counts = queryFactory
@@ -112,21 +110,17 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public List<Student> getStudentsByNonMouStudentGcnsOrThrow(NonMouStudnetGcns nonMouStudnetGcns) {
+    public List<Student> getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(List<SchoolNumber> schoolNumbers, List<Integer> entranceYear) {
         BooleanBuilder builder = new BooleanBuilder();
 
-        List<Integer> gradles = nonMouStudnetGcns.getGrade();
-        List<Integer> classRooms = nonMouStudnetGcns.getClassRoom();
-        List<Integer> numbers = nonMouStudnetGcns.getNumber();
-        List<Integer> entranceYears = nonMouStudnetGcns.getEntranceYear();
-
-        for (int i = 0; i < numbers.size(); i++) {
+        for (int i = 0; i < schoolNumbers.size(); i++) {
             BooleanBuilder condition = new BooleanBuilder();
+            SchoolNumber schoolNumber = schoolNumbers.get(i);
 
-            condition.and(studentEntity.grade.eq(gradles.get(i)))
-                     .and(studentEntity.classRoom.eq(classRooms.get(i)))
-                     .and(studentEntity.number.eq(numbers.get(i)))
-                     .and(studentEntity.entranceYear.eq(entranceYears.get(i)));
+            condition.and(studentEntity.grade.eq(schoolNumber.getGrade()))
+                     .and(studentEntity.classRoom.eq(schoolNumber.getClassRoom()))
+                     .and(studentEntity.number.eq(schoolNumber.getNumber()))
+                     .and(studentEntity.entranceYear.eq(entranceYear.get(i)));
 
             builder.or(condition);
         }
@@ -140,7 +134,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .map(studentMapper::toDomain)
                 .toList();
 
-        if (students.size() != numbers.size()) {
+        if (students.size() != schoolNumbers.size()) {
             throw StudentNotFoundException.EXCEPTION;
         }
 

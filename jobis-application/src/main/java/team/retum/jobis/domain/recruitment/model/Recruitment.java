@@ -154,8 +154,8 @@ public class Recruitment {
     }
 
 
-    public void checkStatusIsNonMou() {
-        if (!(this.status.equals(RecruitStatus.NON_MOU))) {
+    public void checkIsNonSchoolContact() {
+        if (!(this.status.equals(RecruitStatus.NON_SCHOOL_CONTACT))) {
             throw InvalidRecruitmentStatusException.EXCEPTION;
         }
     }
