@@ -425,6 +425,45 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return new RecruitmentExistsResponse(winterInternExists, experientialExists);
     }
 
+    @Override
+    public List<StudentRecruitmentVO> getStudentRecruitmentByCompanyNames(List<String> companyNames, Long studentId) {
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+        return queryFactory
+                .select(
+                    new QQueryStudentRecruitmentsVO(
+                        recruitmentEntity.id,
+                        companyEntity.name,
+                        recruitmentEntity.payInfo.trainPay,
+                        recruitmentEntity.militarySupport,
+                        companyEntity.companyLogoUrl,
+                        recruitJobsPath,
+                        bookmarkEntity.recruitment.id.isNotNull()
+                    )
+                )
+                .from(recruitmentEntity)
+                .leftJoin(bookmarkEntity)
+                .on(
+                    recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
+                    bookmarkEntity.student.id.eq(studentId)
+                )
+                .join(recruitmentEntity.company, companyEntity)
+                .join(recruitAreaEntity)
+                .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                .join(recruitAreaCodeEntity)
+                .on(
+                    recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                    recruitAreaCodeEntity.type.eq(JOB)
+                )
+                .join(recruitAreaCodeEntity.code, codeEntity)
+                .where(companyEntity.name.in(companyNames))
+                .orderBy(recruitmentEntity.createdAt.desc())
+                .groupBy(recruitmentEntity.id)
+                .fetch()
+            .stream()
+            .map(StudentRecruitmentVO.class::cast)
+            .toList();
+    }
+
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {

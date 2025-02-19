@@ -170,6 +170,7 @@ public class SecurityConfig {
                     // interest
                     .requestMatchers(HttpMethod.PATCH, "/interests/{code}").hasAnyAuthority(STUDENT.name())
                     .requestMatchers(HttpMethod.GET, "/interests").hasAnyAuthority(STUDENT.name())
+                    .requestMatchers(HttpMethod.GET, "/interests/recruitment").hasAnyAuthority(STUDENT.name())
 
                     // winter-intern
                     .requestMatchers(HttpMethod.PATCH, "/winter-intern").hasAuthority(TEACHER.name())
