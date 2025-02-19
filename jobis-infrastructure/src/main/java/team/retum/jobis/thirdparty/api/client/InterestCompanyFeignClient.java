@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import team.retum.jobis.thirdparty.api.client.dto.InterestCompanyResponse;
 
-@FeignClient(name = "Python", url = "${python.url}")
+@FeignClient(name = "Interest", url = "${interest.url}")
 public interface InterestCompanyFeignClient {
 
     @GetMapping
