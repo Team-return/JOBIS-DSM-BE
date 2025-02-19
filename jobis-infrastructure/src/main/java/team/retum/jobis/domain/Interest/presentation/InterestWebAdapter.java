@@ -38,7 +38,7 @@ public class InterestWebAdapter {
         return queryMyInterestsUseCase.execute();
     }
 
-    @GetMapping("/my")
+    @GetMapping("/recruitment")
     public StudentQueryRecruitmentsResponse queryMyInterestRecruitment() {
         return queryMyInterestRecruitmentUseCase.execute();
     }
