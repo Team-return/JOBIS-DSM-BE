@@ -29,7 +29,7 @@ public class CreateNonSchoolContactPassApplicationsUseCase {
 
     public void execute(CreateNonSchoolContactPassApplicationsRequest request) {
         Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(request.recruitmentId());
-        recruitment.checkIsNonSchoolContact();
+        recruitment.checkIsManualAdd();
 
         List<Integer> enterenceYears = new ArrayList<>();
         List<SchoolNumber> schoolNumbers = request.studentGcns()

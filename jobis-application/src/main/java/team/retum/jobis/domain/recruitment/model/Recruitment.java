@@ -153,10 +153,9 @@ public class Recruitment {
             .build();
     }
 
-
-    public void checkIsNonSchoolContact() {
-        if (!(this.status.equals(RecruitStatus.NON_SCHOOL_CONTACT))) {
+    public void checkIsManualAdd() {
+        if (!(this.status.equals(RecruitStatus.MANUAL_ADD))) {
             throw InvalidRecruitmentStatusException.EXCEPTION;
         }
-    }
+    } 
 }
