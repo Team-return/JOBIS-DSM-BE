@@ -4,10 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.common.annotation.Aggregate;
 import team.retum.jobis.domain.company.dto.request.RegisterCompanyRequest;
+import team.retum.jobis.domain.company.dto.request.TeacherRegisterCompanyRequest;
 import team.retum.jobis.domain.company.dto.request.UpdateCompanyDetailsRequest;
 import team.retum.jobis.domain.recruitment.exception.CompanyMismatchException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -89,6 +91,42 @@ public class Company {
             .attachmentUrls(request.attachmentUrls())
             .headquarter(request.headquarter())
             .build();
+    }
+
+    public static Company of(Long id, TeacherRegisterCompanyRequest request, String businessArea) {
+        return Company.builder()
+                .id(id)
+                .companyIntroduce("수동 등록된 기업입니다.")
+                .companyLogoUrl(request.companyProfileUrl())
+                .bizRegistrationUrl("N/A")
+                .businessArea(businessArea)
+                .serviceName("N/A")
+                .name(request.name())
+                .type(CompanyType.NON_MOU)
+                .take(12)
+                .addressInfo(
+                        AddressInfo.builder()
+                                .mainAddress("대전광역시 유성구 가정북로 76")
+                                .mainAddressDetail("N/A")
+                                .mainZipCode("34111")
+                                .build()
+                )
+                .managerInfo(
+                        ManagerInfo.builder()
+                                .managerName("N/A")
+                                .managerPhoneNo("N/A")
+                                .build()
+                )
+                .workersCount(0)
+                .email("N/A")
+                .isMou(false)
+                .bizNo(request.businessNumber())
+                .representative("N/A")
+                .representativePhoneNo("N/A")
+                .foundedAt(LocalDate.from(LocalDateTime.now()))
+                .attachmentUrls(List.of("N/A"))
+                .headquarter(true)
+                .build();
     }
 
     public Company update(UpdateCompanyDetailsRequest request) {

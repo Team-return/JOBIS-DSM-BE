@@ -37,6 +37,16 @@ public class RecruitArea {
             .build();
     }
 
+    public static RecruitArea of(Long recruitmentId) {
+        return RecruitArea.builder()
+                .recruitmentId(recruitmentId)
+                .hiredCount(1)
+                .majorTask("N/A")
+                .preferentialTreatment("N/A")
+                .codes(Code.combineCodesWithType(List.of(8L), List.of(0L)))
+                .build();
+    }
+
     public RecruitArea update(CreateRecruitAreaRequest request) {
         return this.toBuilder()
             .hiredCount(request.hiring())

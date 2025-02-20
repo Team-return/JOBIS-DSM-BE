@@ -4,5 +4,6 @@ public enum RecruitStatus {
     REQUESTED,
     READY,
     RECRUITING,
-    DONE
+    DONE,
+    NON_MOU
 }

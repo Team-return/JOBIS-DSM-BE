@@ -123,6 +123,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/file").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.POST, "companies/teacher").hasAuthority(TEACHER.name())
 
                     // users
                     .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
