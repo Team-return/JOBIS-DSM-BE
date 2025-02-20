@@ -102,7 +102,7 @@ public class Company {
                 .businessArea(businessArea)
                 .serviceName("N/A")
                 .name(request.name())
-                .type(CompanyType.NON_MOU)
+                .type(CompanyType.MANUAL_ADD)
                 .take(12)
                 .addressInfo(
                         AddressInfo.builder()

@@ -93,7 +93,7 @@ public class Recruitment {
                 .flexibleWorking(true)
                 .salary(new Salary(0, "0"))
                 .requiredLicenses(List.of("N/A"))
-                .status(RecruitStatus.NON_MOU)
+                .status(RecruitStatus.MANUAL_ADD)
                 .additionalQualifications("N/A")
                 .recruitingPeriod(new RecruitingPeriod(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31)))
                 .submitDocument("N/A")
