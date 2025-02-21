@@ -34,7 +34,7 @@ public class TeacherRegisterCompanyUseCase {
     private final RecruitmentPort recruitmentPort;
     private final CommandRecruitAreaPort commandRecruitAreaPort;
 
-    private static final long BUSINESS_AREA_CODE = 0;
+    private static final long BUSINESS_AREA_CODE = 1;
 
     public void execute(TeacherRegisterCompanyRequest request) {
         checkCompanyExists(request.businessNumber());

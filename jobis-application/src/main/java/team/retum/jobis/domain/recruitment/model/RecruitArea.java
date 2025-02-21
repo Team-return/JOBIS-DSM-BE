@@ -43,7 +43,7 @@ public class RecruitArea {
                 .hiredCount(1)
                 .majorTask("N/A")
                 .preferentialTreatment("N/A")
-                .codes(Code.combineCodesWithType(List.of(8L), List.of(0L)))
+                .codes(Code.combineCodesWithType(List.of(8L), List.of(1L)))
                 .build();
     }
 
