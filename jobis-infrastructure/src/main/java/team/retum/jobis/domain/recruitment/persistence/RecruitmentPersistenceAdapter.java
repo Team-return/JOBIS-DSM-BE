@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
+import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyVO;
+import team.retum.jobis.domain.company.spi.vo.CompanyVO;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -461,6 +463,26 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .fetch()
             .stream()
             .map(StudentRecruitmentVO.class::cast)
+            .toList();
+    }
+
+    @Override
+    public List<CompanyVO> getTeacherManualRecruitments() {
+        return queryFactory
+                .select(
+                    new QQueryCompanyVO(
+                        recruitmentEntity.id,
+                        companyEntity.name,
+                        companyEntity.companyLogoUrl
+                    )
+                )
+                .from(recruitmentEntity)
+                .join(recruitmentEntity.company, companyEntity)
+                .where(recruitmentEntity.status.eq(RecruitStatus.MANUAL_ADD))
+                .orderBy(recruitmentEntity.createdAt.desc())
+                .fetch()
+            .stream()
+            .map(CompanyVO.class::cast)
             .toList();
     }
 
