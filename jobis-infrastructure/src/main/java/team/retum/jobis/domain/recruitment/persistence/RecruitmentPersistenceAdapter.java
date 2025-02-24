@@ -469,18 +469,18 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public List<CompanyVO> getTeacherManualRecruitments() {
         return queryFactory
-                .select(
-                    new QQueryCompanyVO(
-                        recruitmentEntity.id,
-                        companyEntity.name,
-                        companyEntity.companyLogoUrl
-                    )
+            .select(
+                new QQueryCompanyVO(
+                    recruitmentEntity.id,
+                    companyEntity.name,
+                    companyEntity.companyLogoUrl
                 )
-                .from(recruitmentEntity)
-                .join(recruitmentEntity.company, companyEntity)
-                .where(recruitmentEntity.status.eq(RecruitStatus.MANUAL_ADD))
-                .orderBy(recruitmentEntity.createdAt.desc())
-                .fetch()
+            )
+            .from(recruitmentEntity)
+            .join(recruitmentEntity.company, companyEntity)
+            .where(recruitmentEntity.status.eq(RecruitStatus.MANUAL_ADD))
+            .orderBy(recruitmentEntity.createdAt.desc())
+            .fetch()
             .stream()
             .map(CompanyVO.class::cast)
             .toList();

@@ -106,7 +106,7 @@ public class TeacherQueryRecruitmentsUseCase {
 
     public TeacherQueryManualRecruitmentsResponse executeRegisteredByTeacher() {
         List<TeacherManualRecruitmentResponse> recruitments =
-                queryRecruitmentPort.getTeacherManualRecruitments().stream()
+            queryRecruitmentPort.getTeacherManualRecruitments().stream()
                 .map(TeacherManualRecruitmentResponse::from)
                 .toList();
 

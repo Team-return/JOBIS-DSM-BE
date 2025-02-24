@@ -29,10 +29,10 @@ public class TeacherQueryManualRecruitmentsResponse {
 
         public static TeacherManualRecruitmentResponse from(CompanyVO recruitment) {
             return TeacherManualRecruitmentResponse.builder()
-                    .id(recruitment.getId())
-                    .companyName(recruitment.getCompanyName())
-                    .companyLogoUrl(recruitment.getLogoUrl())
-                    .build();
+                .id(recruitment.getId())
+                .companyName(recruitment.getCompanyName())
+                .companyLogoUrl(recruitment.getLogoUrl())
+                .build();
         }
     }
 }
