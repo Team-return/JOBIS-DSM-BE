@@ -10,11 +10,12 @@ import team.retum.jobis.domain.company.dto.request.TeacherRegisterCompanyRequest
 @Getter
 @NoArgsConstructor
 public class TeacherRegisterCompanyWebRequest {
+
     @NotBlank
     @Size(max = 50)
     private String name;
+
     @NotBlank
-    @NotNull
     @Size(min = 10, max = 10)
     private String businessNumber;
     String companyProfileUrl;
