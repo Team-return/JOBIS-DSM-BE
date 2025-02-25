@@ -38,7 +38,6 @@ public class TeacherRegisterCompanyUseCase {
 
     public void execute(TeacherRegisterCompanyRequest request) {
         checkCompanyExists(request.businessNumber());
-        checkCompanyRegistered(request.businessNumber());
 
         Code code = queryCodePort.getByIdOrThrow(BUSINESS_AREA_CODE);
 
@@ -51,10 +50,13 @@ public class TeacherRegisterCompanyUseCase {
         );
 
         Company company = commandCompanyPort.save(
-                Company.of(user.getId(), request, code.getKeyword())
-        );
+                Company.of(user.getId(), request, code.getKeyword()));
 
-        applyRecruitment(company);
+        checkRecruitmentApplicable(company);
+        Recruitment recruitment = recruitmentPort.save(Recruitment.of(company.getId()));
+
+        commandRecruitAreaPort.saveAll(List.of(RecruitArea.of(recruitment.getId())));
+
     }
 
     private void checkCompanyExists(String businessNumber) {
@@ -62,24 +64,6 @@ public class TeacherRegisterCompanyUseCase {
             throw CompanyNotExistsException.EXCEPTION;
         }
     }
-
-    private void checkCompanyRegistered(String businessNumber) {
-        if (queryCompanyPort.existsByBizNo(businessNumber)) {
-            throw CompanyAlreadyExistsException.EXCEPTION;
-        }
-    }
-
-    private void applyRecruitment(Company company) {
-        checkRecruitmentApplicable(
-                company
-        );
-        Recruitment recruitment = recruitmentPort.save(
-                Recruitment.of(company.getId())
-        );
-
-        commandRecruitAreaPort.saveAll(List.of(RecruitArea.of(recruitment.getId())));
-    }
-
 
     private void checkRecruitmentApplicable(Company company) {
         if (recruitmentPort.existsByCompanyIdAndWinterIntern(company.getId(), false)) {
