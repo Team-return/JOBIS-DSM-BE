@@ -30,6 +30,7 @@ import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
@@ -478,7 +479,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .from(recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
-            .where(recruitmentEntity.status.eq(RecruitStatus.MANUAL_ADD))
+            .where(recruitmentEntity.status.eq(RecruitStatus.MANUAL_ADD)
+                .and(recruitmentEntity.recruitYear.eq(Year.now().getValue())))
             .orderBy(recruitmentEntity.createdAt.desc())
             .fetch()
             .stream()
