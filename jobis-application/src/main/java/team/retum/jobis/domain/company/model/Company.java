@@ -106,9 +106,9 @@ public class Company {
                 .take(12)
                 .addressInfo(
                         AddressInfo.builder()
-                                .mainAddress("대전광역시 유성구 가정북로 76")
+                                .mainAddress("N/A")
                                 .mainAddressDetail("N/A")
-                                .mainZipCode("34111")
+                                .mainZipCode("N/A")
                                 .build()
                 )
                 .managerInfo(
