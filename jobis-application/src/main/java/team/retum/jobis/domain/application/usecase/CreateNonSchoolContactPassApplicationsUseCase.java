@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.domain.application.dto.request.CreateNonSchoolContactPassApplicationsRequest;
 import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
+import team.retum.jobis.domain.application.exception.InvalidGradeException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -31,20 +32,16 @@ public class CreateNonSchoolContactPassApplicationsUseCase {
         Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(request.recruitmentId());
         recruitment.checkIsManualAdd();
 
-        List<Integer> enterenceYears = new ArrayList<>();
         List<SchoolNumber> schoolNumbers = request.studentGcns()
                 .stream()
                 .map(gcn -> {
-                    enterenceYears.add(Student.getEntranceYear(Integer.parseInt(gcn.substring(0, 1))));
-
-                    return SchoolNumber.builder()
-                        .grade(Integer.parseInt(gcn.substring(0, 1)))
-                        .classRoom(Integer.parseInt(gcn.substring(1, 2)))
-                        .number(Integer.parseInt(gcn.substring(2, 4)))
-                        .build();
+                    if (gcn.charAt(0) != '3') {
+                        throw InvalidGradeException.EXCEPTION;
+                    }
+                    return SchoolNumber.parseSchoolNumber(gcn);
                 }).toList();
 
-        List<Student> students = queryStudentPort.getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(schoolNumbers, enterenceYears);
+        List<Student> students = queryStudentPort.getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(schoolNumbers, Student.getEntranceYear(3));
         List<Application> applications = new ArrayList<>();
         ApplicationAttachment attachment = new ApplicationAttachment("", AttachmentType.NONE);
 
