@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.application.presentation.dto.request;
 
-
 import lombok.Getter;
 import team.retum.jobis.global.annotation.ValidListElements;
 

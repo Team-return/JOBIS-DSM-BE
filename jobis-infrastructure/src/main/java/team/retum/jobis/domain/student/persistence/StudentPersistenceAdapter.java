@@ -110,20 +110,19 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public List<Student> getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(List<SchoolNumber> schoolNumbers, List<Integer> entranceYear) {
+    public List<Student> getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(List<SchoolNumber> schoolNumbers, int entranceYear) {
         BooleanBuilder builder = new BooleanBuilder();
 
-        for (int i = 0; i < schoolNumbers.size(); i++) {
+        schoolNumbers.forEach(schoolNumber -> {
             BooleanBuilder condition = new BooleanBuilder();
-            SchoolNumber schoolNumber = schoolNumbers.get(i);
 
             condition.and(studentEntity.grade.eq(schoolNumber.getGrade()))
-                     .and(studentEntity.classRoom.eq(schoolNumber.getClassRoom()))
-                     .and(studentEntity.number.eq(schoolNumber.getNumber()))
-                     .and(studentEntity.entranceYear.eq(entranceYear.get(i)));
+                    .and(studentEntity.classRoom.eq(schoolNumber.getClassRoom()))
+                    .and(studentEntity.number.eq(schoolNumber.getNumber()))
+                    .and(studentEntity.entranceYear.eq(entranceYear));
 
             builder.or(condition);
-        }
+        });
 
         List<Student> students = queryFactory
                 .select(studentEntity)
