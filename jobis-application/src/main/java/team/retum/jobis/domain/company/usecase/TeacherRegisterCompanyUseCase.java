@@ -50,11 +50,11 @@ public class TeacherRegisterCompanyUseCase {
         );
 
         Company company = commandCompanyPort.save(
-                Company.of(user.getId(), request, code.getKeyword()));
+                Company.of(user.getId(), request, code.getKeyword())
+        );
 
         checkRecruitmentApplicable(company);
         Recruitment recruitment = recruitmentPort.save(Recruitment.of(company.getId()));
-
         commandRecruitAreaPort.saveAll(List.of(RecruitArea.of(recruitment.getId())));
 
     }
@@ -70,5 +70,4 @@ public class TeacherRegisterCompanyUseCase {
             throw RecruitmentAlreadyExistsException.EXCEPTION;
         }
     }
-
 }
