@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.recruitment.spi;
 
-import team.retum.jobis.domain.company.spi.vo.CompanyVO;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
@@ -8,6 +7,7 @@ import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.ManualRecruitmentVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,5 +44,5 @@ public interface QueryRecruitmentPort {
 
     RecruitmentExistsResponse existsByCompanyId(Long companyId);
 
-    List<CompanyVO> getTeacherManualRecruitments();
+    List<ManualRecruitmentVO> getTeacherManualRecruitments();
 }

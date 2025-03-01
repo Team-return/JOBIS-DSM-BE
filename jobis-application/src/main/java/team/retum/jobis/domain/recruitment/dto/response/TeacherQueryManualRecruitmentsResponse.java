@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.company.spi.vo.CompanyVO;
+import team.retum.jobis.domain.recruitment.spi.vo.ManualRecruitmentVO;
 
 import java.util.List;
 
@@ -27,11 +27,11 @@ public class TeacherQueryManualRecruitmentsResponse {
 
         private final String companyLogoUrl;
 
-        public static TeacherManualRecruitmentResponse from(CompanyVO recruitment) {
+        public static TeacherManualRecruitmentResponse from(ManualRecruitmentVO recruitment) {
             return TeacherManualRecruitmentResponse.builder()
                 .id(recruitment.getId())
                 .companyName(recruitment.getCompanyName())
-                .companyLogoUrl(recruitment.getLogoUrl())
+                .companyLogoUrl(recruitment.getCompanyLogoUrl())
                 .build();
         }
     }

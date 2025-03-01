@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
-import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyVO;
-import team.retum.jobis.domain.company.spi.vo.CompanyVO;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -21,11 +19,13 @@ import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryMyAll
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryStudentRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryTeacherRecruitmentsVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryManualRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.ManualRecruitmentVO;
 import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.time.LocalDate;
@@ -468,10 +468,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public List<CompanyVO> getTeacherManualRecruitments() {
+    public List<ManualRecruitmentVO> getTeacherManualRecruitments() {
         return queryFactory
             .select(
-                new QQueryCompanyVO(
+                new QQueryManualRecruitmentVO(
                     recruitmentEntity.id,
                     companyEntity.name,
                     companyEntity.companyLogoUrl
@@ -484,7 +484,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .orderBy(recruitmentEntity.createdAt.desc())
             .fetch()
             .stream()
-            .map(CompanyVO.class::cast)
+            .map(ManualRecruitmentVO.class::cast)
             .toList();
     }
 
