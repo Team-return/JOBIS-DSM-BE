@@ -41,19 +41,19 @@ public class CreateNonSchoolContactPassApplicationsUseCase {
                     return SchoolNumber.parseSchoolNumber(gcn);
                 }).toList();
 
-        List<Student> students = queryStudentPort.getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(schoolNumbers, Student.getEntranceYear(3));
+        List<Long> studentIds = queryStudentPort
+                .getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(schoolNumbers, Student.getEntranceYear(3))
+                .stream()
+                .map(Student::getId)
+                .toList();
+
         List<Application> applications = new ArrayList<>();
         ApplicationAttachment attachment = new ApplicationAttachment("", AttachmentType.NONE);
 
-        for (Student student : students) {
-            long id = student.getId();
-
-            checkApplicationDuplicated(id);
-            checkApplicationAlreadyApply(id, request.recruitmentId());
-
+        for (Long studentId : studentIds) {
             applications.add(
                     Application.builder()
-                            .studentId(id)
+                            .studentId(studentId)
                             .recruitmentId(request.recruitmentId())
                             .applicationStatus(ApplicationStatus.PASS)
                             .attachments(List.of(attachment))
@@ -61,20 +61,13 @@ public class CreateNonSchoolContactPassApplicationsUseCase {
             );
         }
 
+        checkApplicationAlreadExsist(studentIds, request.recruitmentId());
+
         commandApplicationPort.saveAll(applications);
     }
 
-    private void checkApplicationDuplicated(Long studentId) {
-        if (queryApplicationPort.existsByStudentIdAndApplicationStatusIn(
-                studentId,
-                ApplicationStatus.DUPLICATE_CHECK
-        )) {
-            throw ApplicationAlreadyExistsException.EXCEPTION;
-        }
-    }
-
-    private void checkApplicationAlreadyApply(Long studentId, Long recruitmentId) {
-        if (queryApplicationPort.existsByStudentIdAndRecruitmentId(studentId, recruitmentId)) {
+    private void checkApplicationAlreadExsist(List<Long> studentIds, Long recruitmentId) {
+        if (queryApplicationPort.existByStudentIdsAndApplicationStatusInAndRecuritmentId(studentIds, ApplicationStatus.DUPLICATE_CHECK, recruitmentId)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
     }
