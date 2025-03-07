@@ -27,6 +27,10 @@ public class RecruitArea {
 
     private final Map<CodeType, List<Long>> codes;
 
+    private static final long JOB_CODE = 1L;
+
+    private static final long TECH_CODE = 19L;
+
     public static RecruitArea of(CreateRecruitAreaRequest request, Long recruitmentId) {
         return RecruitArea.builder()
             .recruitmentId(recruitmentId)
@@ -43,7 +47,7 @@ public class RecruitArea {
                 .hiredCount(1)
                 .majorTask("N/A")
                 .preferentialTreatment("N/A")
-                .codes(Code.combineCodesWithType(List.of(8L), List.of(1L)))
+                .codes(Code.combineCodesWithType(List.of(JOB_CODE), List.of(TECH_CODE)))
                 .build();
     }
 

@@ -34,7 +34,7 @@ public class TeacherRegisterCompanyUseCase {
     private final RecruitmentPort recruitmentPort;
     private final CommandRecruitAreaPort commandRecruitAreaPort;
 
-    private static final long BUSINESS_AREA_CODE = 1;
+    private static final long BUSINESS_AREA_CODE = 378;
 
     public void execute(TeacherRegisterCompanyRequest request) {
         checkCompanyExists(request.businessNumber());
@@ -56,7 +56,6 @@ public class TeacherRegisterCompanyUseCase {
         checkRecruitmentApplicable(company);
         Recruitment recruitment = recruitmentPort.save(Recruitment.of(company.getId()));
         commandRecruitAreaPort.saveAll(List.of(RecruitArea.of(recruitment.getId())));
-
     }
 
     private void checkCompanyExists(String businessNumber) {
