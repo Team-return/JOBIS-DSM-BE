@@ -83,6 +83,29 @@ public class Recruitment {
             .build();
     }
 
+    public static Recruitment of(Long currentCompanyId) {
+        return Recruitment.builder()
+                .companyId(currentCompanyId)
+                .recruitYear(Year.now().getValue())
+                .militarySupport(false)
+                .personalContract(true)
+                .workingHours("00~00")
+                .flexibleWorking(true)
+                .salary(new Salary(0, "0"))
+                .requiredLicenses(List.of("N/A"))
+                .status(RecruitStatus.MANUAL_ADD)
+                .additionalQualifications("N/A")
+                .recruitingPeriod(new RecruitingPeriod(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31)))
+                .submitDocument("N/A")
+                .benefits("N/A")
+                .etc("N/A")
+                .hiringProgress(List.of(ProgressType.DOCUMENT))
+                .winterIntern(false)
+                .hireConvertible(true)
+                .integrationPlan(true)
+                .build();
+    }
+
     public Recruitment changeStatus(RecruitStatus status) {
         return this.toBuilder()
             .status(status)
