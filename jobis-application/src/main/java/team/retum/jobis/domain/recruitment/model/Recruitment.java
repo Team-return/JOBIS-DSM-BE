@@ -175,4 +175,10 @@ public class Recruitment {
             .integrationPlan(request.integrationPlan())
             .build();
     }
+
+    public void checkIsManualAdd() {
+        if (!(this.status.equals(RecruitStatus.MANUAL_ADD))) {
+            throw InvalidRecruitmentStatusException.EXCEPTION;
+        }
+    } 
 }
