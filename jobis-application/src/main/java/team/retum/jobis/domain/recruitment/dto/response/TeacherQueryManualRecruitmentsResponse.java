@@ -16,8 +16,6 @@ public class TeacherQueryManualRecruitmentsResponse {
     private final List<TeacherManualRecruitmentResponse> recruitments;
 
     @Getter
-    @NoArgsConstructor(force = true)
-    @AllArgsConstructor
     @Builder
     public static final class TeacherManualRecruitmentResponse {
 
