@@ -7,11 +7,9 @@ import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.company.dto.request.TeacherRegisterCompanyRequest;
-import team.retum.jobis.domain.company.exception.CompanyAlreadyExistsException;
 import team.retum.jobis.domain.company.exception.CompanyNotExistsException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.CommandCompanyPort;
-import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
@@ -19,15 +17,14 @@ import team.retum.jobis.domain.recruitment.spi.CommandRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
-
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @UseCase
 public class TeacherRegisterCompanyUseCase {
 
     private final FeignClientPort feignClientPort;
-    private final QueryCompanyPort queryCompanyPort;
     private final CommandCompanyPort commandCompanyPort;
     private final QueryCodePort queryCodePort;
     private final CommandUserPort commandUserPort;
@@ -41,9 +38,10 @@ public class TeacherRegisterCompanyUseCase {
 
         Code code = queryCodePort.getByIdOrThrow(BUSINESS_AREA_CODE);
 
+        String randomAccountId = UUID.randomUUID().toString().substring(0, 30);
         User user = commandUserPort.save(
                 User.builder()
-                        .accountId(request.businessNumber())
+                        .accountId(randomAccountId)
                         .authority(Authority.COMPANY)
                         .token(null)
                         .build()
