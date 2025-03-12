@@ -22,14 +22,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
-import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
-import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
-import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentsResponse;
-import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
-import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
+import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryManualRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
+import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
+import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentsResponse;
+import team.retum.jobis.domain.recruitment.dto.response.QueryMyRecruitmentResponse;
+import team.retum.jobis.domain.recruitment.dto.response.ExportRecruitmentHistoryResponse;
+import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ApplyRecruitmentWebRequest;
 import team.retum.jobis.domain.recruitment.presentation.dto.request.ChangeRecruitmentStatusWebRequest;
@@ -256,6 +257,11 @@ public class RecruitmentWebAdapter {
     @GetMapping("/exists")
     public RecruitmentExistsResponse checkRecruitmentExists() {
         return checkRecruitmentExistsUseCase.execute();
+    }
+
+    @GetMapping("/teacher/manual")
+    public TeacherQueryManualRecruitmentsResponse getManualRecruitmentsByTeacher() {
+        return teacherQueryRecruitmentsUseCase.executeRegisteredByTeacher();
     }
 
     private List<Long> parseCodes(String jobCode, String techCodes) {
