@@ -37,8 +37,8 @@ public class TeacherRegisterCompanyUseCase {
         checkCompanyExists(request.businessNumber());
 
         Code code = queryCodePort.getByIdOrThrow(BUSINESS_AREA_CODE);
-        
-        String randomAccountId = UUID.randomUUID().toString().substring(0,30);
+
+        String randomAccountId = UUID.randomUUID().toString().substring(0, 30);
         User user = commandUserPort.save(
                 User.builder()
                         .accountId(randomAccountId)
