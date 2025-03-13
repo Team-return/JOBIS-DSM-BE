@@ -41,7 +41,7 @@ public class TeacherRegisterCompanyUseCase {
         Code code = queryCodePort.getByIdOrThrow(BUSINESS_AREA_CODE);
 
         String accountId = request.businessNumber();
-        if(queryCompanyPort.existsByBizNo(request.businessNumber())){
+        if (queryCompanyPort.existsByBizNo(request.businessNumber())){
             accountId = (accountId + UUID.randomUUID()).substring(0, 30);
         }
 
