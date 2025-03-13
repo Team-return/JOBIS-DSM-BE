@@ -19,6 +19,7 @@ import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
 import java.util.List;
 import java.util.UUID;
+import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
 @RequiredArgsConstructor
 @UseCase
@@ -29,6 +30,7 @@ public class TeacherRegisterCompanyUseCase {
     private final QueryCodePort queryCodePort;
     private final CommandUserPort commandUserPort;
     private final RecruitmentPort recruitmentPort;
+    private final QueryCompanyPort queryCompanyPort;
     private final CommandRecruitAreaPort commandRecruitAreaPort;
 
     private static final long BUSINESS_AREA_CODE = 378;
@@ -38,10 +40,14 @@ public class TeacherRegisterCompanyUseCase {
 
         Code code = queryCodePort.getByIdOrThrow(BUSINESS_AREA_CODE);
 
-        String randomAccountId = UUID.randomUUID().toString().substring(0, 30);
+        String accountId = request.businessNumber();
+        if(queryCompanyPort.existsByBizNo(request.businessNumber())){
+            accountId = (accountId + UUID.randomUUID()).substring(0, 30);
+        }
+
         User user = commandUserPort.save(
                 User.builder()
-                        .accountId(randomAccountId)
+                        .accountId(accountId)
                         .authority(Authority.COMPANY)
                         .token(null)
                         .build()
