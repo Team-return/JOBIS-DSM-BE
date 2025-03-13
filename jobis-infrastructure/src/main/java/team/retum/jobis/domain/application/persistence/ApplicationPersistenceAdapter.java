@@ -309,7 +309,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
-    public boolean existByStudentIdsAndApplicationStatusInAndRecuritmentId(List<Long> studentIds, List<ApplicationStatus> applicationStatuses, Long recruitmentId) {
+    public boolean existsByStudentIdsAndApplicationStatusInAndRecuritmentId(List<Long> studentIds, List<ApplicationStatus> applicationStatuses, Long recruitmentId) {
         return queryFactory
             .selectOne()
             .from(applicationEntity)
