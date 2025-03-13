@@ -14,8 +14,8 @@ public class RabbitMqProducer implements PublishEventPort {
     @Override
     public void publishEvent(Object event) {
         rabbitTemplate.convertAndSend(
-            "notification.exchange",
-            "notification.routing.key",
+            "notification_exchange",
+            "notification.event",
             event
         );
     }
