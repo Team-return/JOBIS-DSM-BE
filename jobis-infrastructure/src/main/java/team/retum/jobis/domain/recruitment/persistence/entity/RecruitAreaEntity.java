@@ -32,7 +32,7 @@ public class RecruitAreaEntity {
     private Long id;
 
     @NotNull
-    @Column(columnDefinition = "TINYINT(255)")
+    @Column(columnDefinition = "TINYINT")
     private Integer hiredCount;
 
     @NotNull
