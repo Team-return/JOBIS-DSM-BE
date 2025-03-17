@@ -51,6 +51,12 @@ spring:
             enable: true
             required: true
 
+  rabbitmq:
+    host: ${RABBITMQ_HOST:54.180.235.228}
+    port: 5672
+    username: ${RABBITMQ_USERNAME:jobis}
+    password: ${RABBITMQ_PASSWORD:jobismq!}
+
 management:
   endpoint:
     metrics:
