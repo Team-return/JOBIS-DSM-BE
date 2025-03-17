@@ -14,6 +14,7 @@ import team.retum.jobis.domain.student.spi.StudentPort;
 
 import java.util.List;
 
+import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
@@ -58,7 +59,8 @@ public class StudentPersistenceAdapter implements StudentPort {
                 applicationEntity.student.eq(studentEntity),
                 applicationEntity.applicationStatus.in(statuses)
             )
-            .where(studentEntity.grade.eq(3))
+            .where(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
+                    .subtract(studentEntity.entranceYear).eq(3))
             .fetchOne();
     }
 
