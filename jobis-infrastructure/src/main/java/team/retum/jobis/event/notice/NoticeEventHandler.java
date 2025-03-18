@@ -12,7 +12,6 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;
 
@@ -20,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoticeEventHandler {
 
-    private final FCMUtil fcmUtil;
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
 
@@ -43,8 +41,6 @@ public class NoticeEventHandler {
                 .build();
 
             commandNotificationPort.save(notification);
-
-            fcmUtil.sendMessageToTopic(notification);
         });
     }
 }
