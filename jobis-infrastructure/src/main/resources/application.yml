@@ -52,10 +52,10 @@ spring:
             required: true
 
   rabbitmq:
-    host: ${RABBITMQ_HOST:54.180.235.228}
+    host: ${RABBITMQ_HOST:localhost}
     port: 5672
-    username: ${RABBITMQ_USERNAME:jobis}
-    password: ${RABBITMQ_PASSWORD:jobismq!}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 
 management:
   endpoint:
