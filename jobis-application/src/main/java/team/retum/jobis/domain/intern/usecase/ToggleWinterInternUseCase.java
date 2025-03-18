@@ -9,7 +9,6 @@ import team.retum.jobis.domain.intern.spi.CommandWinterInternPort;
 import team.retum.jobis.domain.intern.spi.QueryWinterInternPort;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-
 import java.util.List;
 
 @RequiredArgsConstructor

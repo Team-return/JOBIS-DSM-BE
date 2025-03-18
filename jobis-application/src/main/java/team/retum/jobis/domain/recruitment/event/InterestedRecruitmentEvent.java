@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
-
 import java.util.List;
 
 @Getter
