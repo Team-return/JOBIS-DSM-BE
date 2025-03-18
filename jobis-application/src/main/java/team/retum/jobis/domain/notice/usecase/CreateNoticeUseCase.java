@@ -8,6 +8,8 @@ import team.retum.jobis.domain.notice.event.NoticePostedEvent;
 import team.retum.jobis.domain.notice.model.Notice;
 import team.retum.jobis.domain.notice.model.NoticeAttachment;
 import team.retum.jobis.domain.notice.spi.CommandNoticePort;
+import team.retum.jobis.domain.notification.model.Topic;
+import team.retum.jobis.domain.user.spi.QueryUserPort;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class CreateNoticeUseCase {
 
     private final CommandNoticePort commandNoticePort;
     private final PublishEventPort publishEventPort;
+    private final QueryUserPort queryUserPort;
 
     public void execute(CreateNoticeRequest request) {
         List<NoticeAttachment> attachments = request.getAttachments().stream()
@@ -30,6 +33,13 @@ public class CreateNoticeUseCase {
             .attachments(attachments)
             .build());
 
-        publishEventPort.publishEvent(new NoticePostedEvent(savedNotice));
+        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.NOTICE);
+
+        publishEventPort.publishEvent(new NoticePostedEvent(
+            savedNotice,
+            savedNotice.getId(),
+            Topic.NOTICE,
+            deviceTokens
+        ));
     }
 }
