@@ -12,6 +12,7 @@ import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
@@ -71,8 +72,11 @@ public class ApplyRecruitmentUseCase {
     }
 
     private void checkRecruitmentApplicable(Company company, boolean isWinterIntern) {
-        if (recruitmentPort.existsByCompanyIdAndWinterIntern(company.getId(), isWinterIntern)) {
-            throw RecruitmentAlreadyExistsException.EXCEPTION;
-        }
+        recruitmentPort.getByCompanyIdAndWinterIntern(company.getId(), isWinterIntern)
+            .ifPresent(existingRecruitment -> {
+                if (!existingRecruitment.getStatus().equals(RecruitStatus.DONE)) {
+                    throw RecruitmentAlreadyExistsException.EXCEPTION;
+                }
+            });
     }
 }

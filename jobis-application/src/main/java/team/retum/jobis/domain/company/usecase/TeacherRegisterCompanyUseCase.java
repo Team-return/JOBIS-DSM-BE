@@ -12,7 +12,6 @@ import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
@@ -65,11 +64,8 @@ public class TeacherRegisterCompanyUseCase {
     }
 
     private void checkRecruitmentApplicable(Company company) {
-        recruitmentPort.getByCompanyIdAndWinterIntern(company.getId(), false)
-            .ifPresent(existingRecruitment -> {
-                if (!existingRecruitment.getStatus().equals(RecruitStatus.DONE)) {
-                    throw RecruitmentAlreadyExistsException.EXCEPTION;
-                }
-            });
+        if (recruitmentPort.existsByCompanyIdAndWinterIntern(company.getId(), false)) {
+            throw RecruitmentAlreadyExistsException.EXCEPTION;
+        }
     }
 }
