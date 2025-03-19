@@ -8,7 +8,6 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.bookmark.spi.QueryBookmarkPort;
 import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
-import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
@@ -20,7 +19,6 @@ import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.spi.QueryStudentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,11 +31,9 @@ public class RecruitmentEventHandler {
 
     private final QueryBookmarkPort queryBookmarkPort;
     private final CommandNotificationPort commandNotificationPort;
-    private final FCMUtil fcmUtil;
     private final QueryStudentPort queryStudentPort;
     private final QueryUserPort queryUserPort;
     private final QueryRecruitAreaPort queryRecruitAreaPort;
-    private final QueryCompanyPort queryCompanyPort;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -68,7 +64,6 @@ public class RecruitmentEventHandler {
                 tokens.add(bookmarkUser.getToken());
                 commandNotificationPort.save(notification);
             }
-            fcmUtil.sendMessages(repNotification, tokens);
         }
     }
 
@@ -103,8 +98,6 @@ public class RecruitmentEventHandler {
                 tokens.add(user.getToken());
                 commandNotificationPort.save(notification);
             }
-
-            fcmUtil.sendMessages(repNotification, tokens);
         }
     }
 }
