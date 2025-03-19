@@ -9,6 +9,7 @@ import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.ManualRecruitmentVO;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,4 +46,6 @@ public interface QueryRecruitmentPort {
     RecruitmentExistsResponse existsByCompanyId(Long companyId);
 
     List<ManualRecruitmentVO> getTeacherManualRecruitments();
+
+    Optional<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern);
 }

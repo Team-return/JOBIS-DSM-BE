@@ -12,11 +12,13 @@ import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
 import team.retum.jobis.domain.recruitment.model.RecruitArea;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -40,15 +42,15 @@ public class TeacherRegisterCompanyUseCase {
 
         String randomAccountId = UUID.randomUUID().toString().substring(0, 30);
         User user = commandUserPort.save(
-                User.builder()
-                        .accountId(randomAccountId)
-                        .authority(Authority.COMPANY)
-                        .token(null)
-                        .build()
+            User.builder()
+                .accountId(randomAccountId)
+                .authority(Authority.COMPANY)
+                .token(null)
+                .build()
         );
 
         Company company = commandCompanyPort.save(
-                Company.of(user.getId(), request, code.getKeyword())
+            Company.of(user.getId(), request, code.getKeyword())
         );
 
         checkRecruitmentApplicable(company);
@@ -63,8 +65,11 @@ public class TeacherRegisterCompanyUseCase {
     }
 
     private void checkRecruitmentApplicable(Company company) {
-        if (recruitmentPort.existsByCompanyIdAndWinterIntern(company.getId(), false)) {
-            throw RecruitmentAlreadyExistsException.EXCEPTION;
-        }
+        recruitmentPort.getByCompanyIdAndWinterIntern(company.getId(), false)
+            .ifPresent(existingRecruitment -> {
+                if (!existingRecruitment.getStatus().equals(RecruitStatus.DONE)) {
+                    throw RecruitmentAlreadyExistsException.EXCEPTION;
+                }
+            });
     }
 }
