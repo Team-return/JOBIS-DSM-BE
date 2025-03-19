@@ -7,7 +7,9 @@ import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.ManualRecruitmentVO;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,8 @@ public interface QueryRecruitmentPort {
 
     List<StudentRecruitmentVO> getStudentRecruitmentsBy(RecruitmentFilter filter);
 
+    List<StudentRecruitmentVO> getStudentRecruitmentByCompanyNames(List<String> companyName, Long studentId);
+
     List<TeacherRecruitmentVO> getTeacherRecruitmentsBy(RecruitmentFilter filter);
 
     List<TeacherRecruitmentVO> getTeacherRecruitmentsWithoutPageBy(RecruitmentFilter filter);
@@ -40,4 +44,8 @@ public interface QueryRecruitmentPort {
     List<Recruitment> getRecent();
 
     RecruitmentExistsResponse existsByCompanyId(Long companyId);
+
+    List<ManualRecruitmentVO> getTeacherManualRecruitments();
+
+    Optional<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern);
 }

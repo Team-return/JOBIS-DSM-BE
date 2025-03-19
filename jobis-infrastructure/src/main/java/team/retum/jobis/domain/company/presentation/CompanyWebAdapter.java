@@ -35,6 +35,7 @@ import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyW
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyTypeWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateMouWebRequest;
+import team.retum.jobis.domain.company.presentation.dto.request.TeacherRegisterCompanyWebRequest;
 import team.retum.jobis.domain.company.usecase.CheckCompanyExistsUseCase;
 import team.retum.jobis.domain.company.usecase.CompanyMyPageUseCase;
 import team.retum.jobis.domain.company.usecase.ExportCompanyHistoryUseCase;
@@ -48,6 +49,7 @@ import team.retum.jobis.domain.company.usecase.UpdateCompanyDetailsUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
 import team.retum.jobis.thirdparty.paser.ExcelAdapter;
+import team.retum.jobis.domain.company.usecase.TeacherRegisterCompanyUseCase;
 
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
@@ -72,6 +74,7 @@ public class CompanyWebAdapter {
     private final QueryReviewAvailableCompaniesUseCase queryReviewAvailableCompaniesUseCase;
     private final ExportCompanyHistoryUseCase exportRecruitmentHistoryUseCase;
     private final ExcelAdapter excelAdapter;
+    private final TeacherRegisterCompanyUseCase teacherRegisterCompanyUseCase;
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
@@ -208,4 +211,10 @@ public class CompanyWebAdapter {
         excelAdapter.setExcelContentDisposition(httpResponse, response.getFileName());
         return response.getFile();
     }
+
+    @PostMapping("/teacher")
+    public void teacherRegister(@RequestBody @Valid TeacherRegisterCompanyWebRequest request) {
+        teacherRegisterCompanyUseCase.execute(request.toDomainRequest());
+    }
+
 }

@@ -1,11 +1,11 @@
 package team.retum.jobis.domain.interest.persistence;
 
+import com.querydsl.core.group.GroupBy;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team.retum.jobis.domain.code.exception.CodeNotFoundException;
 import team.retum.jobis.domain.code.model.Code;
-import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
-import team.retum.jobis.domain.code.persistence.repository.CodeJpaRepository;
+import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.model.Interest;
@@ -14,15 +14,17 @@ import team.retum.jobis.domain.interest.persistence.repository.InterestJpaReposi
 import team.retum.jobis.domain.interest.spi.InterestPort;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
 
 @RequiredArgsConstructor
 @Component
 public class InterestPersistenceAdapter implements InterestPort {
 
+    private final JPAQueryFactory jpaQueryFactory;
     private final InterestJpaRepository interestJpaRepository;
-    private final CodeJpaRepository codeJpaRepository;
     private final InterestMapper interestMapper;
     private final QueryCodePort queryCodePort;
 
@@ -62,5 +64,19 @@ public class InterestPersistenceAdapter implements InterestPort {
                     return InterestResponse.of(interest, code);
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<CodeType, List<String>> getAllByStudentIdAndCodeTypes(Long studentId) {
+        return jpaQueryFactory
+            .select(interestEntity.code.type, interestEntity.code.keyword)
+            .from(interestEntity)
+            .where(
+                interestEntity.student.id.eq(studentId),
+                interestEntity.code.type.in(CodeType.JOB, CodeType.TECH)
+            )
+            .transform(GroupBy.groupBy(interestEntity.code.type)
+                .as(GroupBy.list(interestEntity.code.keyword))
+            );
     }
 }

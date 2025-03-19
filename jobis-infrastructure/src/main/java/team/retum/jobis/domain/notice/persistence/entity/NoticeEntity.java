@@ -37,11 +37,9 @@ public class NoticeEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(1000)")
     private String content;
 
-
     @ElementCollection
     @CollectionTable(name = "tbl_notice_attachment", joinColumns = @JoinColumn(name = "notice_id"))
     private List<NoticeAttachmentEntity> attachments = new ArrayList<>();
-
 
     @Builder
     public NoticeEntity(Long id, String title, String content, List<NoticeAttachmentEntity> attachments) {

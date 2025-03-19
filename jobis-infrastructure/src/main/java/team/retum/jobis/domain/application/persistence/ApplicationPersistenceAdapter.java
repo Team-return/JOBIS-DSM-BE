@@ -309,6 +309,18 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     }
 
     @Override
+    public boolean existsByStudentIdsAndApplicationStatusInAndRecuritmentId(List<Long> studentIds, List<ApplicationStatus> applicationStatuses, Long recruitmentId) {
+        return queryFactory
+            .selectOne()
+            .from(applicationEntity)
+            .where(
+                applicationEntity.student.id.in(studentIds),
+                applicationEntity.recruitment.id.eq(recruitmentId),
+                applicationEntity.applicationStatus.in(applicationStatuses)
+            ).fetchFirst() != null;
+    }
+
+    @Override
     public void saveAll(List<Application> applications) {
         applicationJpaRepository.saveAll(
             applications.stream()

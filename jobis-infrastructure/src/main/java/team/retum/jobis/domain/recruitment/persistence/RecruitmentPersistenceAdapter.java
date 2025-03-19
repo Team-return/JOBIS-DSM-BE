@@ -19,15 +19,18 @@ import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryMyAll
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryStudentRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryTeacherRecruitmentsVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryManualRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
+import team.retum.jobis.domain.recruitment.spi.vo.ManualRecruitmentVO;
 import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
@@ -423,6 +426,72 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             ).fetchFirst() != null;
 
         return new RecruitmentExistsResponse(winterInternExists, experientialExists);
+    }
+
+    @Override
+    public List<StudentRecruitmentVO> getStudentRecruitmentByCompanyNames(List<String> companyNames, Long studentId) {
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+        return queryFactory
+                .select(
+                    new QQueryStudentRecruitmentsVO(
+                        recruitmentEntity.id,
+                        companyEntity.name,
+                        recruitmentEntity.payInfo.trainPay,
+                        recruitmentEntity.militarySupport,
+                        companyEntity.companyLogoUrl,
+                        recruitJobsPath,
+                        bookmarkEntity.recruitment.id.isNotNull()
+                    )
+                )
+                .from(recruitmentEntity)
+                .leftJoin(bookmarkEntity)
+                .on(
+                    recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
+                    bookmarkEntity.student.id.eq(studentId)
+                )
+                .join(recruitmentEntity.company, companyEntity)
+                .join(recruitAreaEntity)
+                .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                .join(recruitAreaCodeEntity)
+                .on(
+                    recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                    recruitAreaCodeEntity.type.eq(JOB)
+                )
+                .join(recruitAreaCodeEntity.code, codeEntity)
+                .where(companyEntity.name.in(companyNames))
+                .orderBy(recruitmentEntity.createdAt.desc())
+                .groupBy(recruitmentEntity.id)
+                .fetch()
+            .stream()
+            .map(StudentRecruitmentVO.class::cast)
+            .toList();
+    }
+
+    @Override
+    public List<ManualRecruitmentVO> getTeacherManualRecruitments() {
+        return queryFactory
+            .select(
+                new QQueryManualRecruitmentVO(
+                    recruitmentEntity.id,
+                    companyEntity.name,
+                    companyEntity.companyLogoUrl
+                )
+            )
+            .from(recruitmentEntity)
+            .join(recruitmentEntity.company, companyEntity)
+            .where(recruitmentEntity.status.eq(RecruitStatus.MANUAL_ADD)
+                .and(recruitmentEntity.recruitYear.eq(Year.now().getValue())))
+            .orderBy(recruitmentEntity.createdAt.desc())
+            .fetch()
+            .stream()
+            .map(ManualRecruitmentVO.class::cast)
+            .toList();
+    }
+
+    @Override
+    public Optional<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
+        return recruitmentJpaRepository.findByCompanyIdAndWinterIntern(companyId, winterIntern)
+            .map(recruitmentMapper::toDomain);
     }
 
     //===conditions===//

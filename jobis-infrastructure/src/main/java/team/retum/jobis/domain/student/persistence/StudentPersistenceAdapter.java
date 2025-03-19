@@ -1,9 +1,11 @@
 package team.retum.jobis.domain.student.persistence;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
@@ -12,6 +14,7 @@ import team.retum.jobis.domain.student.spi.StudentPort;
 
 import java.util.List;
 
+import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.interest.persistence.entity.QInterestEntity.interestEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
@@ -56,7 +59,8 @@ public class StudentPersistenceAdapter implements StudentPort {
                 applicationEntity.student.eq(studentEntity),
                 applicationEntity.applicationStatus.in(statuses)
             )
-            .where(studentEntity.grade.eq(3))
+            .where(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
+                    .subtract(studentEntity.entranceYear).eq(3))
             .fetchOne();
     }
 
@@ -91,7 +95,6 @@ public class StudentPersistenceAdapter implements StudentPort {
             .fetchOne();
     }
 
-
     @Override
     public Long getPassedStudentsByClassNumber(Integer classNum) {
         List<Long> counts = queryFactory
@@ -106,5 +109,36 @@ public class StudentPersistenceAdapter implements StudentPort {
             .fetch();
 
         return null != counts ? counts.get(0) : 0;
+    }
+
+    @Override
+    public List<Student> getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(List<SchoolNumber> schoolNumbers, int entranceYear) {
+        BooleanBuilder builder = new BooleanBuilder();
+
+        schoolNumbers.forEach(schoolNumber -> {
+            BooleanBuilder condition = new BooleanBuilder();
+
+            condition.and(studentEntity.grade.eq(schoolNumber.getGrade()))
+                    .and(studentEntity.classRoom.eq(schoolNumber.getClassRoom()))
+                    .and(studentEntity.number.eq(schoolNumber.getNumber()))
+                    .and(studentEntity.entranceYear.eq(entranceYear));
+
+            builder.or(condition);
+        });
+
+        List<Student> students = queryFactory
+                .select(studentEntity)
+                .from(studentEntity)
+                .where(builder)
+                .fetch()
+                .stream()
+                .map(studentMapper::toDomain)
+                .toList();
+
+        if (students.size() != schoolNumbers.size()) {
+            throw StudentNotFoundException.EXCEPTION;
+        }
+
+        return students;
     }
 }

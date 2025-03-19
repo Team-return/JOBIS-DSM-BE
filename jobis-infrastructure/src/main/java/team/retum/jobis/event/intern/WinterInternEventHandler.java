@@ -9,16 +9,13 @@ import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.company.exception.CompanyNotFoundException;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
+import team.retum.jobis.domain.intern.event.WinterInternRegisteredEvent;
 import team.retum.jobis.domain.intern.event.WinterInternToggledEvent;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
-import team.retum.jobis.domain.intern.event.WinterInternRegisteredEvent;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
-import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;
 
@@ -26,7 +23,6 @@ import java.util.List;
 @Component
 public class WinterInternEventHandler {
 
-    private final FCMUtil fcmUtil;
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
     private final QueryCompanyPort queryCompanyPort;
@@ -34,9 +30,7 @@ public class WinterInternEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onWinterInternToggled(WinterInternToggledEvent event) {
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
-
-        deviceTokens.forEach(deviceToken -> {
+        event.getDeviceTokens().forEach(deviceToken -> {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
             if (event.getWinterIntern().isWinterInterned()) {
@@ -51,8 +45,6 @@ public class WinterInternEventHandler {
                     .build();
 
                 commandNotificationPort.save(notification);
-
-                fcmUtil.sendMessageToTopic(notification);
             }
         });
     }
@@ -60,34 +52,25 @@ public class WinterInternEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onWinterInternRegistered(WinterInternRegisteredEvent event) {
-        List<Recruitment> recruitments = event.getRecruitments();
+        Company company = queryCompanyPort.getById(event.getRecruitment().getCompanyId())
+            .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        for (Recruitment recruitment : recruitments) {
-            if (recruitment.isWinterIntern() && recruitment.getStatus() == RecruitStatus.RECRUITING) {
-                List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
+        String companyName = company.getName();
 
-                Company company = queryCompanyPort.getById(recruitment.getCompanyId())
-                    .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
+        for (String deviceToken : event.getDeviceTokens()) {
+            User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
-                String companyName = company.getName();
+            Notification notification = Notification.builder()
+                .title(companyName + " 겨울 인턴십 모집 공고 ⛄️")
+                .content("겨울 인턴십 모집 의뢰서가 등록되었어요. 지금 확인해보세요!")
+                .userId(user.getId())
+                .detailId(event.getRecruitment().getId())
+                .topic(Topic.WINTER_INTERN)
+                .authority(Authority.STUDENT)
+                .isNew(true)
+                .build();
 
-                deviceTokens.forEach(deviceToken -> {
-                    User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
-
-                    Notification notification = Notification.builder()
-                        .title(companyName + " 겨울 인턴십 모집 공고 ⛄️")
-                        .content("겨울 인턴십 모집 의뢰서가 등록되었어요. 지금 확인해보세요!")
-                        .userId(user.getId())
-                        .detailId(recruitment.getId())
-                        .topic(Topic.WINTER_INTERN)
-                        .authority(Authority.STUDENT)
-                        .isNew(true)
-                        .build();
-
-                    commandNotificationPort.save(notification);
-                    fcmUtil.sendMessageToTopic(notification);
-                });
-            }
+            commandNotificationPort.save(notification);
         }
     }
 }

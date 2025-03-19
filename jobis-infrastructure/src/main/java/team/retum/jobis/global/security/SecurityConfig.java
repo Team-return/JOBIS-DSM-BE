@@ -93,6 +93,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/applications/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/applications").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/applications/employment").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/applications/teacher/{recruitment-id}").hasAuthority(TEACHER.name())
 
                     // bookmarks
                     .requestMatchers(HttpMethod.POST, "/bookmarks/{recruitment-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
@@ -123,6 +124,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/companies/review").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/count").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/companies/file").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.POST, "/companies/teacher").hasAuthority(TEACHER.name())
 
                     // users
                     .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
@@ -170,6 +172,7 @@ public class SecurityConfig {
                     // interest
                     .requestMatchers(HttpMethod.PATCH, "/interests/{code}").hasAnyAuthority(STUDENT.name())
                     .requestMatchers(HttpMethod.GET, "/interests").hasAnyAuthority(STUDENT.name())
+                    .requestMatchers(HttpMethod.GET, "/interests/recruitment").hasAnyAuthority(STUDENT.name())
 
                     // winter-intern
                     .requestMatchers(HttpMethod.PATCH, "/winter-intern").hasAuthority(TEACHER.name())

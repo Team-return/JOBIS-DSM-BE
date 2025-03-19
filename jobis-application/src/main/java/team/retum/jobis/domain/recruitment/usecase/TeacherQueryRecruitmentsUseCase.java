@@ -6,6 +6,8 @@ import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
+import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryManualRecruitmentsResponse;
+import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryManualRecruitmentsResponse.TeacherManualRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryRecruitmentsResponse.TeacherRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -100,5 +102,14 @@ public class TeacherQueryRecruitmentsUseCase {
         );
 
         return new TotalPageCountResponse(totalPageCount);
+    }
+
+    public TeacherQueryManualRecruitmentsResponse executeRegisteredByTeacher() {
+        List<TeacherManualRecruitmentResponse> recruitments =
+            queryRecruitmentPort.getTeacherManualRecruitments().stream()
+                .map(TeacherManualRecruitmentResponse::from)
+                .toList();
+
+        return new TeacherQueryManualRecruitmentsResponse(recruitments);
     }
 }

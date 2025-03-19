@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.application.presentation;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
+import team.retum.jobis.domain.application.dto.request.CreateNonSchoolContactPassApplicationsRequest;
 import team.retum.jobis.domain.application.dto.response.ApplicationCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
@@ -33,11 +33,13 @@ import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeApplicationsStatusWebRequest;
 import team.retum.jobis.domain.application.presentation.dto.request.ChangeFieldTrainDateWebRequest;
 import team.retum.jobis.domain.application.presentation.dto.request.CreateApplicationWebRequest;
+import team.retum.jobis.domain.application.presentation.dto.request.CreateNonSchoolContactPassApplicationsWebRequest;
 import team.retum.jobis.domain.application.presentation.dto.request.RejectApplicationWebRequest;
 import team.retum.jobis.domain.application.usecase.ChangeApplicationsStatusUseCase;
 import team.retum.jobis.domain.application.usecase.ChangeFieldTrainDateUseCase;
 import team.retum.jobis.domain.application.usecase.CompanyQueryApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.CreateApplicationUseCase;
+import team.retum.jobis.domain.application.usecase.CreateNonSchoolContactPassApplicationsUseCase;
 import team.retum.jobis.domain.application.usecase.DeleteApplicationUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentCountUseCase;
 import team.retum.jobis.domain.application.usecase.QueryEmploymentRateUseCase;
@@ -79,6 +81,7 @@ public class ApplicationWebAdapter {
     private final QueryRejectionReasonUseCase queryRejectionReasonUseCase;
     private final TeacherDeleteApplicationUseCase teacherDeleteApplicationUseCase;
     private final QueryEmploymentRateUseCase queryEmploymentRateUseCase;
+    private final CreateNonSchoolContactPassApplicationsUseCase createNonSchoolContactPassApplicationsUseCase;
 
     @Caching(
         evict = {
@@ -235,8 +238,19 @@ public class ApplicationWebAdapter {
         teacherDeleteApplicationUseCase.execute(applicationIds);
     }
 
+    @Cacheable
     @GetMapping("/employment")
     public EmploymentRatesResponse queryEmploymentRate() {
         return queryEmploymentRateUseCase.execute();
+    }
+
+    @PostMapping("/teacher/{recruitment-id}")
+    public void createNonMOUPassApplications(
+            @PathVariable("recruitment-id") Long recruitmentId,
+            @RequestBody CreateNonSchoolContactPassApplicationsWebRequest request
+    ) {
+        createNonSchoolContactPassApplicationsUseCase.execute(
+                new CreateNonSchoolContactPassApplicationsRequest(recruitmentId, request.getStudentGcns())
+        );
     }
 }

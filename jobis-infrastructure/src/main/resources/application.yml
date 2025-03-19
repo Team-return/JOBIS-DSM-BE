@@ -51,6 +51,12 @@ spring:
             enable: true
             required: true
 
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: 5672
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
 management:
   endpoint:
     metrics:
@@ -107,3 +113,6 @@ fcm:
 slack:
   url: ${SLACK_URL:d}
   token: ${SLACK_TOKEN:d}
+
+interest:
+  url: ${INTEREST_URL:d}

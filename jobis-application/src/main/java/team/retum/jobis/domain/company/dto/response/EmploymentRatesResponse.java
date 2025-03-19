@@ -15,6 +15,7 @@ public class EmploymentRatesResponse {
     private final List<ClassResponse> classes;
 
     @Getter
+    @NoArgsConstructor(force = true)
     @AllArgsConstructor
     public static class ClassResponse {
         private final Integer classId;
