@@ -20,7 +20,7 @@ public class RecruitAreaWebRequest {
     private List<Long> techCodes;
 
     @NotNull
-    @Max(255)
+    @Max(127)
     private Integer hiring;
 
     @Size(max = 3500)
