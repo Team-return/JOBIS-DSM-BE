@@ -13,8 +13,6 @@ import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 public class NoticeEventHandler {
@@ -25,9 +23,7 @@ public class NoticeEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onNoticePosted(NoticePostedEvent event) {
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.NOTICE);
-
-        deviceTokens.forEach(deviceToken -> {
+        event.getDeviceTokens().forEach(deviceToken -> {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
             Notification notification = Notification.builder()
