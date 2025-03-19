@@ -38,7 +38,7 @@ public class WinterInternEventHandler {
                     .title("겨울인턴 시즌이 다가왔어요~")
                     .content("오늘부터 체험형 현장실습을 지원하실 수 있어요.")
                     .userId(user.getId())
-                    .detailId(event.getDetailId())
+                    .detailId(0L)
                     .topic(Topic.WINTER_INTERN)
                     .authority(Authority.STUDENT)
                     .isNew(true)
