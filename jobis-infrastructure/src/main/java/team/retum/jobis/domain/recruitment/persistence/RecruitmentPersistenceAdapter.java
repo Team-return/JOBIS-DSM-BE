@@ -2,6 +2,8 @@ package team.retum.jobis.domain.recruitment.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -12,6 +14,7 @@ import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsRespons
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.persistence.entity.QRecruitAreaEntity;
 import team.retum.jobis.domain.recruitment.persistence.mapper.RecruitmentMapper;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitAreaJpaRepository;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
@@ -106,6 +109,13 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         QApplicationEntity approvedApplication = new QApplicationEntity("approvedApplication");
 
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+        QRecruitAreaEntity subRecruitArea = new QRecruitAreaEntity("subRecruitArea");
+
+        JPQLQuery<Long> totalHiredCountSubQuery = JPAExpressions
+                .select(subRecruitArea.hiredCount.sum().longValue())
+                .from(subRecruitArea)
+                .where(subRecruitArea.recruitment.id.eq(recruitmentEntity.id));
+
         return queryFactory
             .select(
                 new QQueryTeacherRecruitmentsVO(
@@ -116,7 +126,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     companyEntity.name,
                     companyEntity.type,
                     recruitJobsPath,
-                    recruitAreaEntity.hiredCount.sum().longValue(),
+                    totalHiredCountSubQuery,
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
                     companyEntity.id,
