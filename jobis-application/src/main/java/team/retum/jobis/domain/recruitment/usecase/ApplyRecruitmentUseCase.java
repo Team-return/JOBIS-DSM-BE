@@ -72,11 +72,12 @@ public class ApplyRecruitmentUseCase {
     }
 
     private void checkRecruitmentApplicable(Company company, boolean isWinterIntern) {
-        recruitmentPort.getByCompanyIdAndWinterIntern(company.getId(), isWinterIntern)
-            .ifPresent(existingRecruitment -> {
-                if (!existingRecruitment.getStatus().equals(RecruitStatus.DONE)) {
-                    throw RecruitmentAlreadyExistsException.EXCEPTION;
-                }
-            });
+        List<Recruitment> recruitments = recruitmentPort.getByCompanyIdAndWinterIntern(company.getId(), isWinterIntern);
+        boolean onGoingRecruitment = recruitments.stream()
+            .anyMatch(recruitment -> !recruitment.getStatus().equals(RecruitStatus.DONE));
+
+        if (onGoingRecruitment) {
+            throw RecruitmentAlreadyExistsException.EXCEPTION;
+        }
     }
 }
