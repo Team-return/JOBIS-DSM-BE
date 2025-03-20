@@ -43,11 +43,11 @@ public class RegisterCompanyUseCase {
                 .build()
         );
 
-        commandCompanyPort.save(
+        Company company = commandCompanyPort.save(
             Company.of(user.getId(), request, code.getKeyword())
         );
 
-        return jwtPort.generateTokens(user.getId(), Authority.COMPANY, PlatformType.WEB);
+        return jwtPort.generateTokens(company.getId(), Authority.COMPANY, PlatformType.WEB);
     }
 
     private void checkCompanyExists(String businessNumber) {
