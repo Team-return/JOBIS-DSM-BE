@@ -47,5 +47,5 @@ public interface QueryRecruitmentPort {
 
     List<ManualRecruitmentVO> getTeacherManualRecruitments();
 
-    Optional<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern);
+    List<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern);
 }

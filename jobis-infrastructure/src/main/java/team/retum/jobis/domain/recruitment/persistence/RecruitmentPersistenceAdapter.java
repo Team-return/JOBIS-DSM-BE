@@ -499,9 +499,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
-    public Optional<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
+    public List<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
         return recruitmentJpaRepository.findByCompanyIdAndWinterIntern(companyId, winterIntern)
-            .map(recruitmentMapper::toDomain);
+            .stream()
+            .map(recruitmentMapper::toDomain)
+            .toList();
     }
 
     //===conditions===//
