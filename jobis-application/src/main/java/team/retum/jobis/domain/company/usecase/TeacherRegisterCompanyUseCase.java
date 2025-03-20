@@ -48,7 +48,7 @@ public class TeacherRegisterCompanyUseCase {
 
         User user = commandUserPort.save(
             User.builder()
-                .accountId(randomAccountId)
+                .accountId(accountId)
                 .authority(Authority.COMPANY)
                 .token(null)
                 .build()
