@@ -46,7 +46,7 @@ public class RecruitAreaEntity {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private RecruitmentEntity recruitment;
 
-    @OneToMany(mappedBy = "recruitArea", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recruitArea", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecruitAreaCodeEntity> recruitAreaCodes = new ArrayList<>();
 
     @Builder
