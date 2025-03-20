@@ -16,7 +16,6 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.List;
 
@@ -24,7 +23,6 @@ import java.util.List;
 @Component
 public class WinterInternEventHandler {
 
-    private final FCMUtil fcmUtil;
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
     private final QueryCompanyPort queryCompanyPort;
@@ -32,9 +30,7 @@ public class WinterInternEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onWinterInternToggled(WinterInternToggledEvent event) {
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
-
-        deviceTokens.forEach(deviceToken -> {
+        event.getDeviceTokens().forEach(deviceToken -> {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
             if (event.getWinterIntern().isWinterInterned()) {
@@ -49,8 +45,6 @@ public class WinterInternEventHandler {
                     .build();
 
                 commandNotificationPort.save(notification);
-
-                fcmUtil.sendMessageToTopic(notification);
             }
         });
     }
@@ -58,14 +52,12 @@ public class WinterInternEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onWinterInternRegistered(WinterInternRegisteredEvent event) {
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
-
         Company company = queryCompanyPort.getById(event.getRecruitment().getCompanyId())
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         String companyName = company.getName();
 
-        for (String deviceToken : deviceTokens) {
+        for (String deviceToken : event.getDeviceTokens()) {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
             Notification notification = Notification.builder()
@@ -79,7 +71,6 @@ public class WinterInternEventHandler {
                 .build();
 
             commandNotificationPort.save(notification);
-            fcmUtil.sendMessageToTopic(notification);
         }
     }
 }

@@ -67,7 +67,7 @@ public class CreateNonSchoolContactPassApplicationsUseCase {
     }
 
     private void checkApplicationAlreadExsist(List<Long> studentIds, Long recruitmentId) {
-        if (queryApplicationPort.existByStudentIdsAndApplicationStatusInAndRecuritmentId(studentIds, ApplicationStatus.DUPLICATE_CHECK, recruitmentId)) {
+        if (queryApplicationPort.existsByStudentIdsAndApplicationStatusInAndRecuritmentId(studentIds, ApplicationStatus.DUPLICATE_CHECK, recruitmentId)) {
             throw ApplicationAlreadyExistsException.EXCEPTION;
         }
     }

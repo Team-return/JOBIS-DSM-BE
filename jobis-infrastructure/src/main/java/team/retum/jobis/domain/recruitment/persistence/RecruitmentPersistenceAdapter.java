@@ -488,6 +488,12 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .toList();
     }
 
+    @Override
+    public Optional<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
+        return recruitmentJpaRepository.findByCompanyIdAndWinterIntern(companyId, winterIntern)
+            .map(recruitmentMapper::toDomain);
+    }
+
     //===conditions===//
 
     private BooleanExpression eqYear(Integer year) {

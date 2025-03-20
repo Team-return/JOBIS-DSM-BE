@@ -17,6 +17,7 @@ import team.retum.jobis.domain.recruitment.spi.CommandRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
+
 import java.util.List;
 import java.util.UUID;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
@@ -46,15 +47,15 @@ public class TeacherRegisterCompanyUseCase {
         }
 
         User user = commandUserPort.save(
-                User.builder()
-                        .accountId(accountId)
-                        .authority(Authority.COMPANY)
-                        .token(null)
-                        .build()
+            User.builder()
+                .accountId(randomAccountId)
+                .authority(Authority.COMPANY)
+                .token(null)
+                .build()
         );
 
         Company company = commandCompanyPort.save(
-                Company.of(user.getId(), request, code.getKeyword())
+            Company.of(user.getId(), request, code.getKeyword())
         );
 
         checkRecruitmentApplicable(company);
