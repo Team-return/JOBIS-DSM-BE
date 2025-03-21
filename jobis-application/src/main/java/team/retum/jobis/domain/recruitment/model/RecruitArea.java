@@ -59,5 +59,4 @@ public class RecruitArea {
             .codes(Code.combineCodesWithType(request.jobCodes(), request.techCodes()))
             .build();
     }
-
 }
