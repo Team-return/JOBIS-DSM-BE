@@ -60,7 +60,8 @@ public class StudentPersistenceAdapter implements StudentPort {
                 applicationEntity.applicationStatus.in(statuses)
             )
             .where(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
-                    .subtract(studentEntity.entranceYear).eq(2))
+                .subtract(studentEntity.entranceYear).eq(2)
+                .and(applicationEntity.recruitment.winterIntern.isFalse()))
             .fetchOne();
     }
 
@@ -119,21 +120,21 @@ public class StudentPersistenceAdapter implements StudentPort {
             BooleanBuilder condition = new BooleanBuilder();
 
             condition.and(studentEntity.grade.eq(schoolNumber.getGrade()))
-                    .and(studentEntity.classRoom.eq(schoolNumber.getClassRoom()))
-                    .and(studentEntity.number.eq(schoolNumber.getNumber()))
-                    .and(studentEntity.entranceYear.eq(entranceYear));
+                .and(studentEntity.classRoom.eq(schoolNumber.getClassRoom()))
+                .and(studentEntity.number.eq(schoolNumber.getNumber()))
+                .and(studentEntity.entranceYear.eq(entranceYear));
 
             builder.or(condition);
         });
 
         List<Student> students = queryFactory
-                .select(studentEntity)
-                .from(studentEntity)
-                .where(builder)
-                .fetch()
-                .stream()
-                .map(studentMapper::toDomain)
-                .toList();
+            .select(studentEntity)
+            .from(studentEntity)
+            .where(builder)
+            .fetch()
+            .stream()
+            .map(studentMapper::toDomain)
+            .toList();
 
         if (students.size() != schoolNumbers.size()) {
             throw StudentNotFoundException.EXCEPTION;
