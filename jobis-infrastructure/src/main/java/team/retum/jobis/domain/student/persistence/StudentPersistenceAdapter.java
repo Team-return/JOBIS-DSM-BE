@@ -60,7 +60,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 applicationEntity.applicationStatus.in(statuses)
             )
             .where(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
-                    .subtract(studentEntity.entranceYear).eq(3))
+                    .subtract(studentEntity.entranceYear).eq(2))
             .fetchOne();
     }
 
