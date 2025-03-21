@@ -500,7 +500,12 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     @Override
     public List<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
-        return recruitmentJpaRepository.findByCompanyIdAndWinterIntern(companyId, winterIntern)
+        return queryFactory
+            .selectFrom(recruitmentEntity)
+            .where(recruitmentEntity.company.id.eq(companyId)
+                .and(recruitmentEntity.winterIntern.eq(winterIntern)))
+            .limit(1)
+            .fetch()
             .stream()
             .map(recruitmentMapper::toDomain)
             .toList();
