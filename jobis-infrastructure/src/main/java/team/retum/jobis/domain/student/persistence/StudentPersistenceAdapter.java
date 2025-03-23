@@ -94,8 +94,7 @@ public class StudentPersistenceAdapter implements StudentPort {
             .from(studentEntity)
             .where(studentEntity.classRoom.eq(classNum)
                 .and(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
-                    .subtract(studentEntity.entranceYear).eq(2)
-                    .and(applicationEntity.recruitment.winterIntern.isFalse())))
+                    .subtract(studentEntity.entranceYear).eq(2)))
             .fetchOne();
     }
 
