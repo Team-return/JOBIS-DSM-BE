@@ -92,7 +92,10 @@ public class StudentPersistenceAdapter implements StudentPort {
         return queryFactory
             .select(studentEntity.count())
             .from(studentEntity)
-            .where(studentEntity.classRoom.eq(classNum))
+            .where(studentEntity.classRoom.eq(classNum)
+                .and(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
+                    .subtract(studentEntity.entranceYear).eq(2)
+                    .and(applicationEntity.recruitment.winterIntern.isFalse())))
             .fetchOne();
     }
 
@@ -106,7 +109,10 @@ public class StudentPersistenceAdapter implements StudentPort {
                 applicationEntity.student.eq(studentEntity),
                 applicationEntity.applicationStatus.in(ApplicationStatus.PASS, ApplicationStatus.FIELD_TRAIN)
             )
-            .where(studentEntity.classRoom.eq(classNum))
+            .where(studentEntity.classRoom.eq(classNum)
+                .and(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
+                    .subtract(studentEntity.entranceYear).eq(2)
+                    .and(applicationEntity.recruitment.winterIntern.isFalse())))
             .fetch();
 
         return null != counts ? counts.get(0) : 0;
