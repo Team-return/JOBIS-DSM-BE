@@ -30,13 +30,15 @@ public class WinterInternEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onWinterInternToggled(WinterInternToggledEvent event) {
-        event.getDeviceTokens().forEach(deviceToken -> {
+        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
+
+        deviceTokens.forEach(deviceToken -> {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
             if (event.getWinterIntern().isWinterInterned()) {
                 Notification notification = Notification.builder()
                     .title("겨울인턴 시즌이 다가왔어요~")
-                    .content("오늘부터 체험형 현장실습을 지원하실 수 있어요.")
+                    .content("오늘부터 체험형 현장실습을 지원하실 있어요.")
                     .userId(user.getId())
                     .detailId(0L)
                     .topic(Topic.WINTER_INTERN)
@@ -52,12 +54,14 @@ public class WinterInternEventHandler {
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onWinterInternRegistered(WinterInternRegisteredEvent event) {
+        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.WINTER_INTERN);
+
         Company company = queryCompanyPort.getById(event.getRecruitment().getCompanyId())
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
         String companyName = company.getName();
 
-        for (String deviceToken : event.getDeviceTokens()) {
+        for (String deviceToken : deviceTokens) {
             User user = queryUserPort.getUserIdByDeviceToken(deviceToken);
 
             Notification notification = Notification.builder()

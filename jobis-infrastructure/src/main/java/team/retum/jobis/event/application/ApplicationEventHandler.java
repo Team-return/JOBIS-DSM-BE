@@ -14,6 +14,7 @@ import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
+import team.retum.jobis.domain.user.spi.QueryUserPort;
 
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class ApplicationEventHandler {
 
     private final QueryCompanyPort queryCompanyPort;
     private final CommandNotificationPort commandNotificationPort;
+    private final QueryUserPort queryUserPort;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)

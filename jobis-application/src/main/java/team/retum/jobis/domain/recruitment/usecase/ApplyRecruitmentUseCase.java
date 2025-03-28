@@ -6,8 +6,6 @@ import team.retum.jobis.common.spi.PublishEventPort;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.intern.event.WinterInternRegisteredEvent;
-import team.retum.jobis.domain.intern.event.WinterInternToggledEvent;
-import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.recruitment.dto.request.ApplyRecruitmentRequest;
 import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentAlreadyExistsException;
@@ -16,7 +14,6 @@ import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.CommandRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
-import team.retum.jobis.domain.user.spi.QueryUserPort;
 
 import java.util.List;
 
@@ -28,7 +25,6 @@ public class ApplyRecruitmentUseCase {
     private final CommandRecruitAreaPort commandRecruitAreaPort;
     private final SecurityPort securityPort;
     private final PublishEventPort publishEventPort;
-    private final QueryUserPort queryUserPort;
 
     public void execute(ApplyRecruitmentRequest request) {
         Company company = securityPort.getCurrentCompany();
@@ -46,28 +42,16 @@ public class ApplyRecruitmentUseCase {
             .toList();
         commandRecruitAreaPort.saveAll(recruitAreas);
 
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.RECRUITMENT);
         if (request.winterIntern()) {
-            publishEventPort.publishEvent(new WinterInternRegisteredEvent(
-                recruitment,
-                recruitment.getId(),
-                Topic.WINTER_INTERN,
-                deviceTokens
-            ));
+            publishEventPort.publishEvent(new WinterInternRegisteredEvent(recruitment));
         }
     }
 
     public void executeInterestCodeMatch() {
         List<Recruitment> recentRecruitments = recruitmentPort.getRecent();
-        List<String> deviceTokens = queryUserPort.getDeviceTokenByTopic(Topic.RECRUITMENT);
 
         for (Recruitment recruitment : recentRecruitments) {
-            publishEventPort.publishEvent(new InterestedRecruitmentEvent(
-                recruitment,
-                List.of(recruitment.getId()),
-                Topic.RECRUITMENT,
-                deviceTokens
-            ));
+            publishEventPort.publishEvent(new InterestedRecruitmentEvent(recruitment));
         }
     }
 
