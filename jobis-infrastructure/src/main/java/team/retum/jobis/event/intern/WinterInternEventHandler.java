@@ -16,6 +16,7 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
+import team.retum.jobis.event.RabbitMqProducer;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class WinterInternEventHandler {
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
     private final QueryCompanyPort queryCompanyPort;
+    private final RabbitMqProducer rabbitMqProducer;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -47,6 +49,7 @@ public class WinterInternEventHandler {
                     .build();
 
                 commandNotificationPort.save(notification);
+                rabbitMqProducer.publishEvent(notification);
             }
         });
     }
@@ -75,6 +78,7 @@ public class WinterInternEventHandler {
                 .build();
 
             commandNotificationPort.save(notification);
+            rabbitMqProducer.publishEvent(notification);
         }
     }
 }
