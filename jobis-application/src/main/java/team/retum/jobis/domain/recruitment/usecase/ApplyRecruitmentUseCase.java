@@ -24,7 +24,7 @@ public class ApplyRecruitmentUseCase {
     private final RecruitmentPort recruitmentPort;
     private final CommandRecruitAreaPort commandRecruitAreaPort;
     private final SecurityPort securityPort;
-    private final PublishEventPort publishEventPort;
+    private final PublishEventPort eventPublisher;
 
     public void execute(ApplyRecruitmentRequest request) {
         Company company = securityPort.getCurrentCompany();
@@ -43,7 +43,7 @@ public class ApplyRecruitmentUseCase {
         commandRecruitAreaPort.saveAll(recruitAreas);
 
         if (request.winterIntern()) {
-            publishEventPort.publishEvent(new WinterInternRegisteredEvent(recruitment));
+            eventPublisher.publishEvent(new WinterInternRegisteredEvent(recruitment));
         }
     }
 
@@ -51,7 +51,7 @@ public class ApplyRecruitmentUseCase {
         List<Recruitment> recentRecruitments = recruitmentPort.getRecent();
 
         for (Recruitment recruitment : recentRecruitments) {
-            publishEventPort.publishEvent(new InterestedRecruitmentEvent(recruitment));
+            eventPublisher.publishEvent(new InterestedRecruitmentEvent(recruitment));
         }
     }
 

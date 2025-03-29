@@ -14,7 +14,7 @@ public class ToggleWinterInternUseCase {
 
     private final CommandWinterInternPort commandWinterInternPort;
     private final QueryWinterInternPort queryWinterInternPort;
-    private final PublishEventPort publishEventPort;
+    private final PublishEventPort eventPublisher;
 
     public void execute() {
         boolean toggled = !queryWinterInternPort.getIsWinterIntern();
@@ -24,6 +24,6 @@ public class ToggleWinterInternUseCase {
             .build();
 
         commandWinterInternPort.save(toggledWinterIntern);
-        publishEventPort.publishEvent(new WinterInternToggledEvent(toggledWinterIntern));
+        eventPublisher.publishEvent(new WinterInternToggledEvent(toggledWinterIntern));
     }
 }

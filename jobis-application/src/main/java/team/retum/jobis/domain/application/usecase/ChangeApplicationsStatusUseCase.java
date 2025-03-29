@@ -17,12 +17,12 @@ public class ChangeApplicationsStatusUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final CommandApplicationPort commandApplicationPort;
-    private final PublishEventPort publishEventPort;
+    private final PublishEventPort eventPublisher;
 
     public void execute(List<Long> applicationIds, ApplicationStatus status) {
         List<Application> applications = queryApplicationPort.getAllByIdInOrThrow(applicationIds);
 
         commandApplicationPort.updateApplicationStatus(status, applicationIds);
-        publishEventPort.publishEvent(new ApplicationsStatusChangedEvent(applications, status));
+        eventPublisher.publishEvent(new ApplicationsStatusChangedEvent(applications, status));
     }
 }

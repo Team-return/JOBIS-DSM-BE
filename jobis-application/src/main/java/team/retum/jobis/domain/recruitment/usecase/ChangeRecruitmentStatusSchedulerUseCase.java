@@ -14,7 +14,7 @@ import java.util.List;
 public class ChangeRecruitmentStatusSchedulerUseCase {
 
     private final RecruitmentPort recruitmentPort;
-    private final PublishEventPort publishEventPort;
+    private final PublishEventPort eventPublisher;
 
     public void execute() {
         List<Recruitment> recruitments = recruitmentPort.getAll();
@@ -24,6 +24,6 @@ public class ChangeRecruitmentStatusSchedulerUseCase {
                 .map(Recruitment::updateRecruitmentStatus)
                 .toList()
         );
-        publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
+        eventPublisher.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
     }
 }

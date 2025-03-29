@@ -15,7 +15,7 @@ import java.util.List;
 public class TeacherChangeRecruitmentStatusUseCase {
 
     private final RecruitmentPort recruitmentPort;
-    private final PublishEventPort publishEventPort;
+    private final PublishEventPort eventPublisher;
 
     public void execute(List<Long> recruitmentIds, RecruitStatus status) {
         List<Recruitment> recruitments = recruitmentPort.getAllByIdInOrThrow(recruitmentIds);
@@ -26,6 +26,6 @@ public class TeacherChangeRecruitmentStatusUseCase {
                 .toList()
         );
 
-        publishEventPort.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
+        eventPublisher.publishEvent(new RecruitmentStatusChangedEvent(recruitments));
     }
 }

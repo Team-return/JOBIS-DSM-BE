@@ -15,12 +15,12 @@ public class RejectApplicationUseCase {
 
     private final QueryApplicationPort queryApplicationPort;
     private final CommandApplicationPort commandApplicationPort;
-    private final PublishEventPort publishEventPort;
+    private final PublishEventPort eventPublisher;
 
     public void execute(Long applicationId, String rejectReason) {
         Application application = queryApplicationPort.getByIdOrThrow(applicationId);
 
         commandApplicationPort.save(application.rejectApplication(rejectReason));
-        publishEventPort.publishEvent(new SingleApplicationStatusChangedEvent(application, ApplicationStatus.REJECTED));
+        eventPublisher.publishEvent(new SingleApplicationStatusChangedEvent(application, ApplicationStatus.REJECTED));
     }
 }

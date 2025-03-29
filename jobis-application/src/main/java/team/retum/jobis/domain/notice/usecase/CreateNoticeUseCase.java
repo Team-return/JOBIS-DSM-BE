@@ -16,7 +16,7 @@ import java.util.List;
 public class CreateNoticeUseCase {
 
     private final CommandNoticePort commandNoticePort;
-    private final PublishEventPort publishEventPort;
+    private final PublishEventPort eventPublisher;
 
     public void execute(CreateNoticeRequest request) {
         List<NoticeAttachment> attachments = request.getAttachments().stream()
@@ -30,6 +30,6 @@ public class CreateNoticeUseCase {
             .attachments(attachments)
             .build());
 
-        publishEventPort.publishEvent(new NoticePostedEvent(savedNotice));
+        eventPublisher.publishEvent(new NoticePostedEvent(savedNotice));
     }
 }
