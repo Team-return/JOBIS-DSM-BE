@@ -44,7 +44,7 @@ public class NotificationEntity extends BaseTimeEntity {
     private UserEntity userEntity;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(100)")
+    @Column(columnDefinition = "VARCHAR(255)")
     private String deviceToken;
 
     @NotNull
