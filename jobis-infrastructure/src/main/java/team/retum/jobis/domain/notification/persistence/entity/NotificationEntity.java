@@ -44,10 +44,6 @@ public class NotificationEntity extends BaseTimeEntity {
     private UserEntity userEntity;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(255)")
-    private String deviceToken;
-
-    @NotNull
     @Column(columnDefinition = "BIGINT")
     private Long detailId;
 
@@ -66,12 +62,11 @@ public class NotificationEntity extends BaseTimeEntity {
     private boolean isNew;
 
     @Builder
-    public NotificationEntity(Long id, String title, String content, UserEntity userEntity, String deviceToken, Long detailId, Topic topic, Authority authority, boolean isNew) {
+    public NotificationEntity(Long id, String title, String content, UserEntity userEntity, Long detailId, Topic topic, Authority authority, boolean isNew) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.userEntity = userEntity;
-        this.deviceToken = deviceToken;
         this.detailId = detailId;
         this.topic = topic;
         this.authority = authority;
