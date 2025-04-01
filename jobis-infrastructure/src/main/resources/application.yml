@@ -51,12 +51,6 @@ spring:
             enable: true
             required: true
 
-  rabbitmq:
-    host: ${RABBITMQ_HOST:localhost}
-    port: 5672
-    username: ${RABBITMQ_USERNAME:guest}
-    password: ${RABBITMQ_PASSWORD:guest}
-
 management:
   endpoint:
     metrics:

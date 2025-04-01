@@ -14,15 +14,22 @@ import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
+import team.retum.jobis.domain.user.model.User;
+import team.retum.jobis.domain.user.spi.QueryUserPort;
+import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
 public class ApplicationEventHandler {
 
     private final QueryCompanyPort queryCompanyPort;
+    private final QueryUserPort queryUserPort;
     private final CommandNotificationPort commandNotificationPort;
+    private final FCMUtil fcmUtil;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -30,11 +37,17 @@ public class ApplicationEventHandler {
         if (event.getStatus() == ApplicationStatus.PROCESSING) {
             return;
         }
+        Map<Long, String> userIdTokenMap = queryUserPort.getAllByIds(
+                event.getApplications().stream().map(Application::getStudentId).toList()
+            ).stream()
+            .collect(Collectors.toMap(
+                User::getId,
+                User::getToken
+            ));
         Map<Long, String> companyNameMap = queryCompanyPort.getCompanyNameByRecruitmentIds(
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
         for (Application application : event.getApplications()) {
-
             String companyName = companyNameMap.get(application.getRecruitmentId());
 
             ApplicationMessage notificationMessage = ApplicationMessage.of(event, companyName);
@@ -50,12 +63,18 @@ public class ApplicationEventHandler {
                 .build();
 
             commandNotificationPort.save(notification);
+            fcmUtil.sendMessages(
+                notification,
+                List.of(userIdTokenMap.get(application.getStudentId()))
+            );
         }
     }
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationStatusChange(SingleApplicationStatusChangedEvent event) {
+        User user = queryUserPort.getByStudentId(event.getApplication().getStudentId());
+
         Notification notification = Notification.builder()
             .title("결과 보러가기")
             .content("지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.")
@@ -67,5 +86,9 @@ public class ApplicationEventHandler {
             .build();
 
         commandNotificationPort.save(notification);
+        fcmUtil.sendMessages(
+            notification,
+            List.of(user.getToken())
+        );
     }
 }

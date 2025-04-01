@@ -19,6 +19,7 @@ import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.spi.QueryStudentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
+import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class RecruitmentEventHandler {
     private final QueryStudentPort queryStudentPort;
     private final QueryUserPort queryUserPort;
     private final QueryRecruitAreaPort queryRecruitAreaPort;
+    private final FCMUtil fcmUtil;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -64,6 +66,7 @@ public class RecruitmentEventHandler {
                 tokens.add(bookmarkUser.getToken());
                 commandNotificationPort.save(notification);
             }
+            fcmUtil.sendMessages(repNotification, tokens);
         }
     }
 
@@ -95,9 +98,11 @@ public class RecruitmentEventHandler {
                 if (repNotification == null) {
                     repNotification = notification;
                 }
+
                 tokens.add(user.getToken());
                 commandNotificationPort.save(notification);
             }
+            fcmUtil.sendMessages(repNotification, tokens);
         }
     }
 }
