@@ -77,4 +77,9 @@ public class UserPersistenceAdapter implements UserPort {
             .map(userMapper::toDomain)
             .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
+
+    @Override
+    public List<User> getAllByDeviceTokenExists() {
+        return userJpaRepository.findByTokenIsNotNull();
+    }
 }
