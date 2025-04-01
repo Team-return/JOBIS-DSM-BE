@@ -19,6 +19,7 @@ import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.spi.QueryStudentPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
+import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class RecruitmentEventHandler {
     private final QueryStudentPort queryStudentPort;
     private final QueryUserPort queryUserPort;
     private final QueryRecruitAreaPort queryRecruitAreaPort;
+    private final FCMUtil fcmUtil;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -52,7 +54,6 @@ public class RecruitmentEventHandler {
                     .title(bookmarkUser.getCompanyName())
                     .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
                     .userId(bookmarkUser.getUserId())
-                    .deviceToken(bookmarkUser.getToken())
                     .topic(Topic.RECRUITMENT)
                     .detailId(recruitment.getId())
                     .authority(Authority.STUDENT)
@@ -65,6 +66,7 @@ public class RecruitmentEventHandler {
                 tokens.add(bookmarkUser.getToken());
                 commandNotificationPort.save(notification);
             }
+            fcmUtil.sendMessages(repNotification, tokens);
         }
     }
 
@@ -87,7 +89,6 @@ public class RecruitmentEventHandler {
                     .title("모집의뢰서 보러가기")
                     .content(student.getName() + " 님이 관심 있을 만한 모집의뢰서가 추가되었어요!")
                     .userId(user.getId())
-                    .deviceToken(user.getToken())
                     .detailId(recruitment.getId())
                     .topic(Topic.RECRUITMENT)
                     .authority(Authority.STUDENT)
@@ -101,6 +102,7 @@ public class RecruitmentEventHandler {
                 tokens.add(user.getToken());
                 commandNotificationPort.save(notification);
             }
+            fcmUtil.sendMessages(repNotification, tokens);
         }
     }
 }
