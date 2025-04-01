@@ -36,7 +36,6 @@ public class NoticeEventHandler {
                 .title(event.getNotice().getTitle())
                 .content(event.getNotice().getContent())
                 .userId(user.getId())
-                .deviceToken(deviceToken)
                 .detailId(event.getNotice().getId())
                 .topic(Topic.NOTICE)
                 .authority(Authority.STUDENT)

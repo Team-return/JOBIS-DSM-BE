@@ -79,7 +79,6 @@ public class ApplicationEventHandler {
             .title("결과 보러가기")
             .content("지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.")
             .userId(event.getApplication().getStudentId())
-            .deviceToken(user.getToken())
             .topic(Topic.APPLICATION)
             .detailId(event.getApplication().getId())
             .authority(Authority.STUDENT)
