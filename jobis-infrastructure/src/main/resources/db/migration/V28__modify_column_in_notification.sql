@@ -1,1 +1,1 @@
-alter table tbl_notification drop column device_token varchar(255);
+alter table tbl_notification drop column device_token;
