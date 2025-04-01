@@ -18,21 +18,6 @@ import team.retum.jobis.global.exception.FailedSendingMessagesException;
 import java.util.Arrays;
 import java.util.List;
 
-/*
-
-1. 알림 설정을 안했는데도 옴
-2. 했는데도 안옴 <- 내일 고침
-
-1. 전체 유저 알림 다 키도 알림 설정 막기
-<-- 스케줄러
-
-3. 알림 6개 <- 이거는 김명진
-전체 유저 조회 -> token  <-- 내일 점심?
-
-
-
- */
-
 @Component
 public class FCMUtil {
 

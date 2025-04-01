@@ -21,8 +21,8 @@ public class SubscribeAllUserUseCase {
         List<User> users = queryUserPort.getAllByDeviceTokenExists();
         List<Topic> topics = Arrays.asList(Topic.values());
 
-        for (Topic topic : topics) { //모든 토픽 하나 당
-            for (User user : users) { //모든 deviceToken을 가지고 있는 유저 토픽 구독
+        for (Topic topic : topics) {
+            for (User user : users) {
                 commandNotificationPort.subscribeTopic(user.getToken(), topic);
             }
         }
