@@ -20,4 +20,6 @@ public interface QueryUserPort {
     List<String> getDeviceTokenByTopic(Topic topic);
 
     User getUserIdByDeviceToken(String deviceToken);
+
+    List<User> getAllByDeviceTokenExists();
 }
