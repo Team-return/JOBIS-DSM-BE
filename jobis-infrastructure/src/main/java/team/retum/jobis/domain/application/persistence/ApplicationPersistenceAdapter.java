@@ -62,9 +62,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 eqApplicationStatus(filter.getApplicationStatus()),
                 containStudentName(filter.getStudentName()),
                 eqWinterIntern(filter.getWinterIntern()),
-                eqYear(filter.getYear()),
-                eqStudentAppliedLastYear(filter.getStudentId())
-            )
+                eqYear(filter.getYear()))
             .orderBy(
                 applicationEntity.updatedAt.desc(),
                 applicationEntity.createdAt.desc()
@@ -376,9 +374,5 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     private BooleanExpression eqYear(Year year) {
         return year == null ? null : applicationEntity.createdAt.year().eq(year.getValue());
-    }
-
-    private BooleanExpression eqStudentAppliedLastYear(Long studentId) {
-        return studentId == null ? null : applicationEntity.createdAt.year().eq(Year.now().getValue() - 1);
     }
 }
