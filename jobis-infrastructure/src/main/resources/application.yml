@@ -51,6 +51,14 @@ spring:
             enable: true
             required: true
 
+  rabbitmq:
+    host: ${RABBITMQ_HOST:b-6d16c58d-3b81-4982-8e25-c3a8f4bf00ed.mq.ap-northeast-2.amazonaws.com}
+    port: 5671
+    username: ${RABBITMQ_USERNAME:team-return}
+    password: ${RABBITMQ_PASSWORD:team-return1234!}
+    ssl:
+      enabled: true
+
 management:
   endpoint:
     metrics:
