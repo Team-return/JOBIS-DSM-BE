@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.APPROVED;
@@ -342,7 +343,10 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .innerJoin(recruitmentEntity).on(applicationEntity.recruitment.id.eq(recruitmentEntity.id)
                 .and(applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)))
             .innerJoin(companyEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
-            .where(studentEntity.classRoom.eq(classNum))
+            .where(
+                studentEntity.classRoom.eq(classNum),
+                numberTemplate(Integer.class, "YEAR(CURRENT_DATE)").subtract(studentEntity.entranceYear).eq(2)
+            )
             .groupBy(companyEntity.id)
             .fetch();
     }
