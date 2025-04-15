@@ -62,7 +62,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 eqApplicationStatus(filter.getApplicationStatus()),
                 containStudentName(filter.getStudentName()),
                 eqWinterIntern(filter.getWinterIntern()),
-                eqYear(filter.getYear()))
+                eqYear(filter.getYear())
+            )
             .orderBy(
                 applicationEntity.updatedAt.desc(),
                 applicationEntity.createdAt.desc()
