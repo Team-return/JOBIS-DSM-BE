@@ -16,7 +16,7 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-import team.retum.jobis.thirdparty.fcm.FCMUtil;
+import team.retum.jobis.event.RabbitMqProducer;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class WinterInternEventHandler {
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
     private final QueryCompanyPort queryCompanyPort;
-    private final FCMUtil fcmUtil;
+    private final RabbitMqProducer rabbitMqProducer;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -42,6 +42,7 @@ public class WinterInternEventHandler {
                     .title("겨울인턴 시즌이 다가왔어요~")
                     .content("오늘부터 체험형 현장실습을 지원하실 있어요.")
                     .userId(user.getId())
+                    .deviceToken(deviceToken)
                     .detailId(0L)
                     .topic(Topic.WINTER_INTERN)
                     .authority(Authority.STUDENT)
@@ -49,7 +50,7 @@ public class WinterInternEventHandler {
                     .build();
 
                 commandNotificationPort.save(notification);
-                fcmUtil.sendMessageToTopic(notification);
+                rabbitMqProducer.publishEvent(notification);
             }
         });
     }
@@ -71,6 +72,7 @@ public class WinterInternEventHandler {
                 .title(companyName + " 겨울 인턴십 모집 공고 ⛄️")
                 .content("겨울 인턴십 모집 의뢰서가 등록되었어요. 지금 확인해보세요!")
                 .userId(user.getId())
+                .deviceToken(deviceToken)
                 .detailId(event.getRecruitment().getId())
                 .topic(Topic.WINTER_INTERN)
                 .authority(Authority.STUDENT)
@@ -78,7 +80,7 @@ public class WinterInternEventHandler {
                 .build();
 
             commandNotificationPort.save(notification);
-            fcmUtil.sendMessageToTopic(notification);
+            rabbitMqProducer.publishEvent(notification);
         }
     }
 }

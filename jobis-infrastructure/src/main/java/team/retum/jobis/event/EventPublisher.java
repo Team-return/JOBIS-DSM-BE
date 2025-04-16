@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.common.spi.PublishEventPort;
 
+@Primary
 @RequiredArgsConstructor
 @Component
 public class EventPublisher implements PublishEventPort {

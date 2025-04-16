@@ -16,6 +16,7 @@ public class Notification {
     private final String title;
     private final String content;
     private final Long userId;
+    private final String deviceToken;
     private final Topic topic;
     private final Long detailId;
     private final Authority authority;
