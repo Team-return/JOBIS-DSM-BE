@@ -51,6 +51,14 @@ spring:
             enable: true
             required: true
 
+  rabbitmq:
+    host: ${RABBITMQ_HOST:d}
+    port: 5671
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    ssl:
+      enabled: true
+
 management:
   endpoint:
     metrics:

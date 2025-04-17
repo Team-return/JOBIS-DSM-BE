@@ -12,7 +12,7 @@ import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
-import team.retum.jobis.thirdparty.fcm.FCMUtil;
+import team.retum.jobis.event.RabbitMqProducer;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class NoticeEventHandler {
 
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
-    private final FCMUtil fcmUtil;
+    private final RabbitMqProducer rabbitMqProducer;
 
     @Async("asyncTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -36,6 +36,7 @@ public class NoticeEventHandler {
                 .title(event.getNotice().getTitle())
                 .content(event.getNotice().getContent())
                 .userId(user.getId())
+                .deviceToken(deviceToken)
                 .detailId(event.getNotice().getId())
                 .topic(Topic.NOTICE)
                 .authority(Authority.STUDENT)
@@ -43,7 +44,7 @@ public class NoticeEventHandler {
                 .build();
 
             commandNotificationPort.save(notification);
-            fcmUtil.sendMessageToTopic(notification);
+            rabbitMqProducer.publishEvent(notification);
         });
     }
 }
