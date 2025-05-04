@@ -8,6 +8,7 @@ import team.retum.jobis.domain.code.model.Code;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.spi.QueryCodePort;
 import team.retum.jobis.domain.interest.dto.response.InterestResponse;
+import team.retum.jobis.domain.interest.exception.InvalidCodesException;
 import team.retum.jobis.domain.interest.model.Interest;
 import team.retum.jobis.domain.interest.persistence.mapper.InterestMapper;
 import team.retum.jobis.domain.interest.persistence.repository.InterestJpaRepository;
@@ -42,6 +43,10 @@ public class InterestPersistenceAdapter implements InterestPort {
 
     @Override
     public List<Interest> getAllByStudentIdAndCodes(Long studentId, List<Long> codeIds) {
+        if (codeIds == null || codeIds.isEmpty()) {
+            throw InvalidCodesException.EXCEPTION;
+        }
+
         return interestJpaRepository.findByStudentId(studentId).stream()
             .map(interestMapper::toDomain)
             .toList();
