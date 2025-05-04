@@ -41,7 +41,7 @@ public class InterestPersistenceAdapter implements InterestPort {
     }
 
     @Override
-    public List<Interest> getAllByStudentIdAndCodes(Long studentId, List<Long> codes) {
+    public List<Interest> getAllByStudentIdAndCodes(Long studentId, List<Long> codeIds) {
         return interestJpaRepository.findByStudentId(studentId).stream()
             .map(interestMapper::toDomain)
             .toList();

@@ -9,5 +9,5 @@ import java.util.List;
 @NoArgsConstructor
 public class ToggleInterestRequest {
 
-    private List<Long> codes;
+    private List<Long> codeIds;
 }
