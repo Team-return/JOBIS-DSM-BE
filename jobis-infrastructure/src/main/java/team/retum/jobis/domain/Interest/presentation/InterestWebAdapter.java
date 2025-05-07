@@ -31,7 +31,7 @@ public class InterestWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
     public void toggleInterest(@RequestBody @Valid ToggleInterestRequest request) {
-        toggleInterestUseCase.execute(request.getCodes());
+        toggleInterestUseCase.execute(request.getCodeIds());
     }
 
     @GetMapping

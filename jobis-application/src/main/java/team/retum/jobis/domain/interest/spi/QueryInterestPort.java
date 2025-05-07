@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface QueryInterestPort {
 
-    List<Interest> getAllByStudentIdAndCodes(Long studentId, List<Long> codes);
+    List<Interest> getAllByStudentIdAndCodes(Long studentId, List<Long> codeIds);
 
     List<Interest> getAllByStudentId(Long studentId);
 
