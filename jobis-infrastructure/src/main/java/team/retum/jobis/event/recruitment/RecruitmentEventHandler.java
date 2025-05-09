@@ -23,6 +23,7 @@ import team.retum.jobis.event.RabbitMqProducer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,9 @@ public class RecruitmentEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onRecruitmentStatusChanged(RecruitmentStatusChangedEvent event) {
         List<Recruitment> doneRecruitments = event.getRecruitments().stream()
-            .filter(recruitment -> recruitment.getRecruitingPeriod().endDate().isAfter(LocalDate.now()))
+            .filter(recruitment -> recruitment.getRecruitingPeriod() != null
+                    && recruitment.getRecruitingPeriod().endDate().isEqual(LocalDate.now())
+            )
             .toList();
         Map<Long, List<BookmarkUserVO>> bookmarkUserMap = queryBookmarkPort.getBookmarkUserByRecruitmentIds(
             doneRecruitments.stream().map(Recruitment::getId).toList()
@@ -49,7 +52,9 @@ public class RecruitmentEventHandler {
         for (Recruitment recruitment : doneRecruitments) {
             Notification repNotification = null;
             List<String> tokens = new ArrayList<>();
-            for (BookmarkUserVO bookmarkUser : bookmarkUserMap.get(recruitment.getId())) {
+
+            List<BookmarkUserVO> bookmarkUserVOs = bookmarkUserMap.getOrDefault(recruitment.getId(), Collections.emptyList());
+            for (BookmarkUserVO bookmarkUser : bookmarkUserVOs) {
                 Notification notification = Notification.builder()
                     .title(bookmarkUser.getCompanyName())
                     .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")

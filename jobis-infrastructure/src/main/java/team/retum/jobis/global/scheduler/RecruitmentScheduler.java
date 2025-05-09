@@ -14,7 +14,7 @@ public class RecruitmentScheduler {
     /**
      * 매일 밤 12시 마다 모집의뢰서의 상태를 확인 후 상태를 변경
      */
-    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "* * * * * *", zone = "Asia/Seoul")
     public void changeRecruitmentStatus() {
         changeRecruitmentService.execute();
     }
