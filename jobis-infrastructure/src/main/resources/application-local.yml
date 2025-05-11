@@ -4,9 +4,16 @@ spring:
       on-profile: local
 
   datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:070211}
+
+  p6spy:
+    modulelist: log4j
+    log-message-format: com.p6spy.engine.spy.appender.SingleLineFormat
+    appender: com.p6spy.engine.spy.appender.Slf4JLogger
+    log-level: info
 
   data:
     redis:
