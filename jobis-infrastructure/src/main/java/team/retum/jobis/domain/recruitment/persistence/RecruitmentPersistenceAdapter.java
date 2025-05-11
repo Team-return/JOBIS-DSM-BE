@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.recruitment.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
+import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -59,6 +61,32 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public List<StudentRecruitmentVO> getStudentRecruitmentsBy(RecruitmentFilter filter) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+
+        BooleanExpression hasJobCode =
+                JPAExpressions
+                        .selectOne()
+                        .from(recruitAreaEntity)
+                        .join(recruitAreaCodeEntity)
+                        .on(
+                                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                                recruitAreaCodeEntity.type.eq(CodeType.JOB),
+                                recruitAreaCodeEntity.code.code.in(filter.getCodes())
+                        )
+                        .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                        .exists();
+        BooleanExpression hasTechCode =
+                JPAExpressions
+                        .selectOne()
+                        .from(recruitAreaEntity)
+                        .join(recruitAreaCodeEntity)
+                        .on(
+                                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                                recruitAreaCodeEntity.type.eq(CodeType.TECH),
+                                recruitAreaCodeEntity.code.code.in(filter.getCodes())
+                        )
+                        .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+                        .exists();
+
         return queryFactory
             .select(
                 new QQueryStudentRecruitmentsVO(
@@ -89,10 +117,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .where(
                 eqYear(filter.getYear()),
                 containsName(filter.getCompanyName()),
-                containsCodes(filter.getCodes()),
                 eqWinterIntern(filter.getWinterIntern()),
                 recruitmentEntity.status.eq(RecruitStatus.RECRUITING),
-                eqMilitarySupport(filter.getMilitarySupport())
+                eqMilitarySupport(filter.getMilitarySupport()),
+                hasJobCode.and(hasTechCode)
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
