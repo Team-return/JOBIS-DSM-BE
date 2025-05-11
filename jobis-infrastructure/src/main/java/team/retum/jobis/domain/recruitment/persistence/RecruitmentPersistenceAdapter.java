@@ -64,8 +64,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
         List<Long> codes = filter.getCodes();
 
-        BooleanExpression hasJobCode = (codes != null && !codes.isEmpty()) ?
-                JPAExpressions
+        BooleanExpression hasJobCode = (codes != null && !codes.isEmpty())
+                ? JPAExpressions
                         .selectOne()
                         .from(recruitAreaEntity)
                         .join(recruitAreaCodeEntity)
@@ -78,8 +78,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         .exists()
                 : null;
 
-        BooleanExpression hasTechCode = (codes != null && !codes.isEmpty()) ?
-                JPAExpressions
+        BooleanExpression hasTechCode = (codes != null && !codes.isEmpty())
+                ? JPAExpressions
                         .selectOne()
                         .from(recruitAreaEntity)
                         .join(recruitAreaCodeEntity)
@@ -90,7 +90,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                         )
                         .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
                         .exists()
-                :null;
+                : null;
 
         BooleanExpression codeFilter = null;
         if (hasJobCode != null && hasTechCode != null) {
