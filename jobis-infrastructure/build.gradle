@@ -76,35 +76,5 @@ dependencies {
     // p6spy
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 }
-def generatedResourcesDir = "$buildDir/generated-resources/main"
-
-task generateSpyProperties {
-    def outputFile = file("$generatedResourcesDir/spy.properties")
-
-    outputs.file(outputFile)
-
-    doLast {
-        def content = '''
-modulelist=log4j
-logMessageFormat=com.p6spy.engine.spy.appender.SingleLineFormat
-appender=com.p6spy.engine.spy.appender.Slf4JLogger
-logLevel=info
-'''.trim()
-
-        outputFile.parentFile.mkdirs()
-        outputFile.text = content
-    }
-}
-
-sourceSets {
-    main {
-        resources {
-            // 여기가 중요! 디렉토리만 등록
-            srcDir generatedResourcesDir
-        }
-    }
-}
-
-compileJava.dependsOn(generateSpyProperties)
 
 jar.enabled = false
