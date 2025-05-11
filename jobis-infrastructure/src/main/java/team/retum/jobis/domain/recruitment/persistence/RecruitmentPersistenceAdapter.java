@@ -62,20 +62,24 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     public List<StudentRecruitmentVO> getStudentRecruitmentsBy(RecruitmentFilter filter) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
 
-        BooleanExpression hasJobCode =
-                JPAExpressions
+        List<Long> codes = filter.getCodes();
+
+        BooleanExpression hasJobCode = (codes != null && !codes.isEmpty())
+                ? JPAExpressions
                         .selectOne()
                         .from(recruitAreaEntity)
                         .join(recruitAreaCodeEntity)
                         .on(
                                 recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
                                 recruitAreaCodeEntity.type.eq(CodeType.JOB),
-                                recruitAreaCodeEntity.code.code.in(filter.getCodes())
+                                recruitAreaCodeEntity.code.code.in(codes)
                         )
                         .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-                        .exists();
-        BooleanExpression hasTechCode =
-                JPAExpressions
+                        .exists()
+                : null;
+
+        BooleanExpression hasTechCode = (codes != null && !codes.isEmpty())
+                ? JPAExpressions
                         .selectOne()
                         .from(recruitAreaEntity)
                         .join(recruitAreaCodeEntity)
@@ -85,7 +89,17 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                                 recruitAreaCodeEntity.code.code.in(filter.getCodes())
                         )
                         .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-                        .exists();
+                        .exists()
+                : null;
+
+        BooleanExpression codeFilter = null;
+        if (hasJobCode != null && hasTechCode != null) {
+            codeFilter = hasJobCode.and(hasTechCode);
+        } else if (hasJobCode != null) {
+            codeFilter = hasJobCode;
+        } else if (hasTechCode != null) {
+            codeFilter = hasTechCode;
+        }
 
         return queryFactory
             .select(
@@ -120,13 +134,19 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 eqWinterIntern(filter.getWinterIntern()),
                 recruitmentEntity.status.eq(RecruitStatus.RECRUITING),
                 eqMilitarySupport(filter.getMilitarySupport()),
-                hasJobCode.and(hasTechCode)
+                codeFilter
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
             .orderBy(recruitmentEntity.createdAt.desc())
-            .groupBy(recruitmentEntity.id)
-            .fetch().stream()
+            .groupBy(
+                   recruitmentEntity.id,
+                   companyEntity.name,
+                   recruitmentEntity.payInfo.trainPay,
+                   recruitmentEntity.militarySupport,
+                   companyEntity.companyLogoUrl
+            )
+                .fetch().stream()
             .map(StudentRecruitmentVO.class::cast)
             .toList();
     }
