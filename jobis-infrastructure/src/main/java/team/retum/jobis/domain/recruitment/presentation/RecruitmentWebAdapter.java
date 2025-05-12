@@ -131,7 +131,7 @@ public class RecruitmentWebAdapter {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
             page,
-            Long.valueOf(jobCode),
+            (jobCode == null)?null:Long.valueOf(jobCode),
             parseCodes(techCodes),
             winterIntern,
             militarySupport
