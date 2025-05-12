@@ -3,12 +3,13 @@ package team.retum.jobis.domain.recruitment.dto;
 import lombok.Builder;
 import lombok.Getter;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
+
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Builder
-public class RecruitmentFilter {
+public class StudentRecruitmentFilter {
 
     private final Integer year;
 
@@ -22,7 +23,9 @@ public class RecruitmentFilter {
 
     private final Long page;
 
-    private final List<Long> codes;
+    private final Long jobCode;
+
+    private final List<Long> techCodes;
 
     private final Long studentId;
 
