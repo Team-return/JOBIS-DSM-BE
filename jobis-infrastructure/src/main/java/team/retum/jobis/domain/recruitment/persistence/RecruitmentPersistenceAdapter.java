@@ -1,7 +1,6 @@
 package team.retum.jobis.domain.recruitment.persistence;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
@@ -11,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
 import team.retum.jobis.domain.code.model.CodeType;
+import team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -59,37 +60,41 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private final RecruitmentMapper recruitmentMapper;
 
     @Override
-    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(RecruitmentFilter filter) {
+    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
 
-        List<Long> codes = filter.getCodes();
+        Long jobCode = filter.getJobCode();
+        List<Long> techCodes = filter.getTechCodes();
 
-        BooleanExpression hasJobCode = (codes != null && !codes.isEmpty())
+        QRecruitAreaEntity recruitAreaSub = new QRecruitAreaEntity("recruitAreaSub");
+        QRecruitAreaCodeEntity recruitAreaCodeSub = new QRecruitAreaCodeEntity("recruitAreaCodeSub");
+
+        BooleanExpression hasJobCode = (jobCode != null)
                 ? JPAExpressions
-                        .selectOne()
-                        .from(recruitAreaEntity)
-                        .join(recruitAreaCodeEntity)
-                        .on(
-                                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
-                                recruitAreaCodeEntity.type.eq(CodeType.JOB),
-                                recruitAreaCodeEntity.code.code.in(codes)
-                        )
-                        .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-                        .exists()
+                .selectOne()
+                .from(recruitAreaSub)
+                .join(recruitAreaCodeSub)
+                .on(
+                        recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
+                        recruitAreaCodeSub.type.eq(CodeType.JOB),
+                        recruitAreaCodeSub.code.code.in(jobCode)
+                )
+                .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
+                .exists()
                 : null;
 
-        BooleanExpression hasTechCode = (codes != null && !codes.isEmpty())
+        BooleanExpression hasTechCode = (!techCodes.isEmpty())
                 ? JPAExpressions
-                        .selectOne()
-                        .from(recruitAreaEntity)
-                        .join(recruitAreaCodeEntity)
-                        .on(
-                                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
-                                recruitAreaCodeEntity.type.eq(CodeType.TECH),
-                                recruitAreaCodeEntity.code.code.in(filter.getCodes())
-                        )
-                        .where(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-                        .exists()
+                .selectOne()
+                .from(recruitAreaSub)
+                .join(recruitAreaCodeSub)
+                .on(
+                        recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
+                        recruitAreaCodeSub.type.eq(CodeType.TECH),
+                        recruitAreaCodeSub.code.code.in(techCodes)
+                )
+                .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
+                .exists()
                 : null;
 
         BooleanExpression codeFilter = null;
