@@ -8,3 +8,9 @@ spring:
     url: jdbc:p6spy:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:070211}
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:asdf}

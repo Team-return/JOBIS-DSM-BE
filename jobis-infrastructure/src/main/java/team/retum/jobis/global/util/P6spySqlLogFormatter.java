@@ -15,9 +15,9 @@ public class P6spySqlLogFormatter implements MessageFormattingStrategy {
         sql = formatSql(category, sql);
         Date currentDate = new Date();
 
-        SimpleDateFormat format1 = new SimpleDateFormat("yy.MM.dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yy.MM.dd HH:mm:ss");
 
-        return format1.format(currentDate) + " | " + "OperationTime : " + elapsed + "ms " + sql;
+        return format.format(currentDate) + " | " + "OperationTime : " + elapsed + "ms " + sql;
     }
 
     private String formatSql(String category, String sql) {
