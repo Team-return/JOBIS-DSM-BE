@@ -1,9 +1,8 @@
-package team.retum.jobis.global.util;
+package team.retum.jobis.global.formatter;
 
 import com.p6spy.engine.logging.Category;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 import org.hibernate.engine.jdbc.internal.FormatStyle;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -21,7 +20,9 @@ public class P6spySqlLogFormatter implements MessageFormattingStrategy {
     }
 
     private String formatSql(String category, String sql) {
-        if (sql == null || sql.trim().equals("")) return sql;
+        if (sql == null || sql.trim().equals("")) {
+            return sql;
+        }
 
         if (Category.STATEMENT.getName().equals(category)) {
             String tmpsql = sql.trim().toLowerCase(Locale.ROOT);
