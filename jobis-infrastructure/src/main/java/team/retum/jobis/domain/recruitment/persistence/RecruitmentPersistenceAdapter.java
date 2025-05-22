@@ -165,9 +165,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         QRecruitAreaEntity subRecruitArea = new QRecruitAreaEntity("subRecruitArea");
 
         JPQLQuery<Long> totalHiredCountSubQuery = JPAExpressions
-                .select(subRecruitArea.hiredCount.sum().longValue())
-                .from(subRecruitArea)
-                .where(subRecruitArea.recruitment.id.eq(recruitmentEntity.id));
+            .select(subRecruitArea.hiredCount.sum().longValue())
+            .from(subRecruitArea)
+            .where(subRecruitArea.recruitment.id.eq(recruitmentEntity.id));
 
         return queryFactory
             .select(
@@ -204,7 +204,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .leftJoin(approvedApplication)
             .on(
                 approvedApplication.recruitment.id.eq(recruitmentEntity.id),
-                approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED)
+                approvedApplication.applicationStatus.in(
+                    ApplicationStatus.APPROVED,
+                    ApplicationStatus.SEND,
+                    ApplicationStatus.PROCESSING
+                )
             )
             .where(
                 eqYear(filter.getYear()),
@@ -263,8 +267,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .leftJoin(approvedApplication)
             .on(
-                approvedApplication.recruitment.id.eq(recruitmentEntity.id),
-                approvedApplication.applicationStatus.eq(ApplicationStatus.APPROVED)
+                approvedApplication.applicationStatus.in(
+                    ApplicationStatus.APPROVED,
+                    ApplicationStatus.SEND,
+                    ApplicationStatus.PROCESSING
+                )
             )
             .where(
                 eqYear(filter.getYear()),
@@ -495,36 +502,36 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     public List<StudentRecruitmentVO> getStudentRecruitmentByCompanyNames(List<String> companyNames, Long studentId) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         return queryFactory
-                .select(
-                    new QQueryStudentRecruitmentsVO(
-                        recruitmentEntity.id,
-                        companyEntity.name,
-                        recruitmentEntity.payInfo.trainPay,
-                        recruitmentEntity.militarySupport,
-                        companyEntity.companyLogoUrl,
-                        recruitJobsPath,
-                        bookmarkEntity.recruitment.id.isNotNull()
-                    )
+            .select(
+                new QQueryStudentRecruitmentsVO(
+                    recruitmentEntity.id,
+                    companyEntity.name,
+                    recruitmentEntity.payInfo.trainPay,
+                    recruitmentEntity.militarySupport,
+                    companyEntity.companyLogoUrl,
+                    recruitJobsPath,
+                    bookmarkEntity.recruitment.id.isNotNull()
                 )
-                .from(recruitmentEntity)
-                .leftJoin(bookmarkEntity)
-                .on(
-                    recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
-                    bookmarkEntity.student.id.eq(studentId)
-                )
-                .join(recruitmentEntity.company, companyEntity)
-                .join(recruitAreaEntity)
-                .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-                .join(recruitAreaCodeEntity)
-                .on(
-                    recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
-                    recruitAreaCodeEntity.type.eq(JOB)
-                )
-                .join(recruitAreaCodeEntity.code, codeEntity)
-                .where(companyEntity.name.in(companyNames))
-                .orderBy(recruitmentEntity.createdAt.desc())
-                .groupBy(recruitmentEntity.id)
-                .fetch()
+            )
+            .from(recruitmentEntity)
+            .leftJoin(bookmarkEntity)
+            .on(
+                recruitmentEntity.id.eq(bookmarkEntity.recruitment.id),
+                bookmarkEntity.student.id.eq(studentId)
+            )
+            .join(recruitmentEntity.company, companyEntity)
+            .join(recruitAreaEntity)
+            .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+            .join(recruitAreaCodeEntity)
+            .on(
+                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                recruitAreaCodeEntity.type.eq(JOB)
+            )
+            .join(recruitAreaCodeEntity.code, codeEntity)
+            .where(companyEntity.name.in(companyNames))
+            .orderBy(recruitmentEntity.createdAt.desc())
+            .groupBy(recruitmentEntity.id)
+            .fetch()
             .stream()
             .map(StudentRecruitmentVO.class::cast)
             .toList();
