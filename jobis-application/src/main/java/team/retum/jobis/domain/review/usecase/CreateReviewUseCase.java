@@ -10,6 +10,7 @@ import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.review.dto.QnAElement;
 import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.model.Review;
+import team.retum.jobis.domain.review.spi.CommandReviewPort;
 import team.retum.jobis.domain.review.spi.ReviewPort;
 import team.retum.jobis.domain.student.model.Student;
 
@@ -19,9 +20,10 @@ import java.util.List;
 @UseCase
 public class CreateReviewUseCase {
 
+    // QueryCompanyPort, ReviewPort 등의 인터페이스들은 CreateReviewUseCase를 의존하고 있음
     private final QueryCompanyPort queryCompanyPort;
     private final QueryApplicationPort queryApplicationPort;
-    private final ReviewPort reviewPort;
+    private final CommandReviewPort commandReviewPort;
     private final SecurityPort securityPort;
 
     public void execute(Long companyId, List<QnAElement> qnAElements) {
@@ -32,7 +34,7 @@ public class CreateReviewUseCase {
         queryApplicationPort.getByCompanyIdAndStudentIdOrThrow(company.getId(), student.getId())
             .checkReviewAuthority();
 
-        Review review = reviewPort.save(
+        Review review = commandReviewPort.save(
             Review.builder()
                 .companyId(company.getId())
                 .studentId(student.getId())
@@ -47,6 +49,6 @@ public class CreateReviewUseCase {
                 .codeId(qnARequest.codeId())
                 .build())
             .toList();
-        reviewPort.saveAll(qnAs);
+        commandReviewPort.saveAll(qnAs);
     }
 }
