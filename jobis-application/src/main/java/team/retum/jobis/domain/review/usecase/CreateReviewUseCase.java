@@ -20,7 +20,6 @@ import java.util.List;
 @UseCase
 public class CreateReviewUseCase {
 
-    // QueryCompanyPort, ReviewPort 등의 인터페이스들은 CreateReviewUseCase를 의존하고 있음
     private final QueryCompanyPort queryCompanyPort;
     private final QueryApplicationPort queryApplicationPort;
     private final CommandReviewPort commandReviewPort;
