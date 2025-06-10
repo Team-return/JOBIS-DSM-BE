@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.notice.persistence.entity.NoticeAttachmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import team.retum.jobis.global.entity.BaseTimeEntity;
@@ -72,6 +71,9 @@ public class ApplicationEntity extends BaseTimeEntity {
     @Column(columnDefinition = "DATETIME(6)")
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    private List<ApplicationRejectionAttachmentEntity> applicationRejectionAttachments = new ArrayList<>();
+
     @Builder
     public ApplicationEntity(Long id, StudentEntity studentEntity, RecruitmentEntity recruitmentEntity,
                              ApplicationStatus applicationStatus, String rejectionReason,
@@ -88,5 +90,10 @@ public class ApplicationEntity extends BaseTimeEntity {
     public void addApplicationAttachment(ApplicationAttachmentEntity attachment) {
         attachment.setApplication(this);
         this.applicationAttachments.add(attachment);
+    }
+
+    public void addApplicationRejectionAttachment(ApplicationRejectionAttachmentEntity attachment) {
+        attachment.setApplication(this);
+        this.applicationRejectionAttachments.add(attachment);
     }
 }

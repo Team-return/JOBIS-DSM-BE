@@ -34,6 +34,8 @@ public class Application {
 
     private final List<ApplicationAttachment> attachments;
 
+    private final List<ApplicationRejectionAttachment> applicationRejectionAttachments;
+
     private final LocalDateTime createdAt;
 
     private final LocalDateTime updatedAt;
@@ -54,10 +56,11 @@ public class Application {
             .build();
     }
 
-    public Application rejectApplication(String reason) {
+    public Application rejectApplication(String reason, List<ApplicationRejectionAttachment> applicationRejectionAttachments) {
         return this.toBuilder()
             .applicationStatus(ApplicationStatus.REJECTED)
             .rejectionReason(reason)
+            .applicationRejectionAttachments(applicationRejectionAttachments)
             .build();
     }
 
