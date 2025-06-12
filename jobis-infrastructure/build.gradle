@@ -73,6 +73,8 @@ dependencies {
     // rabbitmq
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
+    // p6spy
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 }
 
 jar.enabled = false

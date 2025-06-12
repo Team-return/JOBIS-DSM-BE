@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
 import team.retum.jobis.domain.application.dto.request.CreateNonSchoolContactPassApplicationsRequest;
+import team.retum.jobis.domain.application.dto.request.RejectionAttachmentRequest;
 import team.retum.jobis.domain.application.dto.response.ApplicationCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
@@ -189,7 +190,12 @@ public class ApplicationWebAdapter {
         @PathVariable("application-id") Long applicationId,
         @Valid @RequestBody RejectApplicationWebRequest request
     ) {
-        rejectApplicationUseCase.execute(applicationId, request.getReason());
+        rejectApplicationUseCase.execute(applicationId,
+                request.getReason(),
+                request.getRejectionAttachments().stream()
+                        .map(rejectionAttachment -> new RejectionAttachmentRequest(rejectionAttachment.getUrl())
+                        ).toList()
+        );
     }
 
     @Cacheable

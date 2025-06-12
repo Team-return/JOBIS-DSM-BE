@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
+import team.retum.jobis.domain.application.model.ApplicationRejectionAttachment;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationAttachmentEntity;
 import team.retum.jobis.domain.application.persistence.entity.ApplicationEntity;
+import team.retum.jobis.domain.application.persistence.entity.ApplicationRejectionAttachmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitmentEntity;
 import team.retum.jobis.domain.recruitment.persistence.repository.RecruitmentJpaRepository;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
@@ -40,12 +42,22 @@ public class ApplicationMapper {
             )
         );
 
+        domain.getApplicationRejectionAttachments().forEach(
+                rejectionAttachment -> applicationEntity.addApplicationRejectionAttachment(
+                new ApplicationRejectionAttachmentEntity(rejectionAttachment.getAttachmentUrl())
+            )
+        );
+
         return applicationEntity;
     }
 
     public Application toDomain(ApplicationEntity entity) {
         List<ApplicationAttachment> attachments = entity.getApplicationAttachments().stream()
             .map(attachment -> new ApplicationAttachment(attachment.getAttachmentUrl(), attachment.getType()))
+            .toList();
+
+        List<ApplicationRejectionAttachment> rejectionAttachments = entity.getApplicationRejectionAttachments().stream()
+            .map(rejeactionAttachment -> new ApplicationRejectionAttachment(rejeactionAttachment.getAttachmentUrl()))
             .toList();
 
         return Application.builder()
@@ -57,6 +69,7 @@ public class ApplicationMapper {
             .studentId(entity.getStudent().getId())
             .recruitmentId(entity.getRecruitment().getId())
             .attachments(attachments)
+            .applicationRejectionAttachments(rejectionAttachments)
             .createdAt(entity.getCreatedAt())
             .updatedAt(entity.getUpdatedAt())
             .build();

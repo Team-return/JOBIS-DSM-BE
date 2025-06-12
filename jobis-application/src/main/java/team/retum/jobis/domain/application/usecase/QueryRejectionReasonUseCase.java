@@ -16,6 +16,6 @@ public class QueryRejectionReasonUseCase {
     public QueryRejectionReasonResponse execute(Long applicationId) {
         Application application = queryApplicationPort.getByIdAndApplicationStatusOrThrow(applicationId, ApplicationStatus.REJECTED);
 
-        return new QueryRejectionReasonResponse(application.getRejectionReason());
+        return new QueryRejectionReasonResponse(application.getRejectionReason(), application.getApplicationRejectionAttachments());
     }
 }
