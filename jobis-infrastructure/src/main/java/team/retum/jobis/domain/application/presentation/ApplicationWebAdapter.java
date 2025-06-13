@@ -191,10 +191,11 @@ public class ApplicationWebAdapter {
         @Valid @RequestBody RejectApplicationWebRequest request
     ) {
         rejectApplicationUseCase.execute(applicationId,
-                request.getReason(),
-                request.getRejectionAttachments().stream()
-                        .map(rejectionAttachment -> new RejectionAttachmentRequest(rejectionAttachment.getUrl())
-                        ).toList()
+            request.getReason(),
+            request.getRejectionAttachments().stream()
+                .map(
+                    rejectionAttachment -> new RejectionAttachmentRequest(rejectionAttachment.getUrl())
+                ).toList()
         );
     }
 

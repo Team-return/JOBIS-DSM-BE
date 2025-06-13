@@ -64,6 +64,13 @@ public class Application {
             .build();
     }
 
+    public Application rejectApplication(String reason) {
+        return this.toBuilder()
+            .applicationStatus(ApplicationStatus.REJECTED)
+            .rejectionReason(reason)
+            .build();
+    }
+
     public Application reapply(List<ApplicationAttachment> attachments) {
         return this.toBuilder()
             .attachments(attachments)
