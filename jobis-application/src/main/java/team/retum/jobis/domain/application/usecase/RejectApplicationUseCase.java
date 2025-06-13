@@ -12,6 +12,7 @@ import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 @RequiredArgsConstructor
 @UseCase
@@ -24,7 +25,13 @@ public class RejectApplicationUseCase {
     public void execute(Long applicationId, String rejectReason, List<RejectionAttachmentRequest> rejectionAttachments) {
         Application application = queryApplicationPort.getByIdOrThrow(applicationId);
 
-        commandApplicationPort.save(application.rejectApplication(rejectReason, ApplicationRejectionAttachment.from(rejectionAttachments)));
+        if (rejectionAttachments.stream()
+            .anyMatch(rejectionAttachment -> rejectionAttachment.attachmentUrl().isBlank())) {
+            commandApplicationPort.save(application.rejectApplication(rejectReason));
+        } else {
+            commandApplicationPort.save(application.rejectApplication(rejectReason, ApplicationRejectionAttachment.from(rejectionAttachments)));
+        }
+
         eventPublisher.publishEvent(new SingleApplicationStatusChangedEvent(application, ApplicationStatus.REJECTED));
     }
 }
