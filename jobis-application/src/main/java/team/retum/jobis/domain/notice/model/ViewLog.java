@@ -15,7 +15,7 @@ public class ViewLog {
 
     private final Long noticeId;
 
-    private final Long userId;
+    private final Long studentId;
 
     private final LocalDateTime viewedAt;
 
