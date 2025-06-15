@@ -4,24 +4,18 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import team.retum.jobis.domain.notification.exception.NotificationNotFoundException;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
 
 import team.retum.jobis.domain.notification.model.TopicSubscription;
-import team.retum.jobis.domain.notification.model.ViewLog;
 import team.retum.jobis.domain.notification.persistence.mapper.NotificationMapper;
-import team.retum.jobis.domain.notification.persistence.mapper.ViewLogMapper;
 import team.retum.jobis.domain.notification.persistence.repository.NotificationJpaRepository;
-import team.retum.jobis.domain.notification.persistence.repository.ViewLogJpaRepository;
-import team.retum.jobis.domain.notification.persistence.repository.vo.QQueryNotificationVO;
 import team.retum.jobis.domain.notification.spi.CommandTopicSubscriptionPort;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
-
-import static team.retum.jobis.domain.notification.persistence.entity.QViewLogEntity.viewLogEntity;
 import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
 
-import team.retum.jobis.domain.notification.spi.vo.NotificationVO;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
@@ -38,8 +32,6 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     private final NotificationMapper notificationMapper;
     private final JPAQueryFactory queryFactory;
     private final FCMUtil fcmUtil;
-    private final ViewLogMapper viewLogMapper;
-    private final ViewLogJpaRepository viewLogJpaRepository;
 
     @Override
     public void save(Notification notification) {
@@ -48,26 +40,8 @@ public class NotificationPersistenceAdapter implements NotificationPort {
 
     @Override
     public Optional<Notification> getById(Long notificationId) {
-        return Optional.ofNullable(queryFactory
-                .select(new QQueryNotificationVO(
-                        notificationEntity.id,
-                        notificationEntity.title,
-                        notificationEntity.content,
-                        notificationEntity.userEntity.id,
-                        notificationEntity.deviceToken,
-                        notificationEntity.topic,
-                        notificationEntity.detailId,
-                        notificationEntity.authority,
-                        notificationEntity.isNew,
-                        notificationEntity.createdAt,
-                        viewLogEntity.count()
-                ))
-                .from(notificationEntity)
-                .leftJoin(viewLogEntity)
-                .on(viewLogEntity.postId.eq(notificationEntity.id))
-                .where(notificationEntity.id.eq(notificationId))
-                .groupBy(notificationEntity.id)
-                .fetchOne());
+        return Optional.ofNullable(notificationMapper.toDomain(notificationJpaRepository.findById(notificationId)
+                .orElseThrow(() -> NotificationNotFoundException.EXCEPTION)));
     }
 
     @Override
@@ -102,11 +76,6 @@ public class NotificationPersistenceAdapter implements NotificationPort {
                     .build()
             );
         });
-    }
-
-    @Override
-    public void saveViewLog(ViewLog viewLog) {
-        viewLogMapper.toDomain(viewLogJpaRepository.save(viewLogMapper.toEntity(viewLog)));
     }
 
     @Override
