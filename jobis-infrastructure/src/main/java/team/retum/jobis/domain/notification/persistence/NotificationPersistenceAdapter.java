@@ -41,22 +41,22 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     @Override
     public Optional<Notification> getById(Long notificationId) {
         return notificationJpaRepository.findById(notificationId)
-            .map(notificationMapper::toDomain);
+                .map(notificationMapper::toDomain);
     }
 
     @Override
     public List<Notification> getByCondition(Long userId, Boolean isNew) {
         return queryFactory
-            .selectFrom(notificationEntity)
-            .join(notificationEntity.userEntity, userEntity)
-            .where(
-                userEntity.id.eq(userId),
-                isNew(isNew)
-            )
-            .orderBy(notificationEntity.createdAt.desc())
-            .fetch().stream()
-            .map(notificationMapper::toDomain)
-            .toList();
+                .selectFrom(notificationEntity)
+                .join(notificationEntity.userEntity, userEntity)
+                .where(
+                        userEntity.id.eq(userId),
+                        isNew(isNew)
+                )
+                .orderBy(notificationEntity.createdAt.desc())
+                .fetch().stream()
+                .map(notificationMapper::toDomain)
+                .toList();
     }
 
     @Override
@@ -69,11 +69,11 @@ public class NotificationPersistenceAdapter implements NotificationPort {
         Arrays.stream(Topic.values()).forEach(topic -> {
             subscribeTopic(user.getToken(), topic);
             commandTopicSubscriptionPort.save(
-                TopicSubscription.builder()
-                    .deviceToken(user.getToken())
-                    .topic(topic)
-                    .isSubscribed(true)
-                    .build()
+                    TopicSubscription.builder()
+                            .deviceToken(user.getToken())
+                            .topic(topic)
+                            .isSubscribed(true)
+                            .build()
             );
         });
     }
