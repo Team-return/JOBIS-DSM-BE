@@ -1,10 +1,18 @@
 package team.retum.jobis.domain.notice.persistence.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-import team.retum.jobis.domain.notice.model.Notice;
-import team.retum.jobis.domain.notice.persistence.entity.NoticeEntity;
-import team.retum.jobis.domain.student.model.Student;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.GenerationType;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 
 import java.time.LocalDateTime;
