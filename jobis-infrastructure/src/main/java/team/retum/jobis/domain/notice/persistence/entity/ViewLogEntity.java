@@ -18,7 +18,7 @@ import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "post_view_log")
+@Table(name = "tbl_view_log")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
