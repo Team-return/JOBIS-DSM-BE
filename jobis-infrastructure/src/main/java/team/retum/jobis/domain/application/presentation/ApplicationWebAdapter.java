@@ -192,10 +192,7 @@ public class ApplicationWebAdapter {
     ) {
         rejectApplicationUseCase.execute(applicationId,
             request.getReason(),
-            request.getRejectionAttachments().stream()
-                .map(
-                    rejectionAttachment -> new RejectionAttachmentRequest(rejectionAttachment.getUrl())
-                ).toList()
+            request.toDomainAttachmentRequest()
         );
     }
 
@@ -228,7 +225,7 @@ public class ApplicationWebAdapter {
         );
     }
 
-    @Cacheable
+    //@Cacheable
     @GetMapping("/rejection/{application-id}")
     public QueryRejectionReasonResponse queryRejectionReason(@PathVariable("application-id") Long applicationId) {
         return queryRejectionReasonUseCase.execute(applicationId);
