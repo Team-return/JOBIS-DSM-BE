@@ -88,12 +88,12 @@ public class ApplicationEntity extends BaseTimeEntity {
     }
 
     public void addApplicationAttachment(ApplicationAttachmentEntity attachment) {
-            attachment.setApplication(this);
-            this.applicationAttachments.add(attachment);
+        attachment.setApplication(this);
+        this.applicationAttachments.add(attachment);
     }
 
     public void addApplicationRejectionAttachment(ApplicationRejectionAttachmentEntity attachment) {
-            attachment.setApplication(this);
-            this.applicationRejectionAttachments.add(attachment);
+        attachment.setApplication(this);
+        this.applicationRejectionAttachments.add(attachment);
     }
 }

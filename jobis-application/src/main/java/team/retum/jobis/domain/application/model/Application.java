@@ -67,7 +67,7 @@ public class Application {
     }
 
     public Application rejectApplication(String reason) {
-         return this.toBuilder()
+        return this.toBuilder()
             .applicationStatus(ApplicationStatus.REJECTED)
             .rejectionReason(reason)
             .applicationRejectionAttachments(Collections.emptyList())
