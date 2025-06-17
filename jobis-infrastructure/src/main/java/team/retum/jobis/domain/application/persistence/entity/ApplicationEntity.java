@@ -64,14 +64,14 @@ public class ApplicationEntity extends BaseTimeEntity {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private RecruitmentEntity recruitment;
 
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationAttachmentEntity> applicationAttachments = new ArrayList<>();
 
     @LastModifiedDate
     @Column(columnDefinition = "DATETIME(6)")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationRejectionAttachmentEntity> applicationRejectionAttachments = new ArrayList<>();
 
     @Builder
@@ -88,12 +88,12 @@ public class ApplicationEntity extends BaseTimeEntity {
     }
 
     public void addApplicationAttachment(ApplicationAttachmentEntity attachment) {
-        attachment.setApplication(this);
-        this.applicationAttachments.add(attachment);
+            attachment.setApplication(this);
+            this.applicationAttachments.add(attachment);
     }
 
     public void addApplicationRejectionAttachment(ApplicationRejectionAttachmentEntity attachment) {
-        attachment.setApplication(this);
-        this.applicationRejectionAttachments.add(attachment);
+            attachment.setApplication(this);
+            this.applicationRejectionAttachments.add(attachment);
     }
 }

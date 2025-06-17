@@ -6,11 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.application.dto.request.RejectionAttachmentRequest;
-import team.retum.jobis.global.annotation.ValidListElements;
-
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
@@ -20,7 +17,6 @@ public class RejectApplicationWebRequest {
     @Size(min = 1, max = 100)
     private String reason;
 
-    @ValidListElements
     @NotNull
     private List<RejectionAttachmentWebRequest> rejectionAttachments;
 

@@ -11,6 +11,7 @@ import team.retum.jobis.domain.student.model.Student;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -61,13 +62,16 @@ public class Application {
             .applicationStatus(ApplicationStatus.REJECTED)
             .rejectionReason(reason)
             .applicationRejectionAttachments(applicationRejectionAttachments)
+            .attachments(Collections.emptyList())
             .build();
     }
 
     public Application rejectApplication(String reason) {
-        return this.toBuilder()
+         return this.toBuilder()
             .applicationStatus(ApplicationStatus.REJECTED)
             .rejectionReason(reason)
+            .applicationRejectionAttachments(Collections.emptyList())
+            .attachments(Collections.emptyList())
             .build();
     }
 
