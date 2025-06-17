@@ -8,10 +8,10 @@ import team.retum.jobis.domain.application.exception.ApplicationNotFoundExceptio
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.application.exception.InvalidStudentException;
 import team.retum.jobis.domain.student.model.Student;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,7 +35,8 @@ public class Application {
 
     private final List<ApplicationAttachment> attachments;
 
-    private final List<ApplicationRejectionAttachment> applicationRejectionAttachments;
+    @Builder.Default
+    private final List<ApplicationRejectionAttachment> applicationRejectionAttachments = new ArrayList<>();
 
     private final LocalDateTime createdAt;
 
