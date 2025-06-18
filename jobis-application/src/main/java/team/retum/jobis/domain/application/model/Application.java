@@ -8,9 +8,9 @@ import team.retum.jobis.domain.application.exception.ApplicationNotFoundExceptio
 import team.retum.jobis.domain.application.exception.ApplicationStatusCannotChangeException;
 import team.retum.jobis.domain.application.exception.InvalidStudentException;
 import team.retum.jobis.domain.student.model.Student;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +63,16 @@ public class Application {
             .applicationStatus(ApplicationStatus.REJECTED)
             .rejectionReason(reason)
             .applicationRejectionAttachments(applicationRejectionAttachments)
+            .attachments(Collections.emptyList())
+            .build();
+    }
+
+    public Application rejectApplication(String reason) {
+        return this.toBuilder()
+            .applicationStatus(ApplicationStatus.REJECTED)
+            .rejectionReason(reason)
+            .applicationRejectionAttachments(Collections.emptyList())
+            .attachments(Collections.emptyList())
             .build();
     }
 
