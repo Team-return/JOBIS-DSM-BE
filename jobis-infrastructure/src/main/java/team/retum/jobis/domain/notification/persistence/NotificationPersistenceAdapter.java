@@ -6,22 +6,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
-import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
-
 import team.retum.jobis.domain.notification.model.TopicSubscription;
 import team.retum.jobis.domain.notification.persistence.mapper.NotificationMapper;
 import team.retum.jobis.domain.notification.persistence.repository.NotificationJpaRepository;
-import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.notification.spi.CommandTopicSubscriptionPort;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
-import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
-
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static team.retum.jobis.domain.notification.persistence.entity.QNotificationEntity.notificationEntity;
+import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
 
 @RequiredArgsConstructor
 @Component
@@ -41,22 +39,22 @@ public class NotificationPersistenceAdapter implements NotificationPort {
     @Override
     public Optional<Notification> getById(Long notificationId) {
         return notificationJpaRepository.findById(notificationId)
-                .map(notificationMapper::toDomain);
+            .map(notificationMapper::toDomain);
     }
 
     @Override
     public List<Notification> getByCondition(Long userId, Boolean isNew) {
         return queryFactory
-                .selectFrom(notificationEntity)
-                .join(notificationEntity.userEntity, userEntity)
-                .where(
-                        userEntity.id.eq(userId),
-                        isNew(isNew)
-                )
-                .orderBy(notificationEntity.createdAt.desc())
-                .fetch().stream()
-                .map(notificationMapper::toDomain)
-                .toList();
+            .selectFrom(notificationEntity)
+            .join(notificationEntity.userEntity, userEntity)
+            .where(
+                userEntity.id.eq(userId),
+                isNew(isNew)
+            )
+            .orderBy(notificationEntity.createdAt.desc())
+            .fetch().stream()
+            .map(notificationMapper::toDomain)
+            .toList();
     }
 
     @Override
@@ -69,11 +67,11 @@ public class NotificationPersistenceAdapter implements NotificationPort {
         Arrays.stream(Topic.values()).forEach(topic -> {
             subscribeTopic(user.getToken(), topic);
             commandTopicSubscriptionPort.save(
-                    TopicSubscription.builder()
-                            .deviceToken(user.getToken())
-                            .topic(topic)
-                            .isSubscribed(true)
-                            .build()
+                TopicSubscription.builder()
+                    .deviceToken(user.getToken())
+                    .topic(topic)
+                    .isSubscribed(true)
+                    .build()
             );
         });
     }
