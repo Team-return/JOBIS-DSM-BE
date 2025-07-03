@@ -100,7 +100,7 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     @Override
     public Long getPassedStudentsByClassNumber(Integer classNum) {
-        List<Long> counts = queryFactory
+        Long counts = queryFactory
             .select(studentEntity.countDistinct())
             .from(studentEntity)
             .join(applicationEntity)
@@ -112,9 +112,9 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .and(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
                     .subtract(studentEntity.entranceYear).eq(2)
                     .and(applicationEntity.recruitment.winterIntern.isFalse())))
-            .fetch();
+            .fetchOne();
 
-        return null != counts ? counts.get(0) : 0;
+        return null != counts ? counts : 0;
     }
 
     @Override
