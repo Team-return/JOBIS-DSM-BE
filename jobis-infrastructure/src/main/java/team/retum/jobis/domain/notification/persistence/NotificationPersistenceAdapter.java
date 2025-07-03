@@ -11,7 +11,6 @@ import static team.retum.jobis.domain.notification.persistence.entity.QNotificat
 import team.retum.jobis.domain.notification.model.TopicSubscription;
 import team.retum.jobis.domain.notification.persistence.mapper.NotificationMapper;
 import team.retum.jobis.domain.notification.persistence.repository.NotificationJpaRepository;
-import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
 import team.retum.jobis.domain.notification.spi.CommandTopicSubscriptionPort;
 import team.retum.jobis.domain.notification.spi.NotificationPort;
 import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
