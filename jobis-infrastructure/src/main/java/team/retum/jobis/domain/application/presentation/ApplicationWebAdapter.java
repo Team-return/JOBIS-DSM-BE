@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
 import team.retum.jobis.domain.application.dto.request.CreateNonSchoolContactPassApplicationsRequest;
-import team.retum.jobis.domain.application.dto.request.RejectionAttachmentRequest;
 import team.retum.jobis.domain.application.dto.response.ApplicationCountResponse;
 import team.retum.jobis.domain.application.dto.response.CompanyQueryApplicationsResponse;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
