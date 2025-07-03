@@ -341,13 +341,12 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .from(studentEntity)
             .innerJoin(applicationEntity).on(applicationEntity.student.id.eq(studentEntity.id))
             .innerJoin(recruitmentEntity).on(applicationEntity.recruitment.id.eq(recruitmentEntity.id)
-                .and(applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)))
+                .and(applicationEntity.applicationStatus.in(ApplicationStatus.PASS, ApplicationStatus.FIELD_TRAIN)))
             .innerJoin(companyEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
             .where(
                 studentEntity.classRoom.eq(classNum),
                 numberTemplate(Integer.class, "YEAR(CURRENT_DATE)").subtract(studentEntity.entranceYear).eq(2)
             )
-            .groupBy(companyEntity.id)
             .fetch();
     }
 
