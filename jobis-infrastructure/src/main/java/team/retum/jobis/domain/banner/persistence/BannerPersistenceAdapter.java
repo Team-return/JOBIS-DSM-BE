@@ -19,7 +19,6 @@ import java.util.List;
 
 import static team.retum.jobis.domain.banner.persistence.entity.QBannerEntity.bannerEntity;
 
-
 @RequiredArgsConstructor
 @Repository
 public class BannerPersistenceAdapter implements BannerPort {

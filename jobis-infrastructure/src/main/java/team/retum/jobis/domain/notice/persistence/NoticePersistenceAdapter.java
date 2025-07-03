@@ -15,7 +15,6 @@ import java.util.Optional;
 
 import static team.retum.jobis.domain.notice.persistence.entity.QNoticeEntity.noticeEntity;
 
-
 @RequiredArgsConstructor
 @Repository
 public class NoticePersistenceAdapter implements NoticePort {
