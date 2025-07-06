@@ -1,18 +1,20 @@
 package team.retum.jobis.domain.notice.persistence.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Builder;
 import team.retum.jobis.domain.student.persistence.entity.StudentEntity;
 
 import java.time.LocalDateTime;
@@ -21,7 +23,7 @@ import java.time.LocalDateTime;
 @Table(name = "tbl_view_log")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class ViewLogEntity {
 
@@ -37,5 +39,13 @@ public class ViewLogEntity {
     @JoinColumn(name = "student_id", nullable = false)
     private StudentEntity student;
 
+    @Column(name = "viewed_at")
     private LocalDateTime viewedAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (viewedAt == null) {
+            this.viewedAt = LocalDateTime.now();
+        }
+    }
 }
