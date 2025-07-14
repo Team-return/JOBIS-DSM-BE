@@ -28,7 +28,14 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 "https://jobis-student.team-return.monster",
                 "https://jobis-company-dev.team-return.monster",
                 "https://jobis-admin-dev.team-return.monster",
-                "https://jobis-student-dev.team-return.monster"
+                "https://jobis-student-dev.team-return.monster",
+
+                "https://jobis-admin.team-return.kr",
+                "https://jobis-company.team-return.kr",
+                "https://jobis-student.team-return.kr",
+                "https://jobis-company-dev.team-return.kr",
+                "https://jobis-admin-dev.team-return.kr",
+                "https://jobis-student-dev.team-return.kr"
             )
             .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD")
             .allowedHeaders("*");
