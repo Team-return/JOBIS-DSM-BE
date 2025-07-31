@@ -26,7 +26,6 @@ import team.retum.jobis.global.entity.BaseTimeEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_review")
@@ -49,21 +48,21 @@ public class ReviewEntity extends BaseTimeEntity {
     private CompanyEntity company;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "interview_type")
+    @Column(name = "interview_type", nullable = false)
     private InterviewType interviewType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "interview_location")
+    @Column(name = "interview_location", nullable = false)
     private InterviewLocation interviewLocation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_id")
+    @JoinColumn(name = "code_id", nullable = false)
     private CodeEntity code;
 
-    @Column(name = "interviewer_count")
+    @Column(name = "interviewer_count", nullable = false)
     private Integer interviewerCount;
 
-    @Column(name = "interview_question", columnDefinition = "VARCHAR(1000)")
+    @Column(name = "interview_question", columnDefinition = "VARCHAR(1000)", nullable = false)
     private String interviewQuestion;
 
     @Builder
