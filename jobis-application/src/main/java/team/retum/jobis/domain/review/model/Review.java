@@ -20,6 +20,15 @@ public class Review {
 
     private final List<QnA> qnAS;
 
+    private final InterviewType interviewType;
+
+    private final InterviewLocation interviewLocation;
+
+    private final Long codeId;
+
+    private final Integer interviewerCount;
+
     private final LocalDateTime createdAt;
 
+    private String interviewQuestion;
 }
