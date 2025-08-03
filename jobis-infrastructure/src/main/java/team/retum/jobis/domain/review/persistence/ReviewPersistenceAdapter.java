@@ -81,7 +81,6 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 )
             )
             .from(qnAEntity)
-            .join(qnAEntity.code, codeEntity)
             .where(qnAEntity.review.id.eq(reviewId))
             .fetch().stream()
             .map(QnAVO.class::cast)

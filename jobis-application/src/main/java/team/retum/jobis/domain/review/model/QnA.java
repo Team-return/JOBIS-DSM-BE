@@ -15,6 +15,4 @@ public class QnA {
 
     private final Long reviewId;
 
-    private final Long codeId;
-
 }

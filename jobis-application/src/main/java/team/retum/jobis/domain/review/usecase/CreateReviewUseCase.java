@@ -45,7 +45,6 @@ public class CreateReviewUseCase {
                 .question(qnARequest.question())
                 .answer(qnARequest.answer())
                 .reviewId(review.getId())
-                .codeId(qnARequest.codeId())
                 .build())
             .toList();
         commandReviewPort.saveAll(qnAs);

@@ -15,7 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.code.persistence.entity.CodeEntity;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,8 +39,4 @@ public class QnAEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id", nullable = false)
     private ReviewEntity review;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_id", nullable = false)
-    private CodeEntity code;
 }
