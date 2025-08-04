@@ -10,17 +10,11 @@ import team.retum.jobis.domain.review.persistence.mapper.QnAMapper;
 import team.retum.jobis.domain.review.persistence.mapper.ReviewMapper;
 import team.retum.jobis.domain.review.persistence.repository.QnAJpaRepository;
 import team.retum.jobis.domain.review.persistence.repository.ReviewJpaRepository;
-import team.retum.jobis.domain.review.persistence.repository.vo.QQueryQnAVO;
 import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewVO;
 import team.retum.jobis.domain.review.spi.ReviewPort;
-import team.retum.jobis.domain.review.spi.vo.QnAVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
-
 import java.util.List;
-
-import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
-import static team.retum.jobis.domain.review.persistence.entity.QQnAEntity.qnAEntity;
 import static team.retum.jobis.domain.review.persistence.entity.QReviewEntity.reviewEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
@@ -68,23 +62,6 @@ public class ReviewPersistenceAdapter implements ReviewPort {
             .map(reviewMapper::toDomain)
             .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
 
-    }
-
-    @Override
-    public List<QnAVO> getAllQnAsByReviewId(Long reviewId) {
-        return queryFactory
-            .select(
-                new QQueryQnAVO(
-                    qnAEntity.question,
-                    qnAEntity.answer,
-                    codeEntity.keyword
-                )
-            )
-            .from(qnAEntity)
-            .where(qnAEntity.review.id.eq(reviewId))
-            .fetch().stream()
-            .map(QnAVO.class::cast)
-            .toList();
     }
 
     @Override

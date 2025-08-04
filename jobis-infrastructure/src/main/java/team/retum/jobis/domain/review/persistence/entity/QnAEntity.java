@@ -11,15 +11,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Table(name = "tbl_qna")
 @Entity
 public class QnAEntity {
@@ -28,9 +25,9 @@ public class QnAEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(columnDefinition = "VARCHAR(50)")
-    private String question;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id", nullable = false)
+    private QuestionEntity question;
 
     @NotBlank
     @Column(columnDefinition = "VARCHAR(500)")
@@ -39,4 +36,12 @@ public class QnAEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id", nullable = false)
     private ReviewEntity review;
+
+    @Builder
+    public QnAEntity(Long id, QuestionEntity question, String answer, ReviewEntity review) {
+        this.id = id;
+        this.question = question;
+        this.answer = answer;
+        this.review = review;
+    }
 }

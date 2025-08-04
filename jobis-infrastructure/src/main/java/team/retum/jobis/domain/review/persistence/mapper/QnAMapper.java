@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.review.model.QnA;
 import team.retum.jobis.domain.review.persistence.entity.QnAEntity;
+import team.retum.jobis.domain.review.persistence.entity.QuestionEntity;
 import team.retum.jobis.domain.review.persistence.entity.ReviewEntity;
+import team.retum.jobis.domain.review.persistence.repository.QuestionJpaRepository;
 import team.retum.jobis.domain.review.persistence.repository.ReviewJpaRepository;
 
 @RequiredArgsConstructor
@@ -12,13 +14,15 @@ import team.retum.jobis.domain.review.persistence.repository.ReviewJpaRepository
 public class QnAMapper {
 
     private final ReviewJpaRepository reviewJpaRepository;
+    private final QuestionJpaRepository questionJpaRepository;
 
     public QnAEntity toEntity(QnA domain) {
         ReviewEntity review = reviewJpaRepository.getReferenceById(domain.getReviewId());
+        QuestionEntity question = questionJpaRepository.getReferenceById(domain.getQuestionId());
 
         return QnAEntity.builder()
             .id(domain.getId())
-            .question(domain.getQuestion())
+            .question(question)
             .answer(domain.getAnswer())
             .review(review)
             .build();
@@ -28,7 +32,7 @@ public class QnAMapper {
         return QnA.builder()
             .id(entity.getId())
             .answer(entity.getAnswer())
-            .question(entity.getQuestion())
+            .questionId(entity.getQuestion().getId())
             .reviewId(entity.getReview().getId())
             .build();
     }

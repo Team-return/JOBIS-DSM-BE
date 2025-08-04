@@ -5,13 +5,9 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class QnA {
+public class Question {
 
     private final Long id;
 
-    private final Long questionId;
-
-    private final String answer;
-
-    private final Long reviewId;
+    private final String question;
 }

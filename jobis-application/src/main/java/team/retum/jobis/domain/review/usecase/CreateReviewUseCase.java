@@ -42,7 +42,7 @@ public class CreateReviewUseCase {
 
         List<QnA> qnAs = qnAElements.stream()
             .map(qnARequest -> QnA.builder()
-                .question(qnARequest.question())
+                //.question(qnARequest.question())
                 .answer(qnARequest.answer())
                 .reviewId(review.getId())
                 .build())
