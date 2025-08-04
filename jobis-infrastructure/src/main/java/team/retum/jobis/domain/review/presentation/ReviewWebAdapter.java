@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.review.dto.QnAElement;
-import team.retum.jobis.domain.review.dto.response.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewsResponse;
 import team.retum.jobis.domain.review.presentation.dto.CreateReviewWebRequest;
 import team.retum.jobis.domain.review.usecase.CreateReviewUseCase;
 import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
-import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 
 @RequiredArgsConstructor
@@ -26,7 +24,6 @@ import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 public class ReviewWebAdapter {
 
     private final QueryReviewsUseCase queryReviewsUseCase;
-    private final QueryReviewDetailUseCase queryReviewDetailUseCase;
     private final CreateReviewUseCase createReviewUseCase;
     private final DeleteReviewUseCase deleteReviewUseCase;
 
@@ -36,13 +33,6 @@ public class ReviewWebAdapter {
         @PathVariable(name = "company-id") Long companyId
     ) {
         return queryReviewsUseCase.execute(companyId);
-    }
-
-    @GetMapping("/details/{review-id}")
-    public QueryReviewDetailResponse getReviewDetails(
-        @PathVariable(name = "review-id") Long reviewId
-    ) {
-        return queryReviewDetailUseCase.execute(reviewId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
