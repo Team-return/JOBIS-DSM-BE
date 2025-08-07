@@ -144,7 +144,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/acceptances").hasAnyAuthority(TEACHER.name())
 
                     // review
-                    .requestMatchers(HttpMethod.GET, "/reviews/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/reviews/details/{review-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())

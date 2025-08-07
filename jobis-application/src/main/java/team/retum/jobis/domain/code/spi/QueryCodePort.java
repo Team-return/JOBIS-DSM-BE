@@ -16,4 +16,6 @@ public interface QueryCodePort {
     Optional<Code> getByKeywordAndType(String keyword, CodeType type);
 
     void existsByAllCodeIds(List<Long> codeIds);
+
+    boolean existsByCodeId(Long codeId);
 }
