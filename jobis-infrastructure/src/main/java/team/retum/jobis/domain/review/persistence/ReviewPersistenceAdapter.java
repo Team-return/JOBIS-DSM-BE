@@ -70,7 +70,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     }
 
     @Override
-    public List<ReviewVO> getAllBy(ReviewFilter filter) {
+    public List<ReviewVO> getAllByFilter(ReviewFilter filter) {
         return queryFactory
             .select(
                 new QQueryReviewVO(

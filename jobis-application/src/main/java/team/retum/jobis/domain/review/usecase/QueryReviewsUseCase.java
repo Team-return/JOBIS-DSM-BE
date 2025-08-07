@@ -50,7 +50,7 @@ public class QueryReviewsUseCase {
         }
 
         List<QueryReviewsResponse.ReviewResponse> reviews =
-            queryReviewPort.getAllBy(filter)
+            queryReviewPort.getAllByFilter(filter)
                 .stream()
                 .map(QueryReviewsResponse.ReviewResponse::from)
                 .toList();
