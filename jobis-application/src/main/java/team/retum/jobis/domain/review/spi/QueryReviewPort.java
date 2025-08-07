@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.review.spi;
 
+import team.retum.jobis.domain.review.dto.ReviewFilter;
 import team.retum.jobis.domain.review.model.Review;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
 
@@ -11,5 +12,7 @@ public interface QueryReviewPort {
 
     Review getByIdOrThrow(Long reviewId);
 
-    List<ReviewVO> getAllByCompanyId(Long companyId);
+    List<ReviewVO> getAllByFilter(ReviewFilter filter);
+
+    Long getCountBy(ReviewFilter filter);
 }

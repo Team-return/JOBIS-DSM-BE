@@ -84,6 +84,11 @@ public class CodePersistenceAdapter implements CodePort {
         }
     }
 
+    @Override
+    public boolean existsByCodeId(Long codeId) {
+        return codeJpaRepository.existsById(codeId);
+    }
+
     //==conditions==//
 
     private BooleanExpression containsKeyword(String keyword) {
