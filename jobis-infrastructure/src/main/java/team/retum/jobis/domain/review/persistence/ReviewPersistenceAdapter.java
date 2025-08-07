@@ -100,6 +100,24 @@ public class ReviewPersistenceAdapter implements ReviewPort {
             .toList();
     }
 
+    @Override
+    public Long getCountBy(ReviewFilter filter) {
+        return queryFactory
+            .select(reviewEntity.count())
+            .from(reviewEntity)
+            .join(reviewEntity.student, studentEntity)
+            .join(reviewEntity.company, companyEntity)
+            .join(reviewEntity.code, codeEntity)
+            .where(
+                eqInterviewType(filter.getType()),
+                eqInterviewLocation(filter.getLocation()),
+                eqCompanyId(filter.getCompanyId()),
+                eqYear(filter.getYear()),
+                eqCode(filter.getCode())
+            )
+            .fetchOne();
+    }
+
     //==conditions==//
 
     private BooleanExpression eqInterviewType(InterviewType type) {

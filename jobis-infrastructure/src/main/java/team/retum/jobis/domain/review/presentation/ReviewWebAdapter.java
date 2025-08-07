@@ -44,6 +44,17 @@ public class ReviewWebAdapter {
         return queryReviewsUseCase.execute(page, type, location, companyId, year, code);
     }
 
+    @GetMapping("/count")
+    public TotalPageCountResponse getReviewsCount(
+        @RequestParam(value = "type", required = false) InterviewType type,
+        @RequestParam(value = "location", required = false) InterviewLocation location,
+        @RequestParam(value = "company_id", required = false) Long companyId,
+        @RequestParam(value = "year", required = false) Integer year,
+        @RequestParam(value = "code", required = false) Long code
+    ) {
+        return queryReviewsUseCase.getTotalPageCount(type, location, companyId, year, code);
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createReview(

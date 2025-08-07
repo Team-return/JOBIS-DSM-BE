@@ -13,4 +13,6 @@ public interface QueryReviewPort {
     Review getByIdOrThrow(Long reviewId);
 
     List<ReviewVO> getAllBy(ReviewFilter filter);
+
+    Long getCountBy(ReviewFilter filter);
 }

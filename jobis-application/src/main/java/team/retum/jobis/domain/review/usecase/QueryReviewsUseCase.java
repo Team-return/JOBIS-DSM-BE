@@ -57,4 +57,26 @@ public class QueryReviewsUseCase {
 
         return new QueryReviewsResponse(reviews);
     }
+
+    public TotalPageCountResponse getTotalPageCount(
+        InterviewType type,
+        InterviewLocation location,
+        Long companyId,
+        Integer year,
+        Long code
+    ) {
+        ReviewFilter filter = ReviewFilter.builder()
+            .type(type)
+            .location(location)
+            .companyId(companyId)
+            .year(year)
+            .code(code)
+            .build();
+
+        int totalPageCount = NumberUtil.getTotalPageCount(
+            queryReviewPort.getCountBy(filter), filter.getLimit()
+        );
+
+        return new TotalPageCountResponse(totalPageCount);
+    }
 }
