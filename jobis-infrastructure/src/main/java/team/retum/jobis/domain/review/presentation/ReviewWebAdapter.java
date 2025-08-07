@@ -3,6 +3,9 @@ package team.retum.jobis.domain.review.presentation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,9 @@ import team.retum.jobis.domain.review.usecase.CreateReviewUseCase;
 import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 
+import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
+
+@CacheConfig(cacheNames = REVIEW)
 @RequiredArgsConstructor
 @RequestMapping("/reviews")
 @RestController
@@ -32,6 +38,7 @@ public class ReviewWebAdapter {
     private final CreateReviewUseCase createReviewUseCase;
     private final DeleteReviewUseCase deleteReviewUseCase;
 
+    @Cacheable(condition = "#page <= 5")
     @GetMapping
     public QueryReviewsResponse getReviews(
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page,
@@ -44,6 +51,7 @@ public class ReviewWebAdapter {
         return queryReviewsUseCase.execute(page, type, location, companyId, year, code);
     }
 
+    @Cacheable
     @GetMapping("/count")
     public TotalPageCountResponse getReviewsCount(
         @RequestParam(value = "type", required = false) InterviewType type,
@@ -55,6 +63,7 @@ public class ReviewWebAdapter {
         return queryReviewsUseCase.getTotalPageCount(type, location, companyId, year, code);
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createReview(
@@ -72,6 +81,7 @@ public class ReviewWebAdapter {
         );
     }
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{review-id}")
     public void deleteReview(
