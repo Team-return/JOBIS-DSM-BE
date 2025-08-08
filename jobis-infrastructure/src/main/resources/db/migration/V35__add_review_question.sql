@@ -1,0 +1,2 @@
+ALTER TABLE tbl_review
+ADD COLUMN question VARCHAR(100) NOT NULL;

@@ -65,10 +65,14 @@ public class ReviewEntity extends BaseTimeEntity {
     @Column(name = "interview_question", columnDefinition = "VARCHAR(1000)", nullable = false)
     private String interviewQuestion;
 
+    @Column(name = "question", length = 100, nullable = false)
+    private String question;
+
     @Builder
     public ReviewEntity(Long id, StudentEntity student, CompanyEntity company,
                         InterviewType interviewType, InterviewLocation interviewLocation,
-                        CodeEntity code, Integer interviewerCount, String interviewQuestion) {
+                        CodeEntity code, Integer interviewerCount,
+                        String interviewQuestion, String question) {
         this.id = id;
         this.student = student;
         this.company = company;
@@ -77,5 +81,7 @@ public class ReviewEntity extends BaseTimeEntity {
         this.code = code;
         this.interviewerCount = interviewerCount;
         this.interviewQuestion = interviewQuestion;
+        this.question = question;
     }
+
 }

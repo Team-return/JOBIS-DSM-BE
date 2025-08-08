@@ -31,4 +31,6 @@ public class Review {
     private final LocalDateTime createdAt;
 
     private String interviewQuestion;
+
+    private String question;
 }
