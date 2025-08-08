@@ -8,3 +8,4 @@ ${AnsiColor.BRIGHT_CYAN}JOBIS By Team return
 ${AnsiColor.BRIGHT_GREEN}Powered by Spring Boot ${spring-boot.version}
 ${AnsiColor.BRIGHT_WHITE}1기 길근우, 이하성, 강민
 2기 강태양, 김명진
+3기 김경민, 민수아, 유재민
