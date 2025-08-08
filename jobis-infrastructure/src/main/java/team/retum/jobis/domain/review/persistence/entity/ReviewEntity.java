@@ -65,7 +65,7 @@ public class ReviewEntity extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(500)", nullable = false)
     private String answer;
 
-    @Column(columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(100)")
     private String question;
 
     @Builder
