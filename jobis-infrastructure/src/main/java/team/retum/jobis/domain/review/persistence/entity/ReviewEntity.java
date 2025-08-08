@@ -62,7 +62,7 @@ public class ReviewEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer interviewerCount;
 
-    @Column(columnDefinition = "VARCHAR(500)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(500)")
     private String answer;
 
     @Column(columnDefinition = "VARCHAR(100)")
