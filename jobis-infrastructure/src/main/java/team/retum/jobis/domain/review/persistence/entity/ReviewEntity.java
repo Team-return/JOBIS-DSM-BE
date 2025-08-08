@@ -40,39 +40,39 @@ public class ReviewEntity extends BaseTimeEntity {
     private final List<QnAEntity> qnAs = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(nullable = false)
     private StudentEntity student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(nullable = false)
     private CompanyEntity company;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "interview_type", nullable = false)
+    @Column(nullable = false)
     private InterviewType interviewType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "interview_location", nullable = false)
+    @Column(nullable = false)
     private InterviewLocation interviewLocation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_id", nullable = false)
+    @JoinColumn(nullable = false)
     private CodeEntity code;
 
-    @Column(name = "interviewer_count", nullable = false)
+    @Column(nullable = false)
     private Integer interviewerCount;
 
-    @Column(name = "interview_question", columnDefinition = "VARCHAR(1000)", nullable = false)
-    private String interviewQuestion;
+    @Column(columnDefinition = "VARCHAR(500)")
+    private String answer;
 
-    @Column(name = "question", length = 100, nullable = false)
+    @Column(columnDefinition = "VARCHAR(100)")
     private String question;
 
     @Builder
     public ReviewEntity(Long id, StudentEntity student, CompanyEntity company,
                         InterviewType interviewType, InterviewLocation interviewLocation,
                         CodeEntity code, Integer interviewerCount,
-                        String interviewQuestion, String question) {
+                        String answer, String question) {
         this.id = id;
         this.student = student;
         this.company = company;
@@ -80,7 +80,7 @@ public class ReviewEntity extends BaseTimeEntity {
         this.interviewLocation = interviewLocation;
         this.code = code;
         this.interviewerCount = interviewerCount;
-        this.interviewQuestion = interviewQuestion;
+        this.answer = answer;
         this.question = question;
     }
 

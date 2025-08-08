@@ -30,7 +30,7 @@ public class Review {
 
     private final LocalDateTime createdAt;
 
-    private String interviewQuestion;
+    private String answer;
 
     private String question;
 }
