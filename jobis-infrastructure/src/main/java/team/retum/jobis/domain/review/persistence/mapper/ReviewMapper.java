@@ -33,7 +33,7 @@ public class ReviewMapper {
             .interviewLocation(domain.getInterviewLocation())
             .code(codeEntity)
             .interviewerCount(domain.getInterviewerCount())
-            .interviewQuestion(domain.getInterviewQuestion())
+            .answer(domain.getAnswer())
             .question(domain.getQuestion())
             .build();
     }
@@ -50,7 +50,7 @@ public class ReviewMapper {
             .interviewerCount(entity.getInterviewerCount())
             .qnAS(Collections.emptyList())
             .createdAt(entity.getCreatedAt())
-            .interviewQuestion(entity.getInterviewQuestion())
+            .answer(entity.getAnswer())
             .question(entity.getQuestion())
             .build();
     }
