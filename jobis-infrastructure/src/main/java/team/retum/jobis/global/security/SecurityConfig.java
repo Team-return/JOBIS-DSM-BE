@@ -85,7 +85,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.POST, "/applications/{company-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
-                    .requestMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name(), COMPANY.name())
                     .requestMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.PATCH, "/applications/rejection/{application-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())

@@ -17,6 +17,7 @@ public enum ApplicationErrorCode implements ErrorProperty {
 
     FIELD_TRAIN_DATE_CANNOT_CHANGE(HttpStatus.FORBIDDEN, "Field Train Date Cannot Changed"),
     APPLICATION_CANNOT_DELETE(HttpStatus.FORBIDDEN, "ApplicationEntity Cannot Deleted"),
+    APPLICATION_CANNOT_CHANGE(HttpStatus.FORBIDDEN, "Don't have permission to edit"),
 
     APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ApplicationEntity Not Found"),
 
