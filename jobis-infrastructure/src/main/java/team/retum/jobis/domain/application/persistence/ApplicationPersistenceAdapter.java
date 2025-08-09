@@ -385,16 +385,18 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             return false;
         }
 
-        long count = queryFactory
-            .selectFrom(applicationEntity)
-            .join(recruitmentEntity).on(applicationEntity.recruitment.id.eq(recruitmentEntity.id))
+        Long count = queryFactory
+            .select(applicationEntity.count())
+            .from(applicationEntity)
+            .join(recruitmentEntity)
+            .on(applicationEntity.recruitment.id.eq(recruitmentEntity.id))
             .where(
                 applicationEntity.id.in(applicationIds),
                 recruitmentEntity.company.id.eq(companyId)
             )
-            .stream().count();
+            .fetchOne();
 
         Set<Long> uniqueIds = new HashSet<>(applicationIds);
-        return count == uniqueIds.size();
+        return count != null && count == new HashSet<>(uniqueIds).size();
     }
 }
