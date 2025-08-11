@@ -83,5 +83,4 @@ public class ReviewEntity extends BaseTimeEntity {
         this.answer = answer;
         this.question = question;
     }
-
 }

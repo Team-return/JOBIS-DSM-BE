@@ -9,7 +9,6 @@ import org.springframework.data.redis.core.index.Indexed;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.auth.model.PlatformType;
 
-
 @Getter
 @RedisHash
 @Builder
