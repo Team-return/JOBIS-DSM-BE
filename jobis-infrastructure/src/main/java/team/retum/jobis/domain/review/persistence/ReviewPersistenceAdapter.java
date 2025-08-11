@@ -14,11 +14,20 @@ import team.retum.jobis.domain.review.persistence.mapper.QnAMapper;
 import team.retum.jobis.domain.review.persistence.mapper.ReviewMapper;
 import team.retum.jobis.domain.review.persistence.repository.QnAJpaRepository;
 import team.retum.jobis.domain.review.persistence.repository.ReviewJpaRepository;
+import team.retum.jobis.domain.review.persistence.repository.vo.QQueryQnAVO;
+import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewDetailVO;
 import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewVO;
 import team.retum.jobis.domain.review.spi.ReviewPort;
+import team.retum.jobis.domain.review.spi.vo.QnAVO;
+import team.retum.jobis.domain.review.spi.vo.ReviewDetailVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
+
 import java.util.List;
+import java.util.Optional;
+
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
+import static team.retum.jobis.domain.review.persistence.entity.QQnAEntity.qnAEntity;
+import static team.retum.jobis.domain.review.persistence.entity.QQuestionEntity.questionEntity;
 import static team.retum.jobis.domain.review.persistence.entity.QReviewEntity.reviewEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
@@ -118,6 +127,56 @@ public class ReviewPersistenceAdapter implements ReviewPort {
             .fetchOne();
     }
 
+    @Override
+    public Optional<ReviewDetailVO> getDetailById(Long reviewId) {
+        return Optional.ofNullable(
+            queryFactory
+                .select(
+                    new QQueryReviewDetailVO(
+                        reviewEntity.id,
+                        companyEntity.name,
+                        studentEntity.name,
+                        reviewEntity.createdAt.year(),
+                        codeEntity.keyword,
+                        reviewEntity.interviewType,
+                        reviewEntity.interviewLocation,
+                        reviewEntity.interviewerCount,
+                        reviewEntity.question,
+                        reviewEntity.answer
+                    )
+                )
+                .from(reviewEntity)
+                .join(reviewEntity.student, studentEntity)
+                .join(reviewEntity.company, companyEntity)
+                .join(reviewEntity.code, codeEntity)
+                .where(eqReviewId(reviewId))
+                .fetchOne()
+        );
+    }
+
+    @Override
+    public List<QnAVO> getQnAVOById(Long reviewId) {
+        return queryFactory
+            .select(
+                new QQueryQnAVO(
+                    qnAEntity.id,
+                    questionEntity.question,
+                    qnAEntity.answer
+                )
+            )
+            .from(qnAEntity)
+            .join(qnAEntity.question, questionEntity)
+            .where(qnAEntity.review.id.eq(reviewId))
+            .fetch().stream()
+            .map(QnAVO.class::cast)
+            .toList();
+    }
+
+    @Override
+    public boolean existsById(Long reviewId) {
+        return reviewJpaRepository.existsById(reviewId);
+    }
+
     //==conditions==//
 
     private BooleanExpression eqInterviewType(InterviewType type) {
@@ -138,5 +197,9 @@ public class ReviewPersistenceAdapter implements ReviewPort {
 
     private BooleanExpression eqCode(Long code) {
         return code == null ? null : reviewEntity.code.code.eq(code);
+    }
+
+    private BooleanExpression eqReviewId(Long reviewId) {
+        return reviewId == null ? null : reviewEntity.id.eq(reviewId);
     }
 }

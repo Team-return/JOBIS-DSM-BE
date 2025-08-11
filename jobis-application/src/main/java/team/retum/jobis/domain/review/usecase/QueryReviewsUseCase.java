@@ -1,7 +1,7 @@
 package team.retum.jobis.domain.review.usecase;
 
 import lombok.RequiredArgsConstructor;
-import team.retum.jobis.common.annotation.UseCase;
+import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.code.exception.CodeNotFoundException;
@@ -17,7 +17,7 @@ import team.retum.jobis.domain.review.spi.QueryReviewPort;
 import java.util.List;
 
 @RequiredArgsConstructor
-@UseCase
+@ReadOnlyUseCase
 public class QueryReviewsUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
