@@ -346,6 +346,8 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .fetch();
     }
 
+    //==condition==//
+
     private BooleanExpression containsName(String name) {
         return name == null ? null : companyEntity.name.contains(name);
     }
