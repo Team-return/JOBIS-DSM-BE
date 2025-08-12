@@ -397,6 +397,6 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
             .fetchOne();
 
         Set<Long> uniqueIds = new HashSet<>(applicationIds);
-        return count != null && count == new HashSet<>(uniqueIds).size();
+        return count != null && count == uniqueIds.size();
     }
 }
