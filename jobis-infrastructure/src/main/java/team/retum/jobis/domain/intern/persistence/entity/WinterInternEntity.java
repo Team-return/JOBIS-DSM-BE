@@ -28,5 +28,4 @@ public class WinterInternEntity {
     public WinterInternEntity(boolean isWinterIntern) {
         this.isWinterIntern = isWinterIntern;
     }
-
 }

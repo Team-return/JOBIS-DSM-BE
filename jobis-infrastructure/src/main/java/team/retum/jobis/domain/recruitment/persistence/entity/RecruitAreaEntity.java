@@ -62,5 +62,4 @@ public class RecruitAreaEntity {
     public void addRecruitAreaCode(RecruitAreaCodeEntity recruitAreaCodeEntity) {
         recruitAreaCodes.add(recruitAreaCodeEntity);
     }
-
 }
