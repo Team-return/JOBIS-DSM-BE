@@ -14,12 +14,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
-import team.retum.jobis.domain.review.dto.QnAElement;
 import team.retum.jobis.domain.review.dto.response.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewsResponse;
 import team.retum.jobis.domain.review.model.InterviewLocation;
 import team.retum.jobis.domain.review.model.InterviewType;
+import team.retum.jobis.domain.review.dto.response.QueryReviewOptionsResponse;
+import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import team.retum.jobis.domain.review.presentation.dto.request.CreateReviewWebRequest;
+import team.retum.jobis.domain.review.usecase.CreateReviewUseCase;
 import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
+import team.retum.jobis.domain.review.usecase.QueryReviewOptionsUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 
@@ -31,9 +37,25 @@ import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
 @RestController
 public class ReviewWebAdapter {
 
+    private final CreateReviewUseCase createReviewUseCase;
     private final QueryReviewsUseCase queryReviewsUseCase;
-    private final DeleteReviewUseCase deleteReviewUseCase;
     private final QueryReviewDetailUseCase queryReviewDetailUseCase;
+    private final QueryReviewOptionsUseCase queryReviewOptionsUseCase;
+    private final DeleteReviewUseCase deleteReviewUseCase;
+
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public void createReview(
+        @RequestBody @Valid CreateReviewWebRequest request
+    ) {
+        createReviewUseCase.execute(request.toRequest());
+    }
+
+    @GetMapping("/options")
+    public QueryReviewOptionsResponse queryReviewOptions() {
+        return queryReviewOptionsUseCase.execute();
+    }
 
     @Cacheable(condition = "#page <= 5")
     @GetMapping
