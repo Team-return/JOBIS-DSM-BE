@@ -33,7 +33,7 @@ public class CreateReviewUseCase {
         Company company = queryCompanyPort.getById(request.companyId())
             .orElseThrow(() -> CompanyNotFoundException.EXCEPTION);
 
-        queryApplicationPort.getByCompanyIdAndStudentIdOrThrow(company.getId(),student.getId())
+        queryApplicationPort.getByCompanyIdAndStudentIdOrThrow(company.getId(), student.getId())
             .checkReviewAuthority();
 
         if (reviewPort.existsByCompanyIdAndStudentId(request.companyId(), student.getId())) {
