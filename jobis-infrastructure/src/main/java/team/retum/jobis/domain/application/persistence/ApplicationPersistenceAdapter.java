@@ -252,6 +252,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .join(applicationEntity.recruitment, recruitmentEntity)
                 .on(recruitmentEntity.company.id.eq(companyId))
                 .where(applicationEntity.student.id.eq(studentId))
+                .orderBy(applicationEntity.createdAt.desc())
                 .fetchFirst())
             .map(applicationMapper::toDomain)
             .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);

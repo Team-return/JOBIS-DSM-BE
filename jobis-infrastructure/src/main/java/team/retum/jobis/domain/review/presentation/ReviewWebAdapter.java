@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.review.presentation;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -11,20 +10,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
-import team.retum.jobis.domain.review.dto.QnAElement;
 import team.retum.jobis.domain.review.dto.response.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewsResponse;
 import team.retum.jobis.domain.review.model.InterviewLocation;
 import team.retum.jobis.domain.review.model.InterviewType;
-import team.retum.jobis.domain.review.presentation.dto.CreateReviewWebRequest;
+import team.retum.jobis.domain.review.dto.response.QueryReviewOptionsResponse;
+import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import team.retum.jobis.domain.review.presentation.dto.request.CreateReviewWebRequest;
 import team.retum.jobis.domain.review.usecase.CreateReviewUseCase;
 import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
+import team.retum.jobis.domain.review.usecase.QueryReviewOptionsUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 
@@ -36,10 +37,25 @@ import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
 @RestController
 public class ReviewWebAdapter {
 
-    private final QueryReviewsUseCase queryReviewsUseCase;
     private final CreateReviewUseCase createReviewUseCase;
-    private final DeleteReviewUseCase deleteReviewUseCase;
+    private final QueryReviewsUseCase queryReviewsUseCase;
     private final QueryReviewDetailUseCase queryReviewDetailUseCase;
+    private final QueryReviewOptionsUseCase queryReviewOptionsUseCase;
+    private final DeleteReviewUseCase deleteReviewUseCase;
+
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public void createReview(
+        @RequestBody @Valid CreateReviewWebRequest request
+    ) {
+        createReviewUseCase.execute(request.toRequest());
+    }
+
+    @GetMapping("/options")
+    public QueryReviewOptionsResponse queryReviewOptions() {
+        return queryReviewOptionsUseCase.execute();
+    }
 
     @Cacheable(condition = "#page <= 5")
     @GetMapping
@@ -69,24 +85,6 @@ public class ReviewWebAdapter {
     @GetMapping("/{review-id}")
     public QueryReviewDetailResponse getReviewDetail(@PathVariable(name = "review-id") Long reviewId) {
         return queryReviewDetailUseCase.execute(reviewId);
-    }
-
-    @CacheEvict(allEntries = true)
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public void createReview(
-        @RequestBody @Valid CreateReviewWebRequest webRequest
-    ) {
-        createReviewUseCase.execute(
-            webRequest.getCompanyId(),
-            webRequest.getQnaElements().stream()
-                .map(qnAWebElement -> new QnAElement(
-                    qnAWebElement.getQuestion(),
-                    qnAWebElement.getAnswer(),
-                    qnAWebElement.getCodeId()
-                ))
-                .toList()
-        );
     }
 
     @CacheEvict(allEntries = true)

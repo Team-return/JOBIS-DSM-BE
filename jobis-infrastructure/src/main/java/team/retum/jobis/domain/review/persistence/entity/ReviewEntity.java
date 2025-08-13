@@ -40,11 +40,11 @@ public class ReviewEntity extends BaseTimeEntity {
     private final List<QnAEntity> qnAs = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "student_id", nullable = false)
     private StudentEntity student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
 
     @Enumerated(EnumType.STRING)
@@ -56,7 +56,7 @@ public class ReviewEntity extends BaseTimeEntity {
     private InterviewLocation interviewLocation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "code_id", nullable = false)
     private CodeEntity code;
 
     @Column(nullable = false)
