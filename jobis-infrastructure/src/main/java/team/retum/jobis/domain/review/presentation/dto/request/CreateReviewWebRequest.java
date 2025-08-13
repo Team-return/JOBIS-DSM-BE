@@ -1,8 +1,8 @@
 package team.retum.jobis.domain.review.presentation.dto.request;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.review.dto.request.CreateReviewRequest;
@@ -34,8 +34,10 @@ public class CreateReviewWebRequest {
     @ValidListElements
     private List<QnARequest> qnas;
 
+    @Size(max = 100)
     private String question;
 
+    @Size(max = 500)
     private String answer;
 
     public CreateReviewRequest toRequest() {
@@ -59,6 +61,7 @@ public class CreateReviewWebRequest {
         private Long questionId;
 
         @NotBlank
+        @Size(max = 500)
         private String answer;
 
         public CreateReviewRequest.CreateQnARequest toRequest() {
