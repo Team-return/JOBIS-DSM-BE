@@ -100,7 +100,8 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 eqInterviewLocation(filter.getLocation()),
                 eqCompanyId(filter.getCompanyId()),
                 eqYear(filter.getYear()),
-                eqCode(filter.getCode())
+                eqCode(filter.getCode()),
+                containsKeyword(filter.getKeyword())
             )
             .limit(filter.getLimit())
             .offset(filter.getOffset())
@@ -123,7 +124,8 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 eqInterviewLocation(filter.getLocation()),
                 eqCompanyId(filter.getCompanyId()),
                 eqYear(filter.getYear()),
-                eqCode(filter.getCode())
+                eqCode(filter.getCode()),
+                containsKeyword(filter.getKeyword())
             )
             .fetchOne();
     }
@@ -202,5 +204,9 @@ public class ReviewPersistenceAdapter implements ReviewPort {
 
     private BooleanExpression eqReviewId(Long reviewId) {
         return reviewId == null ? null : reviewEntity.id.eq(reviewId);
+    }
+
+    private BooleanExpression containsKeyword(String keyword) {
+        return keyword == null ? null : companyEntity.name.contains(keyword).or(studentEntity.name.contains(keyword));
     }
 }

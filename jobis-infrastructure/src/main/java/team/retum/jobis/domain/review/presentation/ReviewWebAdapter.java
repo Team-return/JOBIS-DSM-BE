@@ -64,10 +64,11 @@ public class ReviewWebAdapter {
         @RequestParam(value = "type", required = false) InterviewType type,
         @RequestParam(value = "location", required = false) InterviewLocation location,
         @RequestParam(value = "company-id", required = false) Long companyId,
+        @RequestParam(value = "keyword", required = false) String keyword,
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "code", required = false) Long code
     ) {
-        return queryReviewsUseCase.execute(page, type, location, companyId, year, code);
+        return queryReviewsUseCase.execute(page, type, location, companyId, keyword, year, code);
     }
 
     @Cacheable
@@ -76,10 +77,11 @@ public class ReviewWebAdapter {
         @RequestParam(value = "type", required = false) InterviewType type,
         @RequestParam(value = "location", required = false) InterviewLocation location,
         @RequestParam(value = "company_id", required = false) Long companyId,
+        @RequestParam(value = "keyword", required = false) String keyword,
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "code", required = false) Long code
     ) {
-        return queryReviewsUseCase.getTotalPageCount(type, location, companyId, year, code);
+        return queryReviewsUseCase.getTotalPageCount(type, location, companyId, keyword, year, code);
     }
 
     @GetMapping("/{review-id}")
