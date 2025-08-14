@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewDetailResponse;
+import team.retum.jobis.domain.review.dto.response.QueryReviewQuestionsResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewsResponse;
 import team.retum.jobis.domain.review.model.InterviewLocation;
 import team.retum.jobis.domain.review.model.InterviewType;
-import team.retum.jobis.domain.review.dto.response.QueryReviewOptionsResponse;
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import team.retum.jobis.domain.review.presentation.dto.request.CreateReviewWebRequest;
 import team.retum.jobis.domain.review.usecase.CreateReviewUseCase;
 import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
-import team.retum.jobis.domain.review.usecase.QueryReviewOptionsUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
+import team.retum.jobis.domain.review.usecase.QueryReviewQuestionsUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 
 import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
@@ -40,7 +40,7 @@ public class ReviewWebAdapter {
     private final CreateReviewUseCase createReviewUseCase;
     private final QueryReviewsUseCase queryReviewsUseCase;
     private final QueryReviewDetailUseCase queryReviewDetailUseCase;
-    private final QueryReviewOptionsUseCase queryReviewOptionsUseCase;
+    private final QueryReviewQuestionsUseCase queryReviewQuestionsUseCase;
     private final DeleteReviewUseCase deleteReviewUseCase;
 
 
@@ -52,9 +52,9 @@ public class ReviewWebAdapter {
         createReviewUseCase.execute(request.toRequest());
     }
 
-    @GetMapping("/options")
-    public QueryReviewOptionsResponse queryReviewOptions() {
-        return queryReviewOptionsUseCase.execute();
+    @GetMapping("/questions")
+    public QueryReviewQuestionsResponse queryReviewQuestions() {
+        return queryReviewQuestionsUseCase.execute();
     }
 
     @Cacheable(condition = "#page <= 5")

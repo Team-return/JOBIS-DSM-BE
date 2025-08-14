@@ -6,9 +6,7 @@ import team.retum.jobis.domain.review.dto.QuestionElement;
 import java.util.List;
 
 @Builder
-public record QueryReviewOptionsResponse(
-    List<String> interviewTypes,
-    List<String> locations,
+public record QueryReviewQuestionsResponse(
     List<QuestionElement> questions
 ) {
 
