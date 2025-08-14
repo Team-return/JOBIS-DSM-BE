@@ -21,6 +21,8 @@ public class QueryReviewsResponse {
 
         private String companyName;
 
+        private String companyLogoUrl;
+
         private String writer;
 
         private int year;
@@ -31,6 +33,7 @@ public class QueryReviewsResponse {
             return ReviewResponse.builder()
                 .reviewId(vo.getReviewId())
                 .companyName(vo.getCompanyName())
+                .companyLogoUrl(vo.getCompanyLogoUrl())
                 .writer(vo.getWriter())
                 .year(vo.getYear())
                 .major(vo.getMajor())

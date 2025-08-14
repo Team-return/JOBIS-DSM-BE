@@ -85,6 +85,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 new QQueryReviewVO(
                     reviewEntity.id,
                     companyEntity.name,
+                    companyEntity.companyLogoUrl,
                     studentEntity.name,
                     reviewEntity.createdAt,
                     codeEntity.keyword

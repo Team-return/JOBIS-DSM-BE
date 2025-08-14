@@ -11,6 +11,8 @@ public class ReviewVO {
 
     private final String companyName;
 
+    private final String companyLogoUrl;
+
     private final String writer;
 
     private final int year;
