@@ -17,6 +17,8 @@ public class ReviewFilter {
 
     private final Long companyId;
 
+    private final String keyword;
+
     private final Integer year;
 
     private final Long code;

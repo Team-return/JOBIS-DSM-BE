@@ -29,6 +29,7 @@ public class QueryReviewsUseCase {
         InterviewType type,
         InterviewLocation location,
         Long companyId,
+        String keyword,
         Integer year,
         Long code
     ) {
@@ -37,6 +38,7 @@ public class QueryReviewsUseCase {
             .type(type)
             .location(location)
             .companyId(companyId)
+            .keyword(keyword)
             .year(year)
             .code(code)
             .build();
@@ -62,6 +64,7 @@ public class QueryReviewsUseCase {
         InterviewType type,
         InterviewLocation location,
         Long companyId,
+        String keyword,
         Integer year,
         Long code
     ) {
@@ -69,6 +72,7 @@ public class QueryReviewsUseCase {
             .type(type)
             .location(location)
             .companyId(companyId)
+            .keyword(keyword)
             .year(year)
             .code(code)
             .build();

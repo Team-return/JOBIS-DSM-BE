@@ -3,17 +3,24 @@ package team.retum.jobis.domain.review.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
 
 import java.util.List;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor(force = true)
 public class QueryReviewsResponse {
 
     private final List<ReviewResponse> reviews;
 
     @Getter
+    @NoArgsConstructor(force = true)
+    @AllArgsConstructor(access = PRIVATE)
     @Builder
     public static class ReviewResponse {
 
