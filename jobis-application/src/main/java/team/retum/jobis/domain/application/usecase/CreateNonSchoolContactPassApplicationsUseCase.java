@@ -23,6 +23,7 @@ import java.util.List;
 @UseCase
 @RequiredArgsConstructor
 public class CreateNonSchoolContactPassApplicationsUseCase {
+
     private final CommandApplicationPort commandApplicationPort;
     private final QueryStudentPort queryStudentPort;
     private final QueryApplicationPort queryApplicationPort;
