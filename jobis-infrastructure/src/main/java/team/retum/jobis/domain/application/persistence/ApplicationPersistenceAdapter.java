@@ -3,6 +3,8 @@ package team.retum.jobis.domain.application.persistence;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.dto.ApplicationFilter;
@@ -250,6 +252,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .join(applicationEntity.recruitment, recruitmentEntity)
                 .on(recruitmentEntity.company.id.eq(companyId))
                 .where(applicationEntity.student.id.eq(studentId))
+                .orderBy(applicationEntity.createdAt.desc())
                 .fetchFirst())
             .map(applicationMapper::toDomain)
             .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
@@ -375,5 +378,26 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
 
     private BooleanExpression eqYear(Year year) {
         return year == null ? null : applicationEntity.createdAt.year().eq(year.getValue());
+    }
+
+    @Override
+    public boolean existsAllByApplicationIdsAndCompanyId(List<Long> applicationIds, Long companyId) {
+        if (applicationIds == null || applicationIds.isEmpty()) {
+            return false;
+        }
+
+        Long count = queryFactory
+            .select(applicationEntity.count())
+            .from(applicationEntity)
+            .join(recruitmentEntity)
+            .on(applicationEntity.recruitment.id.eq(recruitmentEntity.id))
+            .where(
+                applicationEntity.id.in(applicationIds),
+                recruitmentEntity.company.id.eq(companyId)
+            )
+            .fetchOne();
+
+        Set<Long> uniqueIds = new HashSet<>(applicationIds);
+        return count != null && count == uniqueIds.size();
     }
 }

@@ -23,6 +23,8 @@ import static team.retum.jobis.global.config.cache.CacheName.CODE;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
 import static team.retum.jobis.global.config.cache.CacheName.STUDENT_USER;
 import static team.retum.jobis.global.config.cache.CacheName.TEACHER_USER;
+import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
+
 
 @Configuration
 @EnableCaching
@@ -71,7 +73,10 @@ public class CacheConfig implements CachingConfigurer {
                 .entryTtl(Duration.ofMinutes(10))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-            );
+            ).withCacheConfiguration(REVIEW, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(10))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())));
     }
 
     @Bean

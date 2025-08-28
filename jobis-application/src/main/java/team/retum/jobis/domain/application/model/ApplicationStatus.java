@@ -12,6 +12,7 @@ public enum ApplicationStatus {
     REQUESTED("승인 요청"),
     APPROVED("승인"),
     SEND("기업에게 전송"),
+    DOC_FAILED("서류 탈락"),
     PROCESSING("진행중"),
     FAILED("탈락"),
     PASS("합격"),

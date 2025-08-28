@@ -58,6 +58,8 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
         topicSubscriptionJpaRepository.save(topicSubscriptionMapper.toEntity(topicSubscription));
     }
 
+    //==condition==//
+
     private List<TopicVO> getDefaultSubscribedTopics(String token) {
         return Arrays.stream(Topic.values())
             .map(topic -> {

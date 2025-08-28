@@ -40,6 +40,7 @@ import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceE
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.PROCESSING;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
@@ -292,7 +293,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .on(
                 applicationEntity.student.id.eq(studentId),
                 applicationEntity.applicationStatus.in(
-                    List.of(PASS, FAILED, FIELD_TRAIN)
+                    List.of(PROCESSING, PASS, FAILED, FIELD_TRAIN)
                 )
             )
             .join(applicationEntity.recruitment, recruitmentEntity)
@@ -344,6 +345,8 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             )
             .fetch();
     }
+
+    //==condition==//
 
     private BooleanExpression containsName(String name) {
         return name == null ? null : companyEntity.name.contains(name);

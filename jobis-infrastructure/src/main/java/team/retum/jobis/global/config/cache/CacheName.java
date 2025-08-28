@@ -14,4 +14,5 @@ public class CacheName {
     public static final String COMPANY_USER = "company_user";
     public static final String STUDENT_USER = "student_user";
     public static final String TEACHER_USER = "teacher_user";
+    public static final String REVIEW = "review";
 }

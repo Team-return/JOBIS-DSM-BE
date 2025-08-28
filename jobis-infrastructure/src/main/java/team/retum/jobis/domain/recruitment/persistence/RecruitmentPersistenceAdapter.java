@@ -137,7 +137,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 eqYear(filter.getYear()),
                 containsName(filter.getCompanyName()),
                 eqWinterIntern(filter.getWinterIntern()),
-                recruitmentEntity.status.eq(RecruitStatus.RECRUITING),
+                eqRecruitStatus(RecruitStatus.RECRUITING),
                 eqMilitarySupport(filter.getMilitarySupport()),
                 codeFilter
             )
@@ -374,7 +374,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             Optional.ofNullable(
                     queryFactory
                         .selectFrom(recruitmentEntity)
-                        .where(recruitmentEntity.company.id.eq(companyId))
+                        .where(eqCompanyId(companyId))
                         .orderBy(recruitmentEntity.createdAt.desc())
                         .fetchFirst()
                 )
@@ -481,18 +481,18 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .selectOne()
             .from(recruitmentEntity)
             .where(
-                recruitmentEntity.company.id.eq(companyId),
-                recruitmentEntity.winterIntern.isTrue(),
-                recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
+                eqCompanyId(companyId),
+                eqWinterIntern(true),
+                eqRecruitStatus(RecruitStatus.RECRUITING)
             ).fetchFirst() != null;
 
         boolean experientialExists = queryFactory
             .selectOne()
             .from(recruitmentEntity)
             .where(
-                recruitmentEntity.company.id.eq(companyId),
-                recruitmentEntity.winterIntern.isFalse(),
-                recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
+                eqCompanyId(companyId),
+                eqWinterIntern(false),
+                eqRecruitStatus(RecruitStatus.RECRUITING)
             ).fetchFirst() != null;
 
         return new RecruitmentExistsResponse(winterInternExists, experientialExists);
@@ -549,8 +549,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .from(recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
-            .where(recruitmentEntity.status.eq(RecruitStatus.MANUAL_ADD)
-                .and(recruitmentEntity.recruitYear.eq(Year.now().getValue())))
+            .where(
+                eqRecruitStatus(RecruitStatus.MANUAL_ADD),
+                eqYear(Year.now().getValue())
+            )
             .orderBy(recruitmentEntity.createdAt.desc())
             .fetch()
             .stream()
@@ -562,8 +564,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     public List<Recruitment> getByCompanyIdAndWinterIntern(Long companyId, boolean winterIntern) {
         return queryFactory
             .selectFrom(recruitmentEntity)
-            .where(recruitmentEntity.company.id.eq(companyId)
-                .and(recruitmentEntity.winterIntern.eq(winterIntern)))
+            .where(
+                eqCompanyId(companyId),
+                eqWinterIntern(winterIntern)
+            )
             .limit(1)
             .fetch()
             .stream()
@@ -618,5 +622,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private BooleanExpression eqMilitarySupport(Boolean militarySupport) {
         return militarySupport == null ? null : recruitmentEntity.militarySupport.eq(militarySupport);
+    }
+
+    private BooleanExpression eqCompanyId(Long companyId) {
+        return companyId == null ? null : recruitmentEntity.company.id.eq(companyId);
     }
 }
