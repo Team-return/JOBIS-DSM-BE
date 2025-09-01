@@ -16,6 +16,7 @@ spring:
     enabled: ${FLYWAY_ENABLED:false}
     baseline-on-migrate: true
     fail-on-missing-locations: true
+    out-of-order: true
 
   jpa:
     database-platform: team.retum.jobis.global.config.MysqlDialectConfig
