@@ -1,0 +1,13 @@
+create table tbl_view_log
+(
+    id         bigint auto_increment
+        primary key,
+    notice_id  bigint      not null,
+    student_id bigint      not null,
+    viewed_at  datetime(6) null,
+    CONSTRAINT fk_view_log_student
+        FOREIGN KEY (student_id) REFERENCES tbl_student (student_id),
+    CONSTRAINT fk_view_log_notice
+        FOREIGN KEY (notice_id) REFERENCES tbl_notice (id)
+);
+
