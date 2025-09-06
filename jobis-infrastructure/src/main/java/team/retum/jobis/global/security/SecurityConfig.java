@@ -150,6 +150,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/reviews/quetions").hasAuthority(STUDENT.name())
                     .requestMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews/my").hasAuthority(STUDENT.name())
 
                     // banner
                     .requestMatchers(HttpMethod.POST, "/banners").hasAuthority(TEACHER.name())
