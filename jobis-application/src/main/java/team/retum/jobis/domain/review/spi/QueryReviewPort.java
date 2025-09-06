@@ -2,6 +2,7 @@ package team.retum.jobis.domain.review.spi;
 
 import team.retum.jobis.domain.review.dto.ReviewFilter;
 import team.retum.jobis.domain.review.model.Review;
+import team.retum.jobis.domain.review.spi.vo.MyReviewVO;
 import team.retum.jobis.domain.review.spi.vo.QnAVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewDetailVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
@@ -24,4 +25,6 @@ public interface QueryReviewPort {
     List<QnAVO> getQnAVOById(Long reviewId);
 
     boolean existsById(Long reviewId);
+
+    List<MyReviewVO> getMyReviewsById(Long studentId);
 }
