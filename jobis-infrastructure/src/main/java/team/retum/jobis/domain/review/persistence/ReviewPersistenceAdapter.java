@@ -14,10 +14,12 @@ import team.retum.jobis.domain.review.persistence.mapper.QnAMapper;
 import team.retum.jobis.domain.review.persistence.mapper.ReviewMapper;
 import team.retum.jobis.domain.review.persistence.repository.QnAJpaRepository;
 import team.retum.jobis.domain.review.persistence.repository.ReviewJpaRepository;
+import team.retum.jobis.domain.review.persistence.repository.vo.QQueryMyReviewVO;
 import team.retum.jobis.domain.review.persistence.repository.vo.QQueryQnAVO;
 import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewDetailVO;
 import team.retum.jobis.domain.review.persistence.repository.vo.QQueryReviewVO;
 import team.retum.jobis.domain.review.spi.ReviewPort;
+import team.retum.jobis.domain.review.spi.vo.MyReviewVO;
 import team.retum.jobis.domain.review.spi.vo.QnAVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewDetailVO;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
@@ -178,6 +180,23 @@ public class ReviewPersistenceAdapter implements ReviewPort {
     @Override
     public boolean existsById(Long reviewId) {
         return reviewJpaRepository.existsById(reviewId);
+    }
+
+    @Override
+    public List<MyReviewVO> getMyReviewsById(Long studentId) {
+        return queryFactory
+            .select(
+                new QQueryMyReviewVO(
+                    reviewEntity.id,
+                    companyEntity.name
+                )
+            )
+            .from(reviewEntity)
+            .join(reviewEntity.company, companyEntity)
+            .where(reviewEntity.student.id.eq(studentId))
+            .fetch().stream()
+            .map(MyReviewVO.class::cast)
+            .toList();
     }
 
     //==conditions==//

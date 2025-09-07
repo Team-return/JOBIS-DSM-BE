@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
+import team.retum.jobis.domain.review.dto.response.QueryMyReviewsResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewDetailResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewQuestionsResponse;
 import team.retum.jobis.domain.review.dto.response.QueryReviewsResponse;
@@ -28,6 +29,7 @@ import team.retum.jobis.domain.review.usecase.DeleteReviewUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewDetailUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewQuestionsUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
+import team.retum.jobis.domain.review.usecase.QueryMyReviewsUseCase;
 
 import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
 
@@ -42,7 +44,7 @@ public class ReviewWebAdapter {
     private final QueryReviewDetailUseCase queryReviewDetailUseCase;
     private final QueryReviewQuestionsUseCase queryReviewQuestionsUseCase;
     private final DeleteReviewUseCase deleteReviewUseCase;
-
+    private final QueryMyReviewsUseCase queryMyReviewsUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -96,5 +98,10 @@ public class ReviewWebAdapter {
         @PathVariable(name = "review-id") Long reviewId
     ) {
         deleteReviewUseCase.execute(reviewId);
+    }
+
+    @GetMapping("/my")
+    public QueryMyReviewsResponse getMyReviews() {
+        return queryMyReviewsUseCase.execute();
     }
 }
