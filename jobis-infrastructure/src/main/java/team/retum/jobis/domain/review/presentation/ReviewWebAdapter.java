@@ -65,7 +65,7 @@ public class ReviewWebAdapter {
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page,
         @RequestParam(value = "type", required = false) InterviewType type,
         @RequestParam(value = "location", required = false) InterviewLocation location,
-        @RequestParam(value = "company-id", required = false) Long companyId,
+        @RequestParam(value = "company_id", required = false) Long companyId,
         @RequestParam(value = "keyword", required = false) String keyword,
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "code", required = false) Long code
