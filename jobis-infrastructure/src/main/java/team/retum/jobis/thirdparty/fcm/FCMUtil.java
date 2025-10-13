@@ -15,7 +15,6 @@ import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Component
