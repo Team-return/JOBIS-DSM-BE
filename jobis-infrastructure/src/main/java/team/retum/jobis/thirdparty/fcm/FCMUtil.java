@@ -26,7 +26,7 @@ public class FCMUtil {
         }
 
         try {
-            FirebaseMessaging.getInstance().subscribeToTopicAsync(List.of(token), topic.name().toLowerCase()).get();
+            FirebaseMessaging.getInstance().subscribeToTopicAsync(List.of(token), topic.toString()).get();
         } catch (Exception e) {
             throw new FailedToSubscriptionException();
         }
@@ -38,7 +38,7 @@ public class FCMUtil {
         }
 
         try {
-            FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(List.of(token), topic.name().toLowerCase()).get();
+            FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(List.of(token), topic.toString()).get();
         } catch (Exception e) {
             throw new FailedToUnsubscriptionException();
         }
