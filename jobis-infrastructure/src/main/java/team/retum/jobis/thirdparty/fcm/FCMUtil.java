@@ -30,8 +30,7 @@ public class FCMUtil {
         try {
             FirebaseMessaging.getInstance().subscribeToTopicAsync(List.of(token), topic.toString()).get();
         } catch (Exception e) {
-            log.error("FCM 구독 Exception 타입: {}", e.getClass().getName());
-            log.error("FCM 구독 Exception 메시지: {}", e.getMessage());
+            log.error("Failed to subscribe token [{}] to topic [{}]: {}", token, topic, e.getMessage(), e);
             throw new FailedToSubscriptionException();
         }
     }
@@ -44,8 +43,7 @@ public class FCMUtil {
         try {
             FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(List.of(token), topic.toString()).get();
         } catch (Exception e) {
-            log.error("FCM 구독 해제 Exception 타입: {}", e.getClass().getName());
-            log.error("FCM 구독 해제 Exception 메시지: {}", e.getMessage());
+            log.error("Failed to unsubscribe token [{}] from topic [{}]: {}", token, topic, e.getMessage(), e);
             throw new FailedToUnsubscriptionException();
         }
     }
