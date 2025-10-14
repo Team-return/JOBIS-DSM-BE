@@ -21,11 +21,11 @@ public class FirebaseConfig {
 
     @PostConstruct
     public void init() {
-        try (ByteArrayInputStream serviceAccount =
+        try (ByteArrayInputStream account =
                  new ByteArrayInputStream(fcmJson.getBytes(StandardCharsets.UTF_8))) {
 
             FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setCredentials(GoogleCredentials.fromStream(account))
                 .build();
 
             FirebaseApp.initializeApp(options);
