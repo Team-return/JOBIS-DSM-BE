@@ -9,20 +9,23 @@ import org.springframework.context.annotation.Configuration;
 import team.retum.jobis.global.util.LogUtil;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Configuration
 public class FirebaseConfig {
 
-    @Value("${fcm.path}")
-    private String path;
+    @Value("${fcm.json}")
+    private String fcmJson;
 
     @PostConstruct
     public void init() {
-        try (FileInputStream account = new FileInputStream(path)) {
+        try (ByteArrayInputStream serviceAccount =
+                 new ByteArrayInputStream(fcmJson.getBytes(StandardCharsets.UTF_8))) {
+
             FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(account))
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
 
             FirebaseApp.initializeApp(options);
