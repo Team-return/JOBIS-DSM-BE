@@ -14,12 +14,13 @@ public class AuthCodeEntity {
 
     @Indexed
     private final String code;
+
     @TimeToLive
     private final Integer ttl;
+
     @Id
     private String email;
+
     @Indexed
     private boolean isVerified;
-
-
 }

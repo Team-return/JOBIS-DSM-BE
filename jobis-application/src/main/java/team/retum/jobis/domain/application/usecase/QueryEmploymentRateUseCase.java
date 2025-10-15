@@ -26,7 +26,7 @@ public class QueryEmploymentRateUseCase {
         for (Integer classNum = FIRTH_CLASS; classNum <= FOURTH_CLASS; classNum++) {
             List<CompanyVO> companies = queryCompanyPort.getEmploymentRateByClassNumber(classNum);
             long totalStudents = queryStudentPort.getTotalStudentsByClassNumber(classNum);
-            long passedStudents = queryStudentPort.getPassedStudentsByClassNumber(classNum);
+            long passedStudents = companies.size();
 
             classResponses.add(new ClassResponse(classNum, companies, totalStudents, passedStudents));
         }

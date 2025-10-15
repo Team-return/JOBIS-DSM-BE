@@ -21,6 +21,8 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
 
     @Getter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class TeacherQueryFieldTraineesResponse {
 
         private Long applicationId;
@@ -54,6 +56,8 @@ public class TeacherQueryFieldTraineesAndContractWorkersResponse {
 
     @Getter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class TeacherQueryContractWorkersResponse {
 
         private Long acceptanceId;

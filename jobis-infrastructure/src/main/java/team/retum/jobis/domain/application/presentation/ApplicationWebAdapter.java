@@ -189,7 +189,10 @@ public class ApplicationWebAdapter {
         @PathVariable("application-id") Long applicationId,
         @Valid @RequestBody RejectApplicationWebRequest request
     ) {
-        rejectApplicationUseCase.execute(applicationId, request.getReason());
+        rejectApplicationUseCase.execute(applicationId,
+            request.getReason(),
+            request.toDomainAttachmentRequest()
+        );
     }
 
     @Cacheable

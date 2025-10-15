@@ -24,5 +24,4 @@ public class NoticeAttachmentEntity {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(4)")
     private AttachmentType type;
-
 }

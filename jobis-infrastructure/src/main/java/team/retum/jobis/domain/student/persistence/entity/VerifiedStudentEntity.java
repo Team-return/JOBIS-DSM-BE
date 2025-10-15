@@ -24,5 +24,4 @@ public class VerifiedStudentEntity {
     @NotNull
     @Column(columnDefinition = "VARCHAR(10)")
     private String name;
-
 }

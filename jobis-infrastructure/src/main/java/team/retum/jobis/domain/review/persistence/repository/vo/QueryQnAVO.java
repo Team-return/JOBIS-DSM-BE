@@ -8,7 +8,7 @@ import team.retum.jobis.domain.review.spi.vo.QnAVO;
 public class QueryQnAVO extends QnAVO {
 
     @QueryProjection
-    public QueryQnAVO(String question, String answer, String keyword) {
-        super(question, answer, keyword);
+    public QueryQnAVO(Long id, String question, String answer) {
+        super(id, question, answer);
     }
 }

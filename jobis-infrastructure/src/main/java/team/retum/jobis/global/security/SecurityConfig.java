@@ -85,7 +85,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/applications/students").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.POST, "/applications/{company-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.DELETE, "/applications/{application-id}").hasAuthority(STUDENT.name())
-                    .requestMatchers(HttpMethod.PATCH, "/applications/status").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.PATCH, "/applications/status").hasAnyAuthority(TEACHER.name(), COMPANY.name())
                     .requestMatchers(HttpMethod.PATCH, "/applications/train-date").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.PATCH, "/applications/rejection/{application-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.PUT, "/applications/{application-id}").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
@@ -144,10 +144,13 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/acceptances").hasAuthority(TEACHER.name())
 
                     // review
-                    .requestMatchers(HttpMethod.GET, "/reviews/{company-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
-                    .requestMatchers(HttpMethod.GET, "/reviews/details/{review-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews/count").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews/{review-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews/quetions").hasAuthority(STUDENT.name())
                     .requestMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews/my").hasAuthority(STUDENT.name())
 
                     // banner
                     .requestMatchers(HttpMethod.POST, "/banners").hasAuthority(TEACHER.name())

@@ -131,7 +131,8 @@ public class RecruitmentWebAdapter {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
             page,
-            this.parseCodes(jobCode, techCodes),
+            (jobCode == null || jobCode.isEmpty() || jobCode.isBlank() || !jobCode.matches("\\d+")) ? null : Long.valueOf(jobCode),
+            parseCodes(techCodes),
             winterIntern,
             militarySupport
         );
@@ -274,6 +275,18 @@ public class RecruitmentWebAdapter {
             return codes.stream()
                 .map(Long::parseLong)
                 .toList();
+        } catch (Exception e) {
+            throw new BadRequestException();
+        }
+    }
+
+    private List<Long> parseCodes(String techCodes) {
+        List<String> codes = new ArrayList<>(StringUtil.divideString(techCodes, ","));
+
+        try {
+            return codes.stream()
+                    .map(Long::parseLong)
+                    .toList();
         } catch (Exception e) {
             throw new BadRequestException();
         }

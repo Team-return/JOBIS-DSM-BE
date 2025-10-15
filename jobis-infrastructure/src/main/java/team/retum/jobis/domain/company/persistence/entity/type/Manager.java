@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.company.persistence.entity.type;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;

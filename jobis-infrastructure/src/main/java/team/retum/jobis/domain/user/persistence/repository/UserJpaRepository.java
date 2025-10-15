@@ -16,4 +16,6 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllByIdIn(List<Long> ids);
 
     Optional<UserEntity> findByToken(String token);
+
+    List<User> findByTokenIsNotNull();
 }

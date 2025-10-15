@@ -7,7 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class QnAVO {
 
+    private final Long id;
+
     private final String question;
+
     private final String answer;
-    private final String area;
 }

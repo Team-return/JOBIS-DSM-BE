@@ -33,7 +33,6 @@ public class PortfolioEntity {
     @JoinColumn(name = "student_id", nullable = false)
     private StudentEntity student;
 
-
     @Builder
     public PortfolioEntity(Long id, String portfolioUrl, StudentEntity studentEntity) {
         this.id = id;

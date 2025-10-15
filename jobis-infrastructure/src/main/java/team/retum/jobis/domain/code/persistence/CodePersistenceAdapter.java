@@ -71,6 +71,24 @@ public class CodePersistenceAdapter implements CodePort {
         );
     }
 
+    @Override
+    public void existsByAllCodeIds(List<Long> codeIds) {
+        Long count = jpaQueryFactory
+            .select(codeEntity.count())
+            .from(codeEntity)
+            .where(codeEntity.code.in(codeIds))
+            .fetchOne();
+
+        if (count == null || !count.equals((long) codeIds.size())) {
+            throw CodeNotFoundException.EXCEPTION;
+        }
+    }
+
+    @Override
+    public boolean existsByCodeId(Long codeId) {
+        return codeJpaRepository.existsById(codeId);
+    }
+
     //==conditions==//
 
     private BooleanExpression containsKeyword(String keyword) {

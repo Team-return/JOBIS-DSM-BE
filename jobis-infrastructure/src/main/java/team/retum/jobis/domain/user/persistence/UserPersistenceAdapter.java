@@ -58,7 +58,7 @@ public class UserPersistenceAdapter implements UserPort {
 
     @Override
     public User getByStudentId(Long studentId) {
-        return studentJpaRepository.findById(studentId)
+        return studentJpaRepository.findWithUserEntityById(studentId)
             .map(StudentEntity::getUserEntity)
             .map(userMapper::toDomain)
             .orElseThrow(() -> UserNotFoundException.EXCEPTION);
@@ -76,5 +76,10 @@ public class UserPersistenceAdapter implements UserPort {
         return userJpaRepository.findByToken(deviceToken)
             .map(userMapper::toDomain)
             .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    }
+
+    @Override
+    public List<User> getAllByDeviceTokenExists() {
+        return userJpaRepository.findByTokenIsNotNull();
     }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class QueryReviewVO extends ReviewVO {
 
     @QueryProjection
-    public QueryReviewVO(Long reviewId, String writer, LocalDateTime createdAt) {
-        super(reviewId, writer, createdAt);
+    public QueryReviewVO(Long reviewId, String companyName, String companyLogoUrl, String writer, LocalDateTime createdAt, String major) {
+        super(reviewId, companyName, companyLogoUrl, writer, createdAt.getYear(), major);
     }
 }

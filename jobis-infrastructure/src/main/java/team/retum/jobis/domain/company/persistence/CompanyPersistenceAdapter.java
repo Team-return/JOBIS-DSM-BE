@@ -8,13 +8,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
-import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyType;
-import team.retum.jobis.domain.company.persistence.entity.QCompanyEntity;
 import team.retum.jobis.domain.company.persistence.mapper.CompanyMapper;
 import team.retum.jobis.domain.company.persistence.repository.CompanyJpaRepository;
 import team.retum.jobis.domain.company.persistence.repository.vo.QQueryCompanyDetailsVO;
@@ -30,20 +28,19 @@ import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
-import team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity;
-import team.retum.jobis.domain.student.persistence.entity.QStudentEntity;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
+import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
-import static team.retum.jobis.domain.application.model.ApplicationStatus.APPROVED;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FIELD_TRAIN;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.PASS;
+import static team.retum.jobis.domain.application.model.ApplicationStatus.PROCESSING;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
 import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
@@ -296,7 +293,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .on(
                 applicationEntity.student.id.eq(studentId),
                 applicationEntity.applicationStatus.in(
-                    List.of(PASS, FAILED, FIELD_TRAIN)
+                    List.of(PROCESSING, PASS, FAILED, FIELD_TRAIN)
                 )
             )
             .join(applicationEntity.recruitment, recruitmentEntity)
@@ -340,12 +337,16 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .from(studentEntity)
             .innerJoin(applicationEntity).on(applicationEntity.student.id.eq(studentEntity.id))
             .innerJoin(recruitmentEntity).on(applicationEntity.recruitment.id.eq(recruitmentEntity.id)
-                .and(applicationEntity.applicationStatus.eq(ApplicationStatus.PASS)))
+                .and(applicationEntity.applicationStatus.in(ApplicationStatus.PASS, ApplicationStatus.FIELD_TRAIN)))
             .innerJoin(companyEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
-            .where(studentEntity.classRoom.eq(classNum))
-            .groupBy(companyEntity.id)
+            .where(
+                studentEntity.classRoom.eq(classNum),
+                numberTemplate(Integer.class, "YEAR(CURRENT_DATE)").subtract(studentEntity.entranceYear).eq(2)
+            )
             .fetch();
     }
+
+    //==condition==//
 
     private BooleanExpression containsName(String name) {
         return name == null ? null : companyEntity.name.contains(name);

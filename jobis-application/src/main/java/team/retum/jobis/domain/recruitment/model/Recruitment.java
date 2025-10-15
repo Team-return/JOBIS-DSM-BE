@@ -143,6 +143,10 @@ public class Recruitment {
         LocalDate today = LocalDate.now();
         RecruitingPeriod recruitingPeriod = this.recruitingPeriod;
 
+        if (recruitingPeriod == null) {
+            return this;
+        }
+
         if (this.status == RecruitStatus.REQUESTED || this.status == RecruitStatus.DONE) {
             return this;
         }

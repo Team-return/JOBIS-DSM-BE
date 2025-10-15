@@ -9,12 +9,9 @@ public class QnA {
 
     private final Long id;
 
-    private final String question;
+    private final Long questionId;
 
     private final String answer;
 
     private final Long reviewId;
-
-    private final Long codeId;
-
 }

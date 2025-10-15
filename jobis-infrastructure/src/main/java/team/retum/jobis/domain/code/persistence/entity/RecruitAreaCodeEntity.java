@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.recruitment.persistence.entity.RecruitAreaEntity;
 
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,7 +30,6 @@ public class RecruitAreaCodeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recruit_area_id", nullable = false)
     private RecruitAreaEntity recruitArea;
-
 
     @MapsId("code")
     @ManyToOne(fetch = FetchType.LAZY)

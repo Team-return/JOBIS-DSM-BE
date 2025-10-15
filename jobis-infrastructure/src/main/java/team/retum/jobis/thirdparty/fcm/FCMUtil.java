@@ -7,6 +7,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.MulticastMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import team.retum.jobis.domain.notification.exception.DeviceTokenNotFoundException;
 import team.retum.jobis.domain.notification.exception.FailedToSubscriptionException;
@@ -15,9 +16,9 @@ import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.global.exception.FailedSendingMessagesException;
 
-import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Component
 public class FCMUtil {
 
@@ -27,8 +28,9 @@ public class FCMUtil {
         }
 
         try {
-            FirebaseMessaging.getInstance().subscribeToTopicAsync(Arrays.asList(token), topic.toString()).get();
+            FirebaseMessaging.getInstance().subscribeToTopicAsync(List.of(token), topic.toString()).get();
         } catch (Exception e) {
+            log.error("Failed to subscribe token [{}] to topic [{}]: {}", token, topic, e.getMessage(), e);
             throw new FailedToSubscriptionException();
         }
     }
@@ -39,8 +41,9 @@ public class FCMUtil {
         }
 
         try {
-            FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(Arrays.asList(token), topic.toString()).get();
+            FirebaseMessaging.getInstance().unsubscribeFromTopicAsync(List.of(token), topic.toString()).get();
         } catch (Exception e) {
+            log.error("Failed to unsubscribe token [{}] from topic [{}]: {}", token, topic, e.getMessage(), e);
             throw new FailedToUnsubscriptionException();
         }
     }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.interest.dto.response.InterestResponse;
 import team.retum.jobis.domain.interest.dto.request.ToggleInterestRequest;
+import team.retum.jobis.domain.interest.dto.response.StudentQueryInterestsResponse;
 import team.retum.jobis.domain.interest.usecase.QueryMyInterestRecruitmentUseCase;
 import team.retum.jobis.domain.interest.usecase.QueryMyInterestsUseCase;
 import team.retum.jobis.domain.interest.usecase.ToggleInterestUseCase;
@@ -30,11 +31,11 @@ public class InterestWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping
     public void toggleInterest(@RequestBody @Valid ToggleInterestRequest request) {
-        toggleInterestUseCase.execute(request.getCodes());
+        toggleInterestUseCase.execute(request.getCodeIds());
     }
 
     @GetMapping
-    public List<InterestResponse> queryMyInterests() {
+    public StudentQueryInterestsResponse queryMyInterests() {
         return queryMyInterestsUseCase.execute();
     }
 
