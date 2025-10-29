@@ -25,7 +25,6 @@ import static team.retum.jobis.global.config.cache.CacheName.STUDENT_USER;
 import static team.retum.jobis.global.config.cache.CacheName.TEACHER_USER;
 import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
 
-
 @Configuration
 @EnableCaching
 public class CacheConfig implements CachingConfigurer {
