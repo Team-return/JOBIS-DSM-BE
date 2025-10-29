@@ -110,7 +110,7 @@ logging:
           EC2MetadataUtils: error
 
 fcm:
-  json: ${FCM_JSON}
+  json: ${FCM_JSON:d}
 
 slack:
   url: ${SLACK_URL:d}
