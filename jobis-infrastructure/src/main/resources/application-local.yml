@@ -5,9 +5,9 @@ spring:
 
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://${DB_URL:localhost}:3306/${DB_NAME:jobis}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
+    url: jdbc:p6spy:mysql://${DB_URL:localhost}:3321/${DB_NAME:jobis_stag_mysql}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&tinyInt1isBit=false&rewriteBatchedStatements=true
     username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:070211}
+    password: ${DB_PASSWORD}
 
   data:
     redis:

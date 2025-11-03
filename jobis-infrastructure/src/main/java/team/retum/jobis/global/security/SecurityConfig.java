@@ -148,7 +148,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/reviews/count").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/reviews/{review-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
-                    .requestMatchers(HttpMethod.GET, "/reviews/quetions").hasAuthority(STUDENT.name())
+                    .requestMatchers(HttpMethod.GET, "/reviews/questions").hasAuthority(STUDENT.name())
                     .requestMatchers(HttpMethod.DELETE, "/reviews/{review-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/reviews/my").hasAuthority(STUDENT.name())
 
