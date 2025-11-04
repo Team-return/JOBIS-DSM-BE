@@ -307,6 +307,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 reviewEntity.isNull()
             )
             .groupBy(companyEntity.id)
+            .orderBy(applicationEntity.createdAt.max().desc())
             .fetch().stream()
             .map(CompanyResponse.class::cast)
             .toList();
