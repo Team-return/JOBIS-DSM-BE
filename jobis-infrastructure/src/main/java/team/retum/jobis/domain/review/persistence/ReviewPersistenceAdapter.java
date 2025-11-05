@@ -77,7 +77,6 @@ public class ReviewPersistenceAdapter implements ReviewPort {
         return reviewJpaRepository.findById(reviewId)
             .map(reviewMapper::toDomain)
             .orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
-
     }
 
     @Override

@@ -16,7 +16,6 @@ spring:
     enabled: ${FLYWAY_ENABLED:false}
     baseline-on-migrate: true
     fail-on-missing-locations: true
-    out-of-order: true
 
   jpa:
     database-platform: team.retum.jobis.global.config.MysqlDialectConfig
@@ -111,7 +110,7 @@ logging:
           EC2MetadataUtils: error
 
 fcm:
-  path: ${FCM_PATH:d}
+  json: ${FCM_JSON:d}
 
 slack:
   url: ${SLACK_URL:d}
