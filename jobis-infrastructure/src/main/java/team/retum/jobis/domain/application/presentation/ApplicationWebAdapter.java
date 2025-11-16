@@ -2,6 +2,7 @@ package team.retum.jobis.domain.application.presentation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -52,6 +53,7 @@ import team.retum.jobis.domain.application.usecase.TeacherDeleteApplicationUseCa
 import team.retum.jobis.domain.application.usecase.TeacherQueryApplicationsUseCase;
 import team.retum.jobis.domain.company.dto.response.EmploymentRatesResponse;
 
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.Arrays;
 import java.util.List;
@@ -196,9 +198,11 @@ public class ApplicationWebAdapter {
     }
 
     @Cacheable
-    @GetMapping("/employment/count")
-    public QueryEmploymentCountResponse queryEmploymentCount() {
-        return queryEmploymentCountUseCase.execute();
+    @GetMapping("/employment/count/{year}")
+    public QueryEmploymentCountResponse queryEmploymentCount(
+        @PathVariable("year") int year
+    ) {
+        return queryEmploymentCountUseCase.execute(year);
     }
 
     @Cacheable

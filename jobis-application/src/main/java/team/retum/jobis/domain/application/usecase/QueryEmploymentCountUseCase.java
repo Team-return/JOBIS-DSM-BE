@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.application.dto.response.QueryEmploymentCountResponse;
 import team.retum.jobis.domain.student.spi.QueryStudentPort;
-
-import java.time.Year;
 import java.util.List;
 
 import static team.retum.jobis.domain.application.model.ApplicationStatus.APPROVED;
@@ -18,10 +16,10 @@ public class QueryEmploymentCountUseCase {
 
     private final QueryStudentPort queryStudentPort;
 
-    public QueryEmploymentCountResponse execute() {
-        int totalStudentCount = queryStudentPort.getCountByGradeAndEntranceYear(3, Year.now().getValue() - 2);
-        long approvedApplicationCount = queryStudentPort.getCountByApplicationStatus(List.of(APPROVED));
-        long passedApplicationCount = queryStudentPort.getCountByApplicationStatus(List.of(PASS, FIELD_TRAIN));
+    public QueryEmploymentCountResponse execute(int year) {
+        int totalStudentCount = queryStudentPort.getCountByGradeAndEntranceYear(3, year - 2);
+        long approvedApplicationCount = queryStudentPort.getCountByApplicationStatusAndYear(List.of(APPROVED), year);
+        long passedApplicationCount = queryStudentPort.getCountByApplicationStatusAndYear(List.of(PASS, FIELD_TRAIN), year);
 
         return QueryEmploymentCountResponse.builder()
             .totalStudentCount(totalStudentCount)
