@@ -14,7 +14,7 @@ public interface QueryStudentPort {
 
     boolean existsBySchoolNumberAndName(SchoolNumber schoolNumber, String name);
 
-    Long getCountByApplicationStatus(List<ApplicationStatus> statuses);
+    Long getCountByApplicationStatusAndYear(List<ApplicationStatus> statuses, int year);
 
     List<Student> getByInterestCode(List<Long> code);
 
