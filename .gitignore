@@ -40,3 +40,7 @@ out/
 
 
 sonar-project.properties
+
+### Claude Code ###
+CLAUDE.md
+.claude/*
