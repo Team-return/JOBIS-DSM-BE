@@ -326,7 +326,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum) {
+    public List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum, int year) {
         return queryFactory
             .select(
                 Projections.constructor(CompanyVO.class,
@@ -342,7 +342,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .innerJoin(companyEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
             .where(
                 studentEntity.classRoom.eq(classNum),
-                numberTemplate(Integer.class, "YEAR(CURRENT_DATE)").subtract(studentEntity.entranceYear).eq(2)
+                studentEntity.entranceYear.eq(year - 2)
             )
             .fetch();
     }

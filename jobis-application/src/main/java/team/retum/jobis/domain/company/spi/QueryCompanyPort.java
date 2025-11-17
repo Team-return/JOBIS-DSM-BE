@@ -39,6 +39,6 @@ public interface QueryCompanyPort {
 
     Map<Long, String> getCompanyNameByRecruitmentIds(List<Long> recruitmentIds);
 
-    List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum);
+    List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum, int year);
 
 }

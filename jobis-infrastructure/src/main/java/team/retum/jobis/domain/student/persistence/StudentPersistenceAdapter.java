@@ -87,13 +87,12 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public Long getTotalStudentsByClassNumber(Integer classNum) {
+    public Long getTotalStudentsByClassNumber(Integer classNum, int year) {
         return queryFactory
             .select(studentEntity.count())
             .from(studentEntity)
             .where(studentEntity.classRoom.eq(classNum)
-                .and(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
-                    .subtract(studentEntity.entranceYear).eq(2)))
+                .and(studentEntity.entranceYear.eq(year - 2)))
             .fetchOne();
     }
 
