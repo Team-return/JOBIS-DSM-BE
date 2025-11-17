@@ -246,9 +246,11 @@ public class ApplicationWebAdapter {
     }
 
     @Cacheable
-    @GetMapping("/employment")
-    public EmploymentRatesResponse queryEmploymentRate() {
-        return queryEmploymentRateUseCase.execute();
+    @GetMapping("/employment/{year}")
+    public EmploymentRatesResponse queryEmploymentRate(
+        @PathVariable("year") int year
+    ) {
+        return queryEmploymentRateUseCase.execute(year);
     }
 
     @PostMapping("/teacher/{recruitment-id}")
