@@ -214,7 +214,6 @@ public class RecruitmentWebAdapter {
     @PatchMapping("/status")
     public void changeRecruitStatus(@RequestBody @Valid ChangeRecruitmentStatusWebRequest webRequest) {
         teacherChangeRecruitmentStatusService.execute(webRequest.getRecruitmentIds(), webRequest.getStatus());
-
     }
 
     @GetMapping("/{recruitment-id}")
