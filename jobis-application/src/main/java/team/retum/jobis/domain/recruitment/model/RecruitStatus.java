@@ -5,5 +5,6 @@ public enum RecruitStatus {
     READY,
     RECRUITING,
     DONE,
-    MANUAL_ADD
+    MANUAL_ADD,
+    WIN_INTERN
 }
