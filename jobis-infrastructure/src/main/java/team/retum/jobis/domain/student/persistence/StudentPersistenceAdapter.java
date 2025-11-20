@@ -50,7 +50,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public Long getCountByApplicationStatus(List<ApplicationStatus> statuses) {
+    public Long getCountByApplicationStatusAndYear(List<ApplicationStatus> statuses, int year) {
         return queryFactory
             .select(studentEntity.countDistinct())
             .from(studentEntity)
@@ -59,8 +59,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 applicationEntity.student.eq(studentEntity),
                 applicationEntity.applicationStatus.in(statuses)
             )
-            .where(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
-                .subtract(studentEntity.entranceYear).eq(2)
+            .where(studentEntity.entranceYear.eq(year - 2)
                 .and(applicationEntity.recruitment.winterIntern.isFalse()))
             .fetchOne();
     }
@@ -88,13 +87,12 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public Long getTotalStudentsByClassNumber(Integer classNum) {
+    public Long getTotalStudentsByClassNumber(Integer classNum, int year) {
         return queryFactory
             .select(studentEntity.count())
             .from(studentEntity)
             .where(studentEntity.classRoom.eq(classNum)
-                .and(numberTemplate(Integer.class, "YEAR(CURRENT_DATE)")
-                    .subtract(studentEntity.entranceYear).eq(2)))
+                .and(studentEntity.entranceYear.eq(year - 2)))
             .fetchOne();
     }
 

@@ -20,12 +20,12 @@ public class QueryEmploymentRateUseCase {
     private static final Integer FIRTH_CLASS = 1;
     private static final Integer FOURTH_CLASS = 4;
 
-    public EmploymentRatesResponse execute() {
+    public EmploymentRatesResponse execute(int year) {
         List<ClassResponse> classResponses = new ArrayList<>();
 
         for (Integer classNum = FIRTH_CLASS; classNum <= FOURTH_CLASS; classNum++) {
-            List<CompanyVO> companies = queryCompanyPort.getEmploymentRateByClassNumber(classNum);
-            long totalStudents = queryStudentPort.getTotalStudentsByClassNumber(classNum);
+            List<CompanyVO> companies = queryCompanyPort.getEmploymentRateByClassNumber(classNum, year);
+            long totalStudents = queryStudentPort.getTotalStudentsByClassNumber(classNum, year);
             long passedStudents = companies.size();
 
             classResponses.add(new ClassResponse(classNum, companies, totalStudents, passedStudents));
