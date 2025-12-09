@@ -62,49 +62,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     @Override
     public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
-
-        Long jobCode = filter.getJobCode();
-        List<Long> techCodes = filter.getTechCodes();
-
-        QRecruitAreaEntity recruitAreaSub = new QRecruitAreaEntity("recruitAreaSub");
-        QRecruitAreaCodeEntity recruitAreaCodeSub = new QRecruitAreaCodeEntity("recruitAreaCodeSub");
-
-        BooleanExpression hasJobCode = (jobCode != null)
-                ? JPAExpressions
-                .selectOne()
-                .from(recruitAreaSub)
-                .join(recruitAreaCodeSub)
-                .on(
-                        recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
-                        recruitAreaCodeSub.type.eq(CodeType.JOB),
-                        recruitAreaCodeSub.code.code.in(jobCode)
-                )
-                .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
-                .exists()
-                : null;
-
-        BooleanExpression hasTechCode = (!techCodes.isEmpty())
-                ? JPAExpressions
-                .selectOne()
-                .from(recruitAreaSub)
-                .join(recruitAreaCodeSub)
-                .on(
-                        recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
-                        recruitAreaCodeSub.type.eq(CodeType.TECH),
-                        recruitAreaCodeSub.code.code.in(techCodes)
-                )
-                .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
-                .exists()
-                : null;
-
-        BooleanExpression codeFilter = null;
-        if (hasJobCode != null && hasTechCode != null) {
-            codeFilter = hasJobCode.and(hasTechCode);
-        } else if (hasJobCode != null) {
-            codeFilter = hasJobCode;
-        } else if (hasTechCode != null) {
-            codeFilter = hasTechCode;
-        }
+        BooleanExpression codeFilter = matchesCodeFilter(filter.getJobCode(), filter.getTechCodes());
 
         return queryFactory
             .select(
@@ -115,7 +73,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitmentEntity.militarySupport,
                     companyEntity.companyLogoUrl,
                     recruitJobsPath,
-                    bookmarkEntity.recruitment.id.isNotNull()
+                    bookmarkEntity.recruitment.id.isNotNull(),
+                    recruitmentEntity.status
                 )
             )
             .from(recruitmentEntity)
@@ -134,11 +93,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .join(recruitAreaCodeEntity.code, codeEntity)
             .where(
-                eqYear(filter.getYear()),
+                eqYears(filter.getYears()),
                 containsName(filter.getCompanyName()),
                 eqWinterIntern(filter.getWinterIntern()),
-                eqRecruitStatus(RecruitStatus.RECRUITING),
                 eqMilitarySupport(filter.getMilitarySupport()),
+                eqStudentRecruitStatus(filter.getStatus()),
                 codeFilter
             )
             .offset(filter.getOffset())
@@ -369,6 +328,33 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     @Override
+    public Long getCountByStudentFilter(StudentRecruitmentFilter filter) {
+        BooleanExpression codeFilter = matchesCodeFilter(filter.getJobCode(), filter.getTechCodes());
+
+        return queryFactory
+            .select(recruitmentEntity.countDistinct())
+            .from(recruitmentEntity)
+            .join(recruitmentEntity.company, companyEntity)
+            .join(recruitAreaEntity)
+            .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+            .join(recruitAreaCodeEntity)
+            .on(
+                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                recruitAreaCodeEntity.type.eq(JOB)
+            )
+            .join(recruitAreaCodeEntity.code, codeEntity)
+            .where(
+                eqYears(filter.getYears()),
+                containsName(filter.getCompanyName()),
+                eqWinterIntern(filter.getWinterIntern()),
+                eqStudentRecruitStatus(filter.getStatus()),
+                eqMilitarySupport(filter.getMilitarySupport()),
+                codeFilter
+            )
+            .fetchOne();
+    }
+
+    @Override
     public Recruitment getRecentByCompanyIdOrThrow(Long companyId) {
         return recruitmentMapper.toDomain(
             Optional.ofNullable(
@@ -510,7 +496,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitmentEntity.militarySupport,
                     companyEntity.companyLogoUrl,
                     recruitJobsPath,
-                    bookmarkEntity.recruitment.id.isNotNull()
+                    bookmarkEntity.recruitment.id.isNotNull(),
+                    recruitmentEntity.status
                 )
             )
             .from(recruitmentEntity)
@@ -581,6 +568,12 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return year == null ? null : recruitmentEntity.recruitYear.eq(year);
     }
 
+    private BooleanExpression eqYears(List<Integer> years) {
+        return years == null || years.isEmpty()
+            ? recruitmentEntity.recruitYear.eq(Year.now().getValue())
+            : recruitmentEntity.recruitYear.in(years);
+    }
+
     private BooleanExpression betweenRecruitDate(LocalDate start, LocalDate end) {
         if (start == null && end == null) {
             return null;
@@ -600,6 +593,12 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private BooleanExpression eqRecruitStatus(RecruitStatus status) {
         return status == null ? null : recruitmentEntity.status.eq(status);
+    }
+
+    private BooleanExpression eqStudentRecruitStatus(RecruitStatus status) {
+        return status == null
+            ? recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
+            : recruitmentEntity.status.eq(status);
     }
 
     private BooleanExpression containsName(String name) {
@@ -626,5 +625,61 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private BooleanExpression eqCompanyId(Long companyId) {
         return companyId == null ? null : recruitmentEntity.company.id.eq(companyId);
+    }
+
+    private BooleanExpression matchesCodeFilter(Long jobCode, List<Long> techCodes) {
+        BooleanExpression hasJobCode = hasJobCode(jobCode);
+        BooleanExpression hasTechCode = hasTechCode(techCodes);
+
+        if (hasJobCode != null && hasTechCode != null) {
+            return hasJobCode.and(hasTechCode);
+        } else if (hasJobCode != null) {
+            return hasJobCode;
+        } else if (hasTechCode != null) {
+            return hasTechCode;
+        }
+        return null;
+    }
+
+    private BooleanExpression hasJobCode(Long jobCode) {
+        if (jobCode == null) {
+            return null;
+        }
+
+        QRecruitAreaEntity recruitAreaSub = new QRecruitAreaEntity("recruitAreaSub");
+        QRecruitAreaCodeEntity recruitAreaCodeSub = new QRecruitAreaCodeEntity("recruitAreaCodeSub");
+
+        return JPAExpressions
+            .selectOne()
+            .from(recruitAreaSub)
+            .join(recruitAreaCodeSub)
+            .on(
+                recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
+                recruitAreaCodeSub.type.eq(CodeType.JOB),
+                recruitAreaCodeSub.code.code.in(jobCode)
+            )
+            .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
+            .exists();
+    }
+
+    private BooleanExpression hasTechCode(List<Long> techCodes) {
+        if (techCodes == null || techCodes.isEmpty()) {
+            return null;
+        }
+
+        QRecruitAreaEntity recruitAreaSub = new QRecruitAreaEntity("recruitAreaSub");
+        QRecruitAreaCodeEntity recruitAreaCodeSub = new QRecruitAreaCodeEntity("recruitAreaCodeSub");
+
+        return JPAExpressions
+            .selectOne()
+            .from(recruitAreaSub)
+            .join(recruitAreaCodeSub)
+            .on(
+                recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
+                recruitAreaCodeSub.type.eq(CodeType.TECH),
+                recruitAreaCodeSub.code.code.in(techCodes)
+            )
+            .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
+            .exists();
     }
 }
