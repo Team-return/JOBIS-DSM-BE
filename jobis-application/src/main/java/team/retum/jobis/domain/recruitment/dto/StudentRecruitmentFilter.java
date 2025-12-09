@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public class StudentRecruitmentFilter {
 
-    private final Integer year;
+    private final List<Integer> years;
 
     private final LocalDate startDate;
 

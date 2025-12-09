@@ -10,7 +10,6 @@ import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.TeacherRecruitmentVO;
 import team.retum.jobis.domain.recruitment.spi.vo.ManualRecruitmentVO;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +38,8 @@ public interface QueryRecruitmentPort {
     List<Recruitment> getAllByIdInOrThrow(List<Long> recruitmentIds);
 
     Long getCountBy(RecruitmentFilter filter);
+
+    Long getCountByStudentFilter(StudentRecruitmentFilter filter);
 
     List<MyAllRecruitmentsVO> getAllByCompanyId(Long companyId);
 

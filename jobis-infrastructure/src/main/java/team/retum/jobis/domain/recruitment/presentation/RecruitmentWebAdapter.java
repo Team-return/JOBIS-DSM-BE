@@ -126,7 +126,9 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "tech_code", required = false) String techCodes,
         @RequestParam(value = "job_code", required = false) String jobCode,
         @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
-        @RequestParam(value = "military_support", required = false) Boolean militarySupport
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport,
+        @RequestParam(value = "years", required = false) List<Integer> years,
+        @RequestParam(value = "status", required = false) RecruitStatus status
     ) {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
@@ -134,7 +136,9 @@ public class RecruitmentWebAdapter {
             (jobCode == null || jobCode.isEmpty() || jobCode.isBlank() || !jobCode.matches("\\d+")) ? null : Long.valueOf(jobCode),
             parseCodes(techCodes),
             winterIntern,
-            militarySupport
+            militarySupport,
+            years,
+            status
         );
     }
 
@@ -144,12 +148,20 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "name", required = false) String companyName,
         @RequestParam(value = "tech_code", required = false) String techCodes,
         @RequestParam(value = "job_code", required = false) String jobCode,
-        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport,
+        @RequestParam(value = "years", required = false) List<Integer> years,
+        @RequestParam(value = "status", required = false) RecruitStatus status
+
     ) {
         return studentQueryRecruitmentsUseCase.getTotalPageCount(
             companyName,
-            this.parseCodes(jobCode, techCodes),
-            winterIntern
+            (jobCode == null || jobCode.isEmpty() || jobCode.isBlank() || !jobCode.matches("\\d+")) ? null : Long.valueOf(jobCode),
+            parseCodes(techCodes),
+            winterIntern,
+            militarySupport,
+            years,
+            status
         );
     }
 
