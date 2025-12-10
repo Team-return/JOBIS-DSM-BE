@@ -22,6 +22,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "http://localhost:4000",
+                "http://localhost:5173",
+                "http://localhost:5174",
+                "http://localhost:5175",
 
                 "https://jobis-admin.team-return.monster",
                 "https://jobis-company.team-return.monster",
