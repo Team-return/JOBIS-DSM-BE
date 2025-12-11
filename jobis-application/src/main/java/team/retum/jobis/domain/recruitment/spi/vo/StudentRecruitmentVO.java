@@ -16,5 +16,5 @@ public class StudentRecruitmentVO {
     private final String jobCodes;
     private final boolean isBookmarked;
     private final RecruitStatus status;
-
+    private final int year;
 }

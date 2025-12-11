@@ -34,6 +34,8 @@ public class StudentQueryRecruitmentsResponse {
 
         private RecruitStatus status;
 
+        private int year;
+
         public static StudentRecruitmentResponse from(StudentRecruitmentVO recruitment) {
             return StudentRecruitmentResponse.builder()
                 .id(recruitment.getRecruitmentId())
@@ -44,6 +46,7 @@ public class StudentQueryRecruitmentsResponse {
                 .companyProfileUrl(recruitment.getCompanyLogoUrl())
                 .bookmarked(recruitment.isBookmarked())
                 .status(recruitment.getStatus())
+                .year(recruitment.getYear())
                 .build();
         }
     }
