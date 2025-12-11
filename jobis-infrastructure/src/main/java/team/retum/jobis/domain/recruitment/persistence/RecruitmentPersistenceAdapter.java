@@ -74,7 +74,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     companyEntity.companyLogoUrl,
                     recruitJobsPath,
                     bookmarkEntity.recruitment.id.isNotNull(),
-                    recruitmentEntity.status
+                    recruitmentEntity.status,
+                    recruitmentEntity.recruitYear
                 )
             )
             .from(recruitmentEntity)
@@ -497,7 +498,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     companyEntity.companyLogoUrl,
                     recruitJobsPath,
                     bookmarkEntity.recruitment.id.isNotNull(),
-                    recruitmentEntity.status
+                    recruitmentEntity.status,
+                    recruitmentEntity.recruitYear
                 )
             )
             .from(recruitmentEntity)
