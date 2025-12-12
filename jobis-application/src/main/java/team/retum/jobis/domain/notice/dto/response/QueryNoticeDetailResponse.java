@@ -17,13 +17,15 @@ public class QueryNoticeDetailResponse {
     private final String content;
     private final LocalDateTime createdAt;
     private final List<NoticeAttachment> attachments;
+    private final Long viewCount;
 
-    public static QueryNoticeDetailResponse from(Notice notice) {
+    public static QueryNoticeDetailResponse of(Notice notice, Long viewCount) {
         return QueryNoticeDetailResponse.builder()
             .title(notice.getTitle())
             .content(notice.getContent())
             .createdAt(notice.getCreatedAt())
             .attachments(notice.getAttachments())
+            .viewCount(viewCount)
             .build();
     }
 }
