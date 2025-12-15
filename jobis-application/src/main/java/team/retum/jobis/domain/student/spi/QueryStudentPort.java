@@ -23,5 +23,4 @@ public interface QueryStudentPort {
     Long getPassedStudentsByClassNumber(Integer classNum);
 
     List<Student> getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(List<SchoolNumber> schoolNumbers, int entranceYear);
-
 }
