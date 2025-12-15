@@ -29,7 +29,7 @@ public class SchoolNumber {
         return switch (classRoom) {
             case 1, 2 -> Department.SOFTWARE_DEVELOP;
             case 3 -> Department.EMBEDDED_SOFTWARE;
-            case 4 -> Department.INFORMATION_SECURITY;
+            case 4 -> Department.AI_SOFTWARE;
             default -> throw ClassRoomNotFoundException.EXCEPTION;
         };
     }
