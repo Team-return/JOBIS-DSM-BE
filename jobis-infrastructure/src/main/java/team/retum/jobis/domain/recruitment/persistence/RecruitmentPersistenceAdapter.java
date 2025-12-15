@@ -94,11 +94,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .join(recruitAreaCodeEntity.code, codeEntity)
             .where(
-                eqYears(filter.getYears()),
+                eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus()),
                 containsName(filter.getCompanyName()),
                 eqWinterIntern(filter.getWinterIntern()),
                 eqMilitarySupport(filter.getMilitarySupport()),
-                eqStudentRecruitStatus(filter.getStatus()),
                 codeFilter
             )
             .offset(filter.getOffset())
@@ -345,10 +344,9 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .join(recruitAreaCodeEntity.code, codeEntity)
             .where(
-                eqYears(filter.getYears()),
+                eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus()),
                 containsName(filter.getCompanyName()),
                 eqWinterIntern(filter.getWinterIntern()),
-                eqStudentRecruitStatus(filter.getStatus()),
                 eqMilitarySupport(filter.getMilitarySupport()),
                 codeFilter
             )
@@ -570,12 +568,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return year == null ? null : recruitmentEntity.recruitYear.eq(year);
     }
 
-    private BooleanExpression eqYears(List<Integer> years) {
-        return years == null || years.isEmpty()
-            ? recruitmentEntity.recruitYear.eq(Year.now().getValue())
-            : recruitmentEntity.recruitYear.in(years);
-    }
-
     private BooleanExpression betweenRecruitDate(LocalDate start, LocalDate end) {
         if (start == null && end == null) {
             return null;
@@ -597,10 +589,29 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return status == null ? null : recruitmentEntity.status.eq(status);
     }
 
-    private BooleanExpression eqStudentRecruitStatus(RecruitStatus status) {
-        return status == null
-            ? recruitmentEntity.status.eq(RecruitStatus.RECRUITING)
-            : recruitmentEntity.status.eq(status);
+    private BooleanExpression eqYearsAndRecruitStatus(List<Integer> years, RecruitStatus status) {
+        boolean noYears = years == null || years.isEmpty();
+        boolean noStatus = status == null;
+
+        if (noYears && noStatus) {
+            return recruitmentEntity.recruitYear.eq(Year.now().getValue())
+                .and(recruitmentEntity.status.eq(RecruitStatus.RECRUITING));
+        }
+
+        if (noYears) {
+            return recruitmentEntity.status.eq(status);
+        }
+
+        if (noStatus) {
+            return recruitmentEntity.recruitYear.in(years)
+                .and(recruitmentEntity.status.in(
+                    RecruitStatus.RECRUITING,
+                    RecruitStatus.DONE
+                ));
+        }
+
+        return recruitmentEntity.recruitYear.in(years)
+            .and(recruitmentEntity.status.eq(status));
     }
 
     private BooleanExpression containsName(String name) {
