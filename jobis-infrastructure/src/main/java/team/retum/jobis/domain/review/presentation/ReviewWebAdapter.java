@@ -31,6 +31,8 @@ import team.retum.jobis.domain.review.usecase.QueryReviewQuestionsUseCase;
 import team.retum.jobis.domain.review.usecase.QueryReviewsUseCase;
 import team.retum.jobis.domain.review.usecase.QueryMyReviewsUseCase;
 
+import java.util.List;
+
 import static team.retum.jobis.global.config.cache.CacheName.REVIEW;
 
 @CacheConfig(cacheNames = REVIEW)
@@ -67,10 +69,10 @@ public class ReviewWebAdapter {
         @RequestParam(value = "location", required = false) InterviewLocation location,
         @RequestParam(value = "company_id", required = false) Long companyId,
         @RequestParam(value = "keyword", required = false) String keyword,
-        @RequestParam(value = "year", required = false) Integer year,
+        @RequestParam(value = "years", required = false) List<Integer> years,
         @RequestParam(value = "code", required = false) Long code
     ) {
-        return queryReviewsUseCase.execute(page, type, location, companyId, keyword, year, code);
+        return queryReviewsUseCase.execute(page, type, location, companyId, keyword, years, code);
     }
 
     @Cacheable
@@ -80,10 +82,10 @@ public class ReviewWebAdapter {
         @RequestParam(value = "location", required = false) InterviewLocation location,
         @RequestParam(value = "company_id", required = false) Long companyId,
         @RequestParam(value = "keyword", required = false) String keyword,
-        @RequestParam(value = "year", required = false) Integer year,
+        @RequestParam(value = "years", required = false) List<Integer> years,
         @RequestParam(value = "code", required = false) Long code
     ) {
-        return queryReviewsUseCase.getTotalPageCount(type, location, companyId, keyword, year, code);
+        return queryReviewsUseCase.getTotalPageCount(type, location, companyId, keyword, years, code);
     }
 
     @GetMapping("/{review-id}")

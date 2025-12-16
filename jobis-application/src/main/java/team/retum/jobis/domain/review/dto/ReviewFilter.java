@@ -5,6 +5,8 @@ import lombok.Getter;
 import team.retum.jobis.domain.review.model.InterviewLocation;
 import team.retum.jobis.domain.review.model.InterviewType;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class ReviewFilter {
@@ -19,7 +21,7 @@ public class ReviewFilter {
 
     private final String keyword;
 
-    private final Integer year;
+    private final List<Integer> years;
 
     private final Long code;
 
