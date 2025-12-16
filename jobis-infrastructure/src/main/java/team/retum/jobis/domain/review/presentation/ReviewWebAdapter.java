@@ -48,6 +48,7 @@ public class ReviewWebAdapter {
     private final DeleteReviewUseCase deleteReviewUseCase;
     private final QueryMyReviewsUseCase queryMyReviewsUseCase;
 
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createReview(
