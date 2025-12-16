@@ -30,7 +30,7 @@ public class QueryReviewsUseCase {
         InterviewLocation location,
         Long companyId,
         String keyword,
-        Integer year,
+        List<Integer> years,
         Long code
     ) {
         ReviewFilter filter = ReviewFilter.builder()
@@ -39,7 +39,7 @@ public class QueryReviewsUseCase {
             .location(location)
             .companyId(companyId)
             .keyword(keyword)
-            .year(year)
+            .years(years)
             .code(code)
             .build();
 
@@ -65,7 +65,7 @@ public class QueryReviewsUseCase {
         InterviewLocation location,
         Long companyId,
         String keyword,
-        Integer year,
+        List<Integer> years,
         Long code
     ) {
         ReviewFilter filter = ReviewFilter.builder()
@@ -73,7 +73,7 @@ public class QueryReviewsUseCase {
             .location(location)
             .companyId(companyId)
             .keyword(keyword)
-            .year(year)
+            .years(years)
             .code(code)
             .build();
 

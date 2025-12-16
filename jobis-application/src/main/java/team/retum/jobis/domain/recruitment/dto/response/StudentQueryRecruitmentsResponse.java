@@ -3,6 +3,7 @@ package team.retum.jobis.domain.recruitment.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.spi.vo.StudentRecruitmentVO;
 
 import java.util.List;
@@ -31,6 +32,10 @@ public class StudentQueryRecruitmentsResponse {
 
         private boolean bookmarked;
 
+        private RecruitStatus status;
+
+        private int year;
+
         public static StudentRecruitmentResponse from(StudentRecruitmentVO recruitment) {
             return StudentRecruitmentResponse.builder()
                 .id(recruitment.getRecruitmentId())
@@ -40,6 +45,8 @@ public class StudentQueryRecruitmentsResponse {
                 .militarySupport(recruitment.getMilitarySupport())
                 .companyProfileUrl(recruitment.getCompanyLogoUrl())
                 .bookmarked(recruitment.isBookmarked())
+                .status(recruitment.getStatus())
+                .year(recruitment.getYear())
                 .build();
         }
     }

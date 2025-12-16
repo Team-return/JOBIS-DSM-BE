@@ -5,14 +5,12 @@ import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
-import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 
-import java.time.Year;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,12 +26,13 @@ public class StudentQueryRecruitmentsUseCase {
         Long jobCode,
         List<Long> techCodesIds,
         Boolean winterIntern,
-        Boolean militarySupport
+        Boolean militarySupport,
+        List<Integer> years,
+        RecruitStatus status
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
         StudentRecruitmentFilter studentRecruitmentFilter = StudentRecruitmentFilter.builder()
-            .year(Year.now().getValue())
-            .status(RecruitStatus.RECRUITING)
+            .years(years)
             .companyName(name)
             .page(page)
             .limit(12)
@@ -42,6 +41,7 @@ public class StudentQueryRecruitmentsUseCase {
             .studentId(currentStudentId)
             .winterIntern(winterIntern)
             .militarySupport(militarySupport)
+            .status(status)
             .build();
 
         List<StudentRecruitmentResponse> recruitments =
@@ -52,21 +52,31 @@ public class StudentQueryRecruitmentsUseCase {
         return new StudentQueryRecruitmentsResponse(recruitments);
     }
 
-    public TotalPageCountResponse getTotalPageCount(String name, List<Long> codeIds, Boolean winterIntern) {
+    public TotalPageCountResponse getTotalPageCount(
+        String name,
+        Long jobCode,
+        List<Long> techCodesIds,
+        Boolean winterIntern,
+        Boolean militarySupport,
+        List<Integer> years,
+        RecruitStatus status
+    ) {
         Long currentStudentId = securityPort.getCurrentUserId();
 
-        RecruitmentFilter filter = RecruitmentFilter.builder()
-            .year(Year.now().getValue())
-            .status(RecruitStatus.RECRUITING)
+        StudentRecruitmentFilter filter = StudentRecruitmentFilter.builder()
+            .years(years)
             .companyName(name)
-            .limit(12)
-            .codes(codeIds)
+            .jobCode(jobCode)
+            .techCodes(techCodesIds)
             .studentId(currentStudentId)
             .winterIntern(winterIntern)
+            .militarySupport(militarySupport)
+            .status(status)
+            .limit(12)
             .build();
 
         int totalPageCount = NumberUtil.getTotalPageCount(
-            queryRecruitmentPort.getCountBy(filter), filter.getLimit()
+            queryRecruitmentPort.getCountByStudentFilter(filter), filter.getLimit()
         );
 
         return new TotalPageCountResponse(totalPageCount);
