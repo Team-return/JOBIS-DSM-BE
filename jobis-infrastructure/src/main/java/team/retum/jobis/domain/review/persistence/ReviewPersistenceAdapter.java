@@ -100,7 +100,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 eqInterviewType(filter.getType()),
                 eqInterviewLocation(filter.getLocation()),
                 eqCompanyId(filter.getCompanyId()),
-                eqYear(filter.getYear()),
+                eqYears(filter.getYears()),
                 eqCode(filter.getCode()),
                 containsKeyword(filter.getKeyword())
             )
@@ -124,7 +124,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                 eqInterviewType(filter.getType()),
                 eqInterviewLocation(filter.getLocation()),
                 eqCompanyId(filter.getCompanyId()),
-                eqYear(filter.getYear()),
+                eqYears(filter.getYears()),
                 eqCode(filter.getCode()),
                 containsKeyword(filter.getKeyword())
             )
@@ -212,8 +212,8 @@ public class ReviewPersistenceAdapter implements ReviewPort {
         return companyId == null ? null : reviewEntity.company.id.eq(companyId);
     }
 
-    private BooleanExpression eqYear(Integer year) {
-        return year == null ? null : reviewEntity.createdAt.year().eq(year);
+    private BooleanExpression eqYears(List<Integer> years) {
+        return years == null ? null : reviewEntity.createdAt.year().in(years);
     }
 
     private BooleanExpression eqCode(Long code) {
