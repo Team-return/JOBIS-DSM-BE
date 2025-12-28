@@ -94,7 +94,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .join(recruitAreaCodeEntity.code, codeEntity)
             .where(
-                eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus()),
+                eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus(), filter.getCompanyName()),
                 containsName(filter.getCompanyName()),
                 eqWinterIntern(filter.getWinterIntern()),
                 eqMilitarySupport(filter.getMilitarySupport()),
@@ -344,7 +344,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .join(recruitAreaCodeEntity.code, codeEntity)
             .where(
-                eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus()),
+                eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus(), filter.getCompanyName()),
                 containsName(filter.getCompanyName()),
                 eqWinterIntern(filter.getWinterIntern()),
                 eqMilitarySupport(filter.getMilitarySupport()),
