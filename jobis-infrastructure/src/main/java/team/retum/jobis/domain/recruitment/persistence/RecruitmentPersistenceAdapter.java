@@ -568,6 +568,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return year == null ? null : recruitmentEntity.recruitYear.eq(year);
     }
 
+    private BooleanExpression eqYears(List<Integer> years) {
+        return (years == null || years.isEmpty()) ? null : recruitmentEntity.recruitYear.in(years);
+    }
+
     private BooleanExpression betweenRecruitDate(LocalDate start, LocalDate end) {
         if (start == null && end == null) {
             return null;
@@ -589,29 +593,33 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return status == null ? null : recruitmentEntity.status.eq(status);
     }
 
+    private BooleanExpression eqRecruitStatuses(List<RecruitStatus> statuses) {
+        return (statuses == null || statuses.isEmpty()) ? null : recruitmentEntity.status.in(statuses);
+    }
+
     private BooleanExpression eqYearsAndRecruitStatus(List<Integer> years, RecruitStatus status) {
         boolean noYears = years == null || years.isEmpty();
         boolean noStatus = status == null;
 
         if (noYears && noStatus) {
-            return recruitmentEntity.recruitYear.eq(Year.now().getValue())
-                .and(recruitmentEntity.status.eq(RecruitStatus.RECRUITING));
+            return eqYear(Year.now().getValue())
+                .and(eqRecruitStatus(RecruitStatus.RECRUITING));
         }
 
         if (noYears) {
-            return recruitmentEntity.status.eq(status);
+            return eqRecruitStatus(status);
         }
 
         if (noStatus) {
-            return recruitmentEntity.recruitYear.in(years)
-                .and(recruitmentEntity.status.in(
+            return eqYears(years)
+                .and(eqRecruitStatuses(List.of(
                     RecruitStatus.RECRUITING,
                     RecruitStatus.DONE
-                ));
+                )));
         }
 
-        return recruitmentEntity.recruitYear.in(years)
-            .and(recruitmentEntity.status.eq(status));
+        return eqYears(years)
+            .and(eqRecruitStatus(status));
     }
 
     private BooleanExpression containsName(String name) {
