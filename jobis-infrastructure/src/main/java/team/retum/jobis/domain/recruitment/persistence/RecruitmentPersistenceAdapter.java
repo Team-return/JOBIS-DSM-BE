@@ -597,11 +597,19 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return (statuses == null || statuses.isEmpty()) ? null : recruitmentEntity.status.in(statuses);
     }
 
-    private BooleanExpression eqYearsAndRecruitStatus(List<Integer> years, RecruitStatus status) {
+    private BooleanExpression eqYearsAndRecruitStatus(List<Integer> years, RecruitStatus status, String companyName) {
         boolean noYears = years == null || years.isEmpty();
         boolean noStatus = status == null;
+        boolean hasCompanyName = companyName != null && !companyName.isBlank();
 
         if (noYears && noStatus) {
+            if (hasCompanyName) {
+                return eqRecruitStatuses(List.of(
+                    RecruitStatus.RECRUITING,
+                    RecruitStatus.DONE
+                ));
+            }
+
             return eqYear(Year.now().getValue())
                 .and(eqRecruitStatus(RecruitStatus.RECRUITING));
         }
