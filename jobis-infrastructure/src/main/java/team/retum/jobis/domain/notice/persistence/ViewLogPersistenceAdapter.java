@@ -44,11 +44,13 @@ public class ViewLogPersistenceAdapter implements CommandViewLogPort, QueryViewL
 
     @Override
     public Long countByNoticeId(Long noticeId) {
-        return queryFactory
+        Long count = queryFactory
             .select(viewLogEntity.count())
             .from(viewLogEntity)
             .where(eqNoticeId(noticeId))
             .fetchOne();
+
+        return count != null ? count : 0L;
     }
 
     @Override
