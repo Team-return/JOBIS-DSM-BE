@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.notice.persistence;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -35,8 +36,8 @@ public class ViewLogPersistenceAdapter implements CommandViewLogPort, QueryViewL
             .selectOne()
             .from(viewLogEntity)
             .where(
-                viewLogEntity.notice.id.eq(noticeId),
-                viewLogEntity.student.id.eq(studentId)
+                eqNoticeId(noticeId),
+                eqStudentId(studentId)
             )
             .fetchFirst() != null;
     }
@@ -46,7 +47,7 @@ public class ViewLogPersistenceAdapter implements CommandViewLogPort, QueryViewL
         return queryFactory
             .select(viewLogEntity.count())
             .from(viewLogEntity)
-            .where(viewLogEntity.notice.id.eq(noticeId))
+            .where(eqNoticeId(noticeId))
             .fetchOne();
     }
 
@@ -65,11 +66,21 @@ public class ViewLogPersistenceAdapter implements CommandViewLogPort, QueryViewL
             )
             .from(viewLogEntity)
             .join(viewLogEntity.student, studentEntity)
-            .where(viewLogEntity.notice.id.eq(noticeId))
+            .where(eqNoticeId(noticeId))
             .orderBy(viewLogEntity.viewedAt.desc())
             .fetch()
             .stream()
             .map(ViewerVO.class::cast)
             .toList();
+    }
+
+    //==conditions==//
+
+    private BooleanExpression eqNoticeId(Long noticeId) {
+        return noticeId == null ? null : viewLogEntity.notice.id.eq(noticeId);
+    }
+
+    private BooleanExpression eqStudentId(Long studentId) {
+        return studentId == null ? null : viewLogEntity.student.id.eq(studentId);
     }
 }
