@@ -11,5 +11,4 @@ public interface QueryViewLogPort {
     Long countByNoticeId(Long noticeId);
 
     List<ViewerVO> getViewersByNoticeId(Long noticeId);
-
 }

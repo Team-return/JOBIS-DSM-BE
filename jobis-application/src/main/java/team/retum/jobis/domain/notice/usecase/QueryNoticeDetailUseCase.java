@@ -1,6 +1,5 @@
 package team.retum.jobis.domain.notice.usecase;
 
-
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticeDetailResponse;
@@ -14,6 +13,7 @@ import team.retum.jobis.domain.notice.spi.QueryViewLogPort;
 public class QueryNoticeDetailUseCase {
 
     private final QueryNoticePort queryNoticePort;
+
     private final QueryViewLogPort queryViewLogPort;
 
     public QueryNoticeDetailResponse execute(Long noticeId) {
@@ -23,6 +23,5 @@ public class QueryNoticeDetailUseCase {
         Long viewCount = queryViewLogPort.countByNoticeId(noticeId);
 
         return QueryNoticeDetailResponse.of(notice, viewCount);
-
     }
 }
