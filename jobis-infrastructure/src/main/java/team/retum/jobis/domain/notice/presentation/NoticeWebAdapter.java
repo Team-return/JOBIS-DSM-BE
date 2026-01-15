@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticeDetailResponse;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticesResponse;
+import team.retum.jobis.domain.notice.dto.response.QueryNoticeViewersResponse;
 import team.retum.jobis.domain.notice.presentation.dto.CreateNoticeWebRequest;
 import team.retum.jobis.domain.notice.presentation.dto.UpdateNoticeWebRequest;
 import team.retum.jobis.domain.notice.usecase.CreateNoticeUseCase;
 import team.retum.jobis.domain.notice.usecase.DeleteNoticeUseCase;
 import team.retum.jobis.domain.notice.usecase.QueryNoticeDetailUseCase;
 import team.retum.jobis.domain.notice.usecase.QueryNoticesUseCase;
+import team.retum.jobis.domain.notice.usecase.QueryNoticeViewersUseCase;
+import team.retum.jobis.domain.notice.usecase.RecordNoticeViewUseCase;
 import team.retum.jobis.domain.notice.usecase.UpdateNoticeUseCase;
 
 @RequiredArgsConstructor
@@ -32,6 +35,8 @@ public class NoticeWebAdapter {
     private final DeleteNoticeUseCase deleteNoticeUseCase;
     private final QueryNoticesUseCase queryNoticesUseCase;
     private final QueryNoticeDetailUseCase queryNoticeDetailsUseCase;
+    private final RecordNoticeViewUseCase recordNoticeViewUseCase;
+    private final QueryNoticeViewersUseCase queryNoticeViewersUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -64,5 +69,18 @@ public class NoticeWebAdapter {
         @PathVariable("notice-id") Long noticeId
     ) {
         return queryNoticeDetailsUseCase.execute(noticeId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping("/{notice-id}/views")
+    public void recordNoticeView(@PathVariable("notice-id") Long noticeId) {
+        recordNoticeViewUseCase.execute(noticeId);
+    }
+
+    @GetMapping("/{notice-id}/viewers")
+    public QueryNoticeViewersResponse queryNoticeViewers(
+        @PathVariable("notice-id") Long noticeId
+    ) {
+        return queryNoticeViewersUseCase.execute(noticeId);
     }
 }
