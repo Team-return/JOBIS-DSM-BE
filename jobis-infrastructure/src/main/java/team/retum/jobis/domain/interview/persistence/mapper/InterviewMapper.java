@@ -18,7 +18,9 @@ public class InterviewMapper {
 
     public InterviewEntity toEntity(Interview domain) {
         StudentEntity studentEntity = studentJpaRepository.getReferenceById(domain.getStudentId());
-        DocumentNumberEntity documentNumberEntity = documentNumberJpaRepository.getReferenceById(domain.getDocumentNumberId());
+        DocumentNumberEntity documentNumberEntity = domain.getDocumentNumberId() != null
+            ? documentNumberJpaRepository.getReferenceById(domain.getDocumentNumberId())
+            : null;
 
         return InterviewEntity.builder()
             .id(domain.getId())
@@ -43,7 +45,7 @@ public class InterviewMapper {
             .companyName(entity.getCompanyName())
             .location(entity.getLocation())
             .studentId(entity.getStudent().getId())
-            .documentNumberId(entity.getDocumentNumber().getId())
+            .documentNumberId(entity.getDocumentNumber() != null ? entity.getDocumentNumber().getId() : null)
             .build();
     }
 }
