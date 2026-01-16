@@ -35,7 +35,7 @@ public record InterviewWebRequest(
     Long studentId
 ) {
     public InterviewRequest toDomainRequest() {
-        if(!Pattern.matches(RegexProperty.INTERVIEW_TIME, this.interviewTime)) {
+        if (!Pattern.matches(RegexProperty.INTERVIEW_TIME, this.interviewTime)) {
             throw BadRequestException.EXCEPTION;
         }
 
