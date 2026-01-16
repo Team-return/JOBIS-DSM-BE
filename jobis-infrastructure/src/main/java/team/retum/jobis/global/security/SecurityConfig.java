@@ -180,8 +180,10 @@ public class SecurityConfig {
                     // winter-intern
                     .requestMatchers(HttpMethod.PATCH, "/winter-intern").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/winter-intern").hasAnyAuthority(TEACHER.name(), STUDENT.name())
-                    .anyRequest().authenticated()
 
+                    // interview
+                    .requestMatchers(HttpMethod.POST, "/interviews").hasAnyAuthority(TEACHER.name(), STUDENT.name())
+                    .anyRequest().authenticated()
             )
             .apply(new FilterConfig(jwtParser, objectMapper, eventPublisher));
 

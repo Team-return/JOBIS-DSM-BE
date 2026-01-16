@@ -13,6 +13,7 @@ import team.retum.jobis.domain.student.persistence.repository.StudentJpaReposito
 import team.retum.jobis.domain.student.spi.StudentPort;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
@@ -26,6 +27,12 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final StudentJpaRepository studentJpaRepository;
     private final StudentMapper studentMapper;
     private final JPAQueryFactory queryFactory;
+
+    @Override
+    public Optional<Student> getById(Long id) {
+        return studentJpaRepository.findById(id)
+            .map(studentMapper::toDomain);
+    }
 
     @Override
     public boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear) {
