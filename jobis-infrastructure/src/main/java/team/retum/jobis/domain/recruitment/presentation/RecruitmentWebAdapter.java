@@ -152,7 +152,6 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "military_support", required = false) Boolean militarySupport,
         @RequestParam(value = "years", required = false) List<Integer> years,
         @RequestParam(value = "status", required = false) RecruitStatus status
-
     ) {
         return studentQueryRecruitmentsUseCase.getTotalPageCount(
             companyName,

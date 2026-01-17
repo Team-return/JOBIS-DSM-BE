@@ -9,6 +9,6 @@ public enum ProgressType {
     PERSONALITY,
     TECH_INTERVIEW,
     CULTURE_INTERVIEW,
-    FINAL_INTERVIEW
-
+    FINAL_INTERVIEW,
+    ETC
 }

@@ -5,8 +5,11 @@ import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface QueryStudentPort {
+
+    Optional<Student> getById(Long id);
 
     boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear);
 
