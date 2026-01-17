@@ -75,6 +75,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/students/profile").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.PATCH, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                    .requestMatchers(HttpMethod.GET, "/students/teacher").hasAuthority(TEACHER.name())
 
                     // applications
                     .requestMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())

@@ -14,17 +14,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.student.dto.response.StudentMyPageResponse;
+import team.retum.jobis.domain.student.dto.response.TeacherQueryStudentsResponse;
 import team.retum.jobis.domain.student.presentation.dto.request.StudentSignUpWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateForgottenPasswordWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdatePasswordWebRequest;
 import team.retum.jobis.domain.student.presentation.dto.request.UpdateStudentProfileWebRequest;
-import team.retum.jobis.domain.student.usecase.CheckStudentPasswordUseCase;
 import team.retum.jobis.domain.student.usecase.StudentMyPageUseCase;
 import team.retum.jobis.domain.student.usecase.StudentSignUpUseCase;
 import team.retum.jobis.domain.student.usecase.UpdateStudentForgottenPasswordUseCase;
 import team.retum.jobis.domain.student.usecase.UpdateStudentPasswordUseCase;
 import team.retum.jobis.domain.student.usecase.UpdateStudentProfileUseCase;
 import team.retum.jobis.domain.student.usecase.VerifyStudentUseCase;
+import team.retum.jobis.domain.student.usecase.CheckStudentPasswordUseCase;
+import team.retum.jobis.domain.student.usecase.TeacherQueryStudentsUseCase;
 
 import static team.retum.jobis.global.config.cache.CacheName.STUDENT_USER;
 
@@ -40,6 +42,7 @@ public class StudentWebAdapter {
     private final UpdateStudentProfileUseCase updateStudentProfileUseCase;
     private final CheckStudentPasswordUseCase checkStudentPasswordUseCase;
     private final UpdateStudentPasswordUseCase updateStudentPasswordUseCase;
+    private final TeacherQueryStudentsUseCase teacherQueryStudentsUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -88,5 +91,10 @@ public class StudentWebAdapter {
             webRequest.getCurrentPassword(),
             webRequest.getNewPassword()
         );
+    }
+
+    @GetMapping("/teacher")
+    public TeacherQueryStudentsResponse queryStudents(@RequestParam("name") String name) {
+        return teacherQueryStudentsUseCase.execute(name);
     }
 }

@@ -10,8 +10,11 @@ import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
+import team.retum.jobis.domain.student.persistence.repository.vo.QQueryTeacherStudentsVO;
 import team.retum.jobis.domain.student.spi.StudentPort;
+import team.retum.jobis.domain.student.spi.vo.TeacherStudentsVO;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
@@ -151,5 +154,31 @@ public class StudentPersistenceAdapter implements StudentPort {
         }
 
         return students;
+    }
+
+    @Override
+    public List<TeacherStudentsVO> getStudentsByName(String name) {
+        return queryFactory
+            .select(
+                new QQueryTeacherStudentsVO(
+                    studentEntity.id,
+                    studentEntity.name,
+                    studentEntity.grade,
+                    studentEntity.classRoom,
+                    studentEntity.number
+            ))
+            .from(studentEntity)
+            .where(
+                studentEntity.name.contains(name)
+                    .and(studentEntity.entranceYear.between(Year.now().getValue() - 2, Year.now().getValue()))
+            )
+            .orderBy(
+                studentEntity.grade.desc(),
+                studentEntity.classRoom.asc(),
+                studentEntity.number.asc()
+            )
+            .fetch().stream()
+            .map(TeacherStudentsVO.class::cast)
+            .toList();
     }
 }
