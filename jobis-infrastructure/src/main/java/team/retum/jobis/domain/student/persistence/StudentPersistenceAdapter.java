@@ -158,6 +158,8 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     @Override
     public List<TeacherStudentsVO> getStudentsByName(String name) {
+        int currentYear = Year.now().getValue();
+
         return queryFactory
             .select(
                 new QQueryTeacherStudentsVO(
@@ -170,7 +172,7 @@ public class StudentPersistenceAdapter implements StudentPort {
             .from(studentEntity)
             .where(
                 studentEntity.name.contains(name)
-                    .and(studentEntity.entranceYear.between(Year.now().getValue() - 2, Year.now().getValue()))
+                    .and(studentEntity.entranceYear.between(currentYear - 2, currentYear))
             )
             .orderBy(
                 studentEntity.grade.desc(),
