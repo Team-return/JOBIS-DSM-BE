@@ -76,4 +76,26 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             .map(InterviewVO.class::cast)
             .toList();
     }
+
+    @Override
+    public List<Interview> getByIds(List<Long> interviewIds) {
+        return queryFactory
+            .selectFrom(interviewEntity)
+            .where(interviewEntity.id.in(interviewIds))
+            .fetch()
+            .stream()
+            .map(interviewMapper::toDomain)
+            .toList();
+    }
+
+    @Override
+    public List<Interview> getByDocumentNumberId(Long documentNumberId) {
+        return queryFactory
+            .selectFrom(interviewEntity)
+            .where(interviewEntity.documentNumber.id.eq(documentNumberId))
+            .fetch()
+            .stream()
+            .map(interviewMapper::toDomain)
+            .toList();
+    }
 }

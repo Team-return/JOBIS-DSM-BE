@@ -3,9 +3,13 @@ package team.retum.jobis.domain.interview.presentation.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 public record DocumentNumberWebRequest(
     @NotBlank
     @Size(max = 6)
-    String documentNumber
+    String documentNumber,
+
+    List<Long> interviewIds
 ) {
 }

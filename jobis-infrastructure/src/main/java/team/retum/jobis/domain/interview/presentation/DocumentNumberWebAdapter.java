@@ -35,7 +35,7 @@ public class DocumentNumberWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void create(@RequestBody @Valid DocumentNumberWebRequest request) {
-        createDocumentNumberUseCase.execute(request.documentNumber());
+        createDocumentNumberUseCase.execute(request.documentNumber(), request.interviewIds());
     }
 
     @GetMapping
@@ -56,7 +56,7 @@ public class DocumentNumberWebAdapter {
         @PathVariable("document-number-id") Long documentNumberId,
         @RequestBody @Valid DocumentNumberWebRequest request
     ) {
-        updateDocumentNumberUseCase.execute(documentNumberId, request.documentNumber());
+        updateDocumentNumberUseCase.execute(documentNumberId, request.documentNumber(), request.interviewIds());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
