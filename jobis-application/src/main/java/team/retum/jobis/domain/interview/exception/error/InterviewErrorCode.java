@@ -11,7 +11,8 @@ public enum InterviewErrorCode implements ErrorProperty {
 
     INVALID_INTERVIEW_DATE(HttpStatus.BAD_REQUEST, "Invalid Interview Date"),
     INVALID_INTERVIEW_TYPE(HttpStatus.BAD_REQUEST, "Invalid Interview Type"),
-    INVALID_STUDENT_ID(HttpStatus.BAD_REQUEST, "Invalid Student Id");
+    INVALID_STUDENT_ID(HttpStatus.BAD_REQUEST, "Invalid Student Id"),
+    DOCUMENT_NUMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "Document Number Not Found");
 
     private final HttpStatus status;
     private final String message;
