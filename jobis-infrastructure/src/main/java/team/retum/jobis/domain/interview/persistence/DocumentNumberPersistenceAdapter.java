@@ -14,6 +14,7 @@ import team.retum.jobis.domain.interview.spi.vo.InterviewVO;
 import java.util.List;
 import java.util.Optional;
 
+import static team.retum.jobis.domain.interview.persistence.entity.QDocumentNumberEntity.documentNumberEntity;
 import static team.retum.jobis.domain.interview.persistence.entity.QInterviewEntity.interviewEntity;
 
 @Repository
@@ -80,5 +81,26 @@ public class DocumentNumberPersistenceAdapter implements DocumentNumberPort {
                     interviews
                 );
             });
+    }
+
+    @Override
+    public boolean existsByDocumentNumber(String documentNumber) {
+        return queryFactory
+            .selectOne()
+            .from(documentNumberEntity)
+            .where(documentNumberEntity.documentNumber.eq(documentNumber))
+            .fetchFirst() != null;
+    }
+
+    @Override
+    public boolean existsByDocumentNumberAndIdNot(String documentNumber, Long documentNumberId) {
+        return queryFactory
+            .selectOne()
+            .from(documentNumberEntity)
+            .where(
+                documentNumberEntity.documentNumber.eq(documentNumber),
+                documentNumberEntity.id.ne(documentNumberId)
+            )
+            .fetchFirst() != null;
     }
 }

@@ -20,7 +20,7 @@ public class DocumentNumberEntity {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "VARCHAR(6)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false, unique = true)
     private String documentNumber;
 
     @Builder

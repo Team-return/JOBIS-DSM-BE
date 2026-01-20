@@ -13,4 +13,8 @@ public interface QueryDocumentNumberPort {
     List<DocumentNumber> getAll();
 
     Optional<DocumentNumberDetailVO> getDetailById(Long documentNumberId);
+
+    boolean existsByDocumentNumber(String documentNumber);
+
+    boolean existsByDocumentNumberAndIdNot(String documentNumber, Long documentNumberId);
 }
