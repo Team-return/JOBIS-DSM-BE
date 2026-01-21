@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.interview.persistence;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import team.retum.jobis.domain.interview.persistence.repository.vo.QQueryIntervi
 import team.retum.jobis.domain.interview.spi.InterviewPort;
 import team.retum.jobis.domain.interview.spi.vo.InterviewVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static team.retum.jobis.domain.interview.persistence.entity.QInterviewEntity.interviewEntity;
@@ -18,6 +20,7 @@ import static team.retum.jobis.domain.interview.persistence.entity.QInterviewEnt
 @RequiredArgsConstructor
 public class InterviewPersistenceAdapter implements InterviewPort {
 
+    private final JPAQueryFactory queryFactory;
     private final InterviewMapper interviewMapper;
     private final InterviewJpaRepository interviewJpaRepository;
     private final JPAQueryFactory queryFactory;
@@ -30,7 +33,7 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             )
         );
     }
-
+  
     @Override
     public List<InterviewVO> getInterviewsByMonth(Integer year, Integer month) {
         return queryFactory
@@ -89,7 +92,7 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             .map(interviewMapper::toDomain)
             .toList();
     }
-
+  
     @Override
     public List<Interview> getByDocumentNumberId(Long documentNumberId) {
         return queryFactory
@@ -99,5 +102,29 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             .stream()
             .map(interviewMapper::toDomain)
             .toList();
+    }
+  
+    @Override
+    public List<Interview> getInterviewsByDateRange(LocalDate targetDate) {
+        return queryFactory
+            .selectFrom(interviewEntity)
+            .where(isInterviewOnDate(targetDate))
+            .fetch()
+            .stream()
+            .map(interviewMapper::toDomain)
+            .toList();
+    }
+
+    //==conditions==//
+
+    private BooleanExpression isInterviewOnDate(LocalDate targetDate) {
+        BooleanExpression singleDayInterview = interviewEntity.endDate.isNull()
+            .and(interviewEntity.startDate.eq(targetDate));
+
+        BooleanExpression multiDayInterview = interviewEntity.endDate.isNotNull()
+            .and(interviewEntity.startDate.loe(targetDate))
+            .and(interviewEntity.endDate.goe(targetDate));
+
+        return singleDayInterview.or(multiDayInterview);
     }
 }
