@@ -9,7 +9,7 @@ import team.retum.jobis.domain.banner.spi.vo.BannerVO;
 public class QueryBannerVO extends BannerVO {
 
     @QueryProjection
-    public QueryBannerVO(Long id, String bannerUrl, BannerType bannerType, Long detailId) {
-        super(id, bannerUrl, bannerType, detailId);
+    public QueryBannerVO(Long id, String title, String content, BannerType bannerType, Long detailId) {
+        super(id, title, content, bannerType, detailId);
     }
 }

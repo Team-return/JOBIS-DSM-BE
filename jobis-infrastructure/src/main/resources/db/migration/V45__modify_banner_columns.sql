@@ -1,0 +1,5 @@
+ALTER TABLE tbl_banner DROP COLUMN banner_url;
+
+ALTER TABLE tbl_banner ADD COLUMN title VARCHAR(100) NOT NULL;
+
+ALTER TABLE tbl_banner ADD COLUMN content VARCHAR(500) NOT NULL;
