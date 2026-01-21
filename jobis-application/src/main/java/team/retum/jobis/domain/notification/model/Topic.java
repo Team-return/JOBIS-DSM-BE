@@ -6,4 +6,5 @@ public enum Topic {
     RECRUITMENT,
     NOTICE,
     WINTER_INTERN,
+    INTERVIEW,
 }
