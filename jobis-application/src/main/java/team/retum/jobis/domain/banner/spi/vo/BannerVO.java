@@ -9,7 +9,8 @@ import team.retum.jobis.domain.banner.model.BannerType;
 public class BannerVO {
 
     private final Long id;
-    private final String bannerUrl;
+    private final String title;
+    private final String content;
     private final BannerType bannerType;
     private final Long detailId;
 }

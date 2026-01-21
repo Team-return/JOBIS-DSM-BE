@@ -1,6 +1,7 @@
 package team.retum.jobis.domain.banner.presentation.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,12 @@ import java.time.LocalDate;
 public class CreateBannerWebRequest {
 
     @NotNull
-    private String bannerUrl;
+    @Size(max = 100)
+    private String title;
+
+    @NotNull
+    @Size(max = 500)
+    private String content;
 
     @NotNull
     private BannerType bannerType;
@@ -29,7 +35,8 @@ public class CreateBannerWebRequest {
 
     public CreateBannerRequest toDomainRequest() {
         return CreateBannerRequest.builder()
-            .bannerUrl(this.bannerUrl)
+            .title(this.title)
+            .content(this.content)
             .bannerType(this.bannerType)
             .startDate(this.startDate)
             .endDate(this.endDate)

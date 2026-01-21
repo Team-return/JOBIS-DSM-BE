@@ -18,5 +18,4 @@ public class ViewLog {
     private final Long studentId;
 
     private final LocalDateTime viewedAt;
-
 }

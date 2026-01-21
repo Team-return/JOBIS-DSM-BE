@@ -15,7 +15,8 @@ public class CreateBannerUseCase {
     public void execute(CreateBannerRequest request) {
         commandBannerPort.save(
             Banner.builder()
-                .bannerUrl(request.getBannerUrl())
+                .title(request.getTitle())
+                .content(request.getContent())
                 .bannerType(request.getBannerType())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())

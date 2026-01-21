@@ -41,6 +41,7 @@ public class CreateInterviewUseCase {
                 .companyName(request.companyName())
                 .location(request.location())
                 .studentId(student.getId())
+                .documentNumberId(request.documentNumberId())
                 .build()
         );
     }

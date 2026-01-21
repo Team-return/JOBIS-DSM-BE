@@ -12,7 +12,8 @@ public class BannerMapper {
     public BannerEntity toEntity(Banner domain) {
         return BannerEntity.builder()
             .id(domain.getId())
-            .bannerUrl(domain.getBannerUrl())
+            .title(domain.getTitle())
+            .content(domain.getContent())
             .bannerType(domain.getBannerType())
             .startDate(domain.getStartDate())
             .endDate(domain.getEndDate())
@@ -23,7 +24,8 @@ public class BannerMapper {
     public Banner toDomain(BannerEntity entity) {
         return Banner.builder()
             .id(entity.getId())
-            .bannerUrl(entity.getBannerUrl())
+            .title(entity.getTitle())
+            .content(entity.getContent())
             .bannerType(entity.getBannerType())
             .startDate(entity.getStartDate())
             .endDate(entity.getEndDate())
