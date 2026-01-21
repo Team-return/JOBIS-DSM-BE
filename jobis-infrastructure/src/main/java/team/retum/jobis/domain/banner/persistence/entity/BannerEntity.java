@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import team.retum.jobis.domain.banner.model.BannerType;
 
 import java.time.LocalDate;
@@ -21,6 +22,8 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_banner")
 @Entity
+@Builder
+@AllArgsConstructor
 public class BannerEntity {
 
     @Id
@@ -50,15 +53,4 @@ public class BannerEntity {
 
     @Column(columnDefinition = "BIGINT")
     private Long detailId;
-
-    @Builder
-    public BannerEntity(Long id, String title, String content, BannerType bannerType, LocalDate startDate, LocalDate endDate, Long detailId) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.bannerType = bannerType;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.detailId = detailId;
-    }
 }
