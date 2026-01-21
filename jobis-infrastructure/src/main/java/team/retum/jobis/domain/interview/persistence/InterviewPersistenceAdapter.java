@@ -23,7 +23,6 @@ public class InterviewPersistenceAdapter implements InterviewPort {
     private final JPAQueryFactory queryFactory;
     private final InterviewMapper interviewMapper;
     private final InterviewJpaRepository interviewJpaRepository;
-    private final JPAQueryFactory queryFactory;
 
     @Override
     public Interview save(Interview interview) {
