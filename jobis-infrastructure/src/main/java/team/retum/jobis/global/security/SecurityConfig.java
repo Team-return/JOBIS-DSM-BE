@@ -184,6 +184,15 @@ public class SecurityConfig {
 
                     // interview
                     .requestMatchers(HttpMethod.POST, "/interviews").hasAnyAuthority(TEACHER.name(), STUDENT.name())
+                    .requestMatchers(HttpMethod.GET, "/interviews").hasAnyAuthority(TEACHER.name(), STUDENT.name())
+
+                    // document-numbers
+                    .requestMatchers(HttpMethod.POST, "/document-numbers").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/document-numbers").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/document-numbers/{document-number-id}").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.PATCH, "/document-numbers/{document-number-id}").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.DELETE, "/document-numbers/{document-number-id}").hasAuthority(TEACHER.name())
+
                     .anyRequest().authenticated()
             )
             .apply(new FilterConfig(jwtParser, objectMapper, eventPublisher));
