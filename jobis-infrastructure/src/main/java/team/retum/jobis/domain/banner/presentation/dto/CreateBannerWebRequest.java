@@ -14,7 +14,10 @@ import java.time.LocalDate;
 public class CreateBannerWebRequest {
 
     @NotNull
-    private String bannerUrl;
+    private String title;
+
+    @NotNull
+    private String content;
 
     @NotNull
     private BannerType bannerType;
@@ -29,7 +32,8 @@ public class CreateBannerWebRequest {
 
     public CreateBannerRequest toDomainRequest() {
         return CreateBannerRequest.builder()
-            .bannerUrl(this.bannerUrl)
+            .title(this.title)
+            .content(this.content)
             .bannerType(this.bannerType)
             .startDate(this.startDate)
             .endDate(this.endDate)

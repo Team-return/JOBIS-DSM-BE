@@ -28,8 +28,12 @@ public class BannerEntity {
     private Long id;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(300)")
-    private String bannerUrl;
+    @Column(columnDefinition = "VARCHAR(100)")
+    private String title;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(500)")
+    private String content;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -48,9 +52,10 @@ public class BannerEntity {
     private Long detailId;
 
     @Builder
-    public BannerEntity(Long id, String bannerUrl, BannerType bannerType, LocalDate startDate, LocalDate endDate, Long detailId) {
+    public BannerEntity(Long id, String title, String content, BannerType bannerType, LocalDate startDate, LocalDate endDate, Long detailId) {
         this.id = id;
-        this.bannerUrl = bannerUrl;
+        this.title = title;
+        this.content = content;
         this.bannerType = bannerType;
         this.startDate = startDate;
         this.endDate = endDate;
