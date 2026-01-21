@@ -29,6 +29,7 @@ public class QueryInterviewsResponse {
         private final String interviewTime;
         private final String companyName;
         private final String location;
+        private final Long documentNumberId;
 
         private InterviewResponse(
             Long id,
@@ -37,7 +38,8 @@ public class QueryInterviewsResponse {
             LocalDate endDate,
             String interviewTime,
             String companyName,
-            String location
+            String location,
+            Long documentNumberId
         ) {
             this.id = id;
             this.interviewType = interviewType;
@@ -46,6 +48,7 @@ public class QueryInterviewsResponse {
             this.interviewTime = interviewTime;
             this.companyName = companyName;
             this.location = location;
+            this.documentNumberId = documentNumberId;
         }
 
         public static InterviewResponse from(InterviewVO vo) {
@@ -56,7 +59,8 @@ public class QueryInterviewsResponse {
                 vo.getEndDate(),
                 vo.getInterviewTime(),
                 vo.getCompanyName(),
-                vo.getLocation()
+                vo.getLocation(),
+                vo.getDocumentNumberId()
             );
         }
     }

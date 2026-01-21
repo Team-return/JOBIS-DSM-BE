@@ -17,4 +17,5 @@ public class InterviewVO {
     private final String interviewTime;
     private final String companyName;
     private final String location;
+    private final Long documentNumberId;
 }

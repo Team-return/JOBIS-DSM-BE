@@ -65,7 +65,8 @@ public class DocumentNumberPersistenceAdapter implements DocumentNumberPort {
                             interviewEntity.endDate,
                             interviewEntity.interviewTime,
                             interviewEntity.companyName,
-                            interviewEntity.location
+                            interviewEntity.location,
+                            interviewEntity.documentNumber.id
                         )
                     )
                     .from(interviewEntity)

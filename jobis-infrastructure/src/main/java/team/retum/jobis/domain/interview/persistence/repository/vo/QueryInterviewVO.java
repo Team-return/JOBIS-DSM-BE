@@ -18,8 +18,9 @@ public class QueryInterviewVO extends InterviewVO {
         LocalDate endDate,
         String interviewTime,
         String companyName,
-        String location
+        String location,
+        Long documentNumberId
     ) {
-        super(id, interviewType, startDate, endDate, interviewTime, companyName, location);
+        super(id, interviewType, startDate, endDate, interviewTime, companyName, location, documentNumberId);
     }
 }

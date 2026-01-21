@@ -42,7 +42,8 @@ public class InterviewPersistenceAdapter implements InterviewPort {
                     interviewEntity.endDate,
                     interviewEntity.interviewTime,
                     interviewEntity.companyName,
-                    interviewEntity.location
+                    interviewEntity.location,
+                    interviewEntity.documentNumber.id
                 )
             )
             .from(interviewEntity)
@@ -67,7 +68,8 @@ public class InterviewPersistenceAdapter implements InterviewPort {
                     interviewEntity.endDate,
                     interviewEntity.interviewTime,
                     interviewEntity.companyName,
-                    interviewEntity.location
+                    interviewEntity.location,
+                    interviewEntity.documentNumber.id
                 )
             )
             .from(interviewEntity)
