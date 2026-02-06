@@ -1,5 +1,7 @@
 package team.retum.jobis.domain.recruitment.persistence;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.JPAExpressions;
@@ -7,12 +9,14 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -102,6 +106,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
+            .orderBy(getOrderSpecifier(filter.getSortType(), filter.getOrderBy()))
             .orderBy(recruitmentEntity.createdAt.desc())
             .groupBy(
                    recruitmentEntity.id,
@@ -684,7 +689,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .join(recruitAreaCodeSub)
             .on(
                 recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
-                recruitAreaCodeSub.type.eq(CodeType.JOB),
+                recruitAreaCodeSub.type.eq(JOB),
                 recruitAreaCodeSub.code.code.in(jobCode)
             )
             .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
@@ -710,5 +715,18 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
             .exists();
+    }
+
+    private OrderSpecifier<?> getOrderSpecifier(RecruitSortType sortType, OrderBy orderBy) {
+        Order direction = switch (orderBy) {
+            case DESC -> Order.DESC;
+            case ASC -> Order.ASC;
+        };
+
+        return switch (sortType) {
+            case TAKE -> new OrderSpecifier<>(direction, companyEntity.take);
+            case WORKERS_COUNT -> new OrderSpecifier<>(direction, companyEntity.workersCount);
+            case DEADLINE -> new OrderSpecifier<>(direction, recruitmentEntity.recruitDate.finishDate);
+        };
     }
 }
