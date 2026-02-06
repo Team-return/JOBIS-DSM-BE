@@ -719,17 +719,23 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .exists();
     }
 
-    private OrderSpecifier<?> getOrderSpecifier(RecruitSortType sortType) {
+    private OrderSpecifier<?>[] getOrderSpecifier(RecruitSortType sortType) {
+        OrderSpecifier<?> tiebreaker = new OrderSpecifier<>(Order.DESC, recruitmentEntity.id);
         if (sortType == null) {
-            return new OrderSpecifier<>(Order.DESC, recruitmentEntity.createdAt);
+            return new OrderSpecifier<?>[] {
+                new OrderSpecifier<>(Order.DESC, recruitmentEntity.createdAt),
+                tiebreaker
+            };
         }
 
-        return switch (sortType) {
+        OrderSpecifier<?> primary = switch (sortType) {
             case TAKE -> new OrderSpecifier<>(Order.DESC, companyEntity.take);
             case WORKERS_COUNT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
             case WORKERS_COUNT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
             case DEADLINE_DESC -> new OrderSpecifier<>(Order.DESC, recruitmentEntity.recruitDate.finishDate);
             case DEADLINE_ASC -> new OrderSpecifier<>(Order.ASC, recruitmentEntity.recruitDate.finishDate);
         };
+
+        return new OrderSpecifier<?>[] { primary, tiebreaker };
     }
 }
