@@ -7,6 +7,7 @@ import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentSort;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
@@ -46,12 +47,15 @@ public class StudentQueryRecruitmentsUseCase {
             .winterIntern(winterIntern)
             .militarySupport(militarySupport)
             .status(status)
-            .sortType(sortType)
-            .orderBy(orderBy)
             .build();
 
+        StudentRecruitmentSort studentRecruitmentSort = StudentRecruitmentSort.builder()
+                .sortType(sortType)
+                .orderBy(orderBy)
+                .build();
+
         List<StudentRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getStudentRecruitmentsBy(studentRecruitmentFilter).stream()
+            queryRecruitmentPort.getStudentRecruitmentsBy(studentRecruitmentFilter, studentRecruitmentSort).stream()
                 .map(StudentRecruitmentResponse::from)
                 .toList();
 

@@ -16,6 +16,7 @@ import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentSort;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -64,7 +65,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private final RecruitmentMapper recruitmentMapper;
 
     @Override
-    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter) {
+    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter, StudentRecruitmentSort sort) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         BooleanExpression codeFilter = matchesCodeFilter(filter.getJobCode(), filter.getTechCodes());
 
@@ -106,7 +107,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
-            .orderBy(getOrderSpecifier(filter.getSortType(), filter.getOrderBy()))
+            .orderBy(getOrderSpecifier(sort.getSortType(), sort.getOrderBy()))
             .groupBy(
                    recruitmentEntity.id,
                    companyEntity.name,

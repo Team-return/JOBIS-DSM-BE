@@ -34,10 +34,6 @@ public class StudentRecruitmentFilter {
     private final Boolean winterIntern;
 
     private final Boolean militarySupport;
-
-    private final RecruitSortType sortType;
-
-    private final OrderBy orderBy;
     @Builder.Default
     private int limit = 10;
 
