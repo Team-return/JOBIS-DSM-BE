@@ -107,7 +107,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .offset(filter.getOffset())
             .limit(filter.getLimit())
             .orderBy(getOrderSpecifier(filter.getSortType(), filter.getOrderBy()))
-            .orderBy(recruitmentEntity.createdAt.desc())
             .groupBy(
                    recruitmentEntity.id,
                    companyEntity.name,
@@ -718,6 +717,13 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     }
 
     private OrderSpecifier<?> getOrderSpecifier(RecruitSortType sortType, OrderBy orderBy) {
+        if (sortType == null) {
+            return new OrderSpecifier<>(Order.DESC, recruitmentEntity.createdAt);
+        }
+        if (orderBy == null) {
+            orderBy = OrderBy.DESC;
+        }
+
         Order direction = switch (orderBy) {
             case DESC -> Order.DESC;
             case ASC -> Order.ASC;
