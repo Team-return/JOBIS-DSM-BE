@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
-import team.retum.jobis.domain.company.dto.CompanyListSort;
 import team.retum.jobis.domain.company.dto.CompanySortType;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
@@ -110,10 +108,9 @@ public class CompanyWebAdapter {
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
-        @RequestParam(value = "name", required = false) String name, @RequestParam(value = "sortType", required = false) CompanySortType sortType,
-        @RequestParam(value = "orderBy", required = false) OrderBy orderBy
+        @RequestParam(value = "name", required = false) String name, @RequestParam(value = "sortType", required = false) CompanySortType sortType
     ) {
-        return studentQueryCompaniesUseCase.execute(page, name, new CompanyListSort(sortType, orderBy));
+        return studentQueryCompaniesUseCase.execute(page, name, sortType);
     }
 
     @Cacheable

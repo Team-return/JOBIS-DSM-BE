@@ -9,11 +9,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
-import team.retum.jobis.domain.company.dto.CompanyListSort;
+import team.retum.jobis.domain.company.dto.CompanySortType;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -78,7 +77,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanyListSort sort) {
+    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sort) {
         return queryFactory
             .select(
                 new QStudentQueryCompaniesVO(
@@ -388,22 +387,27 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return businessArea == null ? null : companyEntity.businessArea.eq(businessArea);
     }
 
-    private OrderSpecifier<?> getCompanyOrderSpecifier(CompanyListSort sort) {
-        Order direction = sort.orderBy() == OrderBy.ASC ? Order.ASC : Order.DESC;
+    private OrderSpecifier<?> getCompanyOrderSpecifier(CompanySortType sort) {
 
-        if (sort.sortType() == null) {
+        if (sort == null) {
             return new OrderSpecifier<>(Order.ASC, companyEntity.name);
         }
 
-        return switch (sort.sortType()) {
+        return switch (sort) {
             case TAKE ->
-                new OrderSpecifier<>(direction, companyEntity.take);
+                new OrderSpecifier<>(Order.DESC, companyEntity.take);
 
-            case WORKERS_COUNT ->
-                new OrderSpecifier<>(direction, companyEntity.workersCount);
+            case WORKERS_COUNT_DESC ->
+                new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
 
-            case FOUNDED_AT ->
-                new OrderSpecifier<>(direction, companyEntity.foundedAt);
+            case WORKERS_COUNT_ASC ->
+                new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
+
+            case FOUNDED_AT_DESC ->
+                new OrderSpecifier<>(Order.DESC, companyEntity.foundedAt);
+
+            case FOUNDED_AT_ASC ->
+                new OrderSpecifier<>(Order.ASC, companyEntity.foundedAt);
 
         };
 

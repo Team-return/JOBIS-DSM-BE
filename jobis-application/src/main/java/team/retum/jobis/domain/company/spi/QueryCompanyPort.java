@@ -1,8 +1,6 @@
 package team.retum.jobis.domain.company.spi;
 
-import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
-import team.retum.jobis.domain.company.dto.CompanyListSort;
 import team.retum.jobis.domain.company.dto.CompanySortType;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
@@ -18,7 +16,7 @@ import java.util.Optional;
 
 public interface QueryCompanyPort {
 
-    List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanyListSort sort);
+    List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sort);
 
     List<TeacherCompaniesVO> getByConditions(CompanyFilter filter);
 
