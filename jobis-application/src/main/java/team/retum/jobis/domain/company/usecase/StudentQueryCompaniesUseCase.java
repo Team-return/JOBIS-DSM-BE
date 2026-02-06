@@ -2,9 +2,12 @@ package team.retum.jobis.domain.company.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
+import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.dto.CompanyListSort;
+import team.retum.jobis.domain.company.dto.CompanySortType;
 import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 
@@ -14,7 +17,7 @@ public class StudentQueryCompaniesUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
 
-    public StudentQueryCompaniesResponse execute(Long page, String name) {
+    public StudentQueryCompaniesResponse execute(Long page, String name, CompanyListSort sort) {
         CompanyFilter filter = CompanyFilter.builder()
             .name(name)
             .page(page)
@@ -22,7 +25,7 @@ public class StudentQueryCompaniesUseCase {
             .build();
 
         return new StudentQueryCompaniesResponse(
-            queryCompanyPort.getStudentCompanies(filter)
+            queryCompanyPort.getStudentCompanies(filter, sort)
         );
     }
 
