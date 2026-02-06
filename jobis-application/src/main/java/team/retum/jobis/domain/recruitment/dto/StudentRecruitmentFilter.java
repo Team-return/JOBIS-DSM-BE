@@ -2,8 +2,6 @@ package team.retum.jobis.domain.recruitment.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import team.retum.jobis.common.dto.request.OrderBy;
-import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;

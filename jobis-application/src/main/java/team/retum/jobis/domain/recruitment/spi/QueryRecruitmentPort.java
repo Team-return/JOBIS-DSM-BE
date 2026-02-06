@@ -2,7 +2,7 @@ package team.retum.jobis.domain.recruitment.spi;
 
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
-import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentSort;
+import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
@@ -28,7 +28,7 @@ public interface QueryRecruitmentPort {
 
     RecruitmentDetailVO getByIdAndStudentIdOrThrow(Long recruitmentId, Long studentId);
 
-    List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter, StudentRecruitmentSort sort);
+    List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter, RecruitSortType sortType);
 
     List<StudentRecruitmentVO> getStudentRecruitmentByCompanyNames(List<String> companyName, Long studentId);
 

@@ -9,14 +9,12 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
-import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentSort;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -65,7 +63,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private final RecruitmentMapper recruitmentMapper;
 
     @Override
-    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter, StudentRecruitmentSort sort) {
+    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter, RecruitSortType sortType) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         BooleanExpression codeFilter = matchesCodeFilter(filter.getJobCode(), filter.getTechCodes());
 
@@ -107,7 +105,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
-            .orderBy(getOrderSpecifier(sort.getSortType(), sort.getOrderBy()))
+            .orderBy(getOrderSpecifier(sortType))
             .groupBy(
                    recruitmentEntity.id,
                    companyEntity.name,
@@ -717,23 +715,17 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .exists();
     }
 
-    private OrderSpecifier<?> getOrderSpecifier(RecruitSortType sortType, OrderBy orderBy) {
+    private OrderSpecifier<?> getOrderSpecifier(RecruitSortType sortType) {
         if (sortType == null) {
             return new OrderSpecifier<>(Order.DESC, recruitmentEntity.createdAt);
         }
-        if (orderBy == null) {
-            orderBy = OrderBy.DESC;
-        }
-
-        Order direction = switch (orderBy) {
-            case DESC -> Order.DESC;
-            case ASC -> Order.ASC;
-        };
 
         return switch (sortType) {
-            case TAKE -> new OrderSpecifier<>(direction, companyEntity.take);
-            case WORKERS_COUNT -> new OrderSpecifier<>(direction, companyEntity.workersCount);
-            case DEADLINE -> new OrderSpecifier<>(direction, recruitmentEntity.recruitDate.finishDate);
+            case TAKE -> new OrderSpecifier<>(Order.DESC, companyEntity.take);
+            case WORKERS_COUNT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
+            case WORKERS_COUNT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
+            case DEADLINE_DESC -> new OrderSpecifier<>(Order.DESC, recruitmentEntity.recruitDate.finishDate);
+            case DEADLINE_ASC -> new OrderSpecifier<>(Order.ASC, recruitmentEntity.recruitDate.finishDate);
         };
     }
 }

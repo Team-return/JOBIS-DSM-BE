@@ -2,12 +2,10 @@ package team.retum.jobis.domain.recruitment.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
-import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
-import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentSort;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
@@ -32,8 +30,7 @@ public class StudentQueryRecruitmentsUseCase {
         Boolean militarySupport,
         List<Integer> years,
         RecruitStatus status,
-        RecruitSortType sortType,
-        OrderBy orderBy
+        RecruitSortType sortType
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
         StudentRecruitmentFilter studentRecruitmentFilter = StudentRecruitmentFilter.builder()
@@ -49,13 +46,8 @@ public class StudentQueryRecruitmentsUseCase {
             .status(status)
             .build();
 
-        StudentRecruitmentSort studentRecruitmentSort = StudentRecruitmentSort.builder()
-                .sortType(sortType)
-                .orderBy(orderBy)
-                .build();
-
         List<StudentRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getStudentRecruitmentsBy(studentRecruitmentFilter, studentRecruitmentSort).stream()
+            queryRecruitmentPort.getStudentRecruitmentsBy(studentRecruitmentFilter, sortType).stream()
                 .map(StudentRecruitmentResponse::from)
                 .toList();
 

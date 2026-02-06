@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import team.retum.jobis.common.dto.request.OrderBy;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
@@ -131,9 +130,8 @@ public class RecruitmentWebAdapter {
             @RequestParam(value = "military_support", required = false) Boolean militarySupport,
             @RequestParam(value = "years", required = false) List<Integer> years,
             @RequestParam(value = "status", required = false) RecruitStatus status,
-            @RequestParam(value = "sort_type", required = false) RecruitSortType sortType,
-            @RequestParam(value = "order_by", required = false) OrderBy orderBy
-            ) {
+            @RequestParam(value = "sort_type", required = false) RecruitSortType sortType
+    ) {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
             page,
@@ -143,8 +141,7 @@ public class RecruitmentWebAdapter {
             militarySupport,
             years,
             status,
-            sortType,
-            orderBy
+            sortType
         );
     }
 
