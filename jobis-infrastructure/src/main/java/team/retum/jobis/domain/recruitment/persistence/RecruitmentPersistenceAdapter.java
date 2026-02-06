@@ -111,7 +111,11 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                    companyEntity.name,
                    recruitmentEntity.payInfo.trainPay,
                    recruitmentEntity.militarySupport,
-                   companyEntity.companyLogoUrl
+                   companyEntity.companyLogoUrl,
+                   companyEntity.take,
+                   companyEntity.workersCount,
+                   recruitmentEntity.recruitDate.finishDate,
+                   recruitmentEntity.createdAt
             )
                 .fetch().stream()
             .map(StudentRecruitmentVO.class::cast)
