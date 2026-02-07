@@ -15,7 +15,7 @@ public class StudentQueryCompaniesUseCase {
 
     private final QueryCompanyPort queryCompanyPort;
 
-    public StudentQueryCompaniesResponse execute(Long page, String name, CompanySortType sort) {
+    public StudentQueryCompaniesResponse execute(Long page, String name, CompanySortType sortType) {
         CompanyFilter filter = CompanyFilter.builder()
             .name(name)
             .page(page)
@@ -23,7 +23,7 @@ public class StudentQueryCompaniesUseCase {
             .build();
 
         return new StudentQueryCompaniesResponse(
-            queryCompanyPort.getStudentCompanies(filter, sort)
+            queryCompanyPort.getStudentCompanies(filter, sortType)
         );
     }
 

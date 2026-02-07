@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public interface QueryCompanyPort {
 
-    List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sort);
+    List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sortType);
 
     List<TeacherCompaniesVO> getByConditions(CompanyFilter filter);
 

@@ -77,7 +77,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sort) {
+    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sortType) {
         return queryFactory
             .select(
                 new QStudentQueryCompaniesVO(
@@ -92,7 +92,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .leftJoin(recruitmentEntity)
             .on(recentRecruitment(RecruitStatus.RECRUITING))
             .where(containsName(filter.getName()))
-            .orderBy(getCompanyOrderSpecifier(sort))
+            .orderBy(getCompanyOrderSpecifier(sortType))
             .groupBy(companyEntity.id)
             .offset(filter.getOffset())
             .limit(filter.getLimit())
@@ -387,13 +387,13 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return businessArea == null ? null : companyEntity.businessArea.eq(businessArea);
     }
 
-    private OrderSpecifier<?> getCompanyOrderSpecifier(CompanySortType sort) {
+    private OrderSpecifier<?> getCompanyOrderSpecifier(CompanySortType sortType) {
 
-        if (sort == null) {
+        if (sortType == null) {
             return new OrderSpecifier<>(Order.ASC, companyEntity.name);
         }
 
-        return switch (sort) {
+        return switch (sortType) {
             case TAKE ->
                 new OrderSpecifier<>(Order.DESC, companyEntity.take);
 
