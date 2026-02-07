@@ -122,15 +122,15 @@ public class RecruitmentWebAdapter {
 
     @GetMapping("/student")
     public StudentQueryRecruitmentsResponse studentQueryRecruitments(
-            @RequestParam(value = "name", required = false) String companyName,
-            @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
-            @RequestParam(value = "tech_code", required = false) String techCodes,
-            @RequestParam(value = "job_code", required = false) String jobCode,
-            @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
-            @RequestParam(value = "military_support", required = false) Boolean militarySupport,
-            @RequestParam(value = "years", required = false) List<Integer> years,
-            @RequestParam(value = "status", required = false) RecruitStatus status,
-            @RequestParam(value = "sort_type", required = false) RecruitSortType sortType
+        @RequestParam(value = "name", required = false) String companyName,
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
+        @RequestParam(value = "tech_code", required = false) String techCodes,
+        @RequestParam(value = "job_code", required = false) String jobCode,
+        @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
+        @RequestParam(value = "military_support", required = false) Boolean militarySupport,
+        @RequestParam(value = "years", required = false) List<Integer> years,
+        @RequestParam(value = "status", required = false) RecruitStatus status,
+        @RequestParam(value = "sort_type", required = false) RecruitSortType sortType
     ) {
         return studentQueryRecruitmentsUseCase.execute(
             companyName,
