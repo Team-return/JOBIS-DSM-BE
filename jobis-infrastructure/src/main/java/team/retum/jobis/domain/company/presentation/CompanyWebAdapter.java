@@ -108,7 +108,8 @@ public class CompanyWebAdapter {
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
-        @RequestParam(value = "name", required = false) String name, @RequestParam(value = "sortType", required = false) CompanySortType sortType
+        @RequestParam(value = "name", required = false) String name,
+        @RequestParam(value = "sortType", required = false) CompanySortType sortType
     ) {
         return studentQueryCompaniesUseCase.execute(page, name, sortType);
     }
