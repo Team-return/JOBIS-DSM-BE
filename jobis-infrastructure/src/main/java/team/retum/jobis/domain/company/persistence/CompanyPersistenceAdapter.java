@@ -387,30 +387,24 @@ public class CompanyPersistenceAdapter implements CompanyPort {
         return businessArea == null ? null : companyEntity.businessArea.eq(businessArea);
     }
 
-    private OrderSpecifier<?> getCompanyOrderSpecifier(CompanySortType sortType) {
-
+    private OrderSpecifier<?>[] getCompanyOrderSpecifier(CompanySortType sortType) {
+        OrderSpecifier<?> tiebreaker = new OrderSpecifier<>(Order.DESC, companyEntity.id);
         if (sortType == null) {
-            return new OrderSpecifier<>(Order.ASC, companyEntity.name);
+            return new OrderSpecifier<?>[] {
+                new OrderSpecifier<>(Order.ASC, companyEntity.name), tiebreaker
+            };
+
         }
 
-        return switch (sortType) {
-            case TAKE ->
-                new OrderSpecifier<>(Order.DESC, companyEntity.take);
-
-            case WORKERS_COUNT_DESC ->
-                new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
-
-            case WORKERS_COUNT_ASC ->
-                new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
-
-            case FOUNDED_AT_DESC ->
-                new OrderSpecifier<>(Order.DESC, companyEntity.foundedAt);
-
-            case FOUNDED_AT_ASC ->
-                new OrderSpecifier<>(Order.ASC, companyEntity.foundedAt);
-
+        OrderSpecifier<?> primary = switch (sortType) {
+            case TAKE -> new OrderSpecifier<>(Order.DESC, companyEntity.take);
+            case WORKERS_COUNT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
+            case WORKERS_COUNT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
+            case FOUNDED_AT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.foundedAt);
+            case FOUNDED_AT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.foundedAt);
         };
 
+        return new OrderSpecifier<?>[] { primary, tiebreaker };
     }
 }
 
