@@ -13,7 +13,6 @@ public record InterviewRequest(
     String interviewTime,
     String companyName,
     String location,
-    Long studentId,
-    Long documentNumberId
+    Long studentId
 ) {
 }
