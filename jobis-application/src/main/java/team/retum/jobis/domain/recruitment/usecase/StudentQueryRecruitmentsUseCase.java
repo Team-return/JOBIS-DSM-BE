@@ -6,6 +6,7 @@ import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse;
 import team.retum.jobis.domain.recruitment.dto.response.StudentQueryRecruitmentsResponse.StudentRecruitmentResponse;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -28,7 +29,8 @@ public class StudentQueryRecruitmentsUseCase {
         Boolean winterIntern,
         Boolean militarySupport,
         List<Integer> years,
-        RecruitStatus status
+        RecruitStatus status,
+        RecruitSortType sortType
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
         StudentRecruitmentFilter studentRecruitmentFilter = StudentRecruitmentFilter.builder()
@@ -45,7 +47,7 @@ public class StudentQueryRecruitmentsUseCase {
             .build();
 
         List<StudentRecruitmentResponse> recruitments =
-            queryRecruitmentPort.getStudentRecruitmentsBy(studentRecruitmentFilter).stream()
+            queryRecruitmentPort.getStudentRecruitmentsBy(studentRecruitmentFilter, sortType).stream()
                 .map(StudentRecruitmentResponse::from)
                 .toList();
 
