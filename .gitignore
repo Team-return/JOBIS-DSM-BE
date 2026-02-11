@@ -38,12 +38,13 @@ out/
 
 .DS_STORE
 
-
 sonar-project.properties
 
 ### Claude Code ###
 CLAUDE.md
 .claude/*
+AGENTS.md
+.opencode/skills/*
 
 ### AI Agent Files ###
 # Local repository guidance for Codex/agents
