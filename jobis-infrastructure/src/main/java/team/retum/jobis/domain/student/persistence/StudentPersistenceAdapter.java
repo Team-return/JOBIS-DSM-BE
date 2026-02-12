@@ -2,6 +2,7 @@ package team.retum.jobis.domain.student.persistence;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.LockModeType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -182,5 +183,17 @@ public class StudentPersistenceAdapter implements StudentPort {
             .fetch().stream()
             .map(TeacherStudentsVO.class::cast)
             .toList();
+    }
+
+    @Override
+    public Optional<Student> getByIdWithPessimisticLock(Long id) {
+        return Optional.ofNullable(
+                queryFactory
+                    .selectFrom(studentEntity)
+                    .where(studentEntity.id.eq(id))
+                    .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+                    .fetchOne()
+            )
+            .map(studentMapper::toDomain);
     }
 }

@@ -29,4 +29,6 @@ public interface QueryStudentPort {
     List<Student> getStudentsByGradeAndClassRoomAndNumberAndEntranceYearOrThrow(List<SchoolNumber> schoolNumbers, int entranceYear);
 
     List<TeacherStudentsVO> getStudentsByName(String name);
+
+    Optional<Student> getByIdWithPessimisticLock(Long id);
 }
