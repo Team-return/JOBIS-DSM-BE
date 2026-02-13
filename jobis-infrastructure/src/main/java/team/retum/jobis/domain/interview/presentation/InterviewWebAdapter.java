@@ -14,6 +14,7 @@ import team.retum.jobis.domain.interview.dto.response.QueryInterviewsResponse;
 import team.retum.jobis.domain.interview.presentation.dto.InterviewWebRequest;
 import team.retum.jobis.domain.interview.usecase.CreateInterviewUseCase;
 import team.retum.jobis.domain.interview.usecase.QueryInterviewsUseCase;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 @RequiredArgsConstructor
 @RequestMapping("/interviews")
@@ -30,10 +31,12 @@ public class InterviewWebAdapter {
     }
 
     @GetMapping
-    public QueryInterviewsResponse getInterviews(
-        @RequestParam(required = false) Integer year,
-        @RequestParam(required = false) Integer month
+    public QueryInterviewsResponse queryInterviews(
+        @RequestParam(value = "year", required = false) Integer year,
+        @RequestParam(value = "month", required = false) Integer month,
+        @RequestParam(value = "company_name", required = false) String companyName,
+        @RequestParam(value = "interview_type", required = false) ProgressType interviewType
     ) {
-        return queryInterviewsUseCase.execute(year, month);
+        return queryInterviewsUseCase.execute(year, month, companyName, interviewType);
     }
 }
