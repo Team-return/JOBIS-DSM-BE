@@ -4,12 +4,12 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.interview.dto.InterviewFilter;
 import team.retum.jobis.domain.interview.model.Interview;
 import team.retum.jobis.domain.interview.persistence.mapper.InterviewMapper;
 import team.retum.jobis.domain.interview.persistence.repository.InterviewJpaRepository;
-import team.retum.jobis.domain.interview.persistence.repository.vo.QQueryInterviewVO;
 import team.retum.jobis.domain.interview.spi.InterviewPort;
-import team.retum.jobis.domain.interview.spi.vo.InterviewVO;
+import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,52 +32,20 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             )
         );
     }
-  
-    @Override
-    public List<InterviewVO> getInterviewsByMonth(Integer year, Integer month) {
-        return queryFactory
-            .select(
-                new QQueryInterviewVO(
-                    interviewEntity.id,
-                    interviewEntity.interviewType,
-                    interviewEntity.startDate,
-                    interviewEntity.endDate,
-                    interviewEntity.interviewTime,
-                    interviewEntity.companyName,
-                    interviewEntity.location,
-                    interviewEntity.documentNumber.id
-                )
-            )
-            .from(interviewEntity)
-            .where(
-                interviewEntity.startDate.year().eq(year),
-                interviewEntity.startDate.month().eq(month)
-            )
-            .orderBy(interviewEntity.startDate.asc())
-            .fetch().stream()
-            .map(InterviewVO.class::cast)
-            .toList();
-    }
 
     @Override
-    public List<InterviewVO> getAllInterviews() {
+    public List<Interview> getInterviewsBy(InterviewFilter filter) {
         return queryFactory
-            .select(
-                new QQueryInterviewVO(
-                    interviewEntity.id,
-                    interviewEntity.interviewType,
-                    interviewEntity.startDate,
-                    interviewEntity.endDate,
-                    interviewEntity.interviewTime,
-                    interviewEntity.companyName,
-                    interviewEntity.location,
-                    interviewEntity.documentNumber.id
-                )
+            .selectFrom(interviewEntity)
+            .where(
+                eqInterviewYear(filter.getYear()),
+                eqInterviewMonth(filter.getMonth()),
+                containsCompanyName(filter.getCompanyName()),
+                eqInterviewType(filter.getInterviewType())
             )
-            .from(interviewEntity)
             .orderBy(interviewEntity.startDate.asc())
             .fetch().stream()
-            .map(InterviewVO.class::cast)
+            .map(interviewMapper::toDomain)
             .toList();
     }
 
@@ -91,7 +59,7 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             .map(interviewMapper::toDomain)
             .toList();
     }
-  
+
     @Override
     public List<Interview> getByDocumentNumberId(Long documentNumberId) {
         return queryFactory
@@ -102,7 +70,7 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             .map(interviewMapper::toDomain)
             .toList();
     }
-  
+
     @Override
     public List<Interview> getInterviewsByDateRange(LocalDate targetDate) {
         return queryFactory
@@ -125,5 +93,25 @@ public class InterviewPersistenceAdapter implements InterviewPort {
             .and(interviewEntity.endDate.goe(targetDate));
 
         return singleDayInterview.or(multiDayInterview);
+    }
+
+    private BooleanExpression containsCompanyName(String companyName) {
+        if (companyName == null || companyName.isBlank()) {
+            return null;
+        }
+
+        return interviewEntity.companyName.contains(companyName);
+    }
+
+    private BooleanExpression eqInterviewYear(Integer year) {
+        return year == null ? null : interviewEntity.startDate.year().eq(year);
+    }
+
+    private BooleanExpression eqInterviewMonth(Integer month) {
+        return month == null ? null : interviewEntity.startDate.month().eq(month);
+    }
+
+    private BooleanExpression eqInterviewType(ProgressType interviewType) {
+        return interviewType == null ? null : interviewEntity.interviewType.eq(interviewType);
     }
 }
