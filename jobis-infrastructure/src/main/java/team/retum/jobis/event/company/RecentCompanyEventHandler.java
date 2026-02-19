@@ -13,7 +13,7 @@ import java.time.Duration;
 @Component
 public class RecentCompanyEventHandler {
 
-    private final RedisTemplate<String, Integer> redisTemplate;
+    private final RedisTemplate<String, Long> redisTemplate;
 
     @Async("asyncTaskExecutor")
     @EventListener

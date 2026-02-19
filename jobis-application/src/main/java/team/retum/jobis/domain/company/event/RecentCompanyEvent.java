@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class RecentCompanyEvent {
-    private final Integer userId;
-    private final Integer companyId;
+    private final Long userId;
+    private final Long companyId;
 }
