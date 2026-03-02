@@ -20,10 +20,10 @@ public class RecentCompanyEventHandler {
     public void onRecentCompany(RecentCompanyEvent event) {
 
         String key = "recent:company:" + event.getUserId();
-        long score = System.currentTimeMillis();
+        long viewedAt = System.currentTimeMillis();
 
         redisTemplate.opsForZSet()
-            .add(key, event.getCompanyId(), score);
+            .add(key, event.getCompanyId(), viewedAt);
 
         redisTemplate.expire(key, Duration.ofDays(30));
     }
