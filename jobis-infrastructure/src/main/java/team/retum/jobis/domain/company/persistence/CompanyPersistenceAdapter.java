@@ -8,6 +8,7 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.code.model.CodeType;
@@ -170,7 +171,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             ).fetchOne();
     }
 
-    @Override
+    @Cacheable(cacheNames = "companyDetails", key = "#companyId")
     public Optional<CompanyDetailsVO> getCompanyDetails(Long companyId) {
         return Optional.ofNullable(
             queryFactory

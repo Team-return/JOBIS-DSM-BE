@@ -127,7 +127,6 @@ public class CompanyWebAdapter {
         return studentQueryCompaniesUseCase.getTotalPageCount(name);
     }
 
-    @Cacheable
     @GetMapping("/{company-id}")
     public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
         return queryCompanyDetailsUseCase.execute(companyId);
