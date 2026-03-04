@@ -1,8 +1,8 @@
 package team.retum.jobis.common.spi;
 
-import java.util.Set;
+import java.util.List;
 
 public interface CachePort {
 
-    Set<Long> getRecentCompanyId(Long studentId);
+    List<Long> getRecentCompanyId(Long studentId);
 }
