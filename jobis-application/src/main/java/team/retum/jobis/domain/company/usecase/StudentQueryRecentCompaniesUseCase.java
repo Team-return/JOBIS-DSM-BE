@@ -22,7 +22,6 @@ public class StudentQueryRecentCompaniesUseCase {
 
         List<Long> companyIds = cachePort.getRecentCompanyId(studentId);
 
-        System.out.println(companyIds);
         return new StudentQueryRecentCompaniesResponse(
             queryCompanyPort.getRecentCompanies(companyIds)
         );
