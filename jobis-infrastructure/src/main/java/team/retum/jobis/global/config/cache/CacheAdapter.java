@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static team.retum.jobis.global.config.cache.CacheName.*;
+import static team.retum.jobis.global.config.cache.CacheName.RECENT_COMPANY;
 
 @Component
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class CacheAdapter implements CachePort {
         String key = RECENT_COMPANY + studentId;
 
         Set<String> result = redisTemplate.opsForZSet()
-            .reverseRange(key,0,30);
+            .reverseRange(key, 0, 30);
 
         return result == null ? List.of() : result.stream()
             .map(Long::parseLong).collect(Collectors.toList());

@@ -25,10 +25,19 @@ import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCo
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.spi.CompanyPort;
-import team.retum.jobis.domain.company.spi.vo.*;
+import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
+import team.retum.jobis.domain.company.spi.vo.CompanyVO;
+import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
+import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
+import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
+import team.retum.jobis.domain.company.spi.vo.RecentCompanyVO;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Comparator;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.jpa.JPAExpressions.select;
