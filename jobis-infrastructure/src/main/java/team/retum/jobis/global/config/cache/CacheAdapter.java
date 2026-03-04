@@ -7,6 +7,7 @@ import team.retum.jobis.common.spi.CachePort;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static team.retum.jobis.global.config.cache.CacheName.*;
 
@@ -14,15 +15,16 @@ import static team.retum.jobis.global.config.cache.CacheName.*;
 @RequiredArgsConstructor
 public class CacheAdapter implements CachePort {
 
-    private final RedisTemplate<String, Long> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
 
     @Override
     public List<Long> getRecentCompanyId(Long studentId) {
         String key = RECENT_COMPANY + studentId;
 
-        Set<Long> result = redisTemplate.opsForZSet()
+        Set<String> result = redisTemplate.opsForZSet()
             .reverseRange(key,0,-1);
 
-        return result == null ? List.of() : result.stream().toList();
+        return result == null ? List.of() : result.stream()
+            .map(Long::parseLong).collect(Collectors.toList());
     }
 }

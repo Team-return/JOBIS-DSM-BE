@@ -22,15 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
 import team.retum.jobis.domain.company.dto.CompanySortType;
-import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
-import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
-import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
-import team.retum.jobis.domain.company.dto.response.ExportCompanyHistoryResponse;
-import team.retum.jobis.domain.company.dto.response.QueryCompanyDetailsResponse;
-import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse;
-import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
-import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
-import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
+import team.retum.jobis.domain.company.dto.response.*;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
@@ -208,9 +200,9 @@ public class CompanyWebAdapter {
         teacherRegisterCompanyUseCase.execute(request.toDomainRequest());
     }
 
-    @GetMapping("/student/recent/{student-id}")
-    public StudentQueryCompaniesResponse studentQueryRecentCompanies(@PathVariable("student-id") Long studentId) {
-        return studentQueryRecentCompaniesUseCase.execute(studentId);
+    @GetMapping("/student/recent")
+    public StudentQueryRecentCompaniesResponse studentQueryRecentCompanies() {
+        return studentQueryRecentCompaniesUseCase.execute();
     }
 
 }

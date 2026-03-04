@@ -25,16 +25,10 @@ import team.retum.jobis.domain.company.persistence.repository.vo.QStudentQueryCo
 import team.retum.jobis.domain.company.persistence.repository.vo.QTeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.persistence.repository.vo.TeacherQueryCompaniesVO;
 import team.retum.jobis.domain.company.spi.CompanyPort;
-import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
-import team.retum.jobis.domain.company.spi.vo.CompanyVO;
-import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
-import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
-import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
+import team.retum.jobis.domain.company.spi.vo.*;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.jpa.JPAExpressions.select;
@@ -347,6 +341,33 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 studentEntity.entranceYear.eq(year - 2)
             )
             .fetch();
+    }
+
+    @Override
+    public List<RecentCompanyVO> getRecentCompanies(List<Long> companyIds) {
+        List<RecentCompanyVO> companies = queryFactory
+            .select(Projections.constructor(RecentCompanyVO.class,
+                companyEntity.id,
+                companyEntity.name,
+                companyEntity.companyIntroduce,
+                companyEntity.companyLogoUrl
+                )
+            )
+            .from(companyEntity)
+            .where(companyEntity.id.in(companyIds))
+            .fetch();
+
+        //반환된 값들을 최신순으로 정렬
+        Map<Long, Integer> orderMap = new HashMap<>();
+        for (int i = 0; i < companyIds.size(); i++) {
+            orderMap.put(companyIds.get(i), i);
+        }
+
+        companies.sort(
+            Comparator.comparingInt(c -> orderMap.get(c.getCompanyId()))
+        );
+
+        return companies;
     }
 
     //==condition==//
