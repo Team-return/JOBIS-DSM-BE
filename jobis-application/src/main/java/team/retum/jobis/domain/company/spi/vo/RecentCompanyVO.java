@@ -12,5 +12,5 @@ public class RecentCompanyVO {
     private final Long companyId;
     private final String companyName;
     private final String companyIntroduce;
-    private final String companyProfileUrl;
+    private final String companyLogoUrl;
 }

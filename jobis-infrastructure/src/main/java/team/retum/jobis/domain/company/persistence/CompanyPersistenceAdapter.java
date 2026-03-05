@@ -8,7 +8,9 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.code.model.CodeType;
@@ -53,6 +55,8 @@ import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.
 import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
 import static team.retum.jobis.domain.review.persistence.entity.QReviewEntity.reviewEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
 
 @Repository
 @RequiredArgsConstructor
@@ -63,7 +67,12 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Company save(Company company) {
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = COMPANY, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY_USER, allEntries = true)
+        }
+    )    public Company save(Company company) {
         return companyMapper.toDomain(
             companyJpaRepository.save(
                 companyMapper.toEntity(company)
@@ -171,7 +180,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             ).fetchOne();
     }
 
-    @Cacheable(cacheNames = "companyDetails", key = "#companyId")
+    @Cacheable(cacheNames = COMPANY, key = "#companyId")
     public Optional<CompanyDetailsVO> getCompanyDetails(Long companyId) {
         return Optional.ofNullable(
             queryFactory

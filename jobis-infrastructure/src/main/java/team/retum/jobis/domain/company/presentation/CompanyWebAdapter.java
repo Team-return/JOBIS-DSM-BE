@@ -94,12 +94,7 @@ public class CompanyWebAdapter {
         return checkCompanyExistsUseCase.execute(businessNumber);
     }
 
-    @Caching(
-        evict = {
-            @CacheEvict(cacheNames = COMPANY, allEntries = true),
-            @CacheEvict(cacheNames = COMPANY_USER, allEntries = true)
-        }
-    )
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{company-id}")
     public void updateDetails(
