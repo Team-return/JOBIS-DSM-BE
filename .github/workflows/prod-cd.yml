@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    environment: dev
+    environment: prod
     runs-on: ubuntu-latest
 
     steps:
@@ -47,5 +47,5 @@ jobs:
           script: |
             cd jobis
             docker pull jobis1111/prod-server
-            docker compose up -d --no-deps --build prod-server
+            docker compose up -d --no-deps prod-server
             docker image prune -a -f
