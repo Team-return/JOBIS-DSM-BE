@@ -662,7 +662,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return switch (region) {
             case OTHERS -> Arrays.stream(RecruitRegion.values())
                 .filter(r -> r != RecruitRegion.OTHERS)
-                .map(r -> recruitmentEntity.company.address.mainAddress.contains(r.getRegionName()).not())
+                .map(r -> recruitmentEntity.company.address.mainAddress.startsWith(r.getRegionName()).not())
                 .reduce(BooleanExpression::and)
                 .orElse(null);
             default -> recruitmentEntity.company.address.mainAddress.contains(region.getRegionName());
