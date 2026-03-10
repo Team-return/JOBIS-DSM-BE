@@ -15,6 +15,7 @@ import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.request.RecruitRegion;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
@@ -40,6 +41,7 @@ import team.retum.jobis.global.util.ExpressionUtil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,6 +101,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .where(
                 eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus(), filter.getCompanyName()),
                 containsName(filter.getCompanyName()),
+                containsRegion(filter.getRegion()),
                 eqWinterIntern(filter.getWinterIntern()),
                 eqMilitarySupport(filter.getMilitarySupport()),
                 codeFilter
@@ -649,6 +652,21 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
         return !codes.isEmpty()
             ? recruitAreaEntity.recruitAreaCodes.any().code.code.in(codes)
             : null;
+    }
+
+    private BooleanExpression containsRegion(RecruitRegion region) {
+        if (region == null) {
+            return null;
+        }
+
+        return switch (region) {
+            case OTHERS -> Arrays.stream(RecruitRegion.values())
+                .filter(r -> r != RecruitRegion.OTHERS)
+                .map(r -> recruitmentEntity.company.address.mainAddress.contains(r.getRegionName()).not())
+                .reduce(BooleanExpression::and)
+                .orElse(null);
+            default -> recruitmentEntity.company.address.mainAddress.contains(region.getRegionName());
+        };
     }
 
     private BooleanExpression eqWinterIntern(Boolean winterIntern) {
