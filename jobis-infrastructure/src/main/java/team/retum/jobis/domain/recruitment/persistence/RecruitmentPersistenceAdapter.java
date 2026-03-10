@@ -666,7 +666,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 .map(r -> recruitmentEntity.company.address.mainAddress.startsWith(r.getRegionName()).not())
                 .reduce(BooleanExpression::and)
                 .orElse(null);
-            default -> recruitmentEntity.company.address.mainAddress.contains(region.getRegionName());
+            default -> recruitmentEntity.company.address.mainAddress.startsWith(region.getRegionName());
         };
     }
 
