@@ -64,7 +64,8 @@ public class StudentQueryRecruitmentsUseCase {
         Boolean winterIntern,
         Boolean militarySupport,
         List<Integer> years,
-        RecruitStatus status
+        RecruitStatus status,
+        RecruitRegion region
     ) {
         Long currentStudentId = securityPort.getCurrentUserId();
 
@@ -77,6 +78,7 @@ public class StudentQueryRecruitmentsUseCase {
             .winterIntern(winterIntern)
             .militarySupport(militarySupport)
             .status(status)
+            .region(region)
             .limit(12)
             .build();
 

@@ -356,6 +356,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .where(
                 eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus(), filter.getCompanyName()),
                 containsName(filter.getCompanyName()),
+                containsRegion(filter.getRegion()),
                 eqWinterIntern(filter.getWinterIntern()),
                 eqMilitarySupport(filter.getMilitarySupport()),
                 codeFilter
