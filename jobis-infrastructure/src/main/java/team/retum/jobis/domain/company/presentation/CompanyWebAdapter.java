@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.auth.dto.response.TokenResponse;
+import team.retum.jobis.domain.company.dto.CompanySortType;
 import team.retum.jobis.domain.company.dto.response.CheckCompanyExistsResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyCountResponse;
 import team.retum.jobis.domain.company.dto.response.CompanyMyPageResponse;
@@ -107,9 +108,10 @@ public class CompanyWebAdapter {
     @GetMapping("/student")
     public StudentQueryCompaniesResponse studentQueryCompanies(
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page,
-        @RequestParam(value = "name", required = false) String name
+        @RequestParam(value = "name", required = false) String name,
+        @RequestParam(value = "sort_type", required = false) CompanySortType sortType
     ) {
-        return studentQueryCompaniesUseCase.execute(page, name);
+        return studentQueryCompaniesUseCase.execute(page, name, sortType);
     }
 
     @Cacheable

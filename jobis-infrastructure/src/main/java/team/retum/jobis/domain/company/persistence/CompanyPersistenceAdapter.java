@@ -1,5 +1,7 @@
 package team.retum.jobis.domain.company.persistence;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.dto.CompanySortType;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -34,7 +37,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED;
@@ -75,7 +77,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter) {
+    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sortType) {
         return queryFactory
             .select(
                 new QStudentQueryCompaniesVO(
@@ -90,7 +92,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .leftJoin(recruitmentEntity)
             .on(recentRecruitment(RecruitStatus.RECRUITING))
             .where(containsName(filter.getName()))
-            .orderBy(companyEntity.name.desc())
+            .orderBy(getCompanyOrderSpecifier(sortType))
             .groupBy(companyEntity.id)
             .offset(filter.getOffset())
             .limit(filter.getLimit())
@@ -384,4 +386,25 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     private BooleanExpression eqBusinessArea(String businessArea) {
         return businessArea == null ? null : companyEntity.businessArea.eq(businessArea);
     }
+
+    private OrderSpecifier<?>[] getCompanyOrderSpecifier(CompanySortType sortType) {
+        OrderSpecifier<?> tiebreaker = new OrderSpecifier<>(Order.DESC, companyEntity.id);
+        if (sortType == null) {
+            return new OrderSpecifier<?>[] {
+                new OrderSpecifier<>(Order.ASC, companyEntity.name), tiebreaker
+            };
+
+        }
+
+        OrderSpecifier<?> primary = switch (sortType) {
+            case TAKE -> new OrderSpecifier<>(Order.DESC, companyEntity.take);
+            case WORKERS_COUNT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
+            case WORKERS_COUNT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
+            case FOUNDED_AT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.foundedAt);
+            case FOUNDED_AT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.foundedAt);
+        };
+
+        return new OrderSpecifier<?>[] { primary, tiebreaker };
+    }
 }
+

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class QueryTeacherBannersVO extends TeacherBannersVO {
 
     @QueryProjection
-    public QueryTeacherBannersVO(Long bannerId, String bannerUrl, BannerType bannerType, LocalDate startDate, LocalDate endTime, Long detailId) {
-        super(bannerId, bannerUrl, bannerType, startDate, endTime, detailId);
+    public QueryTeacherBannersVO(Long bannerId, String title, String content, BannerType bannerType, LocalDate startDate, LocalDate endTime, Long detailId) {
+        super(bannerId, title, content, bannerType, startDate, endTime, detailId);
     }
 }

@@ -2,6 +2,7 @@ package team.retum.jobis.domain.student.persistence;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.LockModeType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -10,9 +11,13 @@ import team.retum.jobis.domain.student.model.SchoolNumber;
 import team.retum.jobis.domain.student.model.Student;
 import team.retum.jobis.domain.student.persistence.mapper.StudentMapper;
 import team.retum.jobis.domain.student.persistence.repository.StudentJpaRepository;
+import team.retum.jobis.domain.student.persistence.repository.vo.QQueryTeacherStudentsVO;
 import team.retum.jobis.domain.student.spi.StudentPort;
+import team.retum.jobis.domain.student.spi.vo.TeacherStudentsVO;
 
+import java.time.Year;
 import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static team.retum.jobis.domain.application.persistence.entity.QApplicationEntity.applicationEntity;
@@ -26,6 +31,12 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final StudentJpaRepository studentJpaRepository;
     private final StudentMapper studentMapper;
     private final JPAQueryFactory queryFactory;
+
+    @Override
+    public Optional<Student> getById(Long id) {
+        return studentJpaRepository.findById(id)
+            .map(studentMapper::toDomain);
+    }
 
     @Override
     public boolean existsByGradeAndClassRoomAndNumberAndEntranceYear(SchoolNumber schoolNumber, int entranceYear) {
@@ -144,5 +155,45 @@ public class StudentPersistenceAdapter implements StudentPort {
         }
 
         return students;
+    }
+
+    @Override
+    public List<TeacherStudentsVO> getStudentsByName(String name) {
+        int currentYear = Year.now().getValue();
+
+        return queryFactory
+            .select(
+                new QQueryTeacherStudentsVO(
+                    studentEntity.id,
+                    studentEntity.name,
+                    studentEntity.grade,
+                    studentEntity.classRoom,
+                    studentEntity.number
+            ))
+            .from(studentEntity)
+            .where(
+                studentEntity.name.contains(name)
+                    .and(studentEntity.entranceYear.between(currentYear - 2, currentYear))
+            )
+            .orderBy(
+                studentEntity.grade.desc(),
+                studentEntity.classRoom.asc(),
+                studentEntity.number.asc()
+            )
+            .fetch().stream()
+            .map(TeacherStudentsVO.class::cast)
+            .toList();
+    }
+
+    @Override
+    public Optional<Student> getByIdWithPessimisticLock(Long id) {
+        return Optional.ofNullable(
+                queryFactory
+                    .selectFrom(studentEntity)
+                    .where(studentEntity.id.eq(id))
+                    .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+                    .fetchOne()
+            )
+            .map(studentMapper::toDomain);
     }
 }

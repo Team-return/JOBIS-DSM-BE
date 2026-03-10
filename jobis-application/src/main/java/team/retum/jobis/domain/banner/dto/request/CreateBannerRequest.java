@@ -10,7 +10,9 @@ import java.time.LocalDate;
 @Builder
 public class CreateBannerRequest {
 
-    private String bannerUrl;
+    private String title;
+
+    private String content;
 
     private BannerType bannerType;
 

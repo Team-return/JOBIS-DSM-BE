@@ -13,7 +13,9 @@ public class Banner {
 
     private final Long id;
 
-    private final String bannerUrl;
+    private final String title;
+
+    private final String content;
 
     private final BannerType bannerType;
 

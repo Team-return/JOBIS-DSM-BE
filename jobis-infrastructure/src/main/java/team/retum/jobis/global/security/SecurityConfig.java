@@ -75,6 +75,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/students/profile").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.GET, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
                     .requestMatchers(HttpMethod.PATCH, "/students/password").hasAnyAuthority(STUDENT.name(), DEVELOPER.name())
+                    .requestMatchers(HttpMethod.GET, "/students/teacher").hasAuthority(TEACHER.name())
 
                     // applications
                     .requestMatchers(HttpMethod.GET, "/applications").hasAuthority(TEACHER.name())
@@ -164,6 +165,8 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.DELETE, "/notices/{notice-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/notices").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/notices/{notice-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                    .requestMatchers(HttpMethod.POST, "/notices/{notice-id}/views").hasAuthority(STUDENT.name())
+                    .requestMatchers(HttpMethod.GET, "/notices/{notice-id}/viewers").hasAnyAuthority(STUDENT.name(), TEACHER.name())
 
                     // notification
                     .requestMatchers(HttpMethod.GET, "/notifications").authenticated()
@@ -180,8 +183,19 @@ public class SecurityConfig {
                     // winter-intern
                     .requestMatchers(HttpMethod.PATCH, "/winter-intern").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/winter-intern").hasAnyAuthority(TEACHER.name(), STUDENT.name())
-                    .anyRequest().authenticated()
 
+                    // interview
+                    .requestMatchers(HttpMethod.POST, "/interviews").hasAnyAuthority(TEACHER.name(), STUDENT.name())
+                    .requestMatchers(HttpMethod.GET, "/interviews").hasAnyAuthority(TEACHER.name(), STUDENT.name())
+
+                    // document-numbers
+                    .requestMatchers(HttpMethod.POST, "/document-numbers").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/document-numbers").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/document-numbers/{document-number-id}").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.PATCH, "/document-numbers/{document-number-id}").hasAuthority(TEACHER.name())
+                    .requestMatchers(HttpMethod.DELETE, "/document-numbers/{document-number-id}").hasAuthority(TEACHER.name())
+
+                    .anyRequest().authenticated()
             )
             .apply(new FilterConfig(jwtParser, objectMapper, eventPublisher));
 

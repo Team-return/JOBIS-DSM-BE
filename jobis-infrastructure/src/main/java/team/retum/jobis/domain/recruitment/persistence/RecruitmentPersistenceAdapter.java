@@ -1,5 +1,7 @@
 package team.retum.jobis.domain.recruitment.persistence;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.JPAExpressions;
@@ -13,6 +15,7 @@ import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
+import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentExistsResponse;
 import team.retum.jobis.domain.recruitment.exception.RecruitmentNotFoundException;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
@@ -60,7 +63,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
     private final RecruitmentMapper recruitmentMapper;
 
     @Override
-    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter) {
+    public List<StudentRecruitmentVO> getStudentRecruitmentsBy(StudentRecruitmentFilter filter, RecruitSortType sortType) {
         StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
         BooleanExpression codeFilter = matchesCodeFilter(filter.getJobCode(), filter.getTechCodes());
 
@@ -102,13 +105,17 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .offset(filter.getOffset())
             .limit(filter.getLimit())
-            .orderBy(recruitmentEntity.createdAt.desc())
+            .orderBy(getOrderSpecifier(sortType))
             .groupBy(
                    recruitmentEntity.id,
                    companyEntity.name,
                    recruitmentEntity.payInfo.trainPay,
                    recruitmentEntity.militarySupport,
-                   companyEntity.companyLogoUrl
+                   companyEntity.companyLogoUrl,
+                   companyEntity.take,
+                   companyEntity.workersCount,
+                   recruitmentEntity.recruitDate.finishDate,
+                   recruitmentEntity.createdAt
             )
                 .fetch().stream()
             .map(StudentRecruitmentVO.class::cast)
@@ -684,7 +691,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .join(recruitAreaCodeSub)
             .on(
                 recruitAreaCodeSub.recruitArea.id.eq(recruitAreaSub.id),
-                recruitAreaCodeSub.type.eq(CodeType.JOB),
+                recruitAreaCodeSub.type.eq(JOB),
                 recruitAreaCodeSub.code.code.in(jobCode)
             )
             .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
@@ -710,5 +717,25 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .where(recruitAreaSub.recruitment.id.eq(recruitmentEntity.id))
             .exists();
+    }
+
+    private OrderSpecifier<?>[] getOrderSpecifier(RecruitSortType sortType) {
+        OrderSpecifier<?> tiebreaker = new OrderSpecifier<>(Order.DESC, recruitmentEntity.id);
+        if (sortType == null) {
+            return new OrderSpecifier<?>[] {
+                new OrderSpecifier<>(Order.DESC, recruitmentEntity.createdAt),
+                tiebreaker
+            };
+        }
+
+        OrderSpecifier<?> primary = switch (sortType) {
+            case TAKE -> new OrderSpecifier<>(Order.DESC, companyEntity.take);
+            case WORKERS_COUNT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
+            case WORKERS_COUNT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
+            case DEADLINE_DESC -> new OrderSpecifier<>(Order.DESC, recruitmentEntity.recruitDate.finishDate);
+            case DEADLINE_ASC -> new OrderSpecifier<>(Order.ASC, recruitmentEntity.recruitDate.finishDate);
+        };
+
+        return new OrderSpecifier<?>[] { primary, tiebreaker };
     }
 }

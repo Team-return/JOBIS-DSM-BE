@@ -14,4 +14,6 @@ public class RegexProperty {
     public static final String FILE_NAME = "^.+\\..+$";
 
     public static final String EMAIL = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+
+    public static final String INTERVIEW_TIME = "^([01][0-9]|2[0-3]):([0-5][0-9])";
 }
