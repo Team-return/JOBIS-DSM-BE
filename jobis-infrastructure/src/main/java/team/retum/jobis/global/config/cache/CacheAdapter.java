@@ -22,7 +22,7 @@ public class CacheAdapter implements CachePort {
         String key = RECENT_COMPANY + studentId;
 
         Set<String> result = redisTemplate.opsForZSet()
-            .reverseRange(key, 0, 30);
+            .reverseRange(key, 0, 29);
 
         return result == null ? List.of() : result.stream()
             .map(Long::parseLong).collect(Collectors.toList());
