@@ -1,13 +1,16 @@
 package team.retum.jobis.domain.company.spi.vo;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class CompanyDetailsVO {
 
     private final String businessNumber;

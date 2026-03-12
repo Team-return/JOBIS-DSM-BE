@@ -9,6 +9,7 @@ import team.retum.jobis.domain.company.spi.vo.CompanyVO;
 import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
+import team.retum.jobis.domain.company.spi.vo.RecentCompanyVO;
 
 import java.util.List;
 import java.util.Map;
@@ -42,4 +43,5 @@ public interface QueryCompanyPort {
 
     List<CompanyVO> getEmploymentRateByClassNumber(Integer classNum, int year);
 
+    List<RecentCompanyVO> getRecentCompanies(List<Long> companyIds);
 }
