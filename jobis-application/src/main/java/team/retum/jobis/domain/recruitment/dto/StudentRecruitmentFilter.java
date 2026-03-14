@@ -2,6 +2,7 @@ package team.retum.jobis.domain.recruitment.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.recruitment.dto.request.RecruitRegion;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 import java.time.LocalDate;
@@ -32,6 +33,8 @@ public class StudentRecruitmentFilter {
     private final Boolean winterIntern;
 
     private final Boolean militarySupport;
+
+    private final RecruitRegion region;
     @Builder.Default
     private int limit = 10;
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.recruitment.dto.request.RecruitRegion;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryManualRecruitmentsResponse;
@@ -130,6 +131,7 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "military_support", required = false) Boolean militarySupport,
         @RequestParam(value = "years", required = false) List<Integer> years,
         @RequestParam(value = "status", required = false) RecruitStatus status,
+        @RequestParam(value = "region", required = false) RecruitRegion region,
         @RequestParam(value = "sort_type", required = false) RecruitSortType sortType
     ) {
         return studentQueryRecruitmentsUseCase.execute(
@@ -141,6 +143,7 @@ public class RecruitmentWebAdapter {
             militarySupport,
             years,
             status,
+            region,
             sortType
         );
     }
@@ -154,7 +157,8 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "winter_intern", required = false) Boolean winterIntern,
         @RequestParam(value = "military_support", required = false) Boolean militarySupport,
         @RequestParam(value = "years", required = false) List<Integer> years,
-        @RequestParam(value = "status", required = false) RecruitStatus status
+        @RequestParam(value = "status", required = false) RecruitStatus status,
+        @RequestParam(value = "region", required = false) RecruitRegion region
     ) {
         return studentQueryRecruitmentsUseCase.getTotalPageCount(
             companyName,
@@ -163,7 +167,8 @@ public class RecruitmentWebAdapter {
             winterIntern,
             militarySupport,
             years,
-            status
+            status,
+            region
         );
     }
 
