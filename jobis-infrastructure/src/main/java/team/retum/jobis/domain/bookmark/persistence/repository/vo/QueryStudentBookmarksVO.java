@@ -26,10 +26,10 @@ public class QueryStudentBookmarksVO extends StudentBookmarksVO {
             companyLogoUrl,
             recruitmentId,
             createdAt,
-            militarySupport,
+            isBookmarked,
             status,
             jobCode,
-            isBookmarked
+            militarySupport
         );
     }
 }
