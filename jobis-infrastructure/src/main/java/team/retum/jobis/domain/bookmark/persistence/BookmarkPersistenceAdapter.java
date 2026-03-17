@@ -64,7 +64,11 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
                     companyEntity.name,
                     companyEntity.companyLogoUrl,
                     recruitmentEntity.id,
-                    bookmarkEntity.createdAt
+                    bookmarkEntity.createdAt,
+                    recruitmentEntity.militarySupport,
+                    recruitmentEntity.status,
+                    bookmarkEntity.recruitment.id.isNotNull(),
+                    recruitmentEntity.winterIntern
                 )
             )
             .from(bookmarkEntity)
