@@ -368,12 +368,13 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .select(Projections.constructor(RecentCompanyVO.class,
                 companyEntity.id,
                 companyEntity.name,
-                companyEntity.companyIntroduce,
+                recruitmentEntity.status.eq(RecruitStatus.RECRUITING).count().gt(0), // isRecruiting: boolean
                 companyEntity.companyLogoUrl
-                )
-            )
+            ))
             .from(companyEntity)
+            .leftJoin(recruitmentEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
             .where(companyEntity.id.in(companyIds))
+            .groupBy(companyEntity.id, companyEntity.name, companyEntity.companyLogoUrl)
             .fetch();
 
         //반환된 값들을 최신순으로 정렬
