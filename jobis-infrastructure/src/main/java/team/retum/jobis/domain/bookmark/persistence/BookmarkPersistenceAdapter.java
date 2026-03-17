@@ -83,14 +83,14 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
             .join(bookmarkEntity.recruitment, recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
             .join(bookmarkEntity.student, studentEntity)
-            .join(recruitAreaEntity)
+            .leftJoin(recruitAreaEntity)
             .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-            .join(recruitAreaCodeEntity)
+            .leftJoin(recruitAreaCodeEntity)
             .on(
                 recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
                 recruitAreaCodeEntity.type.eq(JOB)
             )
-            .join(recruitAreaCodeEntity.code, codeEntity)
+            .leftJoin(recruitAreaCodeEntity.code, codeEntity)
             .where(studentEntity.id.eq(studentId))
             .groupBy(
                 companyEntity.name,
