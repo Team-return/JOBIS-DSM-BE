@@ -16,6 +16,6 @@ public class StudentBookmarksVO {
     private final LocalDateTime createdAt;
     private final boolean isBookmarked;
     private final RecruitStatus status;
-    private final boolean winterIntern;
+    private final String jobCodes;
     private final Boolean militarySupport;
 }

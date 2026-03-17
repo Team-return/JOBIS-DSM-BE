@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.bookmark.persistence;
 
+import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import team.retum.jobis.domain.bookmark.persistence.repository.vo.QQueryStudentB
 import team.retum.jobis.domain.bookmark.spi.BookmarkPort;
 import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
 import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
+import team.retum.jobis.global.util.ExpressionUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static team.retum.jobis.domain.bookmark.persistence.entity.QBookmarkEntity.bookmarkEntity;
+import static team.retum.jobis.domain.code.model.CodeType.JOB;
+import static team.retum.jobis.domain.code.persistence.entity.QCodeEntity.codeEntity;
+import static team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity.recruitAreaCodeEntity;
 import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.companyEntity;
+import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitAreaEntity.recruitAreaEntity;
 import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
 import static team.retum.jobis.domain.user.persistence.entity.QUserEntity.userEntity;
@@ -58,6 +64,8 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
 
     @Override
     public List<StudentBookmarksVO> getByStudentId(Long studentId) {
+        StringExpression recruitJobsPath = ExpressionUtil.groupConcat(codeEntity.keyword);
+
         return queryFactory
             .select(
                 new QQueryStudentBookmarksVO(
@@ -68,14 +76,31 @@ public class BookmarkPersistenceAdapter implements BookmarkPort {
                     recruitmentEntity.militarySupport,
                     recruitmentEntity.status,
                     bookmarkEntity.recruitment.id.isNotNull(),
-                    recruitmentEntity.winterIntern
+                    recruitJobsPath
                 )
             )
             .from(bookmarkEntity)
             .join(bookmarkEntity.recruitment, recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
             .join(bookmarkEntity.student, studentEntity)
+            .join(recruitAreaEntity)
+            .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
+            .join(recruitAreaCodeEntity)
+            .on(
+                recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
+                recruitAreaCodeEntity.type.eq(JOB)
+            )
+            .join(recruitAreaCodeEntity.code, codeEntity)
             .where(studentEntity.id.eq(studentId))
+            .groupBy(
+                companyEntity.name,
+                companyEntity.companyLogoUrl,
+                recruitmentEntity.id,
+                bookmarkEntity.createdAt,
+                recruitmentEntity.militarySupport,
+                recruitmentEntity.status,
+                bookmarkEntity.recruitment.id
+            )
             .orderBy(bookmarkEntity.createdAt.desc())
             .fetch().stream()
             .map(StudentBookmarksVO.class::cast)

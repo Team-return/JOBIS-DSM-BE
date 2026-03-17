@@ -19,7 +19,7 @@ public class QueryStudentBookmarksVO extends StudentBookmarksVO {
         Boolean militarySupport,
         RecruitStatus status,
         boolean isBookmarked,
-        boolean winterIntern
+        String jobCode
     ) {
         super(
             companyName,
@@ -28,8 +28,8 @@ public class QueryStudentBookmarksVO extends StudentBookmarksVO {
             createdAt,
             militarySupport,
             status,
-            isBookmarked,
-            winterIntern
+            jobCode,
+            isBookmarked
         );
     }
 }

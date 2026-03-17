@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.bookmark.dto.response.QueryStudentBookmarksResponse;
+import team.retum.jobis.domain.bookmark.dto.response.QueryStudentBookmarksResponse.QueryStudentBookmarkResponse;
 import team.retum.jobis.domain.bookmark.spi.QueryBookmarkPort;
-import team.retum.jobis.domain.bookmark.spi.vo.StudentBookmarksVO;
 
 import java.util.List;
 
@@ -19,8 +19,9 @@ public class QueryStudentBookmarksUseCase {
     public QueryStudentBookmarksResponse execute() {
         Long currentUserId = securityPort.getCurrentUserId();
 
-        List<StudentBookmarksVO> bookmarks = queryBookmarkPort.getByStudentId(currentUserId);
-
+        List<QueryStudentBookmarkResponse> bookmarks = queryBookmarkPort.getByStudentId(currentUserId).stream()
+            .map(QueryStudentBookmarkResponse::from)
+            .toList();
         return new QueryStudentBookmarksResponse(bookmarks);
     }
 }
