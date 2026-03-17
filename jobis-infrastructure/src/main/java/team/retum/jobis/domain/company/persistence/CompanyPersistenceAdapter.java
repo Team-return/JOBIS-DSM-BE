@@ -36,6 +36,7 @@ import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.company.spi.vo.RecentCompanyVO;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
@@ -368,11 +369,13 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .select(Projections.constructor(RecentCompanyVO.class,
                 companyEntity.id,
                 companyEntity.name,
-                recruitmentEntity.status.eq(RecruitStatus.RECRUITING).count().gt(0), // isRecruiting: boolean
+                recruitmentEntity.status.eq(RecruitStatus.RECRUITING).count().gt(0),
                 companyEntity.companyLogoUrl
             ))
             .from(companyEntity)
-            .leftJoin(recruitmentEntity).on(recruitmentEntity.company.id.eq(companyEntity.id))
+            .leftJoin(recruitmentEntity).on(
+                recruitmentEntity.company.id.eq(companyEntity.id),
+                recruitmentEntity.recruitYear.eq(LocalDate.now().getYear()))
             .where(companyEntity.id.in(companyIds))
             .groupBy(companyEntity.id, companyEntity.name, companyEntity.companyLogoUrl)
             .fetch();
