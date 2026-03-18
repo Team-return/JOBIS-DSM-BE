@@ -369,13 +369,12 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .select(Projections.constructor(RecentCompanyVO.class,
                 companyEntity.id,
                 companyEntity.name,
-                recruitmentEntity.status.eq(RecruitStatus.RECRUITING).count().gt(0),
+                recruitmentEntity.status.count().gt(0),
                 companyEntity.companyLogoUrl
             ))
             .from(companyEntity)
             .leftJoin(recruitmentEntity).on(
-                recruitmentEntity.company.id.eq(companyEntity.id),
-                recruitmentEntity.recruitYear.eq(LocalDate.now().getYear()))
+                recentRecruitment(RecruitStatus.RECRUITING))
             .where(companyEntity.id.in(companyIds))
             .groupBy(companyEntity.id, companyEntity.name, companyEntity.companyLogoUrl)
             .fetch();
