@@ -36,7 +36,6 @@ import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.company.spi.vo.RecentCompanyVO;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;

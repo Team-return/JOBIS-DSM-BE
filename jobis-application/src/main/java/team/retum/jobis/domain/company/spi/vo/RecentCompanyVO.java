@@ -3,7 +3,6 @@ package team.retum.jobis.domain.company.spi.vo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 
 @Getter
 @NoArgsConstructor(force = true)
