@@ -11,6 +11,6 @@ public class RecentCompanyVO {
 
     private final Long companyId;
     private final String companyName;
-    private final String companyIntroduce;
+    private final Boolean isRecruiting;
     private final String companyLogoUrl;
 }
