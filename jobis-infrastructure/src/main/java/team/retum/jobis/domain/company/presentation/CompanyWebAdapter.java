@@ -31,6 +31,7 @@ import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompanie
 import team.retum.jobis.domain.company.dto.response.StudentQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryCompaniesResponse;
 import team.retum.jobis.domain.company.dto.response.TeacherQueryEmployCompaniesResponse;
+import team.retum.jobis.domain.company.dto.response.StudentQueryRecentCompaniesResponse;
 import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.company.presentation.dto.request.RegisterCompanyWebRequest;
 import team.retum.jobis.domain.company.presentation.dto.request.UpdateCompanyDetailsWebRequest;
@@ -51,6 +52,9 @@ import team.retum.jobis.domain.company.usecase.UpdateCompanyTypeUseCase;
 import team.retum.jobis.domain.company.usecase.UpdateMouUseCase;
 import team.retum.jobis.thirdparty.paser.ExcelAdapter;
 import team.retum.jobis.domain.company.usecase.TeacherRegisterCompanyUseCase;
+import team.retum.jobis.domain.company.usecase.StudentQueryRecentCompaniesUseCase;
+
+
 
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
 import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
@@ -76,6 +80,7 @@ public class CompanyWebAdapter {
     private final ExportCompanyHistoryUseCase exportRecruitmentHistoryUseCase;
     private final ExcelAdapter excelAdapter;
     private final TeacherRegisterCompanyUseCase teacherRegisterCompanyUseCase;
+    private final StudentQueryRecentCompaniesUseCase studentQueryRecentCompaniesUseCase;
 
     @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
@@ -89,12 +94,7 @@ public class CompanyWebAdapter {
         return checkCompanyExistsUseCase.execute(businessNumber);
     }
 
-    @Caching(
-        evict = {
-            @CacheEvict(cacheNames = COMPANY, allEntries = true),
-            @CacheEvict(cacheNames = COMPANY_USER, allEntries = true)
-        }
-    )
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{company-id}")
     public void updateDetails(
@@ -122,7 +122,6 @@ public class CompanyWebAdapter {
         return studentQueryCompaniesUseCase.getTotalPageCount(name);
     }
 
-    @Cacheable
     @GetMapping("/{company-id}")
     public QueryCompanyDetailsResponse getCompanyDetails(@PathVariable("company-id") Long companyId) {
         return queryCompanyDetailsUseCase.execute(companyId);
@@ -217,6 +216,11 @@ public class CompanyWebAdapter {
     @PostMapping("/teacher")
     public void teacherRegister(@RequestBody @Valid TeacherRegisterCompanyWebRequest request) {
         teacherRegisterCompanyUseCase.execute(request.toDomainRequest());
+    }
+
+    @GetMapping("/student/recent")
+    public StudentQueryRecentCompaniesResponse studentQueryRecentCompanies() {
+        return studentQueryRecentCompaniesUseCase.execute();
     }
 
 }
