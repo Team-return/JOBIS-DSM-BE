@@ -1,13 +1,16 @@
 package team.retum.jobis.domain.company.persistence.repository.vo;
 
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.company.spi.vo.CompanyDetailsVO;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class QueryCompanyDetailsVO extends CompanyDetailsVO {
 
     @QueryProjection

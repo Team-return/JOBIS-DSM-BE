@@ -12,7 +12,9 @@ import team.retum.jobis.domain.application.spi.CommandApplicationPort;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
+import team.retum.jobis.domain.student.exception.StudentNotFoundException;
 import team.retum.jobis.domain.student.model.Student;
+import team.retum.jobis.domain.student.spi.QueryStudentPort;
 
 import java.util.List;
 
@@ -23,10 +25,14 @@ public class CreateApplicationUseCase {
     private final CommandApplicationPort commandApplicationPort;
     private final QueryApplicationPort queryApplicationPort;
     private final QueryRecruitmentPort queryRecruitmentPort;
+    private final QueryStudentPort queryStudentPort;
     private final SecurityPort securityPort;
 
     public void execute(Long recruitmentId, List<AttachmentRequest> attachmentRequests) {
-        Student student = securityPort.getCurrentStudent();
+        Long studentId = securityPort.getCurrentUserId();
+        Student student = queryStudentPort.getByIdWithPessimisticLock(studentId)
+            .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
+
         Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(recruitmentId);
 
         recruitment.checkIsApplicable(student.getEntranceYear());

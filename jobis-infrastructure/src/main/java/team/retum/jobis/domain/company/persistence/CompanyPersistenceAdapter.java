@@ -1,15 +1,21 @@
 package team.retum.jobis.domain.company.persistence;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.company.dto.CompanyFilter;
+import team.retum.jobis.domain.company.dto.CompanySortType;
 import team.retum.jobis.domain.company.dto.response.QueryReviewAvailableCompaniesResponse.CompanyResponse;
 import team.retum.jobis.domain.company.model.Company;
 import team.retum.jobis.domain.company.model.CompanyType;
@@ -28,13 +34,15 @@ import team.retum.jobis.domain.company.spi.vo.StudentCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherCompaniesVO;
 import team.retum.jobis.domain.company.spi.vo.TeacherEmployCompaniesVO;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
+import team.retum.jobis.domain.company.spi.vo.RecentCompanyVO;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Comparator;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
-import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static com.querydsl.jpa.JPAExpressions.select;
 import static team.retum.jobis.domain.acceptance.persistence.entity.QAcceptanceEntity.acceptanceEntity;
 import static team.retum.jobis.domain.application.model.ApplicationStatus.FAILED;
@@ -47,6 +55,8 @@ import static team.retum.jobis.domain.company.persistence.entity.QCompanyEntity.
 import static team.retum.jobis.domain.recruitment.persistence.entity.QRecruitmentEntity.recruitmentEntity;
 import static team.retum.jobis.domain.review.persistence.entity.QReviewEntity.reviewEntity;
 import static team.retum.jobis.domain.student.persistence.entity.QStudentEntity.studentEntity;
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY;
+import static team.retum.jobis.global.config.cache.CacheName.COMPANY_USER;
 
 @Repository
 @RequiredArgsConstructor
@@ -57,7 +67,12 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Company save(Company company) {
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = COMPANY, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY_USER, allEntries = true)
+        }
+    )    public Company save(Company company) {
         return companyMapper.toDomain(
             companyJpaRepository.save(
                 companyMapper.toEntity(company)
@@ -75,7 +90,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter) {
+    public List<StudentCompaniesVO> getStudentCompanies(CompanyFilter filter, CompanySortType sortType) {
         return queryFactory
             .select(
                 new QStudentQueryCompaniesVO(
@@ -90,7 +105,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .leftJoin(recruitmentEntity)
             .on(recentRecruitment(RecruitStatus.RECRUITING))
             .where(containsName(filter.getName()))
-            .orderBy(companyEntity.name.desc())
+            .orderBy(getCompanyOrderSpecifier(sortType))
             .groupBy(companyEntity.id)
             .offset(filter.getOffset())
             .limit(filter.getLimit())
@@ -165,7 +180,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             ).fetchOne();
     }
 
-    @Override
+    @Cacheable(cacheNames = COMPANY, key = "#companyId")
     public Optional<CompanyDetailsVO> getCompanyDetails(Long companyId) {
         return Optional.ofNullable(
             queryFactory
@@ -347,6 +362,35 @@ public class CompanyPersistenceAdapter implements CompanyPort {
             .fetch();
     }
 
+    @Override
+    public List<RecentCompanyVO> getRecentCompanies(List<Long> companyIds) {
+        List<RecentCompanyVO> companies = queryFactory
+            .select(Projections.constructor(RecentCompanyVO.class,
+                companyEntity.id,
+                companyEntity.name,
+                recruitmentEntity.status.count().gt(0),
+                companyEntity.companyLogoUrl
+            ))
+            .from(companyEntity)
+            .leftJoin(recruitmentEntity).on(
+                recentRecruitment(RecruitStatus.RECRUITING))
+            .where(companyEntity.id.in(companyIds))
+            .groupBy(companyEntity.id, companyEntity.name, companyEntity.companyLogoUrl)
+            .fetch();
+
+        //반환된 값들을 최신순으로 정렬
+        Map<Long, Integer> orderMap = new HashMap<>();
+        for (int i = 0; i < companyIds.size(); i++) {
+            orderMap.put(companyIds.get(i), i);
+        }
+
+        companies.sort(
+            Comparator.comparingInt(c -> orderMap.get(c.getCompanyId()))
+        );
+
+        return companies;
+    }
+
     //==condition==//
 
     private BooleanExpression containsName(String name) {
@@ -384,4 +428,25 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     private BooleanExpression eqBusinessArea(String businessArea) {
         return businessArea == null ? null : companyEntity.businessArea.eq(businessArea);
     }
+
+    private OrderSpecifier<?>[] getCompanyOrderSpecifier(CompanySortType sortType) {
+        OrderSpecifier<?> tiebreaker = new OrderSpecifier<>(Order.DESC, companyEntity.id);
+        if (sortType == null) {
+            return new OrderSpecifier<?>[] {
+                new OrderSpecifier<>(Order.ASC, companyEntity.name), tiebreaker
+            };
+
+        }
+
+        OrderSpecifier<?> primary = switch (sortType) {
+            case TAKE -> new OrderSpecifier<>(Order.DESC, companyEntity.take);
+            case WORKERS_COUNT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.workersCount);
+            case WORKERS_COUNT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.workersCount);
+            case FOUNDED_AT_DESC -> new OrderSpecifier<>(Order.DESC, companyEntity.foundedAt);
+            case FOUNDED_AT_ASC -> new OrderSpecifier<>(Order.ASC, companyEntity.foundedAt);
+        };
+
+        return new OrderSpecifier<?>[] { primary, tiebreaker };
+    }
 }
+

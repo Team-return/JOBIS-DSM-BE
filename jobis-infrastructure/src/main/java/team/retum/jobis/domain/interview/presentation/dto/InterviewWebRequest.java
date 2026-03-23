@@ -32,9 +32,7 @@ public record InterviewWebRequest(
     @Size(max = 80)
     String location,
 
-    Long studentId,
-
-    Long documentNumberId
+    Long studentId
 ) {
     public InterviewRequest toDomainRequest() {
         if (!Pattern.matches(RegexProperty.INTERVIEW_TIME, this.interviewTime)) {
@@ -49,7 +47,6 @@ public record InterviewWebRequest(
             .companyName(this.companyName)
             .location(this.location)
             .studentId(this.studentId)
-            .documentNumberId(this.documentNumberId)
             .build();
     }
 }
