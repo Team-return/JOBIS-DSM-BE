@@ -17,6 +17,7 @@ import team.retum.jobis.domain.company.spi.CommandCompanyPort;
 import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.CommandUserPort;
+import team.retum.jobis.domain.user.spi.QueryUserPort;
 
 @RequiredArgsConstructor
 @UseCase
@@ -26,6 +27,7 @@ public class RegisterCompanyUseCase {
     private final QueryCompanyPort queryCompanyPort;
     private final CommandCompanyPort commandCompanyPort;
     private final QueryCodePort queryCodePort;
+    private final QueryUserPort queryUserPort;
     private final CommandUserPort commandUserPort;
     private final JwtPort jwtPort;
 
@@ -57,7 +59,7 @@ public class RegisterCompanyUseCase {
     }
 
     private void checkCompanyRegistered(String businessNumber) {
-        if (queryCompanyPort.existsByBizNo(businessNumber)) {
+        if (queryCompanyPort.existsByBizNo(businessNumber) || queryUserPort.existsByAccountId(businessNumber)) {
             throw CompanyAlreadyExistsException.EXCEPTION;
         }
     }
