@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.company.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embedded;
@@ -55,6 +56,7 @@ public class CompanyEntity {
 
     @NotNull
     @Column(columnDefinition = "TINYINT(1)")
+    @JsonProperty("mou")
     private boolean isMou;
 
     @Embedded
