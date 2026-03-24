@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.recruitment.dto.request.CreateRecruitAreaRequest;
+import team.retum.jobis.global.annotation.ValidListElements;
 
 import java.util.List;
 
@@ -15,8 +16,10 @@ import java.util.List;
 public class RecruitAreaWebRequest {
 
     @NotNull
+    @ValidListElements(allowDuplicates = false)
     private List<@NotNull Long> jobCodes;
 
+    @ValidListElements(allowDuplicates = false)
     private List<Long> techCodes;
 
     @NotNull
