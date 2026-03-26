@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class SmtpEmailService {
     private final JavaMailSender javaMailSender;
 
-    @Async()
+    @Async("mailExecutor")
     public void sendEmailAsync(SendEmailRequest request) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
