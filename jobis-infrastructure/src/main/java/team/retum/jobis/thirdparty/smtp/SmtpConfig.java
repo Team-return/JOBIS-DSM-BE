@@ -25,7 +25,10 @@ public class SmtpConfig {
 
         Properties javaMailProperties = mailSender.getJavaMailProperties();
 
-        javaMailProperties.putAll(smtpProperties.getProperties());
+        if (smtpProperties.getProperties() != null) {
+            javaMailProperties.putAll(smtpProperties.getProperties());
+        }
+        
         return mailSender;
     }
 }
