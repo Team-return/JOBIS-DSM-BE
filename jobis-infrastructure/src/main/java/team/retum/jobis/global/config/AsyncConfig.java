@@ -31,9 +31,6 @@ public class AsyncConfig {
         executor.setMaxPoolSize(30);
         executor.setQueueCapacity(20);
         executor.setThreadNamePrefix("mail-executor-");
-        executor.setRejectedExecutionHandler(
-            new ThreadPoolExecutor.CallerRunsPolicy()
-        );
         executor.initialize();
 
         return executor;
