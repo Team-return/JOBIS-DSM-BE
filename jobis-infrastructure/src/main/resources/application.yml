@@ -95,8 +95,6 @@ cloud:
     credentials:
       access-key: ${AWS_ACCESS:asdf}
       secret-key: ${AWS_SECRET:asdf}
-    ses:
-      source: ${EMAIL:team-return@team-return.com}
     region:
       static: ${S3_REGION:ap-northeast-2}
     stack:
