@@ -566,7 +566,6 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 eqCompanyId(companyId),
                 eqWinterIntern(winterIntern)
             )
-            .limit(1)
             .fetch()
             .stream()
             .map(recruitmentMapper::toDomain)
