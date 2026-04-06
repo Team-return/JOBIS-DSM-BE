@@ -236,6 +236,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             )
             .leftJoin(approvedApplication)
             .on(
+                approvedApplication.recruitment.id.eq(recruitmentEntity.id),
                 approvedApplication.applicationStatus.in(
                     ApplicationStatus.APPROVED,
                     ApplicationStatus.SEND,
