@@ -20,14 +20,18 @@ public class RejectApplicationUseCase {
     private final CommandApplicationPort commandApplicationPort;
     private final PublishEventPort eventPublisher;
 
-    public void execute(Long applicationId, String rejectReason, List<RejectionAttachmentRequest> rejectionAttachments) {
+    public void execute(Long applicationId, String rejectReason) {
         Application application = queryApplicationPort.getByIdOrThrow(applicationId);
 
+        commandApplicationPort.save(application.rejectApplication(rejectReason));
+
+        /* 나중에 사용할 수 있는 코드
         if (rejectionAttachments.isEmpty()) {
             commandApplicationPort.save(application.rejectApplication(rejectReason));
         } else {
             commandApplicationPort.save(application.rejectApplication(rejectReason, ApplicationRejectionAttachment.from(rejectionAttachments)));
         }
+         */
 
         eventPublisher.publishEvent(new SingleApplicationStatusChangedEvent(application, ApplicationStatus.REJECTED));
     }
