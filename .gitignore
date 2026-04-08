@@ -46,6 +46,14 @@ CLAUDE.md
 .claude/*
 
 ### AI Agent Files ###
+# Local repository guidance for Codex/agents
 AGENTS.md
+**/AGENTS.md
+AGENTS.override.md
+**/AGENTS.override.md
+docs/
+.omx/
+*.log
+logs/
 .opencode/**/*.md
 .sisyphus/**/*.md
