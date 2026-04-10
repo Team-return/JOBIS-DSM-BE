@@ -105,6 +105,10 @@ public class InterviewPersistenceAdapter implements InterviewPort {
     }
 
     private BooleanExpression eqInterviewPeriod(Integer year, Integer month) {
+        if (!isValidMonth(month)) {
+            return null;
+        }
+
         if (year != null && month != null) {
             YearMonth yearMonth = YearMonth.of(year, month);
             return overlapsPeriod(yearMonth.atDay(1), yearMonth.atEndOfMonth());
@@ -119,6 +123,10 @@ public class InterviewPersistenceAdapter implements InterviewPort {
         }
 
         return null;
+    }
+
+    private boolean isValidMonth(Integer month) {
+        return month == null || (month >= 1 && month <= 12);
     }
 
     private BooleanExpression eqInterviewType(ProgressType interviewType) {
