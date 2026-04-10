@@ -106,7 +106,9 @@ public class InterviewPersistenceAdapter implements InterviewPort {
 
     private BooleanExpression eqInterviewPeriod(Integer year, Integer month) {
         if (!isValidMonth(month)) {
-            return null;
+            return year == null
+                ? null
+                : overlapsPeriod(LocalDate.of(year, 1, 1), LocalDate.of(year, 12, 31));
         }
 
         if (year != null && month != null) {
