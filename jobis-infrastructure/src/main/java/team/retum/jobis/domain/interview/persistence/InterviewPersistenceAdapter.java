@@ -12,6 +12,7 @@ import team.retum.jobis.domain.interview.spi.InterviewPort;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import static team.retum.jobis.domain.interview.persistence.entity.QInterviewEntity.interviewEntity;
@@ -38,10 +39,10 @@ public class InterviewPersistenceAdapter implements InterviewPort {
         return queryFactory
             .selectFrom(interviewEntity)
             .where(
-                eqInterviewYear(filter.getYear()),
-                eqInterviewMonth(filter.getMonth()),
+                eqInterviewPeriod(filter.getYear(), filter.getMonth()),
                 containsCompanyName(filter.getCompanyName()),
-                eqInterviewType(filter.getInterviewType())
+                eqInterviewType(filter.getInterviewType()),
+                eqStudentId(filter.getStudentId())
             )
             .orderBy(interviewEntity.startDate.asc())
             .fetch().stream()
@@ -103,15 +104,65 @@ public class InterviewPersistenceAdapter implements InterviewPort {
         return interviewEntity.companyName.contains(companyName);
     }
 
-    private BooleanExpression eqInterviewYear(Integer year) {
-        return year == null ? null : interviewEntity.startDate.year().eq(year);
-    }
+    private BooleanExpression eqInterviewPeriod(Integer year, Integer month) {
+        if (year != null && month != null) {
+            YearMonth yearMonth = YearMonth.of(year, month);
+            return overlapsPeriod(yearMonth.atDay(1), yearMonth.atEndOfMonth());
+        }
 
-    private BooleanExpression eqInterviewMonth(Integer month) {
-        return month == null ? null : interviewEntity.startDate.month().eq(month);
+        if (year != null) {
+            return overlapsPeriod(LocalDate.of(year, 1, 1), LocalDate.of(year, 12, 31));
+        }
+
+        if (month != null) {
+            return overlapsMonth(month);
+        }
+
+        return null;
     }
 
     private BooleanExpression eqInterviewType(ProgressType interviewType) {
         return interviewType == null ? null : interviewEntity.interviewType.eq(interviewType);
+    }
+
+    private BooleanExpression eqStudentId(Long studentId) {
+        return studentId == null ? null : interviewEntity.student.id.eq(studentId);
+    }
+
+    private BooleanExpression overlapsPeriod(LocalDate periodStart, LocalDate periodEnd) {
+        BooleanExpression singleDayInterview = interviewEntity.endDate.isNull()
+            .and(interviewEntity.startDate.goe(periodStart))
+            .and(interviewEntity.startDate.loe(periodEnd));
+
+        BooleanExpression multiDayInterview = interviewEntity.endDate.isNotNull()
+            .and(interviewEntity.startDate.loe(periodEnd))
+            .and(interviewEntity.endDate.goe(periodStart));
+
+        return singleDayInterview.or(multiDayInterview);
+    }
+
+    private BooleanExpression overlapsMonth(Integer month) {
+        BooleanExpression singleDayInterview = interviewEntity.endDate.isNull()
+            .and(interviewEntity.startDate.month().eq(month));
+
+        BooleanExpression sameYearMultiDayInterview = interviewEntity.endDate.isNotNull()
+            .and(interviewEntity.startDate.year().eq(interviewEntity.endDate.year()))
+            .and(interviewEntity.startDate.month().loe(month))
+            .and(interviewEntity.endDate.month().goe(month));
+
+        BooleanExpression crossYearAdjacentInterview = interviewEntity.endDate.isNotNull()
+            .and(interviewEntity.endDate.year().subtract(interviewEntity.startDate.year()).eq(1))
+            .and(
+                interviewEntity.startDate.month().loe(month)
+                    .or(interviewEntity.endDate.month().goe(month))
+            );
+
+        BooleanExpression crossYearLongInterview = interviewEntity.endDate.isNotNull()
+            .and(interviewEntity.endDate.year().subtract(interviewEntity.startDate.year()).gt(1));
+
+        return singleDayInterview
+            .or(sameYearMultiDayInterview)
+            .or(crossYearAdjacentInterview)
+            .or(crossYearLongInterview);
     }
 }

@@ -15,4 +15,6 @@ public class InterviewFilter {
     private final String companyName;
 
     private final ProgressType interviewType;
+
+    private final Long studentId;
 }

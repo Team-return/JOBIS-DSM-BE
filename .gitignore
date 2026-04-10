@@ -54,6 +54,7 @@ AGENTS.override.md
 **/AGENTS.override.md
 docs/
 .omx/
+pr-*-comment-audit.md
 *.log
 logs/
 .opencode/**/*.md
