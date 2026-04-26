@@ -168,7 +168,8 @@ jobs:
             done
 
             echo "Deploy failed: healthcheck did not pass"
-            docker logs --tail 200 "$SERVICE"
+            docker compose logs --tail 200 "$SERVICE" || true
+
             exit 1
 
       - name: Notify deploy failure
