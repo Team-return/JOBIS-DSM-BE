@@ -2,8 +2,8 @@ name: prod-cd
 
 on:
   schedule:
-    # 04:00 KST. GitHub Actions schedules use UTC.
-    - cron: "0 19 * * *"
+    # 21:00 KST. GitHub Actions schedules use UTC.
+    - cron: "0 21 * * *"
   workflow_dispatch:
     inputs:
       tag:
