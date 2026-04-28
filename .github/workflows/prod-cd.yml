@@ -126,7 +126,7 @@ jobs:
 
       - name: Connect EC2 & Deploy Docker Image
         if: steps.deployed_tag.outputs.skip != 'true'
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.EC2_HOST }}
           port: ${{ secrets.EC2_PORT }}
