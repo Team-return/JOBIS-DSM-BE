@@ -1,9 +1,21 @@
 name: prod-cd
 
 on:
-  push:
-    tags:
-      - v*.*.*
+  schedule:
+    # 21:00 KST. GitHub Actions schedules use UTC.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Hotfix deploy tag, e.g. v1.2.3"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prod-deploy
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -12,40 +24,166 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve deploy tag
+        id: deploy_tag
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag || '' }}
+        run: |
+          git fetch --tags origin main:refs/remotes/origin/main
+
+          if [ -n "$INPUT_TAG" ]; then
+            TAG="$INPUT_TAG"
+          else
+            TAG=$(git tag -l 'v*.*.*' --merged origin/main --sort=-v:refname | head -n 1)
+          fi
+
+          if [ -z "$TAG" ]; then
+            echo "No release tag found."
+            exit 1
+          fi
+
+          if ! git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            echo "Tag does not exist: $TAG"
+            exit 1
+          fi
+
+          if ! git merge-base --is-ancestor "$TAG^{commit}" origin/main; then
+            echo "Tag is not reachable from origin/main: $TAG"
+            exit 1
+          fi
+
+          git checkout "$TAG"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Configure SSH
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_PORT: ${{ secrets.EC2_PORT }}
+          EC2_KEY: ${{ secrets.EC2_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$EC2_KEY" > ~/.ssh/jobis-ec2
+          chmod 600 ~/.ssh/jobis-ec2
+          ssh-keyscan -p "$EC2_PORT" "$EC2_HOST" >> ~/.ssh/known_hosts
+
+      - name: Check deployed tag
+        id: deployed_tag
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_PORT: ${{ secrets.EC2_PORT }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          TARGET_TAG: ${{ steps.deploy_tag.outputs.tag }}
+        run: |
+          DEPLOYED_TAG=$(ssh -i ~/.ssh/jobis-ec2 -p "$EC2_PORT" "$EC2_USER@$EC2_HOST" \
+            'cat /home/ubuntu/jobis/.deployed-prod-tag 2>/dev/null || true')
+
+          if [ "$DEPLOYED_TAG" = "$TARGET_TAG" ]; then
+            echo "Already deployed: $TARGET_TAG"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Deploy target: $TARGET_TAG"
+            echo "Previously deployed: ${DEPLOYED_TAG:-none}"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Set up Java
-        uses: actions/setup-java@v2
+        if: steps.deployed_tag.outputs.skip != 'true'
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'zulu'
       - name: Grant execute permission for gradlew
+        if: steps.deployed_tag.outputs.skip != 'true'
         run: chmod +x gradlew
 
       - name: Build with Gradle
+        if: steps.deployed_tag.outputs.skip != 'true'
         run: ./gradlew --build-cache build
 
       - name: Login to Dockerhub
-        uses: docker/login-action@v1
+        if: steps.deployed_tag.outputs.skip != 'true'
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Docker Build
-        run: docker build -t jobis1111/prod-server .
+      - name: Docker Build and Push
+        if: steps.deployed_tag.outputs.skip != 'true'
+        env:
+          TARGET_TAG: ${{ steps.deploy_tag.outputs.tag }}
+        run: |
+          docker build \
+            -t jobis1111/prod-server:$TARGET_TAG \
+            -t jobis1111/prod-server:latest \
+            .
 
-      - name: Push on Dockerhub
-        run: docker push jobis1111/prod-server
+          docker push jobis1111/prod-server:$TARGET_TAG
+          docker push jobis1111/prod-server:latest
 
 
       - name: Connect EC2 & Deploy Docker Image
-        uses: appleboy/ssh-action@master
+        if: steps.deployed_tag.outputs.skip != 'true'
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.EC2_HOST }}
           port: ${{ secrets.EC2_PORT }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd jobis
-            docker pull jobis1111/prod-server
-            docker compose up -d --no-deps prod-server
-            docker image prune -a -f
+            set -e
+
+            cd /home/ubuntu/jobis
+
+            TAG="${{ steps.deploy_tag.outputs.tag }}"
+            IMAGE="jobis1111/prod-server"
+            SERVICE="prod-server"
+            HEALTH_URL="http://127.0.0.1:8081/actuator/health"
+            DEPLOYED_TAG_FILE="/home/ubuntu/jobis/.deployed-prod-tag"
+
+            DEPLOYED_TAG="$(cat "$DEPLOYED_TAG_FILE" 2>/dev/null || true)"
+            if [ "$DEPLOYED_TAG" = "$TAG" ]; then
+              echo "Already deployed: $TAG"
+              exit 0
+            fi
+
+            docker pull "$IMAGE:$TAG"
+            docker tag "$IMAGE:$TAG" "$IMAGE:latest"
+            docker compose up -d --no-deps --force-recreate "$SERVICE"
+
+            for i in $(seq 1 40); do
+              BODY="$(curl -fsS --max-time 5 "$HEALTH_URL" || true)"
+
+              if echo "$BODY" | grep -q '"status":"UP"'; then
+                echo "$TAG" > "$DEPLOYED_TAG_FILE"
+                echo "Deploy succeeded: $TAG"
+                docker image prune -f
+                exit 0
+              fi
+
+              echo "healthcheck retry $i/40"
+              sleep 2
+            done
+
+            echo "Deploy failed: healthcheck did not pass"
+            docker compose logs --tail 200 "$SERVICE" || true
+
+            exit 1
+
+      - name: Notify deploy failure
+        if: failure()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TARGET_TAG: ${{ steps.deploy_tag.outputs.tag }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "DISCORD_WEBHOOK_URL is not configured. Skipping notification."
+            exit 0
+          fi
+
+          curl -fsS \
+            -H "Content-Type: application/json" \
+            -d "{\"content\":\"JOBIS production deploy failed: ${TARGET_TAG:-unknown}\"}" \
+            "$DISCORD_WEBHOOK_URL"
