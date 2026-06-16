@@ -3,6 +3,8 @@ package team.retum.jobis.domain.review.spi.vo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 @AllArgsConstructor
 public class ReviewVO {
@@ -15,7 +17,7 @@ public class ReviewVO {
 
     private final String writer;
 
-    private final int year;
+    private final LocalDate time;
 
     private final String major;
 }
