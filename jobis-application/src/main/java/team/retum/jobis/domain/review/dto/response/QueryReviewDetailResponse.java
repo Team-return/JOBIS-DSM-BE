@@ -7,6 +7,7 @@ import team.retum.jobis.domain.review.model.InterviewLocation;
 import team.retum.jobis.domain.review.model.InterviewType;
 import team.retum.jobis.domain.review.spi.vo.ReviewDetailVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -20,7 +21,7 @@ public class QueryReviewDetailResponse {
 
     private String writer;
 
-    private int year;
+    private LocalDate time;
 
     private String major;
 
@@ -41,7 +42,7 @@ public class QueryReviewDetailResponse {
             .reviewId(review.getReviewId())
             .companyName(review.getCompanyName())
             .writer(review.getWriter())
-            .year(review.getYear())
+            .time(review.getTime())
             .major(review.getMajor())
             .type(review.getType())
             .location(review.getLocation())

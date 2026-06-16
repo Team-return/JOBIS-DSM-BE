@@ -5,6 +5,8 @@ import lombok.Getter;
 import team.retum.jobis.domain.review.model.InterviewLocation;
 import team.retum.jobis.domain.review.model.InterviewType;
 
+import java.time.LocalDate;
+
 @Getter
 @AllArgsConstructor
 public class ReviewDetailVO {
@@ -15,7 +17,7 @@ public class ReviewDetailVO {
 
     private final String writer;
 
-    private final int year;
+    private final LocalDate time;
 
     private final String major;
 
