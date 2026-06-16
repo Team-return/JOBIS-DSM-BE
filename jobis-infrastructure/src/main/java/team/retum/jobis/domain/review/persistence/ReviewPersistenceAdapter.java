@@ -140,7 +140,7 @@ public class ReviewPersistenceAdapter implements ReviewPort {
                         reviewEntity.id,
                         companyEntity.name,
                         studentEntity.name,
-                        reviewEntity.createdAt.year(),
+                        reviewEntity.createdAt,
                         codeEntity.keyword,
                         reviewEntity.interviewType,
                         reviewEntity.interviewLocation,
