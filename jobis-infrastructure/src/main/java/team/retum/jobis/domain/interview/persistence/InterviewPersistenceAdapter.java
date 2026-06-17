@@ -73,6 +73,20 @@ public class InterviewPersistenceAdapter implements InterviewPort {
     }
 
     @Override
+    public List<Interview> getInterviewsByStudentId(Long studentId) {
+        return queryFactory
+            .selectFrom(interviewEntity)
+            .where(
+                interviewEntity.student.id.eq(studentId)
+            )
+            .orderBy(interviewEntity.endDate.desc())
+            .fetch()
+            .stream()
+            .map(interviewMapper::toDomain)
+            .toList();
+    }
+
+    @Override
     public List<Interview> getInterviewsByDateRange(LocalDate targetDate) {
         return queryFactory
             .selectFrom(interviewEntity)

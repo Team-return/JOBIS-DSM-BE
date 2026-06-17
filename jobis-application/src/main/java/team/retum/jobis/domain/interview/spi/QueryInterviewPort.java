@@ -15,4 +15,6 @@ public interface QueryInterviewPort {
     List<Interview> getByIds(List<Long> interviewIds);
 
     List<Interview> getByDocumentNumberId(Long documentNumberId);
+
+    List<Interview> getInterviewsByStudentId(Long studentId);
 }

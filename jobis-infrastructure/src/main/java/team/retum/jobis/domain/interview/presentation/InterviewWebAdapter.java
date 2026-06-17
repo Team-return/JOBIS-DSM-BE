@@ -17,6 +17,7 @@ import team.retum.jobis.domain.interview.dto.response.QueryInterviewsResponse;
 import team.retum.jobis.domain.interview.presentation.dto.InterviewWebRequest;
 import team.retum.jobis.domain.interview.usecase.CreateInterviewUseCase;
 import team.retum.jobis.domain.interview.usecase.QueryInterviewsUseCase;
+import team.retum.jobis.domain.interview.usecase.StudentQueryInterviewsUseCase;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
 
 @Validated
@@ -27,6 +28,7 @@ public class InterviewWebAdapter {
 
     private final CreateInterviewUseCase createInterviewUseCase;
     private final QueryInterviewsUseCase queryInterviewsUseCase;
+    private final StudentQueryInterviewsUseCase studentQueryInterviewsUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -44,5 +46,10 @@ public class InterviewWebAdapter {
         @RequestParam(value = "interview_type", required = false) ProgressType interviewType
     ) {
         return queryInterviewsUseCase.execute(year, month, companyName, interviewType);
+    }
+
+    @GetMapping("/students")
+    public QueryInterviewsResponse studentQueryInterview() {
+        return studentQueryInterviewsUseCase.execute();
     }
 }
