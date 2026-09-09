@@ -3,6 +3,7 @@ package team.retum.jobis.domain.notice.persistence;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import team.retum.jobis.domain.notice.dto.NoticeFilter;
 import team.retum.jobis.domain.notice.model.Notice;
 import team.retum.jobis.domain.notice.persistence.mapper.NoticeMapper;
 import team.retum.jobis.domain.notice.persistence.repository.NoticeJpaRepository;
@@ -40,7 +41,7 @@ public class NoticePersistenceAdapter implements NoticePort {
     }
 
     @Override
-    public List<NoticeVO> getNotices() {
+    public List<NoticeVO> getNotices(NoticeFilter filter) {
         return queryFactory
             .select(
                 new QQueryNoticeVO(
@@ -51,6 +52,8 @@ public class NoticePersistenceAdapter implements NoticePort {
             )
             .from(noticeEntity)
             .orderBy(noticeEntity.createdAt.desc())
+            .offset(filter.getOffset())
+            .limit(filter.getLimit())
             .fetch()
             .stream()
             .map(NoticeVO.class::cast)
