@@ -8,5 +8,6 @@ public record RegisterFieldTraineeRequest(
     LocalDate startDate,
     LocalDate endDate
 ) {
+    
 
 }
