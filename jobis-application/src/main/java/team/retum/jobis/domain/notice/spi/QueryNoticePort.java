@@ -13,4 +13,6 @@ public interface QueryNoticePort {
 
     List<NoticeVO> getNotices(NoticeFilter filter);
 
+    Long getNoticeCount();
+
 }

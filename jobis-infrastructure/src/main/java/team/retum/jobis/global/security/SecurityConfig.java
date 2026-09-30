@@ -165,6 +165,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/notices/{notice-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.DELETE, "/notices/{notice-id}").hasAuthority(TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/notices").hasAnyAuthority(STUDENT.name(), TEACHER.name())
+                    .requestMatchers(HttpMethod.GET, "/notices/count").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.GET, "/notices/{notice-id}").hasAnyAuthority(STUDENT.name(), TEACHER.name())
                     .requestMatchers(HttpMethod.POST, "/notices/{notice-id}/views").hasAuthority(STUDENT.name())
                     .requestMatchers(HttpMethod.GET, "/notices/{notice-id}/viewers").hasAnyAuthority(STUDENT.name(), TEACHER.name())

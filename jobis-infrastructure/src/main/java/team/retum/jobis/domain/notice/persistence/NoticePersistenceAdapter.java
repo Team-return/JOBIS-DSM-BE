@@ -59,4 +59,12 @@ public class NoticePersistenceAdapter implements NoticePort {
             .map(NoticeVO.class::cast)
             .toList();
     }
+
+    @Override
+    public Long getNoticeCount() {
+        return queryFactory
+            .select(noticeEntity.count())
+            .from(noticeEntity)
+            .fetchOne();
+    }
 }

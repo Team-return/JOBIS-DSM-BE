@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticeDetailResponse;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticesResponse;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticeViewersResponse;
@@ -66,6 +67,11 @@ public class NoticeWebAdapter {
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Long page
     ) {
         return queryNoticesUseCase.execute(page);
+    }
+
+    @GetMapping("/count")
+    public TotalPageCountResponse queryNoticeCount() {
+        return queryNoticesUseCase.getTotalPageCount();
     }
 
     @GetMapping("/{notice-id}")
