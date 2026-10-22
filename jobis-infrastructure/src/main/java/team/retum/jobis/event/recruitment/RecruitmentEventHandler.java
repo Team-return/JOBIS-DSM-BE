@@ -11,6 +11,7 @@ import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
+import team.retum.jobis.domain.notification.spi.QueryTopicSubscriptionPort;
 import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
@@ -36,6 +37,7 @@ public class RecruitmentEventHandler {
     private final QueryStudentPort queryStudentPort;
     private final QueryUserPort queryUserPort;
     private final QueryRecruitAreaPort queryRecruitAreaPort;
+    private final QueryTopicSubscriptionPort queryTopicSubscriptionPort;
     private final RabbitMqProducer rabbitMqProducer;
 
     @Async("asyncTaskExecutor")
@@ -55,6 +57,10 @@ public class RecruitmentEventHandler {
 
             List<BookmarkUserVO> bookmarkUserVOs = bookmarkUserMap.getOrDefault(recruitment.getId(), Collections.emptyList());
             for (BookmarkUserVO bookmarkUser : bookmarkUserVOs) {
+                if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(bookmarkUser.getToken(), Topic.RECRUITMENT).isEmpty()) {
+                    continue;
+                }
+
                 Notification notification = Notification.builder()
                     .title(bookmarkUser.getCompanyName())
                     .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
@@ -90,6 +96,9 @@ public class RecruitmentEventHandler {
 
             for (Student student : interestedStudents) {
                 User user = queryUserPort.getByStudentId(student.getId());
+                if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), Topic.RECRUITMENT).isEmpty()) {
+                    continue;
+                }
 
                 Notification notification = Notification.builder()
                     .title("모집의뢰서 보러가기")

@@ -11,6 +11,7 @@ import team.retum.jobis.domain.interview.event.InterviewNotificationEvent;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
+import team.retum.jobis.domain.notification.spi.QueryTopicSubscriptionPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 import team.retum.jobis.event.RabbitMqProducer;
@@ -21,6 +22,7 @@ public class InterviewEventHandler {
 
     private final CommandNotificationPort commandNotificationPort;
     private final QueryUserPort queryUserPort;
+    private final QueryTopicSubscriptionPort queryTopicSubscriptionPort;
     private final RabbitMqProducer rabbitMqProducer;
 
     @Async("asyncTaskExecutor")
@@ -29,6 +31,10 @@ public class InterviewEventHandler {
         User user = queryUserPort.getByStudentId(event.getInterview().getStudentId());
 
         if (user.getToken() == null || user.getToken().isEmpty()) {
+            return;
+        }
+
+        if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), Topic.INTERVIEW).isEmpty()) {
             return;
         }
 

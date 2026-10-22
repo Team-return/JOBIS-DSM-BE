@@ -14,6 +14,7 @@ import team.retum.jobis.domain.company.spi.QueryCompanyPort;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
+import team.retum.jobis.domain.notification.spi.QueryTopicSubscriptionPort;
 import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 import team.retum.jobis.event.RabbitMqProducer;
@@ -27,6 +28,7 @@ public class ApplicationEventHandler {
     private final QueryCompanyPort queryCompanyPort;
     private final QueryUserPort queryUserPort;
     private final CommandNotificationPort commandNotificationPort;
+    private final QueryTopicSubscriptionPort queryTopicSubscriptionPort;
     private final RabbitMqProducer rabbitMqProducer;
 
     @Async("asyncTaskExecutor")
@@ -41,6 +43,10 @@ public class ApplicationEventHandler {
         for (Application application : event.getApplications()) {
 
             User user = queryUserPort.getByStudentId(application.getStudentId());
+            if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), Topic.APPLICATION).isEmpty()) {
+                continue;
+            }
+
             String companyName = companyNameMap.get(application.getRecruitmentId());
 
             ApplicationMessage notificationMessage = ApplicationMessage.of(event, companyName);
@@ -65,6 +71,10 @@ public class ApplicationEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onApplicationStatusChange(SingleApplicationStatusChangedEvent event) {
         User user = queryUserPort.getByStudentId(event.getApplication().getStudentId());
+        if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), Topic.APPLICATION).isEmpty()) {
+            return;
+        }
+
         Notification notification = Notification.builder()
             .title("결과 보러가기")
             .content("지원서 상태가 " + event.getStatus().getName() + "으로 변경되었습니다.")

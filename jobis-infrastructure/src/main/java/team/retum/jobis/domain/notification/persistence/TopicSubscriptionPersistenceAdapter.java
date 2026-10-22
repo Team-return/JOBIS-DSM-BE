@@ -38,6 +38,10 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
 
     @Override
     public Optional<TopicSubscription> getByDeviceTokenAndTopic(String deviceToken, Topic topic) {
+        if (deviceToken == null) {
+            return Optional.empty();
+        }
+
         return Optional.ofNullable(
                 queryFactory
                     .selectFrom(topicSubscriptionEntity)
