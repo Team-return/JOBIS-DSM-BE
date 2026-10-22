@@ -9,7 +9,6 @@ import team.retum.jobis.domain.notification.model.TopicSubscription;
 import team.retum.jobis.domain.notification.persistence.mapper.TopicSubscriptionMapper;
 import team.retum.jobis.domain.notification.persistence.repository.TopicSubscriptionJpaRepository;
 import team.retum.jobis.domain.notification.spi.TopicSubscriptionPort;
-import team.retum.jobis.thirdparty.fcm.FCMUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,14 +24,13 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
     private final TopicSubscriptionJpaRepository topicSubscriptionJpaRepository;
     private final TopicSubscriptionMapper topicSubscriptionMapper;
     private final JPAQueryFactory queryFactory;
-    private final FCMUtil fcmUtil;
 
     @Override
     public List<TopicVO> getAllByDeviceToken(String deviceToken) {
         List<TopicVO> topics = topicSubscriptionJpaRepository.findAllByDeviceToken(deviceToken);
 
         if (topics.isEmpty()) {
-            topics = getDefaultSubscribedTopics(deviceToken);
+            topics = getDefaultUnsubscribedTopics();
         }
 
         return topics;
@@ -60,12 +58,9 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
 
     //==condition==//
 
-    private List<TopicVO> getDefaultSubscribedTopics(String token) {
+    private List<TopicVO> getDefaultUnsubscribedTopics() {
         return Arrays.stream(Topic.values())
-            .map(topic -> {
-                fcmUtil.subscribeTopic(token, topic);
-                return new TopicVO(topic, true);
-            })
+            .map(topic -> new TopicVO(topic, false))
             .collect(Collectors.toList());
     }
 }
