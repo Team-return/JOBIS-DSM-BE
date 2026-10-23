@@ -12,6 +12,7 @@ import team.retum.jobis.domain.notification.spi.TopicSubscriptionPort;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,13 +28,12 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
 
     @Override
     public List<TopicVO> getAllByDeviceToken(String deviceToken) {
-        List<TopicVO> topics = topicSubscriptionJpaRepository.findAllByDeviceToken(deviceToken);
+        Map<Topic, Boolean> savedTopics = topicSubscriptionJpaRepository.findAllByDeviceToken(deviceToken).stream()
+            .collect(Collectors.toMap(TopicVO::getTopic, TopicVO::isSubscribed));
 
-        if (topics.isEmpty()) {
-            topics = getDefaultUnsubscribedTopics();
-        }
-
-        return topics;
+        return Arrays.stream(Topic.values())
+            .map(topic -> new TopicVO(topic, savedTopics.getOrDefault(topic, false)))
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -58,13 +58,5 @@ public class TopicSubscriptionPersistenceAdapter implements TopicSubscriptionPor
     @Override
     public void save(TopicSubscription topicSubscription) {
         topicSubscriptionJpaRepository.save(topicSubscriptionMapper.toEntity(topicSubscription));
-    }
-
-    //==condition==//
-
-    private List<TopicVO> getDefaultUnsubscribedTopics() {
-        return Arrays.stream(Topic.values())
-            .map(topic -> new TopicVO(topic, false))
-            .collect(Collectors.toList());
     }
 }
