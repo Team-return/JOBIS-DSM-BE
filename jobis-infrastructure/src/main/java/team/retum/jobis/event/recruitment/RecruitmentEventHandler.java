@@ -11,7 +11,6 @@ import team.retum.jobis.domain.bookmark.spi.vo.BookmarkUserVO;
 import team.retum.jobis.domain.notification.model.Notification;
 import team.retum.jobis.domain.notification.model.Topic;
 import team.retum.jobis.domain.notification.spi.CommandNotificationPort;
-import team.retum.jobis.domain.notification.spi.QueryTopicSubscriptionPort;
 import team.retum.jobis.domain.recruitment.event.InterestedRecruitmentEvent;
 import team.retum.jobis.domain.recruitment.event.RecruitmentStatusChangedEvent;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
@@ -25,8 +24,10 @@ import team.retum.jobis.event.RabbitMqProducer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -37,7 +38,6 @@ public class RecruitmentEventHandler {
     private final QueryStudentPort queryStudentPort;
     private final QueryUserPort queryUserPort;
     private final QueryRecruitAreaPort queryRecruitAreaPort;
-    private final QueryTopicSubscriptionPort queryTopicSubscriptionPort;
     private final RabbitMqProducer rabbitMqProducer;
 
     @Async("asyncTaskExecutor")
@@ -51,13 +51,14 @@ public class RecruitmentEventHandler {
         Map<Long, List<BookmarkUserVO>> bookmarkUserMap = queryBookmarkPort.getBookmarkUserByRecruitmentIds(
             doneRecruitments.stream().map(Recruitment::getId).toList()
         );
+        Set<String> subscribedTokens = new HashSet<>(queryUserPort.getDeviceTokenByTopic(Topic.RECRUITMENT));
         for (Recruitment recruitment : doneRecruitments) {
             Notification repNotification = null;
             List<String> tokens = new ArrayList<>();
 
             List<BookmarkUserVO> bookmarkUserVOs = bookmarkUserMap.getOrDefault(recruitment.getId(), Collections.emptyList());
             for (BookmarkUserVO bookmarkUser : bookmarkUserVOs) {
-                if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(bookmarkUser.getToken(), Topic.RECRUITMENT).isEmpty()) {
+                if (!subscribedTokens.contains(bookmarkUser.getToken())) {
                     continue;
                 }
 
@@ -93,10 +94,11 @@ public class RecruitmentEventHandler {
         if (!interestedStudents.isEmpty()) {
             Notification repNotification = null;
             List<String> tokens = new ArrayList<>();
+            Set<String> subscribedTokens = new HashSet<>(queryUserPort.getDeviceTokenByTopic(Topic.RECRUITMENT));
 
             for (Student student : interestedStudents) {
                 User user = queryUserPort.getByStudentId(student.getId());
-                if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), Topic.RECRUITMENT).isEmpty()) {
+                if (!subscribedTokens.contains(user.getToken())) {
                     continue;
                 }
 

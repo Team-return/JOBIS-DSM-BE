@@ -19,7 +19,9 @@ import team.retum.jobis.domain.user.model.User;
 import team.retum.jobis.domain.user.spi.QueryUserPort;
 import team.retum.jobis.event.RabbitMqProducer;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -40,10 +42,11 @@ public class ApplicationEventHandler {
         Map<Long, String> companyNameMap = queryCompanyPort.getCompanyNameByRecruitmentIds(
             event.getApplications().stream().map(Application::getRecruitmentId).toList()
         );
+        Set<String> subscribedTokens = new HashSet<>(queryUserPort.getDeviceTokenByTopic(Topic.APPLICATION));
         for (Application application : event.getApplications()) {
 
             User user = queryUserPort.getByStudentId(application.getStudentId());
-            if (queryTopicSubscriptionPort.getByDeviceTokenAndTopic(user.getToken(), Topic.APPLICATION).isEmpty()) {
+            if (!subscribedTokens.contains(user.getToken())) {
                 continue;
             }
 
