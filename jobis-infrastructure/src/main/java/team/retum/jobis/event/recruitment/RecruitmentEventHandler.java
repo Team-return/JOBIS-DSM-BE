@@ -22,16 +22,12 @@ import team.retum.jobis.domain.user.spi.QueryUserPort;
 import team.retum.jobis.event.RabbitMqProducer;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Component
-public class RecruitmentEventHandler {
+public class
+RecruitmentEventHandler {
 
     private final QueryBookmarkPort queryBookmarkPort;
     private final CommandNotificationPort commandNotificationPort;
@@ -58,7 +54,7 @@ public class RecruitmentEventHandler {
 
             List<BookmarkUserVO> bookmarkUserVOs = bookmarkUserMap.getOrDefault(recruitment.getId(), Collections.emptyList());
             for (BookmarkUserVO bookmarkUser : bookmarkUserVOs) {
-                if (!subscribedTokens.contains(bookmarkUser.getToken())) {
+                if (!isTokensContainsToken(tokens, bookmarkUser.getToken())) {
                     continue;
                 }
 
@@ -98,7 +94,7 @@ public class RecruitmentEventHandler {
 
             for (Student student : interestedStudents) {
                 User user = queryUserPort.getByStudentId(student.getId());
-                if (!subscribedTokens.contains(user.getToken())) {
+                if (!isTokensContainsToken(subscribedTokens, user.getToken())) {
                     continue;
                 }
 
@@ -122,5 +118,9 @@ public class RecruitmentEventHandler {
                 rabbitMqProducer.publishEvent(notification);
             }
         }
+    }
+
+    private boolean isTokensContainsToken(Collection<String> tokens,  String token) {
+        return tokens.contains(token);
     }
 }
