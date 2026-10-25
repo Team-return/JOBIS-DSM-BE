@@ -54,7 +54,7 @@ RecruitmentEventHandler {
 
             List<BookmarkUserVO> bookmarkUserVOs = bookmarkUserMap.getOrDefault(recruitment.getId(), Collections.emptyList());
             for (BookmarkUserVO bookmarkUser : bookmarkUserVOs) {
-                if (!isTokensContainsToken(tokens, bookmarkUser.getToken())) {
+                if (!isTokensContainsToken(subscribedTokens, bookmarkUser.getToken())) {
                     continue;
                 }
 
