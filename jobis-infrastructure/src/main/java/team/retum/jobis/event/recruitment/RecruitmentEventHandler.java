@@ -32,8 +32,7 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
-public class
-RecruitmentEventHandler {
+public class RecruitmentEventHandler {
 
     private final QueryBookmarkPort queryBookmarkPort;
     private final CommandNotificationPort commandNotificationPort;
