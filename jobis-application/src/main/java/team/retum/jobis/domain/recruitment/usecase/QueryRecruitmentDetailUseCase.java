@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
-import static team.retum.jobis.domain.application.model.ApplicationStatus.DUPLICATE_CHECK;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
@@ -65,8 +64,7 @@ public class QueryRecruitmentDetailUseCase {
             return UnapplicableReason.NOT_RECRUITING;
         }
 
-        List<ApplicationStatus> statuses = queryApplicationPort.getApplicationStatusByStudentId(studentId);
-        if (statuses.stream().anyMatch(DUPLICATE_CHECK::contains)) {
+        if (queryApplicationPort.existsByStudentIdAndApplicationStatusIn(studentId, ApplicationStatus.DUPLICATE_CHECK)) {
             return UnapplicableReason.HAS_ACTIVE_APPLICATION;
         }
 
