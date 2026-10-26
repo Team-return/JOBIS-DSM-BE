@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
-import static team.retum.jobis.domain.application.model.ApplicationStatus.DUPLICATE_CHECK;
 import team.retum.jobis.domain.application.spi.QueryApplicationPort;
 import team.retum.jobis.domain.auth.model.Authority;
 import team.retum.jobis.domain.recruitment.dto.response.QueryRecruitmentDetailResponse;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitAreaResponse;
+import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import team.retum.jobis.domain.recruitment.model.Recruitment;
+import team.retum.jobis.domain.recruitment.model.UnapplicableReason;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitAreaPort;
 import team.retum.jobis.domain.recruitment.spi.QueryRecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
@@ -38,31 +39,39 @@ public class QueryRecruitmentDetailUseCase {
                 .map(RecruitAreaResponse::from)
                 .toList();
 
+        boolean applicableAuthority = APPLICABLE_AUTHORITIES.contains(securityPort.getCurrentUserAuthority());
+        UnapplicableReason unapplicableReason = applicableAuthority
+            ? getUnapplicableReason(recruitment, recruitmentDetail.isWinterIntern())
+            : null;
+
         return QueryRecruitmentDetailResponse.of(
             recruitmentDetail,
             recruitAreaResponses,
-            getApplicable(recruitmentDetail.isWinterIntern(), recruitment.getId()),
+            applicableAuthority ? unapplicableReason == null : null,
+            unapplicableReason,
             checkAuthority()
         );
     }
 
-    private Boolean getApplicable(boolean winterIntern, Long recruitmentId) {
-        if (APPLICABLE_AUTHORITIES.contains(securityPort.getCurrentUserAuthority())) {
-            List<ApplicationStatus> statuses = queryApplicationPort.getApplicationStatusByStudentId(
-                securityPort.getCurrentUserId()
-            );
+    private UnapplicableReason getUnapplicableReason(Recruitment recruitment, boolean winterIntern) {
+        Long studentId = securityPort.getCurrentUserId();
 
-            if (statuses.stream().anyMatch(DUPLICATE_CHECK::contains)) {
-                return false;
-            }
-
-            if (queryApplicationPort.existsByStudentIdAndRecruitmentId(
-                securityPort.getCurrentUserId(), recruitmentId)) {
-                return false;
-            }
-
-            return securityPort.getCurrentStudent().getApplicable(winterIntern);
+        if (queryApplicationPort.existsByStudentIdAndRecruitmentId(studentId, recruitment.getId())) {
+            return UnapplicableReason.ALREADY_APPLIED;
         }
+
+        if (recruitment.getStatus() != RecruitStatus.RECRUITING) {
+            return UnapplicableReason.NOT_RECRUITING;
+        }
+
+        if (queryApplicationPort.existsByStudentIdAndApplicationStatusIn(studentId, ApplicationStatus.DUPLICATE_CHECK)) {
+            return UnapplicableReason.HAS_ACTIVE_APPLICATION;
+        }
+
+        if (!securityPort.getCurrentStudent().getApplicable(winterIntern)) {
+            return UnapplicableReason.GRADE_NOT_ELIGIBLE;
+        }
+
         return null;
     }
 
