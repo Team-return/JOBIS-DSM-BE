@@ -23,5 +23,6 @@ public class TeacherRecruitmentVO {
     private final long approvedApplicationCount;
     private final long companyId;
     private final Boolean hireConvertible;
+    private final boolean winterIntern;
 
 }

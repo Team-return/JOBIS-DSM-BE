@@ -17,4 +17,5 @@ public class StudentRecruitmentVO {
     private final boolean isBookmarked;
     private final RecruitStatus status;
     private final int year;
+    private final boolean isWinterIntern;
 }
