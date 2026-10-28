@@ -153,7 +153,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
                     companyEntity.id,
-                    recruitmentEntity.hireConvertible
+                    recruitmentEntity.hireConvertible,
+                    recruitmentEntity.winterIntern
                 )
             )
             .from(recruitmentEntity)
@@ -217,7 +218,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     requestedApplication.countDistinct(),
                     approvedApplication.countDistinct(),
                     companyEntity.id,
-                    recruitmentEntity.hireConvertible
+                    recruitmentEntity.hireConvertible,
+                    recruitmentEntity.winterIntern
                 )
             )
             .from(recruitmentEntity)
