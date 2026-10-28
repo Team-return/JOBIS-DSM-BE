@@ -80,7 +80,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitJobsPath,
                     bookmarkEntity.recruitment.id.isNotNull(),
                     recruitmentEntity.status,
-                    recruitmentEntity.recruitYear
+                    recruitmentEntity.recruitYear,
+                    recruitmentEntity.winterIntern
                 )
             )
             .from(recruitmentEntity)
@@ -509,7 +510,8 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     recruitJobsPath,
                     bookmarkEntity.recruitment.id.isNotNull(),
                     recruitmentEntity.status,
-                    recruitmentEntity.recruitYear
+                    recruitmentEntity.recruitYear,
+                    recruitmentEntity.winterIntern
                 )
             )
             .from(recruitmentEntity)
