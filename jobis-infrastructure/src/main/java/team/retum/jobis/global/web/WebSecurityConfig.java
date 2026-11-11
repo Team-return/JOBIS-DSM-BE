@@ -57,7 +57,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
                 "https://student-stag-v2.jobis-dsm.kr",
                 "https://admin-stag-v2.jobis-dsm.kr",
-                "https://company-stag-v2.jobis-dsm.kr"
+                "https://company-stag-v2.jobis-dsm.kr",
+
+                "https://company-stag-v1.jobis-dsm.kr"
             )
             .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD")
             .allowedHeaders("*");
