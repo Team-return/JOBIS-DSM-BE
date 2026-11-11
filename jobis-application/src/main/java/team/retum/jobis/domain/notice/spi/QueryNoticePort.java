@@ -1,5 +1,6 @@
 package team.retum.jobis.domain.notice.spi;
 
+import team.retum.jobis.domain.notice.dto.NoticeFilter;
 import team.retum.jobis.domain.notice.model.Notice;
 import team.retum.jobis.domain.notice.spi.vo.NoticeVO;
 
@@ -10,6 +11,8 @@ public interface QueryNoticePort {
 
     Optional<Notice> getById(Long noticeId);
 
-    List<NoticeVO> getNotices();
+    List<NoticeVO> getNotices(NoticeFilter filter);
+
+    Long getNoticeCount();
 
 }

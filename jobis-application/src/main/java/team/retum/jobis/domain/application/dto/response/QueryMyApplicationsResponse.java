@@ -6,6 +6,7 @@ import lombok.Getter;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.spi.vo.ApplicationVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -28,6 +29,7 @@ public class QueryMyApplicationsResponse {
                             .toList()
                     )
                     .applicationStatus(application.getApplicationStatus())
+                    .createdAt(application.getCreatedAt().toLocalDate())
                     .build()
                 ).toList()
         );
@@ -43,5 +45,6 @@ public class QueryMyApplicationsResponse {
         private final String companyLogoUrl;
         private final List<AttachmentResponse> attachments;
         private final ApplicationStatus applicationStatus;
+        private final LocalDate createdAt;
     }
 }

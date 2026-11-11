@@ -16,10 +16,10 @@ public class QueryTeacherRecruitmentsVO extends TeacherRecruitmentVO {
                                       LocalDate startDate, LocalDate endDate, String companyName,
                                       CompanyType companyType, String jobCodes, long totalHiring,
                                       long requestedApplicationCount, long approvedApplicationCount,
-                                      long companyId, Boolean hireConvertible) {
+                                      long companyId, Boolean hireConvertible, boolean winterIntern) {
         super(recruitmentId, recruitStatus, startDate, endDate,
             companyName, companyType, jobCodes, totalHiring,
             requestedApplicationCount, approvedApplicationCount,
-            companyId, hireConvertible);
+            companyId, hireConvertible, winterIntern);
     }
 }

@@ -36,6 +36,8 @@ public class StudentQueryRecruitmentsResponse {
 
         private int year;
 
+        private boolean winterIntern;
+
         public static StudentRecruitmentResponse from(StudentRecruitmentVO recruitment) {
             return StudentRecruitmentResponse.builder()
                 .id(recruitment.getRecruitmentId())
@@ -47,6 +49,7 @@ public class StudentQueryRecruitmentsResponse {
                 .bookmarked(recruitment.isBookmarked())
                 .status(recruitment.getStatus())
                 .year(recruitment.getYear())
+                .winterIntern(recruitment.isWinterIntern())
                 .build();
         }
     }

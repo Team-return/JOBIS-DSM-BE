@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.recruitment.model.ProgressType;
+import team.retum.jobis.domain.recruitment.model.UnapplicableReason;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
 
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ public class QueryRecruitmentDetailResponse {
     private final LocalDate endDate;
     private final String etc;
     private final Boolean isApplicable;
+    private final UnapplicableReason unapplicableReason;
     private final boolean isBookmarked;
     private final Boolean hireConvertible;
     private final boolean winterIntern;
@@ -42,7 +44,7 @@ public class QueryRecruitmentDetailResponse {
 
     public static QueryRecruitmentDetailResponse of(
         RecruitmentDetailVO recruitmentDetail, List<RecruitAreaResponse> recruitAreas,
-        Boolean isApplicable, boolean authority
+        Boolean isApplicable, UnapplicableReason unapplicableReason, boolean authority
     ) {
         return QueryRecruitmentDetailResponse.builder()
             .recruitmentId(recruitmentDetail.getRecruitmentId())
@@ -64,6 +66,7 @@ public class QueryRecruitmentDetailResponse {
             .endDate(recruitmentDetail.getEndDate())
             .etc(recruitmentDetail.getEtc())
             .isApplicable(isApplicable)
+            .unapplicableReason(unapplicableReason)
             .isBookmarked(recruitmentDetail.isBookmarked())
             .hireConvertible(recruitmentDetail.getHireConvertible())
             .winterIntern(recruitmentDetail.isWinterIntern())

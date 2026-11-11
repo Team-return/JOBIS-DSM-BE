@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.review.spi.vo.ReviewVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -32,7 +33,7 @@ public class QueryReviewsResponse {
 
         private String writer;
 
-        private int year;
+        private LocalDate time;
 
         private String major;
 
@@ -42,7 +43,7 @@ public class QueryReviewsResponse {
                 .companyName(vo.getCompanyName())
                 .companyLogoUrl(vo.getCompanyLogoUrl())
                 .writer(vo.getWriter())
-                .year(vo.getYear())
+                .time(vo.getTime())
                 .major(vo.getMajor())
                 .build();
         }

@@ -23,9 +23,12 @@ import team.retum.jobis.event.RabbitMqProducer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -49,12 +52,17 @@ public class RecruitmentEventHandler {
         Map<Long, List<BookmarkUserVO>> bookmarkUserMap = queryBookmarkPort.getBookmarkUserByRecruitmentIds(
             doneRecruitments.stream().map(Recruitment::getId).toList()
         );
+        Set<String> subscribedTokens = new HashSet<>(queryUserPort.getDeviceTokenByTopic(Topic.RECRUITMENT));
         for (Recruitment recruitment : doneRecruitments) {
             Notification repNotification = null;
             List<String> tokens = new ArrayList<>();
 
             List<BookmarkUserVO> bookmarkUserVOs = bookmarkUserMap.getOrDefault(recruitment.getId(), Collections.emptyList());
             for (BookmarkUserVO bookmarkUser : bookmarkUserVOs) {
+                if (!isTokensContainsToken(subscribedTokens, bookmarkUser.getToken())) {
+                    continue;
+                }
+
                 Notification notification = Notification.builder()
                     .title(bookmarkUser.getCompanyName())
                     .content("북마크한 " + bookmarkUser.getCompanyName() + " 모집의뢰서의 모집기간이 종료되었습니다.")
@@ -87,9 +95,13 @@ public class RecruitmentEventHandler {
         if (!interestedStudents.isEmpty()) {
             Notification repNotification = null;
             List<String> tokens = new ArrayList<>();
+            Set<String> subscribedTokens = new HashSet<>(queryUserPort.getDeviceTokenByTopic(Topic.RECRUITMENT));
 
             for (Student student : interestedStudents) {
                 User user = queryUserPort.getByStudentId(student.getId());
+                if (!isTokensContainsToken(subscribedTokens, user.getToken())) {
+                    continue;
+                }
 
                 Notification notification = Notification.builder()
                     .title("모집의뢰서 보러가기")
@@ -111,5 +123,9 @@ public class RecruitmentEventHandler {
                 rabbitMqProducer.publishEvent(notification);
             }
         }
+    }
+
+    private boolean isTokensContainsToken(Collection<String> tokens,  String token) {
+        return tokens.contains(token);
     }
 }
