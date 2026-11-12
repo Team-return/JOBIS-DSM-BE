@@ -13,6 +13,7 @@ import team.retum.jobis.domain.application.model.ApplicationStatus;
 import team.retum.jobis.domain.application.persistence.entity.QApplicationEntity;
 import team.retum.jobis.domain.code.model.CodeType;
 import team.retum.jobis.domain.code.persistence.entity.QRecruitAreaCodeEntity;
+import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.StudentRecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitRegion;
@@ -186,6 +187,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                 eqRecruitStatus(filter.getStatus()),
                 containsName(filter.getCompanyName()),
+                eqCompanyType(filter.getCompanyType()),
                 eqWinterIntern(filter.getWinterIntern()),
                 containsCodes(filter.getCodes())
             )
@@ -314,6 +316,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                     eqRecruitStatus(filter.getStatus()),
                     containsName(filter.getCompanyName()),
+                    eqCompanyType(filter.getCompanyType()),
                     eqWinterIntern(filter.getWinterIntern())
                 )
                 .fetchOne();
@@ -334,6 +337,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                     betweenRecruitDate(filter.getStartDate(), filter.getEndDate()),
                     eqRecruitStatus(filter.getStatus()),
                     containsName(filter.getCompanyName()),
+                    eqCompanyType(filter.getCompanyType()),
                     recruitAreaCodeEntity.recruitAreaCodeId.recruitAreaId.isNotNull(),
                     eqWinterIntern(filter.getWinterIntern())
                 )
@@ -680,6 +684,10 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
 
     private BooleanExpression eqMilitarySupport(Boolean militarySupport) {
         return militarySupport == null ? null : recruitmentEntity.militarySupport.eq(militarySupport);
+    }
+
+    private BooleanExpression eqCompanyType(CompanyType companyType) {
+        return companyType == null ? null : companyEntity.type.eq(companyType);
     }
 
     private BooleanExpression eqCompanyId(Long companyId) {
