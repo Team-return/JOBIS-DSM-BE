@@ -92,14 +92,14 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 bookmarkEntity.student.id.eq(filter.getStudentId())
             )
             .join(recruitmentEntity.company, companyEntity)
-            .join(recruitAreaEntity)
+            .leftJoin(recruitAreaEntity)
             .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-            .join(recruitAreaCodeEntity)
+            .leftJoin(recruitAreaCodeEntity)
             .on(
                 recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
                 recruitAreaCodeEntity.type.eq(JOB)
             )
-            .join(recruitAreaCodeEntity.code, codeEntity)
+            .leftJoin(recruitAreaCodeEntity.code, codeEntity)
             .where(
                 eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus(), filter.getCompanyName()),
                 containsName(filter.getCompanyName()),
@@ -353,14 +353,14 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .select(recruitmentEntity.countDistinct())
             .from(recruitmentEntity)
             .join(recruitmentEntity.company, companyEntity)
-            .join(recruitAreaEntity)
+            .leftJoin(recruitAreaEntity)
             .on(recruitAreaEntity.recruitment.id.eq(recruitmentEntity.id))
-            .join(recruitAreaCodeEntity)
+            .leftJoin(recruitAreaCodeEntity)
             .on(
                 recruitAreaCodeEntity.recruitArea.id.eq(recruitAreaEntity.id),
                 recruitAreaCodeEntity.type.eq(JOB)
             )
-            .join(recruitAreaCodeEntity.code, codeEntity)
+            .leftJoin(recruitAreaCodeEntity.code, codeEntity)
             .where(
                 eqYearsAndRecruitStatus(filter.getYears(), filter.getStatus(), filter.getCompanyName()),
                 containsName(filter.getCompanyName()),
