@@ -76,8 +76,6 @@ public class TeacherQueryRecruitmentsUseCase {
             .winterIntern(winterIntern)
             .militarySupport(militarySupport)
             .codes(codeIds)
-            .page(1L)
-            .limit(1000)
             .build();
 
         List<TeacherRecruitmentResponse> recruitments =

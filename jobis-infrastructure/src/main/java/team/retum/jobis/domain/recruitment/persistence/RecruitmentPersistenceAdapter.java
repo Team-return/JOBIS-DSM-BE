@@ -6,6 +6,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,6 +32,7 @@ import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryRecru
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryStudentRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryTeacherRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.persistence.repository.vo.QQueryManualRecruitmentVO;
+import team.retum.jobis.domain.recruitment.persistence.repository.vo.QueryTeacherRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.RecruitmentPort;
 import team.retum.jobis.domain.recruitment.spi.vo.MyAllRecruitmentsVO;
 import team.retum.jobis.domain.recruitment.spi.vo.RecruitmentDetailVO;
@@ -140,7 +142,7 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
             .from(subRecruitArea)
             .where(subRecruitArea.recruitment.id.eq(recruitmentEntity.id));
 
-        return queryFactory
+        JPAQuery<QueryTeacherRecruitmentsVO> query = queryFactory
             .select(
                 new QQueryTeacherRecruitmentsVO(
                     recruitmentEntity.id,
@@ -191,10 +193,16 @@ public class RecruitmentPersistenceAdapter implements RecruitmentPort {
                 eqWinterIntern(filter.getWinterIntern()),
                 containsCodes(filter.getCodes())
             )
-            .offset(filter.getOffset())
-            .limit(filter.getLimit())
             .orderBy(recruitmentEntity.createdAt.desc())
-            .groupBy(recruitmentEntity.id)
+            .groupBy(recruitmentEntity.id);
+
+        if (filter.getPage() != null) {
+            query
+                .offset(filter.getOffset())
+                .limit(filter.getLimit());
+        }
+
+        return query
             .fetch().stream()
             .map(TeacherRecruitmentVO.class::cast)
             .toList();
