@@ -40,6 +40,7 @@ public class TeacherQueryApplicationsResponse {
                     )
                     .createdAt(application.getCreatedAt().toLocalDate())
                     .applicationStatus(application.getApplicationStatus())
+                    .winterIntern(application.getWinterIntern())
                     .build()
                 ).toList()
         );
@@ -58,5 +59,6 @@ public class TeacherQueryApplicationsResponse {
         private final List<AttachmentResponse> attachments;
         private final LocalDate createdAt;
         private final ApplicationStatus applicationStatus;
+        private final Boolean winterIntern;
     }
 }

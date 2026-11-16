@@ -24,4 +24,5 @@ public class ApplicationVO {
     private final List<ApplicationAttachment> applicationAttachmentEntities;
     private final LocalDateTime createdAt;
     private final ApplicationStatus applicationStatus;
+    private final Boolean winterIntern;
 }
