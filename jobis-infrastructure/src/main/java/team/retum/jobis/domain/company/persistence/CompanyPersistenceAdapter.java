@@ -141,7 +141,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 eqRegion(filter.getRegion()),
                 eqBusinessArea(filter.getBusinessArea())
             )
-            .orderBy(recruitmentEntity.recruitYear.desc());
+            .orderBy(recruitmentEntity.recruitYear.desc(), companyEntity.id.desc());
 
         if (filter.getPage() != null) {
             query
