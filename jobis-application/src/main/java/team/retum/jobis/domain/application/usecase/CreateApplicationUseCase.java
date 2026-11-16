@@ -5,6 +5,7 @@ import team.retum.jobis.common.annotation.UseCase;
 import team.retum.jobis.common.spi.SecurityPort;
 import team.retum.jobis.domain.application.dto.request.AttachmentRequest;
 import team.retum.jobis.domain.application.exception.ApplicationAlreadyExistsException;
+import team.retum.jobis.domain.application.exception.ApplicationInProgressException;
 import team.retum.jobis.domain.application.model.Application;
 import team.retum.jobis.domain.application.model.ApplicationAttachment;
 import team.retum.jobis.domain.application.model.ApplicationStatus;
@@ -36,8 +37,8 @@ public class CreateApplicationUseCase {
         Recruitment recruitment = queryRecruitmentPort.getByIdOrThrow(recruitmentId);
 
         recruitment.checkIsApplicable(student.getEntranceYear());
-        checkApplicationDuplicated(student.getId());
         checkApplicationAlreadyApply(student.getId(), recruitment.getId());
+        checkApplicationDuplicated(student.getId());
 
         List<ApplicationAttachment> attachments = ApplicationAttachment.from(attachmentRequests);
         commandApplicationPort.save(
@@ -55,7 +56,7 @@ public class CreateApplicationUseCase {
             studentId,
             ApplicationStatus.DUPLICATE_CHECK
         )) {
-            throw ApplicationAlreadyExistsException.EXCEPTION;
+            throw ApplicationInProgressException.EXCEPTION;
         }
     }
 

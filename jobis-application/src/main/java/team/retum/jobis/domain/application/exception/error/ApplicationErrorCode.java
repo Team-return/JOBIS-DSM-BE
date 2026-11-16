@@ -20,7 +20,8 @@ public enum ApplicationErrorCode implements ErrorProperty {
 
     APPLICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "ApplicationEntity Not Found"),
 
-    APPLICATION_ALREADY_EXISTS(HttpStatus.CONFLICT, "ApplicationEntity Already Exists");
+    APPLICATION_ALREADY_EXISTS(HttpStatus.CONFLICT, "ApplicationEntity Already Exists"),
+    APPLICATION_IN_PROGRESS(HttpStatus.CONFLICT, "Application In Progress Exists");
 
     private final HttpStatus status;
     private final String message;
