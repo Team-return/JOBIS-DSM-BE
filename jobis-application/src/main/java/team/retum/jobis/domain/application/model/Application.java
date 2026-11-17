@@ -67,18 +67,10 @@ public class Application {
             .build();
     }
 
-    public Application rejectApplication(String reason) {
-        return this.toBuilder()
-            .applicationStatus(ApplicationStatus.REJECTED)
-            .rejectionReason(reason)
-            .applicationRejectionAttachments(Collections.emptyList())
-            .attachments(Collections.emptyList())
-            .build();
-    }
-
     public Application reapply(List<ApplicationAttachment> attachments) {
         return this.toBuilder()
             .attachments(attachments)
+            .applicationRejectionAttachments(Collections.emptyList())
             .applicationStatus(ApplicationStatus.REQUESTED)
             .build();
     }

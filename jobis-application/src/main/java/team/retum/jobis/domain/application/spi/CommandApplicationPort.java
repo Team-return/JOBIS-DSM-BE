@@ -21,4 +21,6 @@ public interface CommandApplicationPort {
     void saveAll(List<Application> applications);
 
     void deleteAllByApplicationId(Long applicationId);
+
+    void deleteRejectionAttachmentsByApplicationId(Long applicationId);
 }
