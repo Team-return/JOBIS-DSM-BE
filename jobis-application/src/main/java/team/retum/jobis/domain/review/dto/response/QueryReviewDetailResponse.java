@@ -23,7 +23,6 @@ public class QueryReviewDetailResponse {
 
     private LocalDate time;
 
-    // year만 읽는 구버전 앱 호환용(#1176)
     private Integer year;
 
     private String major;
@@ -46,7 +45,7 @@ public class QueryReviewDetailResponse {
             .companyName(review.getCompanyName())
             .writer(review.getWriter())
             .time(review.getTime())
-            .year(review.getTime() == null ? null : review.getTime().getYear())
+            .year(review.getTime().getYear())
             .major(review.getMajor())
             .type(review.getType())
             .location(review.getLocation())

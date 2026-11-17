@@ -35,7 +35,6 @@ public class QueryReviewsResponse {
 
         private LocalDate time;
 
-        // year만 읽는 구버전 앱 호환용(#1176). 캐시 역직렬화를 위해 계산 getter가 아닌 필드로 둔다
         private Integer year;
 
         private String major;
@@ -47,7 +46,7 @@ public class QueryReviewsResponse {
                 .companyLogoUrl(vo.getCompanyLogoUrl())
                 .writer(vo.getWriter())
                 .time(vo.getTime())
-                .year(vo.getTime() == null ? null : vo.getTime().getYear())
+                .year(vo.getTime().getYear())
                 .major(vo.getMajor())
                 .build();
         }
