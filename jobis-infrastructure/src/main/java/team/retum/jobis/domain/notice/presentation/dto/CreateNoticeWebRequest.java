@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team.retum.jobis.domain.notice.dto.request.CreateNoticeRequest;
 import team.retum.jobis.domain.notice.model.AttachmentType;
-import team.retum.jobis.global.annotation.ValidListElements;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -21,13 +19,14 @@ public class CreateNoticeWebRequest {
     @NotBlank
     private String content;
 
-    @ValidListElements
-    private List<AttachmentWebRequest> attachments;
+    private List<@NotNull AttachmentWebRequest> attachments;
 
     public CreateNoticeRequest toDomainRequest() {
-        List<CreateNoticeRequest.AttachmentRequest> attachmentRequests = this.attachments.stream()
-            .map(attachment -> new CreateNoticeRequest.AttachmentRequest(attachment.url, attachment.type))
-            .collect(Collectors.toList());
+        List<CreateNoticeRequest.AttachmentRequest> attachmentRequests = this.attachments == null
+            ? List.of()
+            : this.attachments.stream()
+                .map(attachment -> new CreateNoticeRequest.AttachmentRequest(attachment.url, attachment.type))
+                .toList();
 
         return new CreateNoticeRequest(this.title, this.content, attachmentRequests);
     }
