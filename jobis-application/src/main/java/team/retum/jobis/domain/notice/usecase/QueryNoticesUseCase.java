@@ -2,9 +2,9 @@ package team.retum.jobis.domain.notice.usecase;
 
 import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
-import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
 import team.retum.jobis.domain.notice.dto.NoticeFilter;
+import team.retum.jobis.domain.notice.dto.response.QueryNoticeCountResponse;
 import team.retum.jobis.domain.notice.dto.response.QueryNoticesResponse;
 import team.retum.jobis.domain.notice.spi.QueryNoticePort;
 import team.retum.jobis.domain.notice.spi.vo.NoticeVO;
@@ -30,11 +30,10 @@ public class QueryNoticesUseCase {
         return new QueryNoticesResponse(noticeVOs);
     }
 
-    public TotalPageCountResponse getTotalPageCount() {
-        int totalPageCount = NumberUtil.getTotalPageCount(
-            queryNoticePort.getNoticeCount(), PAGE_LIMIT
-        );
+    public QueryNoticeCountResponse getNoticeCount() {
+        Long totalCount = queryNoticePort.getNoticeCount();
+        int totalPageCount = NumberUtil.getTotalPageCount(totalCount, PAGE_LIMIT);
 
-        return new TotalPageCountResponse(totalPageCount);
+        return new QueryNoticeCountResponse(totalPageCount, totalCount);
     }
 }
