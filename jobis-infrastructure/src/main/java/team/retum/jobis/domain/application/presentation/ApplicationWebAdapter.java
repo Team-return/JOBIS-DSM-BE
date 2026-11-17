@@ -252,6 +252,13 @@ public class ApplicationWebAdapter {
         return queryEmploymentRateUseCase.execute(year);
     }
 
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = APPLICATION, allEntries = true),
+            @CacheEvict(cacheNames = COMPANY, allEntries = true),
+            @CacheEvict(cacheNames = RECRUITMENT, allEntries = true)
+        }
+    )
     @PostMapping("/teacher/{recruitment-id}")
     public void createNonMOUPassApplications(
             @PathVariable("recruitment-id") Long recruitmentId,
