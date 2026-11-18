@@ -339,6 +339,11 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
         applicationJpaRepository.deleteAttachmentsByApplicationId(applicationId);
     }
 
+    @Override
+    public void deleteRejectionAttachmentsByApplicationId(Long applicationId) {
+        applicationJpaRepository.deleteRejectionAttachmentsByApplicationId(applicationId);
+    }
+
     //==conditions==//
 
     private BooleanExpression eqRecruitmentId(Long recruitmentId) {

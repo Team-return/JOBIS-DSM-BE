@@ -192,7 +192,8 @@ public class ApplicationWebAdapter {
         @Valid @RequestBody RejectApplicationWebRequest request
     ) {
         rejectApplicationUseCase.execute(applicationId,
-            request.getReason()
+            request.getReason(),
+            request.toDomainAttachmentRequest()
         );
     }
 

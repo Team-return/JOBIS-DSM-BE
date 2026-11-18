@@ -27,7 +27,7 @@ public class RejectApplicationWebRequest {
     }
 
     public List<RejectionAttachmentRequest> toDomainAttachmentRequest() {
-        if (rejectionAttachments.isEmpty()) {
+        if (rejectionAttachments == null || rejectionAttachments.isEmpty()) {
             return Collections.emptyList();
         } else {
             return rejectionAttachments.stream()
