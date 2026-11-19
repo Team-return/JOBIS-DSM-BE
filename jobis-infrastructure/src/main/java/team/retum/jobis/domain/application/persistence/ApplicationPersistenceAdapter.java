@@ -87,7 +87,8 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                             companyEntity.companyLogoUrl,
                             list(applicationAttachmentEntity),
                             applicationEntity.createdAt,
-                            applicationEntity.applicationStatus
+                            applicationEntity.applicationStatus,
+                            recruitmentEntity.winterIntern
                         )
                     )
             )
@@ -104,6 +105,7 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
                 .companyName(application.getCompanyName())
                 .createdAt(application.getCreatedAt())
                 .applicationStatus(application.getApplicationStatus())
+                .winterIntern(application.getWinterIntern())
                 .applicationAttachmentEntities(
                     application.getApplicationAttachmentEntities().stream()
                         .map(attachment -> new ApplicationAttachment(attachment.getAttachmentUrl(), attachment.getType()))
@@ -335,6 +337,11 @@ public class ApplicationPersistenceAdapter implements ApplicationPort {
     @Override
     public void deleteAllByApplicationId(Long applicationId) {
         applicationJpaRepository.deleteAttachmentsByApplicationId(applicationId);
+    }
+
+    @Override
+    public void deleteRejectionAttachmentsByApplicationId(Long applicationId) {
+        applicationJpaRepository.deleteRejectionAttachmentsByApplicationId(applicationId);
     }
 
     //==conditions==//

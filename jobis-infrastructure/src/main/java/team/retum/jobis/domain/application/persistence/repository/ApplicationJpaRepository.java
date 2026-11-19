@@ -18,6 +18,10 @@ public interface ApplicationJpaRepository extends JpaRepository<ApplicationEntit
     @Query("delete from ApplicationAttachmentEntity a where a.application.id = ?1")
     void deleteAttachmentsByApplicationId(Long applicationId);
 
+    @Modifying
+    @Query("delete from ApplicationRejectionAttachmentEntity a where a.application.id = ?1")
+    void deleteRejectionAttachmentsByApplicationId(Long applicationId);
+
     @Query("select a from ApplicationEntity a join fetch a.applicationAttachments where a.id=?1")
     Optional<ApplicationEntity> findByIdFetch(Long applicationId);
 }

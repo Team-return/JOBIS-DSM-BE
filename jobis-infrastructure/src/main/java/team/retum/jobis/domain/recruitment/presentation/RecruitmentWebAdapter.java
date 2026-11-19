@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.StringUtil;
+import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitRegion;
 import team.retum.jobis.domain.recruitment.dto.request.RecruitSortType;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
@@ -176,6 +177,7 @@ public class RecruitmentWebAdapter {
     @GetMapping("/teacher")
     public TeacherQueryRecruitmentsResponse getRecruitmentList(
         @RequestParam(value = "company_name", required = false) String companyName,
+        @RequestParam(value = "company_type", required = false) CompanyType companyType,
         @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
         @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
         @RequestParam(value = "status", required = false) RecruitStatus status,
@@ -186,7 +188,9 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "job_code", required = false) String jobCode,
         @RequestParam(value = "tech_code", required = false) String techCodes
     ) {
-        return teacherQueryRecruitmentsUseCase.execute(companyName, start, end, year, status, page, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes));
+        return teacherQueryRecruitmentsUseCase.execute(
+            companyName, companyType, start, end, year, status, page, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes)
+        );
     }
 
     @GetMapping("/teacher/no-page")
@@ -204,6 +208,7 @@ public class RecruitmentWebAdapter {
     @GetMapping("/count")
     public RecruitmentCountResponse countRecruitments(
         @RequestParam(value = "company_name", required = false) String companyName,
+        @RequestParam(value = "company_type", required = false) CompanyType companyType,
         @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
         @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
         @RequestParam(value = "status", required = false) RecruitStatus status,
@@ -212,20 +217,23 @@ public class RecruitmentWebAdapter {
         @RequestParam(value = "military_support", required = false) Boolean militarySupport,
         @RequestParam(value = "job_code", required = false) String jobCode,
         @RequestParam(value = "tech_code", required = false) String techCodes) {
-        return teacherQueryRecruitmentsUseCase.countRecruitments(companyName, start, end, year, status, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes));
+        return teacherQueryRecruitmentsUseCase.countRecruitments(
+            companyName, companyType, start, end, year, status, winterIntern, militarySupport, this.parseCodes(jobCode, techCodes)
+        );
     }
 
     @Cacheable
     @GetMapping("/teacher/count")
     public TotalPageCountResponse queryRecruitmentCount(
         @RequestParam(value = "company_name", required = false) String companyName,
+        @RequestParam(value = "company_type", required = false) CompanyType companyType,
         @RequestParam(value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
         @RequestParam(value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
         @RequestParam(value = "status", required = false) RecruitStatus status,
         @RequestParam(value = "year", required = false) Integer year,
         @RequestParam(value = "winter_intern", required = false) Boolean winterIntern
     ) {
-        return teacherQueryRecruitmentsUseCase.getTotalPageCount(companyName, start, end, year, status, winterIntern);
+        return teacherQueryRecruitmentsUseCase.getTotalPageCount(companyName, companyType, start, end, year, status, winterIntern);
     }
 
     @CacheEvict(allEntries = true)

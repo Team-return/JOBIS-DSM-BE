@@ -23,6 +23,8 @@ public class QueryReviewDetailResponse {
 
     private LocalDate time;
 
+    private Integer year;
+
     private String major;
 
     private InterviewType type;
@@ -43,6 +45,7 @@ public class QueryReviewDetailResponse {
             .companyName(review.getCompanyName())
             .writer(review.getWriter())
             .time(review.getTime())
+            .year(review.getTime().getYear())
             .major(review.getMajor())
             .type(review.getType())
             .location(review.getLocation())

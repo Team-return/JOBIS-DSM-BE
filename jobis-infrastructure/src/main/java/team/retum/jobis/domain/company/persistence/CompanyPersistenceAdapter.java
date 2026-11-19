@@ -141,7 +141,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                 eqRegion(filter.getRegion()),
                 eqBusinessArea(filter.getBusinessArea())
             )
-            .orderBy(recruitmentEntity.recruitYear.desc());
+            .orderBy(recruitmentEntity.recruitYear.desc(), companyEntity.id.desc());
 
         if (filter.getPage() != null) {
             query
@@ -406,14 +406,15 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     private BooleanExpression recentRecruitment(RecruitStatus status) {
-        return recruitmentEntity.createdAt.eq(
-            select(recruitmentEntity.createdAt.max())
-                .from(recruitmentEntity)
-                .where(
-                    recruitmentEntity.company.id.eq(companyEntity.id),
-                    eqRecruitmentStatus(status)
-                )
-        );
+        return recruitmentEntity.company.id.eq(companyEntity.id)
+            .and(recruitmentEntity.createdAt.eq(
+                select(recruitmentEntity.createdAt.max())
+                    .from(recruitmentEntity)
+                    .where(
+                        recruitmentEntity.company.id.eq(companyEntity.id),
+                        eqRecruitmentStatus(status)
+                    )
+            ));
     }
 
     private BooleanExpression eqRecruitmentStatus(RecruitStatus status) {

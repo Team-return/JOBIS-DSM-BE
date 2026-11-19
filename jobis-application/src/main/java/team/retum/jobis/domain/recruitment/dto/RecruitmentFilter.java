@@ -2,6 +2,7 @@ package team.retum.jobis.domain.recruitment.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.recruitment.model.RecruitStatus;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,6 +20,8 @@ public class RecruitmentFilter {
     private final RecruitStatus status;
 
     private final String companyName;
+
+    private final CompanyType companyType;
 
     private final Long page;
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import team.retum.jobis.common.annotation.ReadOnlyUseCase;
 import team.retum.jobis.common.dto.response.TotalPageCountResponse;
 import team.retum.jobis.common.util.NumberUtil;
+import team.retum.jobis.domain.company.model.CompanyType;
 import team.retum.jobis.domain.recruitment.dto.RecruitmentFilter;
 import team.retum.jobis.domain.recruitment.dto.response.RecruitmentCountResponse;
 import team.retum.jobis.domain.recruitment.dto.response.TeacherQueryManualRecruitmentsResponse;
@@ -22,10 +23,11 @@ public class TeacherQueryRecruitmentsUseCase {
 
     private final QueryRecruitmentPort queryRecruitmentPort;
 
-    public TeacherQueryRecruitmentsResponse execute(String companyName, LocalDate start, LocalDate end, Integer year,
+    public TeacherQueryRecruitmentsResponse execute(String companyName, CompanyType companyType, LocalDate start, LocalDate end, Integer year,
                                                     RecruitStatus status, Long page, Boolean winterIntern, Boolean militarySupport, List<Long> codeIds) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
             .companyName(companyName)
+            .companyType(companyType)
             .status(status)
             .startDate(start)
             .endDate(end)
@@ -61,10 +63,11 @@ public class TeacherQueryRecruitmentsUseCase {
         return new TeacherQueryRecruitmentsResponse(recruitments);
     }
 
-    public RecruitmentCountResponse countRecruitments(String companyName, LocalDate start, LocalDate end, Integer year,
+    public RecruitmentCountResponse countRecruitments(String companyName, CompanyType companyType, LocalDate start, LocalDate end, Integer year,
                                                       RecruitStatus status, Boolean winterIntern, Boolean militarySupport, List<Long> codeIds) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
             .companyName(companyName)
+            .companyType(companyType)
             .status(status)
             .startDate(start)
             .endDate(end)
@@ -73,8 +76,6 @@ public class TeacherQueryRecruitmentsUseCase {
             .winterIntern(winterIntern)
             .militarySupport(militarySupport)
             .codes(codeIds)
-            .page(1L)
-            .limit(1000)
             .build();
 
         List<TeacherRecruitmentResponse> recruitments =
@@ -85,10 +86,11 @@ public class TeacherQueryRecruitmentsUseCase {
         return new RecruitmentCountResponse(recruitments.size());
     }
 
-    public TotalPageCountResponse getTotalPageCount(String companyName, LocalDate start, LocalDate end,
+    public TotalPageCountResponse getTotalPageCount(String companyName, CompanyType companyType, LocalDate start, LocalDate end,
                                                     Integer year, RecruitStatus status, Boolean winterIntern) {
         RecruitmentFilter filter = RecruitmentFilter.builder()
             .companyName(companyName)
+            .companyType(companyType)
             .status(status)
             .startDate(start)
             .endDate(end)

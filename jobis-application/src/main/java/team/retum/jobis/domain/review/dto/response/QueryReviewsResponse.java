@@ -35,6 +35,8 @@ public class QueryReviewsResponse {
 
         private LocalDate time;
 
+        private Integer year;
+
         private String major;
 
         public static ReviewResponse from(ReviewVO vo) {
@@ -44,6 +46,7 @@ public class QueryReviewsResponse {
                 .companyLogoUrl(vo.getCompanyLogoUrl())
                 .writer(vo.getWriter())
                 .time(vo.getTime())
+                .year(vo.getTime().getYear())
                 .major(vo.getMajor())
                 .build();
         }
