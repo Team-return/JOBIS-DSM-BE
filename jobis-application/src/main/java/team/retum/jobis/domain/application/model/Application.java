@@ -83,6 +83,12 @@ public class Application {
         }
     }
 
+    public void checkIsOwner(Long studentId) {
+        if (!this.studentId.equals(studentId)) {
+            throw InvalidStudentException.EXCEPTION;
+        }
+    }
+
     public void checkIsDeletable(Student student) {
         if (!this.studentId.equals(student.getId())) {
             throw InvalidStudentException.EXCEPTION;
